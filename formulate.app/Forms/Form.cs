@@ -39,7 +39,7 @@
 
 
         /// <summary>
-        /// Information about htis form.
+        /// Information about this form.
         /// </summary>
         public IEnumerable<IFormMetaInfo> MetaInfo { get; set; }
 
