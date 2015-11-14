@@ -41,3 +41,4 @@ obj/
 /Website/App_Data/access.config
 /Website/App_Data/umbraco.config
 /Website/App_Data/Umbraco.sdf
+/Website/App_Data/cache/
