@@ -1,0 +1,43 @@
+# Node modules.
+node_modules/
+
+# Folder created by NuGet.
+**/App_Data/NuGetBackup/
+
+# Visual Studio packages.
+/packages/*/
+
+# Visual Studio build artifacts.
+bin/
+obj/
+
+# Visual Studio solution user options.
+*.suo
+
+# Visual Studio project user options.
+*.csproj.user
+
+# WebStorm.
+.idea
+
+# Temporary test folders.
+/source/
+/dest/
+
+# Sample website files/folders.
+/Website/bin/
+/Website/obj/
+/Website/umbraco/
+/Website/umbraco_client/
+/Website/App_Data/TEMP/
+/Website/App_Data/Logs/
+/Website/App_Data/packages/
+/Website/media/
+/Website/App_Plugins/
+/Website/Views/
+/Website/scripts/
+/Website/js/
+/Website/css/
+/Website/App_Data/access.config
+/Website/App_Data/umbraco.config
+/Website/App_Data/Umbraco.sdf
