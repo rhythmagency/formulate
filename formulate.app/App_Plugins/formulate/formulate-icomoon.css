@@ -1,0 +1,30 @@
+/* Look in the assets folder at the root of the repo for the icomoon.zip,
+   which contains the selection.json you can use to update the icons. */
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon/icomoon.eot?b2cnni');
+	src:url('fonts/icomoon/icomoon.eot?b2cnni#iefix') format('embedded-opentype'),
+		url('fonts/icomoon/icomoon.ttf?b2cnni') format('truetype'),
+		url('fonts/icomoon/icomoon.woff?b2cnni') format('woff'),
+		url('fonts/icomoon/icomoon.svg?b2cnni#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-formulate-clipboard:before {
+	content: "\e900";
+}
