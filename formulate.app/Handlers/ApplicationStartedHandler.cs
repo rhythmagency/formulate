@@ -3,10 +3,12 @@
 
     // Namespaces.
     using System.Configuration;
+    using System.Linq;
     using System.Web.Configuration;
     using System.Xml;
     using umbraco.cms.businesslogic.packager;
     using Umbraco.Core;
+    using Umbraco.Core.Configuration.Dashboard;
     using Resources = formulate.app.Properties.Resources;
 
 
@@ -82,11 +84,26 @@
         /// </summary>
         private void AddDashboard()
         {
-            //TODO: Before adding the dashboard, detect if it exists.
-            var doc = new XmlDocument();
-            var actionXml = Resources.AddDashboard;
-            doc.LoadXml(actionXml);
-            PackageAction.RunPackageAction("Formulate", "addDashboardSection", doc.FirstChild);
+            var exists = DashboardExists();
+            if (!exists)
+            {
+                var doc = new XmlDocument();
+                var actionXml = Resources.AddDashboard;
+                doc.LoadXml(actionXml);
+                PackageAction.RunPackageAction("Formulate", "addDashboardSection", doc.FirstChild);
+            }
+        }
+
+
+        /// <summary>
+        /// Indicates whether or not the "FormulateSection" exists in the dashboard.config.
+        /// </summary>
+        private bool DashboardExists()
+        {
+            var config = WebConfigurationManager.OpenWebConfiguration("~");
+            var dashboard = config.GetSection("umbracoConfiguration/dashBoard") as IDashboardSection;
+            var hasFormulate = dashboard.Sections.Any(x => "FormulateSection".InvariantEquals(x.Alias));
+            return hasFormulate;
         }
 
 
