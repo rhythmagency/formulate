@@ -176,6 +176,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
@@ -270,16 +271,25 @@
     <Compile Include="Forms\IFormField.cs" />
     <Compile Include="Forms\IFormFieldMetaInfo.cs" />
     <Compile Include="Forms\IFormMetaInfo.cs" />
+    <Compile Include="Handlers\ApplicationStartedHandler.cs" />
+    <Compile Include="Install\Installer.cs" />
     <Compile Include="Persistence\IFormPersistence.cs" />
     <Compile Include="Persistence\Internal\JsonFormPersistence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.eot" />
+    <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.ttf" />
+    <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.woff" />
     <None Include="App_Plugins\formulate\package.manifest" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.svg" />
+    <Content Include="App_Plugins\formulate\formulate-icomoon.css" />
+    <Content Include="App_Plugins\formulate\Lang\en-GB.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
