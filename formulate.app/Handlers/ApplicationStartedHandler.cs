@@ -79,6 +79,30 @@
         }
 
 
+        private void AddTree(ApplicationContext applicationContext)
+        {
+            var service = applicationContext.Services.ApplicationTreeService;
+            var existingTree = service.GetByAlias("formulate");
+            if (existingTree == null)
+            {
+                //<add application="settings" alias="templates" title="Templates"
+                //iconClosed="icon-folder" iconOpen="icon-folder-open"
+                //type="Umbraco.Web.Trees.TemplatesTreeController, umbraco"
+                //initialize="true" sortOrder="1"/>
+                var shouldInitialize = true;
+                var sortOrder = (byte)0;
+                var applicationAlias = "formulate";
+                var alias = "dataSources";
+                var title = "Data Sources";
+                var closedIcon = "icon-folder-open";
+                var openIcon = "icon-folder";
+                var type = "";
+                service.MakeNew(shouldInitialize, sortOrder, applicationAlias, alias, title, closedIcon,
+                    openIcon, type);
+            }
+        }
+
+
         /// <summary>
         /// Adds the Formulate dashboard to the Formulate section.
         /// </summary>
