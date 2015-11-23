@@ -12,3 +12,4 @@ I wonder if there are issues with multiple IoC containers. How is the Umbraco co
 * Seems to be using something called a "resolver": https://our.umbraco.org/documentation/Reference/Plugins/resolvers
 * This describes how to create your own: https://our.umbraco.org/documentation/Reference/Plugins/creating-resolvers
 * Maybe this article can clarify the differences: https://www.simple-talk.com/dotnet/.net-framework/asp.net-mvc-resolve-or-inject-that%E2%80%99s-the-issue%E2%80%A6/
+* Article on this topic: http://24days.in/umbraco/2014/iocdi-architecture/
