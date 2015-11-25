@@ -282,7 +282,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Trees\DataSourcesTreeController.cs" />
+    <Compile Include="Trees\FormulateTreeController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -293,18 +293,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\formulate\dashboards\introduction.html" />
     <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.svg" />
     <Content Include="App_Plugins\formulate\formulate-icomoon.css" />
     <Content Include="App_Plugins\formulate\lang\en-GB.xml" />
+    <Content Include="App_Plugins\formulate\menu-actions\add.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\reload.html" />
     <None Include="Resources\AddDashboard.txt" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Plugins\formulate\dashboards\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">

@@ -27,13 +27,10 @@
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication,
             ApplicationContext applicationContext)
         {
-            //TODO: Remove.
-            AddTree(applicationContext);
             var isInstalled = GetInstalledVersion().HasValue;
             if (!isInstalled)
             {
                 AddSection(applicationContext);
-                AddTree(applicationContext);
                 AddDashboard();
                 AddVersion();
             }
@@ -79,27 +76,6 @@
             if (existingSection == null)
             {
                 service.MakeNew("Formulate", "formulate", "icon-formulate-clipboard", 6);
-            }
-        }
-
-
-        private void AddTree(ApplicationContext applicationContext)
-        {
-            var service = applicationContext.Services.ApplicationTreeService;
-            var existingTree = service.GetByAlias("formulate");
-            if (existingTree == null)
-            {
-                // Initializing a tree opens it when you navigate to that section.
-                var shouldInitialize = true;
-                var sortOrder = (byte)0;
-                var applicationAlias = "formulate";
-                var alias = "dataSources";
-                var title = "Data Sources";
-                var closedIcon = "icon-folder-open";
-                var openIcon = "icon-folder";
-                var type = typeof(DataSourcesTreeController).GetFullNameWithAssembly();
-                service.MakeNew(shouldInitialize, sortOrder, applicationAlias, alias, title, closedIcon,
-                    openIcon, type);
             }
         }
 
