@@ -282,7 +282,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Trees\DataSourcesTree.cs" />
+    <Compile Include="Trees\DataSourcesTreeController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

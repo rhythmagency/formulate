@@ -15,8 +15,10 @@
 
 
     //TODO: Much to do in this file.
-    internal class DataSourcesTree : TreeController
+    public class DataSourcesTreeController : TreeController
     {
+
+        // A menu is what appears when you right-click a node.
         protected override MenuItemCollection GetMenuForNode(string id, FormDataCollection queryStrings)
         {
             var menu = new MenuItemCollection();
@@ -29,14 +31,24 @@
             {
             }
             //TODO: ...
-            return null;
+            return new MenuItemCollection();
         }
 
+        // Tree nodes are what appear in the tree.
         protected override TreeNodeCollection GetTreeNodes(string id, FormDataCollection queryStrings)
         {
+            return new TreeNodeCollection();
             //TODO: ...
-            return null;
         }
+
+
+        protected override TreeNode CreateRootNode(FormDataCollection queryStrings)
+        {
+            var rootNode = base.CreateRootNode(queryStrings);
+            rootNode.Name = "Testing Name";
+            return rootNode;
+        }
+
     }
 
 }

@@ -10,6 +10,7 @@
     using Umbraco.Core;
     using Umbraco.Core.Configuration.Dashboard;
     using Resources = formulate.app.Properties.Resources;
+    using Trees;
 
 
     /// <summary>
@@ -26,10 +27,13 @@
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication,
             ApplicationContext applicationContext)
         {
+            //TODO: Remove.
+            AddTree(applicationContext);
             var isInstalled = GetInstalledVersion().HasValue;
             if (!isInstalled)
             {
                 AddSection(applicationContext);
+                AddTree(applicationContext);
                 AddDashboard();
                 AddVersion();
             }
@@ -85,10 +89,7 @@
             var existingTree = service.GetByAlias("formulate");
             if (existingTree == null)
             {
-                //<add application="settings" alias="templates" title="Templates"
-                //iconClosed="icon-folder" iconOpen="icon-folder-open"
-                //type="Umbraco.Web.Trees.TemplatesTreeController, umbraco"
-                //initialize="true" sortOrder="1"/>
+                // Initializing a tree opens it when you navigate to that section.
                 var shouldInitialize = true;
                 var sortOrder = (byte)0;
                 var applicationAlias = "formulate";
@@ -96,7 +97,7 @@
                 var title = "Data Sources";
                 var closedIcon = "icon-folder-open";
                 var openIcon = "icon-folder";
-                var type = "";
+                var type = typeof(DataSourcesTreeController).GetFullNameWithAssembly();
                 service.MakeNew(shouldInitialize, sortOrder, applicationAlias, alias, title, closedIcon,
                     openIcon, type);
             }
