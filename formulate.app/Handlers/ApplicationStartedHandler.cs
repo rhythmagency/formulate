@@ -10,7 +10,6 @@
     using Umbraco.Core;
     using Umbraco.Core.Configuration.Dashboard;
     using Resources = formulate.app.Properties.Resources;
-    using Trees;
 
 
     /// <summary>

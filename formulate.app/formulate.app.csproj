@@ -273,7 +273,9 @@
     <Compile Include="Forms\IFormFieldMetaInfo.cs" />
     <Compile Include="Forms\IFormMetaInfo.cs" />
     <Compile Include="Handlers\ApplicationStartedHandler.cs" />
+    <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Install\Installer.cs" />
+    <Compile Include="Install\Package_Actions\GrantPermissionToSection.cs" />
     <Compile Include="Persistence\IFormPersistence.cs" />
     <Compile Include="Persistence\Internal\JsonFormPersistence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -299,6 +301,7 @@
     <Content Include="App_Plugins\formulate\lang\en-GB.xml" />
     <Content Include="App_Plugins\formulate\menu-actions\add.html" />
     <Content Include="App_Plugins\formulate\menu-actions\reload.html" />
+    <None Include="Resources\GrantPermissionToSection.txt" />
     <None Include="Resources\AddDashboard.txt" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

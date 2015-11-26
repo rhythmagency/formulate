@@ -77,5 +77,14 @@ namespace formulate.app.Properties {
                 return ResourceManager.GetString("AddDashboard", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Action runat=&quot;install&quot; undo=&quot;false&quot; alias=&quot;GrantPermissionToSection&quot; username=&quot;$CurrentUser&quot; sectionName=&quot;formulate&quot; /&gt;.
+        /// </summary>
+        internal static string GrantPermissionToSection {
+            get {
+                return ResourceManager.GetString("GrantPermissionToSection", resourceCulture);
+            }
+        }
     }
 }
