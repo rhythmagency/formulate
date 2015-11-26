@@ -149,8 +149,8 @@
       <HintPath>..\packages\MiniProfiler.2.1.0\lib\net40\MiniProfiler.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll</HintPath>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -289,6 +289,35 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Macro.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Embed.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
+    <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
+    <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
+    <Content Include="Config\UrlRewriting.config" />
+    <Content Include="Config\umbracoSettings.config" />
+    <Content Include="Config\trees.config" />
+    <Content Include="Config\tinyMceConfig.config" />
+    <Content Include="Config\scripting.config" />
+    <Content Include="Config\metablogConfig.config" />
+    <Content Include="Config\log4net.config" />
+    <Content Include="Config\FileSystemProviders.config" />
+    <Content Include="Config\feedProxy.config" />
+    <Content Include="Config\ExamineSettings.config" />
+    <Content Include="Config\ExamineIndex.config" />
+    <Content Include="Config\EmbeddedMedia.config" />
+    <Content Include="Config\Dashboard.config" />
+    <Content Include="Config\ClientDependency.config" />
+    <Content Include="Config\BaseRestExtensions.config" />
+    <Content Include="Config\applications.config" />
+    <Content Include="Config\404handlers.config" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Config\grid.editors.config.js" />
     <Content Include="Config\Lang\cs-CZ.user.xml" />
     <Content Include="Config\Lang\da-DK.user.xml" />
@@ -310,79 +339,12 @@
     <Content Include="Config\Lang\zh-CN.user.xml" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="packages.config" />
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Macro.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Embed.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\formulate.app\formulate.app.csproj">
-      <Project>{c1294ac3-8a67-49d1-bec1-f88e82be152c}</Project>
-      <Name>formulate.app</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\UrlRewriting.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\umbracoSettings.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\trees.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\tinyMceConfig.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\scripting.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\metablogConfig.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\log4net.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\FileSystemProviders.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\feedProxy.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\ExamineSettings.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\ExamineIndex.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\EmbeddedMedia.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\Dashboard.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\ClientDependency.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\BaseRestExtensions.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\applications.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\404handlers.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
