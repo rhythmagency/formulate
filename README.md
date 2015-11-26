@@ -14,5 +14,6 @@ Requires:
 # Building
 These are the steps you can take to build and test Formulate:
 * Build the solution.
-* Run grunt.
+* Run `npm install` (this only needs to be done once).
+* Run `grunt`.
 * Run the sample website.
