@@ -11,6 +11,10 @@ node_modules/
 bin/
 obj/
 
+# Grunt build artifacts.
+src/formulate.app/app_Plugins/formulate/formulate.js
+src/FormulateTemp/
+
 # Visual Studio solution user options.
 *.suo
 

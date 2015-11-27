@@ -1,5 +1,7 @@
 {
-    "javascript": [ ],
+    "javascript": [
+        "~/App_Plugins/formulate/formulate.js"
+    ],
     "css": [
         "~/App_Plugins/formulate/formulate-icomoon.css"
     ]

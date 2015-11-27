@@ -7,6 +7,14 @@ module.exports = function(grunt) {
     // Initialize Grunt tasks.
     grunt.initConfig({
         "pkg": grunt.file.readJSON('package.json'),
+        paths: {
+            in: {
+                js: appProject + "/JavaScript/formulate.js"
+            },
+            out: {
+                js: appProject + "/App_Plugins/formulate/formulate.js"
+            }
+        },
         copy: {
             main: {
                 files: [
@@ -28,13 +36,38 @@ module.exports = function(grunt) {
                     }
                 ]
             }
+        },
+        htmlConvert: {
+            options: {
+                base: appProject + "/Directives/",
+                target: "js",
+                fileHeaderString: "module.exports = function () {return directives;};"
+            },
+            directives: {
+                src: [
+                    appProject + "/Directives/**/*.html"
+                ],
+                dest: "./FormulateTemp/directives.js"
+            }
+        },
+        browserify: {
+            default: {
+                options: {
+                    transform: ["require-globify"]
+                },
+                files: {
+                    "<%= paths.out.js %>": "<%= paths.in.js %>"
+                }
+            }
         }
     });
 
     // Load NPM tasks.
     grunt.loadNpmTasks("grunt-contrib-copy");
+    grunt.loadNpmTasks("grunt-html-convert");
+    grunt.loadNpmTasks("grunt-browserify");
 
     // Register Grunt tasks.
-    grunt.registerTask("default", ["copy"]);
+    grunt.registerTask("default", ["htmlConvert", "browserify:default", "copy"]);
 
 };
