@@ -79,6 +79,17 @@ namespace formulate.app.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;tab caption=&quot;Formulate&quot;&gt;
+        ///    &lt;control&gt;/App_Plugins/formulate/dashboards/install.html&lt;/control&gt;
+        ///&lt;/tab&gt;.
+        /// </summary>
+        internal static string FormulateTab {
+            get {
+                return ResourceManager.GetString("FormulateTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;Action runat=&quot;install&quot; undo=&quot;false&quot; alias=&quot;GrantPermissionToSection&quot; username=&quot;$CurrentUser&quot; sectionName=&quot;formulate&quot; /&gt;.
         /// </summary>
         internal static string GrantPermissionToSection {

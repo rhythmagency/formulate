@@ -121,6 +121,9 @@
   <data name="AddDashboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AddDashboard.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="FormulateTab" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FormulateTab.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="GrantPermissionToSection" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GrantPermissionToSection.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
