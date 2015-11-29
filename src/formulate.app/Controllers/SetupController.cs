@@ -4,13 +4,15 @@
     // Namespaces.
     using System;
     using System.Web.Http;
-    using Umbraco.Core;
+    using System.Xml;
+    using umbraco.cms.businesslogic.packager;
     using Umbraco.Core.Logging;
     using Umbraco.Web;
     using Umbraco.Web.Editors;
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
     using Constants = Umbraco.Core.Constants;
+    using Resources = formulate.app.Properties.Resources;
 
 
     /// <summary>
@@ -62,12 +64,14 @@
             {
 
                 // Variables.
-                var services = ApplicationContext.Current.Services;
-                var service = services.UserService;
-                var security = UmbracoContext.Current.Security;
-                var currentUser = security.CurrentUser;
-                currentUser.AddAllowedSection("formulate");
-                service.Save(currentUser, true);
+                var doc = new XmlDocument();
+                var actionXml = Resources.GrantPermissionToSection;
+                doc.LoadXml(actionXml);
+
+
+                // Grant access permission.
+                PackageAction.RunPackageAction("Formulate",
+                    "GrantPermissionToSection", doc.FirstChild);
 
 
                 // Indicate success.
