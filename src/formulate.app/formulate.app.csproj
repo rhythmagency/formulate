@@ -295,6 +295,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\formulate\Controls\Install.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="App_Plugins\formulate\dashboards\install.html" />
     <Content Include="App_Plugins\formulate\dashboards\introduction.html" />
     <Content Include="App_Plugins\formulate\formulate.js" />

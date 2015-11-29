@@ -25,7 +25,7 @@ module.exports = function(grunt) {
                         dest: 'Website/',
                         cwd: appProject + "/"
                     }, {
-                        // Binaries.
+                        // App binaries.
                         expand: true,
                         src: [
                             appProject + ".dll",
@@ -45,6 +45,13 @@ module.exports = function(grunt) {
             },
             directives: {
                 src: [
+                    // Directive markup gets compiled into a temporary
+                    // JavaScript file and then included by
+                    // getDirective.js. That file then gets included
+                    // in the main JavaScript file and Browserify
+                    // combines the entire result. The end result is
+                    // that directive markup is embedded in the compiled
+                    // JavaScript file.
                     appProject + "/Directives/**/*.html"
                 ],
                 dest: "./FormulateTemp/directives.js"
@@ -59,6 +66,15 @@ module.exports = function(grunt) {
                     "<%= paths.out.js %>": "<%= paths.in.js %>"
                 }
             }
+        },
+        clean: {
+            main: {
+                src: [
+                    // Temporary folder for intermediate build artifacts.
+                    "./FormulateTemp",
+                    "./formulate.app/App_Plugins/formulate/formulate.js"
+                ]
+            }
         }
     });
 
@@ -66,8 +82,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-html-convert");
     grunt.loadNpmTasks("grunt-browserify");
+    grunt.loadNpmTasks("grunt-contrib-clean");
 
     // Register Grunt tasks.
-    grunt.registerTask("default", ["htmlConvert", "browserify:default", "copy"]);
+    grunt.registerTask("default", ["htmlConvert", "browserify:default",
+        "copy:main", "clean:main"]);
 
 };
