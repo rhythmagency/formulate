@@ -300,7 +300,6 @@
     </Content>
     <Content Include="App_Plugins\formulate\dashboards\install.html" />
     <Content Include="App_Plugins\formulate\dashboards\introduction.html" />
-    <Content Include="App_Plugins\formulate\formulate.js" />
     <Content Include="Directives\install\install.html" />
     <Content Include="Directives\install\install.js" />
     <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.svg" />
