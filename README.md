@@ -17,3 +17,4 @@ These are the steps you can take to build and test Formulate:
 * Run `npm install` (this only needs to be done once).
 * Run `grunt`.
 * Run the sample website.
+* Run `grunt package` to create an Umbraco installer package (in the "dist" folder).

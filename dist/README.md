@@ -1,0 +1,1 @@
+The "dist" folder is for distributable files (e.g., the installer package for Formulate).

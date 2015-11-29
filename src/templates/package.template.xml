@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<umbPackage>
+  <info>
+    <package>
+      <name><%= name %></name>
+      <version><%= version %></version>
+      <license url="<%= licenseUrl %>"><%= license %></license>
+      <url><%= url %></url>
+      <requirements>
+        <major>7</major>
+        <minor>3</minor>
+        <patch>3</patch>
+      </requirements>
+    </package>
+    <author>
+      <name><%= author %></name>
+      <website><%= authorUrl %></website>
+    </author>
+    <readme><![CDATA[<%= readme %>]]></readme>
+  </info>
+  <DocumentTypes />
+  <Templates />
+  <Stylesheets />
+  <Macros />
+  <DictionaryItems />
+  <Languages />
+  <DataTypes />
+  <Actions>
+    <Action runat="install" alias="addDashboardSection" dashboardAlias="FormulateSection">
+      <section alias="FormulateSection">
+        <areas>
+          <area>formulate</area>
+        </areas>
+        <tab caption="Introduction">
+          <control>/App_Plugins/formulate/dashboards/introduction.html</control>
+        </tab>
+      </section>
+    </Action>
+    <Action runat="install" undo="false" alias="GrantPermissionToSection" username="$CurrentUser" sectionName="formulate" />
+  </Actions>
+  <files>
+    <% files.forEach(function(file) { %>
+    <file>
+      <guid><%= file.guid %></guid>
+      <orgPath><%= file.dir %></orgPath>
+      <orgName><%= file.name %></orgName>
+    </file>
+    <% }); %>
+  </files>
+</umbPackage>

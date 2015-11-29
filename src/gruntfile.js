@@ -16,6 +16,7 @@ module.exports = function(grunt) {
             }
         },
         copy: {
+            // Main is used to copy files to the sample website.
             main: {
                 files: [
                     {
@@ -32,6 +33,27 @@ module.exports = function(grunt) {
                             appProject + ".pdb"
                         ],
                         dest: 'Website/bin/',
+                        cwd: appProject + "/bin/Debug/"
+                    }
+                ]
+            },
+            // Package is used to copy files to create the Umbraco package.
+            package: {
+                files: [
+                    {
+                        // Frontend files.
+                        expand: true,
+                        src: ["App_Plugins/**"],
+                        dest: './FormulateTemp/package/',
+                        cwd: appProject + "/"
+                    }, {
+                        // App binaries.
+                        expand: true,
+                        src: [
+                            appProject + ".dll",
+                            appProject + ".pdb"
+                        ],
+                        dest: './FormulateTemp/package/bin/',
                         cwd: appProject + "/bin/Debug/"
                     }
                 ]
@@ -72,8 +94,27 @@ module.exports = function(grunt) {
                 src: [
                     // Temporary folder for intermediate build artifacts.
                     "./FormulateTemp",
+                    // Temporary file (compiled version of JS).
                     "./formulate.app/App_Plugins/formulate/formulate.js"
                 ]
+            }
+        },
+        umbracoPackage: {
+            main: {
+                src: "./FormulateTemp/package",
+                dest: "../dist",
+                options: {
+                    name: "Formulate",
+                    //TODO: This should come from a central location.
+                    version: "0.0.0",
+                    url: "http://www.formulate.rocks/",
+                    license: "MIT License",
+                    licenseUrl: "http://opensource.org/licenses/MIT",
+                    author: "Rhythm Agency",
+                    authorUrl: "http://rhythmagency.com/",
+                    readme: grunt.file.read("templates/inputs/readme.txt"),
+                    manifest: "templates/package.template.xml"
+                }
             }
         }
     });
@@ -83,9 +124,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-html-convert");
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("grunt-contrib-clean");
+    grunt.loadNpmTasks("grunt-umbraco-package");
 
-    // Register Grunt tasks.
-    grunt.registerTask("default", ["htmlConvert", "browserify:default",
-        "copy:main", "clean:main"]);
+    // Register Grunt tasks. Here's what each task can be used for:
+    // -default: Use this for general development of Formulate.
+    // -package: Use this to create an installer package for Formulate.
+    grunt.registerTask("default", ["clean:main", "htmlConvert",
+        "browserify:default", "copy:main", "clean:main"]);
+    grunt.registerTask("package", ["clean:main", "htmlConvert",
+        "browserify:default", "copy:package", "umbracoPackage:main",
+        "clean:main"]);
 
 };
