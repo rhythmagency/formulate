@@ -321,6 +321,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\formulate.core\formulate.core.csproj">
+      <Project>{80f40f16-829d-430f-b325-0b5246fe4ac2}</Project>
+      <Name>formulate.core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\formulate.meta\formulate.meta.csproj">
       <Project>{0a354b54-f772-4877-8bea-0d8b6391600b}</Project>
       <Name>formulate.meta</Name>

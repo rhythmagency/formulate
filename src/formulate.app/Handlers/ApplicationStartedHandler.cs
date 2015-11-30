@@ -13,6 +13,7 @@
     using Umbraco.Core.Logging;
     using Constants = formulate.meta.Constants;
     using Resources = formulate.app.Properties.Resources;
+    using SettingConstants = formulate.core.Constants.Settings;
 
 
     /// <summary>
@@ -38,13 +39,19 @@
             UmbracoApplicationBase umbracoApplication,
             ApplicationContext applicationContext)
         {
-            var isInstalled = GetInstalledVersion() != null;
+            var version = GetInstalledVersion();
+            var isInstalled = version != null;
+            var needsUpgrade = !Constants.Version.InvariantEquals(version);
             if (!isInstalled)
             {
                 AddSection(applicationContext);
                 AddDashboard();
                 AddVersion();
                 AddFormulateDeveloperTab();
+            }
+            else if (needsUpgrade)
+            {
+                AddVersion();
             }
         }
 
@@ -187,10 +194,24 @@
         /// </summary>
         private void AddVersion()
         {
+
+            // Variables.
+            var key = SettingConstants.VersionKey;
             var config = WebConfigurationManager.OpenWebConfiguration("~");
             var settings = config.AppSettings.Settings;
-            settings.Add("Formulate:Version", Constants.Version);
+
+
+            // Remove existing version setting.
+            if (settings.AllKeys.Any(x => key.InvariantEquals(x)))
+            {
+                settings.Remove(key);
+            }
+
+
+            // Add version setting.
+            settings.Add(key, Constants.Version);
             config.Save();
+
         }
 
         #endregion
