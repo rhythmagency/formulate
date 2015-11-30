@@ -123,6 +123,9 @@ module.exports = function(grunt) {
                 }
             }
         },
+        nuget_install: {
+            file: "Formulate.sln"
+        },
         msbuild: {
             main: {
                 src: ["Formulate.sln"],
@@ -141,6 +144,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-umbraco-package");
+    grunt.loadNpmTasks("grunt-nuget-install");
     grunt.loadNpmTasks("grunt-msbuild");
 
     // Register Grunt tasks.
@@ -156,7 +160,8 @@ module.exports = function(grunt) {
     grunt.registerTask("package-full",
         // The "package-full" task is used to build the Visual Studio
         // solution and then create the installer package for Formulate.
-        ["clean:main", "htmlConvert", "browserify:default",
-        "copy:package", "umbracoPackage:main", "clean:main"]);
+        ["clean:main", "nuget_install", "msbuild:main", "htmlConvert",
+        "browserify:default", "copy:package", "umbracoPackage:main",
+        "clean:main"]);
 
 };
