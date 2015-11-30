@@ -4,6 +4,13 @@ module.exports = function(grunt) {
     var projectName = "formulate";
     var appProject = projectName + ".app";
 
+    // Extracts Formulate's version from the constants file.
+    function getVersion() {
+        var contents = grunt.file.read("formulate.meta/Constants.cs");
+        var versionRegex = new RegExp("Version = \"([0-9.]+)\";", "gim");
+        return versionRegex.exec(contents)[1];
+    }
+
     // Initialize Grunt tasks.
     grunt.initConfig({
         "pkg": grunt.file.readJSON('package.json'),
@@ -105,8 +112,7 @@ module.exports = function(grunt) {
                 dest: "../dist",
                 options: {
                     name: "Formulate",
-                    //TODO: This should come from a central location.
-                    version: "0.0.0",
+                    version: getVersion(),
                     url: "http://www.formulate.rocks/",
                     license: "MIT License",
                     licenseUrl: "http://opensource.org/licenses/MIT",

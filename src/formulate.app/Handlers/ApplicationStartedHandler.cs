@@ -11,6 +11,7 @@
     using Umbraco.Core.Configuration.Dashboard;
     using Umbraco.Core.IO;
     using Umbraco.Core.Logging;
+    using Constants = formulate.meta.Constants;
     using Resources = formulate.app.Properties.Resources;
 
 
@@ -184,8 +185,7 @@
         {
             var config = WebConfigurationManager.OpenWebConfiguration("~");
             var settings = config.AppSettings.Settings;
-            //TODO: Load version number from some central location.
-            settings.Add("Formulate:Version", "0.0");
+            settings.Add("Formulate:Version", Constants.Version);
             config.Save();
         }
 

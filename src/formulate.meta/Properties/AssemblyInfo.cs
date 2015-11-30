@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("uformsia.app")]
+[assembly: AssemblyTitle("formulate.meta")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("uformsia.app")]
+[assembly: AssemblyProduct("formulate.meta")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("54caebfb-4fe2-4859-96ac-c193ad08afeb")]
+[assembly: Guid("dce61a2b-2f2a-4ddc-8980-62826626535b")]
 
 // Version information for an assembly consists of the following four values:
 //
