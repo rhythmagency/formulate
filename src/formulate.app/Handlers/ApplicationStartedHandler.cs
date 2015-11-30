@@ -34,7 +34,8 @@
         /// <summary>
         /// Application started.
         /// </summary>
-        protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication,
+        protected override void ApplicationStarted(
+            UmbracoApplicationBase umbracoApplication,
             ApplicationContext applicationContext)
         {
             var isInstalled = GetInstalledVersion() != null;
@@ -76,7 +77,8 @@
             var existingSection = service.GetByAlias("formulate");
             if (existingSection == null)
             {
-                service.MakeNew("Formulate", "formulate", "icon-formulate-clipboard", 6);
+                service.MakeNew("Formulate", "formulate",
+                    "icon-formulate-clipboard", 6);
             }
         }
 
@@ -92,26 +94,30 @@
                 var doc = new XmlDocument();
                 var actionXml = Resources.AddDashboard;
                 doc.LoadXml(actionXml);
-                PackageAction.RunPackageAction("Formulate", "addDashboardSection", doc.FirstChild);
+                PackageAction.RunPackageAction("Formulate",
+                    "addDashboardSection", doc.FirstChild);
             }
         }
 
 
         /// <summary>
-        /// Indicates whether or not the "FormulateSection" exists in the dashboard.config.
+        /// Indicates whether or not the "FormulateSection" exists in
+        /// the dashboard.config.
         /// </summary>
         private bool DashboardExists()
         {
             var config = WebConfigurationManager.OpenWebConfiguration("~");
-            var dashboard = config.GetSection("umbracoConfiguration/dashBoard") as IDashboardSection;
-            var hasFormulate = dashboard.Sections.Any(x => "FormulateSection".InvariantEquals(x.Alias));
+            var dashboard = config.GetSection("umbracoConfiguration/dashBoard")
+                as IDashboardSection;
+            var hasFormulate = dashboard.Sections.Any(x =>
+                "FormulateSection".InvariantEquals(x.Alias));
             return hasFormulate;
         }
 
 
         /// <summary>
-        /// Indicates whether or not the "Formulate" installation tab exists in the developer section
-        /// of the dashboard.config.
+        /// Indicates whether or not the "Formulate" installation tab
+        /// exists in the developer section of the dashboard.config.
         /// </summary>
         /// <returns>
         /// True, if the tab exists; otherwise, false.
@@ -119,19 +125,23 @@
         private bool FormulateDeveloperTabExists()
         {
             var config = WebConfigurationManager.OpenWebConfiguration("~");
-            var dashboard = config.GetSection("umbracoConfiguration/dashBoard") as IDashboardSection;
+            var dashboard = config.GetSection("umbracoConfiguration/dashBoard")
+                as IDashboardSection;
             var developerSection = dashboard.Sections
-                .FirstOrDefault(x => "StartupDeveloperDashboardSection".InvariantEquals(x.Alias));
+                .FirstOrDefault(x => "StartupDeveloperDashboardSection"
+                    .InvariantEquals(x.Alias));
             var tab = developerSection == null
                 ? null
-                : developerSection.Tabs.FirstOrDefault(x => "Formulate".InvariantEquals(x.Caption));
+                : developerSection.Tabs.FirstOrDefault(x =>
+                    "Formulate".InvariantEquals(x.Caption));
             var hasTab = tab != null;
             return hasTab;
         }
 
 
         /// <summary>
-        /// Adds the "Formulate" tab to the developer section of the dashboard.config.
+        /// Adds the "Formulate" tab to the developer section of the
+        /// dashboard.config.
         /// </summary>
         private void AddFormulateDeveloperTab()
         {
@@ -142,20 +152,24 @@
                 // Get developer section from Dashboard.config.
                 var dashboardPath = SystemFiles.DashboardConfig;
                 var dashboardDoc = XmlHelper.OpenAsXmlDocument(dashboardPath);
-                var devSection = dashboardDoc.SelectSingleNode(DeveloperSectionXPath);
+                var devSection = dashboardDoc.SelectSingleNode(
+                    DeveloperSectionXPath);
 
 
-                // If the developer section isn't found, log a warning and skip adding tab.
+                // If the developer section isn't found, log a warning and
+                // skip adding tab.
                 if (devSection == null)
                 {
-                    LogHelper.Warn<ApplicationStartedHandler>(MissingDeveloperSection);
+                    LogHelper.Warn<ApplicationStartedHandler>(
+                        MissingDeveloperSection);
                     return;
                 }
 
 
                 // Load tab into developer section.
                 var tempDoc = new XmlDocument();
-                var newNode = XmlHelper.ImportXmlNodeFromText(Resources.FormulateTab, ref tempDoc);
+                var newNode = XmlHelper.ImportXmlNodeFromText(
+                    Resources.FormulateTab, ref tempDoc);
                 newNode = dashboardDoc.ImportNode(newNode, true);
                 devSection.AppendChild(newNode);
 
