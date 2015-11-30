@@ -37,7 +37,7 @@
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication,
             ApplicationContext applicationContext)
         {
-            var isInstalled = GetInstalledVersion().HasValue;
+            var isInstalled = GetInstalledVersion() != null;
             if (!isInstalled)
             {
                 AddSection(applicationContext);
@@ -49,28 +49,18 @@
 
 
         /// <summary>
-        /// Gets the installed version number.
+        /// Gets the installed version.
         /// </summary>
-        /// <returns>The installed version number, or null.</returns>
-        private double? GetInstalledVersion()
+        /// <returns>The installed version, or null.</returns>
+        private string GetInstalledVersion()
         {
-            var version = ConfigurationManager.AppSettings["Formulate:Version"];
+            var version = ConfigurationManager
+                .AppSettings["Formulate:Version"];
             if (string.IsNullOrWhiteSpace(version))
             {
-                return null;
+                version = null;
             }
-            else
-            {
-                var numVersion = default(double);
-                if (double.TryParse(version, out numVersion))
-                {
-                    return numVersion;
-                }
-                else
-                {
-                    return null;
-                }
-            }
+            return version;
         }
 
 
