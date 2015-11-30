@@ -122,6 +122,16 @@ module.exports = function(grunt) {
                     manifest: "templates/package.template.xml"
                 }
             }
+        },
+        msbuild: {
+            main: {
+                src: ["Formulate.sln"],
+                options: {
+                    projectConfiguration: "Debug",
+                    targets: ["Rebuild"],
+                    stdout: true
+                }
+            }
         }
     });
 
@@ -131,14 +141,22 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-umbraco-package");
+    grunt.loadNpmTasks("grunt-msbuild");
 
-    // Register Grunt tasks. Here's what each task can be used for:
-    // -default: Use this for general development of Formulate.
-    // -package: Use this to create an installer package for Formulate.
-    grunt.registerTask("default", ["clean:main", "htmlConvert",
-        "browserify:default", "copy:main", "clean:main"]);
-    grunt.registerTask("package", ["clean:main", "htmlConvert",
-        "browserify:default", "copy:package", "umbracoPackage:main",
-        "clean:main"]);
+    // Register Grunt tasks.
+    grunt.registerTask("default",
+        // The "default" task is for general development of Formulate.
+        ["clean:main", "htmlConvert", "browserify:default",
+        "copy:main", "clean:main"]);
+    grunt.registerTask("package",
+        // The "package" task is used to create an installer package
+        // for Formulate.
+        ["clean:main", "htmlConvert", "browserify:default",
+        "copy:package", "umbracoPackage:main", "clean:main"]);
+    grunt.registerTask("package-full",
+        // The "package-full" task is used to build the Visual Studio
+        // solution and then create the installer package for Formulate.
+        ["clean:main", "htmlConvert", "browserify:default",
+        "copy:package", "umbracoPackage:main", "clean:main"]);
 
 };
