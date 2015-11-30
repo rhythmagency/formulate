@@ -25,6 +25,7 @@
   <DictionaryItems />
   <Languages />
   <DataTypes />
+  <control>/App_Plugins/formulate/Controls/Install.ascx</control>
   <Actions>
     <Action runat="install" alias="addDashboardSection" dashboardAlias="FormulateSection">
       <section alias="FormulateSection">
