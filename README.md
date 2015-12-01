@@ -27,5 +27,5 @@ These are the steps you can take to build and test Formulate:
 
 There are a few nuances to building you may want to consider:
 * Most grunt tasks will use whichever build configuration is most recent, but will otherwise default to "Release".
-* The `grunt package` task always defaults to "Release".
-* You can specify a particular build configuration like this: `grunt package --buildConfiguration=Debug`.
+* The `grunt package-full` task always defaults to "Release".
+* You can specify a particular build configuration like this: `grunt package-full --buildConfiguration=Debug`.
