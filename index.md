@@ -4,7 +4,7 @@ title: Formulate
 ---
 
 # Formulate
-Formulate is (or, more accurately, will be) a form builder for Umbraco.
+Formulate is (or, more accurately, will be) a free, open source form builder for Umbraco.
 
 ![Formulate](/images/formulate.png)
 
