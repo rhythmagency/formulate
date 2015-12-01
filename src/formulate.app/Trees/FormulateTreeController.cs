@@ -6,7 +6,10 @@
     using Umbraco.Core;
     using Umbraco.Web.Models.Trees;
     using Umbraco.Web.Trees;
-    using Constants = Umbraco.Core.Constants;
+    using CoreConstants = Umbraco.Core.Constants;
+    using DataSourcesConstants = formulate.app.Constants.Trees.DataSources;
+    using DataValuesConstants = formulate.app.Constants.Trees.DataValues;
+    using FormsConstants = formulate.app.Constants.Trees.Forms;
 
     //TODO: Much to do in this file.
     [Tree("formulate", "formulate", "Formulate", "icon-folder", "icon-folder-open", true, sortOrder: 0)]
@@ -16,7 +19,7 @@
         protected override MenuItemCollection GetMenuForNode(string id, FormDataCollection queryStrings)
         {
             var menu = new MenuItemCollection();
-            var rootId = Constants.System.Root.ToInvariantString();
+            var rootId = CoreConstants.System.Root.ToInvariantString();
             if (id.InvariantEquals(rootId))
             {
                 var path = "/App_Plugins/formulate/menu-actions/reload.html";
@@ -47,14 +50,20 @@
         protected override TreeNodeCollection GetTreeNodes(string id, FormDataCollection queryStrings)
         {
             var nodes = new TreeNodeCollection();
-            var rootId = Constants.System.Root.ToInvariantString();
+            var rootId = CoreConstants.System.Root.ToInvariantString();
             if (id.InvariantEquals(rootId))
             {
-                var treeNode = this.CreateTreeNode("1", id, queryStrings, "Data Sources", "icon-folder", false);
-                nodes.Add(treeNode);
+                var formsNode = this.CreateTreeNode(FormsConstants.Id, id,
+                    queryStrings, FormsConstants.Title, FormsConstants.Icon, false);
+                nodes.Add(formsNode);
+                var dataSourcesNode = this.CreateTreeNode(DataSourcesConstants.Id, id,
+                    queryStrings, DataSourcesConstants.Title, DataSourcesConstants.Icon, false);
+                nodes.Add(dataSourcesNode);
+                var dataValuesNode = this.CreateTreeNode(DataValuesConstants.Id, id,
+                    queryStrings, DataValuesConstants.Title, DataValuesConstants.Icon, false);
+                nodes.Add(dataValuesNode);
             }
             return nodes;
-            //TODO: ...
         }
 
     }
