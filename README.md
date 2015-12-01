@@ -4,6 +4,8 @@ In development. This isn't ready for use yet.
 # Formulate Overview
 A form builder for Umbraco.
 
+![Formulate](assets/images/formulate.png?raw=true "Formulate")
+
 # Contributing
 Requires:
 * Visual Studio 2013
