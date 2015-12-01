@@ -3,12 +3,80 @@ module.exports = function(grunt) {
     // Config variables.
     var projectName = "formulate";
     var appProject = projectName + ".app";
+    var buildConfig = grunt.option("buildConfiguration");
 
     // Extracts Formulate's version from the constants file.
     function getVersion() {
         var contents = grunt.file.read("formulate.meta/Constants.cs");
         var versionRegex = new RegExp("Version = \"([0-9.]+)\";", "gim");
         return versionRegex.exec(contents)[1];
+    }
+
+    // Gets the configuration that should be used when building
+    // Visual Studio source code. The result will be stored and
+    // returned the next time this function is called.
+    function getConfiguration(preference) {
+
+        // If an option or override is specified, use that version.
+        if (buildConfig) {
+            getConfiguration.configuration = buildConfig;
+        } else if (preference) {
+            getConfiguration.configuration = preference;
+        }
+
+        // If a previous configuration was already used, keep
+        // using it.
+        if (getConfiguration.configuration) {
+            return getConfiguration.configuration;
+        }
+
+        // Variables.
+        var debugDate = tryGetModifiedDate(
+            appProject + "/bin/Debug/" + appProject + ".dll");
+        var releaseDate = tryGetModifiedDate(
+            appProject + "/bin/Release/" + appProject + ".dll");
+
+        // If the bin folder does not contain either configuration,
+        // use the "Release" configuration.
+        if (!debugDate && !releaseDate) {
+            getConfiguration.configuration = "Release";
+            return getConfiguration.configuration;
+        }
+
+        // If both configurations exist, use the one with the
+        // newer modification date.
+        if (debugDate && releaseDate) {
+            if (releaseDate > debugDate) {
+                getConfiguration.configuration = "Release";
+            } else {
+                getConfiguration.configuration = "Debug";
+            }
+            return getConfiguration.configuration;
+        }
+
+        // If one exists, prefer it over the other.
+        // Otherwise, default to "Release".
+        if (debugDate) {
+            getConfiguration.configuration = "Debug";
+        } else if (releaseDate) {
+            getConfiguration.configuration = "Release";
+        } else {
+            getConfiguration.configuration = "Release";
+        }
+        return getConfiguration.configuration;
+
+    }
+
+    // Tries to get the last modified date of a file.
+    // If the file does not exist, null will be returned.
+    function tryGetModifiedDate(path) {
+        var fs = require("fs");
+        try {
+            var info = fs.statSync(path);
+            return info.mtime;
+        } catch (ex) {
+            return null;
+        }
     }
 
     // Initialize Grunt tasks.
@@ -40,7 +108,7 @@ module.exports = function(grunt) {
                             appProject + ".pdb"
                         ],
                         dest: 'Website/bin/',
-                        cwd: appProject + "/bin/Debug/"
+                        cwd: appProject + "/bin/" + getConfiguration() + "/"
                     }
                 ]
             },
@@ -61,7 +129,7 @@ module.exports = function(grunt) {
                             appProject + ".pdb"
                         ],
                         dest: './FormulateTemp/package/bin/',
-                        cwd: appProject + "/bin/Debug/"
+                        cwd: appProject + "/bin/" + getConfiguration() + "/"
                     }
                 ]
             }
@@ -130,7 +198,7 @@ module.exports = function(grunt) {
             main: {
                 src: ["Formulate.sln"],
                 options: {
-                    projectConfiguration: "Debug",
+                    projectConfiguration: getConfiguration("Release"),
                     targets: ["Rebuild"],
                     stdout: true
                 }
