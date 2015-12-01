@@ -15,7 +15,7 @@ Requires:
 To build the source code, you can use the simple building technique or the advanced building technique. Both versions are described below.
 
 ## Simple Building Technique
-Double click the file in "build/build.bat". The Umbraco package will be created in the "dist" folder.
+Double click the file "build/build.bat". The Umbraco package will be created in the "dist" folder.
 
 ## Advanced Building Technique
 These are the steps you can take to build and test Formulate:
