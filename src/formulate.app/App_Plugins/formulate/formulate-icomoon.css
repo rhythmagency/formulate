@@ -2,11 +2,11 @@
    which contains the selection.json you can use to update the icons. */
 @font-face {
 	font-family: 'icomoon';
-	src:url('fonts/icomoon/icomoon.eot?b2cnni');
-	src:url('fonts/icomoon/icomoon.eot?b2cnni#iefix') format('embedded-opentype'),
-		url('fonts/icomoon/icomoon.ttf?b2cnni') format('truetype'),
-		url('fonts/icomoon/icomoon.woff?b2cnni') format('woff'),
-		url('fonts/icomoon/icomoon.svg?b2cnni#icomoon') format('svg');
+	src:url('fonts/icomoon/icomoon.eot?ddt3ea');
+	src:url('fonts/icomoon/icomoon.eot?ddt3ea#iefix') format('embedded-opentype'),
+		url('fonts/icomoon/icomoon.ttf?ddt3ea') format('truetype'),
+		url('fonts/icomoon/icomoon.woff?ddt3ea') format('woff'),
+		url('fonts/icomoon/icomoon.svg?ddt3ea#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -25,6 +25,21 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-formulate-layout:before {
+	content: "\e901";
+}
 .icon-formulate-clipboard:before {
 	content: "\e900";
+}
+.icon-formulate-data:before {
+	content: "\e902";
+}
+.icon-formulate-values:before {
+	content: "\e905";
+}
+.icon-formulate-validation:before {
+	content: "\e903";
+}
+.icon-formulate-forms:before {
+	content: "\e904";
 }

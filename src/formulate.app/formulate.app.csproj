@@ -268,6 +268,8 @@
     <Compile Include="Constants\Trees\DataSources.cs" />
     <Compile Include="Constants\Trees\DataValues.cs" />
     <Compile Include="Constants\Trees\Forms.cs" />
+    <Compile Include="Constants\Trees\Layouts.cs" />
+    <Compile Include="Constants\Trees\ValidationLibrary.cs" />
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Forms\Form.cs" />
     <Compile Include="Forms\FormField.cs" />

@@ -10,6 +10,8 @@
     using DataSourcesConstants = formulate.app.Constants.Trees.DataSources;
     using DataValuesConstants = formulate.app.Constants.Trees.DataValues;
     using FormsConstants = formulate.app.Constants.Trees.Forms;
+    using LayoutsConstants = formulate.app.Constants.Trees.Layouts;
+    using ValidationsConstants = formulate.app.Constants.Trees.ValidationLibrary;
 
     //TODO: Much to do in this file.
     [Tree("formulate", "formulate", "Formulate", "icon-folder", "icon-folder-open", true, sortOrder: 0)]
@@ -56,12 +58,18 @@
                 var formsNode = this.CreateTreeNode(FormsConstants.Id, id,
                     queryStrings, FormsConstants.Title, FormsConstants.Icon, false);
                 nodes.Add(formsNode);
+                var layoutsNode = this.CreateTreeNode(LayoutsConstants.Id, id,
+                    queryStrings, LayoutsConstants.Title, LayoutsConstants.Icon, false);
+                nodes.Add(layoutsNode);
                 var dataSourcesNode = this.CreateTreeNode(DataSourcesConstants.Id, id,
                     queryStrings, DataSourcesConstants.Title, DataSourcesConstants.Icon, false);
                 nodes.Add(dataSourcesNode);
                 var dataValuesNode = this.CreateTreeNode(DataValuesConstants.Id, id,
                     queryStrings, DataValuesConstants.Title, DataValuesConstants.Icon, false);
                 nodes.Add(dataValuesNode);
+                var validationsNode = this.CreateTreeNode(ValidationsConstants.Id, id,
+                    queryStrings, ValidationsConstants.Title, ValidationsConstants.Icon, false);
+                nodes.Add(validationsNode);
             }
             return nodes;
         }
