@@ -5,6 +5,7 @@
     using System.Net.Http.Formatting;
     using Umbraco.Core;
     using Umbraco.Web.Models.Trees;
+    using Umbraco.Web.Mvc;
     using Umbraco.Web.Trees;
     using CoreConstants = Umbraco.Core.Constants;
     using DataSourcesConstants = formulate.app.Constants.Trees.DataSources;
@@ -15,6 +16,7 @@
 
     //TODO: Much to do in this file.
     [Tree("formulate", "formulate", "Formulate", "icon-folder", "icon-folder-open", true, sortOrder: 0)]
+    [PluginController("formulate")]
     public class FormulateTreeController : TreeController
     {
 
@@ -55,20 +57,26 @@
             var rootId = CoreConstants.System.Root.ToInvariantString();
             if (id.InvariantEquals(rootId))
             {
+                var formatUrl = "/formulate/formulate/{0}/info";
                 var formsNode = this.CreateTreeNode(FormsConstants.Id, id,
-                    queryStrings, FormsConstants.Title, FormsConstants.Icon, false);
+                    queryStrings, FormsConstants.Title, FormsConstants.Icon, false,
+                    string.Format(formatUrl, "forms"));
                 nodes.Add(formsNode);
                 var layoutsNode = this.CreateTreeNode(LayoutsConstants.Id, id,
-                    queryStrings, LayoutsConstants.Title, LayoutsConstants.Icon, false);
+                    queryStrings, LayoutsConstants.Title, LayoutsConstants.Icon, false,
+                    string.Format(formatUrl, "layouts"));
                 nodes.Add(layoutsNode);
                 var dataSourcesNode = this.CreateTreeNode(DataSourcesConstants.Id, id,
-                    queryStrings, DataSourcesConstants.Title, DataSourcesConstants.Icon, false);
+                    queryStrings, DataSourcesConstants.Title, DataSourcesConstants.Icon, false,
+                    string.Format(formatUrl, "dataSources"));
                 nodes.Add(dataSourcesNode);
                 var dataValuesNode = this.CreateTreeNode(DataValuesConstants.Id, id,
-                    queryStrings, DataValuesConstants.Title, DataValuesConstants.Icon, false);
+                    queryStrings, DataValuesConstants.Title, DataValuesConstants.Icon, false,
+                    string.Format(formatUrl, "dataValues"));
                 nodes.Add(dataValuesNode);
                 var validationsNode = this.CreateTreeNode(ValidationsConstants.Id, id,
-                    queryStrings, ValidationsConstants.Title, ValidationsConstants.Icon, false);
+                    queryStrings, ValidationsConstants.Title, ValidationsConstants.Icon, false,
+                    string.Format(formatUrl, "validationLibrary"));
                 nodes.Add(validationsNode);
             }
             return nodes;

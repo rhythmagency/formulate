@@ -301,6 +301,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\formulate\backoffice\formulate\dataSources.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\dataValues.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\forms.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\layouts.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\validationLibrary.html" />
     <Content Include="App_Plugins\formulate\Controls\Install.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
