@@ -301,6 +301,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editForm.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\dataSources.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\dataValues.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\forms.html" />
@@ -311,6 +312,8 @@
     </Content>
     <Content Include="App_Plugins\formulate\dashboards\install.html" />
     <Content Include="App_Plugins\formulate\dashboards\introduction.html" />
+    <Content Include="Directives\formDesigner\designer.html" />
+    <Content Include="Directives\formDesigner\designer.js" />
     <Content Include="Directives\install\install.html" />
     <Content Include="Directives\install\install.js" />
     <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.svg" />

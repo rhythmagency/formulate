@@ -36,6 +36,18 @@
                 menuItem.LaunchDialogView(path, "Reload");
                 menu.Items.Add(menuItem);
             }
+            else if (id.InvariantEquals(FormsConstants.Id))
+            {
+                var path = "/formulate/formulate/editForm/null?create";
+                var menuItem = new MenuItem()
+                {
+                    Alias = "add",
+                    Icon = "icon-folder",
+                    Name = "Create Form"
+                };
+                menuItem.NavigateToRoute(path);
+                menu.Items.Add(menuItem);
+            }
             else
             {
                 var path = "/App_Plugins/formulate/menu-actions/add.html";
