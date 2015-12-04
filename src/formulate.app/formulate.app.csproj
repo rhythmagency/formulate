@@ -312,8 +312,11 @@
     </Content>
     <Content Include="App_Plugins\formulate\dashboards\install.html" />
     <Content Include="App_Plugins\formulate\dashboards\introduction.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\createLayout.html" />
     <Content Include="Directives\formDesigner\designer.html" />
     <Content Include="Directives\formDesigner\designer.js" />
+    <Content Include="Directives\layoutTypeChooser\layoutChooser.html" />
+    <Content Include="Directives\layoutTypeChooser\layoutChooser.js" />
     <Content Include="Directives\install\install.html" />
     <Content Include="Directives\install\install.js" />
     <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.svg" />

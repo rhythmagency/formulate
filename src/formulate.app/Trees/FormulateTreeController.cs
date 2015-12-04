@@ -41,15 +41,28 @@
                 var path = "/formulate/formulate/editForm/null?create";
                 var menuItem = new MenuItem()
                 {
-                    Alias = "add",
+                    Alias = "createForm",
                     Icon = "icon-folder",
                     Name = "Create Form"
                 };
                 menuItem.NavigateToRoute(path);
                 menu.Items.Add(menuItem);
             }
+            else if (id.InvariantEquals(LayoutsConstants.Id))
+            {
+                var path = "/App_Plugins/formulate/menu-actions/createLayout.html";
+                var menuItem = new MenuItem()
+                {
+                    Alias = "createLayout",
+                    Icon = "icon-folder",
+                    Name = "Create Layout"
+                };
+                menuItem.LaunchDialogView(path, "Create Layout");
+                menu.Items.Add(menuItem);
+            }
             else
             {
+                //TODO: This is just for testing and should be removed eventually.
                 var path = "/App_Plugins/formulate/menu-actions/add.html";
                 var menuItem = new MenuItem()
                 {
