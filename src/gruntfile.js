@@ -2,6 +2,15 @@ module.exports = function(grunt) {
 
     // Config variables.
     var projectName = "formulate";
+    var binaries = [].concat.apply([], [
+        "app",
+        "core",
+        "meta"
+    ].map(function(base) {
+        return [".dll", ".pdb"].map(function (ext) {
+            return projectName + "." + base + ext;
+        });
+    }));
     var appProject = projectName + ".app";
     var buildConfig = grunt.option("buildConfiguration");
 
@@ -103,10 +112,7 @@ module.exports = function(grunt) {
                     }, {
                         // App binaries.
                         expand: true,
-                        src: [
-                            appProject + ".dll",
-                            appProject + ".pdb"
-                        ],
+                        src: binaries,
                         dest: 'Website/bin/',
                         cwd: appProject + "/bin/" + getConfiguration() + "/"
                     }
@@ -124,10 +130,7 @@ module.exports = function(grunt) {
                     }, {
                         // App binaries.
                         expand: true,
-                        src: [
-                            appProject + ".dll",
-                            appProject + ".pdb"
-                        ],
+                        src: binaries,
                         dest: './FormulateTemp/package/bin/',
                         cwd: appProject + "/bin/" + getConfiguration() + "/"
                     }
