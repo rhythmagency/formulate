@@ -206,6 +206,13 @@ module.exports = function(grunt) {
                     stdout: true
                 }
             }
+        },
+        ngAnnotate: {
+            main: {
+                files: {
+                    "<%= paths.out.js %>": "<%= paths.out.js %>"
+                }
+            }
         }
     });
 
@@ -217,22 +224,23 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-umbraco-package");
     grunt.loadNpmTasks("grunt-nuget-install");
     grunt.loadNpmTasks("grunt-msbuild");
+    grunt.loadNpmTasks("grunt-ng-annotate");
 
     // Register Grunt tasks.
     grunt.registerTask("default",
         // The "default" task is for general development of Formulate.
-        ["clean:main", "htmlConvert", "browserify:default",
+        ["clean:main", "htmlConvert", "browserify:default", "ngAnnotate:main",
         "copy:main", "clean:main"]);
     grunt.registerTask("package",
         // The "package" task is used to create an installer package
         // for Formulate.
-        ["clean:main", "htmlConvert", "browserify:default",
+        ["clean:main", "htmlConvert", "browserify:default", "ngAnnotate:main",
         "copy:package", "umbracoPackage:main", "clean:main"]);
     grunt.registerTask("package-full",
         // The "package-full" task is used to build the Visual Studio
         // solution and then create the installer package for Formulate.
         ["clean:main", "nuget_install", "msbuild:main", "htmlConvert",
-        "browserify:default", "copy:package", "umbracoPackage:main",
-        "clean:main"]);
+        "browserify:default", "ngAnnotate:main", "copy:package",
+        "umbracoPackage:main", "clean:main"]);
 
 };

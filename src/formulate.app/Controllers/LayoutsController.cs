@@ -2,18 +2,15 @@
 {
 
     // Namespaces.
+    using Models.Requests;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using Umbraco.Core;
+    using Umbraco.Core.Logging;
     using Umbraco.Web;
     using Umbraco.Web.Editors;
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
-    using Models.Requests;
     using Constants = Umbraco.Core.Constants;
-    using Umbraco.Core.Logging;
 
 
     /// <summary>
@@ -72,7 +69,10 @@
 
             // Variables.
             var result = default(object);
+            var rootId = Constants.System.Root.ToInvariantString();
 
+
+            // Catch all errors.
             try
             {
 
@@ -84,18 +84,21 @@
                 {
                     Success = true,
                     Id = "1111",
-                    Path = new[] { "", "1111" }
+                    Path = new[] { rootId, "1111" }
                 };
 
             }
             catch(Exception ex)
             {
+
+                // Error.
                 LogHelper.Error<LayoutsController>(CreateLayoutError, ex);
                 result = new
                 {
                     Success = false,
                     Reason = UnhandledError
                 };
+
             }
 
 
