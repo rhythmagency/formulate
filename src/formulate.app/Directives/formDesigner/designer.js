@@ -10,7 +10,7 @@ app.directive("formulateFormDesigner", function (formulateDirectives) {
 });
 
 // Controller.
-app.controller("formulate.formDesigner", function($scope, formulatePermissions) {
+app.controller("formulate.formDesigner", function($scope) {
     $scope.save = function() {
         //TODO: ...
         alert("Saving...");

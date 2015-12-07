@@ -270,6 +270,7 @@
     <Compile Include="Constants\Trees\Forms.cs" />
     <Compile Include="Constants\Trees\Layouts.cs" />
     <Compile Include="Constants\Trees\ValidationLibrary.cs" />
+    <Compile Include="Controllers\LayoutsController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Forms\Form.cs" />
     <Compile Include="Forms\FormField.cs" />
@@ -282,6 +283,7 @@
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Install\Installer.cs" />
     <Compile Include="Install\Package_Actions\GrantPermissionToSection.cs" />
+    <Compile Include="Models\Requests\CreateLayoutRequest.cs" />
     <Compile Include="Persistence\IFormPersistence.cs" />
     <Compile Include="Persistence\Internal\JsonFormPersistence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -305,6 +307,7 @@
     <Content Include="App_Plugins\formulate\backoffice\formulate\dataSources.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\dataValues.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\forms.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editLayout.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\layouts.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\validationLibrary.html" />
     <Content Include="App_Plugins\formulate\Controls\Install.ascx">

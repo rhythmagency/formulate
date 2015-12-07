@@ -20,3 +20,13 @@ These projects are doing some awesome things (I can refer to their code for insp
 * https://github.com/merchello/Merchello
 * https://github.com/imulus/Archetype
 * https://github.com/kgiszewski/UmbracoBookshelf
+
+## Nifty
+var baseUrl = Umbraco.Sys.ServerVariables['merchelloUrls']['merchelloDetachedContentApiBaseUrl'];
+
+This shows how to pass "dialogData" to dialogs with the dialog service: http://24days.in/umbraco/2014/umbraco-angular-tips/
+-It also shows how to reuse property editors.
+
+http://24days.in/umbraco/2015/custom-listview/
+
+https://www.npmjs.com/package/grunt-ng-annotate

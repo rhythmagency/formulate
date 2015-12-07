@@ -1,10 +1,10 @@
 ﻿<div ng-controller="formulate.layoutTypeChooser">
     <div>
-        <select>
-            <option>Layout 1</option>
-            <option>Layout 2</option>
-            <option>Layout 3</option>
+        <select ng-model="layout.id">
+            <option ng-repeat="option in layout.layouts" value="{{option.id}}">
+                {{option.name}}
+            </option>
         </select>
     </div>
-    <button class="btn btn-primary" ng-click="createLayout()">Create Layout</button>
+    <button class="btn btn-primary" ng-disabled="layout.id === null" ng-click="createLayout()">Create Layout</button>
 </div>
