@@ -30,7 +30,7 @@
                 var menuItem = new MenuItem()
                 {
                     Alias = "reload",
-                    Icon = "icon-folder",
+                    Icon = "folder",
                     Name = "Reload"
                 };
                 menuItem.LaunchDialogView(path, "Reload");
@@ -38,11 +38,11 @@
             }
             else if (id.InvariantEquals(FormsConstants.Id))
             {
-                var path = "/formulate/formulate/editForm/null?create";
+                var path = "/formulate/formulate/editForm/null";
                 var menuItem = new MenuItem()
                 {
                     Alias = "createForm",
-                    Icon = "icon-folder",
+                    Icon = "folder",
                     Name = "Create Form"
                 };
                 menuItem.NavigateToRoute(path);
@@ -54,7 +54,7 @@
                 var menuItem = new MenuItem()
                 {
                     Alias = "createLayout",
-                    Icon = "icon-folder",
+                    Icon = "folder",
                     Name = "Create Layout"
                 };
                 menuItem.LaunchDialogView(path, "Create Layout");
@@ -67,7 +67,7 @@
                 var menuItem = new MenuItem()
                 {
                     Alias = "add",
-                    Icon = "icon-folder",
+                    Icon = "folder",
                     Name = "Add"
                 };
                 menuItem.LaunchDialogView(path, "Add");
