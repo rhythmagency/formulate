@@ -118,6 +118,17 @@ module.exports = function(grunt) {
                     }
                 ]
             },
+            frontend: {
+                files: [
+                    {
+                        // Frontend files.
+                        expand: true,
+                        src: ["App_Plugins/**"],
+                        dest: 'Website/',
+                        cwd: appProject + "/"
+                    }
+                ]
+            },
             // Package is used to copy files to create the Umbraco package.
             package: {
                 files: [
@@ -231,6 +242,11 @@ module.exports = function(grunt) {
         // The "default" task is for general development of Formulate.
         ["clean:main", "htmlConvert", "browserify:default", "ngAnnotate:main",
         "copy:main", "clean:main"]);
+    grunt.registerTask("frontend",
+        // The "frontend" task is for frontend development of Formulate. This
+        // will skip copying the binaries.
+        ["clean:main", "htmlConvert", "browserify:default", "ngAnnotate:main",
+        "copy:frontend", "clean:main"]);
     grunt.registerTask("package",
         // The "package" task is used to create an installer package
         // for Formulate.
