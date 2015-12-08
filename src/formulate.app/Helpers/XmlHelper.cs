@@ -9,7 +9,7 @@
     /// <summary>
     /// Helps with XML.
     /// </summary>
-    public class XmlHelper
+    internal class XmlHelper
     {
 
         #region Methods
@@ -54,3 +54,5 @@
     }
 
 }
+
+//TODO: Get rid of static functions.

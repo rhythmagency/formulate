@@ -14,8 +14,8 @@
         void Persist(Form form);
         void Delete(Guid formId);
         void Delete(string formAlias);
-        void Retrieve(Guid formId);
-        void Retrieve(string formAlias);
+        Form Retrieve(Guid formId);
+        Form Retrieve(string formAlias);
     }
 
 }

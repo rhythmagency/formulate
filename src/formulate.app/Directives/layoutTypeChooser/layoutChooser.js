@@ -28,25 +28,31 @@ function controller($scope, $location, notificationsService, $q,
     };
 
     // Assign variables to scope.
+    $scope.layoutName = null;
     $scope.layout = {
         id: null,
         layouts: [
             //TODO: These should come from the server.
-            { id: "0", name: "Layout One" },
-            { id: "1", name: "Layout Two" },
-            { id: "2", name: "Layout Three" }
+            { id: "19F0F9282CCE40229BA2610AC776A97E", name: "Layout One" },
+            { id: "D6CC7AE0C9D94D51B3F3101FA27A0ACA", name: "Layout Two" },
+            { id: "363614C2987545E19A515BF3A0F04CD4", name: "Layout Three" }
         ]
     };
 
     // Assign functions on scope.
     $scope.createLayout = getCreateLayout(services);
+    $scope.canCreate = getCanCreate(services);
 
 }
 
 // Returns a function that creates a new layout.
 function getCreateLayout(services) {
     return function() {
-        addNodeToTree(services.$scope.layout.id, services)
+        var layoutInfo = {
+            layoutId: services.$scope.layout.id,
+            layoutName: services.$scope.layoutName
+        };
+        addNodeToTree(layoutInfo, services)
             .then(function (node) {
                 navigateToNode(node, services);
                 UmbClientMgr.closeModalWindow();
@@ -55,8 +61,8 @@ function getCreateLayout(services) {
 }
 
 // Adds a new node to the layout tree.
-function addNodeToTree(layoutId, services) {
-    return createNodeOnServer(layoutId, services)
+function addNodeToTree(layoutInfo, services) {
+    return createNodeOnServer(layoutInfo, services)
         .then(function (node) {
 
             // Refresh tree.
@@ -85,13 +91,14 @@ function navigateToNode(node, services) {
 }
 
 // Creates the layout node on the server.
-function createNodeOnServer(layoutId, services) {
+function createNodeOnServer(layoutInfo, services) {
 
     // Variables.
     //TODO: Use server variables to get this URL.
     var url = "/umbraco/backoffice/formulate/Layouts/CreateLayout";
     var data = {
-        LayoutId: layoutId
+        LayoutId: layoutInfo.layoutId,
+        LayoutName: layoutInfo.layoutName
     };
     var strData = JSON.stringify(data);
     var options = {
@@ -130,4 +137,17 @@ function createNodeOnServer(layoutId, services) {
 
         });
 
+}
+
+function getCanCreate(services) {
+    return function() {
+        var layoutName = services.$scope.layoutName;
+        var layoutId = services.$scope.layout.id;
+        //TODO: Check for whitespace and other edge cases that are invalid.
+        if (layoutName && layoutId && layoutName.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    };
 }

@@ -2,7 +2,11 @@
 {
 
     // Namespaces.
+    using Helpers;
+    using Layouts;
     using Models.Requests;
+    using Persistence;
+    using Persistence.Internal;
     using System;
     using Umbraco.Core;
     using Umbraco.Core.Logging;
@@ -10,14 +14,15 @@
     using Umbraco.Web.Editors;
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
-    using Constants = Umbraco.Core.Constants;
+    using CoreConstants = Umbraco.Core.Constants;
+    using LayoutsConstants = formulate.app.Constants.Trees.Layouts;
 
 
     /// <summary>
     /// Controller for Formulate layouts.
     /// </summary>
     [PluginController("formulate")]
-    [UmbracoApplicationAuthorize(Constants.Applications.Users)]
+    [UmbracoApplicationAuthorize(CoreConstants.Applications.Users)]
     public class LayoutsController : UmbracoAuthorizedJsonController
     {
 
@@ -25,6 +30,13 @@
 
         private const string CreateLayoutError = @"An error occurred while attempting to create a Formulate layout.";
         private const string UnhandledError = @"An unhandled error occurred. Refer to the error log.";
+
+        #endregion
+
+
+        #region Properties
+
+        private ILayoutPersistence Persistence { get; set; }
 
         #endregion
 
@@ -47,6 +59,8 @@
         public LayoutsController(UmbracoContext context)
             : base(context)
         {
+            //TODO: Should not be creating an instance of this here (implementation should be swappable).
+            Persistence = new JsonLayoutPersistence();
         }
 
         #endregion
@@ -69,22 +83,36 @@
 
             // Variables.
             var result = default(object);
-            var rootId = Constants.System.Root.ToInvariantString();
+            var rootId = CoreConstants.System.Root.ToInvariantString();
 
 
             // Catch all errors.
             try
             {
 
-                //TODO: Create layout with persistence service.
+                // Create layout.
+                var typeId = GuidHelper.GetGuid(request.LayoutId);
+                var layoutId = Guid.NewGuid();
+                var strLayoutId = GuidHelper.GetString(layoutId);
+                var layout = new Layout()
+                {
+                    TypeId = typeId,
+                    Id = layoutId,
+                    Name = request.LayoutName
+                };
+
+
+                // Persist layout.
+                Persistence.Persist(layout);
 
 
                 // Success.
                 result = new
                 {
                     Success = true,
-                    Id = "1111",
-                    Path = new[] { rootId, "1111" }
+                    Id = strLayoutId,
+                    //TODO: Once nesting is supported, this will need to account for that.
+                    Path = new[] { rootId, LayoutsConstants.Id, strLayoutId }
                 };
 
             }

@@ -27,12 +27,12 @@
             throw new NotImplementedException();
         }
 
-        public void Retrieve(Guid formId)
+        public Form Retrieve(Guid formId)
         {
             throw new NotImplementedException();
         }
 
-        public void Retrieve(string formAlias)
+        public Form Retrieve(string formAlias)
         {
             throw new NotImplementedException();
         }

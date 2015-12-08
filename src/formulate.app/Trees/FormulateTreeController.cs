@@ -2,6 +2,10 @@
 {
 
     // Namespaces.
+    using Helpers;
+    using Persistence;
+    using Persistence.Internal;
+    using System.Linq;
     using System.Net.Http.Formatting;
     using Umbraco.Core;
     using Umbraco.Web.Models.Trees;
@@ -19,6 +23,15 @@
     [PluginController("formulate")]
     public class FormulateTreeController : TreeController
     {
+
+        private ILayoutPersistence LayoutPersistence { get; set; }
+
+
+        public FormulateTreeController()
+        {
+            //TODO: Should not create this instance here (implementation should be swappable).
+            LayoutPersistence = new JsonLayoutPersistence();
+        }
 
         protected override MenuItemCollection GetMenuForNode(string id, FormDataCollection queryStrings)
         {
@@ -87,8 +100,9 @@
                     queryStrings, FormsConstants.Title, FormsConstants.Icon, false,
                     string.Format(formatUrl, "forms"));
                 nodes.Add(formsNode);
+                var hasRootLayouts = LayoutPersistence.RetrieveChildren(null).Any();
                 var layoutsNode = this.CreateTreeNode(LayoutsConstants.Id, id,
-                    queryStrings, LayoutsConstants.Title, LayoutsConstants.Icon, false,
+                    queryStrings, LayoutsConstants.Title, LayoutsConstants.Icon, hasRootLayouts,
                     string.Format(formatUrl, "layouts"));
                 nodes.Add(layoutsNode);
                 var dataSourcesNode = this.CreateTreeNode(DataSourcesConstants.Id, id,
@@ -103,6 +117,20 @@
                     queryStrings, ValidationsConstants.Title, ValidationsConstants.Icon, false,
                     string.Format(formatUrl, "validationLibrary"));
                 nodes.Add(validationsNode);
+            }
+            else if (id.InvariantEquals(LayoutsConstants.Id))
+            {
+                var formatUrl = "/formulate/formulate/editLayout/{0}";
+                var rootLayouts = LayoutPersistence.RetrieveChildren(null);
+                foreach (var layout in rootLayouts)
+                {
+                    var layoutId = GuidHelper.GetString(layout.Id);
+                    var layoutRoute = string.Format(formatUrl, layoutId);
+                    var layoutName = layout.Name ?? "Unnamed";
+                    var layoutNode = this.CreateTreeNode(layoutId, LayoutsConstants.Id, queryStrings,
+                        layoutName, "icon-folder", false, layoutRoute);
+                    nodes.Add(layoutNode);
+                }
             }
             return nodes;
         }
