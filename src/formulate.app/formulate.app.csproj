@@ -337,6 +337,7 @@
     <Content Include="JavaScript\Services\formulateDirectives.js" />
     <Content Include="JavaScript\Services\formulatePermissions.js" />
     <Content Include="JavaScript\Utilities\getDirective.js" />
+    <None Include="Resources\GrantAllUsersPermissionToSection.txt" />
     <None Include="Resources\FormulateTab.txt" />
     <None Include="Resources\GrantPermissionToSection.txt" />
     <None Include="Resources\AddDashboard.txt" />

@@ -394,6 +394,9 @@
   <ItemGroup>
     <Content Include="Config\404handlers.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Transform.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -436,7 +439,9 @@
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
+
   -->
+  <Target Name="AfterBuild">
+    <TransformXml Source="Web.config" Transform="Transform.Config" Destination="Web.Config" />
+  </Target>
 </Project>

@@ -2,6 +2,8 @@
 {
 
     // Namespaces.
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Xml;
     using umbraco.cms.businesslogic.packager.standardPackageActions;
     using umbraco.interfaces;
@@ -157,56 +159,69 @@
         {
 
             // Variables.
-            var user = GetUserFromConfig(xmlData);
+            var users = GetUsersFromConfig(xmlData).ToList();
             var sectionName = GetSectionNameFromXml(xmlData);
             var services = ApplicationContext.Current.Services;
             var service = services.UserService;
 
 
             // Validate input.
-            if (user == null || string.IsNullOrWhiteSpace(sectionName))
+            if (string.IsNullOrWhiteSpace(sectionName) || users == null || !users.Any())
             {
                 return false;
             }
 
 
             // Add or remove section.
-            if (grant)
+            foreach(var user in users)
             {
-                user.AddAllowedSection(sectionName);
-            }
-            else
-            {
-                user.RemoveAllowedSection(sectionName);
+                if (grant)
+                {
+                    user.AddAllowedSection(sectionName);
+                }
+                else
+                {
+                    user.RemoveAllowedSection(sectionName);
+                }
             }
 
 
             // Save change and indicate success.
-            service.Save(user, true);
+            service.Save(users, true);
             return true;
 
         }
 
 
         /// <summary>
-        /// Gets the user specified in the XML config.
+        /// Gets the users specified in the XML config.
         /// </summary>
         /// <param name="xmlData">The XML data.</param>
         /// <returns>
-        /// The user.
+        /// The users.
         /// </returns>
-        private IUser GetUserFromConfig(XmlNode xmlData)
+        private IEnumerable<IUser> GetUsersFromConfig(XmlNode xmlData)
         {
             var username = GetUsernameFromXml(xmlData);
             if (UsernameIsCurrentUserPlaceHolder(username))
             {
-                return GetCurrentUser();
+                yield return GetCurrentUser();
+            }
+            else if(UsernameIsAllUsersPlaceholder(username))
+            {
+                var services = ApplicationContext.Current.Services;
+                var service = services.UserService;
+                var total = default(int);
+                foreach(var user in service.GetAll(0, 100, out total))
+                {
+                    yield return user;
+                }
             }
             else
             {
                 var services = ApplicationContext.Current.Services;
                 var service = services.UserService;
-                return service.GetByUsername(username);
+                yield return service.GetByUsername(username);
             }
         }
 
@@ -235,6 +250,21 @@
         private bool UsernameIsCurrentUserPlaceHolder(string username)
         {
             return "$CurrentUser".InvariantEquals(username);
+        }
+
+
+        /// <summary>
+        /// Indicates whether or not the specified username is a
+        /// special placeholder indicating that all users should
+        /// be used.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns>
+        /// True, if the placeholder is detected; otherwise, false.
+        /// </returns>
+        private bool UsernameIsAllUsersPlaceholder(string username)
+        {
+            return "$AllUsers".InvariantEquals(username);
         }
 
         #endregion

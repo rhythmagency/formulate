@@ -7,6 +7,7 @@
     public class Settings
     {
         public const string VersionKey = @"Formulate:Version";
+        public const string EnsureUsersCanAccess = @"Formulate:EnsureUsersCanAccess";
     }
 
 }

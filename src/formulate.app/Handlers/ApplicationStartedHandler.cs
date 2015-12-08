@@ -46,8 +46,9 @@
             {
                 AddSection(applicationContext);
                 AddDashboard();
-                AddVersion();
                 AddFormulateDeveloperTab();
+                PermitAccess();
+                AddVersion();
             }
             else if (needsUpgrade)
             {
@@ -62,8 +63,8 @@
         /// <returns>The installed version, or null.</returns>
         private string GetInstalledVersion()
         {
-            var version = ConfigurationManager
-                .AppSettings["Formulate:Version"];
+            var key = SettingConstants.VersionKey;
+            var version = ConfigurationManager.AppSettings[key];
             if (string.IsNullOrWhiteSpace(version))
             {
                 version = null;
@@ -211,6 +212,37 @@
             // Add version setting.
             settings.Add(key, Constants.Version);
             config.Save();
+
+        }
+
+
+        /// <summary>
+        /// Permits all users to access Formulate if configured in the web.config.
+        /// </summary>
+        private void PermitAccess()
+        {
+
+            // Variables.
+            var key = SettingConstants.EnsureUsersCanAccess;
+            var ensure = ConfigurationManager.AppSettings[key];
+
+
+            // Should all users be given access to Formulate?
+            if (string.IsNullOrWhiteSpace(ensure))
+            {
+                return;
+            }
+
+
+            // Variables.
+            var doc = new XmlDocument();
+            var actionXml = Resources.GrantAllUsersPermissionToSection;
+            doc.LoadXml(actionXml);
+
+
+            // Grant access permission.
+            PackageAction.RunPackageAction("Formulate",
+                "GrantPermissionToSection", doc.FirstChild);
 
         }
 

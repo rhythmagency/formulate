@@ -90,6 +90,15 @@ namespace formulate.app.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;Action runat=&quot;install&quot; undo=&quot;false&quot; alias=&quot;GrantPermissionToSection&quot; username=&quot;$AllUsers&quot; sectionName=&quot;formulate&quot; /&gt;.
+        /// </summary>
+        internal static string GrantAllUsersPermissionToSection {
+            get {
+                return ResourceManager.GetString("GrantAllUsersPermissionToSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;Action runat=&quot;install&quot; undo=&quot;false&quot; alias=&quot;GrantPermissionToSection&quot; username=&quot;$CurrentUser&quot; sectionName=&quot;formulate&quot; /&gt;.
         /// </summary>
         internal static string GrantPermissionToSection {
