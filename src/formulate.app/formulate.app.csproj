@@ -288,6 +288,7 @@
     <Compile Include="Install\Package_Actions\GrantPermissionToSection.cs" />
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Models\Requests\CreateLayoutRequest.cs" />
+    <Compile Include="Models\Requests\GetLayoutPathRequest.cs" />
     <Compile Include="Persistence\ILayoutPersistence.cs" />
     <Compile Include="Persistence\IFormPersistence.cs" />
     <Compile Include="Persistence\Internal\JsonLayoutPersistence.cs" />

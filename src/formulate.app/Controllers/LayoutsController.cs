@@ -8,6 +8,7 @@
     using Persistence;
     using Persistence.Internal;
     using System;
+    using System.Web.Http;
     using Umbraco.Core;
     using Umbraco.Core.Logging;
     using Umbraco.Web;
@@ -132,6 +133,34 @@
 
             // Return result.
             return result;
+
+        }
+
+
+        /// <summary>
+        /// Returns the path of the layout with the specified ID.
+        /// </summary>
+        /// <param name="request">
+        /// The request to get the path.
+        /// </param>
+        /// <returns>
+        /// The path.
+        /// </returns>
+        public object GetPath([FromUri] GetLayoutPathRequest request)
+        {
+
+            // Variables.
+            var id = request.LayoutId;
+            var rootId = CoreConstants.System.Root.ToInvariantString();
+
+
+            // Return result.
+            return new
+            {
+                Success = true,
+                //TODO: Once nesting is supported, this will need to account for that.
+                Path = new[] { rootId, LayoutsConstants.Id, id }
+            };
 
         }
 

@@ -1,5 +1,7 @@
-// Service.
+// Variables.
 var app = angular.module("umbraco");
+
+// Service to help with permissions.
 app.factory("formulatePermissions", function ($http, notificationsService) {
     return {
         permitFormulateAccess:
