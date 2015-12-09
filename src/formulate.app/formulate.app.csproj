@@ -281,12 +281,15 @@
     <Compile Include="Forms\IFormFieldMetaInfo.cs" />
     <Compile Include="Forms\IFormMetaInfo.cs" />
     <Compile Include="Handlers\ApplicationStartedHandler.cs" />
+    <Compile Include="Handlers\ApplicationStartingHandler.cs" />
     <Compile Include="Helpers\GuidHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Install\Installer.cs" />
     <Compile Include="Install\Package_Actions\GrantPermissionToSection.cs" />
     <Compile Include="Layouts\Layout.cs" />
+    <Compile Include="Managers\DefaultConfigurationManager.cs" />
+    <Compile Include="Managers\IConfigurationManager.cs" />
     <Compile Include="Models\Requests\CreateLayoutRequest.cs" />
     <Compile Include="Models\Requests\GetLayoutPathRequest.cs" />
     <Compile Include="Persistence\ILayoutPersistence.cs" />
@@ -299,6 +302,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resolvers\Configuration.cs" />
     <Compile Include="Trees\FormulateTreeController.cs" />
   </ItemGroup>
   <ItemGroup>

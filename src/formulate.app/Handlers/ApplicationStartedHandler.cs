@@ -39,6 +39,16 @@
             UmbracoApplicationBase umbracoApplication,
             ApplicationContext applicationContext)
         {
+            HandleInstallAndUpgrade(applicationContext);
+        }
+
+
+        /// <summary>
+        /// Handles install and upgrade operations.
+        /// </summary>
+        private void HandleInstallAndUpgrade(
+            ApplicationContext applicationContext)
+        {
             var version = GetInstalledVersion();
             var isInstalled = version != null;
             var needsUpgrade = !Constants.Version.InvariantEquals(version);

@@ -4,6 +4,8 @@
     // Namespaces.
     using Helpers;
     using Layouts;
+    using Managers;
+    using Resolvers;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -19,14 +21,21 @@
         #region Properties
 
         /// <summary>
+        /// Configuration manager.
+        /// </summary>
+        private IConfigurationManager Config { get; set; }
+
+
+        /// <summary>
         /// The base path to store layouts in.
         /// </summary>
         private string BasePath
         {
             get
             {
-                //TODO: Should make this configurable.
-                return HostingEnvironment.MapPath("~/App_Data/Formulate/Json/Layouts/");
+                var basePath = HostingEnvironment.MapPath(Config.JsonBasePath);
+                var directory = "Layouts/";
+                return Path.Combine(basePath, directory);
             }
         }
 
@@ -52,6 +61,22 @@
             {
                 return "*" + Extension;
             }
+        }
+
+        #endregion
+
+
+        #region Constructors
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public JsonLayoutPersistence()
+        {
+
+            // Resolve instances.
+            Config = Configuration.Current.Manager;
+
         }
 
         #endregion

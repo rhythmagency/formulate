@@ -29,4 +29,4 @@ This shows how to pass "dialogData" to dialogs with the dialog service: http://2
 
 http://24days.in/umbraco/2015/custom-listview/
 
-https://www.npmjs.com/package/grunt-ng-annotate
+http://stackoverflow.com/questions/5713147/custom-configurationsection-to-external-config
