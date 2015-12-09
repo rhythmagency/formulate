@@ -10,7 +10,7 @@
     /// Stores information about a form field.
     /// </summary>
     /// <typeparam name="T">The type of data stored by this form field.</typeparam>
-    public class FormField<T>
+    public class FormField<T> : IFormField
     {
 
         #region Properties

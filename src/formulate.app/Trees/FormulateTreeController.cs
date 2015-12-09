@@ -51,6 +51,8 @@
             }
             else if (id.InvariantEquals(FormsConstants.Id))
             {
+
+                // Configure "Create Form" button.
                 var path = "/formulate/formulate/editForm/null";
                 var menuItem = new MenuItem()
                 {
@@ -60,9 +62,12 @@
                 };
                 menuItem.NavigateToRoute(path);
                 menu.Items.Add(menuItem);
+
             }
             else if (id.InvariantEquals(LayoutsConstants.Id))
             {
+
+                // Configure "Create Layout" button.
                 var path = "/App_Plugins/formulate/menu-actions/createLayout.html";
                 var menuItem = new MenuItem()
                 {
@@ -72,6 +77,7 @@
                 };
                 menuItem.LaunchDialogView(path, "Create Layout");
                 menu.Items.Add(menuItem);
+
             }
             else
             {

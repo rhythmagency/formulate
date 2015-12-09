@@ -1,26 +1,26 @@
 // Variables.
 var app = angular.module("umbraco");
 
-// Service to help with Formulate layouts.
-app.factory("formulateLayouts", function ($http, $q) {
+// Service to help with Formulate forms.
+app.factory("formulateForms", function ($http, $q) {
     return {
 
-        // This gets the path to the layout with the specified ID.
-        getPath: function (id) {
+        // This gets the fields for the form with the specified ID.
+        getFields: function (id) {
 
             // Variables.
             //TODO: Use server variables to get this URL.
-            var url = "/umbraco/backoffice/formulate/Layouts/GetPath";
+            var url = "/umbraco/backoffice/formulate/Forms/GetFields";
             var options = {
                 cache: false,
                 params: {
-                    LayoutId: id,
+                    FormId: id,
                     // Cache buster ensures requests aren't cached.
                     CacheBuster: Math.random()
                 }
             };
 
-            // Get path from server.
+            // Get fields from server.
             return $http.get(url, options).then(function (response) {
 
                 // Variables.
@@ -28,7 +28,15 @@ app.factory("formulateLayouts", function ($http, $q) {
 
                 // Was the request successful?
                 if (data.Success) {
-                    return data.Path;
+                    return {
+                        fields: data.Fields.map(function (field) {
+                            return {
+                                id: field.Id,
+                                name: field.Name,
+                                alias: field.Alias
+                            };
+                        })
+                    };
                 } else {
                     return $q.reject();
                 }

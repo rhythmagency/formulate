@@ -1,16 +1,20 @@
 ﻿// Variables.
 var app = angular.module("umbraco");
 
+// Associate directive/controller.
+app.directive("formulateLayoutDesigner", LayoutDesignerDirective);
+app.controller("formulate.layoutDesigner", LayoutDesignerController);
+
 // Directive.
-app.directive("formulateLayoutDesigner", function (formulateDirectives) {
+function LayoutDesignerDirective(formulateDirectives) {
     return {
         restrict: "E",
         template: formulateDirectives.get("layoutDesigner/designer.html")
     };
-});
+}
 
 // Controller.
-app.controller("formulate.layoutDesigner", function($scope, $routeParams, navigationService, formulateLayouts) {
+function LayoutDesignerController($scope, $routeParams, navigationService, formulateLayouts) {
 
     // Variables.
     var id = $routeParams.id;
@@ -29,7 +33,7 @@ app.controller("formulate.layoutDesigner", function($scope, $routeParams, naviga
     // Set scope functions.
     $scope.save = getSaveLayout();
 
-});
+}
 
 // Shows/highlights the node in the Formulate tree.
 function activateInTree(id, services) {

@@ -271,6 +271,7 @@
     <Compile Include="Constants\Trees\Forms.cs" />
     <Compile Include="Constants\Trees\Layouts.cs" />
     <Compile Include="Constants\Trees\ValidationLibrary.cs" />
+    <Compile Include="Controllers\FormsController.cs" />
     <Compile Include="Controllers\LayoutsController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Forms\Form.cs" />
@@ -291,6 +292,7 @@
     <Compile Include="Managers\DefaultConfigurationManager.cs" />
     <Compile Include="Managers\IConfigurationManager.cs" />
     <Compile Include="Models\Requests\CreateLayoutRequest.cs" />
+    <Compile Include="Models\Requests\GetFormFieldsRequest.cs" />
     <Compile Include="Models\Requests\GetLayoutPathRequest.cs" />
     <Compile Include="Persistence\ILayoutPersistence.cs" />
     <Compile Include="Persistence\IFormPersistence.cs" />

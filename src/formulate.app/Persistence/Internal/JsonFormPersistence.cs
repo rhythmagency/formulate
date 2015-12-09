@@ -2,8 +2,9 @@
 {
 
     // Namespaces.
-    using System;
     using Forms;
+    using System;
+    using System.Collections.Generic;
 
 
     //TODO: Need to implement this class.
@@ -29,7 +30,25 @@
 
         public Form Retrieve(Guid formId)
         {
-            throw new NotImplementedException();
+            //TODO: Testing.
+            return new Form()
+            {
+                Fields = new List<IFormField>()
+                {
+                    new FormField<string>()
+                    {
+                        Alias = "firstName",
+                        Id = Guid.NewGuid(),
+                        Name = "First Name"
+                    },
+                    new FormField<string>()
+                    {
+                        Alias = "lastName",
+                        Id = Guid.NewGuid(),
+                        Name = "Last Name"
+                    }
+                }
+            };
         }
 
         public Form Retrieve(string formAlias)

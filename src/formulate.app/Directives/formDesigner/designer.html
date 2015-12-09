@@ -1,7 +1,10 @@
 ﻿<div ng-controller="formulate.formDesigner">
-    <p>
-        This will be the form designer.
-    </p>
 
-    <button class="btn btn-primary" ng-click="save()">Save</button>
+    <!-- Render all fields. -->
+    <div ng-repeat="field in fields">
+        <b>{{field.name}}</b>
+        <span> ({{field.alias}})</span>
+    </div>
+
+    <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()">Save</button>
 </div>

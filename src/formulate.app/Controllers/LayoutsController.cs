@@ -60,7 +60,7 @@
         public LayoutsController(UmbracoContext context)
             : base(context)
         {
-            //TODO: Should not be creating an instance of this here (implementation should be swappable).
+            //TODO: ...
             Persistence = new JsonLayoutPersistence();
         }
 
