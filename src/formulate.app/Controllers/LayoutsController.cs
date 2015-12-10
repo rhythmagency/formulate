@@ -6,7 +6,7 @@
     using Layouts;
     using Models.Requests;
     using Persistence;
-    using Persistence.Internal;
+    using Resolvers;
     using System;
     using System.Web.Http;
     using Umbraco.Core;
@@ -60,8 +60,7 @@
         public LayoutsController(UmbracoContext context)
             : base(context)
         {
-            //TODO: ...
-            Persistence = new JsonLayoutPersistence();
+            Persistence = LayoutPersistence.Current.Manager;
         }
 
         #endregion

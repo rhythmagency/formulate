@@ -305,6 +305,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Resolvers\Configuration.cs" />
+    <Compile Include="Resolvers\FormPersistence.cs" />
+    <Compile Include="Resolvers\LayoutPersistence.cs" />
     <Compile Include="Trees\FormulateTreeController.cs" />
   </ItemGroup>
   <ItemGroup>

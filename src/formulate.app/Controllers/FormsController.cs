@@ -5,7 +5,7 @@
     using Helpers;
     using Models.Requests;
     using Persistence;
-    using Persistence.Internal;
+    using Resolvers;
     using System;
     using System.Linq;
     using System.Web.Http;
@@ -59,8 +59,7 @@
         public FormsController(UmbracoContext context)
             : base(context)
         {
-            //TODO: ...
-            Persistence = new JsonFormPersistence();
+            Persistence = FormPersistence.Current.Manager;
         }
 
         #endregion

@@ -3,6 +3,8 @@
 
     // Namespaces.
     using Managers;
+    using Persistence.Internal;
+    using Resolvers;
     using Umbraco.Core;
     using ConfigResolver = formulate.app.Resolvers.Configuration;
 
@@ -25,6 +27,7 @@
             InitializeResolvers();
         }
 
+
         /// <summary>
         /// Initializes resolvers.
         /// </summary>
@@ -34,6 +37,16 @@
             // Initialize configuration resolver.
             var configManager = new DefaultConfigurationManager();
             ConfigResolver.Current = new ConfigResolver(configManager);
+
+
+            // Initialize form persistence resolver.
+            var formPersistence = new JsonFormPersistence();
+            FormPersistence.Current = new FormPersistence(formPersistence);
+
+
+            // Initialize layout persistence resolver.
+            var layoutPersistence = new JsonLayoutPersistence();
+            LayoutPersistence.Current = new LayoutPersistence(layoutPersistence);
 
         }
 

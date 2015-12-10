@@ -2,23 +2,23 @@
 {
 
     // Namespaces.
-    using Managers;
+    using Persistence;
     using Umbraco.Core.ObjectResolution;
 
 
     /// <summary>
-    /// The resolver for the configuration manager.
+    /// The resolver for the form persistence manager.
     /// </summary>
-    public class Configuration
-        : SingleObjectResolverBase<Configuration, IConfigurationManager>
+    public class FormPersistence
+        : SingleObjectResolverBase<FormPersistence, IFormPersistence>
     {
 
         #region Properties
 
         /// <summary>
-        /// Gets the configuration manager.
+        /// Gets the form persistence manager.
         /// </summary>
-        public IConfigurationManager Manager
+        public IFormPersistence Manager
         {
             get
             {
@@ -35,10 +35,10 @@
         /// Primary constructor.
         /// </summary>
         /// <param name="manager">
-        /// The configuration manager to use.
+        /// The form persistence manager to use.
         /// </param>
-        internal Configuration(IConfigurationManager manager)
-            : base(manager)
+        internal FormPersistence(IFormPersistence persistence)
+            : base(persistence)
         {
         }
 
@@ -48,14 +48,14 @@
         #region Methods
 
         /// <summary>
-        /// Sets the configuration manager.
+        /// Sets the form persistence manager.
         /// </summary>
         /// <param name="manager">
-        /// The new configuration manager.
+        /// The new form persistence manager.
         /// </param>
-        public void SetConfigurationManager(IConfigurationManager manager)
+        public void SetFormPersistence(IFormPersistence persistence)
         {
-            Value = manager;
+            Value = persistence;
         }
 
         #endregion

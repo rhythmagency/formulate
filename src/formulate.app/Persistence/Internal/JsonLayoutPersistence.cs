@@ -23,7 +23,13 @@
         /// <summary>
         /// Configuration manager.
         /// </summary>
-        private IConfigurationManager Config { get; set; }
+        private IConfigurationManager Config
+        {
+            get
+            {
+                return Configuration.Current.Manager;
+            }
+        }
 
 
         /// <summary>
@@ -73,10 +79,6 @@
         /// </summary>
         public JsonLayoutPersistence()
         {
-
-            // Resolve instances.
-            Config = Configuration.Current.Manager;
-
         }
 
         #endregion

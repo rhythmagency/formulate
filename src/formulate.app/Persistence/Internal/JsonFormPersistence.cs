@@ -3,6 +3,8 @@
 
     // Namespaces.
     using Forms;
+    using Managers;
+    using Resolvers;
     using System;
     using System.Collections.Generic;
 
@@ -13,6 +15,23 @@
     /// </summary>
     internal class JsonFormPersistence : IFormPersistence
     {
+
+        #region Properties
+
+        /// <summary>
+        /// Configuration manager.
+        /// </summary>
+        private IConfigurationManager Config
+        {
+            get
+            {
+                return Configuration.Current.Manager;
+            }
+        }
+
+        #endregion
+
+
         public void Persist(Form form)
         {
             throw new NotImplementedException();
