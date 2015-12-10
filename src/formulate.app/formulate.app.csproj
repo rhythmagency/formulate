@@ -296,6 +296,7 @@
     <Compile Include="Models\Requests\GetLayoutPathRequest.cs" />
     <Compile Include="Persistence\ILayoutPersistence.cs" />
     <Compile Include="Persistence\IFormPersistence.cs" />
+    <Compile Include="Persistence\Internal\JsonPersistenceHelper.cs" />
     <Compile Include="Persistence\Internal\JsonLayoutPersistence.cs" />
     <Compile Include="Persistence\Internal\JsonFormPersistence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

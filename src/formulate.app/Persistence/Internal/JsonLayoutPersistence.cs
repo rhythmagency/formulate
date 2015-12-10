@@ -2,7 +2,6 @@
 {
 
     // Namespaces.
-    using Helpers;
     using Layouts;
     using Managers;
     using Resolvers;
@@ -18,7 +17,33 @@
     internal class JsonLayoutPersistence : ILayoutPersistence
     {
 
+        #region Variables
+
+        private JsonPersistenceHelper helper = null;
+
+        #endregion
+
+
         #region Properties
+
+        /// <summary>
+        /// A helper for JSON operations.
+        /// </summary>
+        private JsonPersistenceHelper Helper
+        {
+            get
+            {
+
+                // This needs to be lazy loaded due to the way Umbraco's resolver system works.
+                if (helper == null)
+                {
+                    helper = new JsonPersistenceHelper(BasePath, Extension, WildcardPattern);
+                }
+                return helper;
+
+            }
+        }
+
 
         /// <summary>
         /// Configuration manager.
@@ -92,10 +117,7 @@
         /// <param name="layout">The layout to persist.</param>
         public void Persist(Layout layout)
         {
-            var path = GetLayoutPath(layout.Id);
-            var serialized = JsonHelper.Serialize(layout);
-            EnsurePathExists(BasePath);
-            WriteFile(path, serialized);
+            Helper.Persist(layout.Id, layout);
         }
 
 
@@ -105,11 +127,7 @@
         /// <param name="layoutId">The ID of the layout to delete.</param>
         public void Delete(Guid layoutId)
         {
-            var path = GetLayoutPath(layoutId);
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
+            Helper.Delete(layoutId);
         }
 
 
@@ -133,10 +151,7 @@
         /// </returns>
         public Layout Retrieve(Guid layoutId)
         {
-            var path = GetLayoutPath(layoutId);
-            var json = GetFileContents(path);
-            var layout = JsonHelper.Deserialize<Layout>(json);
-            return layout;
+            return Helper.Retrieve<Layout>(layoutId);
         }
 
 
@@ -166,86 +181,7 @@
         /// </remarks>
         public IEnumerable<Layout> RetrieveChildren(Guid? parentId)
         {
-            if (parentId.HasValue)
-            {
-                //TODO: ...
-                return new List<Layout>();
-            }
-            else
-            {
-                //TODO: For now, I am getting all layouts. Once there are folders, get only root items.
-                EnsurePathExists(BasePath);
-                var files = Directory.GetFiles(BasePath, WildcardPattern);
-                var layouts = new List<Layout>();
-                foreach (var file in files)
-                {
-                    var contents = GetFileContents(file);
-                    var layout = JsonHelper.Deserialize<Layout>(contents);
-                    layouts.Add(layout);
-                }
-                return layouts;
-            }
-        }
-
-        #endregion
-
-
-        #region Private Methods
-
-        /// <summary>
-        /// Writes the specified file at the specified path.
-        /// </summary>
-        /// <param name="path">The path of the file.</param>
-        /// <param name="contents">The contents of the file.</param>
-        private void WriteFile(string path, string contents)
-        {
-            File.WriteAllText(path, contents);
-        }
-
-
-        /// <summary>
-        /// Gets the contents of the file at the specified path.
-        /// </summary>
-        /// <param name="path">The path to the file.</param>
-        /// <returns>
-        /// The file contents, or null.
-        /// </returns>
-        private string GetFileContents(string path)
-        {
-            if (File.Exists(path))
-            {
-                return File.ReadAllText(path);
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-
-        /// <summary>
-        /// Gets the file path to the layout with the specified ID.
-        /// </summary>
-        /// <param name="layoutId">The layout's ID.</param>
-        /// <returns>The file to the layout's file.</returns>
-        private string GetLayoutPath(Guid layoutId)
-        {
-            var id = GuidHelper.GetString(layoutId);
-            var path = Path.Combine(BasePath, id + Extension);
-            return path;
-        }
-
-
-        /// <summary>
-        /// Ensures that the specified path exists.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        private void EnsurePathExists(string path)
-        {
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
+            return Helper.RetrieveChildren<Layout>(parentId);
         }
 
         #endregion

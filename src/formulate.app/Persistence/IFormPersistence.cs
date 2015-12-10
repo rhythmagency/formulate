@@ -4,6 +4,7 @@
     // Namespaces.
     using Forms;
     using System;
+    using System.Collections.Generic;
 
 
     /// <summary>
@@ -16,6 +17,7 @@
         void Delete(string formAlias);
         Form Retrieve(Guid formId);
         Form Retrieve(string formAlias);
+        IEnumerable<Form> RetrieveChildren(Guid? parentId);
     }
 
 }
