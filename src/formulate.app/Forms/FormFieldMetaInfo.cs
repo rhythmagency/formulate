@@ -2,6 +2,7 @@
 {
 
     // Namespaces.
+    using Newtonsoft.Json;
     using System;
 
 
@@ -34,6 +35,7 @@
         /// <summary>
         /// The type of data stored by this field meta information.
         /// </summary>
+        [JsonIgnore]
         public Type ValueType
         {
             get

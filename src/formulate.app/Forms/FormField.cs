@@ -2,6 +2,7 @@
 {
 
     // Namespaces.
+    using Newtonsoft.Json;
     using System;
 
 
@@ -35,6 +36,7 @@
         /// <summary>
         /// The type of data stored by the field.
         /// </summary>
+        [JsonIgnore()]
         public Type GetFieldType
         {
             get
