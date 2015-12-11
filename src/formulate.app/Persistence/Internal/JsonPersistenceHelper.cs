@@ -189,14 +189,16 @@
             else
             {
                 //TODO: For now, I am getting all entities. Once there are folders, get only root items.
-                EnsurePathExists(BasePath);
-                var files = Directory.GetFiles(BasePath, WildcardPattern);
                 var entities = new List<EntityType>();
-                foreach (var file in files)
+                if (Directory.Exists(BasePath))
                 {
-                    var contents = GetFileContents(file);
-                    var entity = JsonHelper.Deserialize<EntityType>(contents);
-                    entities.Add(entity);
+                    var files = Directory.GetFiles(BasePath, WildcardPattern);
+                    foreach (var file in files)
+                    {
+                        var contents = GetFileContents(file);
+                        var entity = JsonHelper.Deserialize<EntityType>(contents);
+                        entities.Add(entity);
+                    }
                 }
                 return entities;
             }

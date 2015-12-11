@@ -123,33 +123,33 @@ function initializeForm(options, services) {
     // Variables.
     var id = options.id;
     var isNew = options.isNew;
+    var $scope = services.$scope;
 
     // Is this a new form?
     if (isNew) {
 
         // The form can be saved now.
-        services.$scope.initialized = true;
+        $scope.initialized = true;
 
     } else {
 
         // Disable form saving until the data is populated.
-        services.$scope.initialized = false;
-
-        // Update tree.
-        activateInTree(id, services);
+        $scope.initialized = false;
 
         // Get the form info.
         getFormInfo(id, services).then(function(form) {
 
+            // Update tree.
+            activateInTree(form, services);
+
             // Set the form info.
-            var $scope = services.$scope;
             $scope.formId = form.formId;
             $scope.formAlias = form.alias;
             $scope.formName = form.name;
             $scope.fields = form.fields;
 
             // The form can be saved now.
-            services.$scope.initialized = true;
+            $scope.initialized = true;
 
         });
 
@@ -172,18 +172,12 @@ function getCanAddField(services) {
 }
 
 // Shows/highlights the node in the Formulate tree.
-function activateInTree(id, services) {
-
-    // Get path from server.
-    services.formulateForms.getFormInfo(id)
-        .then(function(form) {
-            var options = {
-                tree: "formulate",
-                path: form.path,
-                forceReload: true,
-                activate: true
-            };
-            services.navigationService.syncTree(options);
-        });
-
+function activateInTree(form, services) {
+    var options = {
+        tree: "formulate",
+        path: form.path,
+        forceReload: true,
+        activate: true
+    };
+    services.navigationService.syncTree(options);
 }
