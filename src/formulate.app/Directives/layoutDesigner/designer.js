@@ -1,4 +1,5 @@
-﻿// Variables.
+﻿//TODO: Disable buttons during layout save.
+// Variables.
 var app = angular.module("umbraco");
 
 // Associate directive/controller.

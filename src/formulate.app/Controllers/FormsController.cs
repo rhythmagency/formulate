@@ -2,6 +2,8 @@
 {
 
     // Namespaces.
+    using core.Extensions;
+    using Forms;
     using Helpers;
     using Models.Requests;
     using Persistence;
@@ -28,8 +30,9 @@
 
         #region Constants
 
-        private const string GetFieldsError = @"An error occurred while attempting to get the fields for a Formulate form.";
+        private const string GetFormInfoError = @"An error occurred while attempting to get the form info for a Formulate form.";
         private const string UnhandledError = @"An unhandled error occurred. Refer to the error log.";
+        private const string PersistFormError = @"An error occurred while attempting to persist the Formulate form.";
 
         #endregion
 
@@ -67,7 +70,17 @@
 
         #region Web Methods
 
-        public object GetFields([FromUri] GetFormFieldsRequest request)
+        /// <summary>
+        /// Returns the form info for the specified form.
+        /// </summary>
+        /// <param name="request">
+        /// The request to get the form info.
+        /// </param>
+        /// <returns>
+        /// An object indicating success or failure, along with some
+        /// accompanying data.
+        /// </returns>
+        public object GetFormInfo([FromUri] GetFormInfoRequest request)
         {
 
             // Variables.
@@ -88,7 +101,10 @@
                 result = new
                 {
                     Success = true,
-                    Fields = form.Fields.Select(x => new
+                    FormId = GuidHelper.GetString(form.Id),
+                    Alias = form.Alias,
+                    Name = form.Name,
+                    Fields = form.Fields.MakeSafe().Select(x => new
                     {
                         Id = GuidHelper.GetString(x.Id),
                         x.Alias,
@@ -101,7 +117,7 @@
             {
 
                 // Error.
-                LogHelper.Error<FormsController>(GetFieldsError, ex);
+                LogHelper.Error<FormsController>(GetFormInfoError, ex);
                 result = new
                 {
                     Success = false,
@@ -112,6 +128,86 @@
 
 
             // Return result.
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// Persists a form.
+        /// </summary>
+        /// <param name="request">
+        /// The request to persist a form.
+        /// </param>
+        /// <returns>
+        /// Information about the persisted form.
+        /// </returns>
+        public object PersistForm(PersistFormRequest request)
+        {
+
+            // Variables.
+            var result = default(object);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Parse or create the form ID.
+                var formId = string.IsNullOrWhiteSpace(request.FormId)
+                    ? Guid.NewGuid()
+                    : GuidHelper.GetGuid(request.FormId);
+
+
+                // Get the fields.
+                //TODO: Will have to figure out the field data type to properly instantiate the field.
+                var fields = request.Fields.MakeSafe().Select(x => new FormField<string>()
+                {
+                    Id = string.IsNullOrWhiteSpace(x.Id)
+                        ? Guid.NewGuid()
+                        : GuidHelper.GetGuid(x.Id),
+                    Alias = x.Alias,
+                    Name = x.Name
+                });
+
+
+                // Create the form.
+                var form = new Form()
+                {
+                    Id = formId,
+                    Alias = request.Alias,
+                    Name = request.Name,
+                    Fields = fields
+                };
+
+
+                // Persist the form.
+                Persistence.Persist(form);
+
+
+                // Success.
+                result = new
+                {
+                    Success = true,
+                    FormId = GuidHelper.GetString(formId)
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<FormsController>(PersistFormError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return the result.
             return result;
 
         }

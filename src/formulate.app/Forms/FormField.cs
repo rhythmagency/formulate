@@ -4,6 +4,7 @@
     // Namespaces.
     using System;
     using System.Collections.Generic;
+    using System.Web.Script.Serialization;
 
 
     /// <summary>
@@ -36,6 +37,7 @@
         /// <summary>
         /// The type of data stored by the field.
         /// </summary>
+        [ScriptIgnore(ApplyToOverrides = true)]//TODO: ...
         public Type GetFieldType
         {
             get

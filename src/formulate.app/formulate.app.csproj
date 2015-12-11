@@ -291,9 +291,11 @@
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Managers\DefaultConfigurationManager.cs" />
     <Compile Include="Managers\IConfigurationManager.cs" />
+    <Compile Include="Models\Parameters\FieldInfo.cs" />
     <Compile Include="Models\Requests\CreateLayoutRequest.cs" />
-    <Compile Include="Models\Requests\GetFormFieldsRequest.cs" />
+    <Compile Include="Models\Requests\GetFormInfoRequest.cs" />
     <Compile Include="Models\Requests\GetLayoutPathRequest.cs" />
+    <Compile Include="Models\Requests\PersistFormRequest.cs" />
     <Compile Include="Persistence\ILayoutPersistence.cs" />
     <Compile Include="Persistence\IFormPersistence.cs" />
     <Compile Include="Persistence\Internal\JsonPersistenceHelper.cs" />

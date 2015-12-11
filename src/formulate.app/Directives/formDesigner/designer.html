@@ -1,10 +1,21 @@
 ﻿<div ng-controller="formulate.formDesigner">
 
+    <!-- Form name/alias. -->
+    <div>
+        <label>Form Name</label>
+        <input ng-model="formName" />
+    </div>
+    <div>
+        <label>Form Alias</label>
+        <input ng-model="formAlias" />
+    </div>
+
     <!-- Render all fields. -->
     <div ng-repeat="field in fields">
         <b>{{field.name}}</b>
         <span> ({{field.alias}})</span>
     </div>
 
+    <button class="btn btn-primary" ng-click="addField()" ng-disabled="!canAddField()">Add Field</button>
     <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()">Save</button>
 </div>
