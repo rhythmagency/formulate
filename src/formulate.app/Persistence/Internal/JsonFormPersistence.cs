@@ -151,8 +151,6 @@
         /// </returns>
         public Form Retrieve(Guid formId)
         {
-            //TODO: Can't seem to deserialize a collection of interfaces.
-            //TODO: Some options here: http://stackoverflow.com/questions/5780888/casting-interfaces-for-deserialization-in-json-net
             return Helper.Retrieve<Form>(formId);
         }
 

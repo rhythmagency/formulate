@@ -3,7 +3,6 @@
 
     // Namespaces.
     using System;
-    using System.Collections.Generic;
 
 
     /// <summary>
@@ -35,13 +34,13 @@
         /// <summary>
         /// The fields on this form.
         /// </summary>
-        public IEnumerable<IFormField> Fields { get; set; }
+        public IFormField[] Fields { get; set; }
 
 
         /// <summary>
         /// Information about this form.
         /// </summary>
-        public IEnumerable<IFormMetaInfo> MetaInfo { get; set; }
+        public IFormMetaInfo[] MetaInfo { get; set; }
 
         #endregion
 

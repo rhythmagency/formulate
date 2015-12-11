@@ -3,7 +3,6 @@
 
     // Namespaces.
     using System;
-    using System.Collections.Generic;
 
 
     /// <summary>
@@ -15,7 +14,7 @@
         string Alias { get; set; }
         string Name { get; set; }
         Type GetFieldType { get; }
-        IEnumerable<IFormFieldMetaInfo> MetaInfo { get; set; }
+        IFormFieldMetaInfo[] MetaInfo { get; set; }
     }
 
 }

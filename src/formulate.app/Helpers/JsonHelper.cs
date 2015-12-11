@@ -2,7 +2,7 @@
 {
 
     // Namespaces.
-    using System.Web.Script.Serialization;
+    using Newtonsoft.Json;
 
 
     /// <summary>
@@ -26,8 +26,12 @@
             {
                 return null;
             }
-            var serializer = new JavaScriptSerializer();
-            var result = serializer.Serialize(item);
+            var indented = Formatting.Indented;
+            var settings = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            };
+            var result = JsonConvert.SerializeObject(item, indented, settings);
             return result;
         }
 
@@ -44,8 +48,11 @@
             {
                 return default(T);
             }
-            var serializer = new JavaScriptSerializer();
-            var result = serializer.Deserialize<T>(value);
+            var settings = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            };
+            var result = JsonConvert.DeserializeObject<T>(value, settings);
             return result;
         }
 

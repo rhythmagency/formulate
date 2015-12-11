@@ -177,7 +177,7 @@
                     Id = formId,
                     Alias = request.Alias,
                     Name = request.Name,
-                    Fields = fields
+                    Fields = fields.ToArray()
                 };
 
 
