@@ -103,6 +103,8 @@
             var rootId = CoreConstants.System.Root.ToInvariantString();
             if (id.InvariantEquals(rootId))
             {
+
+                // Get root nodes.
                 var formatUrl = "/formulate/formulate/{0}/info";
                 var hasRootForms = TreeFormPersistence.RetrieveChildren(null).Any();
                 var formsNode = this.CreateTreeNode(FormsConstants.Id, id,
@@ -126,9 +128,12 @@
                     queryStrings, ValidationsConstants.Title, ValidationsConstants.Icon, false,
                     string.Format(formatUrl, "validationLibrary"));
                 nodes.Add(validationsNode);
+
             }
             else if (id.InvariantEquals(LayoutsConstants.Id))
             {
+
+                // Get layout nodes.
                 var formatUrl = "/formulate/formulate/editLayout/{0}";
                 var rootLayouts = TreeLayoutPersistence.RetrieveChildren(null);
                 foreach (var layout in rootLayouts)
@@ -140,9 +145,12 @@
                         layoutName, "icon-folder", false, layoutRoute);
                     nodes.Add(layoutNode);
                 }
+
             }
             else if (id.InvariantEquals(FormsConstants.Id))
             {
+
+                // Get form nodes.
                 var formatUrl = "/formulate/formulate/editForm/{0}";
                 var rootForms = TreeFormPersistence.RetrieveChildren(null);
                 foreach (var form in rootForms)
@@ -154,6 +162,7 @@
                         formName, "icon-folder", false, formRoute);
                     nodes.Add(formNode);
                 }
+
             }
             return nodes;
         }
