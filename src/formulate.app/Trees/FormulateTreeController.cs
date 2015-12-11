@@ -4,7 +4,7 @@
     // Namespaces.
     using Helpers;
     using Persistence;
-    using Persistence.Internal;
+    using Resolvers;
     using System.Linq;
     using System.Net.Http.Formatting;
     using Umbraco.Core;
@@ -18,19 +18,21 @@
     using LayoutsConstants = formulate.app.Constants.Trees.Layouts;
     using ValidationsConstants = formulate.app.Constants.Trees.ValidationLibrary;
 
+
     //TODO: Much to do in this file.
     [Tree("formulate", "formulate", "Formulate", "icon-folder", "icon-folder-open", true, sortOrder: 0)]
     [PluginController("formulate")]
     public class FormulateTreeController : TreeController
     {
 
-        private ILayoutPersistence LayoutPersistence { get; set; }
+        private ILayoutPersistence TreeLayoutPersistence { get; set; }
+        private IFormPersistence TreeFormPersistence { get; set; }
 
 
         public FormulateTreeController()
         {
-            //TODO: Should not create this instance here (implementation should be swappable).
-            LayoutPersistence = new JsonLayoutPersistence();
+            TreeLayoutPersistence = LayoutPersistence.Current.Manager;
+            TreeFormPersistence = FormPersistence.Current.Manager;
         }
 
         protected override MenuItemCollection GetMenuForNode(string id, FormDataCollection queryStrings)
@@ -102,11 +104,12 @@
             if (id.InvariantEquals(rootId))
             {
                 var formatUrl = "/formulate/formulate/{0}/info";
+                var hasRootForms = TreeFormPersistence.RetrieveChildren(null).Any();
                 var formsNode = this.CreateTreeNode(FormsConstants.Id, id,
-                    queryStrings, FormsConstants.Title, FormsConstants.Icon, false,
+                    queryStrings, FormsConstants.Title, FormsConstants.Icon, hasRootForms,
                     string.Format(formatUrl, "forms"));
                 nodes.Add(formsNode);
-                var hasRootLayouts = LayoutPersistence.RetrieveChildren(null).Any();
+                var hasRootLayouts = TreeLayoutPersistence.RetrieveChildren(null).Any();
                 var layoutsNode = this.CreateTreeNode(LayoutsConstants.Id, id,
                     queryStrings, LayoutsConstants.Title, LayoutsConstants.Icon, hasRootLayouts,
                     string.Format(formatUrl, "layouts"));
@@ -127,7 +130,7 @@
             else if (id.InvariantEquals(LayoutsConstants.Id))
             {
                 var formatUrl = "/formulate/formulate/editLayout/{0}";
-                var rootLayouts = LayoutPersistence.RetrieveChildren(null);
+                var rootLayouts = TreeLayoutPersistence.RetrieveChildren(null);
                 foreach (var layout in rootLayouts)
                 {
                     var layoutId = GuidHelper.GetString(layout.Id);
@@ -136,6 +139,20 @@
                     var layoutNode = this.CreateTreeNode(layoutId, LayoutsConstants.Id, queryStrings,
                         layoutName, "icon-folder", false, layoutRoute);
                     nodes.Add(layoutNode);
+                }
+            }
+            else if (id.InvariantEquals(FormsConstants.Id))
+            {
+                var formatUrl = "/formulate/formulate/editForm/{0}";
+                var rootForms = TreeFormPersistence.RetrieveChildren(null);
+                foreach (var form in rootForms)
+                {
+                    var formId = GuidHelper.GetString(form.Id);
+                    var formRoute = string.Format(formatUrl, formId);
+                    var formName = form.Name ?? "Unnamed";
+                    var formNode = this.CreateTreeNode(formId, LayoutsConstants.Id, queryStrings,
+                        formName, "icon-folder", false, formRoute);
+                    nodes.Add(formNode);
                 }
             }
             return nodes;

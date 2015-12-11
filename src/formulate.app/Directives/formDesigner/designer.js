@@ -15,7 +15,7 @@ function FormDesignerDirective(formulateDirectives) {
 }
 
 // Controller.
-function FormDesignerController($scope, $routeParams, navigationService, formulateForms, $location) {
+function FormDesignerController($scope, $routeParams, navigationService, formulateForms, $location, $route) {
 
     // Variables.
     var id = $routeParams.id;
@@ -25,7 +25,8 @@ function FormDesignerController($scope, $routeParams, navigationService, formula
         $routeParams: $routeParams,
         navigationService: navigationService,
         formulateForms: formulateForms,
-        $location: $location
+        $location: $location,
+        $route: $route
     };
 
     // Set scope variables.
@@ -73,11 +74,19 @@ function getSaveForm(options, services) {
         services.formulateForms.persistForm(formData).then(function(responseData) {
 
             // Form is no longer new.
+            var isNew = $scope.isNew;
             $scope.isNew = false;
 
-            // Even existing forms redirect (e.g., to get new field ID's).
-            var url = "/formulate/formulate/editForm/" + responseData.formId;
-            services.$location.url(url);
+            // Redirect or reload page.
+            if (isNew) {
+                var url = "/formulate/formulate/editForm/" + responseData.formId;
+                services.$location.url(url);
+            } else {
+
+                // Even existing forms reload (e.g., to get new field ID's).
+                services.$route.reload();
+
+            }
 
         });
 
@@ -126,7 +135,8 @@ function initializeForm(options, services) {
         // Disable form saving until the data is populated.
         services.$scope.initialized = false;
 
-        //TODO: Update tree.
+        // Update tree.
+        activateInTree(id, services);
 
         // Get the form info.
         getFormInfo(id, services).then(function(form) {
@@ -159,4 +169,21 @@ function getCanAddField(services) {
     return function() {
         return services.$scope.initialized;
     };
+}
+
+// Shows/highlights the node in the Formulate tree.
+function activateInTree(id, services) {
+
+    // Get path from server.
+    services.formulateForms.getFormInfo(id)
+        .then(function(form) {
+            var options = {
+                tree: "formulate",
+                path: form.path,
+                forceReload: true,
+                activate: true
+            };
+            services.navigationService.syncTree(options);
+        });
+
 }

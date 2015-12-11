@@ -32,6 +32,7 @@ app.factory("formulateForms", function ($http, $q, notificationsService) {
                         formId: data.FormId,
                         alias: data.Alias,
                         name: data.Name,
+                        path: data.Path,
                         fields: data.Fields.map(function (field) {
                             return {
                                 id: field.Id,

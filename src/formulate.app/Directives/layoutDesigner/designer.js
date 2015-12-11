@@ -45,7 +45,7 @@ function activateInTree(id, services) {
             var options = {
                 tree: "formulate",
                 path: path,
-                forceReload: false,
+                forceReload: true,
                 activate: true
             };
             services.navigationService.syncTree(options);

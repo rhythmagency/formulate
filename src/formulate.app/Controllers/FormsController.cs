@@ -18,6 +18,7 @@
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
     using CoreConstants = Umbraco.Core.Constants;
+    using FormsConstants = formulate.app.Constants.Trees.Forms;
 
 
     /// <summary>
@@ -94,6 +95,7 @@
 
                 // Variables.
                 var id = GuidHelper.GetGuid(request.FormId);
+                var strFormId = GuidHelper.GetString(id);
                 var form = Persistence.Retrieve(id);
 
 
@@ -104,6 +106,8 @@
                     FormId = GuidHelper.GetString(form.Id),
                     Alias = form.Alias,
                     Name = form.Name,
+                    //TODO: Once nesting is supported, this will need to account for that.
+                    Path = new[] { rootId, FormsConstants.Id, strFormId },
                     Fields = form.Fields.MakeSafe().Select(x => new
                     {
                         Id = GuidHelper.GetString(x.Id),
