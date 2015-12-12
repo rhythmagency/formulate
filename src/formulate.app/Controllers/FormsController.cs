@@ -19,6 +19,7 @@
     using Umbraco.Web.WebApi.Filters;
     using CoreConstants = Umbraco.Core.Constants;
     using FormsConstants = formulate.app.Constants.Trees.Forms;
+    using Forms.Fields;
 
 
     /// <summary>
@@ -165,7 +166,8 @@
 
                 // Get the fields.
                 //TODO: Will have to figure out the field data type to properly instantiate the field.
-                var fields = request.Fields.MakeSafe().Select(x => new FormField<string>()
+                //TODO: ...
+                var fields = request.Fields.MakeSafe().Select(x => new FormField<TextField>()
                 {
                     Id = string.IsNullOrWhiteSpace(x.Id)
                         ? Guid.NewGuid()

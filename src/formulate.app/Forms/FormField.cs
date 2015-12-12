@@ -2,7 +2,6 @@
 {
 
     // Namespaces.
-    using Newtonsoft.Json;
     using System;
 
 
@@ -11,6 +10,8 @@
     /// </summary>
     /// <typeparam name="T">The type of data stored by this form field.</typeparam>
     public class FormField<T> : IFormField
+        where T : IFormFieldType,
+        new()
     {
 
         #region Properties
@@ -34,22 +35,23 @@
 
 
         /// <summary>
-        /// The type of data stored by the field.
-        /// </summary>
-        [JsonIgnore()]
-        public Type GetFieldType
-        {
-            get
-            {
-                return typeof(T);
-            }
-        }
-
-
-        /// <summary>
         /// Information about the field.
         /// </summary>
         public IFormFieldMetaInfo[] MetaInfo { get; set; }
+
+
+        /// <summary>
+        /// The data stored by the field.
+        /// </summary>
+        public string Data { get; set; }
+
+
+        //TODO: ...
+        public string GetDirective()
+        {
+            var instance = new T();
+            return instance.Directive;
+        }
 
         #endregion
 

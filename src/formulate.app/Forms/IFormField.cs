@@ -13,8 +13,9 @@
         Guid Id { get; set; }
         string Alias { get; set; }
         string Name { get; set; }
-        Type GetFieldType { get; }
+        string Data { get; set; }
         IFormFieldMetaInfo[] MetaInfo { get; set; }
+        string GetDirective();
     }
 
 }

@@ -274,12 +274,14 @@
     <Compile Include="Controllers\FormsController.cs" />
     <Compile Include="Controllers\LayoutsController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
+    <Compile Include="Forms\Fields\TextField.cs" />
     <Compile Include="Forms\Form.cs" />
     <Compile Include="Forms\FormField.cs" />
     <Compile Include="Forms\FormFieldMetaInfo.cs" />
     <Compile Include="Forms\FormMetaInfo.cs" />
     <Compile Include="Forms\IFormField.cs" />
     <Compile Include="Forms\IFormFieldMetaInfo.cs" />
+    <Compile Include="Forms\IFormFieldType.cs" />
     <Compile Include="Forms\IFormMetaInfo.cs" />
     <Compile Include="Handlers\ApplicationStartedHandler.cs" />
     <Compile Include="Handlers\ApplicationStartingHandler.cs" />

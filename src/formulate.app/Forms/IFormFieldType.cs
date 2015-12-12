@@ -1,0 +1,7 @@
+﻿namespace formulate.app.Forms
+{
+    public interface IFormFieldType
+    {
+        string Directive { get; }
+    }
+}
