@@ -37,7 +37,10 @@ app.factory("formulateForms", function ($http, $q, notificationsService) {
                             return {
                                 id: field.Id,
                                 name: field.Name,
-                                alias: field.Alias
+                                alias: field.Alias,
+                                label: field.Label,
+                                directive: field.Directive,
+                                typeLabel: field.TypeLabel
                             };
                         })
                     };
@@ -61,7 +64,8 @@ app.factory("formulateForms", function ($http, $q, notificationsService) {
                 Fields: formData.fields.map(function(field) {
                     var result = {
                         Name: field.name,
-                        Alias: field.alias
+                        Alias: field.alias,
+                        Label: field.label
                     };
                     if (field.id) {
                         result.Id = field.id;

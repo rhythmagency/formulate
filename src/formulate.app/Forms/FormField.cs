@@ -35,22 +35,42 @@
 
 
         /// <summary>
+        /// The label for the field.
+        /// </summary>
+        public string Label { get; set; }
+
+
+        /// <summary>
         /// Information about the field.
         /// </summary>
         public IFormFieldMetaInfo[] MetaInfo { get; set; }
 
 
         /// <summary>
-        /// The data stored by the field.
+        /// The configuration data stored by the field.
         /// </summary>
-        public string Data { get; set; }
+        public string FieldConfiguration { get; set; }
 
 
-        //TODO: ...
+        /// <summary>
+        /// Gets the directive to use for this form field.
+        /// </summary>
+        /// <returns>The directive.</returns>
         public string GetDirective()
         {
             var instance = new T();
             return instance.Directive;
+        }
+
+
+        /// <summary>
+        /// Gets the type label to use for this form field.
+        /// </summary>
+        /// <returns>The type label.</returns>
+        public string GetTypeLabel()
+        {
+            var instance = new T();
+            return instance.TypeLabel;
         }
 
         #endregion

@@ -4,6 +4,7 @@
     // Namespaces.
     using core.Extensions;
     using Forms;
+    using Forms.Fields;
     using Helpers;
     using Models.Requests;
     using Persistence;
@@ -19,7 +20,6 @@
     using Umbraco.Web.WebApi.Filters;
     using CoreConstants = Umbraco.Core.Constants;
     using FormsConstants = formulate.app.Constants.Trees.Forms;
-    using Forms.Fields;
 
 
     /// <summary>
@@ -113,7 +113,10 @@
                     {
                         Id = GuidHelper.GetString(x.Id),
                         x.Alias,
-                        x.Name
+                        x.Name,
+                        x.Label,
+                        Directive = x.GetDirective(),
+                        TypeLabel = x.GetTypeLabel()
                     }).ToArray()
                 };
 
@@ -166,15 +169,16 @@
 
                 // Get the fields.
                 //TODO: Will have to figure out the field data type to properly instantiate the field.
-                //TODO: ...
-                var fields = request.Fields.MakeSafe().Select(x => new FormField<TextField>()
-                {
-                    Id = string.IsNullOrWhiteSpace(x.Id)
-                        ? Guid.NewGuid()
-                        : GuidHelper.GetGuid(x.Id),
-                    Alias = x.Alias,
-                    Name = x.Name
-                });
+                var fields = request.Fields.MakeSafe()
+                    .Select(x => new FormField<TextField>()
+                    {
+                        Id = string.IsNullOrWhiteSpace(x.Id)
+                            ? Guid.NewGuid()
+                            : GuidHelper.GetGuid(x.Id),
+                        Alias = x.Alias,
+                        Name = x.Name,
+                        Label = x.Label
+                    });
 
 
                 // Create the form.

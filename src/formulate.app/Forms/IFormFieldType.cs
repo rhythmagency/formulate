@@ -3,5 +3,6 @@
     public interface IFormFieldType
     {
         string Directive { get; }
+        string TypeLabel { get; }
     }
 }

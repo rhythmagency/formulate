@@ -9,5 +9,12 @@
                 return "formulate-text-field";
             }
         }
+        public string TypeLabel
+        {
+            get
+            {
+                return "Text";
+            }
+        }
     }
 }

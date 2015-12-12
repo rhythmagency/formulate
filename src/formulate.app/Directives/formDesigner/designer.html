@@ -1,20 +1,33 @@
 ﻿<div ng-controller="formulate.formDesigner">
 
     <!-- Form name/alias. -->
-    <div>
-        <label>Form Name</label>
-        <input ng-model="formName" />
-    </div>
-    <div>
-        <label>Form Alias</label>
-        <input ng-model="formAlias" />
-    </div>
+    <fieldset>
+        <legend><h2>Form ({{formName || "Unnamed"}})</h2></legend>
+        <div>
+            <label><strong>Form Name</strong></label>
+            <input ng-model="formName" type="text" />
+        </div>
+        <div>
+            <label><strong>Form Alias</strong></label>
+            <input ng-model="formAlias" type="text" />
+        </div>
+    </fieldset>
 
     <!-- Render all fields. -->
-    <div ng-repeat="field in fields">
-        <b>{{field.name}}</b>
-        <span> ({{field.alias}})</span>
-    </div>
+    <fieldset ng-repeat="field in fields">
+        <legend>{{field.typeLabel}} ({{field.name || "Unnamed"}})</legend>
+        <div>
+            <input type="text" ng-model="field.name" placeholder="Field Name" />
+        </div>
+        <div>
+            <input type="text" ng-model="field.alias" placeholder="Field Alias" />
+        </div>
+        <div>
+            <input type="text" ng-model="field.label" placeholder="Field Label" />
+        </div>
+        <formulate-field-editor directive="field.directive">
+        </formulate-field-editor>
+    </fieldset>
 
     <button class="btn btn-primary" ng-click="addField()" ng-disabled="!canAddField()">Add Field</button>
     <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()">Save</button>

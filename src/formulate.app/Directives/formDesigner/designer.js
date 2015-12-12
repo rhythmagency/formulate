@@ -15,7 +15,8 @@ function FormDesignerDirective(formulateDirectives) {
 }
 
 // Controller.
-function FormDesignerController($scope, $routeParams, navigationService, formulateForms, $location, $route) {
+function FormDesignerController($scope, $routeParams, navigationService,
+    formulateForms, $location, $route) {
 
     // Variables.
     var id = $routeParams.id;
@@ -102,8 +103,12 @@ function getAddField(services) {
 
         //TODO: Testing.
         $scope.fields.push({
-            alias: "newField",
-            name: "New Field"
+            name: null,
+            alias: null,
+            label: null,
+            //TODO: Should be a choice.
+            directive: "formulate-text-field",
+            typeLabel: "Text"
         });
 
     };
