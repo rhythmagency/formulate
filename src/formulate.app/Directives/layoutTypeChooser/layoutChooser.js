@@ -55,7 +55,7 @@ function getCreateLayout(services) {
         addNodeToTree(layoutInfo, services)
             .then(function (node) {
                 navigateToNode(node, services);
-                UmbClientMgr.closeModalWindow();
+                services.navigationService.hideDialog();
             });
     };
 }
@@ -91,6 +91,7 @@ function navigateToNode(node, services) {
 }
 
 // Creates the layout node on the server.
+//TODO: Move this function to the formulateLayouts service.
 function createNodeOnServer(layoutInfo, services) {
 
     // Variables.

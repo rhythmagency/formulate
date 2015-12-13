@@ -26,6 +26,15 @@
 
 
         /// <summary>
+        /// The entity path to this layout.
+        /// </summary>
+        /// <remarks>
+        /// This path excludes the root, but includes the layout ID.
+        /// </remarks>
+        public Guid[] Path { get; set; }
+
+
+        /// <summary>
         /// The alias of this layout.
         /// </summary>
         public string Alias { get; set; }
@@ -35,6 +44,18 @@
         /// The name of this layout.
         /// </summary>
         public string Name { get; set; }
+
+        #endregion
+
+
+        #region Constructors
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public Layout()
+        {
+        }
 
         #endregion
 

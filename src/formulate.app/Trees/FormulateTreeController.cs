@@ -2,9 +2,12 @@
 {
 
     // Namespaces.
+    using Forms;
+    using Layouts;
     using Helpers;
     using Persistence;
     using Resolvers;
+    using System;
     using System.Linq;
     using System.Net.Http.Formatting;
     using Umbraco.Core;
@@ -35,7 +38,8 @@
             TreeFormPersistence = FormPersistence.Current.Manager;
         }
 
-        protected override MenuItemCollection GetMenuForNode(string id, FormDataCollection queryStrings)
+        protected override MenuItemCollection GetMenuForNode(string id,
+            FormDataCollection queryStrings)
         {
             var menu = new MenuItemCollection();
             var rootId = CoreConstants.System.Root.ToInvariantString();
@@ -83,16 +87,48 @@
             }
             else
             {
-                //TODO: This is just for testing and should be removed eventually.
-                var path = "/App_Plugins/formulate/menu-actions/add.html";
-                var menuItem = new MenuItem()
+
+                // Variables.
+                var entityId = GuidHelper.GetGuid(id);
+                var entity = GetEntity(entityId);
+
+
+                // What type of entity does the node represent?
+                if (entity is Form)
                 {
-                    Alias = "add",
-                    Icon = "folder",
-                    Name = "Add"
-                };
-                menuItem.LaunchDialogView(path, "Add");
-                menu.Items.Add(menuItem);
+
+                    // Configure "Delete Form" button.
+                    var path = "/App_Plugins/formulate/menu-actions/deleteForm.html";
+                    var menuItem = new MenuItem()
+                    {
+                        Alias = "deleteForm",
+                        Icon = "folder",
+                        Name = "Delete Form"
+                    };
+                    menuItem.LaunchDialogView(path, "Delete Form");
+                    menu.Items.Add(menuItem);
+
+                }
+                else if (entity is Layout)
+                {
+                    //TODO: ...
+                }
+                else
+                {
+
+                    //TODO: This is just for testing and should be removed eventually.
+                    var path = "/App_Plugins/formulate/menu-actions/add.html";
+                    var menuItem = new MenuItem()
+                    {
+                        Alias = "add",
+                        Icon = "folder",
+                        Name = "Add"
+                    };
+                    menuItem.LaunchDialogView(path, "Add");
+                    menu.Items.Add(menuItem);
+
+                }
+
             }
             return menu;
         }
@@ -165,6 +201,13 @@
 
             }
             return nodes;
+        }
+
+        private object GetEntity(Guid id)
+        {
+            var form = TreeFormPersistence.Retrieve(id);
+            var layout = TreeLayoutPersistence.Retrieve(id);
+            return form as object ?? layout;
         }
 
     }

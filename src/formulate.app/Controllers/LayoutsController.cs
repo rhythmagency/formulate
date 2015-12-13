@@ -8,6 +8,7 @@
     using Persistence;
     using Resolvers;
     using System;
+    using System.Linq;
     using System.Web.Http;
     using Umbraco.Core;
     using Umbraco.Core.Logging;
@@ -78,12 +79,14 @@
         /// An object indicating success or failure, along with some
         /// accompanying data.
         /// </returns>
+        [HttpPost]
         public object CreateLayout(CreateLayoutRequest request)
         {
 
             // Variables.
             var result = default(object);
             var rootId = CoreConstants.System.Root.ToInvariantString();
+            var layoutsRootId = GuidHelper.GetGuid(LayoutsConstants.Id);
 
 
             // Catch all errors.
@@ -98,6 +101,8 @@
                 {
                     TypeId = typeId,
                     Id = layoutId,
+                    //TODO: Once folders are supported, this will need to account for that.
+                    Path = new[] { layoutsRootId, layoutId },
                     Name = request.LayoutName
                 };
 
@@ -106,13 +111,18 @@
                 Persistence.Persist(layout);
 
 
+                // Variables.
+                var fullPath = new[] { rootId }
+                    .Concat(layout.Path.Select(x => GuidHelper.GetString(x)))
+                    .ToArray();
+
+
                 // Success.
                 result = new
                 {
                     Success = true,
                     Id = strLayoutId,
-                    //TODO: Once nesting is supported, this will need to account for that.
-                    Path = new[] { rootId, LayoutsConstants.Id, strLayoutId }
+                    Path = fullPath
                 };
 
             }
@@ -145,6 +155,7 @@
         /// <returns>
         /// The path.
         /// </returns>
+        [HttpGet]
         public object GetPath([FromUri] GetLayoutPathRequest request)
         {
 

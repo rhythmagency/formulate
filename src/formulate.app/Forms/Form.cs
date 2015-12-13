@@ -20,6 +20,15 @@
 
 
         /// <summary>
+        /// The entity path to this form.
+        /// </summary>
+        /// <remarks>
+        /// This path excludes the root, but includes the form ID.
+        /// </remarks>
+        public Guid[] Path { get; set; }
+
+
+        /// <summary>
         /// The alias of this form.
         /// </summary>
         public string Alias { get; set; }
@@ -41,6 +50,18 @@
         /// Information about this form.
         /// </summary>
         public IFormMetaInfo[] MetaInfo { get; set; }
+
+        #endregion
+
+
+        #region Constructors
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public Form()
+        {
+        }
 
         #endregion
 

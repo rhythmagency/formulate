@@ -32,9 +32,10 @@
 
         #region Constants
 
-        private const string GetFormInfoError = @"An error occurred while attempting to get the form info for a Formulate form.";
         private const string UnhandledError = @"An unhandled error occurred. Refer to the error log.";
+        private const string GetFormInfoError = @"An error occurred while attempting to get the form info for a Formulate form.";
         private const string PersistFormError = @"An error occurred while attempting to persist the Formulate form.";
+        private const string DeleteFormError = @"An error occurred while attempting to delete the Formulate form.";
 
         #endregion
 
@@ -82,6 +83,7 @@
         /// An object indicating success or failure, along with some
         /// accompanying data.
         /// </returns>
+        [HttpGet]
         public object GetFormInfo([FromUri] GetFormInfoRequest request)
         {
 
@@ -98,6 +100,9 @@
                 var id = GuidHelper.GetGuid(request.FormId);
                 var strFormId = GuidHelper.GetString(id);
                 var form = Persistence.Retrieve(id);
+                var fullPath = new[] { rootId }
+                    .Concat(form.Path.Select(x => GuidHelper.GetString(x)))
+                    .ToArray();
 
 
                 // Return results.
@@ -107,8 +112,7 @@
                     FormId = GuidHelper.GetString(form.Id),
                     Alias = form.Alias,
                     Name = form.Name,
-                    //TODO: Once nesting is supported, this will need to account for that.
-                    Path = new[] { rootId, FormsConstants.Id, strFormId },
+                    Path = fullPath,
                     Fields = form.Fields.MakeSafe().Select(x => new
                     {
                         Id = GuidHelper.GetString(x.Id),
@@ -148,13 +152,16 @@
         /// The request to persist a form.
         /// </param>
         /// <returns>
-        /// Information about the persisted form.
+        /// An object indicating success or failure, along with the
+        /// form ID.
         /// </returns>
+        [HttpPost]
         public object PersistForm(PersistFormRequest request)
         {
 
             // Variables.
             var result = default(object);
+            var formsRootId = GuidHelper.GetGuid(FormsConstants.Id);
 
 
             // Catch all errors.
@@ -185,6 +192,8 @@
                 var form = new Form()
                 {
                     Id = formId,
+                    //TODO: Once folders are supported, this will need to account for that.
+                    Path = new [] { formsRootId, formId },
                     Alias = request.Alias,
                     Name = request.Name,
                     Fields = fields.ToArray()
@@ -208,6 +217,63 @@
 
                 // Error.
                 LogHelper.Error<FormsController>(PersistFormError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return the result.
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// Deletes the form with the specified ID.
+        /// </summary>
+        /// <param name="request">
+        /// The request to delete the form.
+        /// </param>
+        /// <returns>
+        /// An object indicating success or failure, along with some
+        /// accompanying data.
+        /// </returns>
+        [HttpPost()]
+        public object DeleteForm(DeleteFormRequest request)
+        {
+
+            // Variables.
+            var result = default(object);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Variables.
+                var formId = GuidHelper.GetGuid(request.FormId);
+
+
+                // Delete the form.
+                Persistence.Delete(formId);
+
+
+                // Success.
+                result = new
+                {
+                    Success = true
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<FormsController>(DeleteFormError, ex);
                 result = new
                 {
                     Success = false,

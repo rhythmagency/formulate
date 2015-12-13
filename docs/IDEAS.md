@@ -30,3 +30,5 @@ This shows how to pass "dialogData" to dialogs with the dialog service: http://2
 http://24days.in/umbraco/2015/custom-listview/
 
 http://stackoverflow.com/questions/5713147/custom-configurationsection-to-external-config
+
+Can hide public classes/methods from intellisense: http://stackoverflow.com/a/9274886
