@@ -266,6 +266,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\JsonElement.cs" />
+    <Compile Include="Configuration\PersistenceConfigSection.cs" />
     <Compile Include="Constants\Trees\DataSources.cs" />
     <Compile Include="Constants\Trees\DataValues.cs" />
     <Compile Include="Constants\Trees\Forms.cs" />

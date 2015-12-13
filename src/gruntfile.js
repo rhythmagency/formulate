@@ -144,6 +144,12 @@ module.exports = function(grunt) {
                         src: binaries,
                         dest: './FormulateTemp/package/bin/',
                         cwd: appProject + "/bin/" + getConfiguration() + "/"
+                    }, {
+                        // Config files.
+                        expand: true,
+                        src: ["Config/Formulate/*.config"],
+                        dest: './FormulateTemp/package/',
+                        cwd: "Website/"
                     }
                 ]
             }

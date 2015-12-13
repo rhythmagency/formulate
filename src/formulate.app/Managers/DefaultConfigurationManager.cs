@@ -1,11 +1,18 @@
 ﻿namespace formulate.app.Managers
 {
 
+    // Namespaces.
+    using Configuration;
+    using System.Configuration;
+
+
     /// <summary>
     /// The default configuration manager.
     /// </summary>
     internal class DefaultConfigurationManager : IConfigurationManager
     {
+
+        #region Properties
 
         /// <summary>
         /// The base path to store JSON in.
@@ -14,9 +21,15 @@
         {
             get
             {
-                return "~/App_Data/Formulate/Json/";
+                var persistence = ConfigurationManager
+                    .GetSection("formulateConfiguration/persistence")
+                    as PersistenceConfigSection;
+                var basePath = persistence.Json.BasePath;
+                return basePath;
             }
         }
+
+        #endregion
 
     }
 
