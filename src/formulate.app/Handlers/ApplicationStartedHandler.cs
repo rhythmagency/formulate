@@ -54,6 +54,26 @@
             var needsUpgrade = !Constants.Version.InvariantEquals(version);
             if (!isInstalled)
             {
+                HandleInstall(applicationContext);
+            }
+            else if (needsUpgrade)
+            {
+                AddVersion();
+            }
+        }
+
+
+        /// <summary>
+        /// Handles install operations.
+        /// </summary>
+        private void HandleInstall(ApplicationContext applicationContext)
+        {
+
+            // Only proceed if some users exist already (ensures
+            // automatic permission assignment works as expected).
+            var usersExist = DoAnyUsersExist();
+            if (usersExist)
+            {
                 AddSection(applicationContext);
                 AddDashboard();
                 AddFormulateDeveloperTab();
@@ -61,10 +81,7 @@
                 AddConfigurationGroup();
                 AddVersion();
             }
-            else if (needsUpgrade)
-            {
-                AddVersion();
-            }
+
         }
 
 
@@ -288,6 +305,23 @@
 
             }
 
+        }
+
+
+        /// <summary>
+        /// Indicates whether or not any users exist yet.
+        /// </summary>
+        /// <returns>
+        /// True, if any users exist; otherwise, false.
+        /// </returns>
+        private bool DoAnyUsersExist()
+        {
+            var services = ApplicationContext.Current.Services;
+            var service = services.UserService;
+            var total = default(int);
+            var users = service.GetAll(0, 1, out total).ToList();
+            var usersExist = users.Any();
+            return usersExist;
         }
 
         #endregion
