@@ -106,5 +106,17 @@ namespace formulate.app.Properties {
                 return ResourceManager.GetString("GrantPermissionToSection", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Action runat=&quot;install&quot; undo=&quot;false&quot; alias=&quot;TransformXmlFile&quot;
+        ///  installTransform=&quot;~/Transforms/Formulate/web.config.install.xdt&quot;
+        ///  uninstallTransform=&quot;~/Transforms/Formulate/web.config.uninstall.xdt&quot;
+        ///  file=&quot;~/Web.config&quot; /&gt;.
+        /// </summary>
+        internal static string TransformWebConfig {
+            get {
+                return ResourceManager.GetString("TransformWebConfig", resourceCulture);
+            }
+        }
     }
 }

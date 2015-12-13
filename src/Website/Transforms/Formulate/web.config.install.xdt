@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <configSections>
+    <sectionGroup name="formulateConfiguration" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing">
+      <section name="persistence" type="formulate.app.Configuration.PersistenceConfigSection, formulate.app" requirePermission="false" />
+    </sectionGroup>
+  </configSections>
+
+  <!-- Remove existing element. -->
+  <formulateConfiguration xdt:Transform="Remove">
+  </formulateConfiguration>
+
+  <!-- Add new element after Umbraco configuration. -->
+  <formulateConfiguration xdt:Transform="InsertAfter(/configuration/umbracoConfiguration)">
+    <persistence configSource="config\Formulate\persistence.config" />
+  </formulateConfiguration>
+
+  <!-- If the element couldn't be added, add it now. -->
+  <formulateConfiguration xdt:Transform="InsertIfMissing">
+    <persistence configSource="config\Formulate\persistence.config" />
+  </formulateConfiguration>
+
+</configuration>

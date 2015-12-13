@@ -1,0 +1,4 @@
+<Action runat="install" undo="false" alias="Formulate.TransformXmlFile"
+  installTransform="~/Transforms/Formulate/web.config.install.xdt"
+  uninstallTransform="~/Transforms/Formulate/web.config.uninstall.xdt"
+  file="~/Web.config" />

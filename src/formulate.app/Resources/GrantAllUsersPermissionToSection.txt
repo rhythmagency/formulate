@@ -1,1 +1,1 @@
-<Action runat="install" undo="false" alias="GrantPermissionToSection" username="$AllUsers" sectionName="formulate" />
+<Action runat="install" undo="false" alias="Formulate.GrantPermissionToSection" username="$AllUsers" sectionName="formulate" />

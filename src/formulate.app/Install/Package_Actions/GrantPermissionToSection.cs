@@ -10,6 +10,7 @@
     using Umbraco.Core;
     using Umbraco.Core.Models.Membership;
     using Umbraco.Web;
+    using MetaConstants = meta.Constants;
     using Resources = formulate.app.Properties.Resources;
     using XmlHelper = Helpers.XmlHelper;
 
@@ -19,7 +20,9 @@
     /// section for the specified user.
     /// </summary>
     /// <remarks>
-    /// If the specified username is "$CurrentUser", the current user will be used.
+    /// If the specified username is "$CurrentUser", the current user
+    /// will be used. If the specified username is "$AllUsers", all
+    /// users will be used.
     /// </remarks>
     public class GrantPermissionToSection : IPackageAction
     {
@@ -32,7 +35,10 @@
         /// <returns>The alias to be used for this package action.</returns>
         public string Alias()
         {
-            return typeof(GrantPermissionToSection).Name;
+            var packageName = MetaConstants.PackageName;
+            var actionName = typeof(GrantPermissionToSection).Name;
+            var aliasFormat = "{0}.{1}";
+            return string.Format(aliasFormat, packageName, actionName);
         }
 
 
@@ -65,7 +71,7 @@
 
 
         /// <summary>
-        /// Sample XML that can be used to invoke this package actionn.
+        /// Sample XML that can be used to invoke this package action.
         /// </summary>
         /// <returns>The sample XML.</returns>
         public XmlNode SampleXml()

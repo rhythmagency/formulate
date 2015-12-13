@@ -19,6 +19,12 @@
         /// </remarks>
         public const string Version = "0.0.0.2";
 
+
+        /// <summary>
+        /// The name of the Formulate package.
+        /// </summary>
+        public const string PackageName = "Formulate";
+
     }
 
 }

@@ -58,6 +58,7 @@
                 AddDashboard();
                 AddFormulateDeveloperTab();
                 PermitAccess();
+                AddConfigurationGroup();
                 AddVersion();
             }
             else if (needsUpgrade)
@@ -253,6 +254,39 @@
             // Grant access permission.
             PackageAction.RunPackageAction("Formulate",
                 "GrantPermissionToSection", doc.FirstChild);
+
+        }
+
+
+        /// <summary>
+        /// Transforms the web.config to add the Formulate
+        /// configuration group.
+        /// </summary>
+        private void AddConfigurationGroup()
+        {
+
+            // Does the section group already exist?
+            var config = WebConfigurationManager.OpenWebConfiguration("~");
+            var groupName = "formulateConfiguration";
+            var group = config.GetSectionGroup(groupName);
+            var exists = group != null;
+
+
+            // Only add the group if it doesn't exist.
+            if (!exists)
+            {
+
+                // Variables.
+                var doc = new XmlDocument();
+                var actionXml = Resources.TransformWebConfig;
+                doc.LoadXml(actionXml);
+
+
+                // Grant access permission.
+                PackageAction.RunPackageAction("Formulate",
+                    "Formulate.TransformXmlFile", doc.FirstChild);
+
+            }
 
         }
 

@@ -10,7 +10,9 @@ module.exports = function(grunt) {
         return [".dll", ".pdb"].map(function (ext) {
             return projectName + "." + base + ext;
         });
-    }));
+    })).concat([
+        "Microsoft.Web.XmlTransform.dll"
+    ]);
     var appProject = projectName + ".app";
     var buildConfig = grunt.option("buildConfiguration");
 
@@ -145,9 +147,12 @@ module.exports = function(grunt) {
                         dest: './FormulateTemp/package/bin/',
                         cwd: appProject + "/bin/" + getConfiguration() + "/"
                     }, {
-                        // Config files.
+                        // Config and transform files.
                         expand: true,
-                        src: ["Config/Formulate/*.config"],
+                        src: [
+                            "Config/Formulate/*.config",
+                            "Transforms/Formulate/*.xdt"
+                        ],
                         dest: './FormulateTemp/package/',
                         cwd: "Website/"
                     }

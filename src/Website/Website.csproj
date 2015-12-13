@@ -397,6 +397,13 @@
   <ItemGroup>
     <Content Include="Transform.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\Formulate\persistence.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Transforms\Formulate\web.config.install.xdt" />
+    <Content Include="Transforms\Formulate\web.config.uninstall.xdt" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
