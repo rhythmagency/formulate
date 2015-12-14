@@ -1,34 +1,57 @@
-﻿<div ng-controller="formulate.formDesigner">
+﻿<form ng-controller="formulate.formDesigner" val-form-manager>
+    <div class="umb-panel">
+        <div class="umb-panel-header">
+            <div class="row-fluid">
+                <div class="span7">
 
-    <!-- Form name/alias. -->
-    <fieldset>
-        <legend><h2>Form ({{formName || "Unnamed"}})</h2></legend>
-        <div>
-            <label><strong>Form Name</strong></label>
-            <input ng-model="formName" type="text" />
-        </div>
-        <div>
-            <label><strong>Form Alias</strong></label>
-            <input ng-model="formAlias" type="text" />
-        </div>
-    </fieldset>
+                    <!-- Form name. -->
+                    <umb-content-name ng-model="formName" placeholder="Form Name"></umb-content-name>
 
-    <!-- Render all fields. -->
-    <fieldset ng-repeat="field in fields">
-        <legend>{{field.typeLabel}} ({{field.name || "Unnamed"}})</legend>
-        <div>
-            <input type="text" ng-model="field.name" placeholder="Field Name" />
+                </div>
+            </div>
         </div>
-        <div>
-            <input type="text" ng-model="field.alias" placeholder="Field Alias" />
-        </div>
-        <div>
-            <input type="text" ng-model="field.label" placeholder="Field Label" />
-        </div>
-        <formulate-field-editor directive="field.directive">
-        </formulate-field-editor>
-    </fieldset>
+        <div class="umb-panel-body umb-scrollable row-fluid">
+            <div class="tab-content form-horizontal">
+                <div class='umb-tab-pane tab-pane active'>
+                    <div class='umb-tab-pane-inner'>
+                        <div class="umb-pane">
 
-    <button class="btn btn-primary" ng-click="addField()" ng-disabled="!canAddField()">Add Field</button>
-    <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()">Save</button>
-</div>
+                            <!-- TODO: Remove. -->
+                            <div>{{chooser.show}}</div>
+
+                            <!-- Form alias. -->
+                            <fieldset>
+                                <legend><h2>Form Information</h2></legend>
+                                <div>
+                                    <input ng-model="formAlias" type="text" placeholder="Form Alias" />
+                                </div>
+                            </fieldset>
+
+                            <!-- Render all fields. -->
+                            <fieldset ng-repeat="field in fields">
+                                <legend>{{field.typeLabel}} ({{field.name || "Unnamed"}})</legend>
+                                <div>
+                                    <input type="text" ng-model="field.name" placeholder="Field Name" />
+                                </div>
+                                <div>
+                                    <input type="text" ng-model="field.alias" placeholder="Field Alias" />
+                                </div>
+                                <div>
+                                    <input type="text" ng-model="field.label" placeholder="Field Label" />
+                                </div>
+                                <formulate-field-editor directive="field.directive">
+                                </formulate-field-editor>
+                            </fieldset>
+
+                            <button class="btn btn-primary" ng-click="addField()" ng-disabled="!canAddField()">Add Field</button>
+                            <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()">Save</button>
+
+                            <formulate-field-chooser show="fieldChooser.show" chosen="fieldChosen(field)"></formulate-field-chooser>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

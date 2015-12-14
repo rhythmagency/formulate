@@ -38,6 +38,9 @@ function FormDesignerController($scope, $routeParams, navigationService,
     if (!isNew) {
         $scope.formId = id;
     }
+    $scope.fieldChooser = {
+        show: false
+    };
 
     // Set scope functions.
     $scope.save = getSaveForm({
@@ -46,6 +49,7 @@ function FormDesignerController($scope, $routeParams, navigationService,
     $scope.addField = getAddField(services);
     $scope.canSave = getCanSave(services);
     $scope.canAddField = getCanAddField(services);
+    $scope.fieldChosen = getFieldChosen(services);
 
     // Initializes form.
     initializeForm({
@@ -101,15 +105,8 @@ function getAddField(services) {
         // Variables.
         var $scope = services.$scope;
 
-        //TODO: Testing.
-        $scope.fields.push({
-            name: null,
-            alias: null,
-            label: null,
-            //TODO: Should be a choice.
-            directive: "formulate-text-field",
-            typeLabel: "Text"
-        });
+        // Show field chooser.
+        $scope.fieldChooser.show = true;
 
     };
 }
@@ -185,4 +182,21 @@ function activateInTree(form, services) {
         activate: true
     };
     services.navigationService.syncTree(options);
+}
+
+// Gets the function that handles a chosen field.
+function getFieldChosen(services) {
+    return function(field) {
+        var $scope = services.$scope;
+        $scope.fieldChooser.show = false;
+        if (field) {
+            $scope.fields.push({
+                name: null,
+                alias: null,
+                label: null,
+                directive: field.directive,
+                typeLabel: field.typeLabel
+            });
+        }
+    };
 }
