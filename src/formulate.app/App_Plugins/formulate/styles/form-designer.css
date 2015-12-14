@@ -1,0 +1,36 @@
+.formulate-field .collapser {
+    -moz-transition: transform 0.25s;
+    -o-transition: transform 0.25s;
+    -webkit-transition: transform 0.25s;
+    transition: transform 0.25s;
+    float: right;
+}
+
+.formulate-field.collapsed .collapser {
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+}
+
+.formulate-field.expanded .collapser {
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.formulate-field .formulate-field-details {
+    max-height: 500px;
+    overflow: hidden;
+    transition:
+        max-height 0.25s,
+        opacity 0.25s;
+}
+
+.formulate-field.collapsed .formulate-field-details {
+    max-height: 0;
+    opacity: 0;
+}

@@ -50,6 +50,7 @@ function FormDesignerController($scope, $routeParams, navigationService,
     $scope.canSave = getCanSave(services);
     $scope.canAddField = getCanAddField(services);
     $scope.fieldChosen = getFieldChosen(services);
+    $scope.toggleField = getToggleField();
 
     // Initializes form.
     initializeForm({
@@ -150,6 +151,11 @@ function initializeForm(options, services) {
             $scope.formName = form.name;
             $scope.fields = form.fields;
 
+            // Collapse fields.
+            for (var field in $scope.fields) {
+                field.expanded = false;
+            }
+
             // The form can be saved now.
             $scope.initialized = true;
 
@@ -195,8 +201,16 @@ function getFieldChosen(services) {
                 alias: null,
                 label: null,
                 directive: field.directive,
-                typeLabel: field.typeLabel
+                typeLabel: field.typeLabel,
+                expanded: true
             });
         }
+    };
+}
+
+// Gets the function that toggles the visibility of a field.
+function getToggleField() {
+    return function(field) {
+        field.expanded = !field.expanded;
     };
 }

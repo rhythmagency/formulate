@@ -2,11 +2,11 @@
    which contains the selection.json you can use to update the icons. */
 @font-face {
 	font-family: 'icomoon';
-	src:url('fonts/icomoon/icomoon.eot?ddt3ea');
-	src:url('fonts/icomoon/icomoon.eot?ddt3ea#iefix') format('embedded-opentype'),
-		url('fonts/icomoon/icomoon.ttf?ddt3ea') format('truetype'),
-		url('fonts/icomoon/icomoon.woff?ddt3ea') format('woff'),
-		url('fonts/icomoon/icomoon.svg?ddt3ea#icomoon') format('svg');
+	src:url('../fonts/icomoon/icomoon.eot?ddt3ea');
+	src:url('../fonts/icomoon/icomoon.eot?ddt3ea#iefix') format('embedded-opentype'),
+		url('../fonts/icomoon/icomoon.ttf?ddt3ea') format('truetype'),
+		url('../fonts/icomoon/icomoon.woff?ddt3ea') format('woff'),
+		url('../fonts/icomoon/icomoon.svg?ddt3ea#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

@@ -16,36 +16,63 @@
                     <div class='umb-tab-pane-inner'>
                         <div class="umb-pane">
 
-                            <!-- TODO: Remove. -->
-                            <div>{{chooser.show}}</div>
-
                             <!-- Form alias. -->
                             <fieldset>
                                 <legend><h2>Form Information</h2></legend>
-                                <div>
-                                    <input ng-model="formAlias" type="text" placeholder="Form Alias" />
+                                <div class="control-group umb-control-group">
+                                    <div class="umb-el-wrap">
+                                        <label class="control-label">
+                                            Form Alias
+                                        </label>
+                                        <div class="controls controls-row">
+                                            <input ng-model="formAlias" type="text" placeholder="Form Alias" />
+                                        </div>
+                                    </div>
                                 </div>
                             </fieldset>
 
                             <!-- Render all fields. -->
-                            <fieldset ng-repeat="field in fields">
-                                <legend>{{field.typeLabel}} ({{field.name || "Unnamed"}})</legend>
-                                <div>
-                                    <input type="text" ng-model="field.name" placeholder="Field Name" />
+                            <fieldset ng-repeat="field in fields" class="formulate-field {{field.expanded ? 'expanded' : 'collapsed'}}">
+                                <legend>{{field.typeLabel}} ({{field.name || "Unnamed"}}) <i ng-click="toggleField(field)" class="collapser icon icon-add"></i></legend>
+                                <div class="formulate-field-details">
+                                    <div class="control-group umb-control-group">
+                                        <div class="umb-el-wrap">
+                                            <label class="control-label">
+                                                Field Name
+                                            </label>
+                                            <div class="controls controls-row">
+                                                <input type="text" ng-model="field.name" placeholder="Field Name" />
+                                            </div>
+                                        </div>
+                                        <div class="umb-el-wrap">
+                                            <label class="control-label">
+                                                Field Alias
+                                            </label>
+                                            <div class="controls controls-row">
+                                                <input type="text" ng-model="field.alias" placeholder="Field Alias" />
+                                            </div>
+                                        </div>
+                                        <div class="umb-el-wrap">
+                                            <label class="control-label">
+                                                Field Label
+                                            </label>
+                                            <div class="controls controls-row">
+                                                <input type="text" ng-model="field.label" placeholder="Field Label" />
+                                            </div>
+                                        </div>
+                                        <formulate-field-editor directive="field.directive">
+                                        </formulate-field-editor>
+                                    </div>
                                 </div>
-                                <div>
-                                    <input type="text" ng-model="field.alias" placeholder="Field Alias" />
-                                </div>
-                                <div>
-                                    <input type="text" ng-model="field.label" placeholder="Field Label" />
-                                </div>
-                                <formulate-field-editor directive="field.directive">
-                                </formulate-field-editor>
                             </fieldset>
 
-                            <button class="btn btn-primary" ng-click="addField()" ng-disabled="!canAddField()">Add Field</button>
-                            <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()">Save</button>
+                            <!-- Button. -->
+                            <div class="btn-group">
+                                <button class="btn" ng-click="addField()" ng-disabled="!canAddField()" prevent-default>Add Field</button>
+                                <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
+                            </div>
 
+                            <!-- Field chooser dialog. -->
                             <formulate-field-chooser show="fieldChooser.show" chosen="fieldChosen(field)"></formulate-field-chooser>
 
                         </div>
