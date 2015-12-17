@@ -1,6 +1,5 @@
 ﻿<div class="usky-grid" ng-controller="formulate.fieldChooser" ng-if="show">
-    <!-- TODO: Make this top dynamic. -->
-    <div class="cell-tools-menu" style="top: 400px;">
+    <div class="cell-tools-menu" ng-style="dialogStyles">
         <h5>
             Add a Field (<a href="" ng-click="cancel()">Cancel</a>)
         </h5>

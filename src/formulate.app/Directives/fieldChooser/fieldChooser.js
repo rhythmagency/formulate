@@ -2,11 +2,11 @@
 var app = angular.module("umbraco");
 
 // Associate directive/controller.
-app.directive("formulateFieldChooser", FieldChooserDirective);
-app.controller("formulate.fieldChooser", FieldChooserController);
+app.directive("formulateFieldChooser", fieldChooserDirective);
+app.controller("formulate.fieldChooser", fieldChooserController);
 
 // Directive.
-function FieldChooserDirective(formulateDirectives) {
+function fieldChooserDirective(formulateDirectives) {
     return {
         restrict: "E",
         template: formulateDirectives.get("fieldChooser/fieldChooser.html"),
@@ -18,8 +18,8 @@ function FieldChooserDirective(formulateDirectives) {
 }
 
 // Controller.
-function FieldChooserController($scope, $routeParams, navigationService,
-    formulateForms, $location, $route) {
+function fieldChooserController($scope, $routeParams, navigationService,
+    formulateForms, $location, $route, $element) {
 
     //TODO: Should come from a service, which should get these from the server.
     $scope.items = [
@@ -35,6 +35,7 @@ function FieldChooserController($scope, $routeParams, navigationService,
             typeLabel: "Checkbox"
         }
     ];
+    $scope.dialogStyles = {};
 
     // Handle chosen item.
     $scope.choseItem = function(item) {
@@ -49,5 +50,30 @@ function FieldChooserController($scope, $routeParams, navigationService,
             field: null
         });
     };
+
+    // When the dialog appears, position it in view.
+    $scope.$watch("show", function(newValue, oldValue) {
+        if (newValue) {
+            var top = calculateDialogTop({
+                $element: $element
+            });
+            $scope.dialogStyles.top = top;
+        }
+    });
+
+}
+
+// Calculates the top of the dialog.
+function calculateDialogTop(options) {
+
+    // This is a magic formula I copied from Archetype. Seems to work.
+    var $element = options.$element;
+    var offset = $element.offset();
+    var scrollTop = $element.closest(".umb-panel-body").scrollTop();
+    if (offset.top < 400) {
+        return 300 + scrollTop;
+    } else {
+        return offset.top - 150 + scrollTop;
+    }
 
 }

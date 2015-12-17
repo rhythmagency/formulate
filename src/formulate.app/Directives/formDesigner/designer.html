@@ -11,6 +11,10 @@
             </div>
         </div>
         <div class="umb-panel-body umb-scrollable row-fluid">
+
+            <!-- Field chooser dialog. -->
+            <formulate-field-chooser show="fieldChooser.show" chosen="fieldChosen(field)"></formulate-field-chooser>
+
             <div class="tab-content form-horizontal">
                 <div class='umb-tab-pane tab-pane active'>
                     <div class='umb-tab-pane-inner'>
@@ -71,9 +75,6 @@
                                 <button class="btn" ng-click="addField()" ng-disabled="!canAddField()" prevent-default>Add Field</button>
                                 <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
                             </div>
-
-                            <!-- Field chooser dialog. -->
-                            <formulate-field-chooser show="fieldChooser.show" chosen="fieldChosen(field)"></formulate-field-chooser>
 
                         </div>
                     </div>
