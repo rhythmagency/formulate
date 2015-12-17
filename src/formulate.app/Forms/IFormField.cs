@@ -16,8 +16,10 @@
         string Label { get; set; }
         string FieldConfiguration { get; set; }
         IFormFieldMetaInfo[] MetaInfo { get; set; }
+        string GetIcon();
         string GetDirective();
         string GetTypeLabel();
+        Type GetFieldType();
     }
 
 }

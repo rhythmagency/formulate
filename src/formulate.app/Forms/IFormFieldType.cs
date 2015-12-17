@@ -4,5 +4,6 @@
     {
         string Directive { get; }
         string TypeLabel { get; }
+        string Icon { get; }
     }
 }

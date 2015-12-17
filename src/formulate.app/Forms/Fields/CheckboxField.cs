@@ -1,19 +1,19 @@
 ﻿namespace formulate.app.Forms.Fields
 {
-    public class TextField : IFormFieldType
+    public class CheckboxField : IFormFieldType
     {
         public string Directive
         {
             get
             {
-                return "formulate-text-field";
+                return "formulate-checkbox-field";
             }
         }
         public string TypeLabel
         {
             get
             {
-                return "Text";
+                return "Checkbox";
             }
         }
         public string Icon

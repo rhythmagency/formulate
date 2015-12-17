@@ -4,7 +4,6 @@
     // Namespaces.
     using core.Extensions;
     using Forms;
-    using Forms.Fields;
     using Helpers;
     using Models.Requests;
     using Persistence;
@@ -120,7 +119,8 @@
                         x.Name,
                         x.Label,
                         Directive = x.GetDirective(),
-                        TypeLabel = x.GetTypeLabel()
+                        TypeLabel = x.GetTypeLabel(),
+                        TypeFullName = x.GetFieldType().AssemblyQualifiedName
                     }).ToArray()
                 };
 
@@ -175,17 +175,24 @@
 
 
                 // Get the fields.
-                //TODO: Will have to figure out the field data type to properly instantiate the field.
                 var fields = request.Fields.MakeSafe()
-                    .Select(x => new FormField<TextField>()
+                    .Select(x =>
                     {
-                        Id = string.IsNullOrWhiteSpace(x.Id)
+                        var fieldType = Type.GetType(x.TypeFullName);
+                        var genericType = typeof(FormField<>);
+                        var specificType =
+                            genericType.MakeGenericType(new[] { fieldType });
+                        var field = Activator.CreateInstance(specificType)
+                            as IFormField;
+                        field.Id = string.IsNullOrWhiteSpace(x.Id)
                             ? Guid.NewGuid()
-                            : GuidHelper.GetGuid(x.Id),
-                        Alias = x.Alias,
-                        Name = x.Name,
-                        Label = x.Label
-                    });
+                            : GuidHelper.GetGuid(x.Id);
+                        field.Alias = x.Alias;
+                        field.Name = x.Name;
+                        field.Label = x.Label;
+                        return field;
+                    })
+                    .ToArray();
 
 
                 // Create the form.

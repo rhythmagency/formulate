@@ -73,6 +73,29 @@
             return instance.TypeLabel;
         }
 
+
+        /// <summary>
+        /// Gets the icon to use for this form field.
+        /// </summary>
+        /// <returns>The icon.</returns>
+        public string GetIcon()
+        {
+            var instance = new T();
+            return instance.Icon;
+        }
+
+
+        /// <summary>
+        /// Returns the type of field.
+        /// </summary>
+        /// <returns>
+        /// The field type.
+        /// </returns>
+        public Type GetFieldType()
+        {
+            return typeof(T);
+        }
+
         #endregion
 
     }

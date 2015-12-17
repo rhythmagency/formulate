@@ -77,24 +77,26 @@ function getSaveForm(options, services) {
         };
 
         // Persist form on server.
-        services.formulateForms.persistForm(formData).then(function(responseData) {
+        services.formulateForms.persistForm(formData)
+            .then(function(responseData) {
 
-            // Form is no longer new.
-            var isNew = $scope.isNew;
-            $scope.isNew = false;
+                // Form is no longer new.
+                var isNew = $scope.isNew;
+                $scope.isNew = false;
 
-            // Redirect or reload page.
-            if (isNew) {
-                var url = "/formulate/formulate/editForm/" + responseData.formId;
-                services.$location.url(url);
-            } else {
+                // Redirect or reload page.
+                if (isNew) {
+                    var url = "/formulate/formulate/editForm/"
+                        + responseData.formId;
+                    services.$location.url(url);
+                } else {
 
-                // Even existing forms reload (e.g., to get new field ID's).
-                services.$route.reload();
+                    // Even existing forms reload (e.g., to get new field ID's).
+                    services.$route.reload();
 
-            }
+                }
 
-        });
+            });
 
     };
 }
@@ -200,8 +202,10 @@ function getFieldChosen(services) {
                 name: null,
                 alias: null,
                 label: null,
+                icon: field.icon,
                 directive: field.directive,
                 typeLabel: field.typeLabel,
+                typeFullName: field.typeFullName,
                 expanded: true
             });
         }

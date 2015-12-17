@@ -19,22 +19,12 @@ function fieldChooserDirective(formulateDirectives) {
 
 // Controller.
 function fieldChooserController($scope, $routeParams, navigationService,
-    formulateForms, $location, $route, $element) {
+    formulateForms, $location, $route, $element, formulateFields) {
 
-    //TODO: Should come from a service, which should get these from the server.
-    $scope.items = [
-        {
-            icon: "icon-document-dashed-line",
-            label: "Text",
-            directive: "formulate-text-field",
-            typeLabel: "Text"
-        }, {
-            icon: "icon-document-dashed-line",
-            label: "Checkbox",
-            directive: "formulate-checkbox-field",
-            typeLabel: "Checkbox"
-        }
-    ];
+    // Set scope variables.
+    formulateFields.getFieldTypes().then(function(fieldTypes) {
+        $scope.items = fieldTypes;
+    });
     $scope.dialogStyles = {};
 
     // Handle chosen item.

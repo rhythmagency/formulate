@@ -60,7 +60,8 @@ function getGetFormInfo(services) {
                             alias: field.Alias,
                             label: field.Label,
                             directive: field.Directive,
-                            typeLabel: field.TypeLabel
+                            typeLabel: field.TypeLabel,
+                            typeFullName: field.TypeFullName
                         };
                     })
                 };
@@ -82,7 +83,8 @@ function getPersistForm(services) {
                 var result = {
                     Name: field.name,
                     Alias: field.alias,
-                    Label: field.label
+                    Label: field.label,
+                    TypeFullName: field.typeFullName
                 };
                 if (field.id) {
                     result.Id = field.id;
