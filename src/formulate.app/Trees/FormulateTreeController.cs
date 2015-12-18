@@ -58,16 +58,8 @@
             else if (id.InvariantEquals(FormsConstants.Id))
             {
 
-                // Configure "Create Form" button.
-                var path = "/formulate/formulate/editForm/null";
-                var menuItem = new MenuItem()
-                {
-                    Alias = "createForm",
-                    Icon = "folder",
-                    Name = "Create Form"
-                };
-                menuItem.NavigateToRoute(path);
-                menu.Items.Add(menuItem);
+                AddCreateFormAction(menu);
+                AddCreateFolderAction(menu);
 
             }
             else if (id.InvariantEquals(LayoutsConstants.Id))
@@ -208,6 +200,40 @@
             var form = TreeFormPersistence.Retrieve(id);
             var layout = TreeLayoutPersistence.Retrieve(id);
             return form as object ?? layout;
+        }
+
+
+        private void AddCreateFormAction(MenuItemCollection menu)
+        {
+
+            // Configure "Create Form" action.
+            var path = "/formulate/formulate/editForm/null";
+            var menuItem = new MenuItem()
+            {
+                Alias = "createForm",
+                Icon = "folder",
+                Name = "Create Form"
+            };
+            menuItem.NavigateToRoute(path);
+            menu.Items.Add(menuItem);
+
+        }
+
+
+        private void AddCreateFolderAction(MenuItemCollection menu)
+        {
+
+            // Configure "Create Folder" button.
+            var path = "/App_Plugins/formulate/menu-actions/createFolder.html";
+            var menuItem = new MenuItem()
+            {
+                Alias = "createFolder",
+                Icon = "folder",
+                Name = "Create Folder"
+            };
+            menuItem.LaunchDialogView(path, "Create Folder");
+            menu.Items.Add(menuItem);
+
         }
 
     }
