@@ -47,7 +47,8 @@ function getCreateFolder(services) {
 
                 // Return form ID.
                 return {
-                    folderId: data.FolderId
+                    folderId: data.FolderId,
+                    path: data.Path
                 };
 
             }), getHandleServerError(services));

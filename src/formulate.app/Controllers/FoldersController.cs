@@ -2,8 +2,6 @@
 {
 
     // Namespaces.
-    using core.Extensions;
-    using Forms;
     using Folders;
     using Helpers;
     using Models.Requests;
@@ -12,17 +10,15 @@
     using System;
     using System.Linq;
     using System.Web.Http;
-    using Umbraco.Core;
     using Umbraco.Core.Logging;
     using Umbraco.Web;
     using Umbraco.Web.Editors;
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
     using CoreConstants = Umbraco.Core.Constants;
-    using FormsConstants = formulate.app.Constants.Trees.Forms;
 
 
-    /// <summary>C:\r\formulate\src\formulate.app\Handlers\ApplicationStartingHandler.cs
+    /// <summary>
     /// Controller for Formulate forms.
     /// </summary>
     [PluginController("formulate")]
@@ -103,7 +99,7 @@
 
 
                 // Create the folder.
-                var form = new Folder()
+                var folder = new Folder()
                 {
                     Id = folderId,
                     Path = path,
@@ -112,14 +108,16 @@
 
 
                 // Persist the folder.
-                Persistence.Persist(form);
+                Persistence.Persist(folder);
 
 
                 // Success.
                 result = new
                 {
                     Success = true,
-                    FolderId = GuidHelper.GetString(folderId)
+                    FolderId = GuidHelper.GetString(folderId),
+                    Path = path.Select(x => GuidHelper.GetString(x))
+                        .ToArray()
                 };
 
             }
