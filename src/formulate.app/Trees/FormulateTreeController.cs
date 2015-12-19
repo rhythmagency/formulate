@@ -187,6 +187,7 @@
 
                 // Get form nodes.
                 var formatUrl = "/formulate/formulate/editForm/{0}";
+                var folderUrl = "/formulate/formulate/folderInfo/{0}";
                 var formsRootId = GuidHelper.GetGuid(FormsConstants.Id);
                 var rootFolders = TreeFolderPersistence
                     .RetrieveChildren(formsRootId);
@@ -194,12 +195,13 @@
                 foreach (var folder in rootFolders)
                 {
                     var folderId = GuidHelper.GetString(folder.Id);
+                    var folderRoute = string.Format(folderUrl, folderId);
                     var folderName = folder.Name ?? "Unnamed";
                     var hasChildren = TreeEntityPersistence
                         .RetrieveChildren(folder.Id).Any();
                     var folderNode = this.CreateTreeNode(folderId,
-                        LayoutsConstants.Id, queryStrings,
-                        folderName, "icon-folder", hasChildren);
+                        LayoutsConstants.Id, queryStrings, folderName,
+                        "icon-folder", hasChildren, folderRoute);
                     nodes.Add(folderNode);
                 }
                 foreach (var form in rootForms)

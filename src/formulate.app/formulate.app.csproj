@@ -343,6 +343,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\formulate\backoffice\formulate\folderInfo.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\editForm.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\dataSources.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\dataValues.html" />
