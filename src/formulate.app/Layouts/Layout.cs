@@ -2,13 +2,14 @@
 {
 
     // Namespaces.
+    using Entities;
     using System;
 
 
     /// <summary>
     /// A form layout.
     /// </summary>
-    public class Layout
+    public class Layout : IEntity
     {
 
         #region Properties

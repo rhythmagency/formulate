@@ -42,6 +42,7 @@
         #region Properties
 
         private IFormPersistence Persistence { get; set; }
+        private IEntityPersistence Entities { get; set; }
 
         #endregion
 
@@ -65,6 +66,7 @@
             : base(context)
         {
             Persistence = FormPersistence.Current.Manager;
+            Entities = EntityPersistence.Current.Manager;
         }
 
         #endregion
@@ -162,6 +164,7 @@
             // Variables.
             var result = default(object);
             var formsRootId = GuidHelper.GetGuid(FormsConstants.Id);
+            var parentId = GuidHelper.GetGuid(request.ParentId);
 
 
             // Catch all errors.
@@ -195,12 +198,18 @@
                     .ToArray();
 
 
+                // Get the ID path.
+                var path = parentId == Guid.Empty
+                    ? new[] { formsRootId, formId }
+                    : Entities.Retrieve(parentId).Path
+                        .Concat(new[] { formId }).ToArray();
+
+
                 // Create the form.
                 var form = new Form()
                 {
                     Id = formId,
-                    //TODO: Once folders are supported, this will need to account for that.
-                    Path = new [] { formsRootId, formId },
+                    Path = path,
                     Alias = request.Alias,
                     Name = request.Name,
                     Fields = fields.ToArray()

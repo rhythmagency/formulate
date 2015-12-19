@@ -2,13 +2,14 @@
 {
 
     // Namespaces.
+    using Entities;
     using System;
 
 
     /// <summary>
     /// A form.
     /// </summary>
-    public class Form
+    public class Form : IEntity
     {
 
         #region Properties

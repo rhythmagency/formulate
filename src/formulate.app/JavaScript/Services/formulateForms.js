@@ -77,6 +77,7 @@ function getPersistForm(services) {
 
         // Format data so the server can consume it.
         var data = {
+            ParentId: formData.parentId,
             Alias: formData.alias,
             Name: formData.name,
             Fields: formData.fields.map(function(field) {

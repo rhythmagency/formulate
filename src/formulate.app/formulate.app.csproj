@@ -278,9 +278,13 @@
     <Compile Include="Constants\Trees\Layouts.cs" />
     <Compile Include="Constants\Trees\ValidationLibrary.cs" />
     <Compile Include="Controllers\FieldsController.cs" />
+    <Compile Include="Controllers\FoldersController.cs" />
     <Compile Include="Controllers\FormsController.cs" />
     <Compile Include="Controllers\LayoutsController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
+    <Compile Include="Entities\EntityRoot.cs" />
+    <Compile Include="Entities\IEntity.cs" />
+    <Compile Include="Folders\Folder.cs" />
     <Compile Include="Forms\Fields\CheckboxField.cs" />
     <Compile Include="Forms\Fields\TextField.cs" />
     <Compile Include="Forms\Form.cs" />
@@ -302,13 +306,18 @@
     <Compile Include="Managers\DefaultConfigurationManager.cs" />
     <Compile Include="Managers\IConfigurationManager.cs" />
     <Compile Include="Models\Parameters\FieldInfo.cs" />
+    <Compile Include="Models\Requests\CreateFolderRequest.cs" />
     <Compile Include="Models\Requests\CreateLayoutRequest.cs" />
     <Compile Include="Models\Requests\DeleteFormRequest.cs" />
     <Compile Include="Models\Requests\GetFormInfoRequest.cs" />
     <Compile Include="Models\Requests\GetLayoutPathRequest.cs" />
     <Compile Include="Models\Requests\PersistFormRequest.cs" />
+    <Compile Include="Persistence\IEntityPersistence.cs" />
+    <Compile Include="Persistence\IFolderPersistence.cs" />
     <Compile Include="Persistence\ILayoutPersistence.cs" />
     <Compile Include="Persistence\IFormPersistence.cs" />
+    <Compile Include="Persistence\Internal\DefaultEntityPersistence.cs" />
+    <Compile Include="Persistence\Internal\JsonFolderPersistence.cs" />
     <Compile Include="Persistence\Internal\JsonPersistenceHelper.cs" />
     <Compile Include="Persistence\Internal\JsonLayoutPersistence.cs" />
     <Compile Include="Persistence\Internal\JsonFormPersistence.cs" />
@@ -319,6 +328,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Resolvers\Configuration.cs" />
+    <Compile Include="Resolvers\EntityPersistence.cs" />
+    <Compile Include="Resolvers\FolderPersistence.cs" />
     <Compile Include="Resolvers\FormPersistence.cs" />
     <Compile Include="Resolvers\LayoutPersistence.cs" />
     <Compile Include="Trees\FormulateTreeController.cs" />

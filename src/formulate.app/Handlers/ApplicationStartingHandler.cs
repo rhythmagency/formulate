@@ -46,7 +46,20 @@
 
             // Initialize layout persistence resolver.
             var layoutPersistence = new JsonLayoutPersistence();
-            LayoutPersistence.Current = new LayoutPersistence(layoutPersistence);
+            LayoutPersistence.Current =
+                new LayoutPersistence(layoutPersistence);
+
+
+            // Initialize folder persistence resolver.
+            var folderPersistence = new JsonFolderPersistence();
+            FolderPersistence.Current =
+                new FolderPersistence(folderPersistence);
+
+
+            // Initialize entity persistence resolver.
+            var entityPersistence = new DefaultEntityPersistence();
+            EntityPersistence.Current =
+                new EntityPersistence(entityPersistence);
 
         }
 

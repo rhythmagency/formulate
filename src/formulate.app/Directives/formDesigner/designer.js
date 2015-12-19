@@ -43,9 +43,7 @@ function FormDesignerController($scope, $routeParams, navigationService,
     };
 
     // Set scope functions.
-    $scope.save = getSaveForm({
-        id: id
-    }, services);
+    $scope.save = getSaveForm(services);
     $scope.addField = getAddField(services);
     $scope.canSave = getCanSave(services);
     $scope.canAddField = getCanAddField(services);
@@ -61,15 +59,17 @@ function FormDesignerController($scope, $routeParams, navigationService,
 }
 
 // Saves the form.
-function getSaveForm(options, services) {
+function getSaveForm(services) {
     return function () {
 
         // Variables.
         var $scope = services.$scope;
         var fields = $scope.fields;
+        var parentId = getParentId($scope);
 
         // Get form data.
         var formData = {
+            parentId: parentId,
             formId: $scope.formId,
             alias: $scope.formAlias,
             name: $scope.formName,
@@ -152,6 +152,7 @@ function initializeForm(options, services) {
             $scope.formAlias = form.alias;
             $scope.formName = form.name;
             $scope.fields = form.fields;
+            $scope.formPath = form.path;
 
             // Collapse fields.
             for (var field in $scope.fields) {
@@ -217,4 +218,22 @@ function getToggleField() {
     return function(field) {
         field.expanded = !field.expanded;
     };
+}
+
+// Gets the ID path to the form.
+function getFormPath($scope) {
+    var path = $scope.formPath;
+    if (!formPath) {
+        path = [];
+    }
+    return path;
+}
+
+// Gets the ID of the form's parent.
+function getParentId($scope) {
+    var path = getFormPath($scope);
+    var parentId = path.length > 0
+        ? path[path.length - 2]
+        : null;
+    return parentId;
 }

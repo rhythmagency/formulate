@@ -2,10 +2,12 @@
 {
 
     // Namespaces.
+    using Entities;
     using Helpers;
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
 
 
     /// <summary>
@@ -56,7 +58,7 @@
         #endregion
 
 
-        #region Methods
+        #region Public Methods
 
         /// <summary>
         /// Writes the specified file at the specified path.
@@ -180,28 +182,54 @@
         /// You can specify a parent ID of null to get the root entities.
         /// </remarks>
         public IEnumerable<EntityType> RetrieveChildren<EntityType>(Guid? parentId)
+            where EntityType: IEntity
         {
+            // TODO: Optimize this. I'm reading in all entities just to get a subset of them.
+            var entities = RetrieveAll<EntityType>();
             if (parentId.HasValue)
             {
-                //TODO: ...
-                return new List<EntityType>();
+
+                // Return entities under folder.
+                return entities.Where(x => x.Path[x.Path.Length - 2] == parentId.Value);
+
             }
             else
             {
-                //TODO: For now, I am getting all entities. Once there are folders, get only root items.
-                var entities = new List<EntityType>();
-                if (Directory.Exists(BasePath))
-                {
-                    var files = Directory.GetFiles(BasePath, WildcardPattern);
-                    foreach (var file in files)
-                    {
-                        var contents = GetFileContents(file);
-                        var entity = JsonHelper.Deserialize<EntityType>(contents);
-                        entities.Add(entity);
-                    }
-                }
-                return entities;
+
+                // Return root entities.
+                return entities.Where(x => x.Path.Length == 2);
+
             }
+        }
+
+        #endregion
+
+
+        #region Private Methods
+
+        /// <summary>
+        /// Gets all entities of the specified type.
+        /// </summary>
+        /// <typeparam name="EntityType">
+        /// The type of entity.
+        /// </typeparam>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        public IEnumerable<EntityType> RetrieveAll<EntityType>()
+        {
+            var entities = new List<EntityType>();
+            if (Directory.Exists(BasePath))
+            {
+                var files = Directory.GetFiles(BasePath, WildcardPattern);
+                foreach (var file in files)
+                {
+                    var contents = GetFileContents(file);
+                    var entity = JsonHelper.Deserialize<EntityType>(contents);
+                    entities.Add(entity);
+                }
+            }
+            return entities;
         }
 
         #endregion

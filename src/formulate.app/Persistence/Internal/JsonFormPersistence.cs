@@ -170,7 +170,8 @@
 
 
         /// <summary>
-        /// Gets all the forms that are the children of the folder with the specified ID.
+        /// Gets all the forms that are the children of the folder
+        /// with the specified ID.
         /// </summary>
         /// <param name="parentId">The parent ID.</param>
         /// <returns>
