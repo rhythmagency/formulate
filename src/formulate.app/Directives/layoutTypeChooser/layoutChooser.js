@@ -15,7 +15,7 @@ function directive(formulateDirectives) {
 
 // Controller.
 function controller($scope, $location, notificationsService, $q,
-    $http, navigationService) {
+    $http, navigationService, formulateLayouts) {
 
     // Variable containing the common services (easier to pass around).
     var services = {
@@ -24,7 +24,8 @@ function controller($scope, $location, notificationsService, $q,
         notificationsService: notificationsService,
         $q: $q,
         $http: $http,
-        navigationService: navigationService
+        navigationService: navigationService,
+        formulateLayouts: formulateLayouts
     };
 
     // Assign variables to scope.
@@ -47,10 +48,14 @@ function controller($scope, $location, notificationsService, $q,
 
 // Returns a function that creates a new layout.
 function getCreateLayout(services) {
+    var $scope = services.$scope;
     return function() {
+        var parentId = $scope.currentNode.id;
         var layoutInfo = {
-            layoutId: services.$scope.layout.id,
-            layoutName: services.$scope.layoutName
+            layoutId: $scope.layout.id,
+            layoutName: $scope.layoutName,
+            layoutAlias: $scope.layoutAlias,
+            parentId: parentId
         };
         addNodeToTree(layoutInfo, services)
             .then(function (node) {
@@ -62,7 +67,7 @@ function getCreateLayout(services) {
 
 // Adds a new node to the layout tree.
 function addNodeToTree(layoutInfo, services) {
-    return createNodeOnServer(layoutInfo, services)
+    return services.formulateLayouts.persistLayout(layoutInfo)
         .then(function (node) {
 
             // Refresh tree.
@@ -90,56 +95,7 @@ function navigateToNode(node, services) {
     services.$location.url(url);
 }
 
-// Creates the layout node on the server.
-//TODO: Move this function to the formulateLayouts service.
-function createNodeOnServer(layoutInfo, services) {
-
-    // Variables.
-    //TODO: Use server variables to get this URL.
-    var url = "/umbraco/backoffice/formulate/Layouts/CreateLayout";
-    var data = {
-        LayoutId: layoutInfo.layoutId,
-        LayoutName: layoutInfo.layoutName
-    };
-    var strData = JSON.stringify(data);
-    var options = {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    };
-
-    // Send request to create the node.
-    return services.$http.post(url, strData, options)
-        .then(function (response) {
-
-            // Variables.
-            var data = response.data;
-
-            // Was the request successful?
-            if (data.Success) {
-                return {
-                    id: data.Id,
-                    path: data.Path
-                };
-            } else {
-                var title = "Unexpected Error";
-                var message = data.Reason;
-                services.notificationsService.error(title, message);
-                return services.$q.reject();
-            }
-
-        }, function () {
-
-            // An error occurred.
-            var title = "Server Error";
-            var message = "There was an issue communicating with the server.";
-            services.notificationsService.error(title, message);
-            services.$q.reject();
-
-        });
-
-}
-
+//TODO: Comment.
 function getCanCreate(services) {
     return function() {
         var layoutName = services.$scope.layoutName;

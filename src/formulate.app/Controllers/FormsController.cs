@@ -99,21 +99,20 @@
 
                 // Variables.
                 var id = GuidHelper.GetGuid(request.FormId);
-                var strFormId = GuidHelper.GetString(id);
                 var form = Persistence.Retrieve(id);
                 var fullPath = new[] { rootId }
                     .Concat(form.Path.Select(x => GuidHelper.GetString(x)))
                     .ToArray();
 
 
-                // Return results.
+                // Set result.
                 result = new
                 {
                     Success = true,
                     FormId = GuidHelper.GetString(form.Id),
+                    Path = fullPath,
                     Alias = form.Alias,
                     Name = form.Name,
-                    Path = fullPath,
                     Fields = form.Fields.MakeSafe().Select(x => new
                     {
                         Id = GuidHelper.GetString(x.Id),

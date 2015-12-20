@@ -30,8 +30,10 @@
 
         #region Constants
 
-        private const string CreateLayoutError = @"An error occurred while attempting to create a Formulate layout.";
         private const string UnhandledError = @"An unhandled error occurred. Refer to the error log.";
+        private const string PersistLayoutError = @"An error occurred while attempting to persist a Formulate layout.";
+        private const string GetLayoutInfoError = @"An error occurred while attempting to get the layout info for a Formulate layout.";
+        private const string DeleteLayoutError = @"An error occurred while attempting to delete the Formulate layout.";
 
         #endregion
 
@@ -39,6 +41,7 @@
         #region Properties
 
         private ILayoutPersistence Persistence { get; set; }
+        private IEntityPersistence Entities { get; set; }
 
         #endregion
 
@@ -62,6 +65,7 @@
             : base(context)
         {
             Persistence = LayoutPersistence.Current.Manager;
+            Entities = EntityPersistence.Current.Manager;
         }
 
         #endregion
@@ -80,30 +84,42 @@
         /// accompanying data.
         /// </returns>
         [HttpPost]
-        public object CreateLayout(CreateLayoutRequest request)
+        public object PersistLayout(PersistLayoutRequest request)
         {
 
             // Variables.
             var result = default(object);
             var rootId = CoreConstants.System.Root.ToInvariantString();
             var layoutsRootId = GuidHelper.GetGuid(LayoutsConstants.Id);
+            var parentId = GuidHelper.GetGuid(request.ParentId);
+            var typeId = GuidHelper.GetGuid(request.LayoutId);
 
 
             // Catch all errors.
             try
             {
 
+                // Parse or create the layout ID.
+                var layoutId = string.IsNullOrWhiteSpace(request.LayoutId)
+                    ? Guid.NewGuid()
+                    : GuidHelper.GetGuid(request.LayoutId);
+
+
+                // Get the ID path.
+                var path = parentId == Guid.Empty
+                    ? new[] { layoutsRootId, layoutId }
+                    : Entities.Retrieve(parentId).Path
+                        .Concat(new[] { layoutId }).ToArray();
+
+
                 // Create layout.
-                var typeId = GuidHelper.GetGuid(request.LayoutId);
-                var layoutId = Guid.NewGuid();
-                var strLayoutId = GuidHelper.GetString(layoutId);
                 var layout = new Layout()
                 {
                     TypeId = typeId,
                     Id = layoutId,
-                    //TODO: Once folders are supported, this will need to account for that.
-                    Path = new[] { layoutsRootId, layoutId },
-                    Name = request.LayoutName
+                    Path = path,
+                    Name = request.LayoutName,
+                    Alias = request.LayoutAlias
                 };
 
 
@@ -113,7 +129,7 @@
 
                 // Variables.
                 var fullPath = new[] { rootId }
-                    .Concat(layout.Path.Select(x => GuidHelper.GetString(x)))
+                    .Concat(path.Select(x => GuidHelper.GetString(x)))
                     .ToArray();
 
 
@@ -121,7 +137,7 @@
                 result = new
                 {
                     Success = true,
-                    Id = strLayoutId,
+                    Id = GuidHelper.GetString(layoutId),
                     Path = fullPath
                 };
 
@@ -130,7 +146,7 @@
             {
 
                 // Error.
-                LogHelper.Error<LayoutsController>(CreateLayoutError, ex);
+                LogHelper.Error<LayoutsController>(PersistLayoutError, ex);
                 result = new
                 {
                     Success = false,
@@ -147,30 +163,120 @@
 
 
         /// <summary>
-        /// Returns the path of the layout with the specified ID.
+        /// Returns info about the layout with the specified ID.
         /// </summary>
         /// <param name="request">
-        /// The request to get the path.
+        /// The request to get the layout info.
         /// </param>
         /// <returns>
-        /// The path.
+        /// An object indicating success or failure, along with some
+        /// accompanying data.
         /// </returns>
         [HttpGet]
-        public object GetPath([FromUri] GetLayoutPathRequest request)
+        public object GetLayoutInfo([FromUri] GetLayoutInfoRequest request)
         {
 
             // Variables.
-            var id = request.LayoutId;
+            var result = default(object);
             var rootId = CoreConstants.System.Root.ToInvariantString();
 
 
-            // Return result.
-            return new
+            // Catch all errors.
+            try
             {
-                Success = true,
-                //TODO: Once nesting is supported, this will need to account for that.
-                Path = new[] { rootId, LayoutsConstants.Id, id }
-            };
+
+                // Variables.
+                var id = GuidHelper.GetGuid(request.LayoutId);
+                var layout = Persistence.Retrieve(id);
+                var fullPath = new[] { rootId }
+                    .Concat(layout.Path.Select(x => GuidHelper.GetString(x)))
+                    .ToArray();
+
+
+                // Set result.
+                result = new
+                {
+                    Success = true,
+                    LayoutId = GuidHelper.GetString(layout.Id),
+                    Path = fullPath,
+                    Alias = layout.Alias,
+                    Name = layout.Name
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<LayoutsController>(GetLayoutInfoError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return result.
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// Deletes the layout with the specified ID.
+        /// </summary>
+        /// <param name="request">
+        /// The request to delete the layout.
+        /// </param>
+        /// <returns>
+        /// An object indicating success or failure, along with some
+        /// accompanying data.
+        /// </returns>
+        [HttpPost()]
+        public object DeleteLayout(DeleteLayoutRequest request)
+        {
+
+            // Variables.
+            var result = default(object);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Variables.
+                var layoutId = GuidHelper.GetGuid(request.LayoutId);
+
+
+                // Delete the layout.
+                Persistence.Delete(layoutId);
+
+
+                // Success.
+                result = new
+                {
+                    Success = true
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<LayoutsController>(DeleteLayoutError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return the result.
+            return result;
 
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace formulate.app.Models.Requests
 {
-    public class GetLayoutPathRequest
+    public class GetLayoutInfoRequest
     {
         public string LayoutId { get; set; }
     }

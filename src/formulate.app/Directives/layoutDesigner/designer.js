@@ -32,7 +32,7 @@ function LayoutDesignerController($scope, $routeParams, navigationService, formu
     $scope.layoutId = id;
 
     // Set scope functions.
-    $scope.save = getSaveLayout();
+    $scope.save = getSaveLayout(services);
 
 }
 
@@ -40,11 +40,11 @@ function LayoutDesignerController($scope, $routeParams, navigationService, formu
 function activateInTree(id, services) {
 
     // Get path from server.
-    services.formulateLayouts.getPath(id)
-        .then(function(path) {
+    services.formulateLayouts.getLayoutInfo(id)
+        .then(function(layout) {
             var options = {
                 tree: "formulate",
-                path: path,
+                path: layout.path,
                 forceReload: true,
                 activate: true
             };
@@ -54,9 +54,64 @@ function activateInTree(id, services) {
 }
 
 // Saves the layout.
-function getSaveLayout() {
+function getSaveLayout(services) {
     return function () {
-        //TODO: ...
-        alert("Saving...");
+
+        // Variables.
+        var $scope = services.$scope;
+        var fields = $scope.fields;
+        var parentId = getParentId($scope);
+
+        // Get layout data.
+        var layoutData = {
+            parentId: parentId,
+            layoutId: $scope.layoutId,
+            alias: $scope.layoutAlias,
+            name: $scope.layoutName
+        };
+
+        // Persist layout on server.
+        services.formulateLayouts.persistLayout(layoutData)
+            .then(function(responseData) {
+
+                // Layout is no longer new.
+                var isNew = $scope.isNew;
+                $scope.isNew = false;
+
+                // Redirect or reload page.
+                if (isNew) {
+                    var url = "/formulate/formulate/editLayout/"
+                        + responseData.layoutId;
+                    services.$location.url(url);
+                } else {
+
+                    // Even existing layouts reload (e.g., to get new data).
+                    services.$route.reload();
+
+                }
+
+            });
+
     };
+}
+
+// Gets the ID path to the layout.
+function getLayoutPath($scope) {
+    var path = $scope.layoutPath;
+    if (!path) {
+        path = [];
+    }
+    return path;
+}
+
+// Gets the ID of the layout's parent.
+function getParentId($scope) {
+    if ($scope.parentId) {
+        return $scope.parentId;
+    }
+    var path = getLayoutPath($scope);
+    var parentId = path.length > 0
+        ? path[path.length - 2]
+        : null;
+    return parentId;
 }

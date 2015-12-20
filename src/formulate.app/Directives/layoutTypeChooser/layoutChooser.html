@@ -8,6 +8,14 @@
                 </div>
             </label>
         </div>
+        <div>
+            <label>
+                Layout Alias:
+                <div>
+                    <input type="text" ng-model="layoutAlias" />
+                </div>
+            </label>
+        </div>
         <select ng-model="layout.id">
             <option ng-repeat="option in layout.layouts" value="{{option.id}}">
                 {{option.name}}

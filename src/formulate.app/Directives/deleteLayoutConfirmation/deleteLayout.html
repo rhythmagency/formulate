@@ -1,0 +1,14 @@
+﻿<div ng-controller="formulate.deleteLayoutConfirmation">
+    <div ng-if="!initialized">
+        Loading...
+    </div>
+    <div ng-if="initialized">
+        <div>
+            Are you sure you want to delete the layout, "{{layoutName}}"?
+        </div>
+        <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-primary" ng-click="deleteLayout()">
+            Delete Layout
+        </button>
+    </div>
+</div>

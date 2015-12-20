@@ -51,6 +51,7 @@
             var menu = new MenuItemCollection();
             var rootId = CoreConstants.System.Root.ToInvariantString();
             var rootFormsId = GuidHelper.GetGuid(FormsConstants.Id);
+            var rootLayoutId = GuidHelper.GetGuid(LayoutsConstants.Id);
             if (id.InvariantEquals(rootId))
             {
                 var path = "/App_Plugins/formulate/menu-actions/reload.html";
@@ -66,6 +67,7 @@
             else if (id.InvariantEquals(FormsConstants.Id))
             {
 
+                // Actions for forms.
                 AddCreateFormAction(menu);
                 AddCreateFolderAction(menu);
 
@@ -73,16 +75,9 @@
             else if (id.InvariantEquals(LayoutsConstants.Id))
             {
 
-                // Configure "Create Layout" button.
-                var path = "/App_Plugins/formulate/menu-actions/createLayout.html";
-                var menuItem = new MenuItem()
-                {
-                    Alias = "createLayout",
-                    Icon = "folder",
-                    Name = "Create Layout"
-                };
-                menuItem.LaunchDialogView(path, "Create Layout");
-                menu.Items.Add(menuItem);
+                // Actions for layouts.
+                AddCreateLayoutAction(menu);
+                AddCreateFolderAction(menu);
 
             }
             else
@@ -91,34 +86,28 @@
                 // Variables.
                 var entityId = GuidHelper.GetGuid(id);
                 var entity = TreeEntityPersistence.Retrieve(entityId);
+                var ancestorId = entity.Path.First();
 
 
                 // What type of entity does the node represent?
                 if (entity is Form)
                 {
-
-                    // Configure "Delete Form" button.
-                    var path = "/App_Plugins/formulate/menu-actions/deleteForm.html";
-                    var menuItem = new MenuItem()
-                    {
-                        Alias = "deleteForm",
-                        Icon = "folder",
-                        Name = "Delete Form"
-                    };
-                    menuItem.LaunchDialogView(path, "Delete Form");
-                    menu.Items.Add(menuItem);
-
+                    AddDeleteFormAction(menu);
                 }
                 else if (entity is Layout)
                 {
-                    //TODO: ...
+                    AddDeleteLayoutAction(menu);
                 }
                 else if (entity is Folder)
                 {
                     AddCreateFolderAction(menu);
-                    if (entity.Path.First() == rootFormsId)
+                    if (ancestorId == rootFormsId)
                     {
                         AddCreateFormAction(menu, entityId);
+                    }
+                    else if (ancestorId == rootLayoutId)
+                    {
+                        AddCreateLayoutAction(menu, entityId);
                     }
                 }
                 else
@@ -275,19 +264,82 @@
         }
 
 
+        private void AddCreateLayoutAction(MenuItemCollection menu,
+            Guid? parentId = null)
+        {
+
+            // Configure "Create Layout" button.
+            var path = "/App_Plugins/formulate/menu-actions/createLayout.html";
+            var menuItem = new MenuItem()
+            {
+                Alias = "createLayout",
+                Icon = "folder",
+                Name = "Create Layout"
+            };
+            if (parentId.HasValue)
+            {
+                path = path + "?under=" + GuidHelper.GetString(parentId.Value);
+            }
+            menuItem.LaunchDialogView(path, "Create Layout");
+            menu.Items.Add(menuItem);
+
+        }
+
+
+        private void AddDeleteFormAction(MenuItemCollection menu)
+        {
+
+            // Configure "Delete Form" button.
+            var path = "/App_Plugins/formulate/menu-actions/deleteForm.html";
+            var menuItem = new MenuItem()
+            {
+                Alias = "deleteForm",
+                Icon = "folder",
+                Name = "Delete Form"
+            };
+            menuItem.LaunchDialogView(path, "Delete Form");
+            menu.Items.Add(menuItem);
+
+        }
+
+
+        private void AddDeleteLayoutAction(MenuItemCollection menu)
+        {
+
+            // Configure "Delete Layout" button.
+            var path = "/App_Plugins/formulate/menu-actions/deleteLayout.html";
+            var menuItem = new MenuItem()
+            {
+                Alias = "deleteLayout",
+                Icon = "folder",
+                Name = "Delete Layout"
+            };
+            menuItem.LaunchDialogView(path, "Delete Layout");
+            menu.Items.Add(menuItem);
+
+        }
+
+
         private void AddFormChildrenToTree(TreeNodeCollection nodes,
             FormDataCollection queryStrings,
             IEnumerable<IEntity> entities)
         {
 
-            // Get form nodes.
+            // Variables.
             var formatUrl = "/formulate/formulate/editForm/{0}";
             var folderUrl = "/formulate/formulate/folderInfo/{0}";
             var formsRootId = GuidHelper.GetGuid(FormsConstants.Id);
+
+
+            // Add nodes for each entity.
             foreach (var entity in entities)
             {
+
+                // Folder or form?
                 if (entity is Folder)
                 {
+
+                    // Add folder node.
                     var folder = entity as Folder;
                     var folderId = GuidHelper.GetString(folder.Id);
                     var folderRoute = string.Format(folderUrl, folderId);
@@ -298,9 +350,12 @@
                         LayoutsConstants.Id, queryStrings, folderName,
                         "icon-folder", hasChildren, folderRoute);
                     nodes.Add(folderNode);
+
                 }
                 else if (entity is Form)
                 {
+
+                    // Add form node.
                     var form = entity as Form;
                     var formId = GuidHelper.GetString(form.Id);
                     var formRoute = string.Format(formatUrl, formId);
@@ -309,7 +364,9 @@
                         FormsConstants.Id, queryStrings,
                         formName, "icon-record", false, formRoute);
                     nodes.Add(formNode);
+
                 }
+
             }
 
         }

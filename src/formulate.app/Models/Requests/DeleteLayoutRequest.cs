@@ -1,8 +1,7 @@
 ﻿namespace formulate.app.Models.Requests
 {
-    public class CreateLayoutRequest
+    public class DeleteLayoutRequest
     {
         public string LayoutId { get; set; }
-        public string LayoutName { get; set; }
     }
 }

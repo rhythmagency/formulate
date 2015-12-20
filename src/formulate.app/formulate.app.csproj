@@ -307,10 +307,11 @@
     <Compile Include="Managers\IConfigurationManager.cs" />
     <Compile Include="Models\Parameters\FieldInfo.cs" />
     <Compile Include="Models\Requests\CreateFolderRequest.cs" />
-    <Compile Include="Models\Requests\CreateLayoutRequest.cs" />
+    <Compile Include="Models\Requests\PersistLayoutRequest.cs" />
     <Compile Include="Models\Requests\DeleteFormRequest.cs" />
+    <Compile Include="Models\Requests\DeleteLayoutRequest.cs" />
     <Compile Include="Models\Requests\GetFormInfoRequest.cs" />
-    <Compile Include="Models\Requests\GetLayoutPathRequest.cs" />
+    <Compile Include="Models\Requests\GetLayoutInfoRequest.cs" />
     <Compile Include="Models\Requests\PersistFormRequest.cs" />
     <Compile Include="Persistence\IEntityPersistence.cs" />
     <Compile Include="Persistence\IFolderPersistence.cs" />
@@ -356,7 +357,10 @@
     </Content>
     <Content Include="App_Plugins\formulate\dashboards\install.html" />
     <Content Include="App_Plugins\formulate\dashboards\introduction.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\createFolder.html" />
     <Content Include="App_Plugins\formulate\menu-actions\createLayout.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteLayout.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteForm.html" />
     <Content Include="App_Plugins\formulate\styles\formulate-designer.css" />
     <Content Include="Directives\deleteFormConfirmation\deleteForm.html" />
     <Content Include="Directives\deleteFormConfirmation\deleteForm.js" />
