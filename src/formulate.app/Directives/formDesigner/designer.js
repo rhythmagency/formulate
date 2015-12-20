@@ -85,9 +85,11 @@ function getSaveForm(services) {
         services.formulateForms.persistForm(formData)
             .then(function(responseData) {
 
-                // Form is no longer new.
+                // Variables.
                 var isNew = $scope.isNew;
-                $scope.isNew = false;
+
+                // Prevent "discard" notification.
+                $scope.formulateFormDesigner.$dirty = false;
 
                 // Redirect or reload page.
                 if (isNew) {

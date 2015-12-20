@@ -146,7 +146,7 @@
                 var hasRootForms = TreeEntityPersistence
                     .RetrieveChildren(rootFormsId).Any();
                 var formsNode = this.CreateTreeNode(FormsConstants.Id, id,
-                    queryStrings, FormsConstants.Title, FormsConstants.Icon,
+                    queryStrings, FormsConstants.Title, FormsConstants.TreeIcon,
                     hasRootForms,
                     string.Format(formatUrl, "forms"));
                 nodes.Add(formsNode);
@@ -154,7 +154,7 @@
                     .RetrieveChildren(rootLayoutsId).Any();
                 var layoutsNode = this.CreateTreeNode(LayoutsConstants.Id,
                     id, queryStrings, LayoutsConstants.Title,
-                    LayoutsConstants.Icon, hasRootLayouts,
+                    LayoutsConstants.TreeIcon, hasRootLayouts,
                     string.Format(formatUrl, "layouts"));
                 nodes.Add(layoutsNode);
                 var dataSourcesNode = this.CreateTreeNode(
@@ -331,7 +331,8 @@
                 if (entity is Folder)
                 {
                     var folder = entity as Folder;
-                    AddFolderToTree(nodes, queryStrings, folder);
+                    AddFolderToTree(nodes, queryStrings, folder,
+                        LayoutsConstants.GroupIcon);
                 }
                 else if (entity is Layout)
                 {
@@ -352,7 +353,7 @@
             var layoutName = layout.Name ?? "Unnamed";
             var layoutNode = this.CreateTreeNode(layoutId,
                 LayoutsConstants.Id, queryStrings,
-                layoutName, "icon-record", false, layoutRoute);
+                layoutName, LayoutsConstants.ItemIcon, false, layoutRoute);
             nodes.Add(layoutNode);
         }
 
@@ -369,7 +370,8 @@
                 if (entity is Folder)
                 {
                     var folder = entity as Folder;
-                    AddFolderToTree(nodes, queryStrings, folder);
+                    AddFolderToTree(nodes, queryStrings, folder,
+                        FormsConstants.GroupIcon);
                 }
                 else if (entity is Form)
                 {
@@ -391,13 +393,13 @@
             var formName = form.Name ?? "Unnamed";
             var formNode = this.CreateTreeNode(formId,
                 FormsConstants.Id, queryStrings,
-                formName, "icon-record", false, formRoute);
+                formName, FormsConstants.ItemIcon, false, formRoute);
             nodes.Add(formNode);
         }
 
 
         private void AddFolderToTree(TreeNodeCollection nodes,
-            FormDataCollection queryStrings, Folder folder)
+            FormDataCollection queryStrings, Folder folder, string icon)
         {
             var folderFormat = "/formulate/formulate/folderInfo/{0}";
             var folderId = GuidHelper.GetString(folder.Id);
@@ -407,7 +409,7 @@
                 .RetrieveChildren(folder.Id).Any();
             var folderNode = this.CreateTreeNode(folderId,
                 LayoutsConstants.Id, queryStrings, folderName,
-                "icon-folder", hasChildren, folderRoute);
+                icon, hasChildren, folderRoute);
             nodes.Add(folderNode);
         }
 
