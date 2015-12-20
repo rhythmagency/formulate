@@ -15,14 +15,17 @@ function LayoutDesignerDirective(formulateDirectives) {
 }
 
 // Controller.
-function LayoutDesignerController($scope, $routeParams, navigationService, formulateLayouts) {
+function LayoutDesignerController($scope, $routeParams, navigationService,
+    formulateLayouts, $route) {
 
     // Variables.
     var id = $routeParams.id;
     var services = {
         $routeParams: $routeParams,
         navigationService: navigationService,
-        formulateLayouts: formulateLayouts
+        formulateLayouts: formulateLayouts,
+        $scope: $scope,
+        $route: $route
     };
 
     // Initialize.
@@ -59,7 +62,6 @@ function getSaveLayout(services) {
 
         // Variables.
         var $scope = services.$scope;
-        var fields = $scope.fields;
         var parentId = getParentId($scope);
 
         // Get layout data.

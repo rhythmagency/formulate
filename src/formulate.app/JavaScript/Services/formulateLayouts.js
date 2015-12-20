@@ -2,7 +2,7 @@
 var app = angular.module("umbraco");
 
 // Service to help with Formulate layouts.
-app.factory("formulateLayouts", function ($http, $q) {
+app.factory("formulateLayouts", function ($http, $q, notificationsService) {
 
     // Variables.
     var services = {
@@ -43,27 +43,17 @@ function getGetLayoutInfo(services) {
             }
         };
 
-        // Get path from server.
-        return $http.get(url, options).then(function (response) {
-
-            // Variables.
-            var data = response.data;
-
-            // Was the request successful?
-            if (data.Success) {
+        // Get layout info from server.
+        return services.$http.get(url, options)
+            .then(getHandleResponse(services, function (data) {
                 return {
                     layoutId: data.Id,
                     path: data.Path,
                     name: data.Name,
                     alias: data.Alias
                 };
-            } else {
-                return $q.reject();
-            }
+            }), getHandleServerError(services));
 
-        }, function () {
-            return $q.reject();
-        });
 
     };
 }
