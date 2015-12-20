@@ -34,8 +34,8 @@ function FormDesignerController($scope, $routeParams, navigationService,
 
     // Set scope variables.
     $scope.isNew = isNew;
-    $scope.formAlias = "";
-    $scope.formName = "";
+    $scope.formAlias = null;
+    $scope.formName = null;
     $scope.fields = [];
     if (!isNew) {
         $scope.formId = id;
@@ -119,14 +119,6 @@ function getAddField(services) {
     };
 }
 
-// Gets the form info from the server for this form.
-function getFormInfo(formId, services) {
-    return services.formulateForms.getFormInfo(formId)
-        .then(function(form) {
-            return form;
-        });
-}
-
 // Initializes the form.
 function initializeForm(options, services) {
 
@@ -147,7 +139,7 @@ function initializeForm(options, services) {
         $scope.initialized = false;
 
         // Get the form info.
-        getFormInfo(id, services).then(function(form) {
+        services.formulateForms.getFormInfo(id).then(function(form) {
 
             // Update tree.
             activateInTree(form, services);
@@ -187,11 +179,12 @@ function getCanAddField(services) {
     };
 }
 
+//TODO: Move this function to a service.
 // Shows/highlights the node in the Formulate tree.
-function activateInTree(form, services) {
+function activateInTree(entity, services) {
     var options = {
         tree: "formulate",
-        path: form.path,
+        path: entity.path,
         forceReload: true,
         activate: true
     };

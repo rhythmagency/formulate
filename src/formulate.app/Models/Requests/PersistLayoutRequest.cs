@@ -2,6 +2,7 @@
 {
     public class PersistLayoutRequest
     {
+        public string KindId { get; set; }
         public string ParentId { get; set; }
         public string LayoutId { get; set; }
         public string LayoutName { get; set; }

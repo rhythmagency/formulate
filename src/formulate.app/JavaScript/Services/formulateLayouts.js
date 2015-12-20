@@ -47,7 +47,8 @@ function getGetLayoutInfo(services) {
         return services.$http.get(url, options)
             .then(getHandleResponse(services, function (data) {
                 return {
-                    layoutId: data.Id,
+                    kindId: data.KindId,
+                    layoutId: data.LayoutId,
                     path: data.Path,
                     name: data.Name,
                     alias: data.Alias
@@ -66,10 +67,11 @@ function getPersistLayout(services) {
         //TODO: Use server variables to get this URL.
         var url = "/umbraco/backoffice/formulate/Layouts/PersistLayout";
         var data = {
+            KindId: layoutInfo.kindId,
             ParentId: layoutInfo.parentId,
             LayoutId: layoutInfo.layoutId,
-            LayoutName: layoutInfo.layoutName,
-            LayoutAlias: layoutInfo.layoutAlias
+            LayoutName: layoutInfo.name,
+            LayoutAlias: layoutInfo.alias
         };
         var strData = JSON.stringify(data);
         var options = {

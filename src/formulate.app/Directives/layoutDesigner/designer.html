@@ -7,5 +7,5 @@
         Current layout ID: {{layoutId}}
     </p>
 
-    <button class="btn btn-primary" ng-click="save()">Save</button>
+    <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
 </div>

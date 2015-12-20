@@ -30,9 +30,10 @@ function controller($scope, $location, notificationsService, $q,
 
     // Assign variables to scope.
     $scope.layoutName = null;
-    $scope.layout = {
+    $scope.layoutAlias = null;
+    $scope.kind = {
         id: null,
-        layouts: [
+        kinds: [
             //TODO: These should come from the server.
             { id: "19F0F9282CCE40229BA2610AC776A97E", name: "Layout One" },
             { id: "D6CC7AE0C9D94D51B3F3101FA27A0ACA", name: "Layout Two" },
@@ -52,10 +53,10 @@ function getCreateLayout(services) {
     return function() {
         var parentId = $scope.currentNode.id;
         var layoutInfo = {
-            layoutId: $scope.layout.id,
-            layoutName: $scope.layoutName,
-            layoutAlias: $scope.layoutAlias,
-            parentId: parentId
+            parentId: parentId,
+            kindId: $scope.kind.id,
+            name: $scope.layoutName,
+            alias: $scope.layoutAlias
         };
         addNodeToTree(layoutInfo, services)
             .then(function (node) {
@@ -95,13 +96,13 @@ function navigateToNode(node, services) {
     services.$location.url(url);
 }
 
-//TODO: Comment.
+// Returns a function that indicates whether or not the user can create.
 function getCanCreate(services) {
     return function() {
         var layoutName = services.$scope.layoutName;
-        var layoutId = services.$scope.layout.id;
+        var kindId = services.$scope.kind.id;
         //TODO: Check for whitespace and other edge cases that are invalid.
-        if (layoutName && layoutId && layoutName.length > 0) {
+        if (layoutName && kindId && layoutName.length > 0) {
             return true;
         } else {
             return false;

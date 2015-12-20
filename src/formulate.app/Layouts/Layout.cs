@@ -17,7 +17,7 @@
         /// <summary>
         /// The ID of the type of layout.
         /// </summary>
-        public Guid TypeId { get; set; }
+        public Guid KindId { get; set; }
 
 
         /// <summary>

@@ -92,7 +92,7 @@
             var rootId = CoreConstants.System.Root.ToInvariantString();
             var layoutsRootId = GuidHelper.GetGuid(LayoutsConstants.Id);
             var parentId = GuidHelper.GetGuid(request.ParentId);
-            var typeId = GuidHelper.GetGuid(request.LayoutId);
+            var kindId = GuidHelper.GetGuid(request.KindId);
 
 
             // Catch all errors.
@@ -115,7 +115,7 @@
                 // Create layout.
                 var layout = new Layout()
                 {
-                    TypeId = typeId,
+                    KindId = kindId,
                     Id = layoutId,
                     Path = path,
                     Name = request.LayoutName,
@@ -198,6 +198,7 @@
                 {
                     Success = true,
                     LayoutId = GuidHelper.GetString(layout.Id),
+                    KindId = GuidHelper.GetString(layout.KindId),
                     Path = fullPath,
                     Alias = layout.Alias,
                     Name = layout.Name

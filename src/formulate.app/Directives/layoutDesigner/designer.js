@@ -28,31 +28,21 @@ function LayoutDesignerController($scope, $routeParams, navigationService,
         $route: $route
     };
 
-    // Initialize.
-    activateInTree(id, services);
-
     // Set scope variables.
     $scope.layoutId = id;
+    $scope.layoutName = null;
+    $scope.layoutAlias = null;
+    $scope.kindId = null;
+    $scope.parentId = null;
 
     // Set scope functions.
     $scope.save = getSaveLayout(services);
+    $scope.canSave = getCanSave(services);
 
-}
-
-// Shows/highlights the node in the Formulate tree.
-function activateInTree(id, services) {
-
-    // Get path from server.
-    services.formulateLayouts.getLayoutInfo(id)
-        .then(function(layout) {
-            var options = {
-                tree: "formulate",
-                path: layout.path,
-                forceReload: true,
-                activate: true
-            };
-            services.navigationService.syncTree(options);
-        });
+    // Initializes layout.
+    initializeLayout({
+        id: id
+    }, services);
 
 }
 
@@ -67,6 +57,7 @@ function getSaveLayout(services) {
         // Get layout data.
         var layoutData = {
             parentId: parentId,
+            kindId: $scope.kindId,
             layoutId: $scope.layoutId,
             alias: $scope.layoutAlias,
             name: $scope.layoutName
@@ -116,4 +107,54 @@ function getParentId($scope) {
         ? path[path.length - 2]
         : null;
     return parentId;
+}
+
+// Initializes the layout.
+function initializeLayout(options, services) {
+
+    // Variables.
+    var id = options.id;
+    var $scope = services.$scope;
+
+    // Disable layout saving until the data is populated.
+    $scope.initialized = false;
+
+    // Get the layout info.
+    services.formulateLayouts.getLayoutInfo(id)
+        .then(function(layout) {
+
+            // Update tree.
+            activateInTree(layout, services);
+
+            // Set the layout info.
+            $scope.kindId = layout.kindId;
+            $scope.layoutId = layout.layoutId;
+            $scope.layoutAlias = layout.alias;
+            $scope.layoutName = layout.name;
+            $scope.layoutPath = layout.path;
+
+            // The layout can be saved now.
+            $scope.initialized = true;
+
+        });
+
+}
+
+//TODO: Move this function to a service.
+// Shows/highlights the node in the Formulate tree.
+function activateInTree(entity, services) {
+    var options = {
+        tree: "formulate",
+        path: entity.path,
+        forceReload: true,
+        activate: true
+    };
+    services.navigationService.syncTree(options);
+}
+
+// Returns the function that indicates whether or not the layout can be saved.
+function getCanSave(services) {
+    return function() {
+        return services.$scope.initialized;
+    };
 }
