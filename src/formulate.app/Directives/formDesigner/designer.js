@@ -21,6 +21,8 @@ function FormDesignerController($scope, $routeParams, navigationService,
     // Variables.
     var id = $routeParams.id;
     var isNew = id === "null";
+    var parentId = $routeParams.under;
+    var hasParent = !!parentId;
     var services = {
         $scope: $scope,
         $routeParams: $routeParams,
@@ -37,6 +39,9 @@ function FormDesignerController($scope, $routeParams, navigationService,
     $scope.fields = [];
     if (!isNew) {
         $scope.formId = id;
+    }
+    if (hasParent) {
+        $scope.parentId = parentId;
     }
     $scope.fieldChooser = {
         show: false
@@ -223,7 +228,7 @@ function getToggleField() {
 // Gets the ID path to the form.
 function getFormPath($scope) {
     var path = $scope.formPath;
-    if (!formPath) {
+    if (!path) {
         path = [];
     }
     return path;
@@ -231,6 +236,9 @@ function getFormPath($scope) {
 
 // Gets the ID of the form's parent.
 function getParentId($scope) {
+    if ($scope.parentId) {
+        return $scope.parentId;
+    }
     var path = getFormPath($scope);
     var parentId = path.length > 0
         ? path[path.length - 2]
