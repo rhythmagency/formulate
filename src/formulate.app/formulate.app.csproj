@@ -306,7 +306,7 @@
     <Compile Include="Managers\DefaultConfigurationManager.cs" />
     <Compile Include="Managers\IConfigurationManager.cs" />
     <Compile Include="Models\Parameters\FieldInfo.cs" />
-    <Compile Include="Models\Requests\CreateFolderRequest.cs" />
+    <Compile Include="Models\Requests\PersistFolderRequest.cs" />
     <Compile Include="Models\Requests\PersistLayoutRequest.cs" />
     <Compile Include="Models\Requests\DeleteFormRequest.cs" />
     <Compile Include="Models\Requests\DeleteLayoutRequest.cs" />

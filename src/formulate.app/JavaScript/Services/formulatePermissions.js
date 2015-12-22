@@ -2,20 +2,33 @@
 var app = angular.module("umbraco");
 
 // Service to help with permissions.
-app.factory("formulatePermissions", function ($http, notificationsService) {
+app.factory("formulatePermissions", function ($http, notificationsService,
+    formulateVars) {
+    var services = {
+        $http: $http,
+        notificationsService: notificationsService,
+        formulateVars: formulateVars
+    };
     return {
         permitFormulateAccess:
-            getPermitFormulateAccess($http, notificationsService)
+            getPermitFormulateAccess(services)
     };
 });
 
 // Returns a function that will request that the current
 // user be given access to the "Formulate" section in Umbraco.
-function getPermitFormulateAccess($http, notificationsService) {
+function getPermitFormulateAccess(services) {
+
+    // Variables.
+    var $http = services.$http,
+        notificationsService = services.notificationsService,
+        formulateVars = services.formulateVars;
+
+    // Return function.
     return function (directive) {
 
         // Variables.
-        var url = "/umbraco/backoffice/Formulate/Setup/PermitAccessToFormulate";
+        var url = formulateVars.PermitAccess;
         var options = getReqestOptions();
 
         // Send request to set permissions.
@@ -42,6 +55,7 @@ function getPermitFormulateAccess($http, notificationsService) {
         });
 
     };
+
 }
 
 // Reloads the page after 3 seconds.

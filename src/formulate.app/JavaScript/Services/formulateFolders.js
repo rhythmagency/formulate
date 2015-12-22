@@ -2,13 +2,15 @@
 var app = angular.module("umbraco");
 
 // Service to help with Formulate folders.
-app.factory("formulateFolders", function ($http, $q, notificationsService) {
+app.factory("formulateFolders", function ($http, $q, notificationsService,
+    formulateVars) {
 
     // Variables.
     var services = {
         $http: $http,
         $q: $q,
-        notificationsService: notificationsService
+        notificationsService: notificationsService,
+        formulateVars: formulateVars
     };
 
     // Return service.
@@ -32,8 +34,7 @@ function getCreateFolder(services) {
         };
 
         // Prepare request.
-        //TODO: Use server variables to get this URL.
-        var url = "/umbraco/backoffice/formulate/Folders/CreateFolder";
+        var url = services.formulateVars.PersistFolder;
         var strData = JSON.stringify(data);
         var options = {
             headers: {

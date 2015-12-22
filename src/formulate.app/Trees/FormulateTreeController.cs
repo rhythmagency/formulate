@@ -86,7 +86,9 @@
                 // Variables.
                 var entityId = GuidHelper.GetGuid(id);
                 var entity = TreeEntityPersistence.Retrieve(entityId);
-                var ancestorId = entity.Path.First();
+                var ancestorId = entity == null
+                    ? Guid.Empty
+                    : entity.Path.First();
 
 
                 // What type of entity does the node represent?

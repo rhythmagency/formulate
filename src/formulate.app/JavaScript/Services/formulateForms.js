@@ -2,13 +2,15 @@
 var app = angular.module("umbraco");
 
 // Service to help with Formulate forms.
-app.factory("formulateForms", function ($http, $q, notificationsService) {
+app.factory("formulateForms", function ($http, $q, notificationsService,
+    formulateVars) {
 
     // Variables.
     var services = {
         $http: $http,
         $q: $q,
-        notificationsService: notificationsService
+        notificationsService: notificationsService,
+        formulateVars: formulateVars
     };
 
     // Return service.
@@ -32,8 +34,7 @@ function getGetFormInfo(services) {
     return function (id) {
 
         // Variables.
-        //TODO: Use server variables to get this URL.
-        var url = "/umbraco/backoffice/formulate/Forms/GetFormInfo";
+        var url = services.formulateVars.GetFormInfo;
         var options = {
             cache: false,
             params: {
@@ -98,8 +99,7 @@ function getPersistForm(services) {
         }
 
         // Prepare request.
-        //TODO: Use server variables to get this URL.
-        var url = "/umbraco/backoffice/formulate/Forms/PersistForm";
+        var url = services.formulateVars.PersistForm;
         var strData = JSON.stringify(data);
         var options = {
             headers: {
@@ -131,8 +131,7 @@ function getDeleteForm(services) {
         };
 
         // Prepare request.
-        //TODO: Use server variables to get this URL.
-        var url = "/umbraco/backoffice/formulate/Forms/DeleteForm";
+        var url = services.formulateVars.DeleteForm;
         var strData = JSON.stringify(data);
         var options = {
             headers: {

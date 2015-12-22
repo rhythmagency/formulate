@@ -2,13 +2,15 @@
 var app = angular.module("umbraco");
 
 // Service to help with Formulate layouts.
-app.factory("formulateLayouts", function ($http, $q, notificationsService) {
+app.factory("formulateLayouts", function ($http, $q, notificationsService,
+    formulateVars) {
 
     // Variables.
     var services = {
         $http: $http,
         $q: $q,
-        notificationsService: notificationsService
+        notificationsService: notificationsService,
+        formulateVars: formulateVars
     };
 
     // Return service.
@@ -32,8 +34,7 @@ function getGetLayoutInfo(services) {
     return function (id) {
 
         // Variables.
-        //TODO: Use server variables to get this URL.
-        var url = "/umbraco/backoffice/formulate/Layouts/GetLayoutInfo";
+        var url = services.formulateVars.GetLayoutInfo;
         var options = {
             cache: false,
             params: {
@@ -64,8 +65,7 @@ function getPersistLayout(services) {
     return function (layoutInfo) {
 
         // Variables.
-        //TODO: Use server variables to get this URL.
-        var url = "/umbraco/backoffice/formulate/Layouts/PersistLayout";
+        var url = services.formulateVars.PersistLayout;
         var data = {
             KindId: layoutInfo.kindId,
             ParentId: layoutInfo.parentId,
@@ -105,8 +105,7 @@ function getDeleteLayout(services) {
         };
 
         // Prepare request.
-        //TODO: Use server variables to get this URL.
-        var url = "/umbraco/backoffice/formulate/Layouts/DeleteLayout";
+        var url = services.formulateVars.DeleteLayout;
         var strData = JSON.stringify(data);
         var options = {
             headers: {

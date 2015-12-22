@@ -2,15 +2,22 @@
 {
 
     // Namespaces.
+    using Controllers;
+    using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
+    using System.Web;
     using System.Web.Configuration;
+    using System.Web.Mvc;
+    using System.Web.Routing;
     using System.Xml;
     using umbraco.cms.businesslogic.packager;
     using Umbraco.Core;
     using Umbraco.Core.Configuration.Dashboard;
     using Umbraco.Core.IO;
     using Umbraco.Core.Logging;
+    using Umbraco.Web;
+    using Umbraco.Web.UI.JavaScript;
     using Constants = formulate.meta.Constants;
     using Resources = formulate.app.Properties.Resources;
     using SettingConstants = formulate.core.Constants.Settings;
@@ -40,6 +47,58 @@
             ApplicationContext applicationContext)
         {
             HandleInstallAndUpgrade(applicationContext);
+            ServerVariablesParser.Parsing += AddServerVariables;
+        }
+
+
+        /// <summary>
+        /// Adds server variables for use by the JavaScript.
+        /// </summary>
+        private void AddServerVariables(object sender,
+            Dictionary<string, object> e)
+        {
+
+            // Variables.
+            var httpContext = new HttpContextWrapper(HttpContext.Current);
+            var routeData = new RouteData();
+            var requestContext = new RequestContext(httpContext, routeData);
+            var helper = new UrlHelper(requestContext);
+            var key = Constants.PackageNameCamelCase;
+
+
+            // Add server variables.
+            e.Add(key, new Dictionary<string, string>()
+            {
+                { "DeleteForm",
+                    helper.GetUmbracoApiService<FormsController>(x =>
+                        x.DeleteForm(null)) },
+                { "PersistForm",
+                    helper.GetUmbracoApiService<FormsController>(x =>
+                        x.PersistForm(null)) },
+                { "GetFormInfo",
+                    helper.GetUmbracoApiService<FormsController>(x =>
+                        x.GetFormInfo(null)) },
+                { "DeleteLayout",
+                    helper.GetUmbracoApiService<LayoutsController>(x =>
+                        x.DeleteLayout(null)) },
+                { "PersistLayout",
+                    helper.GetUmbracoApiService<LayoutsController>(x =>
+                        x.PersistLayout(null)) },
+                { "GetLayoutInfo",
+                    helper.GetUmbracoApiService<LayoutsController>(x =>
+                        x.GetLayoutInfo(null)) },
+                { "PersistFolder",
+                    helper.GetUmbracoApiService<FoldersController>(x =>
+                        x.PersistFolder(null)) },
+                { "GetFieldTypes",
+                    helper.GetUmbracoApiService<FieldsController>(x =>
+                        x.GetFieldTypes()) },
+                { "PermitAccess",
+                    helper.GetUmbracoApiService<SetupController>(x =>
+                        x.PermitAccessToFormulate()) },
+                { "EditLayoutBase", "/formulate/formulate/editLayout/" }
+            });
+
         }
 
 

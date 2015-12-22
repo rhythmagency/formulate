@@ -2,13 +2,15 @@
 var app = angular.module("umbraco");
 
 // Service to help with Formulate fields.
-app.factory("formulateFields", function ($http, $q, notificationsService) {
+app.factory("formulateFields", function ($http, $q, notificationsService,
+    formulateVars) {
 
     // Variables.
     var services = {
         $http: $http,
         $q: $q,
-        notificationsService: notificationsService
+        notificationsService: notificationsService,
+        formulateVars: formulateVars
     };
 
     // Return service.
@@ -26,8 +28,7 @@ function getGetFieldTypes(services) {
     return function () {
 
         // Variables.
-        //TODO: Use server variables to get this URL.
-        var url = "/umbraco/backoffice/formulate/Fields/GetFieldTypes";
+        var url = services.formulateVars.GetFieldTypes;
         var options = {
             cache: false,
             params: {

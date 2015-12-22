@@ -25,6 +25,12 @@
         /// </summary>
         public const string PackageName = "Formulate";
 
+
+        /// <summary>
+        /// The name of the Formulate package, in camel case.
+        /// </summary>
+        public const string PackageNameCamelCase = "formulate";
+
     }
 
 }

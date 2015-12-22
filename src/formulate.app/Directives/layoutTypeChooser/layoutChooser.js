@@ -15,7 +15,7 @@ function directive(formulateDirectives) {
 
 // Controller.
 function controller($scope, $location, notificationsService, $q,
-    $http, navigationService, formulateLayouts) {
+    $http, navigationService, formulateLayouts, formulateVars) {
 
     // Variable containing the common services (easier to pass around).
     var services = {
@@ -25,7 +25,8 @@ function controller($scope, $location, notificationsService, $q,
         $q: $q,
         $http: $http,
         navigationService: navigationService,
-        formulateLayouts: formulateLayouts
+        formulateLayouts: formulateLayouts,
+        formulateVars: formulateVars
     };
 
     // Assign variables to scope.
@@ -91,8 +92,7 @@ function addNodeToTree(layoutInfo, services) {
 // Navigates to a node.
 function navigateToNode(node, services) {
     var nodeId = node.id;
-    //TODO: Use server variables to get this URL.
-    var url = "/formulate/formulate/editLayout/" + nodeId;
+    var url = services.formulateVars.EditLayoutBase + nodeId;
     services.$location.url(url);
 }
 

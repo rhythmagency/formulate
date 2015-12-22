@@ -70,17 +70,17 @@
         #region Web Methods
 
         /// <summary>
-        /// Creates a folder.
+        /// Persists a folder.
         /// </summary>
         /// <param name="request">
-        /// The request to create a folder.
+        /// The request to persist a folder.
         /// </param>
         /// <returns>
-        /// An object indicating success or failure, along with the
-        /// folder ID.
+        /// An object indicating success or failure, along with some
+        /// folder data.
         /// </returns>
         [HttpPost]
-        public object CreateFolder(CreateFolderRequest request)
+        public object PersistFolder(PersistFolderRequest request)
         {
 
             // Variables.
