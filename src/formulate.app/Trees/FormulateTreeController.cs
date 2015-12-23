@@ -353,9 +353,11 @@
             var layoutId = GuidHelper.GetString(layout.Id);
             var layoutRoute = string.Format(formatUrl, layoutId);
             var layoutName = layout.Name ?? "Unnamed";
+            var parentId = layout.Path[layout.Path.Length - 2];
+            var strParentId = GuidHelper.GetString(parentId);
             var layoutNode = this.CreateTreeNode(layoutId,
-                LayoutsConstants.Id, queryStrings,
-                layoutName, LayoutsConstants.ItemIcon, false, layoutRoute);
+                strParentId, queryStrings, layoutName,
+                LayoutsConstants.ItemIcon, false, layoutRoute);
             nodes.Add(layoutNode);
         }
 
@@ -393,8 +395,10 @@
             var formId = GuidHelper.GetString(form.Id);
             var formRoute = string.Format(formatUrl, formId);
             var formName = form.Name ?? "Unnamed";
+            var parentId = form.Path[form.Path.Length - 2];
+            var strParentId = GuidHelper.GetString(parentId);
             var formNode = this.CreateTreeNode(formId,
-                FormsConstants.Id, queryStrings,
+                strParentId, queryStrings,
                 formName, FormsConstants.ItemIcon, false, formRoute);
             nodes.Add(formNode);
         }
@@ -409,8 +413,10 @@
             var folderName = folder.Name ?? "Unnamed";
             var hasChildren = TreeEntityPersistence
                 .RetrieveChildren(folder.Id).Any();
+            var parentId = folder.Path[folder.Path.Length - 2];
+            var strParentId = GuidHelper.GetString(parentId);
             var folderNode = this.CreateTreeNode(folderId,
-                LayoutsConstants.Id, queryStrings, folderName,
+                strParentId, queryStrings, folderName,
                 icon, hasChildren, folderRoute);
             nodes.Add(folderNode);
         }
