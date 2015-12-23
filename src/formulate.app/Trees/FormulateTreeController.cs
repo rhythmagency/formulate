@@ -25,7 +25,8 @@
 
 
     //TODO: Much to do in this file.
-    [Tree("formulate", "formulate", "Formulate", "icon-folder", "icon-folder-open", true, sortOrder: 0)]
+    [Tree("formulate", "formulate", "Formulate", "icon-folder",
+        "icon-folder-open", true, sortOrder: 0)]
     [PluginController("formulate")]
     public class FormulateTreeController : TreeController
     {
@@ -40,10 +41,8 @@
         {
             Persistence = EntityPersistence.Current.Manager;
             FolderHelper = new FolderHelper(Persistence, this);
-            FormHelper = new FormHelper(Persistence, this,
-                FolderHelper);
-            LayoutHelper = new LayoutHelper(Persistence, this,
-                FolderHelper);
+            FormHelper = new FormHelper(this, FolderHelper);
+            LayoutHelper = new LayoutHelper(this, FolderHelper);
         }
 
         protected override MenuItemCollection GetMenuForNode(string id,
@@ -128,8 +127,8 @@
                 var hasRootForms = Persistence
                     .RetrieveChildren(rootFormsId).Any();
                 var formsNode = this.CreateTreeNode(FormsConstants.Id, id,
-                    queryStrings, FormsConstants.Title, FormsConstants.TreeIcon,
-                    hasRootForms,
+                    queryStrings, FormsConstants.Title,
+                    FormsConstants.TreeIcon, hasRootForms,
                     string.Format(formatUrl, "forms"));
                 nodes.Add(formsNode);
                 var hasRootLayouts = Persistence
@@ -162,7 +161,8 @@
                 // Get root nodes under layouts.
                 var entities = Persistence
                     .RetrieveChildren(rootLayoutsId);
-                LayoutHelper.AddLayoutChildrenToTree(nodes, queryStrings, entities);
+                LayoutHelper.AddLayoutChildrenToTree(nodes, queryStrings,
+                    entities);
 
             }
             else if (id.InvariantEquals(FormsConstants.Id))
@@ -171,7 +171,8 @@
                 // Get root nodes under forms.
                 var entities = Persistence
                     .RetrieveChildren(rootFormsId);
-                FormHelper.AddFormChildrenToTree(nodes, queryStrings, entities);
+                FormHelper.AddFormChildrenToTree(nodes, queryStrings,
+                    entities);
 
             }
             else
@@ -196,7 +197,8 @@
                     }
                     else if (ancestorId == rootLayoutsId)
                     {
-                        LayoutHelper.AddLayoutChildrenToTree(nodes, queryStrings,
+                        LayoutHelper.AddLayoutChildrenToTree(nodes,
+                            queryStrings,
                             children);
                     }
 

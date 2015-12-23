@@ -2,11 +2,11 @@
 {
 
     // Namespaces.
+    using core.Extensions;
     using Entities;
     using Folders;
     using formulate.app.Helpers;
     using Layouts;
-    using Persistence;
     using System;
     using System.Collections.Generic;
     using System.Net.Http.Formatting;
@@ -14,48 +14,70 @@
     using Umbraco.Web.Trees;
     using LayoutsConstants = formulate.app.Constants.Trees.Layouts;
 
+
+    /// <summary>
+    /// Helps with layouts in the Formulate tree.
+    /// </summary>
     internal class LayoutHelper
     {
 
-        private IEntityPersistence TreeEntityPersistence { get; set; }
+        #region Properties
+
+        /// <summary>
+        /// The tree controller.
+        /// </summary>
         private TreeController Tree { get; set; }
+
+
+        /// <summary>
+        /// The folder helper.
+        /// </summary>
         private FolderHelper Helper { get; set; }
 
+        #endregion
 
-        public LayoutHelper(IEntityPersistence persistence,
-            TreeController tree, FolderHelper helper)
+
+        #region Constructors
+
+        /// <summary>
+        /// Primary constructor.
+        /// </summary>
+        /// <param name="tree">
+        /// The tree controller.
+        /// </param>
+        /// <param name="helper">
+        /// The folder helper.
+        /// </param>
+        public LayoutHelper(TreeController tree, FolderHelper helper)
         {
-            TreeEntityPersistence = persistence;
             Tree = tree;
             Helper = helper;
         }
 
-
-        public void AddDeleteLayoutAction(MenuItemCollection menu)
-        {
-
-            // Configure "Delete Layout" button.
-            var path = "/App_Plugins/formulate/menu-actions/deleteLayout.html";
-            var menuItem = new MenuItem()
-            {
-                Alias = "deleteLayout",
-                Icon = "folder",
-                Name = "Delete Layout"
-            };
-            menuItem.LaunchDialogView(path, "Delete Layout");
-            menu.Items.Add(menuItem);
-
-        }
+        #endregion
 
 
+        #region Methods
+
+
+        /// <summary>
+        /// Adds the specified layout entities (layout or folder) to
+        /// the tree.
+        /// </summary>
+        /// <param name="nodes">
+        /// The collection to add the nodes to.
+        /// </param>
+        /// <param name="queryStrings">The query strings.</param>
+        /// <param name="entities">
+        /// The entities (layouts and folders) to add to the tree.
+        /// </param>
         public void AddLayoutChildrenToTree(TreeNodeCollection nodes,
-            FormDataCollection queryStrings,
-            IEnumerable<IEntity> entities)
+            FormDataCollection queryStrings, IEnumerable<IEntity> entities)
         {
-
-            // Add folders/layouts to tree.
             foreach (var entity in entities)
             {
+
+                // Folder or layout?
                 if (entity is Folder)
                 {
                     var folder = entity as Folder;
@@ -67,18 +89,26 @@
                     var layout = entity as Layout;
                     AddLayoutToTree(nodes, queryStrings, layout);
                 }
-            }
 
+            }
         }
 
 
+        /// <summary>
+        /// Adds a layout node to the tree.
+        /// </summary>
+        /// <param name="nodes">
+        /// The node collection to add the layout to.
+        /// </param>
+        /// <param name="queryStrings">The query strings.</param>
+        /// <param name="layout">The layout to add.</param>
         public void AddLayoutToTree(TreeNodeCollection nodes,
             FormDataCollection queryStrings, Layout layout)
         {
             var formatUrl = "/formulate/formulate/editLayout/{0}";
             var layoutId = GuidHelper.GetString(layout.Id);
             var layoutRoute = string.Format(formatUrl, layoutId);
-            var layoutName = layout.Name ?? "Unnamed";
+            var layoutName = layout.Name.Fallback("Unnamed");
             var parentId = layout.Path[layout.Path.Length - 2];
             var strParentId = GuidHelper.GetString(parentId);
             var layoutNode = Tree.CreateTreeNode(layoutId,
@@ -88,11 +118,40 @@
         }
 
 
-        public void AddCreateLayoutAction(MenuItemCollection menu,
-            Guid? parentId = null)
+        /// <summary>
+        /// Adds the "Delete Layout" action to the layout node.
+        /// </summary>
+        /// <param name="menu">
+        /// The menu to add the action to.
+        /// </param>
+        public void AddDeleteLayoutAction(MenuItemCollection menu)
         {
+            var path = "/App_Plugins/formulate/menu-actions/deleteLayout.html";
+            var menuItem = new MenuItem()
+            {
+                Alias = "deleteLayout",
+                Icon = "folder",
+                Name = "Delete Layout"
+            };
+            menuItem.LaunchDialogView(path, "Delete Layout");
+            menu.Items.Add(menuItem);
+        }
 
-            // Configure "Create Layout" button.
+
+        /// <summary>
+        /// Adds the "Create Layout" action with the specified ID used
+        /// as the parent for the layout that is created.
+        /// </summary>
+        /// <param name="menu">
+        /// The menu to add the action to.
+        /// </param>
+        /// <param name="entityId">
+        /// The ID of the entity to create the layout under.
+        /// If null, the layout will be created at the root.
+        /// </param>
+        public void AddCreateLayoutAction(MenuItemCollection menu,
+            Guid? entityId = null)
+        {
             var path = "/App_Plugins/formulate/menu-actions/createLayout.html";
             var menuItem = new MenuItem()
             {
@@ -100,14 +159,16 @@
                 Icon = "folder",
                 Name = "Create Layout"
             };
-            if (parentId.HasValue)
+            if (entityId.HasValue)
             {
-                path = path + "?under=" + GuidHelper.GetString(parentId.Value);
+                path = path + "?under=" + GuidHelper.GetString(entityId.Value);
             }
             menuItem.LaunchDialogView(path, "Create Layout");
             menu.Items.Add(menuItem);
-
         }
 
+        #endregion
+
     }
+
 }

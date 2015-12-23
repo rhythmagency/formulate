@@ -2,6 +2,7 @@
 {
 
     // Namespaces.
+    using core.Extensions;
     using Folders;
     using formulate.app.Helpers;
     using Persistence;
@@ -11,29 +12,66 @@
     using Umbraco.Web.Trees;
 
 
+    /// <summary>
+    /// Helps with folders in the Formulate tree.
+    /// </summary>
     internal class FolderHelper
     {
 
-        private IEntityPersistence TreeEntityPersistence { get; set; }
+        #region Properties
+
+        /// <summary>
+        /// The entity persistence.
+        /// </summary>
+        private IEntityPersistence Persistence { get; set; }
+
+
+        /// <summary>
+        /// The tree controller.
+        /// </summary>
         private TreeController Tree { get; set; }
 
+        #endregion
 
+
+        #region Constructors
+
+        /// <summary>
+        /// Primary constructor.
+        /// </summary>
+        /// <param name="persistence">
+        /// The entity persistence.
+        /// </param>
+        /// <param name="tree">
+        /// The tree controller.
+        /// </param>
         public FolderHelper(IEntityPersistence persistence,
             TreeController tree)
         {
-            TreeEntityPersistence = persistence;
+            Persistence = persistence;
             Tree = tree;
         }
 
+        #endregion
 
+
+        #region Methods
+
+        /// <summary>
+        /// Adds a folder node to the tree.
+        /// </summary>
+        /// <param name="nodes">The tree nodes to add to.</param>
+        /// <param name="queryStrings">The query string.</param>
+        /// <param name="folder">The folder.</param>
+        /// <param name="icon">The folder's icon.</param>
         public void AddFolderToTree(TreeNodeCollection nodes,
             FormDataCollection queryStrings, Folder folder, string icon)
         {
             var folderFormat = "/formulate/formulate/folderInfo/{0}";
             var folderId = GuidHelper.GetString(folder.Id);
             var folderRoute = string.Format(folderFormat, folderId);
-            var folderName = folder.Name ?? "Unnamed";
-            var hasChildren = TreeEntityPersistence
+            var folderName = folder.Name.Fallback("Unnamed");
+            var hasChildren = Persistence
                 .RetrieveChildren(folder.Id).Any();
             var parentId = folder.Path[folder.Path.Length - 2];
             var strParentId = GuidHelper.GetString(parentId);
@@ -43,10 +81,15 @@
             nodes.Add(folderNode);
         }
 
+
+        /// <summary>
+        /// Adds the "Create Folder" action to the folder's menu.
+        /// </summary>
+        /// <param name="menu">
+        /// The menu items.
+        /// </param>
         public void AddCreateFolderAction(MenuItemCollection menu)
         {
-
-            // Configure "Create Folder" button.
             var path = "/App_Plugins/formulate/menu-actions/createFolder.html";
             var menuItem = new MenuItem()
             {
@@ -56,8 +99,10 @@
             };
             menuItem.LaunchDialogView(path, "Create Folder");
             menu.Items.Add(menuItem);
-
         }
 
+        #endregion
+
     }
+
 }
