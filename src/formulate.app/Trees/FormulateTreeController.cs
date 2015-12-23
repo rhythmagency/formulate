@@ -31,18 +31,12 @@
     public class FormulateTreeController : TreeController
     {
 
-        private ILayoutPersistence TreeLayoutPersistence { get; set; }
-        private IFormPersistence TreeFormPersistence { get; set; }
         private IEntityPersistence TreeEntityPersistence { get; set; }
-        private IFolderPersistence TreeFolderPersistence { get; set; }
 
 
         public FormulateTreeController()
         {
-            TreeLayoutPersistence = LayoutPersistence.Current.Manager;
-            TreeFormPersistence = FormPersistence.Current.Manager;
             TreeEntityPersistence = EntityPersistence.Current.Manager;
-            TreeFolderPersistence = FolderPersistence.Current.Manager;
         }
 
         protected override MenuItemCollection GetMenuForNode(string id,
