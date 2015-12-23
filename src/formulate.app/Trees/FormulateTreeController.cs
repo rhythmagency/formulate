@@ -55,15 +55,9 @@
             var rootLayoutId = GuidHelper.GetGuid(LayoutsConstants.Id);
             if (id.InvariantEquals(rootId))
             {
-                var path = "/App_Plugins/formulate/menu-actions/reload.html";
-                var menuItem = new MenuItem()
-                {
-                    Alias = "reload",
-                    Icon = "folder",
-                    Name = "Reload"
-                };
-                menuItem.LaunchDialogView(path, "Reload");
-                menu.Items.Add(menuItem);
+
+                // Do nothing. The root requires no actions.
+
             }
             else if (id.InvariantEquals(FormsConstants.Id))
             {
@@ -112,21 +106,6 @@
                     {
                         LayoutHelper.AddCreateLayoutAction(menu, entityId);
                     }
-                }
-                else
-                {
-
-                    //TODO: This is just for testing and should be removed eventually.
-                    var path = "/App_Plugins/formulate/menu-actions/add.html";
-                    var menuItem = new MenuItem()
-                    {
-                        Alias = "add",
-                        Icon = "folder",
-                        Name = "Add"
-                    };
-                    menuItem.LaunchDialogView(path, "Add");
-                    menu.Items.Add(menuItem);
-
                 }
 
             }

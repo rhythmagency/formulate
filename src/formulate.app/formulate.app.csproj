@@ -384,8 +384,6 @@
     <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.svg" />
     <Content Include="App_Plugins\formulate\styles\formulate-icomoon.css" />
     <Content Include="App_Plugins\formulate\lang\en-GB.xml" />
-    <Content Include="App_Plugins\formulate\menu-actions\add.html" />
-    <Content Include="App_Plugins\formulate\menu-actions\reload.html" />
     <Content Include="JavaScript\formulate.js" />
     <Content Include="JavaScript\Services\formulateDirectives.js" />
     <Content Include="JavaScript\Services\formulateForms.js" />
