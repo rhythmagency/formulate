@@ -2,15 +2,14 @@
 {
 
     // Namespaces.
-    using Entities;
     using Folders;
     using Forms;
-    using Helpers;
+    using formulate.app.Helpers;
+    using formulate.app.Trees.Helpers;
     using Layouts;
     using Persistence;
     using Resolvers;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http.Formatting;
     using Umbraco.Core;
@@ -31,12 +30,20 @@
     public class FormulateTreeController : TreeController
     {
 
-        private IEntityPersistence TreeEntityPersistence { get; set; }
+        private IEntityPersistence Persistence { get; set; }
+        private FolderHelper FolderHelper { get; set; }
+        private FormHelper FormHelper { get; set; }
+        private LayoutHelper LayoutHelper { get; set; }
 
 
         public FormulateTreeController()
         {
-            TreeEntityPersistence = EntityPersistence.Current.Manager;
+            Persistence = EntityPersistence.Current.Manager;
+            FolderHelper = new FolderHelper(Persistence, this);
+            FormHelper = new FormHelper(Persistence, this,
+                FolderHelper);
+            LayoutHelper = new LayoutHelper(Persistence, this,
+                FolderHelper);
         }
 
         protected override MenuItemCollection GetMenuForNode(string id,
@@ -62,16 +69,16 @@
             {
 
                 // Actions for forms.
-                AddCreateFormAction(menu);
-                AddCreateFolderAction(menu);
+                FormHelper.AddCreateFormAction(menu);
+                FolderHelper.AddCreateFolderAction(menu);
 
             }
             else if (id.InvariantEquals(LayoutsConstants.Id))
             {
 
                 // Actions for layouts.
-                AddCreateLayoutAction(menu);
-                AddCreateFolderAction(menu);
+                LayoutHelper.AddCreateLayoutAction(menu);
+                FolderHelper.AddCreateFolderAction(menu);
 
             }
             else
@@ -79,7 +86,7 @@
 
                 // Variables.
                 var entityId = GuidHelper.GetGuid(id);
-                var entity = TreeEntityPersistence.Retrieve(entityId);
+                var entity = Persistence.Retrieve(entityId);
                 var ancestorId = entity == null
                     ? Guid.Empty
                     : entity.Path.First();
@@ -88,22 +95,22 @@
                 // What type of entity does the node represent?
                 if (entity is Form)
                 {
-                    AddDeleteFormAction(menu);
+                    FormHelper.AddDeleteFormAction(menu);
                 }
                 else if (entity is Layout)
                 {
-                    AddDeleteLayoutAction(menu);
+                    LayoutHelper.AddDeleteLayoutAction(menu);
                 }
                 else if (entity is Folder)
                 {
-                    AddCreateFolderAction(menu);
+                    FolderHelper.AddCreateFolderAction(menu);
                     if (ancestorId == rootFormsId)
                     {
-                        AddCreateFormAction(menu, entityId);
+                        FormHelper.AddCreateFormAction(menu, entityId);
                     }
                     else if (ancestorId == rootLayoutId)
                     {
-                        AddCreateLayoutAction(menu, entityId);
+                        LayoutHelper.AddCreateLayoutAction(menu, entityId);
                     }
                 }
                 else
@@ -139,14 +146,14 @@
 
                 // Get root nodes.
                 var formatUrl = "/formulate/formulate/{0}/info";
-                var hasRootForms = TreeEntityPersistence
+                var hasRootForms = Persistence
                     .RetrieveChildren(rootFormsId).Any();
                 var formsNode = this.CreateTreeNode(FormsConstants.Id, id,
                     queryStrings, FormsConstants.Title, FormsConstants.TreeIcon,
                     hasRootForms,
                     string.Format(formatUrl, "forms"));
                 nodes.Add(formsNode);
-                var hasRootLayouts = TreeEntityPersistence
+                var hasRootLayouts = Persistence
                     .RetrieveChildren(rootLayoutsId).Any();
                 var layoutsNode = this.CreateTreeNode(LayoutsConstants.Id,
                     id, queryStrings, LayoutsConstants.Title,
@@ -174,27 +181,27 @@
             {
 
                 // Get root nodes under layouts.
-                var entities = TreeEntityPersistence
+                var entities = Persistence
                     .RetrieveChildren(rootLayoutsId);
-                AddLayoutChildrenToTree(nodes, queryStrings, entities);
+                LayoutHelper.AddLayoutChildrenToTree(nodes, queryStrings, entities);
 
             }
             else if (id.InvariantEquals(FormsConstants.Id))
             {
 
                 // Get root nodes under forms.
-                var entities = TreeEntityPersistence
+                var entities = Persistence
                     .RetrieveChildren(rootFormsId);
-                AddFormChildrenToTree(nodes, queryStrings, entities);
+                FormHelper.AddFormChildrenToTree(nodes, queryStrings, entities);
 
             }
             else
             {
 
                 // Variables.
-                var entity = TreeEntityPersistence.Retrieve(entityId);
+                var entity = Persistence.Retrieve(entityId);
                 var ancestorId = entity.Path.First();
-                var children = TreeEntityPersistence
+                var children = Persistence
                     .RetrieveChildren(entityId);
 
 
@@ -205,12 +212,12 @@
                     // Which subtree?
                     if (ancestorId == rootFormsId)
                     {
-                        AddFormChildrenToTree(nodes, queryStrings,
+                        FormHelper.AddFormChildrenToTree(nodes, queryStrings,
                             children);
                     }
                     else if (ancestorId == rootLayoutsId)
                     {
-                        AddLayoutChildrenToTree(nodes, queryStrings,
+                        LayoutHelper.AddLayoutChildrenToTree(nodes, queryStrings,
                             children);
                     }
 
@@ -220,200 +227,6 @@
             return nodes;
         }
 
-
-        private void AddCreateFormAction(MenuItemCollection menu,
-            Guid? parentId = null)
-        {
-
-            // Configure "Create Form" action.
-            var path = "/formulate/formulate/editForm/null";
-            var menuItem = new MenuItem()
-            {
-                Alias = "createForm",
-                Icon = "folder",
-                Name = "Create Form"
-            };
-            if (parentId.HasValue)
-            {
-                path = path + "?under=" + GuidHelper.GetString(parentId.Value);
-            }
-            menuItem.NavigateToRoute(path);
-            menu.Items.Add(menuItem);
-
-        }
-
-
-        private void AddCreateFolderAction(MenuItemCollection menu)
-        {
-
-            // Configure "Create Folder" button.
-            var path = "/App_Plugins/formulate/menu-actions/createFolder.html";
-            var menuItem = new MenuItem()
-            {
-                Alias = "createFolder",
-                Icon = "folder",
-                Name = "Create Folder"
-            };
-            menuItem.LaunchDialogView(path, "Create Folder");
-            menu.Items.Add(menuItem);
-
-        }
-
-
-        private void AddCreateLayoutAction(MenuItemCollection menu,
-            Guid? parentId = null)
-        {
-
-            // Configure "Create Layout" button.
-            var path = "/App_Plugins/formulate/menu-actions/createLayout.html";
-            var menuItem = new MenuItem()
-            {
-                Alias = "createLayout",
-                Icon = "folder",
-                Name = "Create Layout"
-            };
-            if (parentId.HasValue)
-            {
-                path = path + "?under=" + GuidHelper.GetString(parentId.Value);
-            }
-            menuItem.LaunchDialogView(path, "Create Layout");
-            menu.Items.Add(menuItem);
-
-        }
-
-
-        private void AddDeleteFormAction(MenuItemCollection menu)
-        {
-
-            // Configure "Delete Form" button.
-            var path = "/App_Plugins/formulate/menu-actions/deleteForm.html";
-            var menuItem = new MenuItem()
-            {
-                Alias = "deleteForm",
-                Icon = "folder",
-                Name = "Delete Form"
-            };
-            menuItem.LaunchDialogView(path, "Delete Form");
-            menu.Items.Add(menuItem);
-
-        }
-
-
-        private void AddDeleteLayoutAction(MenuItemCollection menu)
-        {
-
-            // Configure "Delete Layout" button.
-            var path = "/App_Plugins/formulate/menu-actions/deleteLayout.html";
-            var menuItem = new MenuItem()
-            {
-                Alias = "deleteLayout",
-                Icon = "folder",
-                Name = "Delete Layout"
-            };
-            menuItem.LaunchDialogView(path, "Delete Layout");
-            menu.Items.Add(menuItem);
-
-        }
-
-
-        private void AddLayoutChildrenToTree(TreeNodeCollection nodes,
-            FormDataCollection queryStrings,
-            IEnumerable<IEntity> entities)
-        {
-
-            // Add folders/layouts to tree.
-            foreach (var entity in entities)
-            {
-                if (entity is Folder)
-                {
-                    var folder = entity as Folder;
-                    AddFolderToTree(nodes, queryStrings, folder,
-                        LayoutsConstants.GroupIcon);
-                }
-                else if (entity is Layout)
-                {
-                    var layout = entity as Layout;
-                    AddLayoutToTree(nodes, queryStrings, layout);
-                }
-            }
-
-        }
-
-
-        private void AddLayoutToTree(TreeNodeCollection nodes,
-            FormDataCollection queryStrings, Layout layout)
-        {
-            var formatUrl = "/formulate/formulate/editLayout/{0}";
-            var layoutId = GuidHelper.GetString(layout.Id);
-            var layoutRoute = string.Format(formatUrl, layoutId);
-            var layoutName = layout.Name ?? "Unnamed";
-            var parentId = layout.Path[layout.Path.Length - 2];
-            var strParentId = GuidHelper.GetString(parentId);
-            var layoutNode = this.CreateTreeNode(layoutId,
-                strParentId, queryStrings, layoutName,
-                LayoutsConstants.ItemIcon, false, layoutRoute);
-            nodes.Add(layoutNode);
-        }
-
-        private void AddFormChildrenToTree(TreeNodeCollection nodes,
-            FormDataCollection queryStrings,
-            IEnumerable<IEntity> entities)
-        {
-
-            // Add nodes for each entity.
-            foreach (var entity in entities)
-            {
-
-                // Folder or form?
-                if (entity is Folder)
-                {
-                    var folder = entity as Folder;
-                    AddFolderToTree(nodes, queryStrings, folder,
-                        FormsConstants.GroupIcon);
-                }
-                else if (entity is Form)
-                {
-                    var form = entity as Form;
-                    AddFormToTree(nodes, queryStrings, form);
-                }
-
-            }
-
-        }
-
-
-        private void AddFormToTree(TreeNodeCollection nodes,
-            FormDataCollection queryStrings, Form form)
-        {
-            var formatUrl = "/formulate/formulate/editForm/{0}";
-            var formId = GuidHelper.GetString(form.Id);
-            var formRoute = string.Format(formatUrl, formId);
-            var formName = form.Name ?? "Unnamed";
-            var parentId = form.Path[form.Path.Length - 2];
-            var strParentId = GuidHelper.GetString(parentId);
-            var formNode = this.CreateTreeNode(formId,
-                strParentId, queryStrings,
-                formName, FormsConstants.ItemIcon, false, formRoute);
-            nodes.Add(formNode);
-        }
-
-
-        private void AddFolderToTree(TreeNodeCollection nodes,
-            FormDataCollection queryStrings, Folder folder, string icon)
-        {
-            var folderFormat = "/formulate/formulate/folderInfo/{0}";
-            var folderId = GuidHelper.GetString(folder.Id);
-            var folderRoute = string.Format(folderFormat, folderId);
-            var folderName = folder.Name ?? "Unnamed";
-            var hasChildren = TreeEntityPersistence
-                .RetrieveChildren(folder.Id).Any();
-            var parentId = folder.Path[folder.Path.Length - 2];
-            var strParentId = GuidHelper.GetString(parentId);
-            var folderNode = this.CreateTreeNode(folderId,
-                strParentId, queryStrings, folderName,
-                icon, hasChildren, folderRoute);
-            nodes.Add(folderNode);
-        }
 
     }
 
