@@ -448,7 +448,16 @@
   </Target>
 
   -->
-  <Target Name="AfterBuild">
-    <TransformXml Source="Web.config" Transform="Transform.Config" Destination="Web.Config" />
+  <Target Name="BeforeBuild">
+
+    <!-- Copy sample config files. -->
+    <Copy SourceFiles="$(MSBuildProjectDirectory)/Config/applications.sample.config" DestinationFiles="$(MSBuildProjectDirectory)/Config/applications.config" Condition="!Exists('$(MSBuildProjectDirectory)/Config/applications.config')" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)/Config/ClientDependency.sample.config" DestinationFiles="$(MSBuildProjectDirectory)/Config/ClientDependency.config" Condition="!Exists('$(MSBuildProjectDirectory)/Config/ClientDependency.config')" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)/Config/Dashboard.sample.config" DestinationFiles="$(MSBuildProjectDirectory)/Config/Dashboard.config" Condition="!Exists('$(MSBuildProjectDirectory)/Config/Dashboard.config')" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)/Config/trees.sample.config" DestinationFiles="$(MSBuildProjectDirectory)/Config/trees.config" Condition="!Exists('$(MSBuildProjectDirectory)/Config/trees.config')" />
+
+    <!-- Transform web.config. -->
+    <TransformXml Source="web.sample.config" Transform="Transform.Config" Destination="web.config" Condition="!Exists('$(MSBuildProjectDirectory)/web.config')" />
+
   </Target>
 </Project>

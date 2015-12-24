@@ -48,3 +48,10 @@ dist/
 **/Website/App_Data/Umbraco.sdf
 **/Website/App_Data/cache/
 **/Website/App_Data/Formulate/
+
+# Generated config files.
+web.config
+applications.config
+ClientDependency.config
+Dashboard.config
+trees.config
