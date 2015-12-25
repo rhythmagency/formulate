@@ -276,10 +276,11 @@
     <Compile Include="Constants\Trees\DataValues.cs" />
     <Compile Include="Constants\Trees\Forms.cs" />
     <Compile Include="Constants\Trees\Layouts.cs" />
-    <Compile Include="Constants\Trees\ValidationLibrary.cs" />
+    <Compile Include="Constants\Trees\Validations.cs" />
     <Compile Include="Controllers\FieldsController.cs" />
     <Compile Include="Controllers\FoldersController.cs" />
     <Compile Include="Controllers\FormsController.cs" />
+    <Compile Include="Controllers\ValidationsController.cs" />
     <Compile Include="Controllers\LayoutsController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Entities\EntityRoot.cs" />
@@ -306,7 +307,10 @@
     <Compile Include="Managers\DefaultConfigurationManager.cs" />
     <Compile Include="Managers\IConfigurationManager.cs" />
     <Compile Include="Models\Parameters\FieldInfo.cs" />
+    <Compile Include="Models\Requests\DeleteValidationRequest.cs" />
+    <Compile Include="Models\Requests\GetValidationInfoRequest.cs" />
     <Compile Include="Models\Requests\PersistFolderRequest.cs" />
+    <Compile Include="Models\Requests\PersistValidationRequest.cs" />
     <Compile Include="Models\Requests\PersistLayoutRequest.cs" />
     <Compile Include="Models\Requests\DeleteFormRequest.cs" />
     <Compile Include="Models\Requests\DeleteLayoutRequest.cs" />
@@ -315,6 +319,8 @@
     <Compile Include="Models\Requests\PersistFormRequest.cs" />
     <Compile Include="Persistence\IEntityPersistence.cs" />
     <Compile Include="Persistence\IFolderPersistence.cs" />
+    <Compile Include="Persistence\Internal\JsonValidationPersistence.cs" />
+    <Compile Include="Persistence\IValidationPersistence.cs" />
     <Compile Include="Persistence\ILayoutPersistence.cs" />
     <Compile Include="Persistence\IFormPersistence.cs" />
     <Compile Include="Persistence\Internal\DefaultEntityPersistence.cs" />
@@ -332,11 +338,14 @@
     <Compile Include="Resolvers\EntityPersistence.cs" />
     <Compile Include="Resolvers\FolderPersistence.cs" />
     <Compile Include="Resolvers\FormPersistence.cs" />
+    <Compile Include="Resolvers\ValidationPersistence.cs" />
     <Compile Include="Resolvers\LayoutPersistence.cs" />
     <Compile Include="Trees\FormulateTreeController.cs" />
     <Compile Include="Trees\Helpers\FolderHelper.cs" />
     <Compile Include="Trees\Helpers\FormHelper.cs" />
+    <Compile Include="Trees\Helpers\ValidationHelper.cs" />
     <Compile Include="Trees\Helpers\LayoutHelper.cs" />
+    <Compile Include="Validations\Validation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -365,8 +374,14 @@
     <Content Include="App_Plugins\formulate\menu-actions\deleteLayout.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteForm.html" />
     <Content Include="App_Plugins\formulate\styles\formulate-designer.css" />
+    <Content Include="Directives\createFolder\createFolder.html" />
+    <Content Include="Directives\createFolder\createFolder.js" />
     <Content Include="Directives\deleteFormConfirmation\deleteForm.html" />
     <Content Include="Directives\deleteFormConfirmation\deleteForm.js" />
+    <Content Include="Directives\deleteLayoutConfirmation\deleteLayout.html" />
+    <Content Include="Directives\deleteLayoutConfirmation\deleteLayout.js" />
+    <Content Include="Directives\deleteValidationConfirmation\deleteValidation.html" />
+    <Content Include="Directives\deleteValidationConfirmation\deleteValidation.js" />
     <Content Include="Directives\fieldChooser\fieldChooser.html" />
     <Content Include="Directives\fieldChooser\fieldChooser.js" />
     <Content Include="Directives\fieldEditor\fieldEditor.html" />
@@ -377,6 +392,10 @@
     <Content Include="Directives\formDesigner\designer.js" />
     <Content Include="Directives\layoutDesigner\designer.html" />
     <Content Include="Directives\layoutDesigner\designer.js" />
+    <Content Include="Directives\validationDesigner\designer.html" />
+    <Content Include="Directives\validationDesigner\designer.js" />
+    <Content Include="Directives\validationTypeChooser\validationChooser.html" />
+    <Content Include="Directives\validationTypeChooser\validationChooser.js" />
     <Content Include="Directives\layoutTypeChooser\layoutChooser.html" />
     <Content Include="Directives\layoutTypeChooser\layoutChooser.js" />
     <Content Include="Directives\install\install.html" />
@@ -386,9 +405,13 @@
     <Content Include="App_Plugins\formulate\lang\en-GB.xml" />
     <Content Include="JavaScript\formulate.js" />
     <Content Include="JavaScript\Services\formulateDirectives.js" />
+    <Content Include="JavaScript\Services\formulateFields.js" />
+    <Content Include="JavaScript\Services\formulateFolders.js" />
     <Content Include="JavaScript\Services\formulateForms.js" />
+    <Content Include="JavaScript\Services\formulateValidations.js" />
     <Content Include="JavaScript\Services\formulateLayouts.js" />
     <Content Include="JavaScript\Services\formulatePermissions.js" />
+    <Content Include="JavaScript\Services\formulateVars.js" />
     <Content Include="JavaScript\Utilities\getDirective.js" />
     <None Include="Resources\TransformWebConfig.txt" />
     <None Include="Resources\GrantAllUsersPermissionToSection.txt" />
@@ -410,6 +433,7 @@
       <Name>formulate.meta</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">

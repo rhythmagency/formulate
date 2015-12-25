@@ -50,6 +50,12 @@
                 new LayoutPersistence(layoutPersistence);
 
 
+            // Initialize validation persistence resolver.
+            var validationPersistence = new JsonValidationPersistence();
+            ValidationPersistence.Current =
+                new ValidationPersistence(validationPersistence);
+
+
             // Initialize folder persistence resolver.
             var folderPersistence = new JsonFolderPersistence();
             FolderPersistence.Current =

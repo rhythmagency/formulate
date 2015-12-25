@@ -87,6 +87,15 @@
                 { "GetLayoutInfo",
                     helper.GetUmbracoApiService<LayoutsController>(x =>
                         x.GetLayoutInfo(null)) },
+                { "DeleteValidation",
+                    helper.GetUmbracoApiService<ValidationsController>(x =>
+                        x.DeleteValidation(null)) },
+                { "PersistValidation",
+                    helper.GetUmbracoApiService<ValidationsController>(x =>
+                        x.PersistValidation(null)) },
+                { "GetValidationInfo",
+                    helper.GetUmbracoApiService<ValidationsController>(x =>
+                        x.GetValidationInfo(null)) },
                 { "PersistFolder",
                     helper.GetUmbracoApiService<FoldersController>(x =>
                         x.PersistFolder(null)) },
@@ -96,7 +105,9 @@
                 { "PermitAccess",
                     helper.GetUmbracoApiService<SetupController>(x =>
                         x.PermitAccessToFormulate()) },
-                { "EditLayoutBase", "/formulate/formulate/editLayout/" }
+                { "EditLayoutBase", "/formulate/formulate/editLayout/" },
+                { "EditValidationBase",
+                    "/formulate/formulate/editValidation/" }
             });
 
         }

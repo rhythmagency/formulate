@@ -1,0 +1,26 @@
+﻿<div ng-controller="formulate.validationTypeChooser">
+    <div>
+        <div>
+            <label>
+                Validation Name:
+                <div>
+                    <input type="text" ng-model="validationName" />
+                </div>
+            </label>
+        </div>
+        <div>
+            <label>
+                Validation Alias:
+                <div>
+                    <input type="text" ng-model="validationAlias" />
+                </div>
+            </label>
+        </div>
+        <select ng-model="kind.id">
+            <option ng-repeat="option in kind.kinds" value="{{option.id}}">
+                {{option.name}}
+            </option>
+        </select>
+    </div>
+    <button class="btn btn-primary" ng-disabled="!canCreate()" ng-click="createValidation()">Create Validation</button>
+</div>

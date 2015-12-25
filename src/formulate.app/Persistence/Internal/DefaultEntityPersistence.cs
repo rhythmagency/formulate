@@ -3,13 +3,14 @@
 
     // Namespaces.
     using Entities;
+    using Helpers;
     using Resolvers;
     using System;
     using System.Collections.Generic;
-    using FormsConstants = formulate.app.Constants.Trees.Forms;
-    using Helpers;
     using System.Linq;
+    using FormsConstants = formulate.app.Constants.Trees.Forms;
     using LayoutsConstants = formulate.app.Constants.Trees.Layouts;
+    using ValidationsConstants = formulate.app.Constants.Trees.Validations;
 
 
     /// <summary>
@@ -55,6 +56,18 @@
             }
         }
 
+
+        /// <summary>
+        /// Validation persistence.
+        /// </summary>
+        private IValidationPersistence Validations
+        {
+            get
+            {
+                return ValidationPersistence.Current.Manager;
+            }
+        }
+
         #endregion
 
 
@@ -86,7 +99,8 @@
             var roots = new[]
             {
                 GuidHelper.GetGuid(FormsConstants.Id),
-                GuidHelper.GetGuid(LayoutsConstants.Id)
+                GuidHelper.GetGuid(LayoutsConstants.Id),
+                GuidHelper.GetGuid(ValidationsConstants.Id)
             };
             if (roots.Any(x => x == entityId))
             {
@@ -102,7 +116,8 @@
                 // Specific entities (e.g., forms or layouts).
                 return Folders.Retrieve(entityId) as IEntity
                     ?? Forms.Retrieve(entityId) as IEntity
-                    ?? Layouts.Retrieve(entityId) as IEntity;
+                    ?? Layouts.Retrieve(entityId) as IEntity
+                    ?? Validations.Retrieve(entityId) as IEntity;
 
             }
 
@@ -125,6 +140,7 @@
             children.AddRange(Folders.RetrieveChildren(parentId));
             children.AddRange(Forms.RetrieveChildren(parentId));
             children.AddRange(Layouts.RetrieveChildren(parentId));
+            children.AddRange(Validations.RetrieveChildren(parentId));
             return children;
         }
 
