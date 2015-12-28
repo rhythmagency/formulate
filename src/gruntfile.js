@@ -98,7 +98,8 @@ module.exports = function(grunt) {
                 js: appProject + "/JavaScript/formulate.js"
             },
             out: {
-                js: appProject + "/App_Plugins/formulate/formulate.js"
+                js: appProject + "/App_Plugins/formulate/formulate.js",
+                jsdoc: "frontendDocs/"
             }
         },
         copy: {
@@ -190,7 +191,17 @@ module.exports = function(grunt) {
             }
         },
         clean: {
-            main: {
+            before: {
+                src: [
+                    // Generated documentation.
+                    "./frontendDocs",
+                    // Temporary folder for intermediate build artifacts.
+                    "./FormulateTemp",
+                    // Temporary file (compiled version of JS).
+                    "./formulate.app/App_Plugins/formulate/formulate.js"
+                ]
+            },
+            after: {
                 src: [
                     // Temporary folder for intermediate build artifacts.
                     "./FormulateTemp",
@@ -235,6 +246,14 @@ module.exports = function(grunt) {
                     "<%= paths.out.js %>": "<%= paths.out.js %>"
                 }
             }
+        },
+        jsdoc: {
+            main: {
+                src: ["<%= paths.out.js %>"],
+                options: {
+                    destination: "<%= paths.out.jsdoc %>"
+                }
+            }
         }
     });
 
@@ -247,27 +266,28 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-nuget-install");
     grunt.loadNpmTasks("grunt-msbuild");
     grunt.loadNpmTasks("grunt-ng-annotate");
+    grunt.loadNpmTasks("grunt-jsdoc");
 
     // Register Grunt tasks.
     grunt.registerTask("default",
         // The "default" task is for general development of Formulate.
-        ["clean:main", "htmlConvert", "browserify:default", "ngAnnotate:main",
-        "copy:main", "clean:main"]);
+        ["clean:before", "htmlConvert", "browserify:default", "ngAnnotate:main",
+        "copy:main", "clean:after"]);
     grunt.registerTask("frontend",
         // The "frontend" task is for frontend development of Formulate. This
         // will skip copying the binaries.
-        ["clean:main", "htmlConvert", "browserify:default", "ngAnnotate:main",
-        "copy:frontend", "clean:main"]);
+        ["clean:before", "htmlConvert", "browserify:default", "ngAnnotate:main",
+        "copy:frontend", "jsdoc:main", "clean:after"]);
     grunt.registerTask("package",
         // The "package" task is used to create an installer package
         // for Formulate.
-        ["clean:main", "htmlConvert", "browserify:default", "ngAnnotate:main",
-        "copy:package", "umbracoPackage:main", "clean:main"]);
+        ["clean:before", "htmlConvert", "browserify:default", "ngAnnotate:main",
+        "copy:package", "umbracoPackage:main", "clean:after"]);
     grunt.registerTask("package-full",
         // The "package-full" task is used to build the Visual Studio
         // solution and then create the installer package for Formulate.
-        ["clean:main", "nuget_install", "msbuild:main", "htmlConvert",
+        ["clean:before", "nuget_install", "msbuild:main", "htmlConvert",
         "browserify:default", "ngAnnotate:main", "copy:package",
-        "umbracoPackage:main", "clean:main"]);
+        "umbracoPackage:main", "clean:after"]);
 
 };
