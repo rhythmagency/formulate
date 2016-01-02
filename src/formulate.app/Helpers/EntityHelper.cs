@@ -2,6 +2,7 @@
 {
 
     // Namespaces.
+    using Entities;
     using System;
     using FormsConstants = formulate.app.Constants.Trees.Forms;
     using LayoutsConstants = formulate.app.Constants.Trees.Layouts;
@@ -147,6 +148,19 @@
         public static bool IsRoot(Guid id)
         {
             return id == FormId || id == LayoutId || id == ValidationId;
+        }
+
+
+        /// <summary>
+        /// Converts an entity kind to a string.
+        /// </summary>
+        /// <param name="kind">The entity kind.</param>
+        /// <returns>
+        /// The entity kind string.
+        /// </returns>
+        public static string GetString(EntityKind kind)
+        {
+            return Enum.GetName(typeof(EntityKind), kind);
         }
 
         #endregion

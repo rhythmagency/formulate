@@ -22,8 +22,6 @@ These projects are doing some awesome things (I can refer to their code for insp
 * https://github.com/kgiszewski/UmbracoBookshelf
 
 ## Nifty
-var baseUrl = Umbraco.Sys.ServerVariables['merchelloUrls']['merchelloDetachedContentApiBaseUrl'];
-
 This shows how to pass "dialogData" to dialogs with the dialog service: http://24days.in/umbraco/2014/umbraco-angular-tips/
 * It also shows how to reuse property editors.
 
@@ -31,5 +29,4 @@ http://24days.in/umbraco/2015/custom-listview/
 
 Can hide public classes/methods from intellisense: http://stackoverflow.com/a/9274886
 
-Generic file transformations: http://www.nibble.be/?p=461
-* https://github.com/TimGeyssens/UmbracoPageNotFoundManager/blob/master/PageNotFoundManager/Umbraco/Installer/PackageActions.cs
+https://github.com/angular/angular.js/wiki/Writing-AngularJS-Documentation

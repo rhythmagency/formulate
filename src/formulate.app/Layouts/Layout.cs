@@ -60,6 +60,19 @@
             }
         }
 
+
+        /// <summary>
+        /// The kind of this entity.
+        /// </summary>
+        [JsonIgnore()]
+        public EntityKind Kind
+        {
+            get
+            {
+                return EntityKind.Layout;
+            }
+        }
+
         #endregion
 
 

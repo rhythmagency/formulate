@@ -106,6 +106,7 @@
                         Id = GuidHelper.GetString(x.Id),
                         x.Name,
                         Icon = x.Icon,
+                        Kind = EntityHelper.GetString(x.Kind),
                         HasChildren = Entities.RetrieveChildren(x.Id).Any()
                     }).ToArray()
                 };
@@ -166,6 +167,7 @@
                     Id = GuidHelper.GetString(entity.Id),
                     Name = entity.Name,
                     Icon = entity.Icon,
+                    Kind = EntityHelper.GetString(entity.Kind),
                     HasChildren = Entities.RetrieveChildren(entity.Id).Any()
                 };
 

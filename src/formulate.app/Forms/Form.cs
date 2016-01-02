@@ -56,6 +56,19 @@
 
 
         /// <summary>
+        /// The kind of this entity.
+        /// </summary>
+        [JsonIgnore()]
+        public EntityKind Kind
+        {
+            get
+            {
+                return EntityKind.Form;
+            }
+        }
+
+
+        /// <summary>
         /// The fields on this form.
         /// </summary>
         public IFormField[] Fields { get; set; }

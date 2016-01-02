@@ -17,28 +17,24 @@ function entityPickerDirective(formulateDirectives, $compile) {
             rootId: "=",
             maxCount: "=",
             includeRoot: "=",
-            chosen: "&"
+            selection: "="
         }
     };
 }
 
 // Controller.
-function entityPickerController($scope, $routeParams, navigationService,
-    formulateForms, $location, $route, $element, formulateEntities) {
+function entityPickerController($scope, formulateEntities) {
 
+    // Set scope variables.
+    $scope.selectedNodes = [];
+
+    // Include the root or skip to the children?
     if ($scope.includeRoot) {
 
         // Get root.
         formulateEntities.getEntity($scope.rootId).then(function(result) {
             $scope.rootNodes = [
-                {
-                    id: result.id,
-                    name: result.name,
-                    icon: result.icon,
-                    children: result.children || [],
-                    hasChildren: result.hasChildren,
-                    expanded: false
-                }
+                getViewModel(result)
             ];
         });
 
@@ -46,17 +42,32 @@ function entityPickerController($scope, $routeParams, navigationService,
 
         // Get children of root.
         formulateEntities.getEntityChildren($scope.rootId).then(function(result) {
-            $scope.rootNodes = result.children.map(function(item) {
-                return {
-                    id: item.id,
-                    name: item.name,
-                    icon: item.icon,
-                    children: item.children || [],
-                    hasChildren: item.hasChildren,
-                    expanded: false
-                };
-            });
+            $scope.rootNodes = result.children.map(getViewModel);
         });
 
     }
+
+    // Watch selected nodes and update selection.
+    $scope.$watchCollection("selectedNodes", function(newValue) {
+        $scope.selection.splice(0, $scope.selection.length);
+        for (var i = 0; i < newValue.length; i++) {
+            var id = newValue[i].id;
+            $scope.selection.push(id);
+        }
+    });
+
+}
+
+// Gets the view model from a node.
+function getViewModel(item) {
+    return {
+        id: item.id,
+        name: item.name,
+        icon: item.icon,
+        kind: item.kind,
+        children: item.children || [],
+        hasChildren: item.hasChildren,
+        expanded: false,
+        selected: false
+    };
 }

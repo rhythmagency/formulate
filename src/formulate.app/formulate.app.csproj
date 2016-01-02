@@ -284,6 +284,7 @@
     <Compile Include="Controllers\ValidationsController.cs" />
     <Compile Include="Controllers\LayoutsController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
+    <Compile Include="Entities\EntityKind.cs" />
     <Compile Include="Entities\EntityRoot.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Folders\Folder.cs" />

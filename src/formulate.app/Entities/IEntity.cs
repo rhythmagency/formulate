@@ -39,6 +39,12 @@
         /// </summary>
         string Icon { get; }
 
+
+        /// <summary>
+        /// The kind of this entity.
+        /// </summary>
+        EntityKind Kind { get; }
+
         #endregion
 
     }

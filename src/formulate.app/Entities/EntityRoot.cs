@@ -39,6 +39,18 @@
         /// </summary>
         public string Icon { get; set; }
 
+
+        /// <summary>
+        /// The kind of this entity.
+        /// </summary>
+        public EntityKind Kind
+        {
+            get
+            {
+                return EntityKind.Root;
+            }
+        }
+
         #endregion
 
     }

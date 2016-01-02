@@ -15,3 +15,7 @@ ul.formulate-entity-tree .child-toggle {
 ul.formulate-entity-tree .child-toggle:hover {
     cursor: pointer;
 }
+
+ul.formulate-entity-tree .entity-icon.selected {
+    color: #2e8aea;
+}

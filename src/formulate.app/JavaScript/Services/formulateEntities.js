@@ -53,6 +53,7 @@ function getGetEntityChildren(services) {
                             id: child.Id,
                             name: child.Name,
                             icon: child.Icon,
+                            kind: child.Kind,
                             hasChildren: child.HasChildren,
                             children: []
                         };
@@ -90,6 +91,7 @@ function getGetEntity(services) {
                     id: data.Id,
                     name: data.Name,
                     icon: data.Icon,
+                    kind: data.Kind,
                     hasChildren: data.HasChildren,
                     children: []
                 };
