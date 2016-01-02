@@ -3,6 +3,7 @@
 
     // Namespaces.
     using Entities;
+    using Newtonsoft.Json;
     using System;
 
 
@@ -39,6 +40,19 @@
         /// The name of this form.
         /// </summary>
         public string Name { get; set; }
+
+
+        /// <summary>
+        /// The icon for forms.
+        /// </summary>
+        [JsonIgnore()]
+        public string Icon
+        {
+            get
+            {
+                return Constants.Trees.Forms.ItemIcon;
+            }
+        }
 
 
         /// <summary>

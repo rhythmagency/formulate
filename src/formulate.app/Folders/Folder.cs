@@ -3,6 +3,7 @@
 
     // Namespaces.
     using Entities;
+    using Newtonsoft.Json;
     using System;
 
 
@@ -33,6 +34,13 @@
         /// This path excludes the root, but includes the folder ID.
         /// </remarks>
         public Guid[] Path { get; set; }
+
+
+        /// <summary>
+        /// The icon for folders.
+        /// </summary>
+        [JsonIgnore()]
+        public string Icon { get; set; }
 
         #endregion
 

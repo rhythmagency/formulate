@@ -3,6 +3,7 @@
 
     // Namespaces.
     using Entities;
+    using Newtonsoft.Json;
     using System;
 
 
@@ -42,6 +43,19 @@
         /// The name of this validation.
         /// </summary>
         public string Name { get; set; }
+
+
+        /// <summary>
+        /// The icon for validations.
+        /// </summary>
+        [JsonIgnore()]
+        public string Icon
+        {
+            get
+            {
+                return Constants.Trees.Validations.ItemIcon;
+            }
+        }
 
         #endregion
 

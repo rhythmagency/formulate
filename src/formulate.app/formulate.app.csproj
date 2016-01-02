@@ -279,6 +279,7 @@
     <Compile Include="Constants\Trees\Validations.cs" />
     <Compile Include="Controllers\FieldsController.cs" />
     <Compile Include="Controllers\FoldersController.cs" />
+    <Compile Include="Controllers\EntitiesController.cs" />
     <Compile Include="Controllers\FormsController.cs" />
     <Compile Include="Controllers\ValidationsController.cs" />
     <Compile Include="Controllers\LayoutsController.cs" />
@@ -298,6 +299,7 @@
     <Compile Include="Forms\IFormMetaInfo.cs" />
     <Compile Include="Handlers\ApplicationStartedHandler.cs" />
     <Compile Include="Handlers\ApplicationStartingHandler.cs" />
+    <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\GuidHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
@@ -308,6 +310,8 @@
     <Compile Include="Managers\IConfigurationManager.cs" />
     <Compile Include="Models\Parameters\FieldInfo.cs" />
     <Compile Include="Models\Requests\DeleteValidationRequest.cs" />
+    <Compile Include="Models\Requests\GetEntityRequest.cs" />
+    <Compile Include="Models\Requests\GetEntityChildrenRequest.cs" />
     <Compile Include="Models\Requests\GetValidationInfoRequest.cs" />
     <Compile Include="Models\Requests\PersistFolderRequest.cs" />
     <Compile Include="Models\Requests\PersistValidationRequest.cs" />
@@ -373,6 +377,7 @@
     <Content Include="App_Plugins\formulate\menu-actions\createLayout.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteLayout.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteForm.html" />
+    <Content Include="App_Plugins\formulate\styles\form-designer.css" />
     <Content Include="App_Plugins\formulate\styles\formulate-designer.css" />
     <Content Include="Directives\createFolder\createFolder.html" />
     <Content Include="Directives\createFolder\createFolder.js" />
@@ -382,6 +387,10 @@
     <Content Include="Directives\deleteLayoutConfirmation\deleteLayout.js" />
     <Content Include="Directives\deleteValidationConfirmation\deleteValidation.html" />
     <Content Include="Directives\deleteValidationConfirmation\deleteValidation.js" />
+    <Content Include="Directives\entityPicker\entityPicker.html" />
+    <Content Include="Directives\entityPicker\entityPicker.js" />
+    <Content Include="Directives\entityPicker\entityPickerTree.html" />
+    <Content Include="Directives\entityPicker\entityPickerTree.js" />
     <Content Include="Directives\fieldChooser\fieldChooser.html" />
     <Content Include="Directives\fieldChooser\fieldChooser.js" />
     <Content Include="Directives\fieldEditor\fieldEditor.html" />
@@ -408,6 +417,7 @@
     <Content Include="JavaScript\Services\formulateFields.js" />
     <Content Include="JavaScript\Services\formulateFolders.js" />
     <Content Include="JavaScript\Services\formulateForms.js" />
+    <Content Include="JavaScript\Services\formulateRecursion.js" />
     <Content Include="JavaScript\Services\formulateValidations.js" />
     <Content Include="JavaScript\Services\formulateLayouts.js" />
     <Content Include="JavaScript\Services\formulatePermissions.js" />

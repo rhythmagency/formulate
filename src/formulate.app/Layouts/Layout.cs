@@ -3,6 +3,7 @@
 
     // Namespaces.
     using Entities;
+    using Newtonsoft.Json;
     using System;
 
 
@@ -45,6 +46,19 @@
         /// The name of this layout.
         /// </summary>
         public string Name { get; set; }
+
+
+        /// <summary>
+        /// The icon for layouts.
+        /// </summary>
+        [JsonIgnore()]
+        public string Icon
+        {
+            get
+            {
+                return Constants.Trees.Layouts.ItemIcon;
+            }
+        }
 
         #endregion
 

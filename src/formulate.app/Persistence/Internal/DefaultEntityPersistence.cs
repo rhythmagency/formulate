@@ -95,19 +95,15 @@
         public IEntity Retrieve(Guid entityId)
         {
 
-            // Root-level folders.
-            var roots = new[]
-            {
-                GuidHelper.GetGuid(FormsConstants.Id),
-                GuidHelper.GetGuid(LayoutsConstants.Id),
-                GuidHelper.GetGuid(ValidationsConstants.Id)
-            };
-            if (roots.Any(x => x == entityId))
+            // Root-level node?
+            if (EntityHelper.IsRoot(entityId))
             {
                 return new EntityRoot()
                 {
                     Id = entityId,
-                    Path = new[] { entityId }
+                    Path = new[] { entityId },
+                    Name = EntityHelper.GetNameForRoot(entityId),
+                    Icon = EntityHelper.GetIconForRoot(entityId)
                 };
             }
             else

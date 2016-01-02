@@ -27,6 +27,18 @@
         /// </remarks>
         public Guid[] Path { get; set; }
 
+
+        /// <summary>
+        /// The name of this entity.
+        /// </summary>
+        public string Name { get; set; }
+
+
+        /// <summary>
+        /// The icon for this root entity.
+        /// </summary>
+        public string Icon { get; set; }
+
         #endregion
 
     }

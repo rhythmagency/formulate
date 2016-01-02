@@ -27,6 +27,18 @@
         /// </remarks>
         Guid[] Path { get; set; }
 
+
+        /// <summary>
+        /// The name of this entity.
+        /// </summary>
+        string Name { get; set; }
+
+
+        /// <summary>
+        /// The icon to show in entity trees.
+        /// </summary>
+        string Icon { get; }
+
         #endregion
 
     }

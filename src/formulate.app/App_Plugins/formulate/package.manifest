@@ -4,6 +4,7 @@
     ],
     "css": [
         "~/App_Plugins/formulate/styles/formulate-icomoon.css",
-        "~/App_Plugins/formulate/styles/form-designer.css"
+        "~/App_Plugins/formulate/styles/form-designer.css",
+        "~/App_Plugins/formulate/styles/entity-tree.css"
     ]
 }

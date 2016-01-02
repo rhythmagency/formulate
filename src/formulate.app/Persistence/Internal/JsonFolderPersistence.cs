@@ -8,7 +8,9 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Web.Hosting;
+    using Helpers;
 
 
     /// <summary>
@@ -132,7 +134,9 @@
         /// </returns>
         public Folder Retrieve(Guid folderId)
         {
-            return Helper.Retrieve<Folder>(folderId);
+            var folder = Helper.Retrieve<Folder>(folderId);
+            SetIcons(folder);
+            return folder;
         }
 
 
@@ -152,7 +156,40 @@
             }
             else
             {
-                return Helper.RetrieveChildren<Folder>(parentId);
+                var folders = Helper.RetrieveChildren<Folder>(parentId)
+                    .ToArray();
+                SetIcons(folders);
+                return folders;
+            }
+        }
+
+        #endregion
+
+
+        #region Private Methods
+
+        /// <summary>
+        /// Sets the icons for each folder.
+        /// </summary>
+        /// <param name="folders">
+        /// The folders to set the icons for.
+        /// </param>
+        /// <remarks>
+        /// All supplied folders are assumed to have the same icon
+        /// (i.e., they are assumed to be in the same sub-tree).
+        /// </remarks>
+        private void SetIcons(params Folder[] folders)
+        {
+            if (folders == null || folders.Length == 0)
+            {
+                return;
+            }
+            var firstFolder = folders.First();
+            var rootId = firstFolder.Path.First();
+            var icon = EntityHelper.GetGroupIconByRoot(rootId);
+            foreach (var folder in folders)
+            {
+                folder.Icon = icon;
             }
         }
 

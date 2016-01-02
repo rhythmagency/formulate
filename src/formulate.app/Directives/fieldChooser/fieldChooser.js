@@ -18,8 +18,7 @@ function fieldChooserDirective(formulateDirectives) {
 }
 
 // Controller.
-function fieldChooserController($scope, $routeParams, navigationService,
-    formulateForms, $location, $route, $element, formulateFields) {
+function fieldChooserController($scope, $element, formulateFields) {
 
     // Set scope variables.
     formulateFields.getFieldTypes().then(function(fieldTypes) {

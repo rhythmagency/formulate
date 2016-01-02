@@ -105,6 +105,12 @@
                 { "PermitAccess",
                     helper.GetUmbracoApiService<SetupController>(x =>
                         x.PermitAccessToFormulate()) },
+                { "GetEntityChildren",
+                    helper.GetUmbracoApiService<EntitiesController>(x =>
+                        x.GetEntityChildren(null)) },
+                { "GetEntity",
+                    helper.GetUmbracoApiService<EntitiesController>(x =>
+                        x.GetEntity(null)) },
                 { "EditLayoutBase", "/formulate/formulate/editLayout/" },
                 { "EditValidationBase",
                     "/formulate/formulate/editValidation/" }
