@@ -16,7 +16,7 @@ function FormDesignerDirective(formulateDirectives) {
 
 // Controller.
 function FormDesignerController($scope, $routeParams, navigationService,
-    formulateForms, $location, $route) {
+    formulateForms, $location, $route, dialogService, formulateValidations) {
 
     // Variables.
     var id = $routeParams.id;
@@ -29,7 +29,9 @@ function FormDesignerController($scope, $routeParams, navigationService,
         navigationService: navigationService,
         formulateForms: formulateForms,
         $location: $location,
-        $route: $route
+        $route: $route,
+        dialogService: dialogService,
+        formulateValidations: formulateValidations
     };
 
     // Set scope variables.
@@ -54,6 +56,7 @@ function FormDesignerController($scope, $routeParams, navigationService,
     $scope.canAddField = getCanAddField(services);
     $scope.fieldChosen = getFieldChosen(services);
     $scope.toggleField = getToggleField();
+    $scope.pickValidations = getPickValidations(services);
 
     // Initializes form.
     initializeForm({
@@ -61,6 +64,34 @@ function FormDesignerController($scope, $routeParams, navigationService,
         isNew: isNew
     }, services);
 
+}
+
+// Allows the user to pick their validations.
+function getPickValidations(services) {
+    var dialogService = services.dialogService;
+    var formulateValidations = services.formulateValidations;
+    return function(field) {
+        dialogService.open({
+            template: "../App_Plugins/formulate/dialogs/pickValidations.html",
+            show: true,
+            callback: function(data) {
+
+                // Get info about validations based on their ID's,
+                // then update the validations for the field.
+                formulateValidations.getValidationsInfo(data)
+                    .then(function (validations) {
+                        field.validations = validations
+                            .map(function (item) {
+                                return {
+                                    id: item.validationId,
+                                    name: item.name
+                                };
+                            });
+                    });
+
+            }
+        });
+    };
 }
 
 // Saves the form.

@@ -19,6 +19,9 @@ app.factory("formulateValidations", function ($http, $q, notificationsService,
         // Gets the validation info for the validation with the specified ID.
         getValidationInfo: getGetValidationInfo(services),
 
+        // Gets the info for the validations with the specified IDs.
+        getValidationsInfo: getGetValidationsInfo(services),
+
         // Saves the validation on the server.
         persistValidation: getPersistValidation(services),
 
@@ -56,6 +59,37 @@ function getGetValidationInfo(services) {
                 };
             }), getHandleServerError(services));
 
+    };
+}
+
+// Returns the function that gets information about validations.
+function getGetValidationsInfo(services) {
+    return function (ids) {
+
+        // Variables.
+        var url = services.formulateVars.GetValidationsInfo;
+        var options = {
+            cache: false,
+            params: {
+                ValidationIds: ids,
+                // Cache buster ensures requests aren't cached.
+                CacheBuster: Math.random()
+            }
+        };
+
+        // Get validation info from server.
+        return services.$http.get(url, options)
+            .then(getHandleResponse(services, function (data) {
+                return data.Validations.map(function(item) {
+                    return {
+                        kindId: item.KindId,
+                        validationId: item.ValidationId,
+                        path: item.Path,
+                        name: item.Name,
+                        alias: item.Alias
+                    };
+                });
+            }), getHandleServerError(services));
 
     };
 }

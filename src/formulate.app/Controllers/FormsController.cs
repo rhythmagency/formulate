@@ -43,6 +43,7 @@
 
         private IFormPersistence Persistence { get; set; }
         private IEntityPersistence Entities { get; set; }
+        private IValidationPersistence Validations { get; set; }
 
         #endregion
 
@@ -67,6 +68,7 @@
         {
             Persistence = FormPersistence.Current.Manager;
             Entities = EntityPersistence.Current.Manager;
+            Validations = ValidationPersistence.Current.Manager;
         }
 
         #endregion
@@ -119,6 +121,12 @@
                         x.Alias,
                         x.Name,
                         x.Label,
+                        Validations = x.Validations.MakeSafe()
+                            .Select(y => new
+                            {
+                                Id = GuidHelper.GetString(y),
+                                Name = Validations.Retrieve(y).Name
+                            }).ToArray(),
                         Directive = x.GetDirective(),
                         TypeLabel = x.GetTypeLabel(),
                         TypeFullName = x.GetFieldType().AssemblyQualifiedName
@@ -192,6 +200,8 @@
                         field.Alias = x.Alias;
                         field.Name = x.Name;
                         field.Label = x.Label;
+                        field.Validations = x.Validations.MakeSafe()
+                            .Select(y => GuidHelper.GetGuid(y)).ToArray();
                         return field;
                     })
                     .ToArray();

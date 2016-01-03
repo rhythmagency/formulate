@@ -62,7 +62,14 @@ function getGetFormInfo(services) {
                             label: field.Label,
                             directive: field.Directive,
                             typeLabel: field.TypeLabel,
-                            typeFullName: field.TypeFullName
+                            typeFullName: field.TypeFullName,
+                            validations: field.Validations
+                                .map(function(validation) {
+                                    return {
+                                        id: validation.Id,
+                                        name: validation.Name
+                                    };
+                                })
                         };
                     })
                 };
@@ -86,7 +93,11 @@ function getPersistForm(services) {
                     Name: field.name,
                     Alias: field.alias,
                     Label: field.label,
-                    TypeFullName: field.typeFullName
+                    TypeFullName: field.typeFullName,
+                    Validations: field.validations
+                        .map(function(validation) {
+                            return validation.id;
+                        })
                 };
                 if (field.id) {
                     result.Id = field.id;

@@ -3,11 +3,11 @@
 
     // Namespaces.
     using Helpers;
-    using Validations;
     using Models.Requests;
     using Persistence;
     using Resolvers;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
     using Umbraco.Core;
@@ -16,6 +16,7 @@
     using Umbraco.Web.Editors;
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
+    using Validations;
     using CoreConstants = Umbraco.Core.Constants;
     using ValidationsConstants = formulate.app.Constants.Trees.Validations;
 
@@ -202,6 +203,96 @@
                     Path = fullPath,
                     Alias = validation.Alias,
                     Name = validation.Name
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<ValidationsController>(GetValidationInfoError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return result.
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// Returns info about the validations with the specified IDs.
+        /// </summary>
+        /// <param name="request">
+        /// The request to get the info on the validations.
+        /// </param>
+        /// <returns>
+        /// An object indicating success or failure, along with some
+        /// accompanying data.
+        /// </returns>
+        [HttpGet]
+        public object GetValidationsInfo(
+            [FromUri] GetValidationsInfoRequest request)
+        {
+
+            // Variables.
+            var result = default(object);
+            var rootId = CoreConstants.System.Root.ToInvariantString();
+            var validations = new List<object>();
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Variables.
+                var ids = request.ValidationIds
+                    .Select(x => GuidHelper.GetGuid(x)).ToList();
+
+
+                // Get information about each validation.
+                foreach (var id in ids)
+                {
+
+                    // Get validation.
+                    var validation = Persistence.Retrieve(id);
+                    if (validation == null)
+                    {
+                        continue;
+                    }
+
+
+                    // Get path to validation.
+                    var fullPath = new[] { rootId }
+                        .Concat(validation.Path
+                        .Select(x => GuidHelper.GetString(x)))
+                        .ToArray();
+
+
+                    // Store validation info.
+                    validations.Add(new
+                    {
+                        ValidationId = GuidHelper.GetString(validation.Id),
+                        KindId = GuidHelper.GetString(validation.KindId),
+                        Path = fullPath,
+                        Alias = validation.Alias,
+                        Name = validation.Name
+                    });
+
+                }
+
+
+                // Set result.
+                result = new
+                {
+                    Success = true,
+                    Validations = validations.ToArray()
                 };
 
             }

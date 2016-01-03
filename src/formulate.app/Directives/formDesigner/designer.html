@@ -64,6 +64,21 @@
                                                 <input type="text" ng-model="field.label" placeholder="Field Label" />
                                             </div>
                                         </div>
+                                        <div>
+                                            <label class="control-label">
+                                                Validations
+                                            </label>
+                                            <div class="controls controls-row">
+                                                <ul>
+                                                    <li ng-repeat="validation in field.validations">
+                                                        {{validation.name}}
+                                                    </li>
+                                                </ul>
+                                                <div>
+                                                    <a class="btn link" href ng-click="pickValidations(field)">Pick Validations</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <formulate-field-editor directive="field.directive">
                                         </formulate-field-editor>
                                     </div>

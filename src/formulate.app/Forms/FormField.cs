@@ -41,6 +41,12 @@
 
 
         /// <summary>
+        /// The validations for this field.
+        /// </summary>
+        public Guid[] Validations { get; set; }
+
+
+        /// <summary>
         /// Information about the field.
         /// </summary>
         public IFormFieldMetaInfo[] MetaInfo { get; set; }

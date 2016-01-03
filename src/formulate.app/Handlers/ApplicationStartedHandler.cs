@@ -21,6 +21,7 @@
     using Constants = formulate.meta.Constants;
     using Resources = formulate.app.Properties.Resources;
     using SettingConstants = formulate.core.Constants.Settings;
+    using ValidationConstants = formulate.app.Constants.Trees.Validations;
 
 
     /// <summary>
@@ -96,6 +97,9 @@
                 { "GetValidationInfo",
                     helper.GetUmbracoApiService<ValidationsController>(x =>
                         x.GetValidationInfo(null)) },
+                { "GetValidationsInfo",
+                    helper.GetUmbracoApiService<ValidationsController>(x =>
+                        x.GetValidationsInfo(null)) },
                 { "PersistFolder",
                     helper.GetUmbracoApiService<FoldersController>(x =>
                         x.PersistFolder(null)) },
@@ -113,7 +117,8 @@
                         x.GetEntity(null)) },
                 { "EditLayoutBase", "/formulate/formulate/editLayout/" },
                 { "EditValidationBase",
-                    "/formulate/formulate/editValidation/" }
+                    "/formulate/formulate/editValidation/" },
+                { "Validation.RootId", ValidationConstants.Id }
             });
 
         }

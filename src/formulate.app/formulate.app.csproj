@@ -313,6 +313,7 @@
     <Compile Include="Models\Requests\DeleteValidationRequest.cs" />
     <Compile Include="Models\Requests\GetEntityRequest.cs" />
     <Compile Include="Models\Requests\GetEntityChildrenRequest.cs" />
+    <Compile Include="Models\Requests\GetValidationsInfoRequest.cs" />
     <Compile Include="Models\Requests\GetValidationInfoRequest.cs" />
     <Compile Include="Models\Requests\PersistFolderRequest.cs" />
     <Compile Include="Models\Requests\PersistValidationRequest.cs" />
@@ -361,6 +362,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editValidation.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\folderInfo.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\editForm.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\dataSources.html" />
@@ -388,6 +390,8 @@
     <Content Include="Directives\deleteLayoutConfirmation\deleteLayout.js" />
     <Content Include="Directives\deleteValidationConfirmation\deleteValidation.html" />
     <Content Include="Directives\deleteValidationConfirmation\deleteValidation.js" />
+    <Content Include="Directives\dialogs\validationPicker\validationPicker.html" />
+    <Content Include="Directives\dialogs\validationPicker\validationPicker.js" />
     <Content Include="Directives\entityPicker\entityPicker.html" />
     <Content Include="Directives\entityPicker\entityPicker.js" />
     <Content Include="Directives\entityPicker\entityPickerTree.html" />
@@ -444,7 +448,9 @@
       <Name>formulate.meta</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Plugins\formulate\dialogs\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
