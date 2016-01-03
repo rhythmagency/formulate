@@ -48,6 +48,10 @@ function FormDesignerController($scope, $routeParams, navigationService,
     $scope.fieldChooser = {
         show: false
     };
+    $scope.sortableOptions = {
+        axis: 'y',
+        cursor: 'move'
+    };
 
     // Set scope functions.
     $scope.save = getSaveForm(services);
@@ -238,7 +242,8 @@ function getFieldChosen(services) {
                 directive: field.directive,
                 typeLabel: field.typeLabel,
                 typeFullName: field.typeFullName,
-                expanded: true
+                expanded: true,
+                validations: []
             });
         }
     };

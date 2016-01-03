@@ -94,7 +94,7 @@ function getPersistForm(services) {
                     Alias: field.alias,
                     Label: field.label,
                     TypeFullName: field.typeFullName,
-                    Validations: field.validations
+                    Validations: (field.validations || [])
                         .map(function(validation) {
                             return validation.id;
                         })
