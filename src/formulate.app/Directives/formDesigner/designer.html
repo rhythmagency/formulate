@@ -38,7 +38,7 @@
                             <!-- Render all fields. -->
                             <div ui-sortable="sortableOptions" ng-model="fields">
                                 <fieldset ng-repeat="field in fields" class="formulate-field {{field.expanded ? 'expanded' : 'collapsed'}}">
-                                    <legend>{{field.typeLabel}} ({{field.name || "Unnamed"}}) <i ng-click="toggleField(field)" class="collapser icon icon-add"></i></legend>
+                                    <legend><i class="icon-navigation drag-handle"></i>{{field.typeLabel}} ({{field.name || "Unnamed"}}) <i ng-click="toggleField(field)" class="collapser icon icon-add"></i></legend>
                                     <div class="formulate-field-details">
                                         <div class="control-group umb-control-group">
                                             <div class="umb-el-wrap">

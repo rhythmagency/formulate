@@ -34,3 +34,10 @@
     max-height: 0;
     opacity: 0;
 }
+
+.formulate-field .drag-handle {
+    cursor: pointer;
+    opacity: 0.5;
+    margin-right: 10px;
+    font-size: 0.8em;
+}
