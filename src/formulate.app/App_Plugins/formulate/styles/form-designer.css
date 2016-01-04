@@ -3,15 +3,17 @@
     -o-transition: transform 0.25s;
     -webkit-transition: transform 0.25s;
     transition: transform 0.25s;
-    float: right;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
 }
 
 .formulate-field.collapsed .collapser {
-    -moz-transform: rotate(0);
-    -ms-transform: rotate(0);
-    -o-transform: rotate(0);
-    -webkit-transform: rotate(0);
-    transform: rotate(0);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
 }
 
 .formulate-field.expanded .collapser {
@@ -38,6 +40,22 @@
 .formulate-field .drag-handle {
     cursor: pointer;
     opacity: 0.5;
-    margin-right: 10px;
+    margin-right: 5px;
     font-size: 0.8em;
+    vertical-align: middle;
+}
+
+.formulate-field .deleter {
+    color: #9d261d;
+    float: right;
+    vertical-align: middle;
+    font-size: 1.2em;
+    text-shadow: 2px 2px #600;
+}
+
+.formulate-field .type-identifier {
+    vertical-align: text-bottom;
+    font-size: 1.5em;
+    margin-right: 5px;
+    text-shadow: 2px 2px 3px #000;
 }

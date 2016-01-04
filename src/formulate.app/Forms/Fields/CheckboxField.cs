@@ -20,7 +20,7 @@
         {
             get
             {
-                return "icon-document-dashed-line";
+                return "icon-checkbox-dotted";
             }
         }
     }

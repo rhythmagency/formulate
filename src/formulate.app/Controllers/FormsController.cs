@@ -128,6 +128,7 @@
                                 Name = Validations.Retrieve(y).Name
                             }).ToArray(),
                         Directive = x.GetDirective(),
+                        Icon = x.GetIcon(),
                         TypeLabel = x.GetTypeLabel(),
                         TypeFullName = x.GetFieldType().AssemblyQualifiedName
                     }).ToArray()

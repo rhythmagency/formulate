@@ -61,6 +61,7 @@ function getGetFormInfo(services) {
                             alias: field.Alias,
                             label: field.Label,
                             directive: field.Directive,
+                            icon: field.Icon,
                             typeLabel: field.TypeLabel,
                             typeFullName: field.TypeFullName,
                             validations: field.Validations

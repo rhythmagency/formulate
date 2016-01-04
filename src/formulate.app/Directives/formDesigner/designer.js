@@ -49,8 +49,10 @@ function FormDesignerController($scope, $routeParams, navigationService,
         show: false
     };
     $scope.sortableOptions = {
-        axis: 'y',
-        cursor: 'move'
+        axis: "y",
+        cursor: "move",
+        delay: 100,
+        opacity: 0.5
     };
 
     // Set scope functions.
@@ -60,6 +62,7 @@ function FormDesignerController($scope, $routeParams, navigationService,
     $scope.canAddField = getCanAddField(services);
     $scope.fieldChosen = getFieldChosen(services);
     $scope.toggleField = getToggleField();
+    $scope.deleteField = getDeleteField(services);
     $scope.pickValidations = getPickValidations(services);
 
     // Initializes form.
@@ -253,6 +256,31 @@ function getFieldChosen(services) {
 function getToggleField() {
     return function(field) {
         field.expanded = !field.expanded;
+    };
+}
+
+// Gets the function that deletes a field.
+function getDeleteField(services) {
+    var $scope = services.$scope;
+    return function(field) {
+
+        // Confirm deletion.
+        var name = field.name;
+        if (name === null || !name.length) {
+            name = "unnamed field";
+        } else {
+            name = "field, \"" + name + "\"";
+        }
+        var message = "Are you sure you wanted to delete the " +
+            name + "?";
+        var response = confirm(message);
+
+        // Delete field?
+        if (response) {
+            var index = $scope.fields.indexOf(field);
+            $scope.fields.splice(index, 1);
+        }
+
     };
 }
 
