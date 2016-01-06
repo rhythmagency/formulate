@@ -2,11 +2,11 @@
    which contains the selection.json you can use to update the icons. */
 @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon/icomoon.eot?vut1gg');
-	src:url('../fonts/icomoon/icomoon.eot?vut1gg#iefix') format('embedded-opentype'),
-		url('../fonts/icomoon/icomoon.ttf?vut1gg') format('truetype'),
-		url('../fonts/icomoon/icomoon.woff?vut1gg') format('woff'),
-		url('../fonts/icomoon/icomoon.svg?vut1gg#icomoon') format('svg');
+	src:url('../fonts/icomoon/icomoon.eot?vrx08b');
+	src:url('../fonts/icomoon/icomoon.eot?vrx08b#iefix') format('embedded-opentype'),
+		url('../fonts/icomoon/icomoon.ttf?vrx08b') format('truetype'),
+		url('../fonts/icomoon/icomoon.woff?vrx08b') format('woff'),
+		url('../fonts/icomoon/icomoon.svg?vrx08b#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -26,6 +26,15 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-formulate-validation:before {
+	content: "\e90c";
+}
+.icon-formulate-validation-group:before {
+	content: "\e90a";
+}
+.icon-formulate-drop-down:before {
+	content: "\e90b";
+}
 .icon-formulate-layout-group:before {
 	content: "\e906";
 }
@@ -47,7 +56,7 @@
 .icon-formulate-values:before {
 	content: "\e905";
 }
-.icon-formulate-validation:before {
+.icon-formulate-validations:before {
 	content: "\e903";
 }
 .icon-formulate-forms:before {

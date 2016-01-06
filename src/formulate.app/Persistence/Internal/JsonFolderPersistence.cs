@@ -135,7 +135,10 @@
         public Folder Retrieve(Guid folderId)
         {
             var folder = Helper.Retrieve<Folder>(folderId);
-            SetIcons(folder);
+            if (folder != null)
+            {
+                SetIcons(folder);
+            }
             return folder;
         }
 
