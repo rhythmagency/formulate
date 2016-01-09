@@ -3,6 +3,7 @@
 
     // Namespaces.
     using System.Collections.Generic;
+    using System.Linq;
 
 
     /// <summary>
@@ -26,6 +27,20 @@
             return items == null
                 ? new List<T>()
                 : items;
+        }
+
+
+        /// <summary>
+        /// Returns the collection of items without nulls.
+        /// </summary>
+        /// <typeparam name="T">The type of item stored by the collection.</typeparam>
+        /// <param name="items">The collection of items.</param>
+        /// <returns>
+        /// The collection without any empty items.
+        /// </returns>
+        public static IEnumerable<T> WithoutNulls<T>(this IEnumerable<T> items)
+        {
+            return items == null ? null : items.Where(x => x != null);
         }
 
         #endregion

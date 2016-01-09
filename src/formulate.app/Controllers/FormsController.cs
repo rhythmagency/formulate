@@ -122,10 +122,12 @@
                         x.Name,
                         x.Label,
                         Validations = x.Validations.MakeSafe()
+                            .Select(y => Validations.Retrieve(y))
+                            .WithoutNulls()
                             .Select(y => new
                             {
-                                Id = GuidHelper.GetString(y),
-                                Name = Validations.Retrieve(y).Name
+                                Id = y.Id,
+                                Name = y.Name
                             }).ToArray(),
                         Directive = x.GetDirective(),
                         Icon = x.GetIcon(),
