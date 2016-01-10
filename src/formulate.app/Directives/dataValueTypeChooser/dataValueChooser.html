@@ -1,0 +1,26 @@
+﻿<div ng-controller="formulate.dataValueTypeChooser">
+    <div>
+        <div>
+            <label>
+                Data Value Name:
+                <div>
+                    <input type="text" ng-model="dataValueName" />
+                </div>
+            </label>
+        </div>
+        <div>
+            <label>
+                Data Value Alias:
+                <div>
+                    <input type="text" ng-model="dataValueAlias" />
+                </div>
+            </label>
+        </div>
+        <select ng-model="kind.id">
+            <option ng-repeat="option in kind.kinds" value="{{option.id}}">
+                {{option.name}}
+            </option>
+        </select>
+    </div>
+    <button class="btn btn-primary" ng-disabled="!canCreate()" ng-click="createDataValue()">Create Data Value</button>
+</div>

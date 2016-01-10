@@ -18,7 +18,7 @@
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
     using CoreConstants = Umbraco.Core.Constants;
-    using FormsConstants = formulate.app.Constants.Trees.Forms;
+    using FormConstants = formulate.app.Constants.Trees.Forms;
 
 
     /// <summary>
@@ -173,7 +173,7 @@
 
             // Variables.
             var result = default(object);
-            var formsRootId = GuidHelper.GetGuid(FormsConstants.Id);
+            var formsRootId = GuidHelper.GetGuid(FormConstants.Id);
             var parentId = GuidHelper.GetGuid(request.ParentId);
 
 

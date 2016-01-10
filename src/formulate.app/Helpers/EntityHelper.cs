@@ -4,9 +4,10 @@
     // Namespaces.
     using Entities;
     using System;
-    using FormsConstants = formulate.app.Constants.Trees.Forms;
-    using LayoutsConstants = formulate.app.Constants.Trees.Layouts;
-    using ValidationsConstants = formulate.app.Constants.Trees.Validations;
+    using DataValueConstants = formulate.app.Constants.Trees.DataValues;
+    using FormConstants = formulate.app.Constants.Trees.Forms;
+    using LayoutConstants = formulate.app.Constants.Trees.Layouts;
+    using ValidationConstants = formulate.app.Constants.Trees.Validations;
 
 
     /// <summary>
@@ -27,6 +28,7 @@
         static readonly Guid FormId;
         static readonly Guid LayoutId;
         static readonly Guid ValidationId;
+        static readonly Guid DataValueId;
 
         #endregion
 
@@ -38,9 +40,10 @@
         /// </summary>
         static EntityHelper()
         {
-            FormId = GuidHelper.GetGuid(FormsConstants.Id);
-            LayoutId = GuidHelper.GetGuid(LayoutsConstants.Id);
-            ValidationId = GuidHelper.GetGuid(ValidationsConstants.Id);
+            FormId = GuidHelper.GetGuid(FormConstants.Id);
+            LayoutId = GuidHelper.GetGuid(LayoutConstants.Id);
+            ValidationId = GuidHelper.GetGuid(ValidationConstants.Id);
+            DataValueId = GuidHelper.GetGuid(DataValueConstants.Id);
         }
 
         #endregion
@@ -59,15 +62,19 @@
         {
             if (id == FormId)
             {
-                return FormsConstants.TreeIcon;
+                return FormConstants.TreeIcon;
             }
             else if (id == LayoutId)
             {
-                return LayoutsConstants.TreeIcon;
+                return LayoutConstants.TreeIcon;
             }
             else if (id == ValidationId)
             {
-                return ValidationsConstants.TreeIcon;
+                return ValidationConstants.TreeIcon;
+            }
+            else if (id == DataValueId)
+            {
+                return DataValueConstants.TreeIcon;
             }
             else
             {
@@ -90,15 +97,19 @@
         {
             if (id == FormId)
             {
-                return FormsConstants.GroupIcon;
+                return FormConstants.GroupIcon;
             }
             else if (id == LayoutId)
             {
-                return LayoutsConstants.GroupIcon;
+                return LayoutConstants.GroupIcon;
             }
             else if (id == ValidationId)
             {
-                return ValidationsConstants.GroupIcon;
+                return ValidationConstants.GroupIcon;
+            }
+            else if (id == DataValueId)
+            {
+                return DataValueConstants.GroupIcon;
             }
             else
             {
@@ -120,15 +131,19 @@
         {
             if (id == FormId)
             {
-                return FormsConstants.Title;
+                return FormConstants.Title;
             }
             else if (id == LayoutId)
             {
-                return LayoutsConstants.Title;
+                return LayoutConstants.Title;
             }
             else if (id == ValidationId)
             {
-                return ValidationsConstants.Title;
+                return ValidationConstants.Title;
+            }
+            else if (id == DataValueId)
+            {
+                return DataValueConstants.Title;
             }
             else
             {
@@ -147,7 +162,8 @@
         /// </returns>
         public static bool IsRoot(Guid id)
         {
-            return id == FormId || id == LayoutId || id == ValidationId;
+            return id == FormId || id == LayoutId || id == ValidationId
+                || id == DataValueId;
         }
 
 

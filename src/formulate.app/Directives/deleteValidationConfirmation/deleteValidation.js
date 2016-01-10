@@ -62,11 +62,11 @@ function getDeleteValidation(services) {
         // Variables.
         var node = services.$scope.currentNode;
         var validationId = services.$scope.validationId;
-        var layotPromise = services.formulateValidations
+        var validationPromise = services.formulateValidations
             .getValidationInfo(validationId);
 
         // Once we have the validation information...
-        layotPromise.then(function (validation) {
+        validationPromise.then(function (validation) {
 
             // Variables.
             var path = validation.path;

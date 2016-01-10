@@ -1,0 +1,14 @@
+﻿<div ng-controller="formulate.deleteDataValueConfirmation">
+    <div ng-if="!initialized">
+        Loading...
+    </div>
+    <div ng-if="initialized">
+        <div>
+            Are you sure you want to delete the data value, "{{dataValueName}}"?
+        </div>
+        <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-primary" ng-click="deleteDataValue()">
+            Delete Data Value
+        </button>
+    </div>
+</div>

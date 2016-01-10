@@ -10,7 +10,8 @@
         Folder,
         Form,
         Layout,
-        Validation
+        Validation,
+        DataValue
     }
 
 }

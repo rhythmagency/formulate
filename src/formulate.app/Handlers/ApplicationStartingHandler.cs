@@ -56,6 +56,12 @@
                 new ValidationPersistence(validationPersistence);
 
 
+            // Initialize data value persistence resolver.
+            var dataValuePersistence = new JsonDataValuePersistence();
+            DataValuePersistence.Current =
+                new DataValuePersistence(dataValuePersistence);
+
+
             // Initialize folder persistence resolver.
             var folderPersistence = new JsonFolderPersistence();
             FolderPersistence.Current =

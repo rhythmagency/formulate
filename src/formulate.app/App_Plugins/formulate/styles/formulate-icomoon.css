@@ -2,11 +2,11 @@
    which contains the selection.json you can use to update the icons. */
 @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon/icomoon.eot?vrx08b');
-	src:url('../fonts/icomoon/icomoon.eot?vrx08b#iefix') format('embedded-opentype'),
-		url('../fonts/icomoon/icomoon.ttf?vrx08b') format('truetype'),
-		url('../fonts/icomoon/icomoon.woff?vrx08b') format('woff'),
-		url('../fonts/icomoon/icomoon.svg?vrx08b#icomoon') format('svg');
+	src:url('../fonts/icomoon/icomoon.eot?er8540');
+	src:url('../fonts/icomoon/icomoon.eot?er8540#iefix') format('embedded-opentype'),
+		url('../fonts/icomoon/icomoon.ttf?er8540') format('truetype'),
+		url('../fonts/icomoon/icomoon.woff?er8540') format('woff'),
+		url('../fonts/icomoon/icomoon.svg?er8540#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -26,6 +26,12 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-formulate-value-group:before {
+	content: "\e90e";
+}
+.icon-formulate-value:before {
+	content: "\e90d";
+}
 .icon-formulate-validation:before {
 	content: "\e90c";
 }

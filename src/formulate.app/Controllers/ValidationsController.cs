@@ -18,7 +18,7 @@
     using Umbraco.Web.WebApi.Filters;
     using Validations;
     using CoreConstants = Umbraco.Core.Constants;
-    using ValidationsConstants = formulate.app.Constants.Trees.Validations;
+    using ValidationConstants = formulate.app.Constants.Trees.Validations;
 
 
     /// <summary>
@@ -91,7 +91,7 @@
             // Variables.
             var result = default(object);
             var rootId = CoreConstants.System.Root.ToInvariantString();
-            var validationsRootId = GuidHelper.GetGuid(ValidationsConstants.Id);
+            var validationsRootId = GuidHelper.GetGuid(ValidationConstants.Id);
             var parentId = GuidHelper.GetGuid(request.ParentId);
             var kindId = GuidHelper.GetGuid(request.KindId);
 

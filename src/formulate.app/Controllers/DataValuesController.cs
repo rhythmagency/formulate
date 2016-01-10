@@ -2,8 +2,8 @@
 {
 
     // Namespaces.
+    using DataValues;
     using Helpers;
-    using Layouts;
     using Models.Requests;
     using Persistence;
     using Resolvers;
@@ -17,30 +17,30 @@
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
     using CoreConstants = Umbraco.Core.Constants;
-    using LayoutConstants = formulate.app.Constants.Trees.Layouts;
+    using DataValuesConstants = formulate.app.Constants.Trees.DataValues;
 
 
     /// <summary>
-    /// Controller for Formulate layouts.
+    /// Controller for Formulate data values.
     /// </summary>
     [PluginController("formulate")]
     [UmbracoApplicationAuthorize(CoreConstants.Applications.Users)]
-    public class LayoutsController : UmbracoAuthorizedJsonController
+    public class DataValuesController : UmbracoAuthorizedJsonController
     {
 
         #region Constants
 
         private const string UnhandledError = @"An unhandled error occurred. Refer to the error log.";
-        private const string PersistLayoutError = @"An error occurred while attempting to persist a Formulate layout.";
-        private const string GetLayoutInfoError = @"An error occurred while attempting to get the layout info for a Formulate layout.";
-        private const string DeleteLayoutError = @"An error occurred while attempting to delete the Formulate layout.";
+        private const string PersistDataValueError = @"An error occurred while attempting to persist a Formulate data value.";
+        private const string GetDataValueInfoError = @"An error occurred while attempting to get the data value info for a Formulate data value.";
+        private const string DeleteDataValueError = @"An error occurred while attempting to delete the Formulate data value.";
 
         #endregion
 
 
         #region Properties
 
-        private ILayoutPersistence Persistence { get; set; }
+        private IDataValuePersistence Persistence { get; set; }
         private IEntityPersistence Entities { get; set; }
 
         #endregion
@@ -51,7 +51,7 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public LayoutsController()
+        public DataValuesController()
             : this(UmbracoContext.Current)
         {
         }
@@ -61,10 +61,10 @@
         /// Primary constructor.
         /// </summary>
         /// <param name="context">Umbraco context.</param>
-        public LayoutsController(UmbracoContext context)
+        public DataValuesController(UmbracoContext context)
             : base(context)
         {
-            Persistence = LayoutPersistence.Current.Manager;
+            Persistence = DataValuePersistence.Current.Manager;
             Entities = EntityPersistence.Current.Manager;
         }
 
@@ -74,23 +74,23 @@
         #region Web Methods
 
         /// <summary>
-        /// Creates a layout.
+        /// Creates a data value.
         /// </summary>
         /// <param name="request">
-        /// The request to create the layout.
+        /// The request to create the data value.
         /// </param>
         /// <returns>
         /// An object indicating success or failure, along with some
         /// accompanying data.
         /// </returns>
         [HttpPost]
-        public object PersistLayout(PersistLayoutRequest request)
+        public object PersistDataValue(PersistDataValueRequest request)
         {
 
             // Variables.
             var result = default(object);
             var rootId = CoreConstants.System.Root.ToInvariantString();
-            var layoutsRootId = GuidHelper.GetGuid(LayoutConstants.Id);
+            var dataValuesRootId = GuidHelper.GetGuid(DataValuesConstants.Id);
             var parentId = GuidHelper.GetGuid(request.ParentId);
             var kindId = GuidHelper.GetGuid(request.KindId);
 
@@ -99,32 +99,32 @@
             try
             {
 
-                // Parse or create the layout ID.
-                var layoutId = string.IsNullOrWhiteSpace(request.LayoutId)
+                // Parse or create the data value ID.
+                var dataValueId = string.IsNullOrWhiteSpace(request.DataValueId)
                     ? Guid.NewGuid()
-                    : GuidHelper.GetGuid(request.LayoutId);
+                    : GuidHelper.GetGuid(request.DataValueId);
 
 
                 // Get the ID path.
                 var path = parentId == Guid.Empty
-                    ? new[] { layoutsRootId, layoutId }
+                    ? new[] { dataValuesRootId, dataValueId }
                     : Entities.Retrieve(parentId).Path
-                        .Concat(new[] { layoutId }).ToArray();
+                        .Concat(new[] { dataValueId }).ToArray();
 
 
-                // Create layout.
-                var layout = new Layout()
+                // Create data value.
+                var dataValue = new DataValue()
                 {
                     KindId = kindId,
-                    Id = layoutId,
+                    Id = dataValueId,
                     Path = path,
-                    Name = request.LayoutName,
-                    Alias = request.LayoutAlias
+                    Name = request.DataValueName,
+                    Alias = request.DataValueAlias
                 };
 
 
-                // Persist layout.
-                Persistence.Persist(layout);
+                // Persist data value.
+                Persistence.Persist(dataValue);
 
 
                 // Variables.
@@ -137,16 +137,16 @@
                 result = new
                 {
                     Success = true,
-                    Id = GuidHelper.GetString(layoutId),
+                    Id = GuidHelper.GetString(dataValueId),
                     Path = fullPath
                 };
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
                 // Error.
-                LogHelper.Error<LayoutsController>(PersistLayoutError, ex);
+                LogHelper.Error<DataValuesController>(PersistDataValueError, ex);
                 result = new
                 {
                     Success = false,
@@ -163,17 +163,18 @@
 
 
         /// <summary>
-        /// Returns info about the layout with the specified ID.
+        /// Returns info about the data value with the specified ID.
         /// </summary>
         /// <param name="request">
-        /// The request to get the layout info.
+        /// The request to get the data value info.
         /// </param>
         /// <returns>
         /// An object indicating success or failure, along with some
         /// accompanying data.
         /// </returns>
         [HttpGet]
-        public object GetLayoutInfo([FromUri] GetLayoutInfoRequest request)
+        public object GetDataValueInfo(
+            [FromUri] GetDataValueInfoRequest request)
         {
 
             // Variables.
@@ -186,10 +187,10 @@
             {
 
                 // Variables.
-                var id = GuidHelper.GetGuid(request.LayoutId);
-                var layout = Persistence.Retrieve(id);
+                var id = GuidHelper.GetGuid(request.DataValueId);
+                var dataValue = Persistence.Retrieve(id);
                 var fullPath = new[] { rootId }
-                    .Concat(layout.Path.Select(x => GuidHelper.GetString(x)))
+                    .Concat(dataValue.Path.Select(x => GuidHelper.GetString(x)))
                     .ToArray();
 
 
@@ -197,11 +198,11 @@
                 result = new
                 {
                     Success = true,
-                    LayoutId = GuidHelper.GetString(layout.Id),
-                    KindId = GuidHelper.GetString(layout.KindId),
+                    DataValueId = GuidHelper.GetString(dataValue.Id),
+                    KindId = GuidHelper.GetString(dataValue.KindId),
                     Path = fullPath,
-                    Alias = layout.Alias,
-                    Name = layout.Name
+                    Alias = dataValue.Alias,
+                    Name = dataValue.Name
                 };
 
             }
@@ -209,7 +210,7 @@
             {
 
                 // Error.
-                LogHelper.Error<LayoutsController>(GetLayoutInfoError, ex);
+                LogHelper.Error<DataValuesController>(GetDataValueInfoError, ex);
                 result = new
                 {
                     Success = false,
@@ -226,17 +227,17 @@
 
 
         /// <summary>
-        /// Deletes the layout with the specified ID.
+        /// Deletes the data value with the specified ID.
         /// </summary>
         /// <param name="request">
-        /// The request to delete the layout.
+        /// The request to delete the data value.
         /// </param>
         /// <returns>
         /// An object indicating success or failure, along with some
         /// accompanying data.
         /// </returns>
         [HttpPost()]
-        public object DeleteLayout(DeleteLayoutRequest request)
+        public object DeleteDataValue(DeleteDataValueRequest request)
         {
 
             // Variables.
@@ -248,11 +249,11 @@
             {
 
                 // Variables.
-                var layoutId = GuidHelper.GetGuid(request.LayoutId);
+                var dataValueId = GuidHelper.GetGuid(request.DataValueId);
 
 
-                // Delete the layout.
-                Persistence.Delete(layoutId);
+                // Delete the data value.
+                Persistence.Delete(dataValueId);
 
 
                 // Success.
@@ -266,7 +267,7 @@
             {
 
                 // Error.
-                LogHelper.Error<LayoutsController>(DeleteLayoutError, ex);
+                LogHelper.Error<DataValuesController>(DeleteDataValueError, ex);
                 result = new
                 {
                     Success = false,

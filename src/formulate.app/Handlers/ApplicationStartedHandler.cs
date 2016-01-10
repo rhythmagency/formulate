@@ -100,6 +100,15 @@
                 { "GetValidationsInfo",
                     helper.GetUmbracoApiService<ValidationsController>(x =>
                         x.GetValidationsInfo(null)) },
+                { "DeleteDataValue",
+                    helper.GetUmbracoApiService<DataValuesController>(x =>
+                        x.DeleteDataValue(null)) },
+                { "PersistDataValue",
+                    helper.GetUmbracoApiService<DataValuesController>(x =>
+                        x.PersistDataValue(null)) },
+                { "GetDataValueInfo",
+                    helper.GetUmbracoApiService<DataValuesController>(x =>
+                        x.GetDataValueInfo(null)) },
                 { "PersistFolder",
                     helper.GetUmbracoApiService<FoldersController>(x =>
                         x.PersistFolder(null)) },
@@ -118,6 +127,8 @@
                 { "EditLayoutBase", "/formulate/formulate/editLayout/" },
                 { "EditValidationBase",
                     "/formulate/formulate/editValidation/" },
+                { "EditDataValueBase",
+                    "/formulate/formulate/editDataValue/" },
                 { "Validation.RootId", ValidationConstants.Id }
             });
 

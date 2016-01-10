@@ -12,7 +12,7 @@
     using System.Net.Http.Formatting;
     using Umbraco.Web.Models.Trees;
     using Umbraco.Web.Trees;
-    using FormsConstants = formulate.app.Constants.Trees.Forms;
+    using FormConstants = formulate.app.Constants.Trees.Forms;
 
 
     /// <summary>
@@ -81,7 +81,7 @@
                 {
                     var folder = entity as Folder;
                     Helper.AddFolderToTree(nodes, queryStrings, folder,
-                        FormsConstants.GroupIcon);
+                        FormConstants.GroupIcon);
                 }
                 else if (entity is Form)
                 {
@@ -112,7 +112,7 @@
             var strParentId = GuidHelper.GetString(parentId);
             var formNode = Tree.CreateTreeNode(formId,
                 strParentId, queryStrings,
-                formName, FormsConstants.ItemIcon, false, formRoute);
+                formName, FormConstants.ItemIcon, false, formRoute);
             nodes.Add(formNode);
         }
 

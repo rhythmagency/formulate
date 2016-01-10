@@ -2,6 +2,7 @@
 {
 
     // Namespaces.
+    using DataValues;
     using Folders;
     using Forms;
     using formulate.app.Helpers;
@@ -18,11 +19,11 @@
     using Umbraco.Web.Trees;
     using Validations;
     using CoreConstants = Umbraco.Core.Constants;
-    using DataSourcesConstants = formulate.app.Constants.Trees.DataSources;
-    using DataValuesConstants = formulate.app.Constants.Trees.DataValues;
-    using FormsConstants = formulate.app.Constants.Trees.Forms;
-    using LayoutsConstants = formulate.app.Constants.Trees.Layouts;
-    using ValidationsConstants = formulate.app.Constants.Trees.Validations;
+    using DataSourceConstants = formulate.app.Constants.Trees.DataSources;
+    using DataValueConstants = formulate.app.Constants.Trees.DataValues;
+    using FormConstants = formulate.app.Constants.Trees.Forms;
+    using LayoutConstants = formulate.app.Constants.Trees.Layouts;
+    using ValidationConstants = formulate.app.Constants.Trees.Validations;
 
 
     //TODO: Much to do in this file.
@@ -37,6 +38,7 @@
         private FormHelper FormHelper { get; set; }
         private LayoutHelper LayoutHelper { get; set; }
         private ValidationHelper ValidationHelper { get; set; }
+        private DataValueHelper DataValueHelper { get; set; }
 
 
         public FormulateTreeController()
@@ -46,6 +48,7 @@
             FormHelper = new FormHelper(this, FolderHelper);
             LayoutHelper = new LayoutHelper(this, FolderHelper);
             ValidationHelper = new ValidationHelper(this, FolderHelper);
+            DataValueHelper = new DataValueHelper(this, FolderHelper);
         }
 
         protected override MenuItemCollection GetMenuForNode(string id,
@@ -53,16 +56,17 @@
         {
             var menu = new MenuItemCollection();
             var rootId = CoreConstants.System.Root.ToInvariantString();
-            var rootFormsId = GuidHelper.GetGuid(FormsConstants.Id);
-            var rootLayoutId = GuidHelper.GetGuid(LayoutsConstants.Id);
-            var rootValidationId = GuidHelper.GetGuid(ValidationsConstants.Id);
+            var rootFormsId = GuidHelper.GetGuid(FormConstants.Id);
+            var rootLayoutId = GuidHelper.GetGuid(LayoutConstants.Id);
+            var rootValidationId = GuidHelper.GetGuid(ValidationConstants.Id);
+            var rootDataValueId = GuidHelper.GetGuid(DataValueConstants.Id);
             if (id.InvariantEquals(rootId))
             {
 
                 // Do nothing. The root requires no actions.
 
             }
-            else if (id.InvariantEquals(FormsConstants.Id))
+            else if (id.InvariantEquals(FormConstants.Id))
             {
 
                 // Actions for forms.
@@ -70,7 +74,7 @@
                 FolderHelper.AddCreateFolderAction(menu);
 
             }
-            else if (id.InvariantEquals(LayoutsConstants.Id))
+            else if (id.InvariantEquals(LayoutConstants.Id))
             {
 
                 // Actions for layouts.
@@ -78,7 +82,15 @@
                 FolderHelper.AddCreateFolderAction(menu);
 
             }
-            else if (id.InvariantEquals(ValidationsConstants.Id))
+            else if (id.InvariantEquals(DataValueConstants.Id))
+            {
+
+                // Actions for data values.
+                DataValueHelper.AddCreateAction(menu);
+                FolderHelper.AddCreateFolderAction(menu);
+
+            }
+            else if (id.InvariantEquals(ValidationConstants.Id))
             {
 
                 // Actions for validations.
@@ -110,6 +122,10 @@
                 {
                     ValidationHelper.AddDeleteValidationAction(menu);
                 }
+                else if (entity is DataValue)
+                {
+                    DataValueHelper.AddDeleteAction(menu);
+                }
                 else if (entity is Folder)
                 {
                     FolderHelper.AddCreateFolderAction(menu);
@@ -126,6 +142,10 @@
                         ValidationHelper.AddCreateValidationAction(
                             menu, entityId);
                     }
+                    else if (ancestorId == rootDataValueId)
+                    {
+                        DataValueHelper.AddCreateAction(menu, entityId);
+                    }
                 }
 
             }
@@ -138,10 +158,11 @@
             var entityId = GuidHelper.GetGuid(id);
             var nodes = new TreeNodeCollection();
             var rootId = CoreConstants.System.Root.ToInvariantString();
-            var rootFormsId = GuidHelper.GetGuid(FormsConstants.Id);
-            var rootLayoutsId = GuidHelper.GetGuid(LayoutsConstants.Id);
+            var rootFormsId = GuidHelper.GetGuid(FormConstants.Id);
+            var rootLayoutsId = GuidHelper.GetGuid(LayoutConstants.Id);
             var rootValidationsId = GuidHelper.GetGuid(
-                ValidationsConstants.Id);
+                ValidationConstants.Id);
+            var rootDataValueId = GuidHelper.GetGuid(DataValueConstants.Id);
             if (id.InvariantEquals(rootId))
             {
 
@@ -149,39 +170,42 @@
                 var formatUrl = "/formulate/formulate/{0}/info";
                 var hasRootForms = Persistence
                     .RetrieveChildren(rootFormsId).Any();
-                var formsNode = this.CreateTreeNode(FormsConstants.Id, id,
-                    queryStrings, FormsConstants.Title,
-                    FormsConstants.TreeIcon, hasRootForms,
+                var formsNode = this.CreateTreeNode(FormConstants.Id, id,
+                    queryStrings, FormConstants.Title,
+                    FormConstants.TreeIcon, hasRootForms,
                     string.Format(formatUrl, "forms"));
                 nodes.Add(formsNode);
                 var hasRootLayouts = Persistence
                     .RetrieveChildren(rootLayoutsId).Any();
-                var layoutsNode = this.CreateTreeNode(LayoutsConstants.Id,
-                    id, queryStrings, LayoutsConstants.Title,
-                    LayoutsConstants.TreeIcon, hasRootLayouts,
+                var layoutsNode = this.CreateTreeNode(LayoutConstants.Id,
+                    id, queryStrings, LayoutConstants.Title,
+                    LayoutConstants.TreeIcon, hasRootLayouts,
                     string.Format(formatUrl, "layouts"));
                 nodes.Add(layoutsNode);
                 var dataSourcesNode = this.CreateTreeNode(
-                    DataSourcesConstants.Id, id, queryStrings,
-                    DataSourcesConstants.Title, DataSourcesConstants.Icon,
+                    DataSourceConstants.Id, id, queryStrings,
+                    DataSourceConstants.Title, DataSourceConstants.Icon,
                     false, string.Format(formatUrl, "dataSources"));
                 nodes.Add(dataSourcesNode);
+                var hasRootDataValues = Persistence
+                    .RetrieveChildren(rootDataValueId).Any();
                 var dataValuesNode = this.CreateTreeNode(
-                    DataValuesConstants.Id, id, queryStrings,
-                    DataValuesConstants.Title, DataValuesConstants.Icon,
-                    false, string.Format(formatUrl, "dataValues"));
+                    DataValueConstants.Id, id, queryStrings,
+                    DataValueConstants.Title, DataValueConstants.TreeIcon,
+                    hasRootDataValues,
+                    string.Format(formatUrl, "dataValues"));
                 nodes.Add(dataValuesNode);
                 var hasRootValidations = Persistence
                     .RetrieveChildren(rootValidationsId).Any();
                 var validationsNode = this.CreateTreeNode(
-                    ValidationsConstants.Id, id, queryStrings,
-                    ValidationsConstants.Title, ValidationsConstants.TreeIcon,
+                    ValidationConstants.Id, id, queryStrings,
+                    ValidationConstants.Title, ValidationConstants.TreeIcon,
                     hasRootValidations,
                     string.Format(formatUrl, "validationLibrary"));
                 nodes.Add(validationsNode);
 
             }
-            else if (id.InvariantEquals(LayoutsConstants.Id))
+            else if (id.InvariantEquals(LayoutConstants.Id))
             {
 
                 // Get root nodes under layouts.
@@ -191,7 +215,7 @@
                     entities);
 
             }
-            else if (id.InvariantEquals(ValidationsConstants.Id))
+            else if (id.InvariantEquals(ValidationConstants.Id))
             {
 
                 // Get root nodes under validations.
@@ -201,13 +225,23 @@
                     nodes, queryStrings, entities);
 
             }
-            else if (id.InvariantEquals(FormsConstants.Id))
+            else if (id.InvariantEquals(FormConstants.Id))
             {
 
                 // Get root nodes under forms.
                 var entities = Persistence
                     .RetrieveChildren(rootFormsId);
                 FormHelper.AddFormChildrenToTree(nodes, queryStrings,
+                    entities);
+
+            }
+            else if (id.InvariantEquals(DataValueConstants.Id))
+            {
+
+                // Get root nodes under data values.
+                var entities = Persistence
+                    .RetrieveChildren(rootDataValueId);
+                DataValueHelper.AddChildrenToTree(nodes, queryStrings,
                     entities);
 
             }
@@ -240,6 +274,11 @@
                     {
                         ValidationHelper.AddValidationChildrenToTree(
                             nodes, queryStrings, children);
+                    }
+                    else if (ancestorId == rootDataValueId)
+                    {
+                        DataValueHelper.AddChildrenToTree(nodes,
+                            queryStrings, children);
                     }
 
                 }

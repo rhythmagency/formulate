@@ -11,8 +11,8 @@
     using System.Net.Http.Formatting;
     using Umbraco.Web.Models.Trees;
     using Umbraco.Web.Trees;
-    using ValidationsConstants = formulate.app.Constants.Trees.Validations;
     using Validations;
+    using ValidationConstants = formulate.app.Constants.Trees.Validations;
 
 
     /// <summary>
@@ -82,7 +82,7 @@
                 {
                     var folder = entity as Folder;
                     Helper.AddFolderToTree(nodes, queryStrings, folder,
-                        ValidationsConstants.GroupIcon);
+                        ValidationConstants.GroupIcon);
                 }
                 else if (entity is Validation)
                 {
@@ -113,7 +113,7 @@
             var strParentId = GuidHelper.GetString(parentId);
             var validationNode = Tree.CreateTreeNode(validationId,
                 strParentId, queryStrings, validationName,
-                ValidationsConstants.ItemIcon, false, validationRoute);
+                ValidationConstants.ItemIcon, false, validationRoute);
             nodes.Add(validationNode);
         }
 

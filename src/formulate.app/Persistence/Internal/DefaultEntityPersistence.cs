@@ -7,10 +7,6 @@
     using Resolvers;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using FormsConstants = formulate.app.Constants.Trees.Forms;
-    using LayoutsConstants = formulate.app.Constants.Trees.Layouts;
-    using ValidationsConstants = formulate.app.Constants.Trees.Validations;
 
 
     /// <summary>
@@ -68,6 +64,18 @@
             }
         }
 
+
+        /// <summary>
+        /// Layout persistence.
+        /// </summary>
+        private IDataValuePersistence DataValues
+        {
+            get
+            {
+                return DataValuePersistence.Current.Manager;
+            }
+        }
+
         #endregion
 
 
@@ -113,7 +121,8 @@
                 return Folders.Retrieve(entityId) as IEntity
                     ?? Forms.Retrieve(entityId) as IEntity
                     ?? Layouts.Retrieve(entityId) as IEntity
-                    ?? Validations.Retrieve(entityId) as IEntity;
+                    ?? Validations.Retrieve(entityId) as IEntity
+                    ?? DataValues.Retrieve(entityId) as IEntity;
 
             }
 
@@ -137,6 +146,7 @@
             children.AddRange(Forms.RetrieveChildren(parentId));
             children.AddRange(Layouts.RetrieveChildren(parentId));
             children.AddRange(Validations.RetrieveChildren(parentId));
+            children.AddRange(DataValues.RetrieveChildren(parentId));
             return children;
         }
 

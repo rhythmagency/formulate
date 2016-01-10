@@ -3,6 +3,7 @@
 
     // Namespaces.
     using Folders;
+    using Helpers;
     using Managers;
     using Resolvers;
     using System;
@@ -10,7 +11,6 @@
     using System.IO;
     using System.Linq;
     using System.Web.Hosting;
-    using Helpers;
 
 
     /// <summary>
