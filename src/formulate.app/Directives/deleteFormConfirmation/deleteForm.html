@@ -1,12 +1,10 @@
-﻿<div ng-controller="formulate.deleteFormConfirmation">
-    <div ng-if="!initialized">
-        Loading...
+﻿<div ng-if="!initialized">
+    Loading...
+</div>
+<div ng-if="initialized">
+    <div>
+        Are you sure you want to delete the form, "{{formName}}"?
     </div>
-    <div ng-if="initialized">
-        <div>
-            Are you sure you want to delete the form, "{{formName}}"?
-        </div>
-        <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
-        <button class="btn btn-primary" ng-click="deleteForm()">Delete Form</button>
-    </div>
+    <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="deleteForm()">Delete Form</button>
 </div>

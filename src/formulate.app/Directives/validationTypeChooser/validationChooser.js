@@ -10,7 +10,8 @@ function directive(formulateDirectives) {
     return {
         restrict: "E",
         template: formulateDirectives.get(
-            "validationTypeChooser/validationChooser.html")
+            "validationTypeChooser/validationChooser.html"),
+        controller: "formulate.validationTypeChooser"
     };
 }
 

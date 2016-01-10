@@ -5,7 +5,8 @@ var app = angular.module("umbraco");
 app.directive("formulateInstall", function (formulateDirectives) {
     return {
         restrict: "E",
-        template: formulateDirectives.get("install/install.html")
+        template: formulateDirectives.get("install/install.html"),
+        controller: "formulate.install"
     };
 });
 

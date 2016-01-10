@@ -9,7 +9,8 @@ app.directive("formulateLayoutTypeChooser", directive);
 function directive(formulateDirectives) {
     return {
         restrict: "E",
-        template: formulateDirectives.get("layoutTypeChooser/layoutChooser.html")
+        template: formulateDirectives.get("layoutTypeChooser/layoutChooser.html"),
+        controller: "formulate.layoutTypeChooser"
     };
 }
 

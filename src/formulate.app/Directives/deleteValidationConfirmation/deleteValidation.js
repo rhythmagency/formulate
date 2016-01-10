@@ -10,7 +10,8 @@ function directive(formulateDirectives) {
     return {
         restrict: "E",
         template: formulateDirectives.get(
-            "deleteValidationConfirmation/deleteValidation.html")
+            "deleteValidationConfirmation/deleteValidation.html"),
+        controller: "formulate.deleteValidationConfirmation"
     };
 }
 

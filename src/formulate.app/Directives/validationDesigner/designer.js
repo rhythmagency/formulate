@@ -3,19 +3,20 @@
 var app = angular.module("umbraco");
 
 // Associate directive/controller.
-app.directive("formulateValidationDesigner", ValidationDesignerDirective);
-app.controller("formulate.validationDesigner", ValidationDesignerController);
+app.directive("formulateValidationDesigner", directive);
+app.controller("formulate.validationDesigner", controller);
 
 // Directive.
-function ValidationDesignerDirective(formulateDirectives) {
+function directive(formulateDirectives) {
     return {
         restrict: "E",
-        template: formulateDirectives.get("validationDesigner/designer.html")
+        template: formulateDirectives.get("validationDesigner/designer.html"),
+        controller: "formulate.validationDesigner"
     };
 }
 
 // Controller.
-function ValidationDesignerController($scope, $routeParams, navigationService,
+function controller($scope, $routeParams, navigationService,
     formulateValidations, $route) {
 
     // Variables.

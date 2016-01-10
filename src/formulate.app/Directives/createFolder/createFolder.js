@@ -9,7 +9,8 @@ app.directive("formulateCreateFolder", directive);
 function directive(formulateDirectives) {
     return {
         restrict: "E",
-        template: formulateDirectives.get("createFolder/createFolder.html")
+        template: formulateDirectives.get("createFolder/createFolder.html"),
+        controller: "formulate.createFolder"
     };
 }
 

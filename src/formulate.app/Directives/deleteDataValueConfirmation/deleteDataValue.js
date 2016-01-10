@@ -2,19 +2,20 @@
 var app = angular.module("umbraco");
 
 // Register directive/controller.
-app.controller("formulate.deleteDataValueConfirmation", Controller);
-app.directive("formulateDeleteDataValueConfirmation", Directive);
+app.controller("formulate.deleteDataValueConfirmation", controller);
+app.directive("formulateDeleteDataValueConfirmation", directive);
 
 // Directive.
-function Directive(formulateDirectives) {
+function directive(formulateDirectives) {
     return {
         restrict: "E",
-        template: formulateDirectives.get("deleteDataValueConfirmation/deleteDataValue.html")
+        template: formulateDirectives.get("deleteDataValueConfirmation/deleteDataValue.html"),
+        controller: "formulate.deleteDataValueConfirmation"
     };
 }
 
 // Controller.
-function Controller($scope, $location, notificationsService, $q,
+function controller($scope, $location, notificationsService, $q,
     $http, navigationService, formulateDataValues, treeService) {
 
     // Variables.

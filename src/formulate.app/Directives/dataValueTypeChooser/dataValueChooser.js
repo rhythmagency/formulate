@@ -9,7 +9,8 @@ app.directive("formulateDataValueTypeChooser", Directive);
 function Directive(formulateDirectives) {
     return {
         restrict: "E",
-        template: formulateDirectives.get("dataValueTypeChooser/dataValueChooser.html")
+        template: formulateDirectives.get("dataValueTypeChooser/dataValueChooser.html"),
+        controller: "formulate.dataValueTypeChooser"
     };
 }
 

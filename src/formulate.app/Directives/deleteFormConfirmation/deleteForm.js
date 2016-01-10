@@ -9,7 +9,8 @@ app.directive("formulateDeleteFormConfirmation", directive);
 function directive(formulateDirectives) {
     return {
         restrict: "E",
-        template: formulateDirectives.get("deleteFormConfirmation/deleteForm.html")
+        template: formulateDirectives.get("deleteFormConfirmation/deleteForm.html"),
+        controller: "formulate.deleteFormConfirmation"
     };
 }
 

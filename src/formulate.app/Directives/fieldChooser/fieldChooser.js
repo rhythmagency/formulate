@@ -10,6 +10,7 @@ function fieldChooserDirective(formulateDirectives) {
     return {
         restrict: "E",
         template: formulateDirectives.get("fieldChooser/fieldChooser.html"),
+        controller: "formulate.fieldChooser",
         scope: {
             show: "=",
             chosen: "&"

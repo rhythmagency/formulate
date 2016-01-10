@@ -3,19 +3,20 @@
 var app = angular.module("umbraco");
 
 // Associate directive/controller.
-app.directive("formulateLayoutDesigner", LayoutDesignerDirective);
-app.controller("formulate.layoutDesigner", LayoutDesignerController);
+app.directive("formulateLayoutDesigner", directive);
+app.controller("formulate.layoutDesigner", controller);
 
 // Directive.
-function LayoutDesignerDirective(formulateDirectives) {
+function directive(formulateDirectives) {
     return {
         restrict: "E",
-        template: formulateDirectives.get("layoutDesigner/designer.html")
+        template: formulateDirectives.get("layoutDesigner/designer.html"),
+        controller: "formulate.layoutDesigner"
     };
 }
 
 // Controller.
-function LayoutDesignerController($scope, $routeParams, navigationService,
+function controller($scope, $routeParams, navigationService,
     formulateLayouts, $route) {
 
     // Variables.
