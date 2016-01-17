@@ -247,7 +247,8 @@ function getFieldChosen(services) {
                 typeLabel: field.typeLabel,
                 typeFullName: field.typeFullName,
                 expanded: true,
-                validations: []
+                validations: [],
+                configuration: {}
             });
         }
     };

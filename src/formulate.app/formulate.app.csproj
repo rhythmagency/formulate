@@ -315,6 +315,7 @@
     <Compile Include="Models\Parameters\FieldInfo.cs" />
     <Compile Include="Models\Requests\DeleteDataValueRequest.cs" />
     <Compile Include="Models\Requests\DeleteValidationRequest.cs" />
+    <Compile Include="Models\Requests\GetDataValuesInfoRequest.cs" />
     <Compile Include="Models\Requests\GetEntityRequest.cs" />
     <Compile Include="Models\Requests\GetEntityChildrenRequest.cs" />
     <Compile Include="Models\Requests\GetDataValueInfoRequest.cs" />

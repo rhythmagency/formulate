@@ -2,17 +2,18 @@
 var app = angular.module("umbraco");
 
 // Register directive/controller.
-app.controller("formulate.validationPickerDialog", controller);
-app.directive("formulateValidationPickerDialog", directive);
+app.controller("formulate.dataValuePickerDialog", controller);
+app.directive("formulateDataValuePickerDialog", directive);
 
 // Directive.
 function directive(formulateDirectives) {
     return {
         restrict: "E",
-        controller: "formulate.validationPickerDialog",
+        controller: "formulate.dataValuePickerDialog",
         template: formulateDirectives.get(
-            "dialogs/validationPicker/validationPicker.html"),
+            "dialogs/dataValuePicker/dataValuePicker.html"),
         scope: {
+            maxCount: "="
         }
     };
 }
@@ -22,8 +23,8 @@ function controller($scope, formulateVars) {
 
     // Initialize scope variables.
     $scope.selection = [];
-    $scope.entityKinds = ["Validation"];
-    $scope.rootId = formulateVars["Validation.RootId"];
+    $scope.entityKinds = ["DataValue"];
+    $scope.rootId = formulateVars["DataValue.RootId"];
 
     // Set scope functions.
     $scope.cancel = function() {

@@ -3,6 +3,8 @@
 
     // Namespaces.
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
 
     /// <summary>
@@ -28,6 +30,24 @@
         public static string GetString(Guid guid)
         {
             return guid.ToString("N");
+        }
+
+
+        /// <summary>
+        /// Converts a GUID collection to an array of strings.
+        /// </summary>
+        /// <param name="guids">
+        /// The GUID collection.
+        /// </param>
+        /// <returns>
+        /// The string representations of the GUID's.
+        /// </returns>
+        /// <remarks>
+        /// This ensures all GUIDs are in the expected format.
+        /// </remarks>
+        public static string[] GetStrings(IEnumerable<Guid> guids)
+        {
+            return guids.Select(x => GetString(x)).ToArray();
         }
 
 

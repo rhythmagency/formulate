@@ -19,6 +19,10 @@ app.factory("formulateDataValues", function ($http, $q, notificationsService,
         // Gets the data value info for the data value with the specified ID.
         getDataValueInfo: getGetDataValueInfo(services),
 
+        // Gets the data value info for the data values with
+        // the specified ID's.
+        getDataValuesInfo: getGetDataValuesInfo(services),
+
         // Saves the data value on the server.
         persistDataValue: getPersistDataValue(services),
 
@@ -54,6 +58,39 @@ function getGetDataValueInfo(services) {
                     name: data.Name,
                     alias: data.Alias
                 };
+            }), getHandleServerError(services));
+
+
+    };
+}
+
+// Returns the function that gets information about data values.
+function getGetDataValuesInfo(services) {
+    return function (ids) {
+
+        // Variables.
+        var url = services.formulateVars.GetDataValuesInfo;
+        var options = {
+            cache: false,
+            params: {
+                DataValueIds: ids,
+                // Cache buster ensures requests aren't cached.
+                CacheBuster: Math.random()
+            }
+        };
+
+        // Get data value info from server.
+        return services.$http.get(url, options)
+            .then(getHandleResponse(services, function (data) {
+                return data.DataValues.map(function (item) {
+                    return {
+                        kindId: item.KindId,
+                        dataValueId: item.DataValueId,
+                        path: item.Path,
+                        name: item.Name,
+                        alias: item.Alias
+                    };
+                });
             }), getHandleServerError(services));
 
 

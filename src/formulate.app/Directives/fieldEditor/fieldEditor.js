@@ -2,21 +2,22 @@
 var app = angular.module("umbraco");
 
 // Associate directive/controller.
-app.directive("formulateFieldEditor", FieldEditorDirective);
+app.directive("formulateFieldEditor", directive);
 
 // Directive.
-function FieldEditorDirective(formulateDirectives, $compile) {
+function directive(formulateDirectives, $compile) {
     return {
         restrict: "E",
         template: formulateDirectives.get("fieldEditor/fieldEditor.html"),
         replace: true,
         scope: {
-            directive: "=directive"
+            directive: "=directive",
+            configuration: "="
         },
         link: function (scope, element) {
 
             // Create directive.
-            var markup = "<" + scope.directive + "></" + scope.directive + ">";
+            var markup = "<" + scope.directive + " configuration=\"configuration\"></" + scope.directive + ">";
             var directive = $compile(markup)(scope);
             element.replaceWith(directive);
 

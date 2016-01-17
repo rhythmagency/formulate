@@ -19,6 +19,7 @@
     using Umbraco.Web;
     using Umbraco.Web.UI.JavaScript;
     using Constants = formulate.meta.Constants;
+    using DataValueConstants = formulate.app.Constants.Trees.DataValues;
     using Resources = formulate.app.Properties.Resources;
     using SettingConstants = formulate.core.Constants.Settings;
     using ValidationConstants = formulate.app.Constants.Trees.Validations;
@@ -109,6 +110,9 @@
                 { "GetDataValueInfo",
                     helper.GetUmbracoApiService<DataValuesController>(x =>
                         x.GetDataValueInfo(null)) },
+                { "GetDataValuesInfo",
+                    helper.GetUmbracoApiService<DataValuesController>(x =>
+                        x.GetDataValuesInfo(null)) },
                 { "PersistFolder",
                     helper.GetUmbracoApiService<FoldersController>(x =>
                         x.PersistFolder(null)) },
@@ -129,7 +133,8 @@
                     "/formulate/formulate/editValidation/" },
                 { "EditDataValueBase",
                     "/formulate/formulate/editDataValue/" },
-                { "Validation.RootId", ValidationConstants.Id }
+                { "Validation.RootId", ValidationConstants.Id },
+                { "DataValue.RootId", DataValueConstants.Id }
             });
 
         }

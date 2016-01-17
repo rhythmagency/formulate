@@ -1,9 +1,15 @@
 ﻿<div class="umb-el-wrap">
     <label class="control-label">
-        Field
+        Data Value
     </label>
     <div class="controls controls-row">
-        <select disabled>
-        </select>
+        <div>
+            {{dataValue.name}}
+        </div>
+        <div>
+            <a class="btn link" href ng-click="pickDataValue()">
+                Pick Data Value
+            </a>
+        </div>
     </div>
 </div>

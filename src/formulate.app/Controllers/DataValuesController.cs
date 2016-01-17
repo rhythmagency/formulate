@@ -2,6 +2,7 @@
 {
 
     // Namespaces.
+    using core.Extensions;
     using DataValues;
     using Helpers;
     using Models.Requests;
@@ -210,7 +211,76 @@
             {
 
                 // Error.
-                LogHelper.Error<DataValuesController>(GetDataValueInfoError, ex);
+                LogHelper.Error<DataValuesController>(
+                    GetDataValueInfoError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return result.
+            return result;
+
+        }
+
+        /// <summary>
+        /// Returns info about the data values with the specified ID's.
+        /// </summary>
+        /// <param name="request">
+        /// The request to get the data values info.
+        /// </param>
+        /// <returns>
+        /// An object indicating success or failure, along with some
+        /// accompanying data.
+        /// </returns>
+        [HttpGet]
+        public object GetDataValuesInfo(
+            [FromUri] GetDataValuesInfoRequest request)
+        {
+
+            // Variables.
+            var result = default(object);
+            var rootId = CoreConstants.System.Root.ToInvariantString();
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Variables.
+                var ids = request.DataValueIds
+                    .Select(x => GuidHelper.GetGuid(x));
+                var dataValues = ids.Select(x => Persistence.Retrieve(x))
+                    .WithoutNulls();
+
+
+                // Set result.
+                result = new
+                {
+                    Success = true,
+                    DataValues = dataValues.Select(x => new 
+                    {
+                        DataValueId = GuidHelper.GetString(x.Id),
+                        KindId = GuidHelper.GetString(x.KindId),
+                        Path = new[] { rootId }
+                            .Concat(GuidHelper.GetStrings(x.Path))
+                            .ToArray(),
+                        Alias = x.Alias,
+                        Name = x.Name
+                    }),
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<DataValuesController>(
+                    GetDataValueInfoError, ex);
                 result = new
                 {
                     Success = false,

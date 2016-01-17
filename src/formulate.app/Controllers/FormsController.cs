@@ -129,6 +129,8 @@
                                 Id = y.Id,
                                 Name = y.Name
                             }).ToArray(),
+                        Configuration = JsonHelper.Deserialize<object>(
+                            x.FieldConfiguration),
                         Directive = x.GetDirective(),
                         Icon = x.GetIcon(),
                         TypeLabel = x.GetTypeLabel(),
@@ -205,6 +207,8 @@
                         field.Label = x.Label;
                         field.Validations = x.Validations.MakeSafe()
                             .Select(y => GuidHelper.GetGuid(y)).ToArray();
+                        field.FieldConfiguration =
+                            JsonHelper.Serialize(x.Configuration);
                         return field;
                     })
                     .ToArray();

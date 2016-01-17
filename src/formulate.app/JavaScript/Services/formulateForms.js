@@ -70,7 +70,8 @@ function getGetFormInfo(services) {
                                         id: validation.Id,
                                         name: validation.Name
                                     };
-                                })
+                                }),
+                            configuration: field.Configuration || {}
                         };
                     })
                 };
@@ -98,7 +99,8 @@ function getPersistForm(services) {
                     Validations: (field.validations || [])
                         .map(function(validation) {
                             return validation.id;
-                        })
+                        }),
+                    Configuration: field.configuration
                 };
                 if (field.id) {
                     result.Id = field.id;
