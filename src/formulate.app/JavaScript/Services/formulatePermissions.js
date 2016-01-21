@@ -2,12 +2,12 @@
 var app = angular.module("umbraco");
 
 // Service to help with permissions.
-app.factory("formulatePermissions", function ($http, notificationsService,
-    formulateVars) {
+app.factory("formulatePermissions", function (notificationsService,
+    formulateVars, formulateServer) {
     var services = {
-        $http: $http,
         notificationsService: notificationsService,
-        formulateVars: formulateVars
+        formulateVars: formulateVars,
+        formulateServer: formulateServer
     };
     return {
         permitFormulateAccess:
@@ -20,37 +20,23 @@ app.factory("formulatePermissions", function ($http, notificationsService,
 function getPermitFormulateAccess(services) {
 
     // Variables.
-    var $http = services.$http,
-        notificationsService = services.notificationsService,
+    var notificationsService = services.notificationsService,
         formulateVars = services.formulateVars;
 
     // Return function.
-    return function (directive) {
+    return function () {
 
         // Variables.
         var url = formulateVars.PermitAccess;
-        var options = getReqestOptions();
 
         // Send request to set permissions.
-        $http.post(url, null, options).success(function (data) {
-            if (data.Success) {
+        services.formulateServer.post(url, {}, function (data) {
 
-                // Success notification.
-                showSuccess(notificationsService);
+            // Success notification.
+            showSuccess(notificationsService);
 
-                // Reload page.
-                reloadPage();
-
-            } else {
-
-                // Application error.
-                handleApplicationError(notificationsService, data.Reason);
-
-            }
-        }).error(function () {
-
-            // Server error.
-            handleServerError(notificationsService);
+            // Reload page.
+            reloadPage();
 
         });
 
@@ -65,31 +51,9 @@ function reloadPage() {
     }, 3000);
 }
 
-// Handles an application error with a notification message.
-function handleApplicationError(notificationsService, message) {
-    var title = "Unexpected Error";
-    notificationsService.error(title, message);
-}
-
-// Handles a server error with a notification message.
-function handleServerError(notificationsService) {
-    var title = "Server Error";
-    var message = "There was an issue communicating with the server.";
-    notificationsService.error(title, message);
-}
-
 // Shows a success notification.
 function showSuccess(notificationsService) {
     var title = "Success";
     var message = "You have been granted access to the \"Formulate\" section. The page will automatically refresh in a few seconds.";
     notificationsService.success(title, message);
-}
-
-// Gets the options variable for the HTTP request.
-function getReqestOptions() {
-    return {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    };
 }

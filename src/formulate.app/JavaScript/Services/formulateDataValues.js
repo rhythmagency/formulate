@@ -2,15 +2,13 @@
 var app = angular.module("umbraco");
 
 // Service to help with Formulate data values.
-app.factory("formulateDataValues", function ($http, $q, notificationsService,
-    formulateVars) {
+app.factory("formulateDataValues", function (formulateVars,
+    formulateServer) {
 
     // Variables.
     var services = {
-        $http: $http,
-        $q: $q,
-        notificationsService: notificationsService,
-        formulateVars: formulateVars
+        formulateVars: formulateVars,
+        formulateServer: formulateServer
     };
 
     // Return service.
@@ -39,27 +37,20 @@ function getGetDataValueInfo(services) {
 
         // Variables.
         var url = services.formulateVars.GetDataValueInfo;
-        var options = {
-            cache: false,
-            params: {
-                DataValueId: id,
-                // Cache buster ensures requests aren't cached.
-                CacheBuster: Math.random()
-            }
+        var params = {
+            DataValueId: id
         };
 
         // Get data value info from server.
-        return services.$http.get(url, options)
-            .then(getHandleResponse(services, function (data) {
-                return {
-                    kindId: data.KindId,
-                    dataValueId: data.DataValueId,
-                    path: data.Path,
-                    name: data.Name,
-                    alias: data.Alias
-                };
-            }), getHandleServerError(services));
-
+        return services.formulateServer.get(url, params, function (data) {
+            return {
+                kindId: data.KindId,
+                dataValueId: data.DataValueId,
+                path: data.Path,
+                name: data.Name,
+                alias: data.Alias
+            };
+        });
 
     };
 }
@@ -70,28 +61,22 @@ function getGetDataValuesInfo(services) {
 
         // Variables.
         var url = services.formulateVars.GetDataValuesInfo;
-        var options = {
-            cache: false,
-            params: {
-                DataValueIds: ids,
-                // Cache buster ensures requests aren't cached.
-                CacheBuster: Math.random()
-            }
+        var params = {
+            DataValueIds: ids
         };
 
         // Get data value info from server.
-        return services.$http.get(url, options)
-            .then(getHandleResponse(services, function (data) {
-                return data.DataValues.map(function (item) {
-                    return {
-                        kindId: item.KindId,
-                        dataValueId: item.DataValueId,
-                        path: item.Path,
-                        name: item.Name,
-                        alias: item.Alias
-                    };
-                });
-            }), getHandleServerError(services));
+        return services.formulateServer.get(url, params, function (data) {
+            return data.DataValues.map(function (item) {
+                return {
+                    kindId: item.KindId,
+                    dataValueId: item.DataValueId,
+                    path: item.Path,
+                    name: item.Name,
+                    alias: item.Alias
+                };
+            });
+        });
 
 
     };
@@ -110,24 +95,17 @@ function getPersistDataValue(services) {
             DataValueName: dataValueInfo.name,
             DataValueAlias: dataValueInfo.alias
         };
-        var strData = JSON.stringify(data);
-        var options = {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };
 
         // Send request to create the data value.
-        return services.$http.post(url, strData, options)
-            .then(getHandleResponse(services, function (data) {
+        return services.formulateServer.post(url, data, function (data) {
 
-                // Return data value information.
-                return {
-                    id: data.Id,
-                    path: data.Path
-                };
+            // Return data value information.
+            return {
+                id: data.Id,
+                path: data.Path
+            };
 
-            }), getHandleServerError(services));
+        });
 
     };
 }
@@ -136,64 +114,19 @@ function getPersistDataValue(services) {
 function getDeleteDataValue(services) {
     return function(dataValueId) {
 
-        // Format data so the server can consume it.
+        // Variables.
+        var url = services.formulateVars.DeleteDataValue;
         var data = {
             DataValueId: dataValueId
         };
 
-        // Prepare request.
-        var url = services.formulateVars.DeleteDataValue;
-        var strData = JSON.stringify(data);
-        var options = {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };
-
         // Send request to delete the data value.
-        return services.$http.post(url, strData, options)
-            .then(getHandleResponse(services, function (data) {
+        return services.formulateServer.post(url, data, function (data) {
 
-                // Return empty data.
-                return {};
+            // Return empty data.
+            return {};
 
-            }), getHandleServerError(services));
-
-    };
-}
-
-// Returns the function that handles a server error.
-function getHandleServerError(services) {
-    return function() {
-
-        // Indicate error with notification.
-        var title = "Server Error";
-        var message = "There was an issue communicating with the server.";
-        services.notificationsService.error(title, message);
-        return services.$q.reject();
-
-    };
-}
-
-// Returns the function that handles a server response.
-function getHandleResponse(services, successCallback) {
-    return function (response) {
-
-        // Variables.
-        var data = response.data;
-
-        // Was the request successful?
-        if (data.Success) {
-            return successCallback(data);
-        } else {
-
-            // Error notification.
-            var title = "Unexpected Error";
-            var message = data.Reason;
-            services.notificationsService.error(title, message);
-            return services.$q.reject();
-
-        }
+        });
 
     };
 }

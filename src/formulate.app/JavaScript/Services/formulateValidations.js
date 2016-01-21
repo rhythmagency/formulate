@@ -2,15 +2,13 @@
 var app = angular.module("umbraco");
 
 // Service to help with Formulate validations.
-app.factory("formulateValidations", function ($http, $q, notificationsService,
-    formulateVars) {
+app.factory("formulateValidations", function (formulateVars,
+    formulateServer) {
 
     // Variables.
     var services = {
-        $http: $http,
-        $q: $q,
-        notificationsService: notificationsService,
-        formulateVars: formulateVars
+        formulateVars: formulateVars,
+        formulateServer: formulateServer
     };
 
     // Return service.
@@ -38,26 +36,20 @@ function getGetValidationInfo(services) {
 
         // Variables.
         var url = services.formulateVars.GetValidationInfo;
-        var options = {
-            cache: false,
-            params: {
-                ValidationId: id,
-                // Cache buster ensures requests aren't cached.
-                CacheBuster: Math.random()
-            }
+        var params = {
+            ValidationId: id
         };
 
         // Get validation info from server.
-        return services.$http.get(url, options)
-            .then(getHandleResponse(services, function (data) {
-                return {
-                    kindId: data.KindId,
-                    validationId: data.ValidationId,
-                    path: data.Path,
-                    name: data.Name,
-                    alias: data.Alias
-                };
-            }), getHandleServerError(services));
+        return services.formulateServer.get(url, params, function (data) {
+            return {
+                kindId: data.KindId,
+                validationId: data.ValidationId,
+                path: data.Path,
+                name: data.Name,
+                alias: data.Alias
+            };
+        });
 
     };
 }
@@ -68,28 +60,22 @@ function getGetValidationsInfo(services) {
 
         // Variables.
         var url = services.formulateVars.GetValidationsInfo;
-        var options = {
-            cache: false,
-            params: {
-                ValidationIds: ids,
-                // Cache buster ensures requests aren't cached.
-                CacheBuster: Math.random()
-            }
+        var params = {
+            ValidationIds: ids
         };
 
         // Get validation info from server.
-        return services.$http.get(url, options)
-            .then(getHandleResponse(services, function (data) {
-                return data.Validations.map(function(item) {
-                    return {
-                        kindId: item.KindId,
-                        validationId: item.ValidationId,
-                        path: item.Path,
-                        name: item.Name,
-                        alias: item.Alias
-                    };
-                });
-            }), getHandleServerError(services));
+        return services.formulateServer.get(url, params, function (data) {
+            return data.Validations.map(function(item) {
+                return {
+                    kindId: item.KindId,
+                    validationId: item.ValidationId,
+                    path: item.Path,
+                    name: item.Name,
+                    alias: item.Alias
+                };
+            });
+        });
 
     };
 }
@@ -107,24 +93,17 @@ function getPersistValidation(services) {
             ValidationName: validationInfo.name,
             ValidationAlias: validationInfo.alias
         };
-        var strData = JSON.stringify(data);
-        var options = {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };
 
         // Send request to create the validation.
-        return services.$http.post(url, strData, options)
-            .then(getHandleResponse(services, function (data) {
+        return services.formulateServer.post(url, data, function (data) {
 
-                // Return validation information.
-                return {
-                    id: data.Id,
-                    path: data.Path
-                };
+            // Return validation information.
+            return {
+                id: data.Id,
+                path: data.Path
+            };
 
-            }), getHandleServerError(services));
+        });
 
     };
 }
@@ -133,64 +112,19 @@ function getPersistValidation(services) {
 function getDeleteValidation(services) {
     return function(validationId) {
 
-        // Format data so the server can consume it.
+        // Variables.
+        var url = services.formulateVars.DeleteValidation;
         var data = {
             ValidationId: validationId
         };
 
-        // Prepare request.
-        var url = services.formulateVars.DeleteValidation;
-        var strData = JSON.stringify(data);
-        var options = {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };
-
         // Send request to delete the validation.
-        return services.$http.post(url, strData, options)
-            .then(getHandleResponse(services, function (data) {
+        return services.formulateServer.post(url, data, function (data) {
 
-                // Return empty data.
-                return {};
+            // Return empty data.
+            return {};
 
-            }), getHandleServerError(services));
-
-    };
-}
-
-// Returns the function that handles a server error.
-function getHandleServerError(services) {
-    return function() {
-
-        // Indicate error with notification.
-        var title = "Server Error";
-        var message = "There was an issue communicating with the server.";
-        services.notificationsService.error(title, message);
-        return services.$q.reject();
-
-    };
-}
-
-// Returns the function that handles a server response.
-function getHandleResponse(services, successCallback) {
-    return function (response) {
-
-        // Variables.
-        var data = response.data;
-
-        // Was the request successful?
-        if (data.Success) {
-            return successCallback(data);
-        } else {
-
-            // Error notification.
-            var title = "Unexpected Error";
-            var message = data.Reason;
-            services.notificationsService.error(title, message);
-            return services.$q.reject();
-
-        }
+        });
 
     };
 }

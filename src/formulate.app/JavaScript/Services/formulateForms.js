@@ -2,15 +2,13 @@
 var app = angular.module("umbraco");
 
 // Service to help with Formulate forms.
-app.factory("formulateForms", function ($http, $q, notificationsService,
-    formulateVars) {
+app.factory("formulateForms", function (formulateVars,
+    formulateServer) {
 
     // Variables.
     var services = {
-        $http: $http,
-        $q: $q,
-        notificationsService: notificationsService,
-        formulateVars: formulateVars
+        formulateVars: formulateVars,
+        formulateServer: formulateServer
     };
 
     // Return service.
@@ -35,48 +33,42 @@ function getGetFormInfo(services) {
 
         // Variables.
         var url = services.formulateVars.GetFormInfo;
-        var options = {
-            cache: false,
-            params: {
-                FormId: id,
-                // Cache buster ensures requests aren't cached.
-                CacheBuster: Math.random()
-            }
+        var params = {
+            FormId: id
         };
 
         // Get form info from server.
-        return services.$http.get(url, options)
-            .then(getHandleResponse(services, function (data) {
+        return services.formulateServer.get(url, params, function (data) {
 
-                // Return form information.
-                return {
-                    formId: data.FormId,
-                    alias: data.Alias,
-                    name: data.Name,
-                    path: data.Path,
-                    fields: data.Fields.map(function (field) {
-                        return {
-                            id: field.Id,
-                            name: field.Name,
-                            alias: field.Alias,
-                            label: field.Label,
-                            directive: field.Directive,
-                            icon: field.Icon,
-                            typeLabel: field.TypeLabel,
-                            typeFullName: field.TypeFullName,
-                            validations: field.Validations
-                                .map(function(validation) {
-                                    return {
-                                        id: validation.Id,
-                                        name: validation.Name
-                                    };
-                                }),
-                            configuration: field.Configuration || {}
-                        };
-                    })
-                };
+            // Return form information.
+            return {
+                formId: data.FormId,
+                alias: data.Alias,
+                name: data.Name,
+                path: data.Path,
+                fields: data.Fields.map(function (field) {
+                    return {
+                        id: field.Id,
+                        name: field.Name,
+                        alias: field.Alias,
+                        label: field.Label,
+                        directive: field.Directive,
+                        icon: field.Icon,
+                        typeLabel: field.TypeLabel,
+                        typeFullName: field.TypeFullName,
+                        validations: field.Validations
+                            .map(function(validation) {
+                                return {
+                                    id: validation.Id,
+                                    name: validation.Name
+                                };
+                            }),
+                        configuration: field.Configuration || {}
+                    };
+                })
+            };
 
-            }), getHandleServerError(services));
+        });
 
     };
 }
@@ -85,7 +77,8 @@ function getGetFormInfo(services) {
 function getPersistForm(services) {
     return function (formData, isNew) {
 
-        // Format data so the server can consume it.
+        // Variables.
+        var url = services.formulateVars.PersistForm;
         var data = {
             ParentId: formData.parentId,
             Alias: formData.alias,
@@ -112,25 +105,15 @@ function getPersistForm(services) {
             data.FormId = formData.formId
         }
 
-        // Prepare request.
-        var url = services.formulateVars.PersistForm;
-        var strData = JSON.stringify(data);
-        var options = {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };
-
         // Send request to persist the form.
-        return services.$http.post(url, strData, options)
-            .then(getHandleResponse(services, function (data) {
+        return services.formulateServer.post(url, data, function (data) {
 
-                // Return form ID.
-                return {
-                    formId: data.FormId
-                };
+            // Return form ID.
+            return {
+                formId: data.FormId
+            };
 
-            }), getHandleServerError(services));
+        });
 
     };
 }
@@ -139,64 +122,19 @@ function getPersistForm(services) {
 function getDeleteForm(services) {
     return function(formId) {
 
-        // Format data so the server can consume it.
+        // Variables.
+        var url = services.formulateVars.DeleteForm;
         var data = {
             FormId: formId
         };
 
-        // Prepare request.
-        var url = services.formulateVars.DeleteForm;
-        var strData = JSON.stringify(data);
-        var options = {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };
-
         // Send request to delete the form.
-        return services.$http.post(url, strData, options)
-            .then(getHandleResponse(services, function (data) {
+        return services.formulateServer.post(url, data, function () {
 
-                // Return empty data.
-                return {};
+            // Return empty data.
+            return {};
 
-            }), getHandleServerError(services));
-
-    };
-}
-
-// Returns the function that handles a server error.
-function getHandleServerError(services) {
-    return function() {
-
-        // Indicate error with notification.
-        var title = "Server Error";
-        var message = "There was an issue communicating with the server.";
-        services.notificationsService.error(title, message);
-        return services.$q.reject();
-
-    };
-}
-
-// Returns the function that handles a server response.
-function getHandleResponse(services, successCallback) {
-    return function (response) {
-
-        // Variables.
-        var data = response.data;
-
-        // Was the request successful?
-        if (data.Success) {
-            return successCallback(data);
-        } else {
-
-            // Error notification.
-            var title = "Unexpected Error";
-            var message = data.Reason;
-            services.notificationsService.error(title, message);
-            return services.$q.reject();
-
-        }
+        });
 
     };
 }
