@@ -36,7 +36,7 @@ function Controller($scope, $location, $q, $http,
         id: null,
         kinds: []
     };
-    setDataValueKinds();
+    setDataValueKinds(services);
 
     // Assign functions on scope.
     $scope.createDataValue = getCreateDataValue(services);
