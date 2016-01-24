@@ -25,7 +25,10 @@ app.factory("formulateDataValues", function (formulateVars,
         persistDataValue: getPersistDataValue(services),
 
         // Deletes a data value from the server.
-        deleteDataValue: getDeleteDataValue(services)
+        deleteDataValue: getDeleteDataValue(services),
+
+        // Gets the kind of data values from the server.
+        getKinds: getGetKinds(services)
 
     };
 
@@ -126,6 +129,27 @@ function getDeleteDataValue(services) {
             // Return empty data.
             return {};
 
+        });
+
+    };
+}
+
+// Returns the function that gets information about a data value.
+function getGetKinds(services) {
+    return function () {
+
+        // Variables.
+        var url = services.formulateVars.GetDataValueKinds;
+
+        // Get data value kinds from server.
+        return services.formulateServer.get(url, {}, function (data) {
+            return data.Kinds.map(function (item) {
+                return {
+                    id: item.Id,
+                    name: item.Name,
+                    directive: item.Directive
+                };
+            });
         });
 
     };

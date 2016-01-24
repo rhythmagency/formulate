@@ -15,14 +15,13 @@ function Directive(formulateDirectives) {
 }
 
 // Controller.
-function Controller($scope, $location, notificationsService, $q,
-    $http, navigationService, formulateDataValues, formulateVars) {
+function Controller($scope, $location, $q, $http,
+    navigationService, formulateDataValues, formulateVars) {
 
     // Variable containing the common services (easier to pass around).
     var services = {
         $scope: $scope,
         $location: $location,
-        notificationsService: notificationsService,
         $q: $q,
         $http: $http,
         navigationService: navigationService,
@@ -35,18 +34,26 @@ function Controller($scope, $location, notificationsService, $q,
     $scope.dataValueAlias = null;
     $scope.kind = {
         id: null,
-        kinds: [
-            //TODO: These should come from the server.
-            { id: "C43A94A018A5418ABF8A6FA7DEE6D2DE", name: "Data Value One" },
-            { id: "AB2DE75A582245F4903211A224E2905A", name: "Data Value Two" },
-            { id: "30B3961F4FA44707A1D196C4D3CEE1C9", name: "Data Value Three" }
-        ]
+        kinds: []
     };
+    setDataValueKinds();
 
     // Assign functions on scope.
     $scope.createDataValue = getCreateDataValue(services);
     $scope.canCreate = getCanCreate(services);
 
+}
+
+// Sets the data value kinds on the scope.
+function setDataValueKinds(services) {
+    services.formulateDataValues.getKinds().then(function (data) {
+        services.$scope.kind.kinds = data.map(function (item) {
+            return {
+                id: item.id,
+                name: item.name
+            };
+        });
+    });
 }
 
 // Returns a function that creates a new data value.

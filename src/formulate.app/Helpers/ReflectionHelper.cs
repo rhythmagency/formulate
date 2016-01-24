@@ -31,9 +31,10 @@
                 .SelectMany(x => x.GetTypes())
                 .Where(x => interfaceType.IsAssignableFrom(x)
                     && !x.IsInterface)
-                .Select(x =>
-                    x is T ? (T)Activator.CreateInstance(x) : default(T))
-                .Where(x => x != null).ToArray();
+                .Select(x => Activator.CreateInstance(x))
+                .Where(x => x is T)
+                .Where(x => x != null)
+                .Select(x => (T)x).ToArray();
             return instances;
         }
 

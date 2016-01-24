@@ -113,6 +113,9 @@
                 { "GetDataValuesInfo",
                     helper.GetUmbracoApiService<DataValuesController>(x =>
                         x.GetDataValuesInfo(null)) },
+                { "GetDataValueKinds",
+                    helper.GetUmbracoApiService<DataValuesController>(x =>
+                        x.GetDataValueKinds()) },
                 { "PersistFolder",
                     helper.GetUmbracoApiService<FoldersController>(x =>
                         x.PersistFolder(null)) },
