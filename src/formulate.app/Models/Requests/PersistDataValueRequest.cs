@@ -7,5 +7,6 @@
         public string DataValueId { get; set; }
         public string DataValueName { get; set; }
         public string DataValueAlias { get; set; }
+        public object Data { get; set; }
     }
 }

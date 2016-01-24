@@ -117,7 +117,7 @@ function getSaveForm(services) {
             formId: $scope.formId,
             alias: $scope.formAlias,
             name: $scope.formName,
-            fields: fields
+            fields: angular.fromJson(angular.toJson(fields))
         };
 
         // Persist form on server.

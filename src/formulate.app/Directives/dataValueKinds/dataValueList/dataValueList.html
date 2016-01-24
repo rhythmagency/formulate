@@ -1,0 +1,10 @@
+﻿<fieldset>
+    <legend>Items</legend>
+    <div ng-repeat="item in data.items">
+        <div class="input-append">
+            <input type="text" ng-model="item.value" class="form-control" />
+            <button class="btn btn-danger" ng-click="deleteItem($index)">X</button>
+        </div>
+    </div>
+    <button class="btn btn-default" ng-click="addItem()">Add Item</button>
+</fieldset>

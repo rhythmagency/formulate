@@ -1,9 +1,5 @@
-﻿<p>
-    This will be the data value designer.
-</p>
+﻿<formulate-data-value-editor ng-if="directive" directive="directive" data="data">
+</formulate-data-value-editor>
 
-<p>
-    Current data value ID: {{dataValueId}}
-</p>
-
+<br>
 <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>

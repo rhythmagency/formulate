@@ -73,6 +73,12 @@
             }
         }
 
+
+        /// <summary>
+        /// The data stored by this data value.
+        /// </summary>
+        public string Data { get; set; }
+
         #endregion
 
 

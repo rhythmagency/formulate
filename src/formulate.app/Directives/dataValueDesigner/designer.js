@@ -35,6 +35,8 @@ function controller($scope, $routeParams, navigationService,
     $scope.dataValueAlias = null;
     $scope.kindId = null;
     $scope.parentId = null;
+    $scope.directive = null;
+    $scope.data = null;
 
     // Set scope functions.
     $scope.save = getSaveDataValue(services);
@@ -61,7 +63,8 @@ function getSaveDataValue(services) {
             kindId: $scope.kindId,
             dataValueId: $scope.dataValueId,
             alias: $scope.dataValueAlias,
-            name: $scope.dataValueName
+            name: $scope.dataValueName,
+            data: angular.fromJson(angular.toJson($scope.data))
         };
 
         // Persist data value on server.
@@ -133,8 +136,10 @@ function initializeDataValue(options, services) {
             $scope.dataValueAlias = dataValue.alias;
             $scope.dataValueName = dataValue.name;
             $scope.dataValuePath = dataValue.path;
+            $scope.directive = dataValue.directive;
+            $scope.data = dataValue.data;
 
-            // The dataValue can be saved now.
+            // The data value can be saved now.
             $scope.initialized = true;
 
         });

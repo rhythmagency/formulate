@@ -121,7 +121,8 @@
                     Id = dataValueId,
                     Path = path,
                     Name = request.DataValueName,
-                    Alias = request.DataValueAlias
+                    Alias = request.DataValueAlias,
+                    Data = JsonHelper.Serialize(request.Data)
                 };
 
 
@@ -194,6 +195,9 @@
                 var fullPath = new[] { rootId }
                     .Concat(dataValue.Path.Select(x => GuidHelper.GetString(x)))
                     .ToArray();
+                var kinds = GetAllDataValueKinds();
+                var directive = kinds.Where(x => x.Id == dataValue.KindId)
+                    .Select(x => x.Directive).FirstOrDefault();
 
 
                 // Set result.
@@ -204,7 +208,9 @@
                     KindId = GuidHelper.GetString(dataValue.KindId),
                     Path = fullPath,
                     Alias = dataValue.Alias,
-                    Name = dataValue.Name
+                    Name = dataValue.Name,
+                    Directive = directive,
+                    Data = JsonHelper.Deserialize<object>(dataValue.Data)
                 };
 
             }
@@ -227,6 +233,7 @@
             return result;
 
         }
+
 
         /// <summary>
         /// Returns info about the data values with the specified ID's.
@@ -257,21 +264,32 @@
                     .Select(x => GuidHelper.GetGuid(x));
                 var dataValues = ids.Select(x => Persistence.Retrieve(x))
                     .WithoutNulls();
+                var kinds = GetAllDataValueKinds();
+                var combined = dataValues.Join(kinds,
+                    x => x.KindId,
+                    y => y.Id,
+                    (x, y) => new
+                    {
+                        Value = x,
+                        Kind = y
+                    });
 
 
                 // Set result.
                 result = new
                 {
                     Success = true,
-                    DataValues = dataValues.Select(x => new 
+                    DataValues = combined.Select(x => new 
                     {
-                        DataValueId = GuidHelper.GetString(x.Id),
-                        KindId = GuidHelper.GetString(x.KindId),
+                        DataValueId = GuidHelper.GetString(x.Value.Id),
+                        KindId = GuidHelper.GetString(x.Value.KindId),
                         Path = new[] { rootId }
-                            .Concat(GuidHelper.GetStrings(x.Path))
+                            .Concat(GuidHelper.GetStrings(x.Value.Path))
                             .ToArray(),
-                        Alias = x.Alias,
-                        Name = x.Name
+                        Alias = x.Value.Alias,
+                        Name = x.Value.Name,
+                        Directive = x.Kind.Directive,
+                        Data = JsonHelper.Deserialize<object>(x.Value.Data)
                     }),
                 };
 
@@ -374,15 +392,14 @@
             {
 
                 // Variables.
-                var instances = ReflectionHelper
-                    .InstantiateInterfaceImplementations<IDataValueKind>();
+                var kinds = GetAllDataValueKinds();
 
 
                 // Return results.
                 result = new
                 {
                     Success = true,
-                    Kinds = instances.Select(x => new
+                    Kinds = kinds.Select(x => new
                     {
                         Id = GuidHelper.GetString(x.Id),
                         Name = x.Name,
@@ -408,6 +425,21 @@
             // Return result.
             return result;
 
+        }
+
+        #endregion
+
+
+        #region Helper Methods
+
+        /// <summary>
+        /// Returns the data value kinds.
+        /// </summary>
+        private IDataValueKind[] GetAllDataValueKinds()
+        {
+            var instances = ReflectionHelper
+                .InstantiateInterfaceImplementations<IDataValueKind>();
+            return instances;
         }
 
         #endregion

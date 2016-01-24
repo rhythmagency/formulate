@@ -65,7 +65,8 @@ function getCreateDataValue(services) {
             parentId: parentId,
             kindId: $scope.kind.id,
             name: $scope.dataValueName,
-            alias: $scope.dataValueAlias
+            alias: $scope.dataValueAlias,
+            data: {}
         };
         addNodeToTree(dataValueInfo, services)
             .then(function (node) {

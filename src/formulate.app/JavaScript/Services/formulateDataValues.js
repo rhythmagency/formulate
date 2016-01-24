@@ -51,7 +51,9 @@ function getGetDataValueInfo(services) {
                 dataValueId: data.DataValueId,
                 path: data.Path,
                 name: data.Name,
-                alias: data.Alias
+                alias: data.Alias,
+                directive: data.Directive,
+                data: data.Data
             };
         });
 
@@ -76,7 +78,9 @@ function getGetDataValuesInfo(services) {
                     dataValueId: item.DataValueId,
                     path: item.Path,
                     name: item.Name,
-                    alias: item.Alias
+                    alias: item.Alias,
+                    directive: item.Directive,
+                    data: item.Data
                 };
             });
         });
@@ -96,7 +100,8 @@ function getPersistDataValue(services) {
             ParentId: dataValueInfo.parentId,
             DataValueId: dataValueInfo.dataValueId,
             DataValueName: dataValueInfo.name,
-            DataValueAlias: dataValueInfo.alias
+            DataValueAlias: dataValueInfo.alias,
+            Data: dataValueInfo.data
         };
 
         // Send request to create the data value.
