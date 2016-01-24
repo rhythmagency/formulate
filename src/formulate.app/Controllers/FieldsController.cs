@@ -3,6 +3,7 @@
 
     // Namespaces.
     using Forms;
+    using Helpers;
     using System;
     using System.Linq;
     using System.Web.Http;
@@ -75,14 +76,8 @@
             {
 
                 // Variables.
-                var fieldInterface = typeof(IFormFieldType);
-                var instances = AppDomain.CurrentDomain.GetAssemblies()
-                    .SelectMany(x => x.GetTypes())
-                    .Where(x => fieldInterface.IsAssignableFrom(x)
-                        && !x.IsInterface)
-                    .Select(x =>
-                        Activator.CreateInstance(x) as IFormFieldType)
-                    .Where(x => x != null).ToArray();
+                var instances = ReflectionHelper
+                    .InstantiateInterfaceImplementations<IFormFieldType>();
 
 
                 // Return results.

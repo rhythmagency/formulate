@@ -272,6 +272,7 @@
   <ItemGroup>
     <Compile Include="Configuration\JsonElement.cs" />
     <Compile Include="Configuration\PersistenceConfigSection.cs" />
+    <Compile Include="Constants\DataValues\DataValueList.cs" />
     <Compile Include="Constants\Trees\DataSources.cs" />
     <Compile Include="Constants\Trees\DataValues.cs" />
     <Compile Include="Constants\Trees\Forms.cs" />
@@ -286,6 +287,8 @@
     <Compile Include="Controllers\LayoutsController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="DataValues\DataValue.cs" />
+    <Compile Include="DataValues\IDataValueKind.cs" />
+    <Compile Include="DataValues\Kinds\DataValueList.cs" />
     <Compile Include="Entities\EntityKind.cs" />
     <Compile Include="Entities\EntityRoot.cs" />
     <Compile Include="Entities\IEntity.cs" />
@@ -306,6 +309,7 @@
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\GuidHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
+    <Compile Include="Helpers\ReflectionHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Install\Package_Actions\GrantPermissionToSection.cs" />
     <Compile Include="Install\Package_Actions\TransformXmlFile.cs" />

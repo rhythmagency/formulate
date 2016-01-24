@@ -23,6 +23,9 @@ frontendDocs/
 # Visual Studio project user options.
 *.csproj.user
 
+# Visual Studio configuration.
+.vs/
+
 # WebStorm.
 .idea
 

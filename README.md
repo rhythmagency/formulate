@@ -8,7 +8,7 @@ A form builder for Umbraco.
 
 # Contributing
 Requires:
-* Visual Studio 2013
+* Visual Studio 2015
 * Node.js
 * npm
 * grunt-cli (installed globally)

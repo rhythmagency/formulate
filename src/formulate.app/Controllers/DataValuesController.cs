@@ -35,6 +35,7 @@
         private const string PersistDataValueError = @"An error occurred while attempting to persist a Formulate data value.";
         private const string GetDataValueInfoError = @"An error occurred while attempting to get the data value info for a Formulate data value.";
         private const string DeleteDataValueError = @"An error occurred while attempting to delete the Formulate data value.";
+        private const string GetKindsError = @"An error occurred while attempting to get the data value kinds.";
 
         #endregion
 
@@ -348,6 +349,63 @@
 
 
             // Return the result.
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// Returns the data value kinds.
+        /// </summary>
+        /// <returns>
+        /// An object indicating success or failure, along with information
+        /// about data value kinds.
+        /// </returns>
+        [HttpGet]
+        public object GetDataValueKinds()
+        {
+
+            // Variables.
+            var result = default(object);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Variables.
+                var instances = ReflectionHelper
+                    .InstantiateInterfaceImplementations<IDataValueKind>();
+
+
+                // Return results.
+                result = new
+                {
+                    Success = true,
+                    Kinds = instances.Select(x => new
+                    {
+                        Id = GuidHelper.GetString(x.Id),
+                        Name = x.Name,
+                        Directive = x.Directive
+                    }).ToArray()
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<DataValuesController>(GetKindsError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return result.
             return result;
 
         }
