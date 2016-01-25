@@ -1,102 +1,103 @@
 ﻿<form name="formulateFormDesigner" val-form-manager>
-    <div class="umb-panel">
-        <div class="umb-panel-header">
-            <div class="row-fluid">
-                <div class="span7">
+    <umb-panel umb-tabs>
+        <umb-header tabs="info.tabs">
+            <div class="span7">
 
-                    <!-- Form name. -->
-                    <umb-content-name ng-model="formName" placeholder="Form Name"></umb-content-name>
+                <!-- Form name. -->
+                <umb-content-name
+                    ng-model="info.formName"
+                    placeholder="Form Name">
+                </umb-content-name>
 
-                </div>
             </div>
-        </div>
-        <div class="umb-panel-body umb-scrollable row-fluid">
+        </umb-header>
+        <umb-tab-view>
+            <umb-tab id="tab2" rel="{{2}}">
 
-            <!-- Field chooser dialog. -->
-            <formulate-field-chooser show="fieldChooser.show" chosen="fieldChosen(field)"></formulate-field-chooser>
+                <!-- Field chooser dialog. -->
+                <formulate-field-chooser
+                    show="fieldChooser.show"
+                    chosen="fieldChosen(field)">
+                </formulate-field-chooser>
 
-            <div class="tab-content form-horizontal">
-                <div class='umb-tab-pane tab-pane active'>
-                    <div class='umb-tab-pane-inner'>
-                        <div class="umb-pane">
+                <!-- Form designer. -->
+                <div class="umb-pane">
 
-                            <!-- Form alias. -->
-                            <fieldset>
-                                <legend><h2>Form Information</h2></legend>
+                    <!-- Form alias. -->
+                    <fieldset>
+                        <legend><h2>Form Information</h2></legend>
+                        <div class="control-group umb-control-group">
+                            <div class="umb-el-wrap">
+                                <label class="control-label">
+                                    Form Alias
+                                </label>
+                                <div class="controls controls-row">
+                                    <input ng-model="info.formAlias" type="text" placeholder="Form Alias" />
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Render all fields. -->
+                    <div ui-sortable="sortableOptions" ng-model="fields">
+                        <fieldset ng-repeat="field in fields" class="formulate-field {{field.expanded ? 'expanded' : 'collapsed'}}">
+                            <legend><i class="icon-navigation drag-handle"></i><i ng-click="toggleField(field)" class="collapser icon icon-add"></i><i class="type-identifier icon {{field.icon}}"></i>{{field.name || "Unnamed"}}<i ng-click="deleteField(field)" class="icon-delete deleter"></i></legend>
+                            <div class="formulate-field-details">
                                 <div class="control-group umb-control-group">
                                     <div class="umb-el-wrap">
                                         <label class="control-label">
-                                            Form Alias
+                                            Field Name
                                         </label>
                                         <div class="controls controls-row">
-                                            <input ng-model="formAlias" type="text" placeholder="Form Alias" />
+                                            <input type="text" ng-model="field.name" placeholder="Field Name" />
                                         </div>
                                     </div>
-                                </div>
-                            </fieldset>
-
-                            <!-- Render all fields. -->
-                            <div ui-sortable="sortableOptions" ng-model="fields">
-                                <fieldset ng-repeat="field in fields" class="formulate-field {{field.expanded ? 'expanded' : 'collapsed'}}">
-                                    <legend><i class="icon-navigation drag-handle"></i><i ng-click="toggleField(field)" class="collapser icon icon-add"></i><i class="type-identifier icon {{field.icon}}"></i>{{field.name || "Unnamed"}}<i ng-click="deleteField(field)" class="icon-delete deleter"></i></legend>
-                                    <div class="formulate-field-details">
-                                        <div class="control-group umb-control-group">
-                                            <div class="umb-el-wrap">
-                                                <label class="control-label">
-                                                    Field Name
-                                                </label>
-                                                <div class="controls controls-row">
-                                                    <input type="text" ng-model="field.name" placeholder="Field Name" />
-                                                </div>
-                                            </div>
-                                            <div class="umb-el-wrap">
-                                                <label class="control-label">
-                                                    Field Alias
-                                                </label>
-                                                <div class="controls controls-row">
-                                                    <input type="text" ng-model="field.alias" placeholder="Field Alias" />
-                                                </div>
-                                            </div>
-                                            <div class="umb-el-wrap">
-                                                <label class="control-label">
-                                                    Field Label
-                                                </label>
-                                                <div class="controls controls-row">
-                                                    <input type="text" ng-model="field.label" placeholder="Field Label" />
-                                                </div>
-                                            </div>
+                                    <div class="umb-el-wrap">
+                                        <label class="control-label">
+                                            Field Alias
+                                        </label>
+                                        <div class="controls controls-row">
+                                            <input type="text" ng-model="field.alias" placeholder="Field Alias" />
+                                        </div>
+                                    </div>
+                                    <div class="umb-el-wrap">
+                                        <label class="control-label">
+                                            Field Label
+                                        </label>
+                                        <div class="controls controls-row">
+                                            <input type="text" ng-model="field.label" placeholder="Field Label" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="control-label">
+                                            Validations
+                                        </label>
+                                        <div class="controls controls-row">
+                                            <ul>
+                                                <li ng-repeat="validation in field.validations">
+                                                    {{validation.name}}
+                                                </li>
+                                            </ul>
                                             <div>
-                                                <label class="control-label">
-                                                    Validations
-                                                </label>
-                                                <div class="controls controls-row">
-                                                    <ul>
-                                                        <li ng-repeat="validation in field.validations">
-                                                            {{validation.name}}
-                                                        </li>
-                                                    </ul>
-                                                    <div>
-                                                        <a class="btn link" href ng-click="pickValidations(field)">Pick Validations</a>
-                                                    </div>
-                                                </div>
+                                                <a class="btn link" href ng-click="pickValidations(field)">Pick Validations</a>
                                             </div>
-                                            <formulate-field-editor directive="field.directive" configuration="field.configuration">
-                                            </formulate-field-editor>
                                         </div>
                                     </div>
-                                </fieldset>
+                                    <formulate-field-editor directive="field.directive" configuration="field.configuration">
+                                    </formulate-field-editor>
+                                </div>
                             </div>
+                        </fieldset>
+                    </div>
 
-                            <!-- Button. -->
-                            <div class="btn-group">
-                                <button class="btn" ng-click="addField()" ng-disabled="!canAddField()" prevent-default>Add Field</button>
-                                <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
-                            </div>
-
-                        </div>
+                    <!-- Button. -->
+                    <div class="btn-group">
+                        <button class="btn" ng-click="addField()" ng-disabled="!canAddField()" prevent-default>Add Field</button>
+                        <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+
+            </umb-tab>
+        </umb-tab-view>
+    </umb-panel>
 </form>

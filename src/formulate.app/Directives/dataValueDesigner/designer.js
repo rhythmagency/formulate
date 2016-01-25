@@ -31,8 +31,18 @@ function controller($scope, $routeParams, navigationService,
 
     // Set scope variables.
     $scope.dataValueId = id;
-    $scope.dataValueName = null;
-    $scope.dataValueAlias = null;
+    $scope.info = {
+        dataValueName: null,
+        dataValueAlias: null,
+        tabs: [
+            {
+                id: 1,
+                active: true,
+                label: "Data Value",
+                alias: "dataValue"
+            }
+        ]
+    };
     $scope.kindId = null;
     $scope.parentId = null;
     $scope.directive = null;
@@ -62,8 +72,8 @@ function getSaveDataValue(services) {
             parentId: parentId,
             kindId: $scope.kindId,
             dataValueId: $scope.dataValueId,
-            alias: $scope.dataValueAlias,
-            name: $scope.dataValueName,
+            alias: $scope.info.dataValueAlias,
+            name: $scope.info.dataValueName,
             data: angular.fromJson(angular.toJson($scope.data))
         };
 
@@ -133,8 +143,8 @@ function initializeDataValue(options, services) {
             // Set the dataValue info.
             $scope.kindId = dataValue.kindId;
             $scope.dataValueId = dataValue.dataValueId;
-            $scope.dataValueAlias = dataValue.alias;
-            $scope.dataValueName = dataValue.name;
+            $scope.info.dataValueAlias = dataValue.alias;
+            $scope.info.dataValueName = dataValue.name;
             $scope.dataValuePath = dataValue.path;
             $scope.directive = dataValue.directive;
             $scope.data = dataValue.data;

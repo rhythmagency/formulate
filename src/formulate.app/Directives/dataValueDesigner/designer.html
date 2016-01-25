@@ -1,5 +1,47 @@
-﻿<formulate-data-value-editor ng-if="directive" directive="directive" data="data">
-</formulate-data-value-editor>
+﻿<form novalidate name="dataValueForm"
+      val-form-manager>
+    <umb-panel umb-tabs>
+        <umb-header tabs="info.tabs">
 
-<br>
-<button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
+            <div class="span7">
+
+                <!-- Data value name. -->
+                <umb-content-name
+                    ng-model="info.dataValueName"
+                    placeholder="Data Value Name">
+                </umb-content-name>
+
+            </div>
+        </umb-header>
+        <umb-tab-view>
+            <umb-tab id="tab1" rel="{{1}}">
+                <div class="umb-pane">
+
+                    <!-- Data value alias. -->
+                    <fieldset>
+                        <legend><h2>Data Value Information</h2></legend>
+                        <div class="control-group umb-control-group">
+                            <div class="umb-el-wrap">
+                                <label class="control-label">
+                                    Data Value Alias
+                                </label>
+                                <div class="controls controls-row">
+                                    <input ng-model="info.dataValueAlias" type="text" placeholder="Data Value Alias" />
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Data value. -->
+                    <formulate-data-value-editor ng-if="directive" directive="directive" data="data">
+                    </formulate-data-value-editor>
+
+                    <!-- Save button. -->
+                    <br>
+                    <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
+
+                </div>
+            </umb-tab>
+        </umb-tab-view>
+    </umb-panel>
+</form>

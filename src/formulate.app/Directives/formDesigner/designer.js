@@ -37,8 +37,18 @@ function controller($scope, $routeParams, navigationService,
 
     // Set scope variables.
     $scope.isNew = isNew;
-    $scope.formAlias = null;
-    $scope.formName = null;
+    $scope.info = {
+        formName: null,
+        formAlias: null,
+        tabs: [
+            {
+                id: 2,
+                active: true,
+                label: "Form",
+                alias: "form"
+            }
+        ]
+    };
     $scope.fields = [];
     if (!isNew) {
         $scope.formId = id;
@@ -115,8 +125,8 @@ function getSaveForm(services) {
         var formData = {
             parentId: parentId,
             formId: $scope.formId,
-            alias: $scope.formAlias,
-            name: $scope.formName,
+            alias: $scope.info.formAlias,
+            name: $scope.info.formName,
             fields: angular.fromJson(angular.toJson(fields))
         };
 
@@ -187,8 +197,8 @@ function initializeForm(options, services) {
 
             // Set the form info.
             $scope.formId = form.formId;
-            $scope.formAlias = form.alias;
-            $scope.formName = form.name;
+            $scope.info.formAlias = form.alias;
+            $scope.info.formName = form.name;
             $scope.fields = form.fields;
             $scope.formPath = form.path;
 
