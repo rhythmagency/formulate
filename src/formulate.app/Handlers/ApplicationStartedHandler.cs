@@ -34,7 +34,7 @@
         #region Constants
 
         private const string DeveloperSectionXPath = @"/dashBoard/section[@alias='StartupDeveloperDashboardSection']";
-        private const string MissingDeveloperSection = @"Unable to location StartupDeveloperDashboardSection in the dashboard.config. The Formulate tab will not be added to the Developer section.";
+        private const string MissingDeveloperSection = @"Unable to locate StartupDeveloperDashboardSection in the dashboard.config. The Formulate tab will not be added to the Developer section.";
 
         #endregion
 
