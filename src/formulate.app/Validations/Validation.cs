@@ -70,6 +70,12 @@
             }
         }
 
+
+        /// <summary>
+        /// The data stored by this validation.
+        /// </summary>
+        public string Data { get; set; }
+
         #endregion
 
     }

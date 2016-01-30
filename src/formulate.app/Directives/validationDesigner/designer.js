@@ -31,10 +31,22 @@ function controller($scope, $routeParams, navigationService,
 
     // Set scope variables.
     $scope.validationId = id;
-    $scope.validationName = null;
-    $scope.validationAlias = null;
+    $scope.info = {
+        validationName: null,
+        validationAlias: null,
+        tabs: [
+            {
+                id: 3,
+                active: true,
+                label: "Validation",
+                alias: "validation"
+            }
+        ]
+    };
     $scope.kindId = null;
     $scope.parentId = null;
+    $scope.directive = null;
+    $scope.data = null;
 
     // Set scope functions.
     $scope.save = getSaveValidation(services);
@@ -60,8 +72,9 @@ function getSaveValidation(services) {
             parentId: parentId,
             kindId: $scope.kindId,
             validationId: $scope.validationId,
-            alias: $scope.validationAlias,
-            name: $scope.validationName
+            alias: $scope.info.validationAlias,
+            name: $scope.info.validationName,
+            data: angular.fromJson(angular.toJson($scope.data))
         };
 
         // Persist validation on server.
@@ -130,9 +143,11 @@ function initializeValidation(options, services) {
             // Set the validation info.
             $scope.kindId = validation.kindId;
             $scope.validationId = validation.validationId;
-            $scope.validationAlias = validation.alias;
-            $scope.validationName = validation.name;
+            $scope.info.validationAlias = validation.alias;
+            $scope.info.validationName = validation.name;
             $scope.validationPath = validation.path;
+            $scope.directive = validation.directive;
+            $scope.data = validation.data;
 
             // The validation can be saved now.
             $scope.initialized = true;

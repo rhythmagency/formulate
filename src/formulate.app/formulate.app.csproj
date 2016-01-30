@@ -278,6 +278,7 @@
     <Compile Include="Constants\Trees\Forms.cs" />
     <Compile Include="Constants\Trees\Layouts.cs" />
     <Compile Include="Constants\Trees\Validations.cs" />
+    <Compile Include="Constants\Validations\ValidationRegex.cs" />
     <Compile Include="Controllers\DataValuesController.cs" />
     <Compile Include="Controllers\FieldsController.cs" />
     <Compile Include="Controllers\FoldersController.cs" />
@@ -366,6 +367,8 @@
     <Compile Include="Trees\Helpers\FormHelper.cs" />
     <Compile Include="Trees\Helpers\ValidationHelper.cs" />
     <Compile Include="Trees\Helpers\LayoutHelper.cs" />
+    <Compile Include="Validations\IValidationKind.cs" />
+    <Compile Include="Validations\Kinds\ValidationRegex.cs" />
     <Compile Include="Validations\Validation.cs" />
   </ItemGroup>
   <ItemGroup>

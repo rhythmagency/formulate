@@ -101,6 +101,9 @@
                 { "GetValidationsInfo",
                     helper.GetUmbracoApiService<ValidationsController>(x =>
                         x.GetValidationsInfo(null)) },
+                { "GetValidationKinds",
+                    helper.GetUmbracoApiService<ValidationsController>(x =>
+                        x.GetValidationKinds()) },
                 { "DeleteDataValue",
                     helper.GetUmbracoApiService<DataValuesController>(x =>
                         x.DeleteDataValue(null)) },

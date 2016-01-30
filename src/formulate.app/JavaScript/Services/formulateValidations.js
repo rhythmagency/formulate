@@ -24,7 +24,10 @@ app.factory("formulateValidations", function (formulateVars,
         persistValidation: getPersistValidation(services),
 
         // Deletes a validation from the server.
-        deleteValidation: getDeleteValidation(services)
+        deleteValidation: getDeleteValidation(services),
+
+        // Gets the kind of validations from the server.
+        getKinds: getGetKinds(services)
 
     };
 
@@ -47,7 +50,9 @@ function getGetValidationInfo(services) {
                 validationId: data.ValidationId,
                 path: data.Path,
                 name: data.Name,
-                alias: data.Alias
+                alias: data.Alias,
+                directive: data.Directive,
+                data: data.Data
             };
         });
 
@@ -72,7 +77,9 @@ function getGetValidationsInfo(services) {
                     validationId: item.ValidationId,
                     path: item.Path,
                     name: item.Name,
-                    alias: item.Alias
+                    alias: item.Alias,
+                    directive: item.Directive,
+                    data: item.Data
                 };
             });
         });
@@ -91,7 +98,8 @@ function getPersistValidation(services) {
             ParentId: validationInfo.parentId,
             ValidationId: validationInfo.validationId,
             ValidationName: validationInfo.name,
-            ValidationAlias: validationInfo.alias
+            ValidationAlias: validationInfo.alias,
+            Data: validationInfo.data
         };
 
         // Send request to create the validation.
@@ -124,6 +132,27 @@ function getDeleteValidation(services) {
             // Return empty data.
             return {};
 
+        });
+
+    };
+}
+
+// Returns the function that gets validation kinds.
+function getGetKinds(services) {
+    return function () {
+
+        // Variables.
+        var url = services.formulateVars.GetValidationKinds;
+
+        // Get validation kinds from server.
+        return services.formulateServer.get(url, {}, function (data) {
+            return data.Kinds.map(function (item) {
+                return {
+                    id: item.Id,
+                    name: item.Name,
+                    directive: item.Directive
+                };
+            });
         });
 
     };

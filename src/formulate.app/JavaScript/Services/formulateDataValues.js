@@ -139,7 +139,7 @@ function getDeleteDataValue(services) {
     };
 }
 
-// Returns the function that gets information about a data value.
+// Returns the function that gets the data value kinds.
 function getGetKinds(services) {
     return function () {
 

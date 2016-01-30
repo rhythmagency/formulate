@@ -36,18 +36,26 @@ function controller($scope, $location, notificationsService, $q,
     $scope.validationAlias = null;
     $scope.kind = {
         id: null,
-        kinds: [
-            //TODO: These should come from the server.
-            { id: "FE668FEBCB924B1DA2BB0269410C2A07", name: "Validation One" },
-            { id: "7B2710468B4C4AA9A5472BE3AE5819B2", name: "Validation Two" },
-            { id: "D1F5A22E0D9B47EE806D6CD557DA4E64", name: "Validation Three" }
-        ]
+        kinds: []
     };
+    setValidationKinds(services);
 
     // Assign functions on scope.
     $scope.createValidation = getCreateValidation(services);
     $scope.canCreate = getCanCreate(services);
 
+}
+
+// Sets the validation kinds on the scope.
+function setValidationKinds(services) {
+    services.formulateValidations.getKinds().then(function (data) {
+        services.$scope.kind.kinds = data.map(function (item) {
+            return {
+                id: item.id,
+                name: item.name
+            };
+        });
+    });
 }
 
 // Returns a function that creates a new validation.
@@ -59,7 +67,8 @@ function getCreateValidation(services) {
             parentId: parentId,
             kindId: $scope.kind.id,
             name: $scope.validationName,
-            alias: $scope.validationAlias
+            alias: $scope.validationAlias,
+            data: {}
         };
         addNodeToTree(validationInfo, services)
             .then(function (node) {

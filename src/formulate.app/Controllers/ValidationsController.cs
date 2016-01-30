@@ -35,6 +35,7 @@
         private const string PersistValidationError = @"An error occurred while attempting to persist a Formulate validation.";
         private const string GetValidationInfoError = @"An error occurred while attempting to get the validation info for a Formulate validation.";
         private const string DeleteValidationError = @"An error occurred while attempting to delete the Formulate validation.";
+        private const string GetKindsError = @"An error occurred while attempting to get the validation kinds.";
 
         #endregion
 
@@ -120,7 +121,8 @@
                     Id = validationId,
                     Path = path,
                     Name = request.ValidationName,
-                    Alias = request.ValidationAlias
+                    Alias = request.ValidationAlias,
+                    Data = JsonHelper.Serialize(request.Data)
                 };
 
 
@@ -174,7 +176,8 @@
         /// accompanying data.
         /// </returns>
         [HttpGet]
-        public object GetValidationInfo([FromUri] GetValidationInfoRequest request)
+        public object GetValidationInfo(
+            [FromUri] GetValidationInfoRequest request)
         {
 
             // Variables.
@@ -192,6 +195,9 @@
                 var fullPath = new[] { rootId }
                     .Concat(validation.Path.Select(x => GuidHelper.GetString(x)))
                     .ToArray();
+                var kinds = GetAllValidationKinds();
+                var directive = kinds.Where(x => x.Id == validation.KindId)
+                    .Select(x => x.Directive).FirstOrDefault();
 
 
                 // Set result.
@@ -202,7 +208,9 @@
                     KindId = GuidHelper.GetString(validation.KindId),
                     Path = fullPath,
                     Alias = validation.Alias,
-                    Name = validation.Name
+                    Name = validation.Name,
+                    Directive = directive,
+                    Data = JsonHelper.Deserialize<object>(validation.Data)
                 };
 
             }
@@ -254,6 +262,7 @@
                 // Variables.
                 var ids = request.ValidationIds
                     .Select(x => GuidHelper.GetGuid(x)).ToList();
+                var kinds = GetAllValidationKinds();
 
 
                 // Get information about each validation.
@@ -269,10 +278,15 @@
 
 
                     // Get path to validation.
+                    var partialPath = validation.Path
+                        .Select(x => GuidHelper.GetString(x));
                     var fullPath = new[] { rootId }
-                        .Concat(validation.Path
-                        .Select(x => GuidHelper.GetString(x)))
-                        .ToArray();
+                        .Concat(partialPath).ToArray();
+
+
+                    // Get directive.
+                    var directive = kinds.Where(x => x.Id == validation.KindId)
+                        .Select(x => x.Directive).FirstOrDefault();
 
 
                     // Store validation info.
@@ -282,7 +296,9 @@
                         KindId = GuidHelper.GetString(validation.KindId),
                         Path = fullPath,
                         Alias = validation.Alias,
-                        Name = validation.Name
+                        Name = validation.Name,
+                        Directive = directive,
+                        Data = JsonHelper.Deserialize<object>(validation.Data)
                     });
 
                 }
@@ -370,6 +386,77 @@
             // Return the result.
             return result;
 
+        }
+
+
+        /// <summary>
+        /// Returns the validation kinds.
+        /// </summary>
+        /// <returns>
+        /// An object indicating success or failure, along with information
+        /// about validation kinds.
+        /// </returns>
+        [HttpGet]
+        public object GetValidationKinds()
+        {
+
+            // Variables.
+            var result = default(object);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Variables.
+                var kinds = GetAllValidationKinds();
+
+
+                // Return results.
+                result = new
+                {
+                    Success = true,
+                    Kinds = kinds.Select(x => new
+                    {
+                        Id = GuidHelper.GetString(x.Id),
+                        Name = x.Name,
+                        Directive = x.Directive
+                    }).ToArray()
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<ValidationsController>(GetKindsError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return result.
+            return result;
+
+        }
+
+        #endregion
+
+
+        #region Helper Methods
+
+        /// <summary>
+        /// Returns the validation kinds.
+        /// </summary>
+        private IValidationKind[] GetAllValidationKinds()
+        {
+            var instances = ReflectionHelper
+                .InstantiateInterfaceImplementations<IValidationKind>();
+            return instances;
         }
 
         #endregion

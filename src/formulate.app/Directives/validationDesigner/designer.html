@@ -1,9 +1,53 @@
-﻿<p>
-    This will be the validation designer.
-</p>
+﻿<form novalidate name="validationForm"
+      val-form-manager>
+    <umb-panel umb-tabs>
+        <umb-header tabs="info.tabs">
 
-<p>
-    Current validation ID: {{validationId}}
-</p>
+            <div class="span7">
 
-<button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
+                <!-- Validation name. -->
+                <umb-content-name
+                    ng-model="info.validationName"
+                    placeholder="Validation Name">
+                </umb-content-name>
+
+            </div>
+        </umb-header>
+        <umb-tab-view>
+            <umb-tab id="tab3" rel="{{3}}">
+                <div class="umb-pane">
+
+                    <!-- Validation alias. -->
+                    <fieldset>
+                        <legend><h2>Validation Information</h2></legend>
+                        <div class="control-group umb-control-group">
+                            <div class="umb-el-wrap">
+                                <label class="control-label">
+                                    Validation Alias
+                                </label>
+                                <div class="controls controls-row">
+                                    <input
+                                        ng-model="info.validationAlias"
+                                        type="text"
+                                        placeholder="Validation Alias" />
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Validation. -->
+                    <formulate-validation-editor
+                        ng-if="directive"
+                        directive="directive"
+                        data="data">
+                    </formulate-validation-editor>
+
+                    <!-- Save button. -->
+                    <br>
+                    <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
+
+                </div>
+            </umb-tab>
+        </umb-tab-view>
+    </umb-panel>
+</form>

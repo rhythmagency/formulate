@@ -7,5 +7,6 @@
         public string ValidationId { get; set; }
         public string ValidationName { get; set; }
         public string ValidationAlias { get; set; }
+        public object Data { get; set; }
     }
 }

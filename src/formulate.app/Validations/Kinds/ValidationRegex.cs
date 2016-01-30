@@ -1,16 +1,16 @@
-﻿namespace formulate.app.DataValues.Kinds
+﻿namespace formulate.app.Validations.Kinds
 {
 
     // Namespaces.
     using Helpers;
     using System;
-    using Constants = formulate.app.Constants.DataValues.DataValueList;
+    using Constants = formulate.app.Constants.Validations.ValidationRegex;
 
 
     /// <summary>
-    /// A data value kind that stores a list of strings.
+    /// A validation kind that validates against a regular expression.
     /// </summary>
-    public class DataValueList : IDataValueKind
+    public class ValidationRegex : IValidationKind
     {
 
         #region Properties
