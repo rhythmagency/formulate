@@ -1,9 +1,53 @@
-﻿<p>
-    This will be the layout designer.
-</p>
+﻿<form novalidate name="layoutForm"
+      val-form-manager>
+    <umb-panel umb-tabs>
+        <umb-header tabs="info.tabs">
 
-<p>
-    Current layout ID: {{layoutId}}
-</p>
+            <div class="span7">
 
-<button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
+                <!-- Layout name. -->
+                <umb-content-name
+                        ng-model="info.layoutName"
+                        placeholder="Layout Name">
+                </umb-content-name>
+
+            </div>
+        </umb-header>
+        <umb-tab-view>
+            <umb-tab id="tab4" rel="{{4}}">
+                <div class="umb-pane">
+
+                    <!-- Layout alias. -->
+                    <fieldset>
+                        <legend><h2>Layout Information</h2></legend>
+                        <div class="control-group umb-control-group">
+                            <div class="umb-el-wrap">
+                                <label class="control-label">
+                                    Layout Alias
+                                </label>
+                                <div class="controls controls-row">
+                                    <input
+                                            ng-model="info.layoutAlias"
+                                            type="text"
+                                            placeholder="Layout Alias" />
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Layout. -->
+                    <formulate-layout-editor
+                            ng-if="directive"
+                            directive="directive"
+                            data="data">
+                    </formulate-layout-editor>
+
+                    <!-- Save button. -->
+                    <br>
+                    <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
+
+                </div>
+            </umb-tab>
+        </umb-tab-view>
+    </umb-panel>
+</form>

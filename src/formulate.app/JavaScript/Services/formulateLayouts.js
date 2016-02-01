@@ -21,7 +21,10 @@ app.factory("formulateLayouts", function (formulateVars,
         persistLayout: getPersistLayout(services),
 
         // Deletes a layout from the server.
-        deleteLayout: getDeleteLayout(services)
+        deleteLayout: getDeleteLayout(services),
+
+        // Gets the kind of layouts from the server.
+        getKinds: getGetKinds(services)
 
     };
 
@@ -44,7 +47,9 @@ function getGetLayoutInfo(services) {
                 layoutId: data.LayoutId,
                 path: data.Path,
                 name: data.Name,
-                alias: data.Alias
+                alias: data.Alias,
+                directive: data.Directive,
+                data: data.Data
             };
         });
 
@@ -62,7 +67,8 @@ function getPersistLayout(services) {
             ParentId: layoutInfo.parentId,
             LayoutId: layoutInfo.layoutId,
             LayoutName: layoutInfo.name,
-            LayoutAlias: layoutInfo.alias
+            LayoutAlias: layoutInfo.alias,
+            Data: layoutInfo.data
         };
 
         // Send request to create the layout.
@@ -95,6 +101,27 @@ function getDeleteLayout(services) {
             // Return empty data.
             return {};
 
+        });
+
+    };
+}
+
+// Returns the function that gets layout kinds.
+function getGetKinds(services) {
+    return function () {
+
+        // Variables.
+        var url = services.formulateVars.GetLayoutKinds;
+
+        // Get layout kinds from server.
+        return services.formulateServer.get(url, {}, function (data) {
+            return data.Kinds.map(function (item) {
+                return {
+                    id: item.Id,
+                    name: item.Name,
+                    directive: item.Directive
+                };
+            });
         });
 
     };

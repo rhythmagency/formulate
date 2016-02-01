@@ -278,6 +278,7 @@
     <Compile Include="Constants\Trees\Forms.cs" />
     <Compile Include="Constants\Trees\Layouts.cs" />
     <Compile Include="Constants\Trees\Validations.cs" />
+    <Compile Include="Constants\Layouts\LayoutBasic.cs" />
     <Compile Include="Constants\Validations\ValidationRegex.cs" />
     <Compile Include="Controllers\DataValuesController.cs" />
     <Compile Include="Controllers\FieldsController.cs" />
@@ -314,6 +315,8 @@
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Install\Package_Actions\GrantPermissionToSection.cs" />
     <Compile Include="Install\Package_Actions\TransformXmlFile.cs" />
+    <Compile Include="Layouts\ILayoutKind.cs" />
+    <Compile Include="Layouts\Kinds\LayoutBasic.cs" />
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Managers\DefaultConfigurationManager.cs" />
     <Compile Include="Managers\IConfigurationManager.cs" />

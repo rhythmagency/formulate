@@ -15,14 +15,13 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, $location, notificationsService, $q,
-    $http, navigationService, formulateLayouts, formulateVars) {
+function controller($scope, $location, $q, $http,
+    navigationService, formulateLayouts, formulateVars) {
 
     // Variable containing the common services (easier to pass around).
     var services = {
         $scope: $scope,
         $location: $location,
-        notificationsService: notificationsService,
         $q: $q,
         $http: $http,
         navigationService: navigationService,
@@ -35,18 +34,26 @@ function controller($scope, $location, notificationsService, $q,
     $scope.layoutAlias = null;
     $scope.kind = {
         id: null,
-        kinds: [
-            //TODO: These should come from the server.
-            { id: "19F0F9282CCE40229BA2610AC776A97E", name: "Layout One" },
-            { id: "D6CC7AE0C9D94D51B3F3101FA27A0ACA", name: "Layout Two" },
-            { id: "363614C2987545E19A515BF3A0F04CD4", name: "Layout Three" }
-        ]
+        kinds: []
     };
+    setLayoutKinds(services);
 
     // Assign functions on scope.
     $scope.createLayout = getCreateLayout(services);
     $scope.canCreate = getCanCreate(services);
 
+}
+
+// Sets the layout kinds on the scope.
+function setLayoutKinds(services) {
+    services.formulateLayouts.getKinds().then(function (data) {
+        services.$scope.kind.kinds = data.map(function (item) {
+            return {
+                id: item.id,
+                name: item.name
+            };
+        });
+    });
 }
 
 // Returns a function that creates a new layout.
@@ -58,7 +65,8 @@ function getCreateLayout(services) {
             parentId: parentId,
             kindId: $scope.kind.id,
             name: $scope.layoutName,
-            alias: $scope.layoutAlias
+            alias: $scope.layoutAlias,
+            data: {}
         };
         addNodeToTree(layoutInfo, services)
             .then(function (node) {

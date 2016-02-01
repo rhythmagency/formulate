@@ -73,6 +73,12 @@
             }
         }
 
+
+        /// <summary>
+        /// The data stored by this layout.
+        /// </summary>
+        public string Data { get; set; }
+
         #endregion
 
 

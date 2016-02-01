@@ -34,6 +34,7 @@
         private const string PersistLayoutError = @"An error occurred while attempting to persist a Formulate layout.";
         private const string GetLayoutInfoError = @"An error occurred while attempting to get the layout info for a Formulate layout.";
         private const string DeleteLayoutError = @"An error occurred while attempting to delete the Formulate layout.";
+        private const string GetKindsError = @"An error occurred while attempting to get the layout kinds.";
 
         #endregion
 
@@ -119,7 +120,8 @@
                     Id = layoutId,
                     Path = path,
                     Name = request.LayoutName,
-                    Alias = request.LayoutAlias
+                    Alias = request.LayoutAlias,
+                    Data = JsonHelper.Serialize(request.Data)
                 };
 
 
@@ -188,9 +190,15 @@
                 // Variables.
                 var id = GuidHelper.GetGuid(request.LayoutId);
                 var layout = Persistence.Retrieve(id);
+                var partialPath = layout.Path
+                    .Select(x => GuidHelper.GetString(x));
                 var fullPath = new[] { rootId }
-                    .Concat(layout.Path.Select(x => GuidHelper.GetString(x)))
+                    .Concat(partialPath)
                     .ToArray();
+                var kinds = GetAllLayoutKinds();
+                var directive = kinds
+                    .Where(x => x.Id == layout.KindId)
+                    .Select(x => x.Directive).FirstOrDefault();
 
 
                 // Set result.
@@ -201,7 +209,9 @@
                     KindId = GuidHelper.GetString(layout.KindId),
                     Path = fullPath,
                     Alias = layout.Alias,
-                    Name = layout.Name
+                    Name = layout.Name,
+                    Directive = directive,
+                    Data = JsonHelper.Deserialize<object>(layout.Data)
                 };
 
             }
@@ -279,6 +289,77 @@
             // Return the result.
             return result;
 
+        }
+
+
+        /// <summary>
+        /// Returns the layout kinds.
+        /// </summary>
+        /// <returns>
+        /// An object indicating success or failure, along with
+        /// information about layout kinds.
+        /// </returns>
+        [HttpGet]
+        public object GetLayoutKinds()
+        {
+
+            // Variables.
+            var result = default(object);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Variables.
+                var kinds = GetAllLayoutKinds();
+
+
+                // Return results.
+                result = new
+                {
+                    Success = true,
+                    Kinds = kinds.Select(x => new
+                    {
+                        Id = GuidHelper.GetString(x.Id),
+                        Name = x.Name,
+                        Directive = x.Directive
+                    }).ToArray()
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<LayoutsController>(GetKindsError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return result.
+            return result;
+
+        }
+
+        #endregion
+
+
+        #region Helper Methods
+
+        /// <summary>
+        /// Returns the layout kinds.
+        /// </summary>
+        private ILayoutKind[] GetAllLayoutKinds()
+        {
+            var instances = ReflectionHelper
+                .InstantiateInterfaceImplementations<ILayoutKind>();
+            return instances;
         }
 
         #endregion

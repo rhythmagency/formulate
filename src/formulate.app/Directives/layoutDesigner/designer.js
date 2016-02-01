@@ -31,10 +31,22 @@ function controller($scope, $routeParams, navigationService,
 
     // Set scope variables.
     $scope.layoutId = id;
-    $scope.layoutName = null;
-    $scope.layoutAlias = null;
+    $scope.info = {
+        layoutName: null,
+        layoutAlias: null,
+        tabs: [
+            {
+                id: 4,
+                active: true,
+                label: "Layout",
+                alias: "layout"
+            }
+        ]
+    };
     $scope.kindId = null;
     $scope.parentId = null;
+    $scope.directive = null;
+    $scope.data = null;
 
     // Set scope functions.
     $scope.save = getSaveLayout(services);
@@ -60,8 +72,8 @@ function getSaveLayout(services) {
             parentId: parentId,
             kindId: $scope.kindId,
             layoutId: $scope.layoutId,
-            alias: $scope.layoutAlias,
-            name: $scope.layoutName
+            alias: $scope.info.layoutAlias,
+            name: $scope.info.layoutName
         };
 
         // Persist layout on server.
@@ -130,9 +142,11 @@ function initializeLayout(options, services) {
             // Set the layout info.
             $scope.kindId = layout.kindId;
             $scope.layoutId = layout.layoutId;
-            $scope.layoutAlias = layout.alias;
-            $scope.layoutName = layout.name;
+            $scope.info.layoutAlias = layout.alias;
+            $scope.info.layoutName = layout.name;
             $scope.layoutPath = layout.path;
+            $scope.directive = layout.directive;
+            $scope.data = layout.data;
 
             // The layout can be saved now.
             $scope.initialized = true;

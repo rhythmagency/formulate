@@ -89,6 +89,9 @@
                 { "GetLayoutInfo",
                     helper.GetUmbracoApiService<LayoutsController>(x =>
                         x.GetLayoutInfo(null)) },
+                { "GetLayoutKinds",
+                    helper.GetUmbracoApiService<LayoutsController>(x =>
+                        x.GetLayoutKinds()) },
                 { "DeleteValidation",
                     helper.GetUmbracoApiService<ValidationsController>(x =>
                         x.DeleteValidation(null)) },
