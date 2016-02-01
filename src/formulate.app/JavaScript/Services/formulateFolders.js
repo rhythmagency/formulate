@@ -14,12 +14,40 @@ app.factory("formulateFolders", function (formulateVars,
     // Return service.
     return {
 
+        // Gets the folder info for the folder with the specified ID.
+        getFolderInfo: getGetFolderInfo(services),
+
+        // Saves the folder on the server.
+        persistFolder: getPersistFolder(services),
+
         // Creates the folder.
         createFolder: getCreateFolder(services)
 
     };
 
 });
+
+// Returns the function that gets information about a folder.
+function getGetFolderInfo(services) {
+    return function (id) {
+
+        // Variables.
+        var url = services.formulateVars.GetFolderInfo;
+        var params = {
+            FolderId: id
+        };
+
+        // Get folder info from server.
+        return services.formulateServer.get(url, params, function (data) {
+            return {
+                folderId: data.FolderId,
+                path: data.Path,
+                name: data.Name
+            };
+        });
+
+    };
+}
 
 // Returns the function that creates a folder on the server.
 function getCreateFolder(services) {
@@ -38,6 +66,32 @@ function getCreateFolder(services) {
             // Return form ID.
             return {
                 folderId: data.FolderId,
+                path: data.Path
+            };
+
+        });
+
+    };
+}
+
+// Returns the function that persists a folder on the server.
+function getPersistFolder(services) {
+    return function (folderInfo) {
+
+        // Variables.
+        var url = services.formulateVars.PersistFolder;
+        var data = {
+            ParentId: folderInfo.parentId,
+            FolderId: folderInfo.folderId,
+            FolderName: folderInfo.name
+        };
+
+        // Send request to create the folder.
+        return services.formulateServer.post(url, data, function (data) {
+
+            // Return folder information.
+            return {
+                id: data.Id,
                 path: data.Path
             };
 

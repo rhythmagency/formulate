@@ -327,6 +327,7 @@
     <Compile Include="Models\Requests\GetEntityRequest.cs" />
     <Compile Include="Models\Requests\GetEntityChildrenRequest.cs" />
     <Compile Include="Models\Requests\GetDataValueInfoRequest.cs" />
+    <Compile Include="Models\Requests\GetFolderInfoRequest.cs" />
     <Compile Include="Models\Requests\GetValidationsInfoRequest.cs" />
     <Compile Include="Models\Requests\GetValidationInfoRequest.cs" />
     <Compile Include="Models\Requests\PersistFolderRequest.cs" />
@@ -385,7 +386,7 @@
   <ItemGroup>
     <Content Include="App_Plugins\formulate\backoffice\formulate\editDataValue.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\editValidation.html" />
-    <Content Include="App_Plugins\formulate\backoffice\formulate\folderInfo.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editFolder.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\editForm.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\dataSources.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\dataValues.html" />

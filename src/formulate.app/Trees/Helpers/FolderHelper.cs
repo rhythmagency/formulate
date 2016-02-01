@@ -67,7 +67,7 @@
         public void AddFolderToTree(TreeNodeCollection nodes,
             FormDataCollection queryStrings, Folder folder, string icon)
         {
-            var folderFormat = "/formulate/formulate/folderInfo/{0}";
+            var folderFormat = "/formulate/formulate/editFolder/{0}";
             var folderId = GuidHelper.GetString(folder.Id);
             var folderRoute = string.Format(folderFormat, folderId);
             var folderName = folder.Name.Fallback("Unnamed");

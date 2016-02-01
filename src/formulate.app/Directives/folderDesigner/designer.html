@@ -1,0 +1,34 @@
+﻿<form novalidate name="folderForm"
+      val-form-manager>
+    <umb-panel umb-tabs>
+        <umb-header tabs="info.tabs">
+
+            <div class="span7">
+
+                <!-- Folder name. -->
+                <umb-content-name
+                        ng-model="info.folderName"
+                        placeholder="Folder Name">
+                </umb-content-name>
+
+            </div>
+        </umb-header>
+        <umb-tab-view>
+            <umb-tab id="tab5" rel="{{5}}">
+                <div class="umb-pane">
+
+                    <!-- Folder information. -->
+                    <p>
+                        This is a folder. You can store items under it,
+                        including more folders.
+                    </p>
+
+                    <!-- Save button. -->
+                    <br>
+                    <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
+
+                </div>
+            </umb-tab>
+        </umb-tab-view>
+    </umb-panel>
+</form>

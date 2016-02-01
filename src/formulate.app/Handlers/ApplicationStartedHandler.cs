@@ -125,6 +125,9 @@
                 { "PersistFolder",
                     helper.GetUmbracoApiService<FoldersController>(x =>
                         x.PersistFolder(null)) },
+                { "GetFolderInfo",
+                    helper.GetUmbracoApiService<FoldersController>(x =>
+                        x.GetFolderInfo(null)) },
                 { "GetFieldTypes",
                     helper.GetUmbracoApiService<FieldsController>(x =>
                         x.GetFieldTypes()) },
