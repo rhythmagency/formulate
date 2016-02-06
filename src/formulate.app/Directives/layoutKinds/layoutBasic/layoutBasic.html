@@ -1,5 +1,12 @@
 ﻿<div>
     <p>
-        This will be your basic layout.
+        This layout is currently an incomplete prototype.
     </p>
+    <div ng-repeat="row in rows" class="row">
+        <div ng-repeat="cell in row.cells" ng-class="getCellClass(row)">
+            <div class="formulate-cell">
+                <button class="btn btn-default" ng-click="addField(cell)">+</button>
+            </div>
+        </div>
+    </div>
 </div>
