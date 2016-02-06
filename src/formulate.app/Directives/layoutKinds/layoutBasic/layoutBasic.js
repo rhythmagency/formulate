@@ -25,36 +25,56 @@ function controller($scope) {
         {
             cells: [
                 {
+                    fields: []
                 },
                 {
+                    fields: []
                 },
                 {
+                    fields: []
                 },
                 {
+                    fields: []
                 }
             ]
         },
         {
             cells: [
                 {
+                    fields: []
                 },
                 {
+                    fields: []
                 },
                 {
+                    fields: []
                 }
             ]
         },
         {
             cells: [
                 {
+                    fields: []
                 },
                 {
+                    fields: []
                 }
             ]
         },
         {
             cells: [
                 {
+                    fields: [
+                        {
+                            name: "First Name"
+                        },
+                        {
+                            name: "Last Name"
+                        },
+                        {
+                            name: "Email Address"
+                        }
+                    ]
                 }
             ]
         }
@@ -65,5 +85,11 @@ function controller($scope) {
     $scope.addField = function(cell) {
         //TODO: Allow user to select field to add.
         alert("This button doesn't do anything yet.");
+    };
+
+    $scope.sortableOptions = {
+        cursor: "move",
+        connectWith: ".formulate-cell",
+        tolerance: "pointer"
     };
 }

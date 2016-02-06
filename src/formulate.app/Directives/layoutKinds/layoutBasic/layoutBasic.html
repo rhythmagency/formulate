@@ -4,8 +4,10 @@
     </p>
     <div ng-repeat="row in rows" class="row">
         <div ng-repeat="cell in row.cells" ng-class="getCellClass(row)">
-            <div class="formulate-cell">
-                <button class="btn btn-default" ng-click="addField(cell)">+</button>
+            <div class="formulate-cell" ui-sortable="sortableOptions" ng-model="cell.fields">
+                <div ng-repeat="field in cell.fields" class="formulate-cell-field">
+                    {{field.name}}
+                </div>
             </div>
         </div>
     </div>
