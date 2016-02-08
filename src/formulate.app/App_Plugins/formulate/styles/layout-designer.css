@@ -10,3 +10,16 @@
     padding: 3px;
     margin: 3px;
 }
+
+.formulate-cell.editing-rows {
+    background-color: #eee;
+    border: none;
+}
+
+.formulate-cell.editing-rows .formulate-cell-field {
+    background-color: transparent;
+}
+
+.formulate-cell.editing-rows .formulate-cell-field-name {
+    text-decoration: underline;
+}

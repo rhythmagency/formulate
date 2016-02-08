@@ -21,6 +21,7 @@ function directive(formulateDirectives) {
 
 //TODO: ...
 function controller($scope) {
+    $scope.editRows = false;
     $scope.rows = [
         {
             cells: [
@@ -82,14 +83,24 @@ function controller($scope) {
     $scope.getCellClass = function (row) {
         return "span" + (12 / row.cells.length).toString();
     };
-    $scope.addField = function(cell) {
-        //TODO: Allow user to select field to add.
-        alert("This button doesn't do anything yet.");
-    };
 
     $scope.sortableOptions = {
         cursor: "move",
         connectWith: ".formulate-cell",
-        tolerance: "pointer"
+        tolerance: "pointer",
+        items: ".formulate-cell-field",
+        opacity: 0.5
     };
+
+    $scope.rowsSortableOptions = {
+        cursor: "move",
+        tolerance: "pointer",
+        axis: "y",
+        opacity: 0.5,
+        disabled: true
+    };
+
+    $scope.$watch("editRows", function (newValue, oldValue) {
+        $scope.rowsSortableOptions.disabled = !newValue;
+    });
 }
