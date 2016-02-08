@@ -22,25 +22,21 @@ function directive(formulateDirectives) {
 //TODO: ...
 function controller($scope) {
     $scope.editRows = false;
-    $scope.rows = [
+    $scope.allFields = [
         {
-            cells: [
-                {
-                    fields: [
-                        {
-                            name: "First Name"
-                        },
-                        {
-                            name: "Last Name"
-                        },
-                        {
-                            name: "Email Address"
-                        }
-                    ]
-                }
-            ]
+            id: "sdgjlefjl",
+            name: "First Name"
+        },
+        {
+            id: "rlll0oijf",
+            name: "Last Name"
+        },
+        {
+            id: "gljlj44eskll",
+            name: "Email Address"
         }
     ];
+    $scope.rows = [];
     $scope.getCellClass = function (row) {
         return "span" + (12 / row.cells.length).toString();
     };
@@ -67,6 +63,7 @@ function controller($scope) {
 
     $scope.deleteRow = function (index) {
         $scope.rows.splice(index, 1);
+        checkFields($scope);
     };
 
     $scope.addRow = function(columnCount) {
@@ -79,5 +76,44 @@ function controller($scope) {
         $scope.rows.push({
             cells: columns
         });
+    };
+
+    checkFields($scope);
+}
+
+function checkFields($scope) {
+    var i, field, row, cell;
+    var fields = {};
+    for (i = 0; i < $scope.allFields.length; i++) {
+        field = $scope.allFields[i];
+        fields[field.id] = field;
+    }
+    for (i = 0; i < $scope.rows.length; i++) {
+        row = $scope.rows[i];
+        for (var j = 0; j < row.cells.length; j++) {
+            cell = row.cells[j];
+            for (var k = 0; k < cell.fields.length; k++) {
+                field = cell.fields[k];
+                if (fields.hasOwnProperty(field.id)) {
+                    delete fields[field.id];
+                }
+            }
+        }
+    }
+    var unassignedFields = [];
+    for (var key in fields) {
+        if (fields.hasOwnProperty(key)) {
+            unassignedFields.push(fields[key]);
+        }
+    }
+    if (unassignedFields.length > 0) {
+        row = {
+            cells: [
+                {
+                    fields: unassignedFields
+                }
+            ]
+        }
+        $scope.rows.push(row);
     }
 }
