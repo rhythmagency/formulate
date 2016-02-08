@@ -41,7 +41,6 @@ function controller($scope, dialogService, formulateDataValues) {
 function getPickDataValue(services) {
     var $scope = services.$scope;
     var dialogService = services.dialogService;
-    var formulateDataValues = services.formulateDataValues;
     return function() {
         dialogService.open({
             template: "../App_Plugins/formulate/dialogs/pickDataValue.html",

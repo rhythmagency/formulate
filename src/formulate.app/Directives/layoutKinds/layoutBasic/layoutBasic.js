@@ -20,22 +20,14 @@ function directive(formulateDirectives) {
 }
 
 //TODO: ...
-function controller($scope) {
+function controller($scope, formulateForms, dialogService) {
+    var services = {
+        $scope: $scope,
+        formulateForms: formulateForms,
+        dialogService: dialogService
+    };
     $scope.editRows = false;
-    $scope.allFields = [
-        {
-            id: "sdgjlefjl",
-            name: "First Name"
-        },
-        {
-            id: "rlll0oijf",
-            name: "Last Name"
-        },
-        {
-            id: "gljlj44eskll",
-            name: "Email Address"
-        }
-    ];
+    $scope.allFields = [];
     $scope.rows = [];
     $scope.getCellClass = function (row) {
         return "span" + (12 / row.cells.length).toString();
@@ -79,6 +71,9 @@ function controller($scope) {
     };
 
     checkFields($scope);
+
+    $scope.pickForm = getPickForm(services);
+
 }
 
 function checkFields($scope) {
@@ -113,7 +108,55 @@ function checkFields($scope) {
                     fields: unassignedFields
                 }
             ]
-        }
+        };
         $scope.rows.push(row);
+    }
+}
+
+//TODO: ...
+function getPickForm(services) {
+    var dialogService = services.dialogService;
+    var formulateForms = services.formulateForms;
+    var $scope = services.$scope;
+    return function() {
+        dialogService.open({
+            template: "../App_Plugins/formulate/dialogs/pickForm.html",
+            show: true,
+            callback: function(data) {
+
+                if (!data.length) {
+                    clearFields($scope);
+                    return;
+                }
+
+                // Get info about form based its ID,
+                // then update the fields.
+                formulateForms.getFormInfo(data[0])
+                    .then(function (formData) {
+                        clearFields($scope);
+                        $scope.allFields = formData.fields
+                            .map(function (item) {
+                                return {
+                                    id: item.id,
+                                    name: item.name
+                                };
+                            });
+                        checkFields($scope);
+                    });
+
+            }
+        });
+    };
+}
+
+function clearFields($scope) {
+    var i, row, cell;
+    $scope.allFields = [];
+    for (i = 0; i < $scope.rows.length; i++) {
+        row = $scope.rows[i];
+        for (var j = 0; j < row.cells.length; j++) {
+            cell = row.cells[j];
+            cell.fields = [];
+        }
     }
 }

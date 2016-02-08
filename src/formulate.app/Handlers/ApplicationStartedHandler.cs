@@ -20,6 +20,7 @@
     using Umbraco.Web.UI.JavaScript;
     using Constants = formulate.meta.Constants;
     using DataValueConstants = formulate.app.Constants.Trees.DataValues;
+    using FormConstants = formulate.app.Constants.Trees.Forms;
     using Resources = formulate.app.Properties.Resources;
     using SettingConstants = formulate.core.Constants.Settings;
     using ValidationConstants = formulate.app.Constants.Trees.Validations;
@@ -146,7 +147,8 @@
                 { "EditDataValueBase",
                     "/formulate/formulate/editDataValue/" },
                 { "Validation.RootId", ValidationConstants.Id },
-                { "DataValue.RootId", DataValueConstants.Id }
+                { "DataValue.RootId", DataValueConstants.Id },
+                { "Form.RootId", FormConstants.Id }
             });
 
         }
