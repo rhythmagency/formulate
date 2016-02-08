@@ -103,4 +103,8 @@ function controller($scope) {
     $scope.$watch("editRows", function (newValue, oldValue) {
         $scope.rowsSortableOptions.disabled = !newValue;
     });
+
+    $scope.deleteRow = function (index) {
+        $scope.rows.splice(index, 1);
+    };
 }

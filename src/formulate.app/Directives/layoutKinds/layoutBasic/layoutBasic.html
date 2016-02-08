@@ -12,7 +12,7 @@
         </label>
     </div>
     <div ui-sortable="rowsSortableOptions" ng-model="rows">
-        <div ng-repeat="row in rows" class="row">
+        <div ng-repeat="(rowIndex, row) in rows" class="row">
             <div ng-repeat="cell in row.cells" ng-class="getCellClass(row)">
                 <div ng-if="!editRows" class="formulate-cell" ui-sortable="sortableOptions" ng-model="cell.fields">
                     <div ng-if="!editRows">
@@ -25,6 +25,9 @@
                     <span ng-repeat="field in cell.fields" class="formulate-cell-field">
                         <span class="formulate-cell-field-name">{{field.name}}</span>
                     </span>
+                    <div>
+                        <button ng-click="deleteRow(rowIndex)" ng-if="$index === 0" class="btn btn-danger">Delete Row</button>
+                    </div>
                 </div>
             </div>
         </div>
