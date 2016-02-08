@@ -2,15 +2,6 @@
     <p>
         This layout is currently an incomplete prototype.
     </p>
-    <div>
-        <label>
-            <input
-                type="checkbox"
-                ng-model="editRows"
-                id="editRows" />
-            Edit rows?
-        </label>
-    </div>
     <div ui-sortable="rowsSortableOptions" ng-model="rows">
         <div ng-repeat="(rowIndex, row) in rows" class="row">
             <div ng-repeat="cell in row.cells" ng-class="getCellClass(row)">
@@ -30,6 +21,35 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div>
+        <label>
+            <input
+                    type="checkbox"
+                    ng-model="editRows"
+                    id="editRows" />
+            Edit rows?
+        </label>
+        <div class="btn-group">
+            <button class="btn dropdown-toggle" data-toggle="dropdown">
+                Add Row
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href ng-click="addRow(1)">1 Column</a>
+                </li>
+                <li>
+                    <a href ng-click="addRow(2)">2 Columns</a>
+                </li>
+                <li>
+                    <a href ng-click="addRow(3)">3 Columns</a>
+                </li>
+                <li>
+                    <a href ng-click="addRow(4)">4 Columns</a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

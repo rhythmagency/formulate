@@ -13,7 +13,7 @@
 
 .formulate-cell.editing-rows {
     background-color: #eee;
-    border: none;
+    border-color: transparent;
 }
 
 .formulate-cell.editing-rows .formulate-cell-field {

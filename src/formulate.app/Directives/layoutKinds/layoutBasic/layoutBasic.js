@@ -26,45 +26,6 @@ function controller($scope) {
         {
             cells: [
                 {
-                    fields: []
-                },
-                {
-                    fields: []
-                },
-                {
-                    fields: []
-                },
-                {
-                    fields: []
-                }
-            ]
-        },
-        {
-            cells: [
-                {
-                    fields: []
-                },
-                {
-                    fields: []
-                },
-                {
-                    fields: []
-                }
-            ]
-        },
-        {
-            cells: [
-                {
-                    fields: []
-                },
-                {
-                    fields: []
-                }
-            ]
-        },
-        {
-            cells: [
-                {
                     fields: [
                         {
                             name: "First Name"
@@ -107,4 +68,16 @@ function controller($scope) {
     $scope.deleteRow = function (index) {
         $scope.rows.splice(index, 1);
     };
+
+    $scope.addRow = function(columnCount) {
+        var columns = [];
+        for (var i = 0; i < columnCount; i++) {
+            columns.push({
+                fields: []
+            });
+        }
+        $scope.rows.push({
+            cells: columns
+        });
+    }
 }
