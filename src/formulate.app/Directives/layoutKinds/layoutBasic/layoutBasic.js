@@ -1,4 +1,6 @@
-﻿// Variables.
+﻿//TODO: Need to refactor and comment this file.
+
+// Variables.
 var app = angular.module("umbraco");
 
 // Associate directive/controller.
@@ -19,8 +21,8 @@ function directive(formulateDirectives) {
     };
 }
 
-//TODO: ...
 function controller($scope, formulateForms, dialogService) {
+
     var services = {
         $scope: $scope,
         formulateForms: formulateForms,
@@ -28,7 +30,7 @@ function controller($scope, formulateForms, dialogService) {
     };
     $scope.editRows = false;
     $scope.allFields = [];
-    $scope.rows = [];
+    $scope.rows = angular.copy($scope.data.rows || []);
     $scope.getCellClass = function (row) {
         return "span" + (12 / row.cells.length).toString();
     };
@@ -70,10 +72,44 @@ function controller($scope, formulateForms, dialogService) {
         });
     };
 
-    checkFields($scope);
-
     $scope.pickForm = getPickForm(services);
 
+    $scope.$watch("rows", function (newValue, oldValue) {
+        updateDataRows(newValue, services);
+    }, true);
+
+    if ($scope.data.formId) {
+        refreshFields($scope.data.formId, services);
+    } else {
+        checkFields($scope);
+    }
+
+}
+
+function updateDataRows(rows, services) {
+    var dataRows = [];
+    for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var dataRow = {
+            cells: []
+        };
+        dataRows.push(dataRow);
+        for (var j = 0; j < row.cells.length; j++) {
+            var cell = row.cells[j];
+            var dataCell = {
+                fields: []
+            };
+            dataRow.cells.push(dataCell);
+            for (var k = 0; k < cell.fields.length; k++) {
+                var field = cell.fields[k];
+                var dataField = {
+                    id: field.id
+                };
+                dataCell.fields.push(dataField);
+            }
+        }
+    }
+    services.$scope.data.rows = dataRows;
 }
 
 function checkFields($scope) {
@@ -87,10 +123,16 @@ function checkFields($scope) {
         row = $scope.rows[i];
         for (var j = 0; j < row.cells.length; j++) {
             cell = row.cells[j];
-            for (var k = 0; k < cell.fields.length; k++) {
+            for (var k = cell.fields.length - 1; k >= 0; k--) {
                 field = cell.fields[k];
                 if (fields.hasOwnProperty(field.id)) {
+                    // Copy fresh data over.
+                    field.name = fields[field.id].name;
+
+                    // Remove field as it's accounted for.
                     delete fields[field.id];
+                } else {
+                    cell.fields.splice(k, 1);
                 }
             }
         }
@@ -113,7 +155,6 @@ function checkFields($scope) {
     }
 }
 
-//TODO: ...
 function getPickForm(services) {
     var dialogService = services.dialogService;
     var formulateForms = services.formulateForms;
@@ -125,38 +166,34 @@ function getPickForm(services) {
             callback: function(data) {
 
                 if (!data.length) {
-                    clearFields($scope);
+                    $scope.data.formId = null;
+                    $scope.allFields = [];
+                    checkFields($scope);
                     return;
                 }
 
-                // Get info about form based its ID,
-                // then update the fields.
-                formulateForms.getFormInfo(data[0])
-                    .then(function (formData) {
-                        clearFields($scope);
-                        $scope.allFields = formData.fields
-                            .map(function (item) {
-                                return {
-                                    id: item.id,
-                                    name: item.name
-                                };
-                            });
-                        checkFields($scope);
-                    });
+                $scope.data.formId = data[0];
+
+                refreshFields(data[0], services);
 
             }
         });
     };
 }
 
-function clearFields($scope) {
-    var i, row, cell;
-    $scope.allFields = [];
-    for (i = 0; i < $scope.rows.length; i++) {
-        row = $scope.rows[i];
-        for (var j = 0; j < row.cells.length; j++) {
-            cell = row.cells[j];
-            cell.fields = [];
-        }
-    }
+// Get info about form based its ID, then update the fields.
+function refreshFields(formId, services) {
+    var formulateForms = services.formulateForms;
+    var $scope = services.$scope;
+    formulateForms.getFormInfo(formId)
+        .then(function (formData) {
+            $scope.allFields = formData.fields
+                .map(function (item) {
+                    return {
+                        id: item.id,
+                        name: item.name
+                    };
+                });
+            checkFields($scope);
+        });
 }

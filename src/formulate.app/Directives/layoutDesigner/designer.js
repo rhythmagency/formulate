@@ -73,7 +73,8 @@ function getSaveLayout(services) {
             kindId: $scope.kindId,
             layoutId: $scope.layoutId,
             alias: $scope.info.layoutAlias,
-            name: $scope.info.layoutName
+            name: $scope.info.layoutName,
+            data: $scope.data
         };
 
         // Persist layout on server.

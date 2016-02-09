@@ -1,7 +1,4 @@
 ﻿<div>
-    <p>
-        This layout is currently an incomplete prototype.
-    </p>
     <div ui-sortable="rowsSortableOptions" ng-model="rows">
         <div ng-repeat="(rowIndex, row) in rows" class="row">
             <div ng-repeat="cell in row.cells" ng-class="getCellClass(row)">
