@@ -2,13 +2,17 @@
     <div ui-sortable="rowsSortableOptions" ng-model="rows">
         <div ng-repeat="(rowIndex, row) in rows" class="row">
             <div ng-repeat="cell in row.cells" ng-class="getCellClass(row)">
-                <div ng-if="!editRows" class="formulate-cell" ui-sortable="sortableOptions" ng-model="cell.fields">
+
+                <!-- Show full fields when editing fields. -->
+                <div ng-if="!editRows" class="formulate-cell" ui-sortable="fieldSortableOptions" ng-model="cell.fields">
                     <div ng-if="!editRows">
                         <div ng-repeat="field in cell.fields" class="formulate-cell-field">
                             {{field.name}}
                         </div>
                     </div>
                 </div>
+
+                <!-- Show field summaries when editing rows. -->
                 <div ng-if="editRows" class="formulate-cell editing-rows">
                     <span ng-repeat="field in cell.fields" class="formulate-cell-field">
                         <span class="formulate-cell-field-name">{{field.name}}</span>
@@ -17,10 +21,13 @@
                         <button ng-click="deleteRow(rowIndex)" ng-if="$index === 0" class="btn btn-danger">Delete Row</button>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
     <div>
+
+        <!-- Controls. -->
         <label>
             <input
                 type="checkbox"
@@ -29,6 +36,8 @@
             Edit rows?
         </label>
         <button class="btn btn-default" ng-click="pickForm()">Pick Form</button>
+
+        <!-- Add row button. -->
         <div class="btn-group">
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                 Add Row
@@ -49,5 +58,6 @@
                 </li>
             </ul>
         </div>
+
     </div>
 </div>
