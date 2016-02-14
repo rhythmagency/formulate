@@ -54,7 +54,7 @@ function controller($scope, formulateForms, dialogService) {
     if ($scope.data.formId) {
         refreshFields($scope.data.formId, services);
     } else {
-        checkFields($scope);
+        replenishFields($scope);
     }
 
 }
@@ -89,20 +89,12 @@ function getRowSortableOptions() {
     };
 }
 
-// Watches the "Edit Rows" setting to enable/disable sorting.
-function watchEditRowsSetting(services) {
-    var $scope = services.$scope;
-    $scope.$watch("editRows", function (newValue) {
-        $scope.rowsSortableOptions.disabled = !newValue;
-    });
-}
-
 // Returns a function that deletes the row at the specified index.
 function getDeleteRow(services) {
     var $scope = services.$scope;
     return function (index) {
         $scope.rows.splice(index, 1);
-        checkFields($scope);
+        replenishFields($scope);
     };
 }
 
@@ -123,16 +115,54 @@ function getAddRow(services) {
     };
 }
 
+// Returns the function that allows the user to pick a form.
+function getPickForm(services) {
+    var dialogService = services.dialogService;
+    var $scope = services.$scope;
+    return function() {
+        dialogService.open({
+            template: "../App_Plugins/formulate/dialogs/pickForm.html",
+            show: true,
+            callback: function(data) {
+
+                // If no form was chosen, empty all fields.
+                if (!data.length) {
+                    $scope.data.formId = null;
+                    $scope.allFields = [];
+                    replenishFields($scope);
+                    return;
+                }
+
+                // Update fields.
+                var formId = data[0];
+                $scope.data.formId = formId;
+                refreshFields(formId, services);
+
+            }
+        });
+    };
+}
+
+// Watches the "Edit Rows" setting to enable/disable sorting.
+function watchEditRowsSetting(services) {
+    var $scope = services.$scope;
+    $scope.$watch("editRows", function (newValue) {
+        $scope.rowsSortableOptions.disabled = !newValue;
+    });
+}
+
 // Watches for changes to the rows and updates the saved
 // data correspondingly.
 function watchRowChanges(services) {
     var $scope = services.$scope;
     $scope.$watch("rows", function (newValue) {
-        updateDataRows(newValue, services);
+        refreshDataRows(newValue, services);
     }, true);
 }
 
-function updateDataRows(rows, services) {
+// Copies from "rows" to create "data.rows"
+// (the latter is stored to the server).
+function refreshDataRows(rows, services) {
     var dataRows = [];
     for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
@@ -158,13 +188,22 @@ function updateDataRows(rows, services) {
     services.$scope.data.rows = dataRows;
 }
 
-function checkFields($scope) {
+// Ensures that no old fields exist in the rows and that all
+// new fields exist in a row. This is called whenever the
+// rows or the fields change.
+function replenishFields($scope) {
+
+    // Variables.
     var i, field, row, cell;
     var fields = {};
+
+    // Place all fields in an associative array keyed by ID.
     for (i = 0; i < $scope.allFields.length; i++) {
         field = $scope.allFields[i];
         fields[field.id] = field;
     }
+
+    // Remove or replenish the fields in the rows.
     for (i = 0; i < $scope.rows.length; i++) {
         row = $scope.rows[i];
         for (var j = 0; j < row.cells.length; j++) {
@@ -172,23 +211,33 @@ function checkFields($scope) {
             for (var k = cell.fields.length - 1; k >= 0; k--) {
                 field = cell.fields[k];
                 if (fields.hasOwnProperty(field.id)) {
+
                     // Copy fresh data over.
                     field.name = fields[field.id].name;
 
                     // Remove field as it's accounted for.
                     delete fields[field.id];
+
                 } else {
+
+                    // This field no longer exists in the layout,
+                    // so remove it from the rows.
                     cell.fields.splice(k, 1);
+
                 }
             }
         }
     }
+
+    // Aggregate all fields which aren't yet assigned to a row.
     var unassignedFields = [];
     for (var key in fields) {
         if (fields.hasOwnProperty(key)) {
             unassignedFields.push(fields[key]);
         }
     }
+
+    // Construct a new row containing all of the unassigned fields.
     if (unassignedFields.length > 0) {
         row = {
             cells: [
@@ -199,34 +248,11 @@ function checkFields($scope) {
         };
         $scope.rows.push(row);
     }
+
 }
 
-function getPickForm(services) {
-    var dialogService = services.dialogService;
-    var $scope = services.$scope;
-    return function() {
-        dialogService.open({
-            template: "../App_Plugins/formulate/dialogs/pickForm.html",
-            show: true,
-            callback: function(data) {
-
-                if (!data.length) {
-                    $scope.data.formId = null;
-                    $scope.allFields = [];
-                    checkFields($scope);
-                    return;
-                }
-
-                $scope.data.formId = data[0];
-
-                refreshFields(data[0], services);
-
-            }
-        });
-    };
-}
-
-// Get info about form based its ID, then update the fields.
+// Gets info about the form based on its ID,
+// then updates the fields.
 function refreshFields(formId, services) {
     var formulateForms = services.formulateForms;
     var $scope = services.$scope;
@@ -239,6 +265,6 @@ function refreshFields(formId, services) {
                         name: item.name
                     };
                 });
-            checkFields($scope);
+            replenishFields($scope);
         });
 }

@@ -16,14 +16,14 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, $routeParams, navigationService,
-    formulateDataValues, $route) {
+function controller($scope, $routeParams, $route, formulateTrees,
+    formulateDataValues) {
 
     // Variables.
     var id = $routeParams.id;
     var services = {
         $routeParams: $routeParams,
-        navigationService: navigationService,
+        formulateTrees: formulateTrees,
         formulateDataValues: formulateDataValues,
         $scope: $scope,
         $route: $route
@@ -138,7 +138,7 @@ function initializeDataValue(options, services) {
         .then(function(dataValue) {
 
             // Update tree.
-            activateInTree(dataValue, services);
+            services.formulateTrees.activateEntity(dataValue);
 
             // Set the dataValue info.
             $scope.kindId = dataValue.kindId;
@@ -154,18 +154,6 @@ function initializeDataValue(options, services) {
 
         });
 
-}
-
-//TODO: Move this function to a service.
-// Shows/highlights the node in the Formulate tree.
-function activateInTree(entity, services) {
-    var options = {
-        tree: "formulate",
-        path: entity.path,
-        forceReload: true,
-        activate: true
-    };
-    services.navigationService.syncTree(options);
 }
 
 // Returns the function that indicates whether or not the data value

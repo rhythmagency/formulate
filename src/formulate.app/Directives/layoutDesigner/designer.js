@@ -16,14 +16,13 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, $routeParams, navigationService,
-    formulateLayouts, $route) {
+function controller($scope, $routeParams, $route, formulateTrees,
+    formulateLayouts) {
 
     // Variables.
     var id = $routeParams.id;
     var services = {
-        $routeParams: $routeParams,
-        navigationService: navigationService,
+        formulateTrees: formulateTrees,
         formulateLayouts: formulateLayouts,
         $scope: $scope,
         $route: $route
@@ -138,7 +137,7 @@ function initializeLayout(options, services) {
         .then(function(layout) {
 
             // Update tree.
-            activateInTree(layout, services);
+            services.formulateTrees.activateEntity(layout);
 
             // Set the layout info.
             $scope.kindId = layout.kindId;
@@ -154,18 +153,6 @@ function initializeLayout(options, services) {
 
         });
 
-}
-
-//TODO: Move this function to a service.
-// Shows/highlights the node in the Formulate tree.
-function activateInTree(entity, services) {
-    var options = {
-        tree: "formulate",
-        path: entity.path,
-        forceReload: true,
-        activate: true
-    };
-    services.navigationService.syncTree(options);
 }
 
 // Returns the function that indicates whether or not the layout can be saved.

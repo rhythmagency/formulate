@@ -16,8 +16,8 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, $routeParams, navigationService,
-    formulateForms, $location, $route, dialogService, formulateValidations) {
+function controller($scope, $routeParams, $route, formulateTrees,
+    formulateForms, $location, dialogService, formulateValidations) {
 
     // Variables.
     var id = $routeParams.id;
@@ -26,8 +26,7 @@ function controller($scope, $routeParams, navigationService,
     var hasParent = !!parentId;
     var services = {
         $scope: $scope,
-        $routeParams: $routeParams,
-        navigationService: navigationService,
+        formulateTrees: formulateTrees,
         formulateForms: formulateForms,
         $location: $location,
         $route: $route,
@@ -193,7 +192,7 @@ function initializeForm(options, services) {
         services.formulateForms.getFormInfo(id).then(function(form) {
 
             // Update tree.
-            activateInTree(form, services);
+            services.formulateTrees.activateEntity(form);
 
             // Set the form info.
             $scope.formId = form.formId;
@@ -228,18 +227,6 @@ function getCanAddField(services) {
     return function() {
         return services.$scope.initialized;
     };
-}
-
-//TODO: Move this function to a service.
-// Shows/highlights the node in the Formulate tree.
-function activateInTree(entity, services) {
-    var options = {
-        tree: "formulate",
-        path: entity.path,
-        forceReload: true,
-        activate: true
-    };
-    services.navigationService.syncTree(options);
 }
 
 // Gets the function that handles a chosen field.

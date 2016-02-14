@@ -4,6 +4,7 @@
     // Namespaces.
     using Entities;
     using System;
+    using DataSourceConstants = formulate.app.Constants.Trees.DataSources;
     using DataValueConstants = formulate.app.Constants.Trees.DataValues;
     using FormConstants = formulate.app.Constants.Trees.Forms;
     using LayoutConstants = formulate.app.Constants.Trees.Layouts;
@@ -29,6 +30,7 @@
         static readonly Guid LayoutId;
         static readonly Guid ValidationId;
         static readonly Guid DataValueId;
+        static readonly Guid DataSourceId;
 
         #endregion
 
@@ -44,6 +46,7 @@
             LayoutId = GuidHelper.GetGuid(LayoutConstants.Id);
             ValidationId = GuidHelper.GetGuid(ValidationConstants.Id);
             DataValueId = GuidHelper.GetGuid(DataValueConstants.Id);
+            DataSourceId = GuidHelper.GetGuid(DataSourceConstants.Id);
         }
 
         #endregion
@@ -75,6 +78,10 @@
             else if (id == DataValueId)
             {
                 return DataValueConstants.TreeIcon;
+            }
+            else if (id == DataSourceId)
+            {
+                return DataSourceConstants.TreeIcon;
             }
             else
             {
@@ -111,6 +118,10 @@
             {
                 return DataValueConstants.GroupIcon;
             }
+            else if (id == DataSourceId)
+            {
+                return DataSourceConstants.GroupIcon;
+            }
             else
             {
                 throw new ArgumentOutOfRangeException("id", InvalidId);
@@ -145,6 +156,10 @@
             {
                 return DataValueConstants.Title;
             }
+            else if (id == DataSourceId)
+            {
+                return DataSourceConstants.Title;
+            }
             else
             {
                 throw new ArgumentOutOfRangeException("id", InvalidId);
@@ -163,7 +178,7 @@
         public static bool IsRoot(Guid id)
         {
             return id == FormId || id == LayoutId || id == ValidationId
-                || id == DataValueId;
+                || id == DataValueId || id == DataSourceId;
         }
 
 

@@ -73,6 +73,7 @@ function getGetEntity(services) {
             // Return entity.
             return {
                 id: data.Id,
+                path: data.Path,
                 name: data.Name,
                 icon: data.Icon,
                 kind: data.Kind,

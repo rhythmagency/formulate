@@ -158,6 +158,11 @@
                 // Variables.
                 var id = GuidHelper.GetGuid(request.EntityId);
                 var entity = Entities.Retrieve(id);
+                var partialPath = entity.Path
+                    .Select(x => GuidHelper.GetString(x));
+                var fullPath = new[] { rootId }
+                    .Concat(partialPath)
+                    .ToArray();
 
 
                 // Set result.
@@ -165,6 +170,7 @@
                 {
                     Success = true,
                     Id = GuidHelper.GetString(entity.Id),
+                    Path = fullPath,
                     Name = entity.Name,
                     Icon = entity.Icon,
                     Kind = EntityHelper.GetString(entity.Kind),

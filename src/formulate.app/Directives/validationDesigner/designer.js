@@ -16,17 +16,16 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, $routeParams, navigationService,
-    formulateValidations, $route) {
+function controller($scope, $routeParams, $route, formulateValidations,
+    formulateTrees) {
 
     // Variables.
     var id = $routeParams.id;
     var services = {
-        $routeParams: $routeParams,
-        navigationService: navigationService,
         formulateValidations: formulateValidations,
         $scope: $scope,
-        $route: $route
+        $route: $route,
+        formulateTrees: formulateTrees
     };
 
     // Set scope variables.
@@ -138,7 +137,7 @@ function initializeValidation(options, services) {
         .then(function(validation) {
 
             // Update tree.
-            activateInTree(validation, services);
+            services.formulateTrees.activateEntity(validation);
 
             // Set the validation info.
             $scope.kindId = validation.kindId;
@@ -154,18 +153,6 @@ function initializeValidation(options, services) {
 
         });
 
-}
-
-//TODO: Move this function to a service.
-// Shows/highlights the node in the Formulate tree.
-function activateInTree(entity, services) {
-    var options = {
-        tree: "formulate",
-        path: entity.path,
-        forceReload: true,
-        activate: true
-    };
-    services.navigationService.syncTree(options);
 }
 
 // Returns the function that indicates whether or not the validation can be saved.

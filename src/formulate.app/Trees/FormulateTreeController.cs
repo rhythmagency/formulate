@@ -167,25 +167,25 @@
             {
 
                 // Get root nodes.
-                var formatUrl = "/formulate/formulate/{0}/info";
+                var formatUrl = "/formulate/formulate/{0}/{1}";
                 var hasRootForms = Persistence
                     .RetrieveChildren(rootFormsId).Any();
                 var formsNode = this.CreateTreeNode(FormConstants.Id, id,
                     queryStrings, FormConstants.Title,
                     FormConstants.TreeIcon, hasRootForms,
-                    string.Format(formatUrl, "forms"));
+                    string.Format(formatUrl, "forms", FormConstants.Id));
                 nodes.Add(formsNode);
                 var hasRootLayouts = Persistence
                     .RetrieveChildren(rootLayoutsId).Any();
                 var layoutsNode = this.CreateTreeNode(LayoutConstants.Id,
                     id, queryStrings, LayoutConstants.Title,
                     LayoutConstants.TreeIcon, hasRootLayouts,
-                    string.Format(formatUrl, "layouts"));
+                    string.Format(formatUrl, "layouts", LayoutConstants.Id));
                 nodes.Add(layoutsNode);
                 var dataSourcesNode = this.CreateTreeNode(
                     DataSourceConstants.Id, id, queryStrings,
-                    DataSourceConstants.Title, DataSourceConstants.Icon,
-                    false, string.Format(formatUrl, "dataSources"));
+                    DataSourceConstants.Title, DataSourceConstants.TreeIcon,
+                    false, string.Format(formatUrl, "dataSources", DataSourceConstants.Id));
                 nodes.Add(dataSourcesNode);
                 var hasRootDataValues = Persistence
                     .RetrieveChildren(rootDataValueId).Any();
@@ -193,7 +193,7 @@
                     DataValueConstants.Id, id, queryStrings,
                     DataValueConstants.Title, DataValueConstants.TreeIcon,
                     hasRootDataValues,
-                    string.Format(formatUrl, "dataValues"));
+                    string.Format(formatUrl, "dataValues", DataValueConstants.Id));
                 nodes.Add(dataValuesNode);
                 var hasRootValidations = Persistence
                     .RetrieveChildren(rootValidationsId).Any();
@@ -201,7 +201,7 @@
                     ValidationConstants.Id, id, queryStrings,
                     ValidationConstants.Title, ValidationConstants.TreeIcon,
                     hasRootValidations,
-                    string.Format(formatUrl, "validationLibrary"));
+                    string.Format(formatUrl, "validationLibrary", ValidationConstants.Id));
                 nodes.Add(validationsNode);
 
             }

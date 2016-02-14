@@ -16,14 +16,13 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, $routeParams, navigationService,
-    formulateFolders, $route) {
+function controller($scope, $routeParams, $route, formulateTrees,
+    formulateFolders) {
 
     // Variables.
     var id = $routeParams.id;
     var services = {
-        $routeParams: $routeParams,
-        navigationService: navigationService,
+        formulateTrees: formulateTrees,
         formulateFolders: formulateFolders,
         $scope: $scope,
         $route: $route
@@ -118,7 +117,7 @@ function initializeFolder(options, services) {
         .then(function(folder) {
 
             // Update tree.
-            activateInTree(folder, services);
+            services.formulateTrees.activateEntity(folder);
 
             // Set the folder info.
             $scope.folderId = folder.folderId;
@@ -130,18 +129,6 @@ function initializeFolder(options, services) {
 
         });
 
-}
-
-//TODO: Move this function to a service.
-// Shows/highlights the node in the Formulate tree.
-function activateInTree(entity, services) {
-    var options = {
-        tree: "formulate",
-        path: entity.path,
-        forceReload: true,
-        activate: true
-    };
-    services.navigationService.syncTree(options);
 }
 
 // Returns the function that indicates whether or not the folder can be saved.
