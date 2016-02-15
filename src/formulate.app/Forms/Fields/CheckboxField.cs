@@ -1,27 +1,11 @@
 ﻿namespace formulate.app.Forms.Fields
 {
+    using System;
     public class CheckboxField : IFormFieldType
     {
-        public string Directive
-        {
-            get
-            {
-                return "formulate-checkbox-field";
-            }
-        }
-        public string TypeLabel
-        {
-            get
-            {
-                return "Checkbox";
-            }
-        }
-        public string Icon
-        {
-            get
-            {
-                return "icon-checkbox-dotted";
-            }
-        }
+        public string Directive => "formulate-checkbox-field";
+        public string TypeLabel => "Checkbox";
+        public string Icon => "icon-checkbox-dotted";
+        public Guid TypeId => new Guid("99C1A656C7A644ACA787C18593327310");
     }
 }

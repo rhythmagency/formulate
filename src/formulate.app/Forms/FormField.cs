@@ -102,6 +102,22 @@
             return typeof(T);
         }
 
+
+        /// <summary>
+        /// The ID of the field type.
+        /// </summary>
+        public Guid TypeId
+        {
+            get
+            {
+                var instance = new T();
+                return instance.TypeId;
+            }
+            set
+            {
+            }
+        }
+
         #endregion
 
     }

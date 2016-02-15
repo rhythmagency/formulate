@@ -10,6 +10,7 @@
     /// </summary>
     public interface IFormField
     {
+        Guid TypeId { get; set; }
         Guid Id { get; set; }
         string Alias { get; set; }
         string Name { get; set; }

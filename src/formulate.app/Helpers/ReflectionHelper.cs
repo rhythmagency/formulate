@@ -26,6 +26,7 @@
         /// </returns>
         public static T[] InstantiateInterfaceImplementations<T>()
         {
+            //TODO: Need to optimize this. Cache for each type T?
             var interfaceType = typeof(T);
             var instances = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(x => x.GetTypes())

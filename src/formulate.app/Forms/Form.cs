@@ -4,6 +4,7 @@
     // Namespaces.
     using Entities;
     using Newtonsoft.Json;
+    using Serialization;
     using System;
 
 
@@ -71,6 +72,7 @@
         /// <summary>
         /// The fields on this form.
         /// </summary>
+        [JsonConverter(typeof(FieldsJsonConverter))]
         public IFormField[] Fields { get; set; }
 
 

@@ -29,7 +29,7 @@
             var indented = Formatting.Indented;
             var settings = new JsonSerializerSettings()
             {
-                TypeNameHandling = TypeNameHandling.Auto
+                TypeNameHandling = TypeNameHandling.None
             };
             var result = JsonConvert.SerializeObject(item, indented, settings);
             return result;
@@ -50,7 +50,7 @@
             }
             var settings = new JsonSerializerSettings()
             {
-                TypeNameHandling = TypeNameHandling.Auto
+                TypeNameHandling = TypeNameHandling.None
             };
             var result = JsonConvert.DeserializeObject<T>(value, settings);
             return result;
