@@ -35,6 +35,7 @@
         private const string GetLayoutInfoError = @"An error occurred while attempting to get the layout info for a Formulate layout.";
         private const string DeleteLayoutError = @"An error occurred while attempting to delete the Formulate layout.";
         private const string GetKindsError = @"An error occurred while attempting to get the layout kinds.";
+        private const string MoveLayoutError = @"An error occurred while attempting to move a Formulate layout.";
 
         #endregion
 
@@ -333,6 +334,83 @@
 
                 // Error.
                 LogHelper.Error<LayoutsController>(GetKindsError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return result.
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// Moves layout to a new parent.
+        /// </summary>
+        /// <param name="request">
+        /// The request to move the layout.
+        /// </param>
+        /// <returns>
+        /// An object indicating success or failure, along with information
+        /// about the layout.
+        /// </returns>
+        [HttpPost]
+        public object MoveLayout(MoveLayoutRequest request)
+        {
+
+            // Variables.
+            var result = default(object);
+            var rootId = CoreConstants.System.Root.ToInvariantString();
+            var parentId = GuidHelper.GetGuid(request.NewParentId);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Parse the layout ID.
+                var layoutId = GuidHelper.GetGuid(request.LayoutId);
+
+
+                // Get the ID path.
+                var path = Entities.Retrieve(parentId).Path
+                    .Concat(new[] { layoutId }).ToArray();
+
+
+                // Get layout and update path.
+                var layout = Persistence.Retrieve(layoutId);
+                layout.Path = path;
+
+
+                // Persist layout.
+                Persistence.Persist(layout);
+
+
+                // Variables.
+                var fullPath = new[] { rootId }
+                    .Concat(path.Select(x => GuidHelper.GetString(x)))
+                    .ToArray();
+
+
+                // Success.
+                result = new
+                {
+                    Success = true,
+                    Id = GuidHelper.GetString(layoutId),
+                    Path = fullPath
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<LayoutsController>(MoveLayoutError, ex);
                 result = new
                 {
                     Success = false,
