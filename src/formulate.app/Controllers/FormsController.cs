@@ -35,6 +35,7 @@
         private const string GetFormInfoError = @"An error occurred while attempting to get the form info for a Formulate form.";
         private const string PersistFormError = @"An error occurred while attempting to persist the Formulate form.";
         private const string DeleteFormError = @"An error occurred while attempting to delete the Formulate form.";
+        private const string MoveFormError = @"An error occurred while attempting to move a Formulate form.";
 
         #endregion
 
@@ -316,6 +317,83 @@
 
 
             // Return the result.
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// Moves form to a new parent.
+        /// </summary>
+        /// <param name="request">
+        /// The request to move the form.
+        /// </param>
+        /// <returns>
+        /// An object indicating success or failure, along with information
+        /// about the form.
+        /// </returns>
+        [HttpPost]
+        public object MoveForm(MoveFormRequest request)
+        {
+
+            // Variables.
+            var result = default(object);
+            var rootId = CoreConstants.System.Root.ToInvariantString();
+            var parentId = GuidHelper.GetGuid(request.NewParentId);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Parse the form ID.
+                var formId = GuidHelper.GetGuid(request.FormId);
+
+
+                // Get the ID path.
+                var path = Entities.Retrieve(parentId).Path
+                    .Concat(new[] { formId }).ToArray();
+
+
+                // Get form and update path.
+                var form = Persistence.Retrieve(formId);
+                form.Path = path;
+
+
+                // Persist form.
+                Persistence.Persist(form);
+
+
+                // Variables.
+                var fullPath = new[] { rootId }
+                    .Concat(path.Select(x => GuidHelper.GetString(x)))
+                    .ToArray();
+
+
+                // Success.
+                result = new
+                {
+                    Success = true,
+                    Id = GuidHelper.GetString(formId),
+                    Path = fullPath
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<FormsController>(MoveFormError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return result.
             return result;
 
         }
