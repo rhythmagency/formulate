@@ -36,6 +36,7 @@
         private const string GetDataValueInfoError = @"An error occurred while attempting to get the data value info for a Formulate data value.";
         private const string DeleteDataValueError = @"An error occurred while attempting to delete the Formulate data value.";
         private const string GetKindsError = @"An error occurred while attempting to get the data value kinds.";
+        private const string MoveDataValueError = @"An error occurred while attempting to move a Formulate data value.";
 
         #endregion
 
@@ -413,6 +414,83 @@
 
                 // Error.
                 LogHelper.Error<DataValuesController>(GetKindsError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return result.
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// Moves data value to a new parent.
+        /// </summary>
+        /// <param name="request">
+        /// The request to move the data value.
+        /// </param>
+        /// <returns>
+        /// An object indicating success or failure, along with information
+        /// about the data value.
+        /// </returns>
+        [HttpPost]
+        public object MoveDataValue(MoveDataValueRequest request)
+        {
+
+            // Variables.
+            var result = default(object);
+            var rootId = CoreConstants.System.Root.ToInvariantString();
+            var parentId = GuidHelper.GetGuid(request.NewParentId);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Parse the data value ID.
+                var dataValueId = GuidHelper.GetGuid(request.DataValueId);
+
+
+                // Get the ID path.
+                var path = Entities.Retrieve(parentId).Path
+                    .Concat(new[] { dataValueId }).ToArray();
+
+
+                // Get data value and update path.
+                var dataValue = Persistence.Retrieve(dataValueId);
+                dataValue.Path = path;
+
+
+                // Persist data value.
+                Persistence.Persist(dataValue);
+
+
+                // Variables.
+                var fullPath = new[] { rootId }
+                    .Concat(path.Select(x => GuidHelper.GetString(x)))
+                    .ToArray();
+
+
+                // Success.
+                result = new
+                {
+                    Success = true,
+                    Id = GuidHelper.GetString(dataValueId),
+                    Path = fullPath
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<DataValuesController>(MoveDataValueError, ex);
                 result = new
                 {
                     Success = false,

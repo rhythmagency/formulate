@@ -334,6 +334,7 @@
     <Compile Include="Models\Requests\GetFolderInfoRequest.cs" />
     <Compile Include="Models\Requests\GetValidationsInfoRequest.cs" />
     <Compile Include="Models\Requests\GetValidationInfoRequest.cs" />
+    <Compile Include="Models\Requests\MoveDataValueRequest.cs" />
     <Compile Include="Models\Requests\PersistFolderRequest.cs" />
     <Compile Include="Models\Requests\PersistDataValueRequest.cs" />
     <Compile Include="Models\Requests\PersistValidationRequest.cs" />
