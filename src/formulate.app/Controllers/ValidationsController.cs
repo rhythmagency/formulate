@@ -36,6 +36,7 @@
         private const string GetValidationInfoError = @"An error occurred while attempting to get the validation info for a Formulate validation.";
         private const string DeleteValidationError = @"An error occurred while attempting to delete the Formulate validation.";
         private const string GetKindsError = @"An error occurred while attempting to get the validation kinds.";
+        private const string MoveValidationError = @"An error occurred while attempting to move a Formulate validation.";
 
         #endregion
 
@@ -430,6 +431,83 @@
 
                 // Error.
                 LogHelper.Error<ValidationsController>(GetKindsError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return result.
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// Moves validation to a new parent.
+        /// </summary>
+        /// <param name="request">
+        /// The request to move the validation.
+        /// </param>
+        /// <returns>
+        /// An object indicating success or failure, along with information
+        /// about the validation.
+        /// </returns>
+        [HttpPost]
+        public object MoveValidation(MoveValidationRequest request)
+        {
+
+            // Variables.
+            var result = default(object);
+            var rootId = CoreConstants.System.Root.ToInvariantString();
+            var parentId = GuidHelper.GetGuid(request.NewParentId);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Parse the validation ID.
+                var validationId = GuidHelper.GetGuid(request.ValidationId);
+
+
+                // Get the ID path.
+                var path = Entities.Retrieve(parentId).Path
+                    .Concat(new[] { validationId }).ToArray();
+
+
+                // Get validation and update path.
+                var validation = Persistence.Retrieve(validationId);
+                validation.Path = path;
+
+
+                // Persist validation.
+                Persistence.Persist(validation);
+
+
+                // Variables.
+                var fullPath = new[] { rootId }
+                    .Concat(path.Select(x => GuidHelper.GetString(x)))
+                    .ToArray();
+
+
+                // Success.
+                result = new
+                {
+                    Success = true,
+                    Id = GuidHelper.GetString(validationId),
+                    Path = fullPath
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<ValidationsController>(MoveValidationError, ex);
                 result = new
                 {
                     Success = false,

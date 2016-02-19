@@ -337,6 +337,7 @@
     <Compile Include="Models\Requests\MoveDataValueRequest.cs" />
     <Compile Include="Models\Requests\MoveFormRequest.cs" />
     <Compile Include="Models\Requests\MoveLayoutRequest.cs" />
+    <Compile Include="Models\Requests\MoveValidationRequest.cs" />
     <Compile Include="Models\Requests\PersistFolderRequest.cs" />
     <Compile Include="Models\Requests\PersistDataValueRequest.cs" />
     <Compile Include="Models\Requests\PersistValidationRequest.cs" />
