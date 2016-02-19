@@ -32,6 +32,7 @@
         private const string UnhandledError = @"An unhandled error occurred. Refer to the error log.";
         private const string PersistFolderError = @"An error occurred while attempting to persist the Formulate folder.";
         private const string GetFolderInfoError = @"An error occurred while attempting to get the folder info for a Formulate folder.";
+        private const string MoveFolderError = @"An error occurred while attempting to move a Formulate folder.";
 
         #endregion
 
@@ -207,6 +208,86 @@
 
 
             // Return the result.
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// Moves folder to a new parent.
+        /// </summary>
+        /// <param name="request">
+        /// The request to move the folder.
+        /// </param>
+        /// <returns>
+        /// An object indicating success or failure, along with information
+        /// about the folder.
+        /// </returns>
+        [HttpPost]
+        public object MoveFolder(MoveFolderRequest request)
+        {
+
+            // Variables.
+            var result = default(object);
+            var rootId = CoreConstants.System.Root.ToInvariantString();
+            var parentId = GuidHelper.GetGuid(request.NewParentId);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Parse the folder ID.
+                var folderId = GuidHelper.GetGuid(request.FolderId);
+
+
+                // Get the ID path.
+                var path = Entities.Retrieve(parentId).Path
+                    .Concat(new[] { folderId }).ToArray();
+
+
+                // Get folder and update path.
+                var folder = Persistence.Retrieve(folderId);
+                folder.Path = path;
+
+
+                //TODO: Check if destination folder is under current folder.
+
+
+                // Persist folder.
+                Persistence.Persist(folder);
+
+
+                // Variables.
+                var fullPath = new[] { rootId }
+                    .Concat(path.Select(x => GuidHelper.GetString(x)))
+                    .ToArray();
+
+
+                // Success.
+                result = new
+                {
+                    Success = true,
+                    Id = GuidHelper.GetString(folderId),
+                    Path = fullPath
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<FoldersController>(MoveFolderError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return result.
             return result;
 
         }

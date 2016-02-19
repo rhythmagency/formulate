@@ -335,6 +335,7 @@
     <Compile Include="Models\Requests\GetValidationsInfoRequest.cs" />
     <Compile Include="Models\Requests\GetValidationInfoRequest.cs" />
     <Compile Include="Models\Requests\MoveDataValueRequest.cs" />
+    <Compile Include="Models\Requests\MoveFolderRequest.cs" />
     <Compile Include="Models\Requests\MoveFormRequest.cs" />
     <Compile Include="Models\Requests\MoveLayoutRequest.cs" />
     <Compile Include="Models\Requests\MoveValidationRequest.cs" />
