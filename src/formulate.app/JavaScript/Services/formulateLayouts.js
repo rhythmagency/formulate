@@ -24,7 +24,10 @@ app.factory("formulateLayouts", function (formulateVars,
         deleteLayout: getDeleteLayout(services),
 
         // Gets the kind of layouts from the server.
-        getKinds: getGetKinds(services)
+        getKinds: getGetKinds(services),
+
+        // Moves a layout to a new parent on the server.
+        moveLayout: getMoveLayout(services)
 
     };
 
@@ -122,6 +125,31 @@ function getGetKinds(services) {
                     directive: item.Directive
                 };
             });
+        });
+
+    };
+}
+
+// Returns the function that moves a layout.
+function getMoveLayout(services) {
+    return function (layoutId, newParentId) {
+
+        // Variables.
+        var url = services.formulateVars.MoveLayout;
+        var data = {
+            LayoutId: layoutId,
+            NewParentId: newParentId
+        };
+
+        // Send request to persist the layout.
+        return services.formulateServer.post(url, data, function (data) {
+
+            // Return layout info.
+            return {
+                id: data.Id,
+                path: data.Path
+            };
+
         });
 
     };

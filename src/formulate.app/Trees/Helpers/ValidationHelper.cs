@@ -139,6 +139,31 @@
 
 
         /// <summary>
+        /// Adds the "Move" action to the menu.
+        /// </summary>
+        /// <param name="menu">
+        /// The menu items to add the action to.
+        /// </param>
+        /// <param name="validation">
+        /// The validation.
+        /// </param>
+        public void AddMoveValidationAction(MenuItemCollection menu, Validation validation)
+        {
+            var path = "/App_Plugins/formulate/menu-actions/moveValidation.html";
+            var menuItem = new MenuItem()
+            {
+                Alias = "moveValidation",
+                Icon = "folder",
+                Name = "Move"
+            };
+            var titleFormat = @"Move ""{0}"" Validation";
+            var title = string.Format(titleFormat, validation.Name);
+            menuItem.LaunchDialogView(path, title);
+            menu.Items.Add(menuItem);
+        }
+
+
+        /// <summary>
         /// Adds the "Create Validation" action with the specified ID used
         /// as the parent for the validation that is created.
         /// </summary>

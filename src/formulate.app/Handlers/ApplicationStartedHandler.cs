@@ -21,6 +21,7 @@
     using Constants = formulate.meta.Constants;
     using DataValueConstants = formulate.app.Constants.Trees.DataValues;
     using FormConstants = formulate.app.Constants.Trees.Forms;
+    using LayoutConstants = formulate.app.Constants.Trees.Layouts;
     using Resources = formulate.app.Properties.Resources;
     using SettingConstants = formulate.core.Constants.Settings;
     using ValidationConstants = formulate.app.Constants.Trees.Validations;
@@ -96,6 +97,9 @@
                 { "GetLayoutKinds",
                     helper.GetUmbracoApiService<LayoutsController>(x =>
                         x.GetLayoutKinds()) },
+                { "MoveLayout",
+                    helper.GetUmbracoApiService<LayoutsController>(x =>
+                        x.MoveLayout(null)) },
                 { "DeleteValidation",
                     helper.GetUmbracoApiService<ValidationsController>(x =>
                         x.DeleteValidation(null)) },
@@ -111,6 +115,9 @@
                 { "GetValidationKinds",
                     helper.GetUmbracoApiService<ValidationsController>(x =>
                         x.GetValidationKinds()) },
+                { "MoveValidation",
+                    helper.GetUmbracoApiService<ValidationsController>(x =>
+                        x.MoveValidation(null)) },
                 { "DeleteDataValue",
                     helper.GetUmbracoApiService<DataValuesController>(x =>
                         x.DeleteDataValue(null)) },
@@ -126,6 +133,9 @@
                 { "GetDataValueKinds",
                     helper.GetUmbracoApiService<DataValuesController>(x =>
                         x.GetDataValueKinds()) },
+                { "MoveDataValue",
+                    helper.GetUmbracoApiService<DataValuesController>(x =>
+                        x.MoveDataValue(null)) },
                 { "PersistFolder",
                     helper.GetUmbracoApiService<FoldersController>(x =>
                         x.PersistFolder(null)) },
@@ -149,6 +159,7 @@
                     "/formulate/formulate/editValidation/" },
                 { "EditDataValueBase",
                     "/formulate/formulate/editDataValue/" },
+                { "Layout.RootId", LayoutConstants.Id },
                 { "Validation.RootId", ValidationConstants.Id },
                 { "DataValue.RootId", DataValueConstants.Id },
                 { "Form.RootId", FormConstants.Id }

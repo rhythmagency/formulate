@@ -139,6 +139,31 @@
 
 
         /// <summary>
+        /// Adds the "Move" action to the menu.
+        /// </summary>
+        /// <param name="menu">
+        /// The menu items to add the action to.
+        /// </param>
+        /// <param name="dataValue">
+        /// The data value.
+        /// </param>
+        public void AddMoveDataValueAction(MenuItemCollection menu, DataValue dataValue)
+        {
+            var path = "/App_Plugins/formulate/menu-actions/moveDataValue.html";
+            var menuItem = new MenuItem()
+            {
+                Alias = "moveDataValue",
+                Icon = "folder",
+                Name = "Move"
+            };
+            var titleFormat = @"Move ""{0}"" Data Value";
+            var title = string.Format(titleFormat, dataValue.Name);
+            menuItem.LaunchDialogView(path, title);
+            menu.Items.Add(menuItem);
+        }
+
+
+        /// <summary>
         /// Adds the "Create Data Value" action with the specified ID used
         /// as the parent for the data value that is created.
         /// </summary>

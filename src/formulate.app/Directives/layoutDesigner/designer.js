@@ -56,6 +56,27 @@ function controller($scope, $routeParams, $route, formulateTrees,
         id: id
     }, services);
 
+    // Handle events.
+    handleLayoutMoves(services);
+
+}
+
+// Handles updating a layout when it's moved.
+function handleLayoutMoves(services) {
+    var $scope = services.$scope;
+    $scope.$on("formulateLayoutMoved", function(event, data) {
+        var id = data.id;
+        var newPath = data.path;
+        if ($scope.layoutId === id) {
+
+            // Store new path.
+            $scope.layoutPath = newPath;
+
+            // Activate in tree.
+            services.formulateTrees.activateEntity(data);
+
+        }
+    });
 }
 
 // Saves the layout.

@@ -2,28 +2,28 @@
 var app = angular.module("umbraco");
 
 // Register directive/controller.
-app.controller("formulate.moveFormDialog", controller);
-app.directive("formulateMoveFormDialog", directive);
+app.controller("formulate.moveValidationDialog", controller);
+app.directive("formulateMoveValidationDialog", directive);
 
 // Directive.
 function directive(formulateDirectives) {
     return {
         restrict: "E",
-        controller: "formulate.moveFormDialog",
+        controller: "formulate.moveValidationDialog",
         template: formulateDirectives.get(
             "dialogs/moveEntity/moveEntity.html")
     };
 }
 
 // Controller.
-function controller($scope, $rootScope, formulateVars, formulateForms,
+function controller($scope, $rootScope, formulateVars, formulateValidations,
     navigationService, treeService) {
 
     // Variables.
     var services = {
         $scope: $scope,
         $rootScope: $rootScope,
-        formulateForms: formulateForms,
+        formulateValidations: formulateValidations,
         navigationService: navigationService,
         treeService: treeService
     };
@@ -31,7 +31,7 @@ function controller($scope, $rootScope, formulateVars, formulateForms,
     // Initialize scope variables.
     $scope.selection = [];
     $scope.entityKinds = ["Folder", "Root"];
-    $scope.rootId = formulateVars["Form.RootId"];
+    $scope.rootId = formulateVars["Validation.RootId"];
 
     // Set scope functions.
     $scope.cancel = getCancel(services);
@@ -46,7 +46,7 @@ function getCancel(services) {
     };
 }
 
-// Returns the function that moves the form.
+// Returns the function that moves the validation.
 function getMove(services) {
     return function() {
 
@@ -59,9 +59,9 @@ function getMove(services) {
         // Is a new parent selected?
         if (selection.length === 1) {
 
-            // Move form.
+            // Move validation.
             var newParentId = selection[0];
-            services.formulateForms.moveForm(entityId, newParentId).then(function(data) {
+            services.formulateValidations.moveValidation(entityId, newParentId).then(function(data) {
 
                 // Remove the node from its old position in the tree.
                 services.treeService.removeNode(node);
@@ -75,8 +75,8 @@ function getMove(services) {
                 };
                 services.navigationService.syncTree(options);
 
-                // Send notification that form was moved.
-                services.$rootScope.$broadcast("formulateFormMoved", {
+                // Send notification that validation was moved.
+                services.$rootScope.$broadcast("formulateValidationMoved", {
                     id: data.id,
                     path: data.path
                 });

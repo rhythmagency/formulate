@@ -28,7 +28,10 @@ app.factory("formulateDataValues", function (formulateVars,
         deleteDataValue: getDeleteDataValue(services),
 
         // Gets the kind of data values from the server.
-        getKinds: getGetKinds(services)
+        getKinds: getGetKinds(services),
+
+        // Moves a data value to a new parent on the server.
+        moveDataValue: getMoveDataValue(services)
 
     };
 
@@ -155,6 +158,31 @@ function getGetKinds(services) {
                     directive: item.Directive
                 };
             });
+        });
+
+    };
+}
+
+// Returns the function that moves a data value.
+function getMoveDataValue(services) {
+    return function (dataValueId, newParentId) {
+
+        // Variables.
+        var url = services.formulateVars.MoveDataValue;
+        var data = {
+            DataValueId: dataValueId,
+            NewParentId: newParentId
+        };
+
+        // Send request to persist the data value.
+        return services.formulateServer.post(url, data, function (data) {
+
+            // Return data value info.
+            return {
+                id: data.Id,
+                path: data.Path
+            };
+
         });
 
     };

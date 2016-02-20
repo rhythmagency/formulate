@@ -27,7 +27,10 @@ app.factory("formulateValidations", function (formulateVars,
         deleteValidation: getDeleteValidation(services),
 
         // Gets the kind of validations from the server.
-        getKinds: getGetKinds(services)
+        getKinds: getGetKinds(services),
+
+        // Moves a validation to a new parent on the server.
+        moveValidation: getMoveValidation(services)
 
     };
 
@@ -153,6 +156,31 @@ function getGetKinds(services) {
                     directive: item.Directive
                 };
             });
+        });
+
+    };
+}
+
+// Returns the function that moves a validation.
+function getMoveValidation(services) {
+    return function (validationId, newParentId) {
+
+        // Variables.
+        var url = services.formulateVars.MoveValidation;
+        var data = {
+            ValidationId: validationId,
+            NewParentId: newParentId
+        };
+
+        // Send request to persist the validation.
+        return services.formulateServer.post(url, data, function (data) {
+
+            // Return validation info.
+            return {
+                id: data.Id,
+                path: data.Path
+            };
+
         });
 
     };

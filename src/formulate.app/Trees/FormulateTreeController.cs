@@ -118,14 +118,17 @@
                 else if (entity is Layout)
                 {
                     LayoutHelper.AddDeleteLayoutAction(menu);
+                    LayoutHelper.AddMoveLayoutAction(menu, entity as Layout);
                 }
                 else if (entity is Validation)
                 {
                     ValidationHelper.AddDeleteValidationAction(menu);
+                    ValidationHelper.AddMoveValidationAction(menu, entity as Validation);
                 }
                 else if (entity is DataValue)
                 {
                     DataValueHelper.AddDeleteAction(menu);
+                    DataValueHelper.AddMoveDataValueAction(menu, entity as DataValue);
                 }
                 else if (entity is Folder)
                 {

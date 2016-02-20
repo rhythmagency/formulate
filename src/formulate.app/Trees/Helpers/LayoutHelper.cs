@@ -139,6 +139,31 @@
 
 
         /// <summary>
+        /// Adds the "Move" action to the menu.
+        /// </summary>
+        /// <param name="menu">
+        /// The menu items to add the action to.
+        /// </param>
+        /// <param name="layout">
+        /// The layout.
+        /// </param>
+        public void AddMoveLayoutAction(MenuItemCollection menu, Layout layout)
+        {
+            var path = "/App_Plugins/formulate/menu-actions/moveLayout.html";
+            var menuItem = new MenuItem()
+            {
+                Alias = "moveLayout",
+                Icon = "folder",
+                Name = "Move"
+            };
+            var titleFormat = @"Move ""{0}"" Layout";
+            var title = string.Format(titleFormat, layout.Name);
+            menuItem.LaunchDialogView(path, title);
+            menu.Items.Add(menuItem);
+        }
+
+
+        /// <summary>
         /// Adds the "Create Layout" action with the specified ID used
         /// as the parent for the layout that is created.
         /// </summary>

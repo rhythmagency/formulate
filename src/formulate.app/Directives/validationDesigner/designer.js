@@ -56,6 +56,27 @@ function controller($scope, $routeParams, $route, formulateValidations,
         id: id
     }, services);
 
+    // Handle events.
+    handleValidationMoves(services);
+
+}
+
+// Handles updating a validation when it's moved.
+function handleValidationMoves(services) {
+    var $scope = services.$scope;
+    $scope.$on("formulateValidationMoved", function(event, data) {
+        var id = data.id;
+        var newPath = data.path;
+        if ($scope.validationId === id) {
+
+            // Store new path.
+            $scope.validationPath = newPath;
+
+            // Activate in tree.
+            services.formulateTrees.activateEntity(data);
+
+        }
+    });
 }
 
 // Saves the validation.
