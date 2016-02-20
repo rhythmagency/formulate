@@ -138,6 +138,26 @@
 
 
         /// <summary>
+        /// Adds the "Move" action to the menu.
+        /// </summary>
+        /// <param name="menu">
+        /// The menu items to add the action to.
+        /// </param>
+        public void AddMoveFormAction(MenuItemCollection menu)
+        {
+            var path = "/App_Plugins/formulate/menu-actions/moveForm.html";
+            var menuItem = new MenuItem()
+            {
+                Alias = "moveForm",
+                Icon = "folder",
+                Name = "Move"
+            };
+            menuItem.LaunchDialogView(path, "Move Form");
+            menu.Items.Add(menuItem);
+        }
+
+
+        /// <summary>
         /// Adds the "Create Form" action with the specified ID used
         /// as the parent for the form that is created.
         /// </summary>

@@ -113,6 +113,7 @@
                 if (entity is Form)
                 {
                     FormHelper.AddDeleteFormAction(menu);
+                    //TODO: Move action.
                 }
                 else if (entity is Layout)
                 {
