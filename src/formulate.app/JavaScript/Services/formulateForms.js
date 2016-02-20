@@ -21,7 +21,10 @@ app.factory("formulateForms", function (formulateVars,
         persistForm: getPersistForm(services),
 
         // Deletes a form from the server.
-        deleteForm: getDeleteForm(services)
+        deleteForm: getDeleteForm(services),
+
+        // Moves a form to a new parent on the server.
+        moveForm: getMoveForm(services)
 
     };
 
@@ -133,6 +136,31 @@ function getDeleteForm(services) {
 
             // Return empty data.
             return {};
+
+        });
+
+    };
+}
+
+// Returns the function that moves a form.
+function getMoveForm(services) {
+    return function (formId, newParentId) {
+
+        // Variables.
+        var url = services.formulateVars.MoveForm;
+        var data = {
+            FormId: formId,
+            NewParentId: newParentId
+        };
+
+        // Send request to persist the form.
+        return services.formulateServer.post(url, data, function (data) {
+
+            // Return form info.
+            return {
+                id: data.Id,
+                path: data.Path
+            };
 
         });
 

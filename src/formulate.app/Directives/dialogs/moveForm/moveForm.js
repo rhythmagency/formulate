@@ -16,7 +16,17 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, formulateVars) {
+function controller($scope, $rootScope, formulateVars, formulateForms,
+    navigationService, treeService) {
+
+    // Variables.
+    var services = {
+        $scope: $scope,
+        $rootScope: $rootScope,
+        formulateForms: formulateForms,
+        navigationService: navigationService,
+        treeService: treeService
+    };
 
     // Initialize scope variables.
     $scope.selection = [];
@@ -24,28 +34,61 @@ function controller($scope, formulateVars) {
     $scope.rootId = formulateVars["Form.RootId"];
 
     // Set scope functions.
-    $scope.cancel = function() {
-        $scope.$parent.close();
-    };
-    $scope.move = getMove();
+    $scope.cancel = getCancel(services);
+    $scope.move = getMove(services);
 
 }
 
+// Returns the function that cancels the move.
+function getCancel(services) {
+    return function() {
+        services.navigationService.hideDialog();
+    };
+}
 
-function getMove() {
+// Returns the function that moves the form.
+function getMove(services) {
     return function() {
 
+        // Variables.
+        var $scope = services.$scope;
+        var node = $scope.currentNode;
         var entityId = $scope.currentNode.id;
         var selection = $scope.selection;
-        if (selection.length === 1) {
-            // TODO: Move to selection.
-            // TODO: Update tree.
-        } else {
-            //TODO: User made no selection.
-        }
 
-        // Close dialog.
-        services.navigationService.hideDialog();
+        // Is a new parent selected?
+        if (selection.length === 1) {
+
+            // Move form.
+            var newParentId = selection[0];
+            services.formulateForms.moveForm(entityId, newParentId).then(function(data) {
+
+                // Remove the node from its old position in the tree.
+                services.treeService.removeNode(node);
+
+                // Update tree.
+                var options = {
+                    tree: "formulate",
+                    path: data.path,
+                    forceReload: true,
+                    activate: false
+                };
+                services.navigationService.syncTree(options);
+
+                // Send notification that form was moved.
+                services.$rootScope.$broadcast("formulateFormMoved", {
+                    id: data.id,
+                    path: data.path
+                });
+
+                // Close dialog.
+                services.navigationService.hideDialog();
+
+            });
+
+        } else {
+            alert("Make a selection first.");
+        }
 
     };
 }

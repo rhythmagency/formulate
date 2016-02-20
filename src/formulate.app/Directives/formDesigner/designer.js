@@ -81,6 +81,27 @@ function controller($scope, $routeParams, $route, formulateTrees,
         isNew: isNew
     }, services);
 
+    // Handle events.
+    handleFormMoves(services);
+
+}
+
+// Handles updating a form when it's moved.
+function handleFormMoves(services) {
+    var $scope = services.$scope;
+    $scope.$on("formulateFormMoved", function(event, data) {
+        var id = data.id;
+        var newPath = data.path;
+        if ($scope.formId === id) {
+
+            // Store new path.
+            $scope.formPath = newPath;
+
+            // Activate in tree.
+            services.formulateTrees.activateEntity(data);
+
+        }
+    });
 }
 
 // Allows the user to pick their validations.

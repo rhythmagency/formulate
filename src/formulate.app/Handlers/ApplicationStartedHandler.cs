@@ -81,6 +81,9 @@
                 { "GetFormInfo",
                     helper.GetUmbracoApiService<FormsController>(x =>
                         x.GetFormInfo(null)) },
+                { "MoveForm",
+                    helper.GetUmbracoApiService<FormsController>(x =>
+                        x.MoveForm(null)) },
                 { "DeleteLayout",
                     helper.GetUmbracoApiService<LayoutsController>(x =>
                         x.DeleteLayout(null)) },

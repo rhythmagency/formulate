@@ -143,7 +143,10 @@
         /// <param name="menu">
         /// The menu items to add the action to.
         /// </param>
-        public void AddMoveFormAction(MenuItemCollection menu)
+        /// <param name="form">
+        /// The form.
+        /// </param>
+        public void AddMoveFormAction(MenuItemCollection menu, Form form)
         {
             var path = "/App_Plugins/formulate/menu-actions/moveForm.html";
             var menuItem = new MenuItem()
@@ -152,7 +155,9 @@
                 Icon = "folder",
                 Name = "Move"
             };
-            menuItem.LaunchDialogView(path, "Move Form");
+            var titleFormat = @"Move ""{0}"" Form";
+            var title = string.Format(titleFormat, form.Name);
+            menuItem.LaunchDialogView(path, title);
             menu.Items.Add(menuItem);
         }
 
