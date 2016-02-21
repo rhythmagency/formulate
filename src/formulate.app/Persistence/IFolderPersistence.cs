@@ -15,6 +15,7 @@
         void Persist(Folder folder);
         Folder Retrieve(Guid folderId);
         IEnumerable<Folder> RetrieveChildren(Guid? parentId);
+        void Delete(Guid folderId);
     }
 
 }

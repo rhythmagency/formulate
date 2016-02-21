@@ -166,6 +166,16 @@
             }
         }
 
+
+        /// <summary>
+        /// Deletes the specified folder.
+        /// </summary>
+        /// <param name="folderId">The ID of the folder to delete.</param>
+        public void Delete(Guid folderId)
+        {
+            Helper.Delete(folderId);
+        }
+
         #endregion
 
 

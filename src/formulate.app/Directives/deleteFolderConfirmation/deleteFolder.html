@@ -1,0 +1,12 @@
+﻿<div ng-if="!initialized">
+    Loading...
+</div>
+<div ng-if="initialized">
+    <div>
+        Are you sure you want to delete the folder, "{{folderName}}", and all of its descendants?
+    </div>
+    <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="deleteFolder()">
+        Delete Folder
+    </button>
+</div>

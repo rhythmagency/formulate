@@ -24,7 +24,10 @@ app.factory("formulateFolders", function (formulateVars,
         createFolder: getCreateFolder(services),
 
         // Moves a folder to a new parent on the server.
-        moveFolder: getMoveFolder(services)
+        moveFolder: getMoveFolder(services),
+
+        // Deletes a folder from the server.
+        deleteFolder: getDeleteFolder(services),
 
     };
 
@@ -128,6 +131,28 @@ function getMoveFolder(services) {
                     };
                 })
             };
+
+        });
+
+    };
+}
+
+
+// Returns the function that deletes a folder from the server.
+function getDeleteFolder(services) {
+    return function(folderId) {
+
+        // Variables.
+        var url = services.formulateVars.DeleteFolder;
+        var data = {
+            FolderId: folderId
+        };
+
+        // Send request to delete the folder.
+        return services.formulateServer.post(url, data, function (data) {
+
+            // Return empty data.
+            return {};
 
         });
 

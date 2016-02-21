@@ -145,6 +145,9 @@
                 { "MoveFolder",
                     helper.GetUmbracoApiService<FoldersController>(x =>
                         x.MoveFolder(null)) },
+                { "DeleteFolder",
+                    helper.GetUmbracoApiService<FoldersController>(x =>
+                        x.DeleteFolder(null)) },
                 { "GetFieldTypes",
                     helper.GetUmbracoApiService<FieldsController>(x =>
                         x.GetFieldTypes()) },

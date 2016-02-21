@@ -134,6 +134,7 @@
                 {
                     FolderHelper.AddCreateFolderAction(menu);
                     FolderHelper.AddMoveFolderAction(menu, entity as Folder);
+                    FolderHelper.AddDeleteFolderAction(menu);
                     if (ancestorId == rootFormsId)
                     {
                         FormHelper.AddCreateFormAction(menu, entityId);

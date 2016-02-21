@@ -39,6 +39,7 @@
         private const string GetFolderInfoError = @"An error occurred while attempting to get the folder info for a Formulate folder.";
         private const string MoveFolderError = @"An error occurred while attempting to move a Formulate folder.";
         private const string FolderUnderItself = @"A Formulate folder cannot be moved under itself.";
+        private const string DeleteFolderError = @"An error occurred while attempting to delete the Formulate folder.";
 
         #endregion
 
@@ -331,6 +332,71 @@
 
         }
 
+
+        /// <summary>
+        /// Deletes the foldfer with the specified ID.
+        /// </summary>
+        /// <param name="request">
+        /// The request to delete the folder.
+        /// </param>
+        /// <returns>
+        /// An object indicating success or failure, along with some
+        /// accompanying data.
+        /// </returns>
+        [HttpPost()]
+        public object DeleteFolder(DeleteFolderRequest request)
+        {
+
+            // Variables.
+            var result = default(object);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Variables.
+                var folderId = GuidHelper.GetGuid(request.FolderId);
+                var descendants = Entities.RetrieveDescendants(folderId);
+
+
+                // Delete the folder.
+                Persistence.Delete(folderId);
+
+
+                // Delete the descendants.
+                foreach (var descendant in descendants)
+                {
+                    DeleteEntity(descendant);
+                }
+
+
+                // Success.
+                result = new
+                {
+                    Success = true
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<FoldersController>(DeleteFolderError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return the result.
+            return result;
+
+        }
+
         #endregion
 
 
@@ -388,6 +454,40 @@
                 .Concat(path.Select(x => GuidHelper.GetString(x)))
                 .ToArray();
             return clientPath;
+
+        }
+
+
+        /// <summary>
+        /// Deletes the specified entity.
+        /// </summary>
+        /// <param name="entity">
+        /// The entity to delete.
+        /// </param>
+        private void DeleteEntity(IEntity entity)
+        {
+
+            // Delete entity based on the entity type.
+            if (entity is Form)
+            {
+                MyFormPersistence.Delete(entity.Id);
+            }
+            else if (entity is Layout)
+            {
+                MyLayoutPersistence.Delete(entity.Id);
+            }
+            else if (entity is Validation)
+            {
+                MyValidationPersistence.Delete(entity.Id);
+            }
+            else if (entity is DataValue)
+            {
+                MyDataValuePersistence.Delete(entity.Id);
+            }
+            else if (entity is Folder)
+            {
+                Persistence.Delete(entity.Id);
+            }
 
         }
 

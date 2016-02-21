@@ -126,6 +126,26 @@
             menu.Items.Add(menuItem);
         }
 
+
+        /// <summary>
+        /// Adds the "Delete Form" action to the menu.
+        /// </summary>
+        /// <param name="menu">
+        /// The menu items to add the action to.
+        /// </param>
+        public void AddDeleteFolderAction(MenuItemCollection menu)
+        {
+            var path = "/App_Plugins/formulate/menu-actions/deleteFolder.html";
+            var menuItem = new MenuItem()
+            {
+                Alias = "deleteFolder",
+                Icon = "folder",
+                Name = "Delete Folder"
+            };
+            menuItem.LaunchDialogView(path, "Delete Folder");
+            menu.Items.Add(menuItem);
+        }
+
         #endregion
 
     }

@@ -326,6 +326,7 @@
     <Compile Include="Managers\IConfigurationManager.cs" />
     <Compile Include="Models\Parameters\FieldInfo.cs" />
     <Compile Include="Models\Requests\DeleteDataValueRequest.cs" />
+    <Compile Include="Models\Requests\DeleteFolderRequest.cs" />
     <Compile Include="Models\Requests\DeleteValidationRequest.cs" />
     <Compile Include="Models\Requests\GetDataValuesInfoRequest.cs" />
     <Compile Include="Models\Requests\GetEntityRequest.cs" />
