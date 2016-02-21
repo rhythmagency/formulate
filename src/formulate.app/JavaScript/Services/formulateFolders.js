@@ -21,7 +21,10 @@ app.factory("formulateFolders", function (formulateVars,
         persistFolder: getPersistFolder(services),
 
         // Creates the folder.
-        createFolder: getCreateFolder(services)
+        createFolder: getCreateFolder(services),
+
+        // Moves a folder to a new parent on the server.
+        moveFolder: getMoveFolder(services)
 
     };
 
@@ -93,6 +96,37 @@ function getPersistFolder(services) {
             return {
                 id: data.Id,
                 path: data.Path
+            };
+
+        });
+
+    };
+}
+
+// Returns the function that moves a folder.
+function getMoveFolder(services) {
+    return function (folderId, newParentId) {
+
+        // Variables.
+        var url = services.formulateVars.MoveFolder;
+        var data = {
+            FolderId: folderId,
+            NewParentId: newParentId
+        };
+
+        // Send request to persist the folder.
+        return services.formulateServer.post(url, data, function (data) {
+
+            // Return folder info.
+            return {
+                id: data.Id,
+                path: data.Path,
+                descendants: data.Descendants.map(function (item) {
+                    return {
+                        id: item.Id,
+                        path: item.Path
+                    };
+                })
             };
 
         });

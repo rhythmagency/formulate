@@ -89,7 +89,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
 // Handles updating a form when it's moved.
 function handleFormMoves(services) {
     var $scope = services.$scope;
-    $scope.$on("formulateFormMoved", function(event, data) {
+    $scope.$on("formulateEntityMoved", function(event, data) {
         var id = data.id;
         var newPath = data.path;
         if ($scope.formId === id) {

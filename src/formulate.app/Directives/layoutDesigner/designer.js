@@ -64,7 +64,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
 // Handles updating a layout when it's moved.
 function handleLayoutMoves(services) {
     var $scope = services.$scope;
-    $scope.$on("formulateLayoutMoved", function(event, data) {
+    $scope.$on("formulateEntityMoved", function(event, data) {
         var id = data.id;
         var newPath = data.path;
         if ($scope.layoutId === id) {

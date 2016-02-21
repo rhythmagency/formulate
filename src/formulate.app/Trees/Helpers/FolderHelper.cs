@@ -101,6 +101,31 @@
             menu.Items.Add(menuItem);
         }
 
+
+        /// <summary>
+        /// Adds the "Move" action to the menu.
+        /// </summary>
+        /// <param name="menu">
+        /// The menu items to add the action to.
+        /// </param>
+        /// <param name="folder">
+        /// The folder.
+        /// </param>
+        public void AddMoveFolderAction(MenuItemCollection menu, Folder folder)
+        {
+            var path = "/App_Plugins/formulate/menu-actions/moveFolder.html";
+            var menuItem = new MenuItem()
+            {
+                Alias = "moveFolder",
+                Icon = "folder",
+                Name = "Move"
+            };
+            var titleFormat = @"Move ""{0}"" Folder";
+            var title = string.Format(titleFormat, folder.Name);
+            menuItem.LaunchDialogView(path, title);
+            menu.Items.Add(menuItem);
+        }
+
         #endregion
 
     }

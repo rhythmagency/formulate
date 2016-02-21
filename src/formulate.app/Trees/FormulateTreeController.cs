@@ -133,6 +133,7 @@
                 else if (entity is Folder)
                 {
                     FolderHelper.AddCreateFolderAction(menu);
+                    FolderHelper.AddMoveFolderAction(menu, entity as Folder);
                     if (ancestorId == rootFormsId)
                     {
                         FormHelper.AddCreateFormAction(menu, entityId);

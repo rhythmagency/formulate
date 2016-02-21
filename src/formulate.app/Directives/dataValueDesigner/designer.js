@@ -65,7 +65,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
 // Handles updating a data value when it's moved.
 function handleDataValueMoves(services) {
     var $scope = services.$scope;
-    $scope.$on("formulateDataValueMoved", function(event, data) {
+    $scope.$on("formulateEntityMoved", function(event, data) {
         var id = data.id;
         var newPath = data.path;
         if ($scope.dataValueId === id) {

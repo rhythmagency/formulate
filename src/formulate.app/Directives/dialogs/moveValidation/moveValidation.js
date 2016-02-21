@@ -76,7 +76,7 @@ function getMove(services) {
                 services.navigationService.syncTree(options);
 
                 // Send notification that validation was moved.
-                services.$rootScope.$broadcast("formulateValidationMoved", {
+                services.$rootScope.$broadcast("formulateEntityMoved", {
                     id: data.id,
                     path: data.path
                 });

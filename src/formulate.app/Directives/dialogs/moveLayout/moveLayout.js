@@ -76,7 +76,7 @@ function getMove(services) {
                 services.navigationService.syncTree(options);
 
                 // Send notification that layout was moved.
-                services.$rootScope.$broadcast("formulateLayoutMoved", {
+                services.$rootScope.$broadcast("formulateEntityMoved", {
                     id: data.id,
                     path: data.path
                 });

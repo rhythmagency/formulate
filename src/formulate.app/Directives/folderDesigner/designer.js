@@ -52,6 +52,27 @@ function controller($scope, $routeParams, $route, formulateTrees,
         id: id
     }, services);
 
+    // Handle events.
+    handleFolderMoves(services);
+
+}
+
+// Handles updating a folder when it's moved.
+function handleFolderMoves(services) {
+    var $scope = services.$scope;
+    $scope.$on("formulateEntityMoved", function(event, data) {
+        var id = data.id;
+        var newPath = data.path;
+        if ($scope.folderId === id) {
+
+            // Store new path.
+            $scope.folderPath = newPath;
+
+            // Activate in tree.
+            services.formulateTrees.activateEntity(data);
+
+        }
+    });
 }
 
 // Saves the folder.

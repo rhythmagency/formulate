@@ -76,7 +76,7 @@ function getMove(services) {
                 services.navigationService.syncTree(options);
 
                 // Send notification that data value was moved.
-                services.$rootScope.$broadcast("formulateDataValueMoved", {
+                services.$rootScope.$broadcast("formulateEntityMoved", {
                     id: data.id,
                     path: data.path
                 });

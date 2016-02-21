@@ -14,6 +14,7 @@
     {
         IEntity Retrieve(Guid formId);
         IEnumerable<IEntity> RetrieveChildren(Guid? parentId);
+        IEnumerable<IEntity> RetrieveDescendants(Guid parentId);
     }
 
 }

@@ -7,6 +7,7 @@
     using Resolvers;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
 
     /// <summary>
@@ -130,14 +131,14 @@
 
 
         /// <summary>
-        /// Gets all the forms that are the children of the folder with the specified ID.
+        /// Gets all the entities that are the children of the folder with the specified ID.
         /// </summary>
         /// <param name="parentId">The parent ID.</param>
         /// <returns>
-        /// The forms.
+        /// The entities.
         /// </returns>
         /// <remarks>
-        /// You can specify a parent ID of null to get the root forms.
+        /// You can specify a parent ID of null to get the root entities.
         /// </remarks>
         public IEnumerable<IEntity> RetrieveChildren(Guid? parentId)
         {
@@ -148,6 +149,28 @@
             children.AddRange(Validations.RetrieveChildren(parentId));
             children.AddRange(DataValues.RetrieveChildren(parentId));
             return children;
+        }
+
+
+        /// <summary>
+        /// Gets all the entities that are the descendants of the folder with the specified ID.
+        /// </summary>
+        /// <param name="parentId">The parent ID.</param>
+        /// <returns>
+        /// The entities.
+        /// </returns>
+        public IEnumerable<IEntity> RetrieveDescendants(Guid parentId)
+        {
+            var descendants = new List<IEntity>();
+            var folders = Folders.RetrieveChildren(parentId);
+            var folderDescendants = folders.SelectMany(x => RetrieveDescendants(x.Id));
+            descendants.AddRange(folders);
+            descendants.AddRange(folderDescendants);
+            descendants.AddRange(Forms.RetrieveChildren(parentId));
+            descendants.AddRange(Layouts.RetrieveChildren(parentId));
+            descendants.AddRange(Validations.RetrieveChildren(parentId));
+            descendants.AddRange(DataValues.RetrieveChildren(parentId));
+            return descendants;
         }
 
         #endregion
