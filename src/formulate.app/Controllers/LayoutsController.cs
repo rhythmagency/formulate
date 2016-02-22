@@ -108,10 +108,10 @@
 
 
                 // Get the ID path.
-                var path = parentId == Guid.Empty
+                var parent = parentId == Guid.Empty ? null : Entities.Retrieve(parentId);
+                var path = parent == null
                     ? new[] { layoutsRootId, layoutId }
-                    : Entities.Retrieve(parentId).Path
-                        .Concat(new[] { layoutId }).ToArray();
+                    : parent.Path.Concat(new[] { layoutId }).ToArray();
 
 
                 // Create layout.

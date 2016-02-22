@@ -109,10 +109,10 @@
 
 
                 // Get the ID path.
-                var path = parentId == Guid.Empty
+                var parent = parentId == Guid.Empty ? null : Entities.Retrieve(parentId);
+                var path = parent == null
                     ? new[] { dataValuesRootId, dataValueId }
-                    : Entities.Retrieve(parentId).Path
-                        .Concat(new[] { dataValueId }).ToArray();
+                    : parent.Path.Concat(new[] { dataValueId }).ToArray();
 
 
                 // Create data value.

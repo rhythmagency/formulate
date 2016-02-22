@@ -109,10 +109,10 @@
 
 
                 // Get the ID path.
-                var path = parentId == Guid.Empty
+                var parent = parentId == Guid.Empty ? null : Entities.Retrieve(parentId);
+                var path = parent == null
                     ? new[] { validationsRootId, validationId }
-                    : Entities.Retrieve(parentId).Path
-                        .Concat(new[] { validationId }).ToArray();
+                    : parent.Path.Concat(new[] { validationId }).ToArray();
 
 
                 // Create validation.

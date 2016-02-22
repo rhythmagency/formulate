@@ -216,10 +216,10 @@
 
 
                 // Get the ID path.
-                var path = parentId == Guid.Empty
+                var parent = parentId == Guid.Empty ? null : Entities.Retrieve(parentId);
+                var path = parent == null
                     ? new[] { formsRootId, formId }
-                    : Entities.Retrieve(parentId).Path
-                        .Concat(new[] { formId }).ToArray();
+                    : parent.Path.Concat(new[] { formId }).ToArray();
 
 
                 // Create the form.
