@@ -391,7 +391,9 @@
     <Content Include="Transform.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\Formulate\persistence.config" />
+    <Content Include="Config\Formulate\persistence.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Transforms\Formulate\web.config.install.xdt" />
@@ -482,6 +484,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\404handlers.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\Formulate\templates.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

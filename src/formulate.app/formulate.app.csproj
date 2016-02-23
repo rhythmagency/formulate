@@ -275,6 +275,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\JsonElement.cs" />
+    <Compile Include="Configuration\TemplateCollection.cs" />
+    <Compile Include="Configuration\TemplateElement.cs" />
+    <Compile Include="Configuration\TemplatesConfigSection.cs" />
     <Compile Include="Configuration\PersistenceConfigSection.cs" />
     <Compile Include="Constants\DataValues\DataValueList.cs" />
     <Compile Include="Constants\Trees\DataSources.cs" />
@@ -376,6 +379,7 @@
     <Compile Include="Resolvers\ValidationPersistence.cs" />
     <Compile Include="Resolvers\LayoutPersistence.cs" />
     <Compile Include="Serialization\FieldsJsonConverter.cs" />
+    <Compile Include="Templates\Template.cs" />
     <Compile Include="Trees\FormulateTreeController.cs" />
     <Compile Include="Trees\Helpers\DataValueHelper.cs" />
     <Compile Include="Trees\Helpers\FolderHelper.cs" />

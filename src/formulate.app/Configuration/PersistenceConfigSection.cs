@@ -6,7 +6,7 @@
 
 
     /// <summary>
-    /// A persistence configuration section.
+    /// A configuration section for Formulate persistence.
     /// </summary>
     public class PersistenceConfigSection : ConfigurationSection
     {

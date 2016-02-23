@@ -3,6 +3,7 @@
   <configSections>
     <sectionGroup name="formulateConfiguration" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing">
       <section name="persistence" type="formulate.app.Configuration.PersistenceConfigSection, formulate.app" requirePermission="false" />
+      <section name="templates" type="formulate.app.Configuration.TemplatesConfigSection, formulate.app" requirePermission="false"/>
     </sectionGroup>
   </configSections>
 
@@ -13,11 +14,13 @@
   <!-- Add new element after Umbraco configuration. -->
   <formulateConfiguration xdt:Transform="InsertAfter(/configuration/umbracoConfiguration)">
     <persistence configSource="config\Formulate\persistence.config" />
+    <templates configSource="config\Formulate\templates.config"/>
   </formulateConfiguration>
 
   <!-- If the element couldn't be added, add it now. -->
   <formulateConfiguration xdt:Transform="InsertIfMissing">
     <persistence configSource="config\Formulate\persistence.config" />
+    <templates configSource="config\Formulate\templates.config"/>
   </formulateConfiguration>
 
 </configuration>
