@@ -39,6 +39,7 @@
         private LayoutHelper LayoutHelper { get; set; }
         private ValidationHelper ValidationHelper { get; set; }
         private DataValueHelper DataValueHelper { get; set; }
+        private ConfiguredFormHelper ConfiguredFormHelper { get; set; }
 
 
         public FormulateTreeController()
@@ -49,6 +50,7 @@
             LayoutHelper = new LayoutHelper(this, FolderHelper);
             ValidationHelper = new ValidationHelper(this, FolderHelper);
             DataValueHelper = new DataValueHelper(this, FolderHelper);
+            ConfiguredFormHelper = new ConfiguredFormHelper(this);
         }
 
         protected override MenuItemCollection GetMenuForNode(string id,
@@ -114,6 +116,11 @@
                 {
                     FormHelper.AddDeleteFormAction(menu);
                     FormHelper.AddMoveFormAction(menu, entity as Form);
+                    ConfiguredFormHelper.AddCreateConfiguredFormAction(menu, entityId);
+                }
+                else if (entity is ConfiguredForm)
+                {
+                    ConfiguredFormHelper.AddDeleteAction(menu);
                 }
                 else if (entity is Layout)
                 {
@@ -287,6 +294,11 @@
                             queryStrings, children);
                     }
 
+                }
+                else if (entity is Form)
+                {
+                    ConfiguredFormHelper.AddConfiguredFormChildrenToTree(nodes,
+                        queryStrings, children);
                 }
 
             }

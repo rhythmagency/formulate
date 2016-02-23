@@ -44,6 +44,12 @@
             FormPersistence.Current = new FormPersistence(formPersistence);
 
 
+            // Initialize configured form persistence resolver.
+            var conFormPersistence = new JsonConfiguredFormPersistence();
+            ConfiguredFormPersistence.Current =
+                new ConfiguredFormPersistence(conFormPersistence);
+
+
             // Initialize layout persistence resolver.
             var layoutPersistence = new JsonLayoutPersistence();
             LayoutPersistence.Current =

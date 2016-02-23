@@ -283,6 +283,7 @@
     <Compile Include="Constants\Trees\DataSources.cs" />
     <Compile Include="Constants\Trees\DataValues.cs" />
     <Compile Include="Constants\Trees\Forms.cs" />
+    <Compile Include="Constants\Trees\ConfiguredForms.cs" />
     <Compile Include="Constants\Trees\Layouts.cs" />
     <Compile Include="Constants\Trees\Validations.cs" />
     <Compile Include="Constants\Layouts\LayoutBasic.cs" />
@@ -292,6 +293,7 @@
     <Compile Include="Controllers\FoldersController.cs" />
     <Compile Include="Controllers\EntitiesController.cs" />
     <Compile Include="Controllers\FormsController.cs" />
+    <Compile Include="Controllers\ConfiguredFormsController.cs" />
     <Compile Include="Controllers\ValidationsController.cs" />
     <Compile Include="Controllers\LayoutsController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
@@ -302,6 +304,7 @@
     <Compile Include="Entities\EntityRoot.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Folders\Folder.cs" />
+    <Compile Include="Forms\ConfiguredForm.cs" />
     <Compile Include="Forms\Fields\CheckboxField.cs" />
     <Compile Include="Forms\Fields\DropDownField.cs" />
     <Compile Include="Forms\Fields\TextField.cs" />
@@ -330,12 +333,14 @@
     <Compile Include="Models\Parameters\FieldInfo.cs" />
     <Compile Include="Models\Requests\DeleteDataValueRequest.cs" />
     <Compile Include="Models\Requests\DeleteFolderRequest.cs" />
+    <Compile Include="Models\Requests\DeleteConfiguredFormRequest.cs" />
     <Compile Include="Models\Requests\DeleteValidationRequest.cs" />
     <Compile Include="Models\Requests\GetDataValuesInfoRequest.cs" />
     <Compile Include="Models\Requests\GetEntityRequest.cs" />
     <Compile Include="Models\Requests\GetEntityChildrenRequest.cs" />
     <Compile Include="Models\Requests\GetDataValueInfoRequest.cs" />
     <Compile Include="Models\Requests\GetFolderInfoRequest.cs" />
+    <Compile Include="Models\Requests\GetConfiguredFormInfoRequest.cs" />
     <Compile Include="Models\Requests\GetValidationsInfoRequest.cs" />
     <Compile Include="Models\Requests\GetValidationInfoRequest.cs" />
     <Compile Include="Models\Requests\MoveDataValueRequest.cs" />
@@ -345,6 +350,7 @@
     <Compile Include="Models\Requests\MoveValidationRequest.cs" />
     <Compile Include="Models\Requests\PersistFolderRequest.cs" />
     <Compile Include="Models\Requests\PersistDataValueRequest.cs" />
+    <Compile Include="Models\Requests\PersistConfiguredFormRequest.cs" />
     <Compile Include="Models\Requests\PersistValidationRequest.cs" />
     <Compile Include="Models\Requests\PersistLayoutRequest.cs" />
     <Compile Include="Models\Requests\DeleteFormRequest.cs" />
@@ -355,7 +361,9 @@
     <Compile Include="Persistence\IDataValuePersistence.cs" />
     <Compile Include="Persistence\IEntityPersistence.cs" />
     <Compile Include="Persistence\IFolderPersistence.cs" />
+    <Compile Include="Persistence\IConfiguredFormPersistence.cs" />
     <Compile Include="Persistence\Internal\JsonDataValuePersistence.cs" />
+    <Compile Include="Persistence\Internal\JsonConfiguredFormPersistence.cs" />
     <Compile Include="Persistence\Internal\JsonValidationPersistence.cs" />
     <Compile Include="Persistence\IValidationPersistence.cs" />
     <Compile Include="Persistence\ILayoutPersistence.cs" />
@@ -376,6 +384,7 @@
     <Compile Include="Resolvers\EntityPersistence.cs" />
     <Compile Include="Resolvers\FolderPersistence.cs" />
     <Compile Include="Resolvers\FormPersistence.cs" />
+    <Compile Include="Resolvers\ConfiguredFormPersistence.cs" />
     <Compile Include="Resolvers\ValidationPersistence.cs" />
     <Compile Include="Resolvers\LayoutPersistence.cs" />
     <Compile Include="Serialization\FieldsJsonConverter.cs" />
@@ -384,6 +393,7 @@
     <Compile Include="Trees\Helpers\DataValueHelper.cs" />
     <Compile Include="Trees\Helpers\FolderHelper.cs" />
     <Compile Include="Trees\Helpers\FormHelper.cs" />
+    <Compile Include="Trees\Helpers\ConfiguredFormHelper.cs" />
     <Compile Include="Trees\Helpers\ValidationHelper.cs" />
     <Compile Include="Trees\Helpers\LayoutHelper.cs" />
     <Compile Include="Validations\IValidationKind.cs" />

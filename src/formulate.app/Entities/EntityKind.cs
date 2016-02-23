@@ -9,6 +9,7 @@
         Root,
         Folder,
         Form,
+        ConfiguredForm,
         Layout,
         Validation,
         DataValue

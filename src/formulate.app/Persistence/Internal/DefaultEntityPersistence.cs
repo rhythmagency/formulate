@@ -43,6 +43,18 @@
 
 
         /// <summary>
+        /// Configured form persistence.
+        /// </summary>
+        private IConfiguredFormPersistence ConfiguredForms
+        {
+            get
+            {
+                return ConfiguredFormPersistence.Current.Manager;
+            }
+        }
+
+
+        /// <summary>
         /// Layout persistence.
         /// </summary>
         private ILayoutPersistence Layouts
@@ -121,6 +133,7 @@
                 // Specific entities (e.g., forms or layouts).
                 return Folders.Retrieve(entityId) as IEntity
                     ?? Forms.Retrieve(entityId) as IEntity
+                    ?? ConfiguredForms.Retrieve(entityId) as IEntity
                     ?? Layouts.Retrieve(entityId) as IEntity
                     ?? Validations.Retrieve(entityId) as IEntity
                     ?? DataValues.Retrieve(entityId) as IEntity;
@@ -145,6 +158,10 @@
             var children = new List<IEntity>();
             children.AddRange(Folders.RetrieveChildren(parentId));
             children.AddRange(Forms.RetrieveChildren(parentId));
+            if (parentId.HasValue)
+            {
+                children.AddRange(ConfiguredForms.RetrieveChildren(parentId.Value));
+            }
             children.AddRange(Layouts.RetrieveChildren(parentId));
             children.AddRange(Validations.RetrieveChildren(parentId));
             children.AddRange(DataValues.RetrieveChildren(parentId));
@@ -167,6 +184,7 @@
             descendants.AddRange(folders);
             descendants.AddRange(folderDescendants);
             descendants.AddRange(Forms.RetrieveChildren(parentId));
+            descendants.AddRange(ConfiguredForms.RetrieveChildren(parentId));
             descendants.AddRange(Layouts.RetrieveChildren(parentId));
             descendants.AddRange(Validations.RetrieveChildren(parentId));
             descendants.AddRange(DataValues.RetrieveChildren(parentId));

@@ -31,7 +31,7 @@
         /// <returns>The key.</returns>
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return (element as TemplateElement).Name;
+            return (element as TemplateElement).Id;
         }
 
         #endregion

@@ -14,6 +14,7 @@
         #region Constants
 
         private const string DefaultPath = "~/*Replace Me*.cshtml";
+        private const string DefaultId = "00000000000000000000000000000000";
 
         #endregion
 
@@ -55,6 +56,25 @@
             set
             {
                 base["path"] = value;
+            }
+        }
+
+
+        /// <summary>
+        /// The ID of this template.
+        /// </summary>
+        [ConfigurationProperty("id", IsRequired = true, DefaultValue = DefaultId)]
+        [RegexStringValidator(@"^[0-9a-fA-F]{32}$")]
+        public string Id
+        {
+            get
+            {
+                var result = base["id"] as string;
+                return result == DefaultId ? null : result;
+            }
+            set
+            {
+                base["id"] = value;
             }
         }
 

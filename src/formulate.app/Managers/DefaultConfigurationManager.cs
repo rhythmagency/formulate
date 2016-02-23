@@ -3,6 +3,7 @@
 
     // Namespaces.
     using Configuration;
+    using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
@@ -46,7 +47,8 @@
                 return templateItems.Cast<TemplateElement>().Select(x => new Template()
                 {
                     Name = x.Name,
-                    Path = x.Path
+                    Path = x.Path,
+                    Id = Guid.Parse(x.Id)
                 }).ToArray();
             }
         }

@@ -291,6 +291,9 @@
                 var formId = GuidHelper.GetGuid(request.FormId);
 
 
+                //TODO: Delete configured forms too.
+
+
                 // Delete the form.
                 Persistence.Delete(formId);
 
@@ -358,6 +361,9 @@
                 // Get form and update path.
                 var form = Persistence.Retrieve(formId);
                 form.Path = path;
+
+
+                //TODO: Move configured forms too.
 
 
                 // Persist form.
