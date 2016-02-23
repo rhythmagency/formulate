@@ -32,7 +32,7 @@
             }
             set
             {
-                this["name"] = value;
+                base["name"] = value;
             }
         }
 
@@ -54,7 +54,7 @@
             }
             set
             {
-                this["path"] = value;
+                base["path"] = value;
             }
         }
 

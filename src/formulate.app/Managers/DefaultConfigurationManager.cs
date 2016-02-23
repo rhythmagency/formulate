@@ -47,7 +47,7 @@
                 {
                     Name = x.Name,
                     Path = x.Path
-                });
+                }).ToArray();
             }
         }
 
