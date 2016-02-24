@@ -17,7 +17,7 @@ function directive(formulateDirectives) {
 
 // Controller.
 function controller($scope, $routeParams, $route, formulateTrees,
-    formulateConfiguredForms) {
+    formulateConfiguredForms, $location) {
 
     // Variables.
     var id = $routeParams.id;
@@ -28,12 +28,12 @@ function controller($scope, $routeParams, $route, formulateTrees,
         formulateTrees: formulateTrees,
         formulateConfiguredForms: formulateConfiguredForms,
         $scope: $scope,
-        $route: $route
+        $route: $route,
+        $location: $location
     };
 
     // Set scope variables.
     $scope.isNew = isNew;
-    $scope.conFormId = id;
     $scope.info = {
         conFormName: null,
         tabs: [
@@ -47,6 +47,9 @@ function controller($scope, $routeParams, $route, formulateTrees,
     };
     $scope.parentId = null;
     $scope.data = null;
+    if (!isNew) {
+        $scope.conFormId = id;
+    }
     if (hasParent) {
         $scope.parentId = parentId;
     }
@@ -109,10 +112,13 @@ function getSaveConfiguredForm(services) {
                 var isNew = $scope.isNew;
                 $scope.isNew = false;
 
+                // Prevent "discard" notification.
+                $scope.formulateConfiguredFormDesigner.$dirty = false;
+
                 // Redirect or reload page.
                 if (isNew) {
                     var url = "/formulate/formulate/editConfiguredForm/"
-                        + responseData.conFormId;
+                        + responseData.id;
                     services.$location.url(url);
                 } else {
 

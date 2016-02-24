@@ -7,8 +7,10 @@
     using Folders;
     using Forms;
     using formulate.app.Helpers;
+    using Persistence;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net.Http.Formatting;
     using Umbraco.Web.Models.Trees;
     using Umbraco.Web.Trees;
@@ -22,6 +24,12 @@
     {
 
         #region Properties
+
+        /// <summary>
+        /// The entity persistence.
+        /// </summary>
+        private IEntityPersistence Persistence { get; set; }
+
 
         /// <summary>
         /// The tree controller.
@@ -42,14 +50,18 @@
         /// <summary>
         /// Primary constructor.
         /// </summary>
+        /// <param name="persistence">
+        /// The entity persistence.
+        /// </param>
         /// <param name="tree">
         /// The tree controller.
         /// </param>
         /// <param name="helper">
         /// The folder helper.
         /// </param>
-        public FormHelper(TreeController tree, FolderHelper helper)
+        public FormHelper(IEntityPersistence persistence, TreeController tree, FolderHelper helper)
         {
+            Persistence = persistence;
             Tree = tree;
             Helper = helper;
         }
@@ -110,9 +122,11 @@
             var formName = form.Name.Fallback("Unnamed");
             var parentId = form.Path[form.Path.Length - 2];
             var strParentId = GuidHelper.GetString(parentId);
+            var hasChildren = Persistence
+                .RetrieveChildren(form.Id).Any();
             var formNode = Tree.CreateTreeNode(formId,
                 strParentId, queryStrings,
-                formName, FormConstants.ItemIcon, false, formRoute);
+                formName, FormConstants.ItemIcon, hasChildren, formRoute);
             nodes.Add(formNode);
         }
 

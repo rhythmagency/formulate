@@ -46,7 +46,7 @@
         {
             Persistence = EntityPersistence.Current.Manager;
             FolderHelper = new FolderHelper(Persistence, this);
-            FormHelper = new FormHelper(this, FolderHelper);
+            FormHelper = new FormHelper(Persistence, this, FolderHelper);
             LayoutHelper = new LayoutHelper(this, FolderHelper);
             ValidationHelper = new ValidationHelper(this, FolderHelper);
             DataValueHelper = new DataValueHelper(this, FolderHelper);
