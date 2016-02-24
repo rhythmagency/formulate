@@ -2,12 +2,17 @@
 {
 
     // Namespaces.
+    using DataValues;
     using Entities;
+    using Folders;
+    using Forms;
     using Helpers;
+    using Layouts;
     using Resolvers;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Validations;
 
 
     /// <summary>
@@ -189,6 +194,97 @@
             descendants.AddRange(Validations.RetrieveChildren(parentId));
             descendants.AddRange(DataValues.RetrieveChildren(parentId));
             return descendants;
+        }
+
+
+        /// <summary>
+        /// Moves the specified entity under the parent at the specified path.
+        /// </summary>
+        /// <param name="entity">
+        /// The entity to move.
+        /// </param>
+        /// <param name="parentPath">
+        /// The path to the new parent.
+        /// </param>
+        /// <returns>
+        /// The new path.
+        /// </returns>
+        public Guid[] MoveEntity(IEntity entity, Guid[] parentPath)
+        {
+
+            // Update path.
+            var path = parentPath.Concat(new[] { entity.Id }).ToArray();
+            entity.Path = path;
+
+
+            // Persist entity based on the entity type.
+            if (entity is Form)
+            {
+                Forms.Persist(entity as Form);
+            }
+            else if (entity is Layout)
+            {
+                Layouts.Persist(entity as Layout);
+            }
+            else if (entity is Validation)
+            {
+                Validations.Persist(entity as Validation);
+            }
+            else if (entity is DataValue)
+            {
+                DataValues.Persist(entity as DataValue);
+            }
+            else if (entity is Folder)
+            {
+                Folders.Persist(entity as Folder);
+            }
+            else if (entity is ConfiguredForm)
+            {
+                ConfiguredForms.Persist(entity as ConfiguredForm);
+            }
+
+
+            // Return new path.
+            return path;
+
+        }
+
+
+        /// <summary>
+        /// Deletes the specified entity.
+        /// </summary>
+        /// <param name="entity">
+        /// The entity to delete.
+        /// </param>
+        public void DeleteEntity(IEntity entity)
+        {
+
+            // Delete entity based on the entity type.
+            if (entity is Form)
+            {
+                Forms.Delete(entity.Id);
+            }
+            else if (entity is Layout)
+            {
+                Layouts.Delete(entity.Id);
+            }
+            else if (entity is Validation)
+            {
+                Validations.Delete(entity.Id);
+            }
+            else if (entity is DataValue)
+            {
+                DataValues.Delete(entity.Id);
+            }
+            else if (entity is Folder)
+            {
+                Folders.Delete(entity.Id);
+            }
+            else if (entity is ConfiguredForm)
+            {
+                ConfiguredForms.Delete(entity.Id);
+            }
+
         }
 
         #endregion

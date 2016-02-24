@@ -45,6 +45,7 @@
         private IFormPersistence Persistence { get; set; }
         private IEntityPersistence Entities { get; set; }
         private IValidationPersistence Validations { get; set; }
+        private IConfiguredFormPersistence ConFormPersistence { get; set; }
 
         #endregion
 
@@ -70,6 +71,7 @@
             Persistence = FormPersistence.Current.Manager;
             Entities = EntityPersistence.Current.Manager;
             Validations = ValidationPersistence.Current.Manager;
+            ConFormPersistence = ConfiguredFormPersistence.Current.Manager;
         }
 
         #endregion
@@ -289,12 +291,11 @@
 
                 // Variables.
                 var formId = GuidHelper.GetGuid(request.FormId);
+                var configs = ConFormPersistence.RetrieveChildren(formId);
 
 
-                //TODO: Delete configured forms too.
-
-
-                // Delete the form.
+                // Delete the form and its configurations.
+                configs.ForEach(x => ConFormPersistence.Delete(x.Id));
                 Persistence.Delete(formId);
 
 
@@ -349,31 +350,41 @@
             try
             {
 
-                // Parse the form ID.
-                var formId = GuidHelper.GetGuid(request.FormId);
-
-
-                // Get the ID path.
-                var path = Entities.Retrieve(parentId).Path
-                    .Concat(new[] { formId }).ToArray();
-
-
-                // Get form and update path.
-                var form = Persistence.Retrieve(formId);
-                form.Path = path;
-
-
-                //TODO: Move configured forms too.
-
-
-                // Persist form.
-                Persistence.Persist(form);
+                // Declare list of anonymous type.
+                var savedDescendants = new[]
+                {
+                    new
+                    {
+                        Id = string.Empty,
+                        Path = new string[] { }
+                    }
+                }.Take(0).ToList();
 
 
                 // Variables.
-                var fullPath = new[] { rootId }
-                    .Concat(path.Select(x => GuidHelper.GetString(x)))
-                    .ToArray();
+                var formId = GuidHelper.GetGuid(request.FormId);
+                var form = Persistence.Retrieve(formId);
+                var parentPath = Entities.Retrieve(parentId).Path;
+                var oldFormPath = form.Path;
+                var oldParentPath = oldFormPath.Take(oldFormPath.Length - 1).ToArray();
+                var configs = ConFormPersistence.RetrieveChildren(formId);
+
+
+                // Move form and configurations.
+                var path = EntityHelper.GetClientPath(Entities.MoveEntity(form, parentPath));
+                foreach (var config in configs)
+                {
+                    var descendantParentPath = config.Path.Take(config.Path.Length - 1);
+                    var descendantPathEnd = descendantParentPath.Skip(oldParentPath.Length);
+                    var newParentPath = parentPath.Concat(descendantPathEnd).ToArray();
+                    var clientPath = EntityHelper.GetClientPath(
+                        Entities.MoveEntity(config, newParentPath));
+                    savedDescendants.Add(new
+                    {
+                        Id = GuidHelper.GetString(config.Id),
+                        Path = clientPath
+                    });
+                }
 
 
                 // Success.
@@ -381,7 +392,8 @@
                 {
                     Success = true,
                     Id = GuidHelper.GetString(formId),
-                    Path = fullPath
+                    Path = path,
+                    Descendants = savedDescendants.ToArray()
                 };
 
             }

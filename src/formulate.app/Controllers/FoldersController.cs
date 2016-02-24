@@ -2,12 +2,8 @@
 {
 
     // Namespaces.
-    using DataValues;
-    using Entities;
     using Folders;
-    using Forms;
     using Helpers;
-    using Layouts;
     using Models.Requests;
     using Persistence;
     using Resolvers;
@@ -20,7 +16,6 @@
     using Umbraco.Web.Editors;
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
-    using Validations;
     using CoreConstants = Umbraco.Core.Constants;
 
 
@@ -48,10 +43,6 @@
 
         private IFolderPersistence Persistence { get; set; }
         private IEntityPersistence Entities { get; set; }
-        private IFormPersistence MyFormPersistence { get; set; }
-        private IDataValuePersistence MyDataValuePersistence { get; set; }
-        private IValidationPersistence MyValidationPersistence { get; set; }
-        private ILayoutPersistence MyLayoutPersistence { get; set; }
 
         #endregion
 
@@ -76,10 +67,6 @@
         {
             Persistence = FolderPersistence.Current.Manager;
             Entities = EntityPersistence.Current.Manager;
-            MyFormPersistence = FormPersistence.Current.Manager;
-            MyDataValuePersistence = DataValuePersistence.Current.Manager;
-            MyValidationPersistence = ValidationPersistence.Current.Manager;
-            MyLayoutPersistence = LayoutPersistence.Current.Manager;
         }
 
         #endregion
@@ -288,13 +275,14 @@
 
                 // Move folder and descendants.
                 var oldParentPath = oldFolderPath.Take(oldFolderPath.Length - 1).ToArray();
-                var path = MoveEntity(folder, parentPath);
+                var path = EntityHelper.GetClientPath(Entities.MoveEntity(folder, parentPath));
                 foreach (var descendant in descendants)
                 {
                     var descendantParentPath = descendant.Path.Take(descendant.Path.Length - 1);
                     var descendantPathEnd = descendantParentPath.Skip(oldParentPath.Length);
                     var newParentPath = parentPath.Concat(descendantPathEnd).ToArray();
-                    var clientPath = MoveEntity(descendant, newParentPath);
+                    var clientPath = EntityHelper.GetClientPath(
+                        Entities.MoveEntity(descendant, newParentPath));
                     savedDescendants.Add(new
                     {
                         Id = GuidHelper.GetString(descendant.Id),
@@ -367,7 +355,7 @@
                 // Delete the descendants.
                 foreach (var descendant in descendants)
                 {
-                    DeleteEntity(descendant);
+                    Entities.DeleteEntity(descendant);
                 }
 
 
@@ -394,100 +382,6 @@
 
             // Return the result.
             return result;
-
-        }
-
-        #endregion
-
-
-        #region Helper Methods
-
-        /// <summary>
-        /// Moves the specified entity under the parent at the specified path.
-        /// </summary>
-        /// <param name="entity">
-        /// The entity to move.
-        /// </param>
-        /// <param name="parentPath">
-        /// The path to the new parent.
-        /// </param>
-        /// <returns>
-        /// The path that the client code expects.
-        /// </returns>
-        private string[] MoveEntity(IEntity entity, Guid[] parentPath)
-        {
-
-            // Variables.
-            var rootId = CoreConstants.System.Root.ToInvariantString();
-
-
-            // Update path.
-            var path = parentPath.Concat(new[] { entity.Id }).ToArray();
-            entity.Path = path;
-
-
-            // Persist entity based on the entity type.
-            if (entity is Form)
-            {
-                MyFormPersistence.Persist(entity as Form);
-            }
-            else if (entity is Layout)
-            {
-                MyLayoutPersistence.Persist(entity as Layout);
-            }
-            else if (entity is Validation)
-            {
-                MyValidationPersistence.Persist(entity as Validation);
-            }
-            else if (entity is DataValue)
-            {
-                MyDataValuePersistence.Persist(entity as DataValue);
-            }
-            else if (entity is Folder)
-            {
-                Persistence.Persist(entity as Folder);
-            }
-
-
-            // Get the path to return to the client side.
-            var clientPath = new[] { rootId }
-                .Concat(path.Select(x => GuidHelper.GetString(x)))
-                .ToArray();
-            return clientPath;
-
-        }
-
-
-        /// <summary>
-        /// Deletes the specified entity.
-        /// </summary>
-        /// <param name="entity">
-        /// The entity to delete.
-        /// </param>
-        private void DeleteEntity(IEntity entity)
-        {
-
-            // Delete entity based on the entity type.
-            if (entity is Form)
-            {
-                MyFormPersistence.Delete(entity.Id);
-            }
-            else if (entity is Layout)
-            {
-                MyLayoutPersistence.Delete(entity.Id);
-            }
-            else if (entity is Validation)
-            {
-                MyValidationPersistence.Delete(entity.Id);
-            }
-            else if (entity is DataValue)
-            {
-                MyDataValuePersistence.Delete(entity.Id);
-            }
-            else if (entity is Folder)
-            {
-                Persistence.Delete(entity.Id);
-            }
 
         }
 

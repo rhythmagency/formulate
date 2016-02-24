@@ -15,6 +15,8 @@
         IEntity Retrieve(Guid formId);
         IEnumerable<IEntity> RetrieveChildren(Guid? parentId);
         IEnumerable<IEntity> RetrieveDescendants(Guid parentId);
+        Guid[] MoveEntity(IEntity entity, Guid[] parentPath);
+        void DeleteEntity(IEntity entity);
     }
 
 }

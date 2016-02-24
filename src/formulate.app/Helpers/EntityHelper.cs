@@ -4,6 +4,9 @@
     // Namespaces.
     using Entities;
     using System;
+    using System.Linq;
+    using Umbraco.Core;
+    using CoreConstants = Umbraco.Core.Constants;
     using DataSourceConstants = formulate.app.Constants.Trees.DataSources;
     using DataValueConstants = formulate.app.Constants.Trees.DataValues;
     using FormConstants = formulate.app.Constants.Trees.Forms;
@@ -192,6 +195,29 @@
         public static string GetString(EntityKind kind)
         {
             return Enum.GetName(typeof(EntityKind), kind);
+        }
+
+
+        /// <summary>
+        /// Converts a server-side entity path to a client-side entity path.
+        /// </summary>
+        /// <param name="path">
+        /// The server-side entity path.
+        /// </param>
+        /// <returns>
+        /// The client-side entity path.
+        /// </returns>
+        /// <remarks>
+        /// The client-side entity path expects an extra root ID of "-1",
+        /// which this method includes.
+        /// </remarks>
+        public static string[] GetClientPath(Guid[] path)
+        {
+            var rootId = CoreConstants.System.Root.ToInvariantString();
+            var clientPath = new[] { rootId }
+                .Concat(path.Select(x => GuidHelper.GetString(x)))
+                .ToArray();
+            return clientPath;
         }
 
         #endregion
