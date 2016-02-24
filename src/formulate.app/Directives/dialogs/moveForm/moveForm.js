@@ -75,11 +75,18 @@ function getMove(services) {
                 };
                 services.navigationService.syncTree(options);
 
-                // Send notification that form was moved.
+                // Send notifications that form and descendants were moved.
                 services.$rootScope.$broadcast("formulateEntityMoved", {
                     id: data.id,
                     path: data.path
                 });
+                for (var i = 0; i < data.descendants.length; i++) {
+                    var entity = data.descendants[i];
+                    services.$rootScope.$broadcast("formulateEntityMoved", {
+                        id: entity.id,
+                        path: entity.path
+                    });
+                }
 
                 // Close dialog.
                 services.navigationService.hideDialog();

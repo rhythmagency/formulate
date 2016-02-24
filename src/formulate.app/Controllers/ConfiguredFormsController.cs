@@ -112,7 +112,7 @@
                 {
                     Id = conFormId,
                     Path = path,
-                    Name = request.ConFormName,
+                    Name = request.Name,
                     TemplateId = GuidHelper.GetGuid(request.TemplateId),
                     LayoutId = GuidHelper.GetGuid(request.LayoutId)
                 };
