@@ -160,6 +160,9 @@
                 { "GetFieldTypes",
                     helper.GetUmbracoApiService<FieldsController>(x =>
                         x.GetFieldTypes()) },
+                { "GetTemplates",
+                    helper.GetUmbracoApiService<TemplatesController>(x =>
+                        x.GetTemplates()) },
                 { "PermitAccess",
                     helper.GetUmbracoApiService<SetupController>(x =>
                         x.PermitAccessToFormulate()) },

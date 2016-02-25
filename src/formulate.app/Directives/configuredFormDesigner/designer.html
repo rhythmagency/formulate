@@ -17,10 +17,19 @@
                 <!-- Configured form designer. -->
                 <div class="umb-pane">
 
-                    <p>TODO: ...</p>
+                    <!-- Introduction. -->
+                    <p>
+                        A configured form is just a form with a layout and template selected.
+                        To configure this form, select a template and layout below.
+                    </p>
+
+                    <!-- Template. -->
+                    <select ng-options="option.id as option.name for option in template.templates" ng-model="template.id">
+                        <option value="">Select a Template</option>
+                    </select>
 
                     <!-- Button. -->
-                    <div class="btn-group">
+                    <div>
                         <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
                     </div>
 

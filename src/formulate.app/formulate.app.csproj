@@ -294,6 +294,7 @@
     <Compile Include="Controllers\EntitiesController.cs" />
     <Compile Include="Controllers\FormsController.cs" />
     <Compile Include="Controllers\ConfiguredFormsController.cs" />
+    <Compile Include="Controllers\TemplatesController.cs" />
     <Compile Include="Controllers\ValidationsController.cs" />
     <Compile Include="Controllers\LayoutsController.cs" />
     <Compile Include="Controllers\SetupController.cs" />

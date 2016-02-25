@@ -17,7 +17,7 @@ function directive(formulateDirectives) {
 
 // Controller.
 function controller($scope, $routeParams, $route, formulateTrees,
-    formulateConfiguredForms, $location) {
+    formulateConfiguredForms, $location, formulateTemplates) {
 
     // Variables.
     var id = $routeParams.id;
@@ -27,6 +27,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
     var services = {
         formulateTrees: formulateTrees,
         formulateConfiguredForms: formulateConfiguredForms,
+        formulateTemplates: formulateTemplates,
         $scope: $scope,
         $route: $route,
         $location: $location
@@ -46,7 +47,10 @@ function controller($scope, $routeParams, $route, formulateTrees,
         ]
     };
     $scope.parentId = null;
-    $scope.data = null;
+    $scope.template = {
+        id: null,
+        templates: []
+    };
     if (!isNew) {
         $scope.conFormId = id;
     }
@@ -67,6 +71,21 @@ function controller($scope, $routeParams, $route, formulateTrees,
     // Handle events.
     handleConfiguredFormMoves(services);
 
+    // Populate templates.
+    populateTemplates(services);
+
+}
+
+// Populate the templates.
+function populateTemplates(services) {
+    services.formulateTemplates.getTemplates().then(function (data) {
+        services.$scope.template.templates = data.map(function (item) {
+            return {
+                id: item.id,
+                name: item.name
+            };
+        });
+    });
 }
 
 // Handles updating a configured form when it's moved.
@@ -101,7 +120,7 @@ function getSaveConfiguredForm(services) {
             conFormId: $scope.conFormId,
             name: $scope.info.conFormName,
             layoutId: $scope.layoutId,
-            templateId: $scope.templateId
+            templateId: $scope.template.id
         };
 
         // Persist configured form on server.
@@ -184,7 +203,7 @@ function initializeConfiguredForm(options, services) {
                 $scope.info.conFormName = conForm.name;
                 $scope.conFormPath = conForm.path;
                 $scope.layoutId = conForm.layoutId;
-                $scope.templateId = conForm.layoutId;
+                $scope.template.id = conForm.templateId;
 
                 // The configured form can be saved now.
                 $scope.initialized = true;
