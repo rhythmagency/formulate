@@ -159,7 +159,13 @@ function getMoveForm(services) {
             // Return form info.
             return {
                 id: data.Id,
-                path: data.Path
+                path: data.Path,
+                descendants: data.Descendants.map(function (item) {
+                    return {
+                        id: item.Id,
+                        path: item.Path
+                    };
+                })
             };
 
         });
