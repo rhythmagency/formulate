@@ -113,8 +113,12 @@
                     Id = conFormId,
                     Path = path,
                     Name = request.Name,
-                    TemplateId = GuidHelper.GetGuid(request.TemplateId),
-                    LayoutId = GuidHelper.GetGuid(request.LayoutId)
+                    TemplateId = string.IsNullOrWhiteSpace(request.TemplateId)
+                        ? null as Guid?
+                        : GuidHelper.GetGuid(request.TemplateId),
+                    LayoutId = string.IsNullOrWhiteSpace(request.LayoutId)
+                        ? null as Guid?
+                        : GuidHelper.GetGuid(request.LayoutId)
                 };
 
 
@@ -197,8 +201,12 @@
                     ConFormId = GuidHelper.GetString(configuredForm.Id),
                     Path = fullPath,
                     Name = configuredForm.Name,
-                    LayoutId = GuidHelper.GetString(configuredForm.LayoutId),
-                    TemplateId = GuidHelper.GetString(configuredForm.TemplateId)
+                    LayoutId = configuredForm.LayoutId.HasValue
+                        ? GuidHelper.GetString(configuredForm.LayoutId.Value)
+                        : null,
+                    TemplateId = configuredForm.TemplateId.HasValue
+                        ? GuidHelper.GetString(configuredForm.TemplateId.Value)
+                        : null
                 };
 
             }

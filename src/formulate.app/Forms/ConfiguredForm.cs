@@ -62,13 +62,13 @@
         /// <summary>
         /// The ID of the template.
         /// </summary>
-        public Guid TemplateId { get; set; }
+        public Guid? TemplateId { get; set; }
 
 
         /// <summary>
         /// The ID of the layout.
         /// </summary>
-        public Guid LayoutId { get; set; }
+        public Guid? LayoutId { get; set; }
 
     }
 

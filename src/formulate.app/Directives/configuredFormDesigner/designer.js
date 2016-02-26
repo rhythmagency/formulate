@@ -17,7 +17,8 @@ function directive(formulateDirectives) {
 
 // Controller.
 function controller($scope, $routeParams, $route, formulateTrees,
-    formulateConfiguredForms, $location, formulateTemplates, dialogService) {
+    formulateConfiguredForms, $location, formulateTemplates, dialogService,
+    formulateLayouts) {
 
     // Variables.
     var id = $routeParams.id;
@@ -29,6 +30,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
         formulateConfiguredForms: formulateConfiguredForms,
         formulateTemplates: formulateTemplates,
         dialogService: dialogService,
+        formulateLayouts: formulateLayouts,
         $scope: $scope,
         $route: $route,
         $location: $location
@@ -62,7 +64,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
     // Set scope functions.
     $scope.save = getSaveConfiguredForm(services);
     $scope.canSave = getCanSave(services);
-    $scope.pickForm = getPickForm(services);
+    $scope.pickLayout = getPickLayout(services);
 
     // Initializes configured form.
     initializeConfiguredForm({
@@ -210,6 +212,9 @@ function initializeConfiguredForm(options, services) {
                 // The configured form can be saved now.
                 $scope.initialized = true;
 
+                // Refresh layout info.
+                refreshLayoutInfo(conForm.layoutId, services);
+
             });
     }
 
@@ -235,14 +240,28 @@ function getPickLayout(services) {
                 // If no layout was chosen, unchoose layout.
                 if (!data.length) {
                     $scope.layoutId = null;
+                    $scope.layoutName = null;
                     return;
                 }
 
-                // Update layout.
+                // Store layout.
                 var layoutId = data[0];
                 $scope.layoutId = layoutId;
+
+                // Refresh layout information.
+                refreshLayoutInfo(layoutId, services);
 
             }
         });
     };
+}
+
+// Gets the layout name and sets it on the scope.
+function refreshLayoutInfo(layoutId, services) {
+    if (!layoutId) {
+        return;
+    }
+    services.formulateLayouts.getLayoutInfo(layoutId).then(function (data) {
+        services.$scope.layoutName = data.name;
+    });
 }

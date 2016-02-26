@@ -1,4 +1,4 @@
-﻿<form name="formulateConfiguredFormDesigner" val-form-manager>
+﻿<form name="formulateConfiguredFormDesigner" val-form-manager class="configured-form-designer">
     <umb-panel umb-tabs>
         <umb-header tabs="info.tabs">
             <div class="span7">
@@ -18,22 +18,44 @@
                 <div class="umb-pane">
 
                     <!-- Introduction. -->
-                    <p>
-                        A configured form is just a form with a layout and template selected.
-                        To configure this form, select a template and layout below.
-                    </p>
+                    <div class="row">
+                        <div class="span12">
+                            <p>
+                                A configured form is just a form with a layout and template selected.
+                                To configure this form, select a template and layout below.
+                            </p>
+                        </div>
+                    </div>
 
                     <!-- Template. -->
-                    <select ng-options="option.id as option.name for option in template.templates" ng-model="template.id">
-                        <option value="">Select a Template</option>
-                    </select>
+                    <div class="row">
+                        <div class="span12">
+                            <select ng-options="option.id as option.name for option in template.templates" ng-model="template.id">
+                                <option value="">Select a Template</option>
+                            </select>
+                        </div>
+                    </div>
 
-                    <!-- TODO: Layout. -->
-
+                    <!-- Layout. -->
+                    <div class="row">
+                        <div class="span12">
+                            <div ng-if="layoutId">
+                                <strong>Layout:</strong> {{layoutName}}
+                            </div>
+                            <div ng-if="!layoutId">
+                                Layout not yet chosen.
+                            </div>
+                            <div>
+                                <button class="btn btn-default" ng-click="pickLayout()">Pick Layout</button>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Button. -->
-                    <div>
-                        <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
+                    <div class="row">
+                        <div class="span12">
+                            <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
+                        </div>
                     </div>
 
                 </div>
