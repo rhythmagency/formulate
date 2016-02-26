@@ -17,7 +17,7 @@ function directive(formulateDirectives) {
 
 // Controller.
 function controller($scope, $routeParams, $route, formulateTrees,
-    formulateConfiguredForms, $location, formulateTemplates) {
+    formulateConfiguredForms, $location, formulateTemplates, dialogService) {
 
     // Variables.
     var id = $routeParams.id;
@@ -28,6 +28,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
         formulateTrees: formulateTrees,
         formulateConfiguredForms: formulateConfiguredForms,
         formulateTemplates: formulateTemplates,
+        dialogService: dialogService,
         $scope: $scope,
         $route: $route,
         $location: $location
@@ -61,6 +62,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
     // Set scope functions.
     $scope.save = getSaveConfiguredForm(services);
     $scope.canSave = getCanSave(services);
+    $scope.pickForm = getPickForm(services);
 
     // Initializes configured form.
     initializeConfiguredForm({
@@ -217,5 +219,30 @@ function initializeConfiguredForm(options, services) {
 function getCanSave(services) {
     return function() {
         return services.$scope.initialized;
+    };
+}
+
+// Returns the function that allows the user to pick a form.
+function getPickLayout(services) {
+    var dialogService = services.dialogService;
+    var $scope = services.$scope;
+    return function() {
+        dialogService.open({
+            template: "../App_Plugins/formulate/dialogs/pickLayout.html",
+            show: true,
+            callback: function(data) {
+
+                // If no layout was chosen, unchoose layout.
+                if (!data.length) {
+                    $scope.layoutId = null;
+                    return;
+                }
+
+                // Update layout.
+                var layoutId = data[0];
+                $scope.layoutId = layoutId;
+
+            }
+        });
     };
 }

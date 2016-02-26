@@ -1,0 +1,22 @@
+﻿<div class="umb-panel">
+    <div class="umb-panel-header">
+        <h2>Pick Form</h2>
+    </div>
+    <div class="umb-panel-body with-footer">
+        <formulate-entity-picker
+                max-count="maxCount"
+                include-root="false"
+                entity-kinds="entityKinds"
+                root-id="rootId"
+                selection="selection">
+        </formulate-entity-picker>
+    </div>
+    <div class="umb-panel-footer">
+        <div class="umb-el-wrap umb-panel-buttons">
+            <div class="btn-toolbar umb-btn-toolbar pull-right">
+                <button class="btn link" ng-click="cancel()">Cancel</button>
+                <button class="btn btn-primary" ng-click="select()">Select</button>
+            </div>
+        </div>
+    </div>
+</div>
