@@ -18,7 +18,7 @@
                         <span class="formulate-cell-field-name">{{field.name}}</span>
                     </span>
                     <div>
-                        <button ng-click="deleteRow(rowIndex)" ng-if="$index === 0" class="btn btn-danger">Delete Row</button>
+                        <button type="button" ng-click="deleteRow(rowIndex)" ng-if="$index === 0" class="btn btn-danger">Delete Row</button>
                     </div>
                 </div>
 
@@ -35,11 +35,11 @@
                 id="editRows" />
             Edit rows?
         </label>
-        <button class="btn btn-default" ng-click="pickForm()">Pick Form</button>
+        <button type="button" class="btn btn-default" ng-click="pickForm()">Pick Form</button>
 
         <!-- Add row button. -->
         <div class="btn-group">
-            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                 Add Row
                 <span class="caret"></span>
             </button>
