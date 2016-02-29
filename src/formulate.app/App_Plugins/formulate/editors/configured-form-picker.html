@@ -1,0 +1,11 @@
+<div ng-controller="formulate.editors.configuredFormPicker">
+    <div ng-if="model.value.id">
+        <div>
+            {{formName}}
+        </div>
+        <button type="button" class="btn btn-default" ng-click="pickForm()">Change</button>
+    </div>
+    <div ng-if="!model.value.id">
+        <button type="button" class="btn btn-default" ng-click="pickForm()">Choose</button>
+    </div>
+</div>
