@@ -116,8 +116,12 @@
         /// </returns>
         private static string GetTemplatePath(Guid? templateId)
         {
-            var template = Config.Templates.FirstOrDefault(x => x.Id == templateId.Value);
-            return template?.Path;
+            if (templateId.HasValue)
+            {
+                var template = Config.Templates.FirstOrDefault(x => x.Id == templateId.Value);
+                return template?.Path;
+            }
+            return null;
         }
 
 
