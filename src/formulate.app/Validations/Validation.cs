@@ -3,8 +3,10 @@
 
     // Namespaces.
     using Entities;
+    using Helpers;
     using Newtonsoft.Json;
     using System;
+    using System.Linq;
 
 
     /// <summary>
@@ -75,6 +77,33 @@
         /// The data stored by this validation.
         /// </summary>
         public string Data { get; set; }
+
+
+        /// <summary>
+        /// Deserializes the configuration data into a C# class instance.
+        /// </summary>
+        /// <returns>
+        /// The deserialized configuration data.
+        /// </returns>
+        public object DeserializeConfiguration()
+        {
+            var kind = GetValidationKind();
+            return kind.DeserializeConfiguration(Data);
+        }
+
+
+        /// <summary>
+        /// Returns the validation kind.
+        /// </summary>
+        /// <returns>
+        /// The kind of validation.
+        /// </returns>
+        public IValidationKind GetValidationKind()
+        {
+            var allKinds = ValidationHelper.GetAllValidationKinds();
+            var kind = allKinds.FirstOrDefault(x => x.Id == KindId);
+            return kind;
+        }
 
         #endregion
 

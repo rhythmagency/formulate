@@ -7,5 +7,9 @@
         public string TypeLabel => "Text";
         public string Icon => "icon-document-dashed-line";
         public Guid TypeId => new Guid("1790658086EA440BBC309E1B099F803B");
+        public object DeserializeConfiguration(string configuration)
+        {
+            return null;
+        }
     }
 }

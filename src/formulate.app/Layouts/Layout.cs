@@ -3,8 +3,10 @@
 
     // Namespaces.
     using Entities;
+    using Helpers;
     using Newtonsoft.Json;
     using System;
+    using System.Linq;
 
 
     /// <summary>
@@ -78,6 +80,36 @@
         /// The data stored by this layout.
         /// </summary>
         public string Data { get; set; }
+
+
+        /// <summary>
+        /// Deserializes the layout configuration.
+        /// </summary>
+        /// <param name="configuration">
+        /// The serialized layout configuration.
+        /// </param>
+        /// <returns>
+        /// The deserialized configuration.
+        /// </returns>
+        public object DeserializeConfiguration()
+        {
+            var kind = GetLayoutKind();
+            return kind.DeserializeConfiguration(Data);
+        }
+
+
+        /// <summary>
+        /// Gets the layout kind.
+        /// </summary>
+        /// <returns>
+        /// The layout kind.
+        /// </returns>
+        public ILayoutKind GetLayoutKind()
+        {
+            var allKinds = LayoutHelper.GetAllLayoutKinds();
+            var kind = allKinds.FirstOrDefault(x => x.Id == KindId);
+            return kind;
+        }
 
         #endregion
 

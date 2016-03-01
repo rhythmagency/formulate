@@ -50,6 +50,22 @@
             }
         }
 
+
+        /// <summary>
+        /// Deserializes the validation configuration.
+        /// </summary>
+        /// <param name="configuration">
+        /// The serialized validation configuration.
+        /// </param>
+        /// <returns>
+        /// The deserialized configuration.
+        /// </returns>
+        public object DeserializeConfiguration(string configuration)
+        {
+            //TODO: ...
+            return null;
+        }
+
         #endregion
 
     }

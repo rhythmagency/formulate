@@ -196,7 +196,7 @@
                 var fullPath = new[] { rootId }
                     .Concat(validation.Path.Select(x => GuidHelper.GetString(x)))
                     .ToArray();
-                var kinds = GetAllValidationKinds();
+                var kinds = ValidationHelper.GetAllValidationKinds();
                 var directive = kinds.Where(x => x.Id == validation.KindId)
                     .Select(x => x.Directive).FirstOrDefault();
 
@@ -263,7 +263,7 @@
                 // Variables.
                 var ids = request.ValidationIds
                     .Select(x => GuidHelper.GetGuid(x)).ToList();
-                var kinds = GetAllValidationKinds();
+                var kinds = ValidationHelper.GetAllValidationKinds();
 
 
                 // Get information about each validation.
@@ -410,7 +410,7 @@
             {
 
                 // Variables.
-                var kinds = GetAllValidationKinds();
+                var kinds = ValidationHelper.GetAllValidationKinds();
 
 
                 // Return results.
@@ -520,21 +520,6 @@
             // Return result.
             return result;
 
-        }
-
-        #endregion
-
-
-        #region Helper Methods
-
-        /// <summary>
-        /// Returns the validation kinds.
-        /// </summary>
-        private IValidationKind[] GetAllValidationKinds()
-        {
-            var instances = ReflectionHelper
-                .InstantiateInterfaceImplementations<IValidationKind>();
-            return instances;
         }
 
         #endregion

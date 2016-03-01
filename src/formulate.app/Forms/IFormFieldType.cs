@@ -7,5 +7,6 @@
         string TypeLabel { get; }
         string Icon { get; }
         Guid TypeId { get; }
+        object DeserializeConfiguration(string configuration);
     }
 }

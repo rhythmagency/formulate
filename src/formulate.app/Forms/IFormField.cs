@@ -22,6 +22,7 @@
         string GetDirective();
         string GetTypeLabel();
         Type GetFieldType();
+        object DeserializeConfiguration();
     }
 
 }

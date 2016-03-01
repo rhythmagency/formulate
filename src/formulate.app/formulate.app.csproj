@@ -323,7 +323,9 @@
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\GuidHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
+    <Compile Include="Helpers\LayoutHelper.cs" />
     <Compile Include="Helpers\ReflectionHelper.cs" />
+    <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Install\Package_Actions\GrantPermissionToSection.cs" />
     <Compile Include="Install\Package_Actions\TransformXmlFile.cs" />

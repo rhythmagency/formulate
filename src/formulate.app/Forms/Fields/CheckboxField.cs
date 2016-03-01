@@ -7,5 +7,9 @@
         public string TypeLabel => "Checkbox";
         public string Icon => "icon-checkbox-dotted";
         public Guid TypeId => new Guid("99C1A656C7A644ACA787C18593327310");
+        public object DeserializeConfiguration(string configuration)
+        {
+            return null;
+        }
     }
 }

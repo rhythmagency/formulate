@@ -52,6 +52,26 @@
 
         #endregion
 
+
+        #region Methods
+
+        /// <summary>
+        /// Deserializes the layout.
+        /// </summary>
+        /// <param name="configuration">
+        /// The serialized layout data.
+        /// </param>
+        /// <returns>
+        /// The deserialized layout.
+        /// </returns>
+        public object DeserializeConfiguration(string configuration)
+        {
+            //TODO: ...
+            return null;
+        }
+
+        #endregion
+
     }
 
 }

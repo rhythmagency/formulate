@@ -104,6 +104,19 @@
 
 
         /// <summary>
+        /// Deserializes the field configuration into a .NET object instance.
+        /// </summary>
+        /// <returns>
+        /// The deserialized field configuration.
+        /// </returns>
+        public object DeserializeConfiguration()
+        {
+            var instance = new T();
+            return instance.DeserializeConfiguration(FieldConfiguration);
+        }
+
+
+        /// <summary>
         /// The ID of the field type.
         /// </summary>
         public Guid TypeId

@@ -3,6 +3,7 @@ module.exports = function(grunt) {
     // Config variables.
     var projectName = "formulate";
     var binaries = [].concat.apply([], [
+        "api",
         "app",
         "core",
         "meta"
