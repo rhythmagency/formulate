@@ -41,4 +41,4 @@ Each project is built into an assembly, and each assembly has a different purpos
 * **formulate.app**: This is the main core of Formulate. It contains all of the functionality necessary for the back office to work.
 * **formulate.core**: This contains some basic functionality shared by all of the assemblies.
 * **formulate.meta**: This contains information about Formulate (e.g., version number). Used primarily during the build process.
-* **Website**: This is a sample website for developers who wish to contribute to the Formualte codebase. It is not part of the packaged releases.
+* **Website**: This is a sample website for developers who wish to contribute to the Formualte codebase. The binary is not part of the packaged releases, though a few of the files it contains are (e.g., some CSHTML, config, and XDT files).

@@ -382,9 +382,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\formulate.api\formulate.api.csproj">
+      <Project>{c9adac83-27ba-47bc-8edc-09045f2192c3}</Project>
+      <Name>formulate.api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\formulate.app\formulate.app.csproj">
       <Project>{c1294ac3-8a67-49d1-bec1-f88e82be152c}</Project>
       <Name>formulate.app</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\formulate.core\formulate.core.csproj">
+      <Project>{80f40f16-829d-430f-b325-0b5246fe4ac2}</Project>
+      <Name>formulate.core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -489,6 +497,9 @@
     <Content Include="Config\Formulate\templates.config">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partials\Formulate\RenderForm.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

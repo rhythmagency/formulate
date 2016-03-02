@@ -43,7 +43,8 @@ frontendDocs/
 **/Website/App_Data/packages/
 **/Website/media/
 **/Website/App_Plugins/
-**/Website/Views/
+**/Website/Views/*
+**/Website/Views/Partials/*
 **/Website/scripts/
 **/Website/js/
 **/Website/css/
@@ -59,3 +60,7 @@ applications.config
 ClientDependency.config
 Dashboard.config
 trees.config
+
+# Allow some views.
+!**/Website/Views/Partials/
+!**/Website/Views/Partials/Formulate/

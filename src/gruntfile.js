@@ -153,7 +153,8 @@ module.exports = function(grunt) {
                         expand: true,
                         src: [
                             "Config/Formulate/*.config",
-                            "Transforms/Formulate/*.xdt"
+                            "Transforms/Formulate/*.xdt",
+                            "Views/Partials/Formulate/**"
                         ],
                         dest: './FormulateTemp/package/',
                         cwd: "Website/"

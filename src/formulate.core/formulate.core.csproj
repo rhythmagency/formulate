@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,9 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Settings.cs" />
+    <Compile Include="Exceptions\ViewNotFoundException.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\FileUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\formulate.meta\formulate.meta.csproj">
