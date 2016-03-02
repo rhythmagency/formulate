@@ -8,6 +8,13 @@
     var layout = Model.LayoutDefinition.Configuration as LayoutBasicConfiguration;
 
 
+    // This view can only render basic layouts.
+    if (layout == null)
+    {
+        return;
+    }
+
+
     // Structure fields as an anonymous object suitable for serialization to JSON.
     var fieldsData = fields.Select(x => new
     {
