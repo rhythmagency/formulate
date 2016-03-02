@@ -81,6 +81,22 @@
         /// </summary>
         public string Data { get; set; }
 
+        #endregion
+
+
+        #region Constructors
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public Layout()
+        {
+        }
+
+        #endregion
+
+
+        #region Methods
 
         /// <summary>
         /// Deserializes the layout configuration.
@@ -109,18 +125,6 @@
             var allKinds = LayoutHelper.GetAllLayoutKinds();
             var kind = allKinds.FirstOrDefault(x => x.Id == KindId);
             return kind;
-        }
-
-        #endregion
-
-
-        #region Constructors
-
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public Layout()
-        {
         }
 
         #endregion

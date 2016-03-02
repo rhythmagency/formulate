@@ -252,19 +252,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\FormViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering.cs" />
     <Compile Include="Submissions.cs" />
-    <Compile Include="Types\FieldDefinition.cs" />
-    <Compile Include="Types\FormDefinition.cs" />
-    <Compile Include="Types\LayoutDefinition.cs" />
-    <Compile Include="Types\ValidationDefinition.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\formulate.app\formulate.app.csproj">
       <Project>{c1294ac3-8a67-49d1-bec1-f88e82be152c}</Project>
       <Name>formulate.app</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\formulate.core\formulate.core.csproj">
+      <Project>{80f40f16-829d-430f-b325-0b5246fe4ac2}</Project>
+      <Name>formulate.core</Name>
     </ProjectReference>
     <ProjectReference Include="..\formulate.meta\formulate.meta.csproj">
       <Project>{0a354b54-f772-4877-8bea-0d8b6391600b}</Project>

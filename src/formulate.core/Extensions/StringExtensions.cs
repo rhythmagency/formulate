@@ -25,6 +25,34 @@
                 : source;
         }
 
+
+        /// <summary>
+        /// Converts a field type (e.g., "TextField") to an Angular-friendly type (e.g., "text").
+        /// </summary>
+        /// <param name="fieldType">
+        /// The field type (e.g., "TextField").
+        /// </param>
+        /// <returns>
+        /// The Angular-friendly type (e.g., "text").
+        /// </returns>
+        public static string ConvertFieldTypeToAngularType(this string fieldType)
+        {
+            var angularType = default(string);
+            switch ((fieldType ?? string.Empty).ToLower())
+            {
+                case "textfield":
+                    angularType = "text";
+                    break;
+                case "checkboxfield":
+                    angularType = "checkbox";
+                    break;
+                case "dropdownfield":
+                    angularType = "select";
+                    break;
+            }
+            return angularType ?? fieldType;
+        }
+
         #endregion
 
     }

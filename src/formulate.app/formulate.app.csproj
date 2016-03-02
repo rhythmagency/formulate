@@ -320,6 +320,7 @@
     <Compile Include="Forms\IFormMetaInfo.cs" />
     <Compile Include="Handlers\ApplicationStartedHandler.cs" />
     <Compile Include="Handlers\ApplicationStartingHandler.cs" />
+    <Compile Include="Helpers\DefinitionHelper.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\GuidHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
@@ -330,7 +331,11 @@
     <Compile Include="Install\Package_Actions\GrantPermissionToSection.cs" />
     <Compile Include="Install\Package_Actions\TransformXmlFile.cs" />
     <Compile Include="Layouts\ILayoutKind.cs" />
-    <Compile Include="Layouts\Kinds\LayoutBasic.cs" />
+    <Compile Include="Layouts\Kinds\Basic\LayoutBasic.cs" />
+    <Compile Include="Layouts\Kinds\Basic\LayoutBasicConfiguration.cs" />
+    <Compile Include="Layouts\Kinds\Basic\LayoutCell.cs" />
+    <Compile Include="Layouts\Kinds\Basic\LayoutField.cs" />
+    <Compile Include="Layouts\Kinds\Basic\LayoutRow.cs" />
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Managers\DefaultConfigurationManager.cs" />
     <Compile Include="Managers\IConfigurationManager.cs" />

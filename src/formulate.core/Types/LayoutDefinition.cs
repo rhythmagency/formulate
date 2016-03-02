@@ -1,4 +1,4 @@
-﻿namespace formulate.api.Types
+﻿namespace formulate.core.Types
 {
     using System;
     public class LayoutDefinition

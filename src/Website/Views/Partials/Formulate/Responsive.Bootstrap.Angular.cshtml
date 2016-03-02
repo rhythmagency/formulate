@@ -1,0 +1,51 @@
+﻿@using formulate.app.Layouts.Kinds.Basic
+@using formulate.core.Extensions
+@model formulate.core.Models.FormViewModel
+@{
+
+    // Variables.
+    var fields = Model.FormDefinition.Fields;
+    var layout = Model.LayoutDefinition.Configuration as LayoutBasicConfiguration;
+
+
+    // Structure fields as an anonymous object suitable for serialization to JSON.
+    var fieldsData = fields.Select(x => new
+    {
+        // The alias can be used to attach custom styles.
+        alias = x.Alias,
+        // The label can be used to instruct the user what data to enter.
+        label = x.Label ?? x.Name,
+        // The ID can be submitted to the server to uniquely identify the field.
+        id = x.Id.ToString("N"),
+        // This field type (e.g., "text", "checkbox") can be used to figure out how to render a field.
+        fieldType = x.FieldType.Name.ConvertFieldTypeToAngularType(),
+        //TODO: validations (e.g., regex, mandatory).
+        //TODO: configuration (e.g., list values in a drop down).
+    }).ToArray();
+
+
+    // Structure layout as an anonymous object suitable for serialization to JSON.
+    var rowsData = layout.Rows.Select(x => new
+    {
+        cells = x.Cells.Select(y => new
+        {
+            columns = y.ColumnSpan,
+            fields = y.Fields.Select(z => new
+            {
+                id = z.FieldId.ToString("N")
+            }).ToArray()
+        }).ToArray()
+    }).ToArray();
+
+
+    // Convert to a string that can be consumed by Angular.
+    var angularModel = Json.Encode(new
+    {
+        fields = fieldsData,
+        rows = rowsData
+    });
+
+}
+
+@* TODO: Until a directive is created, just outputting the raw JSON. *@
+@Html.Raw(angularModel)
