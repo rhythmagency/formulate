@@ -45,10 +45,19 @@
     }).ToArray();
 
 
-    // Convert to a string that can be consumed by Angular.
+    // Convert to a JSON string that can be consumed by Angular.
     var angularModel = Json.Encode(new
     {
+        // The name of the form can be use for analytics.
+        name = Model.FormDefinition.Name,
+        // The form alias can be used for custom styles.
+        alias = Model.FormDefinition.Alias,
+        // The random ID can be used to uniquely identify the form on the page.
+        // Note that this random ID is regenerated on each page render.
+        randomId = Guid.NewGuid().ToString("N"),
+        // The fields in this form.
         fields = fieldsData,
+        // The rows that define the form layout.
         rows = rowsData
     });
 

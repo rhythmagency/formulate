@@ -5,7 +5,6 @@
     using app.Managers;
     using app.Persistence;
     using app.Resolvers;
-    using core.Models;
     using core.Types;
     using System;
     using System.Collections.Generic;
@@ -110,6 +109,8 @@
                 if (form != null)
                 {
                     var definition = new FormDefinition();
+                    definition.Name = form.Name;
+                    definition.Alias = form.Alias;
                     var fields = new List<FieldDefinition>();
                     definition.Fields = fields;
                     foreach (var field in form.Fields)
