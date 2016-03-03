@@ -22,7 +22,12 @@
     {
         if (x.ValidationType == typeof(ValidationRegex))
         {
-            //TODO: ...
+            var config = x.Configuration as ValidationRegexConfiguration;
+            return new
+            {
+                message = config.Message,
+                pattern = config.Pattern
+            };
         }
         return new { };
     });

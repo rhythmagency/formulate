@@ -3,7 +3,10 @@
 
     // Namespaces.
     using Helpers;
+    using Newtonsoft.Json.Linq;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Constants = formulate.app.Constants.Validations.ValidationRegex;
 
 
@@ -62,8 +65,20 @@
         /// </returns>
         public object DeserializeConfiguration(string configuration)
         {
-            //TODO: ...
-            return null;
+            var config = new ValidationRegexConfiguration();
+            var configData = JsonHelper.Deserialize<JObject>(configuration);
+            var dynamicConfig = configData as dynamic;
+            var properties = configData.Properties().Select(x => x.Name);
+            var propertySet = new HashSet<string>(properties);
+            if (propertySet.Contains("regex"))
+            {
+                config.Pattern = dynamicConfig.regex.Value as string;
+            }
+            if (propertySet.Contains("message"))
+            {
+                config.Message = dynamicConfig.message.Value as string;
+            }
+            return config;
         }
 
         #endregion
