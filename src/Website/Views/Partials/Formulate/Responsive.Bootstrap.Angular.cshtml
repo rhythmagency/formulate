@@ -26,7 +26,13 @@
         id = x.Id.ToString("N"),
         // This field type (e.g., "text", "checkbox") can be used to figure out how to render a field.
         fieldType = x.FieldType.Name.ConvertFieldTypeToAngularType(),
-        //TODO: validations (e.g., regex, mandatory).
+        validations = x.Validations.Select(y => new
+        {
+            id = y.Id.ToString("N"),
+            alias = y.Alias,
+            validationType = y.ValidationType.Name.ConvertValidationTypeToAngularType()
+            //TODO: Configuration (e.g., regular expression pattern).
+        }).ToArray()
         //TODO: configuration (e.g., list values in a drop down).
     }).ToArray();
 

@@ -53,6 +53,29 @@
             return angularType ?? fieldType;
         }
 
+
+        /// <summary>
+        /// Converts a validation type (e.g., "ValidationRegex") to an
+        /// Angular-friendly type (e.g., "regex").
+        /// </summary>
+        /// <param name="validationType">
+        /// The validation type (e.g., "ValidationRegex").
+        /// </param>
+        /// <returns>
+        /// The Angular-friendly type (e.g., "regex").
+        /// </returns>
+        public static string ConvertValidationTypeToAngularType(this string validationType)
+        {
+            var angularType = default(string);
+            switch ((validationType ?? string.Empty).ToLower())
+            {
+                case "validationregex":
+                    angularType = "regex";
+                    break;
+            }
+            return angularType ?? validationType;
+        }
+
         #endregion
 
     }
