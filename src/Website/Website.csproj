@@ -502,9 +502,6 @@
     <Content Include="Views\Partials\Formulate\RenderForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Partials\Formulate\Responsive.Bootstrap.Angular.cshtml" />
   </ItemGroup>
   <PropertyGroup>
