@@ -407,7 +407,8 @@
     <Compile Include="Trees\Helpers\LayoutHelper.cs" />
     <Compile Include="Types\ConfiguredFormInfo.cs" />
     <Compile Include="Validations\IValidationKind.cs" />
-    <Compile Include="Validations\Kinds\ValidationRegex.cs" />
+    <Compile Include="Validations\Kinds\Regex\ValidationRegex.cs" />
+    <Compile Include="Validations\Kinds\Regex\ValidationRegexConfiguration.cs" />
     <Compile Include="Validations\Validation.cs" />
   </ItemGroup>
   <ItemGroup>

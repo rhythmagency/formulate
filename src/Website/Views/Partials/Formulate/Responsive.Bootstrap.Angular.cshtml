@@ -1,5 +1,7 @@
 ﻿@using formulate.app.Layouts.Kinds.Basic
+@using formulate.app.Validations.Kinds.Regex
 @using formulate.core.Extensions
+@using formulate.core.Types
 @model formulate.core.Models.FormViewModel
 @{
 
@@ -13,6 +15,17 @@
     {
         return;
     }
+
+
+    // A function that returns a validation configuration.
+    var getValidationConfig = new Func<ValidationDefinition, object>(x =>
+    {
+        if (x.ValidationType == typeof(ValidationRegex))
+        {
+            //TODO: ...
+        }
+        return new { };
+    });
 
 
     // Structure fields as an anonymous object suitable for serialization to JSON.
@@ -30,8 +43,8 @@
         {
             id = y.Id.ToString("N"),
             alias = y.Alias,
-            validationType = y.ValidationType.Name.ConvertValidationTypeToAngularType()
-            //TODO: Configuration (e.g., regular expression pattern).
+            validationType = y.ValidationType.Name.ConvertValidationTypeToAngularType(),
+            configuration = getValidationConfig(y)
         }).ToArray()
         //TODO: configuration (e.g., list values in a drop down).
     }).ToArray();

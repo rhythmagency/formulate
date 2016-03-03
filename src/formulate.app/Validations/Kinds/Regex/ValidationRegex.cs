@@ -1,4 +1,4 @@
-﻿namespace formulate.app.Validations.Kinds
+﻿namespace formulate.app.Validations.Kinds.Regex
 {
 
     // Namespaces.
