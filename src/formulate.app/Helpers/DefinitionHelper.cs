@@ -5,6 +5,7 @@
     using app.Managers;
     using app.Persistence;
     using app.Resolvers;
+    using core.Extensions;
     using core.Types;
     using System;
     using System.Collections.Generic;
@@ -115,7 +116,8 @@
                     definition.Fields = fields;
                     foreach (var field in form.Fields)
                     {
-                        var validations = field.Validations.Select(x => Validations.Retrieve(x));
+                        var validations = field.Validations
+                            .Select(x => Validations.Retrieve(x)).WithoutNulls();
                         var newField = new FieldDefinition()
                         {
                             Alias = field.Alias,
