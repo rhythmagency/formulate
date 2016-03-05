@@ -196,7 +196,7 @@
                 var fullPath = new[] { rootId }
                     .Concat(dataValue.Path.Select(x => GuidHelper.GetString(x)))
                     .ToArray();
-                var kinds = GetAllDataValueKinds();
+                var kinds = DataValueHelper.GetAllDataValueKinds();
                 var directive = kinds.Where(x => x.Id == dataValue.KindId)
                     .Select(x => x.Directive).FirstOrDefault();
 
@@ -265,7 +265,7 @@
                     .Select(x => GuidHelper.GetGuid(x));
                 var dataValues = ids.Select(x => Persistence.Retrieve(x))
                     .WithoutNulls();
-                var kinds = GetAllDataValueKinds();
+                var kinds = DataValueHelper.GetAllDataValueKinds();
                 var combined = dataValues.Join(kinds,
                     x => x.KindId,
                     y => y.Id,
@@ -393,7 +393,7 @@
             {
 
                 // Variables.
-                var kinds = GetAllDataValueKinds();
+                var kinds = DataValueHelper.GetAllDataValueKinds();
 
 
                 // Return results.
@@ -503,21 +503,6 @@
             // Return result.
             return result;
 
-        }
-
-        #endregion
-
-
-        #region Helper Methods
-
-        /// <summary>
-        /// Returns the data value kinds.
-        /// </summary>
-        private IDataValueKind[] GetAllDataValueKinds()
-        {
-            var instances = ReflectionHelper
-                .InstantiateInterfaceImplementations<IDataValueKind>();
-            return instances;
         }
 
         #endregion

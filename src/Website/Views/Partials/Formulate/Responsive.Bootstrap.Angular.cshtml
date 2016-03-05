@@ -1,5 +1,6 @@
 ﻿@using formulate.app.Layouts.Kinds.Basic
 @using formulate.app.Validations.Kinds.Regex
+@using formulate.app.Forms.Fields.DropDown
 @using formulate.core.Extensions
 @using formulate.core.Types
 @model formulate.core.Models.FormViewModel
@@ -33,6 +34,26 @@
     });
 
 
+    // A function that returns a field configuration.
+    var getFieldConfig = new Func<FieldDefinition, object>(x =>
+    {
+        if (x.FieldType == typeof(DropDownField))
+        {
+            var config = x.Configuration as DropDownConfiguration;
+            return new
+            {
+                items = config.Items.Select(y => new
+                {
+                    value = y.Value,
+                    label = y.Label,
+                    selected = y.Selected
+                }).ToArray()
+            };
+        }
+        return new { };
+    });
+
+
     // Structure fields as an anonymous object suitable for serialization to JSON.
     var fieldsData = fields.Select(x => new
     {
@@ -44,14 +65,17 @@
         id = x.Id.ToString("N"),
         // This field type (e.g., "text", "checkbox") can be used to figure out how to render a field.
         fieldType = x.FieldType.Name.ConvertFieldTypeToAngularType(),
+        // The validations can be used to validate that the data is of the expected format.
         validations = x.Validations.Select(y => new
         {
             id = y.Id.ToString("N"),
             alias = y.Alias,
             validationType = y.ValidationType.Name.ConvertValidationTypeToAngularType(),
+            // The validation configuration stores parameters particular to a validation instance (e.g., a regex pattern).
             configuration = getValidationConfig(y)
-        }).ToArray()
-        //TODO: configuration (e.g., list values in a drop down).
+        }).ToArray(),
+        // The field configuration stores parameters particular to a field (e.g., a list of items).
+        configuration = getFieldConfig(x)
     }).ToArray();
 
 

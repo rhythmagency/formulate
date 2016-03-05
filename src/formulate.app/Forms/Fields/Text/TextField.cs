@@ -1,4 +1,4 @@
-﻿namespace formulate.app.Forms.Fields
+﻿namespace formulate.app.Forms.Fields.Text
 {
     using System;
     public class TextField : IFormFieldType

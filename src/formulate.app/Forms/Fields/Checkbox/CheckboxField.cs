@@ -1,4 +1,4 @@
-﻿namespace formulate.app.Forms.Fields
+﻿namespace formulate.app.Forms.Fields.Checkbox
 {
     using System;
     public class CheckboxField : IFormFieldType

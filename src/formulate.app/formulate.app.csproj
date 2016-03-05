@@ -307,9 +307,11 @@
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Folders\Folder.cs" />
     <Compile Include="Forms\ConfiguredForm.cs" />
-    <Compile Include="Forms\Fields\CheckboxField.cs" />
-    <Compile Include="Forms\Fields\DropDownField.cs" />
-    <Compile Include="Forms\Fields\TextField.cs" />
+    <Compile Include="Forms\Fields\Checkbox\CheckboxField.cs" />
+    <Compile Include="Forms\Fields\DropDown\DropDownConfiguration.cs" />
+    <Compile Include="Forms\Fields\DropDown\DropDownField.cs" />
+    <Compile Include="Forms\Fields\DropDown\DropDownItem.cs" />
+    <Compile Include="Forms\Fields\Text\TextField.cs" />
     <Compile Include="Forms\Form.cs" />
     <Compile Include="Forms\FormField.cs" />
     <Compile Include="Forms\FormFieldMetaInfo.cs" />
@@ -320,6 +322,7 @@
     <Compile Include="Forms\IFormMetaInfo.cs" />
     <Compile Include="Handlers\ApplicationStartedHandler.cs" />
     <Compile Include="Handlers\ApplicationStartingHandler.cs" />
+    <Compile Include="Helpers\DataValueHelper.cs" />
     <Compile Include="Helpers\DefinitionHelper.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\GuidHelper.cs" />

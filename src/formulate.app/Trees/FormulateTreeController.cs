@@ -21,6 +21,7 @@
     using CoreConstants = Umbraco.Core.Constants;
     using DataSourceConstants = formulate.app.Constants.Trees.DataSources;
     using DataValueConstants = formulate.app.Constants.Trees.DataValues;
+    using DataValueHelper = Trees.Helpers.DataValueHelper;
     using FormConstants = formulate.app.Constants.Trees.Forms;
     using LayoutConstants = formulate.app.Constants.Trees.Layouts;
     using LayoutHelper = Trees.Helpers.LayoutHelper;
