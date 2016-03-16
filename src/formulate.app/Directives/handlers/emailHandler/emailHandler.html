@@ -1,0 +1,56 @@
+﻿<div>
+    <div class="umb-el-wrap">
+        <label class="control-label">
+            Sender Email
+        </label>
+        <div class="controls controls-row">
+            <div>
+                <input type="text" ng-model="configuration.senderEmail" />
+            </div>
+        </div>
+    </div>
+    <div class="umb-el-wrap">
+        <label class="control-label">
+            Recipient Emails
+        </label>
+        <div class="controls controls-row">
+            <div ng-repeat="recipient in configuration.recipients">
+                <div class="input-append">
+                    <input type="text" ng-model="recipient.email" class="form-control" />
+                    <button type="button" class="btn btn-danger" ng-click="deleteRecipient($index)">X</button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-default" ng-click="addRecipient()">Add Recipient</button>
+        </div>
+    </div>
+    <div class="umb-el-wrap">
+        <label class="control-label">
+            Subject
+        </label>
+        <div class="controls controls-row">
+            <div>
+                <input type="text" ng-model="configuration.subject" />
+            </div>
+        </div>
+    </div>
+    <div class="umb-el-wrap">
+        <label class="control-label">
+            Message
+        </label>
+        <div class="controls controls-row">
+            <div>
+                <textarea ng-model="configuration.message"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="umb-el-wrap">
+        <label class="control-label">
+            Append Fields?
+        </label>
+        <div class="controls controls-row">
+            <div>
+                <input type="checkbox" ng-model="configuration.appendFields" />
+            </div>
+        </div>
+    </div>
+</div>

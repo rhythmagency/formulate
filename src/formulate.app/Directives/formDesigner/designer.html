@@ -98,6 +98,61 @@
                 </div>
 
             </umb-tab>
+            <umb-tab id="tab25" rel="{{25}}">
+
+                <!-- Handler chooser dialog. -->
+                <formulate-handler-chooser
+                    show="handlerChooser.show"
+                    chosen="handlerChosen(handler)">
+                </formulate-handler-chooser>
+
+                <!-- Handlers designer. -->
+                <div class="umb-pane">
+
+                    <!-- Introduction. -->
+                    <p>
+                        These are your form's handlers.
+                        Handlers allow you to perform various actions when you submit the form.
+                    </p>
+
+                    <!-- Handlers. -->
+                    <div ui-sortable="sortableHandlerOptions" ng-model="handlers">
+                        <fieldset ng-repeat="handler in handlers" class="formulate-handler {{handler.expanded ? 'expanded' : 'collapsed'}}">
+                            <legend><i class="icon-navigation drag-handle"></i><i ng-click="toggleHandler(handler)" class="collapser icon icon-add"></i><i class="type-identifier icon {{handler.icon}}"></i>{{handler.name || "Unnamed"}}<i ng-click="deleteHandler(handler)" class="icon-delete deleter"></i></legend>
+                            <div class="formulate-handler-details">
+                                <div class="control-group umb-control-group">
+                                    <div class="umb-el-wrap">
+                                        <label class="control-label">
+                                            Handler Name
+                                        </label>
+                                        <div class="controls controls-row">
+                                            <input type="text" ng-model="handler.name" placeholder="Handler Name" />
+                                        </div>
+                                    </div>
+                                    <div class="umb-el-wrap">
+                                        <label class="control-label">
+                                            Handler Alias
+                                        </label>
+                                        <div class="controls controls-row">
+                                            <input type="text" ng-model="handler.alias" placeholder="Handler Alias" />
+                                        </div>
+                                    </div>
+                                    <formulate-handler-editor directive="handler.directive" configuration="handler.configuration">
+                                    </formulate-handler-editor>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <!-- Buttons. -->
+                    <div class="btn-group">
+                        <button type="button" class="btn" ng-click="addHandler()" ng-disabled="!canAddHandler()" prevent-default>Add Handler</button>
+                        <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
+                    </div>
+
+                </div>
+
+            </umb-tab>
         </umb-tab-view>
     </umb-panel>
 </form>

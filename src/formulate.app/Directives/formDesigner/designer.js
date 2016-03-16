@@ -45,10 +45,17 @@ function controller($scope, $routeParams, $route, formulateTrees,
                 active: true,
                 label: "Form",
                 alias: "form"
+            },
+            {
+                id: 25,
+                active: false,
+                label: "Handlers",
+                alias: "handlers"
             }
         ]
     };
     $scope.fields = [];
+    $scope.handlers = [];
     if (!isNew) {
         $scope.formId = id;
     }
@@ -58,7 +65,16 @@ function controller($scope, $routeParams, $route, formulateTrees,
     $scope.fieldChooser = {
         show: false
     };
+    $scope.handlerChooser = {
+        show: false
+    };
     $scope.sortableOptions = {
+        axis: "y",
+        cursor: "move",
+        delay: 100,
+        opacity: 0.5
+    };
+    $scope.sortableHandlerOptions = {
         axis: "y",
         cursor: "move",
         delay: 100,
@@ -68,11 +84,16 @@ function controller($scope, $routeParams, $route, formulateTrees,
     // Set scope functions.
     $scope.save = getSaveForm(services);
     $scope.addField = getAddField(services);
+    $scope.addHandler = getAddHandler(services);
     $scope.canSave = getCanSave(services);
     $scope.canAddField = getCanAddField(services);
+    $scope.canAddHandler = getCanAddHandler(services);
     $scope.fieldChosen = getFieldChosen(services);
+    $scope.handlerChosen = getHandlerChosen(services);
     $scope.toggleField = getToggleField();
+    $scope.toggleHandler = getToggleHandler();
     $scope.deleteField = getDeleteField(services);
+    $scope.deleteHandler = getDeleteHandler(services);
     $scope.pickValidations = getPickValidations(services);
 
     // Initializes form.
@@ -139,6 +160,7 @@ function getSaveForm(services) {
         // Variables.
         var $scope = services.$scope;
         var fields = $scope.fields;
+        var handlers = $scope.handlers;
         var parentId = getParentId($scope);
 
         // Get form data.
@@ -147,7 +169,8 @@ function getSaveForm(services) {
             formId: $scope.formId,
             alias: $scope.info.formAlias,
             name: $scope.info.formName,
-            fields: angular.fromJson(angular.toJson(fields))
+            fields: angular.fromJson(angular.toJson(fields)),
+            handlers: angular.fromJson(angular.toJson(handlers))
         };
 
         // Persist form on server.
@@ -177,7 +200,7 @@ function getSaveForm(services) {
     };
 }
 
-// Adds a field.
+// Returns the function to display the field chooser.
 function getAddField(services) {
     return function () {
 
@@ -186,6 +209,19 @@ function getAddField(services) {
 
         // Show field chooser.
         $scope.fieldChooser.show = true;
+
+    };
+}
+
+// Returns the function to display the handler chooser.
+function getAddHandler(services) {
+    return function () {
+
+        // Variables.
+        var $scope = services.$scope;
+
+        // Show handler chooser.
+        $scope.handlerChooser.show = true;
 
     };
 }
@@ -220,11 +256,17 @@ function initializeForm(options, services) {
             $scope.info.formAlias = form.alias;
             $scope.info.formName = form.name;
             $scope.fields = form.fields;
+            $scope.handlers = form.handlers;
             $scope.formPath = form.path;
 
             // Collapse fields.
             for (var field in $scope.fields) {
                 field.expanded = false;
+            }
+
+            // Collapse handlers.
+            for (var handler in $scope.handlers) {
+                handler.expanded = false;
             }
 
             // The form can be saved now.
@@ -245,6 +287,13 @@ function getCanSave(services) {
 
 // Returns the function that indicates whether or not fields can be added.
 function getCanAddField(services) {
+    return function() {
+        return services.$scope.initialized;
+    };
+}
+
+// Returns the function that indicates whether or not handlers can be added.
+function getCanAddHandler(services) {
     return function() {
         return services.$scope.initialized;
     };
@@ -272,10 +321,37 @@ function getFieldChosen(services) {
     };
 }
 
+// Gets the function that handles a chosen handler.
+function getHandlerChosen(services) {
+    return function(handler) {
+        var $scope = services.$scope;
+        $scope.handlerChooser.show = false;
+        if (handler) {
+            $scope.handlers.push({
+                name: null,
+                alias: null,
+                icon: handler.icon,
+                directive: handler.directive,
+                typeLabel: handler.typeLabel,
+                typeFullName: handler.typeFullName,
+                expanded: true,
+                configuration: {}
+            });
+        }
+    };
+}
+
 // Gets the function that toggles the visibility of a field.
 function getToggleField() {
     return function(field) {
         field.expanded = !field.expanded;
+    };
+}
+
+// Gets the function that toggles the visibility of a handler.
+function getToggleHandler() {
+    return function(handler) {
+        handler.expanded = !handler.expanded;
     };
 }
 
@@ -299,6 +375,31 @@ function getDeleteField(services) {
         if (response) {
             var index = $scope.fields.indexOf(field);
             $scope.fields.splice(index, 1);
+        }
+
+    };
+}
+
+// Gets the function that deletes a handler.
+function getDeleteHandler(services) {
+    var $scope = services.$scope;
+    return function(handler) {
+
+        // Confirm deletion.
+        var name = handler.name;
+        if (name === null || !name.length) {
+            name = "unnamed handler";
+        } else {
+            name = "handler, \"" + name + "\"";
+        }
+        var message = "Are you sure you wanted to delete the " +
+            name + "?";
+        var response = confirm(message);
+
+        // Delete field?
+        if (response) {
+            var index = $scope.handlers.indexOf(handler);
+            $scope.handlers.splice(index, 1);
         }
 
     };

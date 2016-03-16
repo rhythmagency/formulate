@@ -8,5 +8,6 @@
         public string Alias { get; set; }
         public string Name { get; set; }
         public FieldInfo[] Fields { get; set; }
+        public HandlerInfo[] Handlers { get; set; }
     }
 }

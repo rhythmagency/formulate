@@ -68,6 +68,18 @@ function getGetFormInfo(services) {
                             }),
                         configuration: field.Configuration || {}
                     };
+                }),
+                handlers: data.Handlers.map(function (handler) {
+                    return {
+                        id: handler.Id,
+                        name: handler.Name,
+                        alias: handler.Alias,
+                        directive: handler.Directive,
+                        icon: handler.Icon,
+                        typeLabel: handler.TypeLabel,
+                        typeFullName: handler.TypeFullName,
+                        configuration: handler.Configuration || {}
+                    };
                 })
             };
 
@@ -100,6 +112,18 @@ function getPersistForm(services) {
                 };
                 if (field.id) {
                     result.Id = field.id;
+                }
+                return result;
+            }),
+            Handlers: formData.handlers.map(function(handler) {
+                var result = {
+                    Name: handler.name,
+                    Alias: handler.alias,
+                    TypeFullName: handler.typeFullName,
+                    Configuration: handler.configuration
+                };
+                if (handler.id) {
+                    result.Id = handler.id;
                 }
                 return result;
             })

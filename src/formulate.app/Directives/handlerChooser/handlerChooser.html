@@ -1,0 +1,15 @@
+﻿<div class="usky-grid" ng-if="show">
+    <div class="cell-tools-menu" ng-style="dialogStyles">
+        <h5>
+            Add a Handler (<a href="" ng-click="cancel()">Cancel</a>)
+        </h5>
+        <ul class="elements">
+            <li ng-repeat="item in items">
+                <a href="" ng-click="choseItem(item)">
+                    <i class="icon {{item.icon}}"></i>
+                    {{item.typeLabel}}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

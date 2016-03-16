@@ -77,6 +77,13 @@
 
 
         /// <summary>
+        /// The handlers on this form.
+        /// </summary>
+        [JsonConverter(typeof(HandlersJsonConverter))]
+        public IFormHandler[] Handlers { get; set; }
+
+
+        /// <summary>
         /// Information about this form.
         /// </summary>
         public IFormMetaInfo[] MetaInfo { get; set; }

@@ -1,0 +1,12 @@
+﻿namespace formulate.app.Forms
+{
+    using System;
+    public interface IFormHandlerType
+    {
+        string Directive { get; }
+        string TypeLabel { get; }
+        string Icon { get; }
+        Guid TypeId { get; }
+        object DeserializeConfiguration(string configuration);
+    }
+}

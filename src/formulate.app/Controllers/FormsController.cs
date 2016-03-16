@@ -138,6 +138,18 @@
                         Icon = x.GetIcon(),
                         TypeLabel = x.GetTypeLabel(),
                         TypeFullName = x.GetFieldType().AssemblyQualifiedName
+                    }).ToArray(),
+                    Handlers = form.Handlers.MakeSafe().Select(x => new
+                    {
+                        Id = GuidHelper.GetString(x.Id),
+                        x.Alias,
+                        x.Name,
+                        Configuration = JsonHelper.Deserialize<object>(
+                            x.HandlerConfiguration),
+                        Directive = x.GetDirective(),
+                        Icon = x.GetIcon(),
+                        TypeLabel = x.GetTypeLabel(),
+                        TypeFullName = x.GetHandlerType().AssemblyQualifiedName
                     }).ToArray()
                 };
 
@@ -217,6 +229,26 @@
                     .ToArray();
 
 
+                // Get the handlers.
+                var handlers = request.Handlers.MakeSafe().Select(x =>
+                {
+                    var handlerType = Type.GetType(x.TypeFullName);
+                    var genericType = typeof(FormHandler<>);
+                    var specificType =
+                        genericType.MakeGenericType(new[] { handlerType });
+                    var handler = Activator.CreateInstance(specificType)
+                        as IFormHandler;
+                    handler.Id = string.IsNullOrWhiteSpace(x.Id)
+                        ? Guid.NewGuid()
+                        : GuidHelper.GetGuid(x.Id);
+                    handler.Alias = x.Alias;
+                    handler.Name = x.Name;
+                    handler.HandlerConfiguration =
+                        JsonHelper.Serialize(x.Configuration);
+                    return handler;
+                }).ToArray();
+
+
                 // Get the ID path.
                 var parent = parentId == Guid.Empty ? null : Entities.Retrieve(parentId);
                 var path = parent == null
@@ -231,7 +263,8 @@
                     Path = path,
                     Alias = request.Alias,
                     Name = request.Name,
-                    Fields = fields.ToArray()
+                    Fields = fields,
+                    Handlers = handlers
                 };
 
 

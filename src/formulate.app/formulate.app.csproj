@@ -289,6 +289,7 @@
     <Compile Include="Constants\Layouts\LayoutBasic.cs" />
     <Compile Include="Constants\Validations\ValidationRegex.cs" />
     <Compile Include="Controllers\DataValuesController.cs" />
+    <Compile Include="Controllers\HandlersController.cs" />
     <Compile Include="Controllers\FieldsController.cs" />
     <Compile Include="Controllers\FoldersController.cs" />
     <Compile Include="Controllers\EntitiesController.cs" />
@@ -315,10 +316,15 @@
     <Compile Include="Forms\Form.cs" />
     <Compile Include="Forms\FormField.cs" />
     <Compile Include="Forms\FormFieldMetaInfo.cs" />
+    <Compile Include="Forms\FormHandler.cs" />
     <Compile Include="Forms\FormMetaInfo.cs" />
+    <Compile Include="Forms\Handlers\Email\EmailConfiguration.cs" />
+    <Compile Include="Forms\Handlers\Email\EmailHandler.cs" />
     <Compile Include="Forms\IFormField.cs" />
     <Compile Include="Forms\IFormFieldMetaInfo.cs" />
     <Compile Include="Forms\IFormFieldType.cs" />
+    <Compile Include="Forms\IFormHandler.cs" />
+    <Compile Include="Forms\IFormHandlerType.cs" />
     <Compile Include="Forms\IFormMetaInfo.cs" />
     <Compile Include="Handlers\ApplicationStartedHandler.cs" />
     <Compile Include="Handlers\ApplicationStartingHandler.cs" />
@@ -342,6 +348,7 @@
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Managers\DefaultConfigurationManager.cs" />
     <Compile Include="Managers\IConfigurationManager.cs" />
+    <Compile Include="Models\Parameters\HandlerInfo.cs" />
     <Compile Include="Models\Parameters\FieldInfo.cs" />
     <Compile Include="Models\Requests\DeleteDataValueRequest.cs" />
     <Compile Include="Models\Requests\DeleteFolderRequest.cs" />
@@ -400,6 +407,7 @@
     <Compile Include="Resolvers\ValidationPersistence.cs" />
     <Compile Include="Resolvers\LayoutPersistence.cs" />
     <Compile Include="Serialization\FieldsJsonConverter.cs" />
+    <Compile Include="Serialization\HandlersJsonConverter.cs" />
     <Compile Include="Templates\Template.cs" />
     <Compile Include="Trees\FormulateTreeController.cs" />
     <Compile Include="Trees\Helpers\DataValueHelper.cs" />
