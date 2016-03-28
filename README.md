@@ -1,5 +1,5 @@
 # Progress / Status
-Nearing alpha. Just a few dozen commits until Formulate is fully functional.
+Alpha imminent. Just a couple commits until Formulate is fully functional.
 
 # Formulate Overview
 A form builder for Umbraco.
