@@ -2,11 +2,13 @@
 {
 
     // Namespaces.
+    using core.Types;
     using Helpers;
     using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net.Mail;
 
 
     /// <summary>
@@ -101,6 +103,60 @@
             // Return the email configuration.
             return config;
 
+        }
+
+
+        /// <summary>
+        /// Handles a form submission (sends an email).
+        /// </summary>
+        /// <param name="form">The form.</param>
+        /// <param name="data">The form data.</param>
+        /// <param name="configuration">The handler configuration.</param>
+        public void HandleForm(Form form, IEnumerable<FieldSubmission> data, object configuration)
+        {
+            var config = configuration as EmailConfiguration;
+            using (var client = new SmtpClient())
+            {
+                var message = new MailMessage()
+                {
+                    IsBodyHtml = false
+                };
+                message.From = new MailAddress(config.SenderEmail);
+                foreach (var recipient in config.Recipients)
+                {
+                    message.To.Add(recipient);
+                }
+                message.Subject = config.Subject;
+                if (config.AppendFields)
+                {
+                    var lines = new List<string>();
+                    var valuesById = data.GroupBy(x => x.FieldId).Select(x => new
+                    {
+                        Id = x.Key,
+                        Values = x.Select(y => y.FieldValue).ToList()
+                    }).ToDictionary(x => x.Id, x => x.Values);
+                    var fieldsById = form.Fields.ToDictionary(x => x.Id, x => x);
+                    foreach (var key in valuesById.Keys)
+                    {
+                        var values = valuesById[key];
+                        var combined = string.Join(", ", values);
+                        var field = default(IFormField);
+                        var fieldName = "Unknown Field";
+                        if (fieldsById.TryGetValue(key, out field))
+                        {
+                            fieldName = field.Name;
+                        }
+                        var line = string.Format("{0}: {1}", fieldName, combined);
+                        lines.Add(line);
+                    }
+                    message.Body = config.Message + Environment.NewLine + string.Join(Environment.NewLine, lines);
+                }
+                else
+                {
+                    message.Body = config.Message;
+                }
+                client.Send(message);
+            }
         }
 
         #endregion

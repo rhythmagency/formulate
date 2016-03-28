@@ -2,7 +2,9 @@
 {
 
     // Namespaces.
+    using core.Types;
     using System;
+    using System.Collections.Generic;
 
 
     /// <summary>
@@ -20,6 +22,7 @@
         string GetTypeLabel();
         Type GetHandlerType();
         object DeserializeConfiguration();
+        void HandleForm(Form form, IEnumerable<FieldSubmission> data);
     }
 
 }

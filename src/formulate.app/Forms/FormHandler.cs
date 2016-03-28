@@ -2,7 +2,9 @@
 {
 
     // Namespaces.
+    using core.Types;
     using System;
+    using System.Collections.Generic;
 
 
     /// <summary>
@@ -39,6 +41,26 @@
         /// </summary>
         public string HandlerConfiguration { get; set; }
 
+
+        /// <summary>
+        /// The ID of the handler type.
+        /// </summary>
+        public Guid TypeId
+        {
+            get
+            {
+                var instance = new T();
+                return instance.TypeId;
+            }
+            set
+            {
+            }
+        }
+
+        #endregion
+
+
+        #region Methods
 
         /// <summary>
         /// Gets the directive to use for this form handler.
@@ -99,18 +121,15 @@
 
 
         /// <summary>
-        /// The ID of the handler type.
+        /// Handles a form submission.
         /// </summary>
-        public Guid TypeId
+        /// <param name="form">The form.</param>
+        /// <param name="data">The form data.</param>
+        public void HandleForm(Form form, IEnumerable<FieldSubmission> data)
         {
-            get
-            {
-                var instance = new T();
-                return instance.TypeId;
-            }
-            set
-            {
-            }
+            var config = DeserializeConfiguration();
+            var instance = new T();
+            instance.HandleForm(form, data, config);
         }
 
         #endregion
