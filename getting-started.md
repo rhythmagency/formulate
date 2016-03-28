@@ -13,7 +13,7 @@ In order to submit forms, you'll have to do a bit of integration. The high-level
 # Form Rendering
 You can render your picked form like this (this assumes the form picker property is called "myFormPicker"):
 
-```html
+```csharp
 @using formulate.app.Types
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
