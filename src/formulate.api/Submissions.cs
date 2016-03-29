@@ -91,7 +91,7 @@
                 var valuesById = data.GroupBy(x => x.FieldId).Select(x => new
                 {
                     Id = x.Key,
-                    Values = x.Select(y => y.FieldValue).ToList()
+                    Values = x.SelectMany(y => y.FieldValues).ToList()
                 }).ToDictionary(x => x.Id, x => x.Values);
                 foreach (var field in form.Fields)
                 {

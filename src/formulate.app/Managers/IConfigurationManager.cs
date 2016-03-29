@@ -25,6 +25,12 @@
         /// </summary>
         IEnumerable<Template> Templates { get; }
 
+
+        /// <summary>
+        /// Enable server side validation of form submissions?
+        /// </summary>
+        bool EnableServerSideValidation { get; }
+
         #endregion
 
     }

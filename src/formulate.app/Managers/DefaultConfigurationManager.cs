@@ -53,6 +53,22 @@
             }
         }
 
+
+        /// <summary>
+        /// Enable server side validation of form submissions?
+        /// </summary>
+        public bool EnableServerSideValidation
+        {
+            get
+            {
+                var persistence = ConfigurationManager
+                    .GetSection("formulateConfiguration/submissions")
+                    as SubmissionsConfigSection;
+                var enable = persistence.EnableServerSideValidation;
+                return enable;
+            }
+        }
+
         #endregion
 
     }

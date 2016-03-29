@@ -275,6 +275,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\JsonElement.cs" />
+    <Compile Include="Configuration\SubmissionsConfigSection.cs" />
     <Compile Include="Configuration\TemplateCollection.cs" />
     <Compile Include="Configuration\TemplateElement.cs" />
     <Compile Include="Configuration\TemplatesConfigSection.cs" />
