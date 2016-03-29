@@ -1,11 +1,11 @@
 ﻿// Variables.
 var app = angular.module("umbraco");
 
-// Associate directive/controller.
-app.directive("formulateTextField", TextFieldDirective);
+// Associate directive.
+app.directive("formulateTextField", directive);
 
 // Directive.
-function TextFieldDirective(formulateDirectives) {
+function directive(formulateDirectives) {
     return {
         restrict: "E",
         replace: true,
