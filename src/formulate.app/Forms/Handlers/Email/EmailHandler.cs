@@ -25,11 +25,10 @@
         public string Directive => "formulate-email-handler";
 
 
-        //TODO: Choose a better icon.
         /// <summary>
         /// The icon shown in the picker dialog.
         /// </summary>
-        public string Icon => "icon-formulate-drop-down";
+        public string Icon => "icon-formulate-email";
 
 
         /// <summary>
