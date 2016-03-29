@@ -96,11 +96,23 @@ module.exports = function(grunt) {
         "pkg": grunt.file.readJSON('package.json'),
         paths: {
             in: {
-                js: appProject + "/JavaScript/formulate.js"
+                js: appProject + "/JavaScript/formulate.js",
+                templates: {
+                    // RBA = Responsive Bootstrap Angular.
+                    rba: {
+                        js: appProject + "/JavaScript/FormTemplates/responsive.bootstrap.angular/index.js"
+                    }
+                }
             },
             out: {
                 js: appProject + "/App_Plugins/formulate/formulate.js",
-                jsdoc: "frontendDocs/"
+                jsdoc: "frontendDocs/",
+                templates: {
+                    // RBA = Responsive Bootstrap Angular.
+                    rba: {
+                        js: appProject + "/App_Plugins/formulate/responsive.bootstrap.angular.js"
+                    }
+                }
             }
         },
         copy: {
@@ -185,10 +197,11 @@ module.exports = function(grunt) {
         browserify: {
             default: {
                 options: {
-                    transform: ["require-globify"]
+                    transform: ["require-globify", "browserify-shim"]
                 },
                 files: {
-                    "<%= paths.out.js %>": "<%= paths.in.js %>"
+                    "<%= paths.out.js %>": "<%= paths.in.js %>",
+                    "<%= paths.out.templates.rba.js %>": "<%= paths.in.templates.rba.js %>"
                 }
             }
         },

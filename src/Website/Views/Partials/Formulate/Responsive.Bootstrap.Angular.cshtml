@@ -96,20 +96,25 @@
     // Convert to a JSON string that can be consumed by Angular.
     var angularModel = Json.Encode(new
     {
-        // The name of the form can be use for analytics.
-        name = Model.FormDefinition.Name,
-        // The form alias can be used for custom styles.
-        alias = Model.FormDefinition.Alias,
-        // The random ID can be used to uniquely identify the form on the page.
-        // Note that this random ID is regenerated on each page render.
-        randomId = Guid.NewGuid().ToString("N"),
-        // The fields in this form.
-        fields = fieldsData,
-        // The rows that define the form layout.
-        rows = rowsData
+        data = new
+        {
+            // The name of the form can be use for analytics.
+            name = Model.FormDefinition.Name,
+            // The form alias can be used for custom styles.
+            alias = Model.FormDefinition.Alias,
+            // The random ID can be used to uniquely identify the form on the page.
+            // Note that this random ID is regenerated on each page render.
+            randomId = Guid.NewGuid().ToString("N"),
+            // The fields in this form.
+            fields = fieldsData,
+            // The rows that define the form layout.
+            rows = rowsData
+        }
     });
 
 }
 
-@* TODO: Until a directive is created, just outputting the raw JSON. *@
-@Html.Raw(angularModel)
+<formulate-json-source source="@angularModel">
+    <formulate-responsive-form form-data="::ctrl.data">
+    </formulate-responsive-form>
+</formulate-json-source>
