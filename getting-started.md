@@ -18,7 +18,7 @@ You can render your picked form like this (this assumes the form picker property
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = null;
-    var pickedForm = Model.Content.GetPropertyValue<ConfiguredFormInfo>("myForm");
+    var pickedForm = Model.Content.GetPropertyValue<ConfiguredFormInfo>("myFormPicker");
     var vm = formulate.api.Rendering.GetFormViewModel(pickedForm.FormId, pickedForm.LayoutId,
         pickedForm.TemplateId);
 }<!doctype html>
