@@ -108,7 +108,12 @@
             // The fields in this form.
             fields = fieldsData,
             // The rows that define the form layout.
-            rows = rowsData
+            rows = rowsData,
+            payload = new
+            {
+                FormId = Model.FormDefinition.FormId.ToString("N")
+            },
+            url = "/umbraco/formulate/submissions/submit"
         }
     });
 

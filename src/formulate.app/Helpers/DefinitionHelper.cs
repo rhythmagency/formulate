@@ -110,6 +110,7 @@
                 if (form != null)
                 {
                     var definition = new FormDefinition();
+                    definition.FormId = form.Id;
                     definition.Name = form.Name;
                     definition.Alias = form.Alias;
                     var fields = new List<FieldDefinition>();
