@@ -3,13 +3,6 @@ layout: page
 title: Formulate
 ---
 
-# Integration
-In order to submit forms, you'll have to do a bit of integration. The high-level steps are:
-
-* Add one of the Formulate frontends.
-* Create a C# controller so the frontend can submit data to Formulate.
-* Modify the frontend to submit to the controller you created.
-
 # Form Rendering
 You can render your picked form like this (this assumes the form picker property is called "myFormPicker"):
 
