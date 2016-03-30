@@ -314,6 +314,7 @@
     <Compile Include="Forms\Fields\DropDown\DropDownField.cs" />
     <Compile Include="Forms\Fields\DropDown\DropDownItem.cs" />
     <Compile Include="Forms\Fields\Button\ButtonField.cs" />
+    <Compile Include="Forms\Fields\TextArea\TextAreaField.cs" />
     <Compile Include="Forms\Fields\Text\TextField.cs" />
     <Compile Include="Forms\Form.cs" />
     <Compile Include="Forms\FormField.cs" />
