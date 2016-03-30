@@ -15,6 +15,7 @@ module.exports = function(grunt) {
         "Microsoft.Web.XmlTransform.dll"
     ]);
     var appProject = projectName + ".app";
+    var apiProject = projectName + ".api";
     var buildConfig = grunt.option("buildConfiguration");
 
     // Extracts Formulate's version from the constants file.
@@ -130,7 +131,7 @@ module.exports = function(grunt) {
                         expand: true,
                         src: binaries,
                         dest: 'Website/bin/',
-                        cwd: appProject + "/bin/" + getConfiguration() + "/"
+                        cwd: apiProject + "/bin/" + getConfiguration() + "/"
                     }
                 ]
             },
@@ -159,7 +160,7 @@ module.exports = function(grunt) {
                         expand: true,
                         src: binaries,
                         dest: './FormulateTemp/package/bin/',
-                        cwd: appProject + "/bin/" + getConfiguration() + "/"
+                        cwd: apiProject + "/bin/" + getConfiguration() + "/"
                     }, {
                         // Config and transform files.
                         expand: true,
