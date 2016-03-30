@@ -288,6 +288,7 @@
     <Compile Include="Constants\Trees\Layouts.cs" />
     <Compile Include="Constants\Trees\Validations.cs" />
     <Compile Include="Constants\Layouts\LayoutBasic.cs" />
+    <Compile Include="Constants\Validations\ValidationMandatory.cs" />
     <Compile Include="Constants\Validations\ValidationRegex.cs" />
     <Compile Include="Controllers\DataValuesController.cs" />
     <Compile Include="Controllers\HandlersController.cs" />
@@ -421,6 +422,8 @@
     <Compile Include="Trees\Helpers\LayoutHelper.cs" />
     <Compile Include="Types\ConfiguredFormInfo.cs" />
     <Compile Include="Validations\IValidationKind.cs" />
+    <Compile Include="Validations\Kinds\Mandatory\ValidationMandatory.cs" />
+    <Compile Include="Validations\Kinds\Mandatory\ValidationMandatoryConfiguration.cs" />
     <Compile Include="Validations\Kinds\Regex\ValidationRegex.cs" />
     <Compile Include="Validations\Kinds\Regex\ValidationRegexConfiguration.cs" />
     <Compile Include="Validations\Validation.cs" />

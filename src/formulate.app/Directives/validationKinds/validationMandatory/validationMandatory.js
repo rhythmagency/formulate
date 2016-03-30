@@ -2,7 +2,7 @@
 var app = angular.module("umbraco");
 
 // Associate directive.
-app.directive("formulateValidationRegex", directive);
+app.directive("formulateValidationMandatory", directive);
 
 // Directive.
 function directive(formulateDirectives) {
@@ -10,7 +10,7 @@ function directive(formulateDirectives) {
         restrict: "E",
         replace: true,
         template: formulateDirectives.get(
-            "validationKinds/validationRegex/validationRegex.html"),
+            "validationKinds/validationMandatory/validationMandatory.html"),
         scope: {
             data: "="
         }
