@@ -2,6 +2,7 @@
 {
 
     // Namespaces.
+    using core.Types;
     using System.Collections.Generic;
     using Templates;
 
@@ -30,6 +31,18 @@
         /// Enable server side validation of form submissions?
         /// </summary>
         bool EnableServerSideValidation { get; }
+
+
+        /// <summary>
+        /// Is the email whitelist enabled?
+        /// </summary>
+        bool EnableEmailWhitelist { get; }
+
+
+        /// <summary>
+        /// The emails to whitelist.
+        /// </summary>
+        IEnumerable<AllowEmail> EmailWhitelist { get; }
 
         #endregion
 

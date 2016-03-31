@@ -276,8 +276,11 @@
   <ItemGroup>
     <Compile Include="Configuration\JsonElement.cs" />
     <Compile Include="Configuration\SubmissionsConfigSection.cs" />
+    <Compile Include="Configuration\EmailCollection.cs" />
     <Compile Include="Configuration\TemplateCollection.cs" />
+    <Compile Include="Configuration\EmailElement.cs" />
     <Compile Include="Configuration\TemplateElement.cs" />
+    <Compile Include="Configuration\EmailsConfigSection.cs" />
     <Compile Include="Configuration\TemplatesConfigSection.cs" />
     <Compile Include="Configuration\PersistenceConfigSection.cs" />
     <Compile Include="Constants\DataValues\DataValueList.cs" />

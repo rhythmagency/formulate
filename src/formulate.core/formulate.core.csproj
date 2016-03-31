@@ -46,6 +46,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Models\FormViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\AllowEmail.cs" />
     <Compile Include="Types\FieldDefinition.cs" />
     <Compile Include="Types\FieldSubmission.cs" />
     <Compile Include="Types\FormDefinition.cs" />
