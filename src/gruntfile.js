@@ -162,11 +162,10 @@ module.exports = function(grunt) {
                         dest: './FormulateTemp/package/bin/',
                         cwd: apiProject + "/bin/" + getConfiguration() + "/"
                     }, {
-                        // Config and transform files.
+                        // Config and view files.
                         expand: true,
                         src: [
                             "Config/Formulate/*.config",
-                            "Transforms/Formulate/*.xdt",
                             "Views/Partials/Formulate/**"
                         ],
                         dest: './FormulateTemp/package/',

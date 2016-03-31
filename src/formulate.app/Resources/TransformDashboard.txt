@@ -1,0 +1,4 @@
+<Action runat="install" undo="false" alias="Formulate.TransformXmlFile"
+  installTransform="~/App_Plugins/formulate/Transforms/dashboard.config.install.xdt"
+  uninstallTransform="~/App_Plugins/formulate/Transforms/dashboard.config.uninstall.xdt"
+  file="~/Config/Dashboard.config" />

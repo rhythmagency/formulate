@@ -266,10 +266,10 @@
             if (!exists)
             {
                 var doc = new XmlDocument();
-                var actionXml = Resources.AddDashboard;
+                var actionXml = Resources.TransformDashboard;
                 doc.LoadXml(actionXml);
                 PackageAction.RunPackageAction("Formulate",
-                    "addDashboardSection", doc.FirstChild);
+                    "Formulate.TransformXmlFile", doc.FirstChild);
             }
         }
 

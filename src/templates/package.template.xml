@@ -27,17 +27,17 @@
   <DataTypes />
   <control>/App_Plugins/formulate/Controls/Install.ascx</control>
   <Actions>
-    <Action runat="install" alias="addDashboardSection" dashboardAlias="FormulateSection">
-      <section alias="FormulateSection">
-        <areas>
-          <area>formulate</area>
-        </areas>
-        <tab caption="Introduction">
-          <control>/App_Plugins/formulate/dashboards/introduction.html</control>
-        </tab>
-      </section>
-    </Action>
-    <Action runat="install" undo="false" alias="GrantPermissionToSection" username="$CurrentUser" sectionName="formulate" />
+    <Action
+      runat="install" undo="false" alias="Formulate.TransformXmlFile"
+      installTransform="~/App_Plugins/formulate/Transforms/dashboard.config.install.xdt"
+      uninstallTransform="~/App_Plugins/formulate/Transforms/dashboard.config.uninstall.xdt"
+      file="~/Config/Dashboard.config" />
+    <Action
+      runat="install"
+      undo="false"
+      alias="GrantPermissionToSection"
+      username="$CurrentUser"
+      sectionName="formulate" />
   </Actions>
   <files>
     <% files.forEach(function(file) { %>
