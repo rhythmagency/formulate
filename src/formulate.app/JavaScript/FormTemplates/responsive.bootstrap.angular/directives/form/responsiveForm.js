@@ -98,8 +98,6 @@ FormulateController.prototype.submit = function () {
 
     if (formCtrl.$valid) {
         submitPost().then(postSuccess, postFailed);
-    } else {
-        postFailed('Validation Error');
     }
 };
 
