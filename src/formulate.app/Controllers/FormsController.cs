@@ -129,7 +129,7 @@
                             .WithoutNulls()
                             .Select(y => new
                             {
-                                Id = y.Id,
+                                Id = GuidHelper.GetString(y.Id),
                                 Name = y.Name
                             }).ToArray(),
                         Configuration = JsonHelper.Deserialize<object>(
