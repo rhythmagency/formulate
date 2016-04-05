@@ -83,6 +83,23 @@ function createSubmitField(field) {
     return el;
 }
 
+function createCheckboxField(field) {
+    var container = angular.element('<div></div>');
+    var label = angular.element('<label></label>');
+    var el = angular.element('<input type="checkbox" value="1" />');
+    var span = angular.element('<span></span>');
+
+    span.text(field.label);
+
+    label.append(setGlobalInputAttributes(field, el));
+    label.append(span);
+
+    container.addClass('formulate__checkbox');
+    container.append(label);
+
+    return container;
+}
+
 function createField(field) {
     var elWrap = angular.element('<div></div>');
 
@@ -100,6 +117,10 @@ function createField(field) {
 
     case 'textarea':
         elWrap.append(createTextAreaField(field));
+        break;
+
+    case 'checkbox':
+        elWrap.append(createCheckboxField(field));
         break;
 
     default:

@@ -20,10 +20,19 @@ function regexValidation(validation) {
     };
 }
 
+function mandatoryValidation() {
+    return function (value) {
+        return !!value;
+    };
+}
+
 function validationFactory(validation) {
-    // If we get other types of validation, then this
-    // will need to go into a switch statement
-    return regexValidation(validation);
+    switch (validation.validationType) {
+    case 'regex':
+        return regexValidation(validation);
+    default:
+        return mandatoryValidation();
+    }
 }
 
 function formulateValidation() {
