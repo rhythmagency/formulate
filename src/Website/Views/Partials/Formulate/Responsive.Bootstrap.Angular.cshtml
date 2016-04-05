@@ -1,5 +1,6 @@
 ﻿@using formulate.app.Layouts.Kinds.Basic
 @using formulate.app.Validations.Kinds.Regex
+@using formulate.app.Validations.Kinds.Mandatory
 @using formulate.app.Forms.Fields.DropDown
 @using formulate.core.Extensions
 @using formulate.core.Types
@@ -28,6 +29,14 @@
             {
                 message = config.Message,
                 pattern = config.Pattern
+            };
+        }
+        else if (x.ValidationType == typeof(ValidationMandatory))
+        {
+            var config = x.Configuration as ValidationMandatoryConfiguration;
+            return new
+            {
+                message = config.Message
             };
         }
         return new { };
