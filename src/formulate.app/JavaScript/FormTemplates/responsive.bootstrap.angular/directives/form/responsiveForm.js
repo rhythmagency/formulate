@@ -55,7 +55,7 @@ FormulateController.prototype.submit = function () {
     function parseResponse(response) {
         var deferred = self.injected.$q.defer();
 
-        if (response.status === 'Success') {
+        if (response.data && response.data.Success === true) {
             deferred.resolve(response.data);
         } else {
             deferred.reject(response.message);
