@@ -29,7 +29,7 @@ function FormulateController($scope, $element, $http, $q) {
     };
 
     // set unique form name
-    this.formName = genFormName();
+    this.generatedName = genFormName();
 
     // Map Fields for faster access
     this.fieldMap = {};
@@ -91,15 +91,15 @@ FormulateController.prototype.submit = function () {
     function postSuccess(data) {
         self.injected.$scope.$emit('Formulate.formSubmit.OK', {
             fields: self.fieldModels,
-            formName: self.formName,
-            data: data
+            name: self.formData.name,
+            response: data
         });
     }
 
     function postFailed(message) {
         self.injected.$scope.$emit('Formulate.formSubmit.Failed', {
             fields: self.fieldModels,
-            formName: self.formName,
+            name: self.formData.name,
             message: message
         });
     }
@@ -114,7 +114,7 @@ function formulate() {
         restrict: "E",
         replace: true,
         template: '<div class="formulate-container">' +
-            '<form data-ng-submit="ctrl.submit(ctrl.formName)" class="form" name="{{ctrl.formName}}">' +
+            '<form data-ng-submit="ctrl.submit(ctrl.generatedName)" class="form" name="{{ctrl.generatedName}}">' +
             '<formulate-rows rows="ctrl.formData.rows"></formulate-rows>' +
             '</form>' +
             '</div>',
