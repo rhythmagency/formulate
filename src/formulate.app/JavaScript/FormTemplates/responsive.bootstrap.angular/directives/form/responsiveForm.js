@@ -89,11 +89,19 @@ FormulateController.prototype.submit = function () {
     }
 
     function postSuccess(data) {
-        self.injected.$scope.$emit('Formulate.formSubmit.OK', self.fieldModels, self.formName, data);
+        self.injected.$scope.$emit('Formulate.formSubmit.OK', {
+            fields: self.fieldModels,
+            formName: self.formName,
+            data: data
+        });
     }
 
     function postFailed(message) {
-        self.injected.$scope.$emit('Formulate.formSubmit.Failed', self.fieldModels, self.formName, message);
+        self.injected.$scope.$emit('Formulate.formSubmit.Failed', {
+            fields: self.fieldModels,
+            formName: self.formName,
+            message: message
+        });
     }
 
     if (formCtrl.$valid) {
