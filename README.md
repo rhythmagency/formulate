@@ -9,7 +9,7 @@ A form builder for Umbraco.
 # Contributors
 These are some of the people who have made Formulate possible:
 * Nicholas Westby - Rhythm Agency - [nicholaswestby.com](http://www.nicholaswestby.com/)
-* Josef Kohout - Rhythm Agency
+* Josef Kohout - Rhythm Agency - [rhythmagency.com](http://rhythmagency.com/leadership?idoeverything=Josef.Kohout)
 
 # Contributing
 Requires:
