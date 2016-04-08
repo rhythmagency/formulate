@@ -529,6 +529,12 @@
     <Content Include="Directives\folderDesigner\designer.js" />
     <Content Include="Directives\formDesigner\designer.html" />
     <Content Include="Directives\formDesigner\designer.js" />
+    <Content Include="Directives\handlerChooser\handlerChooser.html" />
+    <Content Include="Directives\handlerChooser\handlerChooser.js" />
+    <Content Include="Directives\handlerEditor\handlerEditor.html" />
+    <Content Include="Directives\handlerEditor\handlerEditor.js" />
+    <Content Include="Directives\handlers\emailHandler\emailHandler.html" />
+    <Content Include="Directives\handlers\emailHandler\emailHandler.js" />
     <Content Include="Directives\layoutDesigner\designer.html" />
     <Content Include="Directives\layoutDesigner\designer.js" />
     <Content Include="Directives\layoutEditor\layoutEditor.html" />
@@ -553,6 +559,12 @@
     <Content Include="App_Plugins\formulate\styles\formulate-icomoon.css" />
     <Content Include="App_Plugins\formulate\lang\en-GB.xml" />
     <Content Include="JavaScript\Editors\configuredFormPicker.js" />
+    <Content Include="JavaScript\FormTemplates\responsive.bootstrap.angular\directives\form\field.js" />
+    <Content Include="JavaScript\FormTemplates\responsive.bootstrap.angular\directives\form\responsiveForm.js" />
+    <Content Include="JavaScript\FormTemplates\responsive.bootstrap.angular\directives\form\rows.js" />
+    <Content Include="JavaScript\FormTemplates\responsive.bootstrap.angular\directives\form\validation.js" />
+    <Content Include="JavaScript\FormTemplates\responsive.bootstrap.angular\directives\json-source\json-source.js" />
+    <Content Include="JavaScript\FormTemplates\responsive.bootstrap.angular\index.js" />
     <Content Include="JavaScript\formulate.js" />
     <Content Include="JavaScript\Services\formulateConfiguredForms.js" />
     <Content Include="JavaScript\Services\formulateDataValues.js" />
