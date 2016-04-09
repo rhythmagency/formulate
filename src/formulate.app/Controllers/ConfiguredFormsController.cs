@@ -33,6 +33,7 @@
         private const string PersistConFormError = @"An error occurred while attempting to persist a Formulate configured form.";
         private const string GetConFormInfoError = @"An error occurred while attempting to get the configured form info for a Formulate configured form.";
         private const string DeleteConFormError = @"An error occurred while attempting to delete the Formulate configured form.";
+        private const string FormNotFoundError = @"The configured Formulate form requested could not be found.";
 
         #endregion
 
@@ -187,6 +188,21 @@
                 // Variables.
                 var id = GuidHelper.GetGuid(request.ConFormId);
                 var configuredForm = Persistence.Retrieve(id);
+
+
+                // Check for a null configured form.
+                if (configuredForm == null)
+                {
+                    result = new
+                    {
+                        Success = false,
+                        Reason = FormNotFoundError
+                    };
+                    return result;
+                }
+
+
+                // Variables.
                 var partialPath = configuredForm.Path
                     .Select(x => GuidHelper.GetString(x));
                 var fullPath = new[] { rootId }
