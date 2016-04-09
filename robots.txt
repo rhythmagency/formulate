@@ -1,0 +1,4 @@
+user-agent: *
+allow: /
+
+sitemap: http://www.formulate.rocks/sitemap.xml
