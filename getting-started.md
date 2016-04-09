@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Formulate
+title: Getting Started with Formulate
 ---
 
 # Form Rendering
