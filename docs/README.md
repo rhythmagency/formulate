@@ -1,2 +1,0 @@
-Documentation:
-* [Ideas](IDEAS.md)
