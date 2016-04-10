@@ -18,4 +18,4 @@ Here are a few pages that will help you get started with Formulate:
 
 If you have any questions, feel free to [contact me](http://www.nicholaswestby.com/contact/) or report an issue [here](https://github.com/rhythmagency/formulate/issues).
 
-![Formulate](/images/formulate-icon.png)
+![Formulate](/images/formulate-icon-zoomed-out.png)
