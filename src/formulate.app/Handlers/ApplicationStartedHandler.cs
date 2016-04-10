@@ -275,18 +275,18 @@
         /// </param>
         private void AddSection(ApplicationContext applicationContext)
         {
-            var service = applicationContext.Services.SectionService;
-            var existingSection = service.GetByAlias("formulate");
-            if (existingSection == null)
-            {
 
-                // Queue section change.
-                QueueInstallAction(() =>
+            // Queue section change.
+            QueueInstallAction(() =>
+            {
+                var service = applicationContext.Services.SectionService;
+                var existingSection = service.GetByAlias("formulate");
+                if (existingSection == null)
                 {
                     service.MakeNew("Formulate", "formulate", "icon-formulate-clipboard", 6);
-                });
+                }
+            });
 
-            }
         }
 
 
@@ -295,24 +295,27 @@
         /// </summary>
         private void AddDashboard()
         {
-            var exists = DashboardExists();
-            if (!exists)
+
+            // Queue dashboard transformation.
+            QueueInstallAction(() =>
             {
-
-                // Variables.
-                var doc = new XmlDocument();
-                var actionXml = Resources.TransformDashboard;
-                doc.LoadXml(actionXml);
-
-
-                // Queue dashboard transformation.
-                QueueInstallAction(() =>
+                var exists = DashboardExists();
+                if (!exists)
                 {
+
+                    // Variables.
+                    var doc = new XmlDocument();
+                    var actionXml = Resources.TransformDashboard;
+                    doc.LoadXml(actionXml);
+
+
+                    // Add dashboard.
                     PackageAction.RunPackageAction("Formulate",
                         "Formulate.TransformXmlFile", doc.FirstChild);
-                });
 
-            }
+                }
+            });
+
         }
 
 
@@ -361,18 +364,18 @@
         /// </summary>
         private void AddFormulateDeveloperTab()
         {
-            var exists = FormulateDeveloperTabExists();
-            if (!exists)
+
+            // Queue dashboard change.
+            QueueInstallAction(() =>
             {
-
-                // Variables.
-                var dashboardPath = SystemFiles.DashboardConfig;
-                var mappedDashboardPath = IOHelper.MapPath(dashboardPath);
-
-
-                // Queue dashboard change.
-                QueueInstallAction(() =>
+                var exists = FormulateDeveloperTabExists();
+                if (!exists)
                 {
+
+                    // Variables.
+                    var dashboardPath = SystemFiles.DashboardConfig;
+                    var mappedDashboardPath = IOHelper.MapPath(dashboardPath);
+
 
                     // Get developer section from Dashboard.config.
                     var dashboardDoc = XmlHelper.OpenAsXmlDocument(dashboardPath);
@@ -401,9 +404,9 @@
                     // Save new Dashboard.config.
                     dashboardDoc.Save(mappedDashboardPath);
 
-                });
+                }
+            });
 
-            }
         }
 
 
@@ -477,31 +480,34 @@
         private void AddConfigurationGroup()
         {
 
-            // Does the section group already exist?
-            var config = WebConfigurationManager.OpenWebConfiguration("~");
-            var groupName = "formulateConfiguration";
-            var group = config.GetSectionGroup(groupName);
-            var exists = group != null;
-
-
-            // Only add the group if it doesn't exist.
-            if (!exists)
+            // Queue web.config change to add Formulate configuration.
+            QueueInstallAction(() =>
             {
 
-                // Variables.
-                var doc = new XmlDocument();
-                var actionXml = Resources.TransformWebConfig;
-                doc.LoadXml(actionXml);
+                // Does the section group already exist?
+                var config = WebConfigurationManager.OpenWebConfiguration("~");
+                var groupName = "formulateConfiguration";
+                var group = config.GetSectionGroup(groupName);
+                var exists = group != null;
 
 
-                // Queue web.config change to add Formulate configuration.
-                QueueInstallAction(() =>
+                // Only add the group if it doesn't exist.
+                if (!exists)
                 {
+
+                    // Variables.
+                    var doc = new XmlDocument();
+                    var actionXml = Resources.TransformWebConfig;
+                    doc.LoadXml(actionXml);
+
+
+                    // Add configuration group.
                     PackageAction.RunPackageAction("Formulate",
                         "Formulate.TransformXmlFile", doc.FirstChild);
-                });
 
-            }
+                }
+
+            });
 
         }
 
@@ -542,10 +548,6 @@
             {
                 lock (InstallActionsLock)
                 {
-                    if (InstallActions == null)
-                    {
-                        return;
-                    }
                     try
                     {
                         InstallActions.ForEach(x =>
@@ -558,7 +560,8 @@
                     }
                     finally
                     {
-                        InstallActions = null;
+                        InstallTimer = null;
+                        InstallActions = new List<Action>();
                     }
                 }
             });
