@@ -25,7 +25,7 @@ You can render your picked form like this (this assumes the form picker property
 <head>
     <title>Formulate Example</title>
 
-    <!-- Include the CSS/JavaScript for Bootstrap, Lodash, and AngularJS. -->
+    <!-- Include the CSS/JavaScript for jQuery, Bootstrap, Lodash, and AngularJS. -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.5.1/lodash.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
