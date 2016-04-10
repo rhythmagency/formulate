@@ -71,7 +71,7 @@
 
                 // Grant access permission.
                 PackageAction.RunPackageAction("Formulate",
-                    "GrantPermissionToSection", doc.FirstChild);
+                    "Formulate.GrantPermissionToSection", doc.FirstChild);
 
 
                 // Indicate success.
