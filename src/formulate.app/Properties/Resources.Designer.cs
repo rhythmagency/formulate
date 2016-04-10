@@ -91,8 +91,8 @@ namespace formulate.app.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;Action runat=&quot;install&quot; undo=&quot;false&quot; alias=&quot;Formulate.TransformXmlFile&quot;
-        ///  installTransform=&quot;~/Transforms/Formulate/dashboard.config.install.xdt&quot;
-        ///  uninstallTransform=&quot;~/Transforms/Formulate/dashboard.config.uninstall.xdt&quot;
+        ///  installTransform=&quot;~/App_Plugins/formulate/Transforms/dashboard.config.install.xdt&quot;
+        ///  uninstallTransform=&quot;~/App_Plugins/formulate/Transforms/dashboard.config.uninstall.xdt&quot;
         ///  file=&quot;~/Config/Dashboard.config&quot; /&gt;.
         /// </summary>
         internal static string TransformDashboard {
@@ -103,8 +103,8 @@ namespace formulate.app.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;Action runat=&quot;install&quot; undo=&quot;false&quot; alias=&quot;Formulate.TransformXmlFile&quot;
-        ///  installTransform=&quot;~/Transforms/Formulate/web.config.install.xdt&quot;
-        ///  uninstallTransform=&quot;~/Transforms/Formulate/web.config.uninstall.xdt&quot;
+        ///  installTransform=&quot;~/App_Plugins/formulate/Transforms/web.config.install.xdt&quot;
+        ///  uninstallTransform=&quot;~/App_Plugins/formulate/Transforms/web.config.uninstall.xdt&quot;
         ///  file=&quot;~/Web.config&quot; /&gt;.
         /// </summary>
         internal static string TransformWebConfig {
