@@ -1,6 +1,8 @@
 # Progress / Status
 Alpha. Formulate is fully functional and early adopters can begin using it now.
 
+![Formulate](assets/images/formulate-icon.png?raw=true "Formulate")
+
 # Formulate Overview
 A form builder for Umbraco.
 
