@@ -1,9 +1,11 @@
 ---
 layout: page
-title: Getting Started with Formulate
+title: Rendering a Form in Formulate
 ---
 
 # Form Rendering
+Once you've gone through the trouble of installing Formulate, creating a form, and modifying a document type to pick a form, the final step is to render that form to HTML on your website.
+
 You can render your picked form like this (this assumes the form picker property is called "myFormPicker"):
 
 ```csharp
@@ -81,3 +83,7 @@ You can render your picked form like this (this assumes the form picker property
 </body>
 </html>
 ```
+
+All you need to do is copy the above code into a CSHTML file on a page with a picked form on a property with the appropriate alias, and you will have a rendered form.
+
+You can of course integrate it with your site in a number of ways, but this is the simplest version.

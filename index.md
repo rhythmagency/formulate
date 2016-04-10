@@ -10,11 +10,16 @@ Formulate is a free, open source form builder for Umbraco.
 
 Here are a few pages that will help you get started with Formulate:
 
-* [Installing](/installing)
-* [Getting Started](/getting-started)
-* [Extensibility](/extensibility)
 * [Requirements](/requirements)
+* [Installing](/installing)
+* Create Forms:
+  * [Simple Form](/simple-form)
+  * [Complex Form](/simple-form)
+* [Render Form](/render-form)
 * [Roadmap](/roadmap)
+* Advanced Topics:
+  * [Extensibility](/extensibility)
+  * [Contributing to Formulate](https://github.com/rhythmagency/formulate#contributing)
 
 If you have any questions, feel free to [contact me](http://www.nicholaswestby.com/contact/) or report an issue [here](https://github.com/rhythmagency/formulate/issues).
 
