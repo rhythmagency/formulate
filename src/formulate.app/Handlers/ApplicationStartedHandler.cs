@@ -3,11 +3,14 @@
 
     // Namespaces.
     using Controllers;
+    using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
+    using System.Timers;
     using System.Web;
     using System.Web.Configuration;
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using System.Web.Routing;
     using System.Xml;
@@ -37,6 +40,31 @@
 
         private const string DeveloperSectionXPath = @"/dashBoard/section[@alias='StartupDeveloperDashboardSection']";
         private const string MissingDeveloperSection = @"Unable to locate StartupDeveloperDashboardSection in the dashboard.config. The Formulate tab will not be added to the Developer section.";
+        private const string InstallActionsError = @"An unknown error occurred while attempting to asynchronously run the install actions for Formulate.";
+
+        #endregion
+
+
+        #region Properties
+
+        private static List<Action> InstallActions { get; set; }
+        private static object InstallActionsLock { get; set; }
+        private static Timer InstallTimer { get; set; }
+
+        #endregion
+
+
+        #region Constructors
+
+        /// <summary>
+        /// Static constructor.
+        /// </summary>
+        static ApplicationStartedHandler()
+        {
+            InstallActions = new List<Action>();
+            InstallActionsLock = new object();
+            InstallTimer = null;
+        }
 
         #endregion
 
@@ -251,8 +279,13 @@
             var existingSection = service.GetByAlias("formulate");
             if (existingSection == null)
             {
-                service.MakeNew("Formulate", "formulate",
-                    "icon-formulate-clipboard", 6);
+
+                // Queue section change.
+                QueueInstallAction(() =>
+                {
+                    service.MakeNew("Formulate", "formulate", "icon-formulate-clipboard", 6);
+                });
+
             }
         }
 
@@ -265,11 +298,20 @@
             var exists = DashboardExists();
             if (!exists)
             {
+
+                // Variables.
                 var doc = new XmlDocument();
                 var actionXml = Resources.TransformDashboard;
                 doc.LoadXml(actionXml);
-                PackageAction.RunPackageAction("Formulate",
-                    "Formulate.TransformXmlFile", doc.FirstChild);
+
+
+                // Queue dashboard transformation.
+                QueueInstallAction(() =>
+                {
+                    PackageAction.RunPackageAction("Formulate",
+                        "Formulate.TransformXmlFile", doc.FirstChild);
+                });
+
             }
         }
 
@@ -323,34 +365,43 @@
             if (!exists)
             {
 
-                // Get developer section from Dashboard.config.
+                // Variables.
                 var dashboardPath = SystemFiles.DashboardConfig;
-                var dashboardDoc = XmlHelper.OpenAsXmlDocument(dashboardPath);
-                var devSection = dashboardDoc.SelectSingleNode(
-                    DeveloperSectionXPath);
-
-
-                // If the developer section isn't found, log a warning and
-                // skip adding tab.
-                if (devSection == null)
-                {
-                    LogHelper.Warn<ApplicationStartedHandler>(
-                        MissingDeveloperSection);
-                    return;
-                }
-
-
-                // Load tab into developer section.
-                var tempDoc = new XmlDocument();
-                var newNode = XmlHelper.ImportXmlNodeFromText(
-                    Resources.FormulateTab, ref tempDoc);
-                newNode = dashboardDoc.ImportNode(newNode, true);
-                devSection.AppendChild(newNode);
-
-
-                // Save new Dashboard.config.
                 var mappedDashboardPath = IOHelper.MapPath(dashboardPath);
-                dashboardDoc.Save(mappedDashboardPath);
+
+
+                // Queue dashboard change.
+                QueueInstallAction(() =>
+                {
+
+                    // Get developer section from Dashboard.config.
+                    var dashboardDoc = XmlHelper.OpenAsXmlDocument(dashboardPath);
+                    var devSection = dashboardDoc.SelectSingleNode(
+                        DeveloperSectionXPath);
+
+
+                    // If the developer section isn't found, log a warning and
+                    // skip adding tab.
+                    if (devSection == null)
+                    {
+                        LogHelper.Warn<ApplicationStartedHandler>(
+                            MissingDeveloperSection);
+                        return;
+                    }
+
+
+                    // Load tab into developer section.
+                    var tempDoc = new XmlDocument();
+                    var newNode = XmlHelper.ImportXmlNodeFromText(
+                        Resources.FormulateTab, ref tempDoc);
+                    newNode = dashboardDoc.ImportNode(newNode, true);
+                    devSection.AppendChild(newNode);
+
+
+                    // Save new Dashboard.config.
+                    dashboardDoc.Save(mappedDashboardPath);
+
+                });
 
             }
         }
@@ -362,22 +413,28 @@
         private void EnsureVersion()
         {
 
-            // Variables.
-            var key = SettingConstants.VersionKey;
-            var config = WebConfigurationManager.OpenWebConfiguration("~");
-            var settings = config.AppSettings.Settings;
-
-
-            // Remove existing version setting.
-            if (settings.AllKeys.Any(x => key.InvariantEquals(x)))
+            // Queue the web.config change.
+            QueueInstallAction(() =>
             {
-                settings.Remove(key);
-            }
+
+                // Variables.
+                var key = SettingConstants.VersionKey;
+                var config = WebConfigurationManager.OpenWebConfiguration("~");
+                var settings = config.AppSettings.Settings;
 
 
-            // Add version setting.
-            settings.Add(key, Constants.Version);
-            config.Save();
+                // Remove existing version setting.
+                if (settings.AllKeys.Any(x => key.InvariantEquals(x)))
+                {
+                    settings.Remove(key);
+                }
+
+
+                // Add version setting.
+                settings.Add(key, Constants.Version);
+                config.Save();
+
+            });
 
         }
 
@@ -437,11 +494,74 @@
                 doc.LoadXml(actionXml);
 
 
-                // Grant access permission.
-                PackageAction.RunPackageAction("Formulate",
-                    "Formulate.TransformXmlFile", doc.FirstChild);
+                // Queue web.config change to add Formulate configuration.
+                QueueInstallAction(() =>
+                {
+                    PackageAction.RunPackageAction("Formulate",
+                        "Formulate.TransformXmlFile", doc.FirstChild);
+                });
 
             }
+
+        }
+
+
+        /// <summary>
+        /// Queues an install action to be run in a few seconds.
+        /// </summary>
+        /// <param name="action">
+        /// The install action.
+        /// </param>
+        private void QueueInstallAction(Action action)
+        {
+            lock (InstallActionsLock)
+            {
+                InstallActions.Add(action);
+                if (InstallTimer == null)
+                {
+                    var twentySeconds = 1000 * 20;
+                    InstallTimer = new Timer(twentySeconds);
+                    InstallTimer.AutoReset = false;
+                    InstallTimer.Elapsed += HandleInstallTimerElapsed;
+                    InstallTimer.Start();
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Once the install timer elapses, run the install actions.
+        /// </summary>
+        private void HandleInstallTimerElapsed(object sender, ElapsedEventArgs e)
+        {
+
+            // Queueing this way should avoid application pool recycles during the install process,
+            // which will ensure that only one application pool recyle occurs, even if there are multiple
+            // configuration changes made.
+            HostingEnvironment.QueueBackgroundWorkItem(token =>
+            {
+                lock (InstallActionsLock)
+                {
+                    if (InstallActions == null)
+                    {
+                        return;
+                    }
+                    try
+                    {
+                        InstallActions.ForEach(x =>
+                            x()
+                        );
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.Error<ApplicationStartedHandler>(InstallActionsError, ex);
+                    }
+                    finally
+                    {
+                        InstallActions = null;
+                    }
+                }
+            });
 
         }
 
