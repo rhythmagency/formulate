@@ -21,8 +21,10 @@ Here are those steps, explained in detail:
 ![Create Formulate Layout](/images/simple-form/layout.png)
 * Create a form configuration, picking a template and the layout you just created.  
 ![Create Formulate Form Configuration](/images/simple-form/config.png)
-* Create a form picker data type in the developer section.
-* Add a form picker property to one of your document types in the settings section.  
+* Pick the form configuration by following these steps:
+  * Create a form picker data type in the developer section.
+  * Add a form picker property to one of your document types in the settings section.
+  * Pick your form from the content node.  
 ![Pick Formulate Form](/images/simple-form/picker.png)
 * Render your picked form in the CSHTML file for your page. See [here](/render-form) for instructions on doing that.  
 ![Rendered Formulate Form](/images/simple-form/done.png)
