@@ -13,7 +13,7 @@ To create a complex form, follow these steps:
 * Create a simple form by following [these instructions](/simple-form).
 * Add a few more fields.  
 ![Complex Formulate Form Fields](/images/complex-form/fields.png)
-* Add as many buttons fields as you like (notice there are two above).
+* Add as many button fields as you like (notice there are two above).
 * Add some validations (by default, Formulate supports mandatory and regular expression validations).  
 ![Email Validation](/images/complex-form/email.png)
 * Select those validations on some of your fields.  
