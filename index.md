@@ -14,7 +14,7 @@ Here are a few pages that will help you get started with Formulate:
 * [Installing](/installing)
 * Create Forms:
   * [Simple Form](/simple-form)
-  * [Complex Form](/simple-form)
+  * [Complex Form](/complex-form)
 * [Render Form](/render-form)
 * [Roadmap](/roadmap)
 * Advanced Topics:
