@@ -65,7 +65,9 @@ You can render your picked form like this (this assumes the form picker property
 
         <!-- Display the form. -->
         <div ng-if="status !== 'success'">
-            @Html.Partial("~/Views/Partials/Formulate/RenderForm.cshtml", vm)
+            <div class="container">
+                @Html.Partial("~/Views/Partials/Formulate/RenderForm.cshtml", vm)
+            </div>
         </div>
 
         <!-- Display the success message. -->
