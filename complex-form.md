@@ -4,7 +4,7 @@ title: Creating a Complex Form in Formulate
 ---
 
 # Creating a Complex Form
-Here's is what a more complicated for might look like:
+Here's is what a more complicated form might look like:
 
 ![Rendered Complex Formulate Form](/images/complex-form/done.png)
 
