@@ -16,4 +16,5 @@ Here are some of Formulate's capabilities and features:
 * Folders for everything (forms, validations, data values, and so on) help keep you organized.
 * Customize form templates to display forms in any way you can imagine.
 * Extensible to support a virtually infinite variety of forms.
+* AJAX postbacks are the default in Formulate (i.e., no full page reloads on form submissions).
 * Super solid code makes it easy for web developers to work with. It's written in C#, ASP.NET MVC, and AngularJS.
