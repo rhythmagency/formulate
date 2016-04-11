@@ -51,7 +51,7 @@ Each project is built into an assembly, and each assembly has a different purpos
 * **Website**: This is a sample website for developers who wish to contribute to the Formulate codebase. The binary is not part of the packaged releases, though a few of the files it contains are (e.g., some CSHTML, config, and XDT files).
 
 # Thanks
-Thanks to the creators of the following Umbraco packages, which served as excellent points of reference when building Formulate:
+Thanks to the creators of the following Umbraco packages, which served as excellent points of reference while building Formulate:
 * [Archetype](https://github.com/imulus/Archetype)
 * [Umbraco Bookshelf](https://github.com/kgiszewski/UmbracoBookshelf)
 * [Merchello](https://github.com/Merchello/Merchello)
