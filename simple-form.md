@@ -7,6 +7,7 @@ title: Creating a Simple Form in Formulate
 To create a simple form, follow these steps:
 
 * Create a form.
+* Add a handler.
 * Create a layout.
 * Create a form configuration.
 * Pick the form configuration.
