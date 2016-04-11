@@ -228,7 +228,14 @@
             var needsUpgrade = !Constants.Version.InvariantEquals(version);
             if (!isInstalled)
             {
+
+                // Logging.
+                LogHelper.Info<ApplicationStartedHandler>("Installing Formulate.");
+
+
+                // Install Formulate.
                 HandleInstall(applicationContext);
+
             }
             else if (needsUpgrade)
             {
@@ -283,7 +290,25 @@
                 var existingSection = service.GetByAlias("formulate");
                 if (existingSection == null)
                 {
-                    service.MakeNew("Formulate", "formulate", "icon-formulate-clipboard", 6);
+
+                    // Logging.
+                    LogHelper.Info<ApplicationStartedHandler>("Installing Formulate section in applications.config.");
+
+
+                    // Variables.
+                    var doc = new XmlDocument();
+                    var actionXml = Resources.TransformApplications;
+                    doc.LoadXml(actionXml);
+
+
+                    // Add to applications.
+                    PackageAction.RunPackageAction("Formulate",
+                        "Formulate.TransformXmlFile", doc.FirstChild);
+
+
+                    // Logging.
+                    LogHelper.Info<ApplicationStartedHandler>("Done installing Formulate section in applications.config.");
+
                 }
             });
 
@@ -303,6 +328,10 @@
                 if (!exists)
                 {
 
+                    // Logging.
+                    LogHelper.Info<ApplicationStartedHandler>("Installing Formulate dashboard.");
+
+
                     // Variables.
                     var doc = new XmlDocument();
                     var actionXml = Resources.TransformDashboard;
@@ -312,6 +341,9 @@
                     // Add dashboard.
                     PackageAction.RunPackageAction("Formulate",
                         "Formulate.TransformXmlFile", doc.FirstChild);
+
+                    // Logging.
+                    LogHelper.Info<ApplicationStartedHandler>("Done installing Formulate dashboard.");
 
                 }
             });
@@ -372,6 +404,10 @@
                 if (!exists)
                 {
 
+                    // Logging.
+                    LogHelper.Info<ApplicationStartedHandler>("Installing Formulate developer tab.");
+
+
                     // Variables.
                     var dashboardPath = SystemFiles.DashboardConfig;
                     var mappedDashboardPath = IOHelper.MapPath(dashboardPath);
@@ -404,6 +440,10 @@
                     // Save new Dashboard.config.
                     dashboardDoc.Save(mappedDashboardPath);
 
+
+                    // Logging.
+                    LogHelper.Info<ApplicationStartedHandler>("Done installing Formulate developer tab.");
+
                 }
             });
 
@@ -419,6 +459,10 @@
             // Queue the web.config change.
             QueueInstallAction(() =>
             {
+
+                // Logging.
+                LogHelper.Info<ApplicationStartedHandler>("Ensuring Formulate version in the web.config.");
+
 
                 // Variables.
                 var key = SettingConstants.VersionKey;
@@ -436,6 +480,10 @@
                 // Add version setting.
                 settings.Add(key, Constants.Version);
                 config.Save();
+
+
+                // Logging.
+                LogHelper.Info<ApplicationStartedHandler>("Done ensuring Formulate version in the web.config.");
 
             });
 
@@ -495,6 +543,10 @@
                 if (!exists)
                 {
 
+                    // Logging.
+                    LogHelper.Info<ApplicationStartedHandler>("Adding Formulate config to the web.config.");
+
+
                     // Variables.
                     var doc = new XmlDocument();
                     var actionXml = Resources.TransformWebConfig;
@@ -504,6 +556,10 @@
                     // Add configuration group.
                     PackageAction.RunPackageAction("Formulate",
                         "Formulate.TransformXmlFile", doc.FirstChild);
+
+
+                    // Logging.
+                    LogHelper.Info<ApplicationStartedHandler>("Done adding Formulate config to the web.config.");
 
                 }
 
@@ -541,6 +597,10 @@
         private void HandleInstallTimerElapsed(object sender, ElapsedEventArgs e)
         {
 
+            // Logging.
+            LogHelper.Info<ApplicationStartedHandler>("Running the queue of Formulate install actions.");
+
+
             // Queueing this way should avoid application pool recycles during the install process,
             // which will ensure that only one application pool recyle occurs, even if there are multiple
             // configuration changes made.
@@ -560,8 +620,15 @@
                     }
                     finally
                     {
+
+                        // Reset queue.
                         InstallTimer = null;
                         InstallActions = new List<Action>();
+
+
+                        // Logging.
+                        LogHelper.Info<ApplicationStartedHandler>("Done running the queue of Formulate install actions.");
+
                     }
                 }
             });

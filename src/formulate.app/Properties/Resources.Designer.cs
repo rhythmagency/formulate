@@ -91,6 +91,18 @@ namespace formulate.app.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;Action runat=&quot;install&quot; undo=&quot;false&quot; alias=&quot;Formulate.TransformXmlFile&quot;
+        ///  installTransform=&quot;~/App_Plugins/formulate/Transforms/applications.config.install.xdt&quot;
+        ///  uninstallTransform=&quot;~/App_Plugins/formulate/Transforms/applications.config.uninstall.xdt&quot;
+        ///  file=&quot;~/Config/applications.config&quot; /&gt;.
+        /// </summary>
+        internal static string TransformApplications {
+            get {
+                return ResourceManager.GetString("TransformApplications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Action runat=&quot;install&quot; undo=&quot;false&quot; alias=&quot;Formulate.TransformXmlFile&quot;
         ///  installTransform=&quot;~/App_Plugins/formulate/Transforms/dashboard.config.install.xdt&quot;
         ///  uninstallTransform=&quot;~/App_Plugins/formulate/Transforms/dashboard.config.uninstall.xdt&quot;
         ///  file=&quot;~/Config/Dashboard.config&quot; /&gt;.

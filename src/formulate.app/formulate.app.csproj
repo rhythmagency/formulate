@@ -433,6 +433,10 @@
     <Compile Include="Validations\Validation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\formulate\editors\configured-form-picker.html" />
+    <Content Include="App_Plugins\formulate\Transforms\applications.config.uninstall.xdt" />
+    <Content Include="App_Plugins\formulate\Transforms\applications.config.install.xdt" />
+    <None Include="Resources\TransformApplications.txt" />
     <None Include="app.config" />
     <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.eot" />
     <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.ttf" />
