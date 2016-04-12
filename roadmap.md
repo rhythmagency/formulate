@@ -13,5 +13,4 @@ These are some things that are on the horizon for Formulate:
 * **Field Comparison Validation.** Once implemented, this can be used to ensure that two fields match (e.g., for a password confirmation field).
 * **More Field Types.** Only a few field types are currently supported. As time goes on, more and more will be supported.
 * **Export / Import.** While it is possible to copy forms from the file system already, the ability to do so from the UI will eventually be added.
-* **Submission Handler/Dashboard.** In addition to the current email handler, a submission handler will be created to store form submissions. A dashboard will also be created to display those submissions (and probably provide a CSV export).
 * **Various Enhancements.** You can see a few more planned enhancements here: [Formulate Enhancements](https://github.com/rhythmagency/formulate/labels/enhancement).
