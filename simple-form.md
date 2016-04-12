@@ -18,7 +18,7 @@ Here are those steps, explained in detail:
 
 * Create a form, adding any fields that are necessary (don't forget to add at least one button field).  
 ![Create Formulate Form](/images/simple-form/form.png)
-* Add a handler so you get an email when the form is submitted.  
+* Add a handler so you get an email when the form is submitted. Be sure you have configured SMTP in your web.config (instructions [here](/smtp-configuration)).  
 ![Add Formulate Handler](/images/simple-form/handlers.png)
 * Create a layout, picking the form you just created.  
 ![Create Formulate Layout](/images/simple-form/layout.png)
