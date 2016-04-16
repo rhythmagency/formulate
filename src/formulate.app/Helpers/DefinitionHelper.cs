@@ -2,15 +2,15 @@
 {
 
     // Namespaces.
-    using app.Managers;
-    using app.Persistence;
-    using app.Resolvers;
     using core.Extensions;
     using core.Types;
+    using Managers;
+    using Persistence;
+    using Resolvers;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using ResolverConfig = app.Resolvers.Configuration;
+    using ResolverConfig = Resolvers.Configuration;
 
 
     /// <summary>
