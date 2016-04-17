@@ -9,6 +9,6 @@ Validations allow you to ensure users enter correct input values. When you creat
 * **{name}** - The name of the field.
 * **{alias}** - The field alias.
 * **{label}** - The field label.
-* **{{}** - This is an escape sequence in case you want to include a curly brace in your message.
+* **{% raw %}{{}{% endraw %}** - This is an escape sequence in case you want to include a curly brace in your message.
 
 As an example, if you had a validation with a message of "The field, {name}, is mandatory" and you applied it to the field with a name of "First Name", the resulting message that would be displayed to the user would be "The field, First Name, is mandatory".
