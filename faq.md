@@ -13,3 +13,5 @@ title: Formulate Frequently Asked Questions
   * It should, though you will have to make a few customizations. It's designed to work well with ASP.NET MVC.
 * Do I need to be an AngularJS expert to use Formulate?
   * No. You can use Formulate with no AngularJS knowledge. However, AngularJS comes in handy when you want to customize Formulate.
+* Can Formuulate be used on a production site?
+  * Yes. In fact, it already is.
