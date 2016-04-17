@@ -30,6 +30,11 @@ module.exports = function(grunt) {
     // returned the next time this function is called.
     function getConfiguration(preference) {
 
+        // Returns the current configuration (useful to add changes in a single block of code).
+        var currentConfig = function() {
+            return getConfiguration.configuration;
+        };
+
         // If an option or override is specified, use that version.
         if (buildConfig) {
             getConfiguration.configuration = buildConfig;
@@ -40,7 +45,7 @@ module.exports = function(grunt) {
         // If a previous configuration was already used, keep
         // using it.
         if (getConfiguration.configuration) {
-            return getConfiguration.configuration;
+            return currentConfig();
         }
 
         // Variables.
@@ -53,7 +58,7 @@ module.exports = function(grunt) {
         // use the "Release" configuration.
         if (!debugDate && !releaseDate) {
             getConfiguration.configuration = "Release";
-            return getConfiguration.configuration;
+            return currentConfig();
         }
 
         // If both configurations exist, use the one with the
@@ -64,7 +69,7 @@ module.exports = function(grunt) {
             } else {
                 getConfiguration.configuration = "Debug";
             }
-            return getConfiguration.configuration;
+            return currentConfig();
         }
 
         // If one exists, prefer it over the other.
@@ -76,7 +81,7 @@ module.exports = function(grunt) {
         } else {
             getConfiguration.configuration = "Release";
         }
-        return getConfiguration.configuration;
+        return currentConfig();
 
     }
 
@@ -117,24 +122,6 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            // Main is used to copy files to the sample website.
-            main: {
-                files: [
-                    {
-                        // Frontend files.
-                        expand: true,
-                        src: ["App_Plugins/**"],
-                        dest: 'Website/',
-                        cwd: appProject + "/"
-                    }, {
-                        // App binaries.
-                        expand: true,
-                        src: binaries,
-                        dest: 'Website/bin/',
-                        cwd: apiProject + "/bin/" + getConfiguration() + "/"
-                    }
-                ]
-            },
             frontend: {
                 files: [
                     {
@@ -143,33 +130,6 @@ module.exports = function(grunt) {
                         src: ["App_Plugins/**"],
                         dest: 'Website/',
                         cwd: appProject + "/"
-                    }
-                ]
-            },
-            // Package is used to copy files to create the Umbraco package.
-            package: {
-                files: [
-                    {
-                        // Frontend files.
-                        expand: true,
-                        src: ["App_Plugins/**"],
-                        dest: './FormulateTemp/package/',
-                        cwd: appProject + "/"
-                    }, {
-                        // App binaries.
-                        expand: true,
-                        src: binaries,
-                        dest: './FormulateTemp/package/bin/',
-                        cwd: apiProject + "/bin/" + getConfiguration() + "/"
-                    }, {
-                        // Config and view files.
-                        expand: true,
-                        src: [
-                            "Config/Formulate/*.config",
-                            "Views/Partials/Formulate/**"
-                        ],
-                        dest: './FormulateTemp/package/',
-                        cwd: "Website/"
                     }
                 ]
             }
@@ -245,16 +205,6 @@ module.exports = function(grunt) {
         nuget_install: {
             file: "Formulate.sln"
         },
-        msbuild: {
-            main: {
-                src: ["Formulate.sln"],
-                options: {
-                    projectConfiguration: getConfiguration("Release"),
-                    targets: ["Rebuild"],
-                    stdout: true
-                }
-            }
-        },
         ngAnnotate: {
             main: {
                 files: {
@@ -272,6 +222,86 @@ module.exports = function(grunt) {
         }
     });
 
+    // Task to initialize the "copy:main" grunt task. This is done so getConfiguration is not run too early.
+    grunt.registerTask("configure:copy:main", function () {
+        var mergeConfig = {
+            copy: {
+                // Main is used to copy files to the sample website.
+                main: {
+                    files: [
+                        {
+                            // Frontend files.
+                            expand: true,
+                            src: ["App_Plugins/**"],
+                            dest: 'Website/',
+                            cwd: appProject + "/"
+                        }, {
+                            // App binaries.
+                            expand: true,
+                            src: binaries,
+                            dest: 'Website/bin/',
+                            cwd: apiProject + "/bin/" + getConfiguration() + "/"
+                        }
+                    ]
+                }
+            }
+        };
+        grunt.config.merge(mergeConfig);
+    });
+
+    // Task to initialize the "copy:package" grunt task. This is done so getConfiguration is not run too early.
+    grunt.registerTask("configure:copy:package", function () {
+        var mergeConfig = {
+            copy: {
+                // Package is used to copy files to create the Umbraco package.
+                package: {
+                    files: [
+                        {
+                            // Frontend files.
+                            expand: true,
+                            src: ["App_Plugins/**"],
+                            dest: './FormulateTemp/package/',
+                            cwd: appProject + "/"
+                        }, {
+                            // App binaries.
+                            expand: true,
+                            src: binaries,
+                            dest: './FormulateTemp/package/bin/',
+                            cwd: apiProject + "/bin/" + getConfiguration() + "/"
+                        }, {
+                            // Config and view files.
+                            expand: true,
+                            src: [
+                                "Config/Formulate/*.config",
+                                "Views/Partials/Formulate/**"
+                            ],
+                            dest: './FormulateTemp/package/',
+                            cwd: "Website/"
+                        }
+                    ]
+                }
+            }
+        };
+        grunt.config.merge(mergeConfig);
+    });
+
+    // Task to initialize the "msbuild" grunt task. This is done so getConfiguration is not run too early.
+    grunt.registerTask("configure:msbuild", function () {
+        var mergeConfig = {
+            msbuild: {
+                main: {
+                    src: ["Formulate.sln"],
+                    options: {
+                        projectConfiguration: getConfiguration("Release"),
+                        targets: ["Rebuild"],
+                        stdout: true
+                    }
+                }
+            }
+        };
+        grunt.config.merge(mergeConfig);
+    });
+
     // Load NPM tasks.
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-html-convert");
@@ -287,7 +317,7 @@ module.exports = function(grunt) {
     grunt.registerTask("default",
         // The "default" task is for general development of Formulate.
         ["clean:before", "htmlConvert", "browserify:default", "ngAnnotate:main",
-        "copy:main", "clean:after"]);
+        "configure:copy:main", "copy:main", "clean:after"]);
     grunt.registerTask("frontend",
         // The "frontend" task is for frontend development of Formulate. This
         // will skip copying the binaries.
@@ -297,12 +327,12 @@ module.exports = function(grunt) {
         // The "package" task is used to create an installer package
         // for Formulate.
         ["clean:before", "htmlConvert", "browserify:default", "ngAnnotate:main",
-        "copy:package", "umbracoPackage:main", "clean:after"]);
+        "configure:copy:package", "copy:package", "umbracoPackage:main", "clean:after"]);
     grunt.registerTask("package-full",
         // The "package-full" task is used to build the Visual Studio
         // solution and then create the installer package for Formulate.
-        ["clean:before", "nuget_install", "msbuild:main", "htmlConvert",
-        "browserify:default", "ngAnnotate:main", "copy:package",
-        "umbracoPackage:main", "clean:after"]);
+        ["clean:before", "nuget_install", "configure:msbuild", "msbuild:main", "htmlConvert",
+        "browserify:default", "ngAnnotate:main", "configure:copy:package",
+        "copy:package", "umbracoPackage:main", "clean:after"]);
 
 };
