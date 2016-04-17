@@ -7,7 +7,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Constants = formulate.app.Constants.Validations.ValidationRegex;
+    using Constants = Constants.Validations.ValidationRegex;
 
 
     /// <summary>
@@ -53,6 +53,10 @@
             }
         }
 
+        #endregion
+
+
+        #region Methods
 
         /// <summary>
         /// Deserializes the validation configuration.
@@ -60,10 +64,13 @@
         /// <param name="configuration">
         /// The serialized validation configuration.
         /// </param>
+        /// <param name="context">
+        /// The validation configuration deserialization context.
+        /// </param>
         /// <returns>
         /// The deserialized configuration.
         /// </returns>
-        public object DeserializeConfiguration(string configuration)
+        public object DeserializeConfiguration(string configuration, ValidationContext context)
         {
             var config = new ValidationRegexConfiguration();
             var configData = JsonHelper.Deserialize<JObject>(configuration);
@@ -76,7 +83,8 @@
             }
             if (propertySet.Contains("message"))
             {
-                config.Message = dynamicConfig.message.Value as string;
+                var message = dynamicConfig.message.Value as string;
+                config.Message = ValidationHelper.ReplaceMessageTokens(message, context);
             }
             return config;
         }

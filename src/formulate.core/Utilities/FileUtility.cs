@@ -13,6 +13,13 @@
     public static class FileUtility
     {
 
+        #region Constants
+
+        private const string ViewNotFound = "The specified Formulate view could not be located on the file system.";
+
+        #endregion
+
+
         #region Methods
 
         /// <summary>
@@ -26,13 +33,14 @@
         /// </remarks>
         public static void ValidateView(string path)
         {
-            var localPath = HostingEnvironment.MapPath(path);
-            var exists = File.Exists(localPath);
-            if (!exists)
+            var valid = !string.IsNullOrWhiteSpace(path);
+            var localPath = valid
+                ? HostingEnvironment.MapPath(path)
+                : null;
+            valid = valid && File.Exists(localPath);
+            if (!valid)
             {
-                throw new ViewNotFoundException(
-                    "The specified Formulate view could not be located on the file system.",
-                    path);
+                throw new ViewNotFoundException(ViewNotFound, path);
             }
         }
 

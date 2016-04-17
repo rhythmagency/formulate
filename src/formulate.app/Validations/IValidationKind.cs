@@ -14,7 +14,7 @@
         Guid Id { get; }
         string Name { get; }
         string Directive { get; }
-        object DeserializeConfiguration(string configuration);
+        object DeserializeConfiguration(string configuration, ValidationContext context);
     }
 
 }

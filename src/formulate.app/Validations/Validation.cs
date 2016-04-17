@@ -82,13 +82,16 @@
         /// <summary>
         /// Deserializes the configuration data into a C# class instance.
         /// </summary>
+        /// <param name="context">
+        /// The validation configuration deserialization context.
+        /// </param>
         /// <returns>
         /// The deserialized configuration data.
         /// </returns>
-        public object DeserializeConfiguration()
+        public object DeserializeConfiguration(ValidationContext context)
         {
             var kind = GetValidationKind();
-            return kind.DeserializeConfiguration(Data);
+            return kind.DeserializeConfiguration(Data, context);
         }
 
 

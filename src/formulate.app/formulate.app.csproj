@@ -431,6 +431,7 @@
     <Compile Include="Validations\Kinds\Regex\ValidationRegex.cs" />
     <Compile Include="Validations\Kinds\Regex\ValidationRegexConfiguration.cs" />
     <Compile Include="Validations\Validation.cs" />
+    <Compile Include="Validations\ValidationContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\formulate\editors\configured-form-picker.html" />
