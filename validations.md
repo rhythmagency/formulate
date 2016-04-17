@@ -11,10 +11,10 @@ Validations allow you to ensure users enter correct input values. When you creat
 * **{label}** - The field label.
 * **{% raw %}{{}{% endraw %}** - This is an escape sequence in case you want to include a curly brace in your message.
 
-As an example, suppose you had a validation with a message of "The field, {name}, is mandatory":
+As an example, suppose you had a validation with a message of "This field, {name}, is mandatory":
 
 ![Formulate Validation Message](images/validations/message.png?raw=true "Formulate Validation Message")
 
-If you applied it to the field with a name of "First Name", the resulting message that would be displayed to the user would be "The field, First Name, is mandatory":
+If you applied it to the field with a name of "First Name", the resulting message that would be displayed to the user would be "This field, First Name, is mandatory":
 
 ![Formulate Validation Error](images/validations/validation.png?raw=true "Formulate Validation Error")
