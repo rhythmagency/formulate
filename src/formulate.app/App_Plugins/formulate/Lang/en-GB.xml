@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<language>
+<language alias="en" intName="English (UK)" localName="English (UK)" lcid="" culture="en-GB">
   <area alias="sections">
     <key alias="formulate">Formulate</key>
+  </area>
+  <area alias="formulate-trees">
+    <key alias="Data Sources">Data Sources</key>
+    <key alias="Data Values">Data Values</key>
+    <key alias="Forms">Forms</key>
+    <key alias="Layouts">Layouts</key>
+    <key alias="Validation Library">Validation Library</key>
+  </area>
+  <area alias="formulate-data-value-names">
+    <key alias="List">List</key>
+  </area>
+  <area alias="formulate-layout-names">
+    <key alias="Basic Layout">Basic Layout</key>
+  </area>
+  <area alias="formulate-menu-item-names">
+    <key alias="Create Configuration">Create Configuration</key>
+    <key alias="Create Data Value">Create Data Value</key>
+    <key alias="Create Folder">Create Folder</key>
+    <key alias="Create Form">Create Form</key>
+    <key alias="Create Layout">Create Layout</key>
+    <key alias="Create Validation">Create Validation</key>
+    <key alias="Delete Configuration">Delete Configuration</key>
+    <key alias="Delete Data Value">Delete Data Value</key>
+    <key alias="Delete Folder">Delete Folder</key>
+    <key alias="Delete Form">Delete Form</key>
+    <key alias="Delete Layout">Delete Layout</key>
+    <key alias="Delete Validation">Delete Validation</key>
+    <key alias="Move">Move</key>
   </area>
 </language>

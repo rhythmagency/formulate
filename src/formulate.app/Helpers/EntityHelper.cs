@@ -143,30 +143,32 @@
         /// </returns>
         public static string GetNameForRoot(Guid id)
         {
+            var name = default(string);
             if (id == FormId)
             {
-                return FormConstants.Title;
+                name = FormConstants.Title;
             }
             else if (id == LayoutId)
             {
-                return LayoutConstants.Title;
+                name = LayoutConstants.Title;
             }
             else if (id == ValidationId)
             {
-                return ValidationConstants.Title;
+                name = ValidationConstants.Title;
             }
             else if (id == DataValueId)
             {
-                return DataValueConstants.Title;
+                name = DataValueConstants.Title;
             }
             else if (id == DataSourceId)
             {
-                return DataSourceConstants.Title;
+                name = DataSourceConstants.Title;
             }
             else
             {
                 throw new ArgumentOutOfRangeException("id", InvalidId);
             }
+            return LocalizationHelper.GetTreeName(name);
         }
 
 

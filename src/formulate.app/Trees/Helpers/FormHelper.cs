@@ -144,7 +144,7 @@
             {
                 Alias = "deleteForm",
                 Icon = "folder",
-                Name = "Delete Form"
+                Name = LocalizationHelper.GetMenuItemName("Delete Form")
             };
             menuItem.LaunchDialogView(path, "Delete Form");
             menu.Items.Add(menuItem);
@@ -167,7 +167,7 @@
             {
                 Alias = "moveForm",
                 Icon = "folder",
-                Name = "Move"
+                Name = LocalizationHelper.GetMenuItemName("Move")
             };
             var titleFormat = @"Move ""{0}"" Form";
             var title = string.Format(titleFormat, form.Name);
@@ -195,7 +195,7 @@
             {
                 Alias = "createForm",
                 Icon = "folder",
-                Name = "Create Form"
+                Name = LocalizationHelper.GetMenuItemName("Create Form")
             };
             if (entityId.HasValue)
             {

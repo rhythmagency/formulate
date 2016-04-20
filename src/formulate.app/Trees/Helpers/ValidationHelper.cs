@@ -131,7 +131,7 @@
             {
                 Alias = "deleteValidation",
                 Icon = "folder",
-                Name = "Delete Validation"
+                Name = LocalizationHelper.GetMenuItemName("Delete Validation")
             };
             menuItem.LaunchDialogView(path, "Delete Validation");
             menu.Items.Add(menuItem);
@@ -154,7 +154,7 @@
             {
                 Alias = "moveValidation",
                 Icon = "folder",
-                Name = "Move"
+                Name = LocalizationHelper.GetMenuItemName("Move")
             };
             var titleFormat = @"Move ""{0}"" Validation";
             var title = string.Format(titleFormat, validation.Name);
@@ -182,7 +182,7 @@
             {
                 Alias = "createValidation",
                 Icon = "folder",
-                Name = "Create Validation"
+                Name = LocalizationHelper.GetMenuItemName("Create Validation")
             };
             if (entityId.HasValue)
             {

@@ -4,7 +4,7 @@
     // Namespaces.
     using Helpers;
     using System;
-    using Constants = formulate.app.Constants.DataValues.DataValueList;
+    using Constants = Constants.DataValues.DataValueList;
 
 
     /// <summary>
@@ -34,7 +34,7 @@
         {
             get
             {
-                return Constants.Name;
+                return LocalizationHelper.GetDataValueName(Constants.Name);
             }
         }
 

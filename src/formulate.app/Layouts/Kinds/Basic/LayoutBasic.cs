@@ -7,7 +7,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Constants = formulate.app.Constants.Layouts.LayoutBasic;
+    using Constants = Constants.Layouts.LayoutBasic;
 
 
     /// <summary>
@@ -37,7 +37,7 @@
         {
             get
             {
-                return Constants.Name;
+                return LocalizationHelper.GetLayoutName(Constants.Name);
             }
         }
 

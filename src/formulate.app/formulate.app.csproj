@@ -342,6 +342,7 @@
     <Compile Include="Helpers\GuidHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\LayoutHelper.cs" />
+    <Compile Include="Helpers\LocalizationHelper.cs" />
     <Compile Include="Helpers\ReflectionHelper.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
@@ -435,6 +436,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\formulate\editors\configured-form-picker.html" />
+    <Content Include="App_Plugins\formulate\lang\es-ES.xml" />
     <Content Include="App_Plugins\formulate\Transforms\applications.config.uninstall.xdt" />
     <Content Include="App_Plugins\formulate\Transforms\applications.config.install.xdt" />
     <None Include="Resources\TransformApplications.txt" />

@@ -131,7 +131,7 @@
             {
                 Alias = "deleteDataValue",
                 Icon = "folder",
-                Name = "Delete Data Value"
+                Name = LocalizationHelper.GetMenuItemName("Delete Data Value")
             };
             menuItem.LaunchDialogView(path, "Delete Data Value");
             menu.Items.Add(menuItem);
@@ -154,7 +154,7 @@
             {
                 Alias = "moveDataValue",
                 Icon = "folder",
-                Name = "Move"
+                Name = LocalizationHelper.GetMenuItemName("Move")
             };
             var titleFormat = @"Move ""{0}"" Data Value";
             var title = string.Format(titleFormat, dataValue.Name);
@@ -182,7 +182,7 @@
             {
                 Alias = "createDataValue",
                 Icon = "folder",
-                Name = "Create Data Value"
+                Name = LocalizationHelper.GetMenuItemName("Create Data Value")
             };
             if (entityId.HasValue)
             {

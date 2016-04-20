@@ -132,6 +132,17 @@ module.exports = function(grunt) {
                         cwd: appProject + "/"
                     }
                 ]
+            },
+            translation: {
+                files: [
+                    {
+                        // Translation files.
+                        expand: true,
+                        src: ["App_Plugins/formulate/lang/**"],
+                        dest: 'Website/',
+                        cwd: appProject + "/"
+                    }
+                ]
             }
         },
         htmlConvert: {
@@ -323,6 +334,10 @@ module.exports = function(grunt) {
         // will skip copying the binaries.
         ["clean:before", "htmlConvert", "browserify:default", "ngAnnotate:main",
         "copy:frontend", "jsdoc:main", "clean:after"]);
+    grunt.registerTask("translation",
+        // The "translation" task is for working with translations for Formulate. This
+        // will only copy language files.
+        ["copy:translation"]);
     grunt.registerTask("package",
         // The "package" task is used to create an installer package
         // for Formulate.

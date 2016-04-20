@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language alias="es" intName="Spanish" localname="español" lcid="10" culture="es-ES">
+  <!-- Anything that isn't translated yet is marked with the suffix "(ES)". -->
+  <area alias="sections">
+    <key alias="formulate">Formulate (ES)</key>
+  </area>
+  <area alias="formulate-trees">
+    <key alias="Data Sources">Data Sources (ES)</key>
+    <key alias="Data Values">Data Values (ES)</key>
+    <key alias="Forms">Forms (ES)</key>
+    <key alias="Layouts">Layouts (ES)</key>
+    <key alias="Validation Library">Validation Library (ES)</key>
+  </area>
+  <area alias="formulate-data-value-names">
+    <key alias="List">List (ES)</key>
+  </area>
+  <area alias="formulate-layout-names">
+    <key alias="Basic Layout">Basic Layout (ES)</key>
+  </area>
+  <area alias="formulate-menu-item-names">
+    <key alias="Create Configuration">Create Configuration (ES)</key>
+    <key alias="Create Data Value">Create Data Value (ES)</key>
+    <key alias="Create Folder">Create Folder (ES)</key>
+    <key alias="Create Form">Create Form (ES)</key>
+    <key alias="Create Layout">Create Layout (ES)</key>
+    <key alias="Create Validation">Create Validation (ES)</key>
+    <key alias="Delete Configuration">Delete Configuration (ES)</key>
+    <key alias="Delete Data Value">Delete Data Value (ES)</key>
+    <key alias="Delete Folder">Delete Folder (ES)</key>
+    <key alias="Delete Form">Delete Form (ES)</key>
+    <key alias="Delete Layout">Delete Layout (ES)</key>
+    <key alias="Delete Validation">Delete Validation (ES)</key>
+    <key alias="Move">Move (ES)</key>
+  </area>
+</language>
