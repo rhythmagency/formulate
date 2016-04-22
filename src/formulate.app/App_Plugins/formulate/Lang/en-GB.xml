@@ -3,6 +3,9 @@
   <area alias="sections">
     <key alias="formulate">Formulate</key>
   </area>
+  <area alias="treeHeaders">
+    <key alias="formulate">Formulate</key>
+  </area>
   <area alias="formulate-trees">
     <key alias="Data Sources">Data Sources</key>
     <key alias="Data Values">Data Values</key>

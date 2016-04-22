@@ -30,7 +30,7 @@
 
 
     //TODO: Much to do in this file.
-    [Tree("formulate", "formulate", "Formulate", "icon-folder",
+    [Tree("formulate", "formulate", null, "icon-folder",
         "icon-folder-open", true, sortOrder: 0)]
     [PluginController("formulate")]
     public class FormulateTreeController : TreeController
