@@ -25,4 +25,6 @@ Here are a few pages that will help you get started with Formulate:
 
 If you have any questions, feel free to [contact me](http://www.nicholaswestby.com/contact/) or report an issue [here](https://github.com/rhythmagency/formulate/issues).
 
-![Formulate](/images/formulate.png)
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=Vv3_9fWsq6M" target="_blank">
+<img src="http://img.youtube.com/vi/Vv3_9fWsq6M/0.jpg" alt="Introduction to Formulate" width="240" height="180" border="10" />
+</a>
