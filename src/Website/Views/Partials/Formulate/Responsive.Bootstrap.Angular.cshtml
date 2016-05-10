@@ -72,6 +72,9 @@
         label = x.Label ?? x.Name,
         // The ID can be submitted to the server to uniquely identify the field.
         id = x.Id.ToString("N"),
+        // The random ID can be used to uniquely identify the field on the page.
+        // Note that this random ID is regenerated on each page render.
+        randomId = Guid.NewGuid().ToString("N"),
         // This field type (e.g., "text", "checkbox") can be used to figure out how to render a field.
         fieldType = x.FieldType.Name.ConvertFieldTypeToAngularType(),
         // The validations can be used to validate that the data is of the expected format.

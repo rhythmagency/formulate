@@ -33,14 +33,22 @@ function addNgMessages(field) {
     return elMessages;
 }
 
-function setGlobalInputAttributes(field, el) {
-    el.attr('id', field.id);
+function setGlobalInputAttributes(field, el, options) {
+    options = angular.extend({
+        // When set to true, this element will get the "form-control" class.
+        formControl: true
+    }, options);
+    el.attr('id', fieldId(field));
     el.attr('name', 'field_' + field.id);
     el.attr('aria-label', field.label);
     el.attr('ng-model', 'ctrl.fieldModels[\'' + field.id + '\']');
     el.attr('formulate-validation', true);
 
     el.addClass('formulate__control');
+
+    if (options.formControl) {
+        el.addClass('form-control');
+    }
 
     return el;
 }
@@ -78,7 +86,7 @@ function createSubmitField(field) {
     el.attr('type', 'Submit');
     el.text(field.label);
 
-    el.addClass('formulate__btn formulate__btn--submit');
+    el.addClass('formulate__btn formulate__btn--submit btn btn-default');
 
     return el;
 }
@@ -91,7 +99,9 @@ function createCheckboxField(field) {
 
     span.text(field.label);
 
-    label.append(setGlobalInputAttributes(field, el));
+    label.append(setGlobalInputAttributes(field, el, {
+        formControl: false
+    }));
     label.append(span);
 
     container.addClass('formulate__checkbox');
@@ -104,9 +114,11 @@ function createField(field) {
     var elWrap = angular.element('<div></div>');
 
     elWrap.addClass('formulate__group');
+    elWrap.addClass('form-group');
 
     switch (field.fieldType) {
     case 'select':
+        addLabel(elWrap, field);
         elWrap.addClass('formulate__group--select');
         elWrap.append(createSelectField(field));
         break;
@@ -116,6 +128,7 @@ function createField(field) {
         break;
 
     case 'textarea':
+        addLabel(elWrap, field);
         elWrap.append(createTextAreaField(field));
         break;
 
@@ -124,6 +137,7 @@ function createField(field) {
         break;
 
     default:
+        addLabel(elWrap, field);
         elWrap.append(createTextField(field));
     }
 
@@ -131,6 +145,18 @@ function createField(field) {
     elWrap.append(addNgMessages(field));
 
     return elWrap;
+}
+
+function addLabel(elWrap, field) {
+    var contents = angular.element(document.createTextNode(field.label));
+    var label = angular.element('<label></label>');
+    label.append(contents);
+    label.attr('for', fieldId(field));
+    elWrap.append(label);
+}
+
+function fieldId(field) {
+    return 'field-' + field.randomId;
 }
 
 ////////////////////////////////////////
