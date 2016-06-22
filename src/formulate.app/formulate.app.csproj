@@ -435,6 +435,7 @@
     <Compile Include="Validations\ValidationContext.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editConfiguredForm.html" />
     <Content Include="App_Plugins\formulate\editors\configured-form-picker.html" />
     <Content Include="App_Plugins\formulate\lang\es-ES.xml" />
     <Content Include="App_Plugins\formulate\Transforms\applications.config.uninstall.xdt" />

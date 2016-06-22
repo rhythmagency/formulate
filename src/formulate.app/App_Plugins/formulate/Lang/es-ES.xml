@@ -35,4 +35,80 @@
     <key alias="Delete Validation">Delete Validation (ES)</key>
     <key alias="Move">Move (ES)</key>
   </area>
+  <area alias="formulate-info-pages">
+    <key alias="Forms"><![CDATA[
+      <h2>Forms (ES)</h2>
+      <p>
+          Forms are the fields of information a user should input. Here are some examples:
+      </p>
+      <ul>
+          <li>
+              A contact form containing a first name, last name, and email address.
+          </li>
+          <li>
+              A support request form containing first name, last name, email, and topic.
+          </li>
+      </ul>
+    ]]></key>
+    <key alias="Data Sources"><![CDATA[
+      <h2>Data Sources (ES)</h2>
+      <p>
+          Data sources are where Formulate fetches data from or adds data to. Here are some examples:
+      </p>
+      <ul>
+          <li>
+              A SQL database connection to store form submissions to.
+          </li>
+          <li>
+              A URL to fetch a list of countries from.
+          </li>
+      </ul>
+    ]]></key>
+    <key alias="Data Values"><![CDATA[
+      <h2>Data Values (ES)</h2>
+      <p>
+        Data values are displayed by form fields. Here are some examples:
+      </p>
+      <ul>
+        <li>
+          A list of countries.
+        </li>
+        <li>
+          A "yes" or "no" (e.g., for use in a drop down).
+        </li>
+      </ul>
+    ]]></key>
+    <key alias="Layouts"><![CDATA[
+      <h2>Layouts (ES)</h2>
+      <p>
+        Layouts are where you can organize your form fields into custom layouts. Here are some examples:
+      </p>
+      <ul>
+        <li>
+          A two-column grid.
+        </li>
+        <li>
+          A three-step wizard.
+        </li>
+      </ul>
+    ]]></key>
+    <key alias="Validation Library"><![CDATA[
+      <h2>Validation Library (ES)</h2>
+      <p>
+          The validation library is where you can configure your validations for use on fields. Here are some examples:
+      </p>
+      <ul>
+          <li>
+              A regular expression to validate the format of email addresses.
+          </li>
+          <li>
+              A validation that ensures the phone number entered by a user is not a known invalid phone number (e.g., one with a 555 area code).
+          </li>
+      </ul>
+      <p>
+          You can read more about validations here:
+          <a href="http://www.formulate.rocks/validations" target="_blank">http://www.formulate.rocks/validations</a>
+      </p>
+    ]]></key>
+  </area>
 </language>
