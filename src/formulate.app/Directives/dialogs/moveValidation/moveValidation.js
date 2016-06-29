@@ -87,6 +87,7 @@ function getMove(services) {
             });
 
         } else {
+            //TODO: Localize.
             alert("Make a selection first.");
         }
 

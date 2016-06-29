@@ -1,6 +1,8 @@
 ﻿<div>
     <label>
-        Data Value Name:
+        <localize key="formulate-labels_Data Value Name:">
+            Data Value Name:
+        </localize>
         <div>
             <input type="text" ng-model="dataValueName" />
         </div>
@@ -8,7 +10,9 @@
 </div>
 <div>
     <label>
-        Data Value Alias:
+        <localize key="formulate-labels_Data Value Alias:">
+            Data Value Alias:
+        </localize>
         <div>
             <input type="text" ng-model="dataValueAlias" />
         </div>
@@ -20,5 +24,9 @@
     </option>
 </select>
 <div>
-    <button type="button" class="btn btn-primary" ng-disabled="!canCreate()" ng-click="createDataValue()">Create Data Value</button>
+    <button type="button" class="btn btn-primary" ng-disabled="!canCreate()" ng-click="createDataValue()">
+        <localize key="formulate-buttons_Create Data Value">
+            Create Data Value
+        </localize>
+    </button>
 </div>

@@ -4,9 +4,8 @@
             <div class="span7">
 
                 <!-- Configured form name. -->
-                <umb-content-name
-                    ng-model="info.conFormName"
-                    placeholder="Configured Form Name">
+                <umb-content-name ng-model="info.conFormName"
+                                  placeholder="@formulate-placeholders_Configured Form Name">
                 </umb-content-name>
 
             </div>
@@ -21,8 +20,10 @@
                     <div class="row">
                         <div class="span12">
                             <p>
-                                A configured form is just a form with a layout and template selected.
-                                To configure this form, select a template and layout below.
+                                <localize key="formulate-introductions_Configured Form">
+                                    A configured form is just a form with a layout and template selected.
+                                    To configure this form, select a template and layout below.
+                                </localize>
                             </p>
                         </div>
                     </div>
@@ -31,7 +32,12 @@
                     <div class="row">
                         <div class="span12">
                             <select ng-options="option.id as option.name for option in template.templates" ng-model="template.id">
-                                <option value="">Select a Template</option>
+                                <option value="">
+                                    <!-- TODO: This doesn't seem to work. -->
+                                    <localize key="formulate-options_Select a Template">
+                                        Select a Template
+                                    </localize>
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -40,13 +46,23 @@
                     <div class="row">
                         <div class="span12">
                             <div ng-if="layoutId">
-                                <strong>Layout:</strong> {{layoutName}}
+                                <strong>
+                                    <localize key="formulate-labels_Layout:">
+                                        Layout:
+                                    </localize>
+                                </strong> {{layoutName}}
                             </div>
                             <div ng-if="!layoutId">
-                                Layout not yet chosen.
+                                <localize key="formulate-labels_Layout not chosen">
+                                    Layout not yet chosen.
+                                </localize>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-default" ng-click="pickLayout()">Pick Layout</button>
+                                <button type="button" class="btn btn-default" ng-click="pickLayout()">
+                                    <localize key="formulate-buttons_Pick Layout">
+                                        Pick Layout
+                                    </localize>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -54,7 +70,11 @@
                     <!-- Button. -->
                     <div class="row">
                         <div class="span12">
-                            <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
+                            <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>
+                                <localize key="formulate-buttons_Save">
+                                    Save
+                                </localize>
+                            </button>
                         </div>
                     </div>
 

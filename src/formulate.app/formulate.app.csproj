@@ -528,10 +528,14 @@
     <Content Include="Directives\fieldChooser\fieldChooser.js" />
     <Content Include="Directives\fieldEditor\fieldEditor.html" />
     <Content Include="Directives\fieldEditor\fieldEditor.js" />
+    <Content Include="Directives\fields\buttonField\buttonField.html" />
+    <Content Include="Directives\fields\buttonField\buttonField.js" />
     <Content Include="Directives\fields\checkboxField\checkboxField.html" />
     <Content Include="Directives\fields\checkboxField\checkboxField.js" />
     <Content Include="Directives\fields\dropDownField\dropDownField.html" />
     <Content Include="Directives\fields\dropDownField\dropDownField.js" />
+    <Content Include="Directives\fields\textAreaField\textAreaField.html" />
+    <Content Include="Directives\fields\textAreaField\textAreaField.js" />
     <Content Include="Directives\fields\textField\textField.html" />
     <Content Include="Directives\fields\textField\textField.js" />
     <Content Include="Directives\folderDesigner\designer.html" />
@@ -556,6 +560,8 @@
     <Content Include="Directives\validationDesigner\designer.js" />
     <Content Include="Directives\validationEditor\validationEditor.html" />
     <Content Include="Directives\validationEditor\validationEditor.js" />
+    <Content Include="Directives\validationKinds\validationMandatory\validationMandatory.html" />
+    <Content Include="Directives\validationKinds\validationMandatory\validationMandatory.js" />
     <Content Include="Directives\validationKinds\validationRegex\validationRegex.html" />
     <Content Include="Directives\validationKinds\validationRegex\validationRegex.js" />
     <Content Include="Directives\validationTypeChooser\validationChooser.html" />

@@ -109,5 +109,131 @@
           <a href="http://www.formulate.rocks/validations" target="_blank">http://www.formulate.rocks/validations</a>
       </p>
     ]]></key>
+    <key alias="Welcome"><![CDATA[
+        <p>
+            Welcome to Formulate.
+        </p>
+        <p>
+            For general information, refer to the documentation at
+            <a href="http://www.formulate.rocks/" target="_blank">www.formulate.rocks</a>.
+        </p>
+    ]]></key>
+  </area>
+  <area alias="formulate-placeholders">
+    <key alias="Configured Form Name">Configured Form Name</key>
+    <key alias="Data Value Alias">Data Value Alias</key>
+    <key alias="Data Value Name">Data Value Name</key>
+    <key alias="Folder Name">Folder Name</key>
+    <key alias="Form Name">Form Name</key>
+    <key alias="Form Alias">Form Alias</key>
+    <key alias="Field Name">Field Name</key>
+    <key alias="Field Alias">Field Alias</key>
+    <key alias="Field Alias">Field Label</key>
+    <key alias="Handler Name">Handler Name</key>
+    <key alias="Handler Alias">Handler Alias</key>
+    <key alias="Layout Name">Layout Name</key>
+    <key alias="Layout Alias">Layout Alias</key>
+    <key alias="Validation Name">Validation Name</key>
+    <key alias="Validation Alias">Validation Alias</key>
+    <key alias="Error Message">Error Message</key>
+    <key alias="Regular Expression">Regular Expression</key>
+  </area>
+  <area alias="formulate-introductions">
+    <key alias="Configured Form">
+        A configured form is just a form with a layout and template selected.
+        To configure this form, select a template and layout below.
+    </key>
+    <key alias="Form Handlers">
+      These are your form's handlers.
+      Handlers allow you to perform various actions when you submit the form.
+    </key>
+  </area>
+  <area alias="formulate-options">
+    <key alias="Select a Template">Select a Template</key>
+    <key alias="1 Column">1 Column</key>
+    <key alias="2 Columns">2 Columns</key>
+    <key alias="3 Columns">3 Columns</key>
+    <key alias="4 Columns">4 Columns</key>
+  </area>
+  <area alias="formulate-labels">
+    <key alias="Layout:">Layout:</key>
+    <key alias="Layout not chosen">Layout not yet chosen.</key>
+    <key alias="Data Value Alias">Data Value Alias</key>
+    <key alias="Data Value Name:">Data Value Name:</key>
+    <key alias="Data Value Alias:">Data Value Alias:</key>
+    <key alias="Field">Field</key>
+    <key alias="Data Value">Data Value</key>
+    <key alias="Form Alias">Form Alias</key>
+    <key alias="Field Name">Field Name</key>
+    <key alias="Field Alias">Field Alias</key>
+    <key alias="Field Alias">Field Label</key>
+    <key alias="Validations">Validations</key>
+    <key alias="Handler Name">Handler Name</key>
+    <key alias="Handler Alias">Handler Alias</key>
+    <key alias="Sender Email">Sender Email</key>
+    <key alias="Recipient Emails">Recipient Emails</key>
+    <key alias="Subject">Subject</key>
+    <key alias="Message">Message</key>
+    <key alias="Append Fields">Append Fields?</key>
+    <key alias="Layout Alias">Layout Alias</key>
+    <key alias="Edit Rows">Edit rows?</key>
+    <key alias="Layout Name:">Layout Name:</key>
+    <key alias="Layout Alias:">Layout Alias:</key>
+    <key alias="Validation Alias">Validation Alias</key>
+    <key alias="Validation Alias:">Validation Alias:</key>
+    <key alias="Error Message">Error Message</key>
+    <key alias="Regular Expression">Regular Expression</key>
+    <key alias="Validation Name:">Validation Name:</key>
+  </area>
+  <area alias="formulate-buttons">
+    <key alias="Pick Layout">Pick Layout</key>
+    <key alias="Save">Save</key>
+    <key alias="Cancel">Cancel</key>
+    <key alias="Select">Select</key>
+    <key alias="Move">Move</key>
+    <key alias="Submit">Submit</key>
+    <key alias="Create Folder">Create Folder</key>
+    <key alias="Add Item">Add Item</key>
+    <key alias="Add Field">Add Field</key>
+    <key alias="Create Data Value">Create Data Value</key>
+    <key alias="Delete Configured Form">Delete Configured Form</key>
+    <key alias="Delete Data Value">Delete Data Value</key>
+    <key alias="Delete Folder">Delete Folder</key>
+    <key alias="Delete Form">Delete Form</key>
+    <key alias="Delete Layout">Delete Layout</key>
+    <key alias="Delete Validation">Delete Validation</key>
+    <key alias="Pick Data Value">Pick Data Value</key>
+    <key alias="Pick Validations">Pick Validations</key>
+    <key alias="Add Handler">Add Handler</key>
+    <key alias="Add Recipient">Add Recipient</key>
+    <key alias="Delete Row">Delete Row</key>
+    <key alias="Add Row">Add Row</key>
+    <key alias="Create Layout">Create Layout</key>
+    <key alias="Create Validation">Create Validation</key>
+  </area>
+  <area alias="formulate-headers">
+    <key alias="Data Value Information">Data Value Information</key>
+    <key alias="Items">Items</key>
+    <key alias="Pick Configured Form">Pick Configured Form</key>
+    <key alias="Pick Data Value">Pick Data Value</key>
+    <key alias="Pick Form">Pick Form</key>
+    <key alias="Pick Layout">Pick Layout</key>
+    <key alias="Pick Validations">Pick Validations</key>
+    <key alias="Pick Information">Pick Information</key>
+    <key alias="Layout Information">Layout Information</key>
+    <key alias="Validation Information">Validation Information</key>
+    <key alias="Form Information">Form Information</key>
+  </area>
+  <area alias="formulate-instructions">
+    <key alias="Config Under Forms">
+      Note that configured forms reside under forms.
+    </key>
+    <key alias="Folder">
+      This is a folder. You can store items under it,
+      including more folders.
+    </key>
+  </area>
+  <area alias="formulate-general">
+    <key alias="Loading">Loading...</key>
   </area>
 </language>

@@ -6,9 +6,8 @@
             <div class="span7">
 
                 <!-- Folder name. -->
-                <umb-content-name
-                    ng-model="info.folderName"
-                    placeholder="Folder Name">
+                <umb-content-name ng-model="info.folderName"
+                                  placeholder="@formulate-placeholders_Folder Name">
                 </umb-content-name>
 
             </div>
@@ -19,13 +18,19 @@
 
                     <!-- Folder information. -->
                     <p>
-                        This is a folder. You can store items under it,
-                        including more folders.
+                        <localize key="formulate-instructions_Folder">
+                            This is a folder. You can store items under it,
+                            including more folders.
+                        </localize>
                     </p>
 
                     <!-- Save button. -->
                     <br>
-                    <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
+                    <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>
+                        <localize key="formulate-buttons_Save">
+                            Save
+                        </localize>
+                    </button>
 
                 </div>
             </umb-tab>

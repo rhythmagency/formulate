@@ -8,7 +8,7 @@
                 <!-- Validation name. -->
                 <umb-content-name
                     ng-model="info.validationName"
-                    placeholder="Validation Name">
+                    placeholder="@formulate-placeholders_Validation Name">
                 </umb-content-name>
 
             </div>
@@ -20,19 +20,26 @@
                     <!-- Validation alias. -->
                     <fieldset>
                         <legend>
-                            <h2>Validation Information</h2>
+                            <h2>
+                                <localize key="formulate-headers_Validation Information">
+                                    Validation Information
+                                </localize>
+                            </h2>
                         </legend>
                         <div class="control-group umb-control-group">
                             <div class="umb-el-wrap">
                                 <label class="control-label">
-                                    Validation Alias
+                                    <localize key="formulate-labels_Validation Alias">
+                                        Validation Alias
+                                    </localize>
                                 </label>
                                 <div class="controls controls-row">
                                     <input
                                         ng-model="info.validationAlias"
                                         type="text"
                                         class="form-control input-block-level"
-                                        placeholder="Validation Alias" />
+                                        formulate-localize-attribute="placeholder"
+                                        placeholder="formulate-placeholders_Validation Alias" />
                                 </div>
                             </div>
                         </div>
@@ -47,7 +54,11 @@
 
                     <!-- Save button. -->
                     <br>
-                    <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>Save</button>
+                    <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>
+                        <localize key="formulate-buttons_Save">
+                            Save
+                        </localize>
+                    </button>
 
                 </div>
             </umb-tab>

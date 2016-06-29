@@ -1,7 +1,9 @@
 ﻿<div>
     <div class="umb-el-wrap">
         <label class="control-label">
-            Sender Email
+            <localize key="formulate-labels_Sender Email">
+                Sender Email
+            </localize>
         </label>
         <div class="controls controls-row">
             <div>
@@ -11,7 +13,9 @@
     </div>
     <div class="umb-el-wrap">
         <label class="control-label">
-            Recipient Emails
+            <localize key="formulate-labels_Recipient Emails">
+                Recipient Emails
+            </localize>
         </label>
         <div class="controls controls-row">
             <div ng-repeat="recipient in configuration.recipients">
@@ -20,12 +24,18 @@
                     <button type="button" class="btn btn-danger" ng-click="deleteRecipient($index)">X</button>
                 </div>
             </div>
-            <button type="button" class="btn btn-default" ng-click="addRecipient()">Add Recipient</button>
+            <button type="button" class="btn btn-default" ng-click="addRecipient()">
+                <localize key="formulate-buttons_Add Recipient">
+                    Add Recipient
+                </localize>
+            </button>
         </div>
     </div>
     <div class="umb-el-wrap">
         <label class="control-label">
-            Subject
+            <localize key="formulate-labels_Subject">
+                Subject
+            </localize>
         </label>
         <div class="controls controls-row">
             <div>
@@ -35,7 +45,9 @@
     </div>
     <div class="umb-el-wrap">
         <label class="control-label">
-            Message
+            <localize key="formulate-labels_Message">
+                Message
+            </localize>
         </label>
         <div class="controls controls-row">
             <div>
@@ -45,7 +57,9 @@
     </div>
     <div class="umb-el-wrap">
         <label class="control-label">
-            Append Fields?
+            <localize key="formulate-labels_Append Fields">
+                Append Fields?
+            </localize>
         </label>
         <div class="controls controls-row">
             <div>

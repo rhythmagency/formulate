@@ -1,6 +1,8 @@
 ﻿<div>
     <label>
-        Validation Name:
+        <localize key="formulate-labels_Validation Name:">
+            Validation Name:
+        </localize>
         <div>
             <input type="text" ng-model="validationName" />
         </div>
@@ -8,7 +10,9 @@
 </div>
 <div>
     <label>
-        Validation Alias:
+        <localize key="formulate-labels_Validation Alias:">
+            Validation Alias:
+        </localize>
         <div>
             <input type="text" ng-model="validationAlias" />
         </div>
@@ -20,5 +24,9 @@
     </option>
 </select>
 <div>
-    <button type="button" class="btn btn-primary" ng-disabled="!canCreate()" ng-click="createValidation()">Create Validation</button>
+    <button type="button" class="btn btn-primary" ng-disabled="!canCreate()" ng-click="createValidation()">
+        <localize key="formulate-buttons_Create Validation">
+            Create Validation
+        </localize>
+    </button>
 </div>

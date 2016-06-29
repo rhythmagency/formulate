@@ -1,12 +1,21 @@
 ﻿<div ng-if="!initialized">
-    Loading...
+    <localize key="formulate-general_Loading">
+        Loading...
+    </localize>
 </div>
 <div ng-if="initialized">
     <div>
+        <!-- TODO: Find a way to localize this. -->
         Are you sure you want to delete the data value, "{{dataValueName}}"?
     </div>
-    <button type="button" class="btn btn-primary" ng-click="cancel()">Cancel</button>
+    <button type="button" class="btn btn-primary" ng-click="cancel()">
+        <localize key="formulate-buttons_Cancel">
+            Cancel
+        </localize>
+    </button>
     <button type="button" class="btn btn-primary" ng-click="deleteDataValue()">
-        Delete Data Value
+        <localize key="formulate-buttons_Delete Data Value">
+            Delete Data Value
+        </localize>
     </button>
 </div>

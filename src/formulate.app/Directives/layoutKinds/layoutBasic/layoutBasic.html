@@ -18,7 +18,11 @@
                         <span class="formulate-cell-field-name">{{field.name}}</span>
                     </span>
                     <div>
-                        <button type="button" ng-click="deleteRow(rowIndex)" ng-if="$index === 0" class="btn btn-danger">Delete Row</button>
+                        <button type="button" ng-click="deleteRow(rowIndex)" ng-if="$index === 0" class="btn btn-danger">
+                            <localize key="formulate-buttons_Delete Row">
+                                Delete Row
+                            </localize>
+                        </button>
                     </div>
                 </div>
 
@@ -33,28 +37,48 @@
                 type="checkbox"
                 ng-model="editRows"
                 id="editRows" />
-            Edit rows?
+            <localize key="formulate-labels_Edit Rows">
+                Edit rows?
+            </localize>
         </label>
         <button type="button" class="btn btn-default" ng-click="pickForm()">Pick Form</button>
 
         <!-- Add row button. -->
         <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                Add Row
+                <localize key="formulate-buttons_Add Row">
+                    Add Row
+                </localize>
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li>
-                    <a href ng-click="addRow(1)">1 Column</a>
+                    <a href ng-click="addRow(1)">
+                        <localize key="formulate-options_1 Column">
+                            1 Column
+                        </localize>
+                    </a>
                 </li>
                 <li>
-                    <a href ng-click="addRow(2)">2 Columns</a>
+                    <a href ng-click="addRow(2)">
+                        <localize key="formulate-options_2 Columns">
+                            2 Column
+                        </localize>
+                    </a>
                 </li>
                 <li>
-                    <a href ng-click="addRow(3)">3 Columns</a>
+                    <a href ng-click="addRow(3)">
+                        <localize key="formulate-options_3 Columns">
+                            3 Column
+                        </localize>
+                    </a>
                 </li>
                 <li>
-                    <a href ng-click="addRow(4)">4 Columns</a>
+                    <a href ng-click="addRow(4)">
+                        <localize key="formulate-options_4 Columns">
+                            4 Column
+                        </localize>
+                    </a>
                 </li>
             </ul>
         </div>

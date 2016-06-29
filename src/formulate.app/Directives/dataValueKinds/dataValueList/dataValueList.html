@@ -1,10 +1,18 @@
 ﻿<fieldset>
-    <legend>Items</legend>
+    <legend>
+        <localize key="formulate-headers_Items">
+            Items
+        </localize>
+    </legend>
     <div ng-repeat="item in data.items">
         <div class="input-append">
             <input type="text" ng-model="item.value" class="form-control" />
             <button type="button" class="btn btn-danger" ng-click="deleteItem($index)">X</button>
         </div>
     </div>
-    <button type="button" class="btn btn-default" ng-click="addItem()">Add Item</button>
+    <button type="button" class="btn btn-default" ng-click="addItem()">
+        <localize key="formulate-buttons_Add Item">
+            Add Item
+        </localize>
+    </button>
 </fieldset>
