@@ -17,7 +17,7 @@ function directive(formulateDirectives) {
 
 // Controller.
 function controller($scope, $routeParams, $route, formulateValidations,
-    formulateTrees) {
+    formulateTrees, formulateLocalization) {
 
     // Variables.
     var id = $routeParams.id;
@@ -46,6 +46,9 @@ function controller($scope, $routeParams, $route, formulateValidations,
     $scope.parentId = null;
     $scope.directive = null;
     $scope.data = null;
+
+    // Tabs need to be translated.
+    formulateLocalization.localizeTabs($scope.info.tabs);
 
     // Set scope functions.
     $scope.save = getSaveValidation(services);

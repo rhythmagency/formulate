@@ -17,7 +17,7 @@ function directive(formulateDirectives) {
 
 // Controller.
 function controller($scope, $routeParams, $route, formulateTrees,
-    formulateFolders) {
+    formulateFolders, formulateLocalization) {
 
     // Variables.
     var id = $routeParams.id;
@@ -46,6 +46,9 @@ function controller($scope, $routeParams, $route, formulateTrees,
     // Set scope functions.
     $scope.save = getSaveFolder(services);
     $scope.canSave = getCanSave(services);
+
+    // Tabs need to be translated.
+    formulateLocalization.localizeTabs($scope.info.tabs);
 
     // Initializes folder.
     initializeFolder({

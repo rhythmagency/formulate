@@ -246,5 +246,11 @@
   </area>
   <area alias="formulate-tabs">
     <key alias="Configured Form">Configured Form (ES)</key>
+    <key alias="Validation">Validation (ES)</key>
+    <key alias="Layout">Layout (ES)</key>
+    <key alias="Form">Form (ES)</key>
+    <key alias="Handlers">Handlers (ES)</key>
+    <key alias="Folder">Folder (ES)</key>
+    <key alias="Data Value">Data Value (ES)</key>
   </area>
 </language>
