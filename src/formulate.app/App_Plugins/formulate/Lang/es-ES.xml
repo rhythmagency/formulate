@@ -237,4 +237,11 @@
   <area alias="formulate-general">
     <key alias="Loading">Loading... (ES)</key>
   </area>
+  <area alias="formulate-confirmations">
+    <key alias="delete-configured-form"><![CDATA[
+      <div>
+          Are you sure you want to delete the configured form, "{{conFormName}}"? (ES)
+      </div>
+    ]]></key>
+  </area>
 </language>

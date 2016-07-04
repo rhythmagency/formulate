@@ -4,10 +4,8 @@
     </localize>
 </div>
 <div ng-if="initialized">
-    <div>
-        <!-- TODO: Find a way to localize this. -->
-        Are you sure you want to delete the configured form, "{{conFormName}}"?
-    </div>
+    <formulate-localize-content key="formulate-confirmations_delete-configured-form">
+    </formulate-localize-content>
     <button type="button" class="btn btn-primary" ng-click="cancel()">
         <localize key="formulate-buttons_Cancel">
             Cancel
