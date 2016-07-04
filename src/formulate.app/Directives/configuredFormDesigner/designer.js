@@ -18,7 +18,7 @@ function directive(formulateDirectives) {
 // Controller.
 function controller($scope, $routeParams, $route, formulateTrees,
     formulateConfiguredForms, $location, formulateTemplates, dialogService,
-    formulateLayouts) {
+    formulateLayouts, formulateLocalization) {
 
     // Variables.
     var id = $routeParams.id;
@@ -60,6 +60,9 @@ function controller($scope, $routeParams, $route, formulateTrees,
     if (hasParent) {
         $scope.parentId = parentId;
     }
+
+    // Tabs need to be translated.
+    formulateLocalization.localizeTabs($scope.info.tabs);
 
     // Set scope functions.
     $scope.save = getSaveConfiguredForm(services);

@@ -243,4 +243,7 @@
       </div>
     ]]></key>
   </area>
+  <area alias="formulate-tabs">
+    <key alias="Configured Form">Configured Form</key>
+  </area>
 </language>
