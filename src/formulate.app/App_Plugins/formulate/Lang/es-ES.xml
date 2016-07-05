@@ -119,6 +119,23 @@
             <a href="http://www.formulate.rocks/" target="_blank">www.formulate.rocks</a>.
         </p>
     ]]></key>
+    <key alias="Install"><![CDATA[
+      <p>
+          Thanks for choosing Formulate! To complete your installation, you should
+          complete any of the below tasks you have not yet completed. Note that
+          you can revisit this dashboard at any time.
+      </p>
+      <ul>
+          <li>
+              Give yourself permission to the Formulate section. Click this
+              link to do that now:
+              <a href ng-click="givePermission()">Permit</a>
+          </li>
+          <li>
+              Give others permission to the Formulate section. (ES)
+          </li>
+      </ul>
+    ]]></key>
   </area>
   <area alias="formulate-placeholders">
     <key alias="Configured Form Name">Configured Form Name (ES)</key>
@@ -129,7 +146,7 @@
     <key alias="Form Alias">Form Alias (ES)</key>
     <key alias="Field Name">Field Name (ES)</key>
     <key alias="Field Alias">Field Alias (ES)</key>
-    <key alias="Field Alias">Field Label (ES)</key>
+    <key alias="Field Label">Field Label (ES)</key>
     <key alias="Handler Name">Handler Name (ES)</key>
     <key alias="Handler Alias">Handler Alias (ES)</key>
     <key alias="Layout Name">Layout Name (ES)</key>
@@ -167,7 +184,7 @@
     <key alias="Form Alias">Form Alias (ES)</key>
     <key alias="Field Name">Field Name (ES)</key>
     <key alias="Field Alias">Field Alias (ES)</key>
-    <key alias="Field Alias">Field Label (ES)</key>
+    <key alias="Field Label">Field Label (ES)</key>
     <key alias="Validations">Validations (ES)</key>
     <key alias="Handler Name">Handler Name (ES)</key>
     <key alias="Handler Alias">Handler Alias (ES)</key>
@@ -224,6 +241,16 @@
     <key alias="Layout Information">Layout Information (ES)</key>
     <key alias="Validation Information">Validation Information (ES)</key>
     <key alias="Form Information">Form Information (ES)</key>
+    <key alias="Add Handler"><![CDATA[
+      <h5>
+        Add a Handler (<a href="" ng-click="cancel()">Cancel</a>)
+      </h5>
+    ]]></key>
+    <key alias="Add Field"><![CDATA[
+      <h5>
+        Add a Field (<a href="" ng-click="cancel()">Cancel</a>)
+      </h5>
+    ]]></key>
   </area>
   <area alias="formulate-instructions">
     <key alias="Config Under Forms">
@@ -236,11 +263,38 @@
   </area>
   <area alias="formulate-general">
     <key alias="Loading">Loading... (ES)</key>
+    <key alias="Unnamed">Unnamed (ES)</key>
   </area>
   <area alias="formulate-confirmations">
-    <key alias="delete-configured-form"><![CDATA[
+    <key alias="Delete Configured Form"><![CDATA[
       <div>
-          Are you sure you want to delete the configured form, "{{conFormName}}"? (ES)
+        Are you sure you want to delete the configured form, "{{conFormName}}"? (ES)
+      </div>
+    ]]></key>
+    <key alias="Delete Validation"><![CDATA[
+      <div>
+        Are you sure you want to delete the validation,
+        "{{validationName}}"? (ES)
+      </div>
+    ]]></key>
+    <key alias="Delete Layout"><![CDATA[
+      <div>
+        Are you sure you want to delete the layout, "{{layoutName}}"? (ES)
+      </div>
+    ]]></key>
+    <key alias="Delete Form"><![CDATA[
+      <div>
+        Are you sure you want to delete the form, "{{formName}}"? (ES)
+      </div>
+    ]]></key>
+    <key alias="Delete Folder"><![CDATA[
+      <div>
+        Are you sure you want to delete the folder, "{{folderName}}", and all of its descendants? (ES)
+      </div>
+    ]]></key>
+    <key alias="Delete Data Value"><![CDATA[
+      <div>
+        Are you sure you want to delete the data value, "{{dataValueName}}"? (ES)
       </div>
     ]]></key>
   </area>

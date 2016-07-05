@@ -53,7 +53,7 @@
                     <!-- Render all fields. -->
                     <div ui-sortable="sortableOptions" ng-model="fields">
                         <fieldset ng-repeat="field in fields" class="formulate-field {{field.expanded ? 'expanded' : 'collapsed'}}">
-                            <legend><i class="icon-navigation drag-handle"></i><i ng-click="toggleField(field)" class="collapser icon icon-add"></i><i class="type-identifier icon {{field.icon}}"></i>{{field.name || "Unnamed"}}<i ng-click="deleteField(field)" class="icon-delete deleter"></i></legend>
+                            <legend><i class="icon-navigation drag-handle"></i><i ng-click="toggleField(field)" class="collapser icon icon-add"></i><i class="type-identifier icon {{field.icon}}"></i>{{field.name || "formulate-general_Unnamed" | formulatelocalize:!field.name}}<i ng-click="deleteField(field)" class="icon-delete deleter"></i></legend>
                             <div class="formulate-field-details">
                                 <div class="control-group umb-control-group">
                                     <div class="umb-el-wrap">
@@ -164,8 +164,7 @@
                     <!-- Handlers. -->
                     <div ui-sortable="sortableHandlerOptions" ng-model="handlers">
                         <fieldset ng-repeat="handler in handlers" class="formulate-handler {{handler.expanded ? 'expanded' : 'collapsed'}}">
-                            <!-- TODO: Localize "unnamed". -->
-                            <legend><i class="icon-navigation drag-handle"></i><i ng-click="toggleHandler(handler)" class="collapser icon icon-add"></i><i class="type-identifier icon {{handler.icon}}"></i>{{handler.name || "Unnamed"}}<i ng-click="deleteHandler(handler)" class="icon-delete deleter"></i></legend>
+                            <legend><i class="icon-navigation drag-handle"></i><i ng-click="toggleHandler(handler)" class="collapser icon icon-add"></i><i class="type-identifier icon {{handler.icon}}"></i>{{handler.name || "formulate-general_Unnamed" | formulatelocalize:!handler.name}}<i ng-click="deleteHandler(handler)" class="icon-delete deleter"></i></legend>
                             <div class="formulate-handler-details">
                                 <div class="control-group umb-control-group">
                                     <div class="umb-el-wrap">

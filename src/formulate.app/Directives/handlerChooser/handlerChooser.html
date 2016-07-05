@@ -1,9 +1,7 @@
 ﻿<div class="usky-grid" ng-if="show">
     <div class="cell-tools-menu" ng-style="dialogStyles">
-        <h5>
-            <!-- TODO: Find a way to localize. -->
-            Add a Handler (<a href="" ng-click="cancel()">Cancel</a>)
-        </h5>
+        <formulate-localize-content key="formulate-headers_Add Handler">
+        </formulate-localize-content>
         <ul class="elements">
             <li ng-repeat="item in items">
                 <a href="" ng-click="choseItem(item)">

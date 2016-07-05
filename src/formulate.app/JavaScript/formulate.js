@@ -1,6 +1,9 @@
 ﻿// Include all services.
 require("./Services/*.js", { mode: "expand" });
 
+// Include all filters.
+require("./Filters/*.js", { mode: "expand" });
+
 // Include all property editors.
 require("./Editors/*.js", { mode: "expand" });
 

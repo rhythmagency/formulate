@@ -32,11 +32,7 @@
                     <div class="row">
                         <div class="span12">
                             <select ng-options="option.id as option.name for option in template.templates" ng-model="template.id">
-                                <option value="">
-                                    <!-- TODO: This doesn't seem to work. -->
-                                    <localize key="formulate-options_Select a Template">
-                                        Select a Template
-                                    </localize>
+                                <option value="" formulate-inject-localization="formulate-options_Select a Template">
                                 </option>
                             </select>
                         </div>
