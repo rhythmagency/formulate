@@ -437,6 +437,7 @@
   <ItemGroup>
     <Content Include="App_Plugins\formulate\backoffice\formulate\editConfiguredForm.html" />
     <Content Include="App_Plugins\formulate\editors\configured-form-picker.html" />
+    <Content Include="App_Plugins\formulate\lang\en-US.xml" />
     <Content Include="App_Plugins\formulate\lang\es-ES.xml" />
     <Content Include="App_Plugins\formulate\Transforms\applications.config.uninstall.xdt" />
     <Content Include="App_Plugins\formulate\Transforms\applications.config.install.xdt" />
