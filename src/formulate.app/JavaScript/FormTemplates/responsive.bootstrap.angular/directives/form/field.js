@@ -22,7 +22,7 @@ function addNgMessages(field) {
         field.validations.forEach(function (validation) {
             var elMessage = angular.element('<div></div>');
 
-            elMessage.attr('ng-message', validation.alias);
+            elMessage.attr('ng-message', validation.id);
             elMessage.text(validation.configuration.message);
             elMessage.addClass('formulate__error-msg');
 

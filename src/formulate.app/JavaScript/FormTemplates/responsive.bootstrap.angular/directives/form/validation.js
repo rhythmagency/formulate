@@ -43,7 +43,7 @@ function formulateValidation() {
         var fieldCtrl = scope.fieldCtrl;
 
         function setValidation(validation) {
-            ngModelCtrl.$validators[validation.alias] = validationFactory(validation);
+            ngModelCtrl.$validators[validation.id] = validationFactory(validation);
         }
 
         // Setup validations
