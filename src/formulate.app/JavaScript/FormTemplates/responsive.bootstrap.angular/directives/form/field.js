@@ -4,34 +4,6 @@ var angular = require('angular');
 
 var app = angular.module('formulate');
 
-app.directive('fileChange', fileChange);
-
-function fileChange() {
-    return {
-        restrict: 'A',
-        require: 'ngModel',
-        scope: {
-            fileChange: '&'
-        },
-        link: function link(scope, element, attrs, ctrl) {
-            element.on('change', onChange);
-
-            scope.$on('destroy', function () {
-                element.off('change', onChange);
-            });
-
-            function onChange() {
-                console.log("got changed", element[0].files[0]);
-                ctrl.$setViewValue(element[0].files[0]);
-                scope.$apply(function () {
-                    console.log("my scope", scope);
-                    scope.fileChange();
-                });
-            }
-        }
-    };
-}
-
 ////////////////////////////////////////
 // Functions that create html el
 function addNgMessages(field) {
@@ -92,40 +64,14 @@ function createSelectField(field) {
     return setGlobalInputAttributes(field, el);
 }
 
-//TODO: ...
-app.directive("uploader", function() {
-    return {
-        restrict: "E",
-        //TODO: replace: true,
-        scope: {
-            fieldId: "="
-        },
-        template: "<div class='my-uploader'><input type='file' file-change='upload()' ng-model='$parent.ctrl.fieldModels[fieldId]' /></div>",
-        controller: function($scope, $element) {
-            $scope.upload = function() {
-                console.log("selected!", {
-                    scope: $scope,
-                    element: $element
-                });
-            };
-            console.log("prepped uploader", {
-                scope: $scope,
-                element: $element,
-                fieldId: $scope.fieldId
-            });
-        }
-    };
-});
-
 function createUploadField(field) {
-    var el = angular.element('<uploader field-id="\'' + field.id + '\'"></uploader>');
+    var el = angular.element('<formulate-file-upload></formulate-file-upload>');
 
-    //TODO: ...
-    //el.attr('placeholder', field.label);
-    //el.attr('ng-model', 'ctrl.fieldModels[\'' + field.id + '\']');
+    el.attr('button-label', JSON.stringify(field.label));
+    var fieldModelValue = 'ctrl.fieldModels[' + JSON.stringify(field.id) + ']';
+    el.attr('field-model', fieldModelValue);
 
     return el;
-    //TODO: return setGlobalInputAttributes(field, el);
 }
 
 function createTextField(field) {
