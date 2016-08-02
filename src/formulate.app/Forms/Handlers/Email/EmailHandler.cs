@@ -9,6 +9,7 @@
     using Resolvers;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Net.Mail;
 
@@ -128,8 +129,10 @@
         /// </summary>
         /// <param name="form">The form.</param>
         /// <param name="data">The form data.</param>
+        /// <param name="files">The file data.</param>
         /// <param name="configuration">The handler configuration.</param>
-        public void HandleForm(Form form, IEnumerable<FieldSubmission> data, object configuration)
+        public void HandleForm(Form form, IEnumerable<FieldSubmission> data,
+            IEnumerable<FileFieldSubmission> files, object configuration)
         {
 
             // Create message.
@@ -157,7 +160,12 @@
             // Append fields?
             if (config.AppendFields)
             {
-                message.Body = ConstructMessage(form, data, config);
+                message.Body = ConstructMessage(form, data, files, config);
+                foreach(var file in files)
+                {
+                    var dataStream = new MemoryStream(file.FileData);
+                    message.Attachments.Add(new Attachment(dataStream, file.FileName));
+                }
             }
             else
             {
@@ -187,6 +195,9 @@
         /// <param name="data">
         /// The form fields.
         /// </param>
+        /// <param name="files">
+        /// The form files.
+        /// </param>
         /// <param name="config">
         /// The email configuration.
         /// </param>
@@ -194,15 +205,26 @@
         /// The email message.
         /// </returns>
         private string ConstructMessage(Form form, IEnumerable<FieldSubmission> data,
-            EmailConfiguration config)
+            IEnumerable<FileFieldSubmission> files, EmailConfiguration config)
         {
+
+            // Variables.
+            var nl = Environment.NewLine;
             var lines = new List<string>();
             var valuesById = data.GroupBy(x => x.FieldId).Select(x => new
             {
                 Id = x.Key,
                 Values = x.SelectMany(y => y.FieldValues).ToList()
             }).ToDictionary(x => x.Id, x => x.Values);
+            var filesById = files.GroupBy(x => x.FieldId).Select(x => new
+            {
+                Id = x.Key,
+                Filename = x.Select(y => y.FileName).FirstOrDefault()
+            }).ToDictionary(x => x.Id, x => x.Filename);
             var fieldsById = form.Fields.ToDictionary(x => x.Id, x => x);
+
+
+            // Normal fields.
             foreach (var key in valuesById.Keys)
             {
                 var values = valuesById[key];
@@ -216,8 +238,26 @@
                 var line = string.Format("{0}: {1}", fieldName, combined);
                 lines.Add(line);
             }
-            var nl = Environment.NewLine;
+
+
+            // File fields.
+            foreach (var key in filesById.Keys)
+            {
+                var filename = filesById[key];
+                var field = default(IFormField);
+                var fieldName = "Unknown Field";
+                if (fieldsById.TryGetValue(key, out field))
+                {
+                    fieldName = field.Name;
+                }
+                var line = string.Format(@"{0}: See attachment, ""{1}""", fieldName, filename);
+                lines.Add(line);
+            }
+
+
+            // Return message.
             return config.Message + nl + string.Join(nl, lines);
+
         }
 
 

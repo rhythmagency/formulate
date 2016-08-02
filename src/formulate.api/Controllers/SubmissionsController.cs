@@ -6,6 +6,7 @@
     using app.Resolvers;
     using core.Types;
     using System;
+    using System.IO;
     using System.Linq;
     using System.Web.Mvc;
     using Umbraco.Web.Mvc;
@@ -49,22 +50,54 @@
             // Variables.
             var tempGuid = default(Guid);
             var keys = Request.Form.AllKeys;
+            var fileKeys = Request.Files.AllKeys;
             var formId = Guid.Parse(Request["FormId"]);
 
 
             // Get values.
             var values = keys
                 .Where(x => Guid.TryParse(x, out tempGuid))
-                .Select(x => new FieldSubmission
+                .Select(x =>
                 {
-                    FieldId = Guid.Parse(x),
-                    FieldValues = Request.Form.GetValues(x)
+                    var fieldValue = Request.Form.GetValues(x);
+                    return new FieldSubmission
+                    {
+                        FieldId = Guid.Parse(x),
+                        FieldValues = fieldValue
+                    };
+                })
+                .ToList();
+
+            // Get file values.
+            var fileValues = fileKeys
+                .Where(x => Guid.TryParse(x, out tempGuid))
+                .Select(x =>
+                {
+
+                    // Variables.
+                    var fileValue = Request.Files.Get(x);
+
+
+                    // Extract file data: http://stackoverflow.com/a/16030326/2052963
+                    var reader = new BinaryReader(fileValue.InputStream);
+                    var fileData = reader.ReadBytes((int)fileValue.InputStream.Length);
+                    var filename = fileValue.FileName;
+
+
+                    // Return file field submission.
+                    return new FileFieldSubmission()
+                    {
+                        FieldId = Guid.Parse(x),
+                        FileData = fileData,
+                        FileName = filename
+                    };
+
                 })
                 .ToList();
 
 
             // Submit form.
-            var result = Submissions.SubmitForm(formId, values, new SubmissionOptions()
+            var result = Submissions.SubmitForm(formId, values, fileValues, new SubmissionOptions()
             {
                 Validate = Config.EnableServerSideValidation
             });

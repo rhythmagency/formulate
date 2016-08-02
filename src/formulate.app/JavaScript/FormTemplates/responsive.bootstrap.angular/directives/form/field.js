@@ -96,7 +96,7 @@ function createSelectField(field) {
 app.directive("uploader", function() {
     return {
         restrict: "E",
-        replace: true,
+        //TODO: replace: true,
         scope: {
             fieldId: "="
         },
@@ -110,14 +110,15 @@ app.directive("uploader", function() {
             };
             console.log("prepped uploader", {
                 scope: $scope,
-                element: $element
+                element: $element,
+                fieldId: $scope.fieldId
             });
         }
     };
 });
 
 function createUploadField(field) {
-    var el = angular.element('<uploader fieldId="' + field.id + '"></uploader>');
+    var el = angular.element('<uploader field-id="\'' + field.id + '\'"></uploader>');
 
     //TODO: ...
     //el.attr('placeholder', field.label);

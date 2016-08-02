@@ -22,7 +22,8 @@
         string GetTypeLabel();
         Type GetHandlerType();
         object DeserializeConfiguration();
-        void HandleForm(Form form, IEnumerable<FieldSubmission> data);
+        void HandleForm(Form form, IEnumerable<FieldSubmission> data,
+            IEnumerable<FileFieldSubmission> files);
     }
 
 }

@@ -64,6 +64,9 @@
         /// <param name="data">
         /// The form data to submit.
         /// </param>
+        /// <param name="files">
+        /// The file data to submit.
+        /// </param>
         /// <param name="options">
         /// The options for this submission.
         /// </param>
@@ -71,7 +74,8 @@
         /// The result of the submission.
         /// </returns>
         public static SubmissionResult SubmitForm(Guid formId,
-            IEnumerable<FieldSubmission> data, SubmissionOptions options)
+            IEnumerable<FieldSubmission> data, IEnumerable<FileFieldSubmission> files,
+            SubmissionOptions options)
         {
 
             // Is the form ID valid?
@@ -111,7 +115,7 @@
                 {
                     foreach (var handler in form.Handlers)
                     {
-                        handler.HandleForm(form, data);
+                        handler.HandleForm(form, data, files);
                     }
                 }
                 catch (Exception ex)

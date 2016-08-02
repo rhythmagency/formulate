@@ -10,6 +10,7 @@
         string Icon { get; }
         Guid TypeId { get; }
         object DeserializeConfiguration(string configuration);
-        void HandleForm(Form form, IEnumerable<FieldSubmission> data, object configuration);
+        void HandleForm(Form form, IEnumerable<FieldSubmission> data,
+            IEnumerable<FileFieldSubmission> files, object configuration);
     }
 }

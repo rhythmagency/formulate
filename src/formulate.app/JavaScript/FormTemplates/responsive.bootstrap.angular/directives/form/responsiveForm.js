@@ -74,15 +74,18 @@ FormulateController.prototype.submit = function () {
                 url: self.formData.url,
                 data: data,
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': undefined
                 },
                 transformRequest: function (obj) {
-                    return Object
-                        .keys(obj)
-                        .map(function (key) {
-                            return encodeURIComponent(key) + "=" + encodeURIComponent(obj[key]);
-                        })
-                        .join('&');
+
+                    // Convert to FormData: http://stackoverflow.com/a/25264008/2052963
+                    // This is necessary for file uploads to submit properly via AJAX.
+                    var formData = new FormData();
+                    angular.forEach(obj, function (value, key) {
+                        formData.append(key, value);
+                    });
+                    return formData;
+
                 }
             })
             .then(parseResponse);

@@ -125,11 +125,13 @@
         /// </summary>
         /// <param name="form">The form.</param>
         /// <param name="data">The form data.</param>
-        public void HandleForm(Form form, IEnumerable<FieldSubmission> data)
+        /// <param name="files">The file data.</param>
+        public void HandleForm(Form form, IEnumerable<FieldSubmission> data,
+            IEnumerable<FileFieldSubmission> files)
         {
             var config = DeserializeConfiguration();
             var instance = new T();
-            instance.HandleForm(form, data, config);
+            instance.HandleForm(form, data, files, config);
         }
 
         #endregion
