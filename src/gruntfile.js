@@ -133,6 +133,17 @@ module.exports = function(grunt) {
                     }
                 ]
             },
+            templates: {
+                files: [
+                    {
+                        // Frontend files.
+                        expand: true,
+                        src: ["App_Plugins/formulate/*.js"],
+                        dest: 'Website/',
+                        cwd: appProject + "/"
+                    }
+                ]
+            },
             translation: {
                 files: [
                     {
@@ -172,6 +183,14 @@ module.exports = function(grunt) {
                 },
                 files: {
                     "<%= paths.out.js %>": "<%= paths.in.js %>",
+                    "<%= paths.out.templates.rba.js %>": "<%= paths.in.templates.rba.js %>"
+                }
+            },
+            templates: {
+                options: {
+                    transform: ["require-globify", "browserify-shim"]
+                },
+                files: {
                     "<%= paths.out.templates.rba.js %>": "<%= paths.in.templates.rba.js %>"
                 }
             }
@@ -334,6 +353,10 @@ module.exports = function(grunt) {
         // will skip copying the binaries.
         ["clean:before", "htmlConvert", "browserify:default", "ngAnnotate:main",
         "copy:frontend", "jsdoc:main", "clean:after"]);
+    grunt.registerTask("frontend-templates",
+        // The "frontend-templates" task is for developing frontend templates
+        // (e.g., the responsive Bootstrap Angular template).
+        ["browserify:templates", "copy:templates"]);
     grunt.registerTask("translation",
         // The "translation" task is for working with translations for Formulate. This
         // will only copy language files.
