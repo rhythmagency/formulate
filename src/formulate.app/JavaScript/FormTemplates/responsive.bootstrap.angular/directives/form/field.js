@@ -4,6 +4,34 @@ var angular = require('angular');
 
 var app = angular.module('formulate');
 
+app.directive('fileChange', fileChange);
+
+function fileChange() {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        scope: {
+            fileChange: '&'
+        },
+        link: function link(scope, element, attrs, ctrl) {
+            element.on('change', onChange);
+
+            scope.$on('destroy', function () {
+                element.off('change', onChange);
+            });
+
+            function onChange() {
+                console.log("got changed", element[0].files[0]);
+                ctrl.$setViewValue(element[0].files[0]);
+                scope.$apply(function () {
+                    console.log("my scope", scope);
+                    scope.fileChange();
+                });
+            }
+        }
+    };
+}
+
 ////////////////////////////////////////
 // Functions that create html el
 function addNgMessages(field) {
@@ -62,6 +90,41 @@ function createSelectField(field) {
     el.append('<option value="">' + field.label + '</option>');
 
     return setGlobalInputAttributes(field, el);
+}
+
+//TODO: ...
+app.directive("uploader", function() {
+    return {
+        restrict: "E",
+        replace: true,
+        scope: {
+            fieldId: "="
+        },
+        template: "<div class='my-uploader'><input type='file' file-change='upload()' ng-model='$parent.ctrl.fieldModels[fieldId]' /></div>",
+        controller: function($scope, $element) {
+            $scope.upload = function() {
+                console.log("selected!", {
+                    scope: $scope,
+                    element: $element
+                });
+            };
+            console.log("prepped uploader", {
+                scope: $scope,
+                element: $element
+            });
+        }
+    };
+});
+
+function createUploadField(field) {
+    var el = angular.element('<uploader fieldId="' + field.id + '"></uploader>');
+
+    //TODO: ...
+    //el.attr('placeholder', field.label);
+    //el.attr('ng-model', 'ctrl.fieldModels[\'' + field.id + '\']');
+
+    return el;
+    //TODO: return setGlobalInputAttributes(field, el);
 }
 
 function createTextField(field) {
@@ -134,6 +197,10 @@ function createField(field) {
 
     case 'checkbox':
         elWrap.append(createCheckboxField(field));
+        break;
+
+    case 'upload':
+        elWrap.append(createUploadField(field));
         break;
 
     default:

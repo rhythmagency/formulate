@@ -55,6 +55,9 @@
                 case "textareafield":
                     angularType = "textarea";
                     break;
+                case "uploadfield":
+                    angularType = "upload";
+                    break;
             }
             return angularType ?? fieldType;
         }

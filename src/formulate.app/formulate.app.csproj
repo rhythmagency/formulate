@@ -319,6 +319,7 @@
     <Compile Include="Forms\Fields\DropDown\DropDownField.cs" />
     <Compile Include="Forms\Fields\DropDown\DropDownItem.cs" />
     <Compile Include="Forms\Fields\Button\ButtonField.cs" />
+    <Compile Include="Forms\Fields\Upload\UploadField.cs" />
     <Compile Include="Forms\Fields\TextArea\TextAreaField.cs" />
     <Compile Include="Forms\Fields\Text\TextField.cs" />
     <Compile Include="Forms\Form.cs" />
@@ -539,6 +540,8 @@
     <Content Include="Directives\fields\textAreaField\textAreaField.js" />
     <Content Include="Directives\fields\textField\textField.html" />
     <Content Include="Directives\fields\textField\textField.js" />
+    <Content Include="Directives\fields\uploadField\uploadField.html" />
+    <Content Include="Directives\fields\uploadField\uploadField.js" />
     <Content Include="Directives\folderDesigner\designer.html" />
     <Content Include="Directives\folderDesigner\designer.js" />
     <Content Include="Directives\formDesigner\designer.html" />
@@ -549,12 +552,15 @@
     <Content Include="Directives\handlerEditor\handlerEditor.js" />
     <Content Include="Directives\handlers\emailHandler\emailHandler.html" />
     <Content Include="Directives\handlers\emailHandler\emailHandler.js" />
+    <Content Include="Directives\injectLocalization\injectLocalization.js" />
     <Content Include="Directives\layoutDesigner\designer.html" />
     <Content Include="Directives\layoutDesigner\designer.js" />
     <Content Include="Directives\layoutEditor\layoutEditor.html" />
     <Content Include="Directives\layoutEditor\layoutEditor.js" />
     <Content Include="Directives\layoutKinds\layoutBasic\layoutBasic.html" />
     <Content Include="Directives\layoutKinds\layoutBasic\layoutBasic.js" />
+    <Content Include="Directives\localizeAttribute\localizeAttribute.js" />
+    <Content Include="Directives\localizeContent\localizeContent.js" />
     <Content Include="Directives\rootEntityOverview\rootEntityOverview.html" />
     <Content Include="Directives\rootEntityOverview\rootEntityOverview.js" />
     <Content Include="Directives\validationDesigner\designer.html" />
