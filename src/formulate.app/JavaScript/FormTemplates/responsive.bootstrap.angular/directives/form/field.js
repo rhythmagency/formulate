@@ -103,7 +103,7 @@ function createSubmitField(field) {
 
 function createCheckboxField(field) {
     var container = angular.element('<div></div>');
-    var label = angular.element('<label></label>');
+    var label = angular.element('<label class="formulate__checkbox-label"></label>');
     var el = angular.element('<input type="checkbox" value="1" />');
     var span = angular.element('<span></span>');
 
@@ -163,7 +163,7 @@ function createField(field) {
 
 function addLabel(elWrap, field) {
     var contents = angular.element(document.createTextNode(field.label));
-    var label = angular.element('<label></label>');
+    var label = angular.element('<label class="formulate__field-label"></label>');
     label.append(contents);
     label.attr('for', fieldId(field));
     elWrap.append(label);
