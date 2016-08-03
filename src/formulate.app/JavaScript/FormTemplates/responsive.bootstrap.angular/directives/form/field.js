@@ -92,9 +92,11 @@ function createTextAreaField(field) {
 
 function createSubmitField(field) {
     var el = angular.element('<button></button>');
+    var span = angular.element('<span></span>');
 
-    el.attr('type', 'Submit');
-    el.text(field.label);
+    span.text(field.label);
+    el.append(span);
+    el.attr('type', 'submit');
 
     el.addClass('formulate__btn formulate__btn--submit btn btn-default');
 
