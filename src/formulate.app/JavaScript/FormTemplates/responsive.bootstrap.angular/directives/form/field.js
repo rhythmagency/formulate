@@ -36,7 +36,8 @@ function addNgMessages(field) {
 function setGlobalInputAttributes(field, el, options) {
     options = angular.extend({
         // When set to true, this element will get the "form-control" class.
-        formControl: true
+        formControl: true,
+        disableAutocomplete: true
     }, options);
     el.attr('id', fieldId(field));
     el.attr('name', 'field_' + field.id);
@@ -50,6 +51,10 @@ function setGlobalInputAttributes(field, el, options) {
         el.addClass('form-control');
     }
 
+    if (options.disableAutocomplete) {
+        el.attr('autocomplete', 'off');
+    }
+
     return el;
 }
 
@@ -61,7 +66,9 @@ function createSelectField(field) {
     // Create empty option that serves as placeholder
     el.append('<option value="">' + field.label + '</option>');
 
-    return setGlobalInputAttributes(field, el);
+    return setGlobalInputAttributes(field, el, {
+        disableAutocomplete: false
+    });
 }
 
 function createUploadField(field) {
@@ -112,7 +119,8 @@ function createCheckboxField(field) {
     span.text(field.label);
 
     label.append(setGlobalInputAttributes(field, el, {
-        formControl: false
+        formControl: false,
+        disableAutocomplete: false
     }));
     label.append(span);
 
