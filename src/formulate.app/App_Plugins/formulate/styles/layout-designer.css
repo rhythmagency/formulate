@@ -23,3 +23,29 @@
 .formulate-cell.editing-rows .formulate-cell-field-name {
     text-decoration: underline;
 }
+
+.formulate-sample-cell--active,
+.formulate-sample-cell--inactive {
+    background-color: #eee;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-top: 4px solid #888;
+    border-bottom: 4px solid #888;
+}
+
+.formulate-sample-cell--active:hover,
+.formulate-sample-cell--inactive:hover {
+    background-color: #888;
+}
+
+.formulate-sample-cell--active,
+.formulate-sample-cell--first {
+    margin-left: 8px;
+    border-left: 4px solid #888;
+}
+
+.formulate-sample-cell--adjacent,
+.formulate-sample-cell--last {
+    border-right: 4px solid #888;
+}

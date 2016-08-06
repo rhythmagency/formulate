@@ -31,7 +31,7 @@
     </div>
     <div>
 
-        <!-- Controls. -->
+        <!-- Pick form button. -->
         <label>
             <input
                 type="checkbox"
@@ -81,6 +81,14 @@
                     </a>
                 </li>
             </ul>
+        </div>
+
+        <div class="row">
+            <div ng-repeat="cell in sampleCells" class="span1">
+                <div ng-class="getSampleCellClasses(sampleCells, $index)" ng-click="toggleCell(sampleCells, $index)">
+                    {{$index + 1}}
+                </div>
+            </div>
         </div>
 
     </div>

@@ -45,6 +45,9 @@ function controller($scope, formulateForms, dialogService) {
     $scope.deleteRow = getDeleteRow(services);
     $scope.addRow = getAddRow(services);
     $scope.pickForm = getPickForm(services);
+    $scope.getSampleCellClasses = getGetSampleCellClasses();
+    $scope.toggleCell = getToggleCell();
+    $scope.sampleCells = getSampleCells();
 
     // Initialize watchers.
     watchEditRowsSetting(services);
@@ -64,6 +67,47 @@ function controller($scope, formulateForms, dialogService) {
 function getGetCellClass() {
     return function (row) {
         return "span" + (12 / row.cells.length).toString();
+    };
+}
+
+// Returns the 12 sample cells.
+function getSampleCells() {
+    var cells = [];
+    for (var i = 0; i < 12; i++) {
+        cells.push({
+            active: false
+        });
+    }
+    return cells;
+}
+
+// Returns the function that returns a classes for the specified cell.
+function getGetSampleCellClasses() {
+    return function (cells, index) {
+        var cell = cells[index];
+        var activeClass = (cell.active ? "formulate-sample-cell--active" : "formulate-sample-cell--inactive");
+        var nextCell = index + 1 < cells.length ? cells[index + 1] : null;
+        var adjacentClass = nextCell && nextCell.active ? "formulate-sample-cell--adjacent" : null;
+        var firstClass = index == 0 ? "formulate-sample-cell--first" : null;
+        var lastClass = index == cells.length - 1 ? "formulate-sample-cell--last" : null;
+        var classes = [activeClass, adjacentClass, firstClass, lastClass];
+        var validClasses = [];
+        for (var i = 0; i < classes.length; i++) {
+            if (classes[i]) {
+                validClasses.push(classes[i]);
+            }
+        }
+        return validClasses.join(" ");
+    };
+}
+
+// Returns the function that toggles the specified cell's active state.
+function getToggleCell() {
+    return function (cells, index) {
+        var cell = cells[index];
+        if (index > 0) {
+            cell.active = !cell.active;
+        }
     };
 }
 
