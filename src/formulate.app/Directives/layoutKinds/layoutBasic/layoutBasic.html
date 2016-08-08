@@ -1,7 +1,7 @@
 ﻿<div>
     <div ui-sortable="rowsSortableOptions" ng-model="rows">
         <div ng-repeat="(rowIndex, row) in rows" class="row">
-            <div ng-repeat="cell in row.cells" ng-class="getCellClass(row)">
+            <div ng-repeat="cell in row.cells" ng-class="getCellClass(row, cell)">
 
                 <!-- Show full fields when editing fields. -->
                 <div ng-if="!editRows" class="formulate-cell" ui-sortable="fieldSortableOptions" ng-model="cell.fields">
@@ -43,52 +43,33 @@
         </label>
         <button type="button" class="btn btn-default" ng-click="pickForm()">Pick Form</button>
 
-        <!-- Add row button. -->
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <!-- Add row section. -->
+        <div class="formulate-add-row-section">
+
+            <!-- Add row button. -->
+            <button type="button" class="btn btn-default" ng-click="addRow(sampleCells)">
                 <localize key="formulate-buttons_Add Row">
                     Add Row
                 </localize>
-                <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu">
-                <li>
-                    <a href ng-click="addRow(1)">
-                        <localize key="formulate-options_1 Column">
-                            1 Column
-                        </localize>
-                    </a>
-                </li>
-                <li>
-                    <a href ng-click="addRow(2)">
-                        <localize key="formulate-options_2 Columns">
-                            2 Column
-                        </localize>
-                    </a>
-                </li>
-                <li>
-                    <a href ng-click="addRow(3)">
-                        <localize key="formulate-options_3 Columns">
-                            3 Column
-                        </localize>
-                    </a>
-                </li>
-                <li>
-                    <a href ng-click="addRow(4)">
-                        <localize key="formulate-options_4 Columns">
-                            4 Column
-                        </localize>
-                    </a>
-                </li>
-            </ul>
-        </div>
 
-        <div class="row">
-            <div ng-repeat="cell in sampleCells" class="span1">
-                <div ng-class="getSampleCellClasses(sampleCells, $index)" ng-click="toggleCell(sampleCells, $index)">
-                    {{$index + 1}}
+            <!-- Add row instructions. -->
+            <p>
+                <localize key="formulate-instructions_Add Sample Columns Below">
+                    The row will be added using the columns that you specify below.
+                    Click a cell to split or join adjacent cells.
+                </localize>
+            </p>
+
+            <!-- Sample cells for new rows. -->
+            <div class="row">
+                <div ng-repeat="cell in sampleCells" class="span1">
+                    <div ng-class="getSampleCellClasses(sampleCells, $index)" ng-click="toggleCell(sampleCells, $index)">
+                        {{$index + 1}}
+                    </div>
                 </div>
             </div>
+
         </div>
 
     </div>

@@ -49,3 +49,7 @@
 .formulate-sample-cell--last {
     border-right: 4px solid #888;
 }
+
+.formulate-add-row-section {
+    margin-top: 20px;
+}

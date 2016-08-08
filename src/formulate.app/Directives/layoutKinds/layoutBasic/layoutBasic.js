@@ -62,12 +62,24 @@ function controller($scope, formulateForms, dialogService) {
 
 }
 
-// Returns the function that returns a class for a cell in the
-// specified row.
+// Returns the function that returns a class for the specified cell
+// in the specified row.
 function getGetCellClass() {
-    return function (row) {
-        return "span" + (12 / row.cells.length).toString();
+    return function (row, cell) {
+
+        // If a column span is not present (e.g., for older versions of Formulate),
+        // then fallback to the calculated column span.
+        var columnSpan = cell.columnSpan  ?  cell.columnSpan : getFallbackColumnSpan(row, cell);
+        return "span" + columnSpan.toString();
+
     };
+}
+
+// Deprecated. This will be deleted in a future version of Formulate.
+// This calculates a fallback column span when one is not otherwise
+// specified (useful for forms created in older versions of Formulate).
+function getFallbackColumnSpan(row, cell) {
+    return cell.columnSpan || (12 / row.cells.length);
 }
 
 // Returns the 12 sample cells.
@@ -142,20 +154,39 @@ function getDeleteRow(services) {
     };
 }
 
-// Returns a function that adds a row with the specified number
-// of columns.
+// Returns a function that adds a row based on the specified sample cells.
 function getAddRow(services) {
     var $scope = services.$scope;
-    return function(columnCount) {
-        var columns = [];
-        for (var i = 0; i < columnCount; i++) {
-            columns.push({
-                fields: []
-            });
+    return function(sampleCells) {
+
+        // Variables.
+        var cells = [];
+        var columnSpan = 0;
+
+        // Add a new cell for each active sample cell.
+        for (var i = 0; i < sampleCells.length; i++) {
+            var sampleCell = sampleCells[i];
+            if (sampleCell.active) {
+                cells.push({
+                    columnSpan: columnSpan,
+                    fields: []
+                });
+                columnSpan = 0;
+            }
+            columnSpan = columnSpan + 1;
         }
-        $scope.rows.push({
-            cells: columns
+
+        // Add a final cell to complete the row.
+        cells.push({
+            columnSpan: columnSpan,
+            fields: []
         });
+
+        // Add the new row.
+        $scope.rows.push({
+            cells: cells
+        });
+
     };
 }
 
@@ -217,6 +248,7 @@ function refreshDataRows(rows, services) {
         for (var j = 0; j < row.cells.length; j++) {
             var cell = row.cells[j];
             var dataCell = {
+                columnSpan: cell.columnSpan,
                 fields: []
             };
             dataRow.cells.push(dataCell);
@@ -238,7 +270,7 @@ function refreshDataRows(rows, services) {
 function replenishFields($scope) {
 
     // Variables.
-    var i, field, row, cell;
+    var i, j, field, row, cell;
     var fields = {};
 
     // Place all fields in an associative array keyed by ID.
@@ -250,7 +282,7 @@ function replenishFields($scope) {
     // Remove or replenish the fields in the rows.
     for (i = 0; i < $scope.rows.length; i++) {
         row = $scope.rows[i];
-        for (var j = 0; j < row.cells.length; j++) {
+        for (j = 0; j < row.cells.length; j++) {
             cell = row.cells[j];
             for (var k = cell.fields.length - 1; k >= 0; k--) {
                 field = cell.fields[k];
@@ -286,6 +318,7 @@ function replenishFields($scope) {
         row = {
             cells: [
                 {
+                    columnSpan: 12,
                     fields: unassignedFields
                 }
             ]
@@ -293,6 +326,26 @@ function replenishFields($scope) {
         $scope.rows.push(row);
     }
 
+    // Ensure each cell has a column span.
+    ensureFallbackColumnSpans($scope.rows);
+
+}
+
+// Deprecated. This will be deleted in a future version of Formulate.
+// Ensure each cell has a column span. This is done because
+// older versions of Formulate did not have a column span
+// specified for each cell.
+function ensureFallbackColumnSpans(rows) {
+    var i, row, cell;
+    for (i = 0; i < rows.length; i++) {
+        row = rows[i];
+        for (j = 0; j < row.cells.length; j++) {
+            cell = row.cells[j];
+            if (!cell.columnSpan) {
+                cell.columnSpan = 12 / row.cells.length;
+            }
+        }
+    }
 }
 
 // Gets info about the form based on its ID,

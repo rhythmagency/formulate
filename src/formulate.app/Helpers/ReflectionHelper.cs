@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
 
 
     /// <summary>
@@ -87,6 +88,26 @@
                 .Select(x => (T)x).ToArray();
             return instances;
 
+        }
+
+
+        /// <summary>
+        /// Indicates whether or not the specified object has the member with the specified name.
+        /// </summary>
+        /// <param name="obj">
+        /// The object.
+        /// </param>
+        /// <param name="memberName">
+        /// The member name.
+        /// </param>
+        /// <returns>
+        /// True, if the specified member exists; otherwise, false.
+        /// </returns>
+        public static bool HasMember(object obj, string memberName)
+        {
+            var flags = BindingFlags.Public | BindingFlags.Instance;
+            var objectProp = obj.GetType().GetMember(memberName, flags);
+            return objectProp != null;
         }
 
         #endregion

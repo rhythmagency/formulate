@@ -56,7 +56,7 @@
         #endregion
 
 
-        #region Methods
+        #region Public Methods
 
         /// <summary>
         /// Deserializes the layout.
@@ -101,6 +101,8 @@
                         var cell = new LayoutCell();
                         var fields = new List<LayoutField>();
                         cell.Fields = fields;
+                        var hasColumnSpan = ReflectionHelper.HasMember(cellData, "columnSpan");
+                        cell.ColumnSpan = hasColumnSpan ? (int)cellData.columnSpan : 0;
                         cells.Add(cell);
 
 
@@ -116,12 +118,9 @@
                     }
 
 
-                    // Set column span for each cell.
-                    var columnSpan = 12 / cells.Count;
-                    foreach(var cell in cells)
-                    {
-                        cell.ColumnSpan = columnSpan;
-                    }
+                    // Set column span for each cell that doesn't have one specified explicitly.
+                    // This is for forms created in older versions of Formulate.
+                    SetFallbackColumnSpans(cells);
 
                 }
             }
@@ -130,6 +129,33 @@
             // Return deserialized layout configuration.
             return layout;
 
+        }
+
+        #endregion
+
+
+        #region Private Methods
+
+        /// <summary>
+        /// Fallback to a calculated column span when one is not otherwise specified.
+        /// </summary>
+        /// <param name="cells">
+        /// The cells to set fallback column spans on.
+        /// </param>
+        /// <remarks>
+        /// This method will eventually be deleted.
+        /// </remarks>
+        [Obsolete("This will stick around for a while for forms created in older versions of Formulate.")]
+        private void SetFallbackColumnSpans(List<LayoutCell> cells)
+        {
+            var columnSpan = 12 / cells.Count;
+            foreach (var cell in cells)
+            {
+                if (cell.ColumnSpan == 0)
+                {
+                    cell.ColumnSpan = columnSpan;
+                }
+            }
         }
 
         #endregion

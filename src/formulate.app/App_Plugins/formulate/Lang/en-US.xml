@@ -167,10 +167,6 @@
   </area>
   <area alias="formulate-options">
     <key alias="Select a Template">Select a Template</key>
-    <key alias="1 Column">1 Column</key>
-    <key alias="2 Columns">2 Columns</key>
-    <key alias="3 Columns">3 Columns</key>
-    <key alias="4 Columns">4 Columns</key>
   </area>
   <area alias="formulate-labels">
     <key alias="Layout:">Layout:</key>
@@ -258,6 +254,10 @@
     <key alias="Folder">
       This is a folder. You can store items under it,
       including more folders.
+    </key>
+    <key alias="Add Sample Columns Below">
+      The row will be added using the columns that you specify below.
+      Click a cell to split or join adjacent cells.
     </key>
   </area>
   <area alias="formulate-general">
