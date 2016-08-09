@@ -438,8 +438,23 @@
   <ItemGroup>
     <Content Include="App_Plugins\formulate\backoffice\formulate\editConfiguredForm.html" />
     <Content Include="App_Plugins\formulate\editors\configured-form-picker.html" />
+    <Content Include="App_Plugins\formulate\lang\cs-CZ.xml" />
+    <Content Include="App_Plugins\formulate\lang\da-DK.xml" />
+    <Content Include="App_Plugins\formulate\lang\de-DE.xml" />
     <Content Include="App_Plugins\formulate\lang\en-US.xml" />
     <Content Include="App_Plugins\formulate\lang\es-ES.xml" />
+    <Content Include="App_Plugins\formulate\lang\fr-FR.xml" />
+    <Content Include="App_Plugins\formulate\lang\he-IL.xml" />
+    <Content Include="App_Plugins\formulate\lang\it-IT.xml" />
+    <Content Include="App_Plugins\formulate\lang\ja-JP.xml" />
+    <Content Include="App_Plugins\formulate\lang\ko-KR.xml" />
+    <Content Include="App_Plugins\formulate\lang\nb-NO.xml" />
+    <Content Include="App_Plugins\formulate\lang\nl-NL.xml" />
+    <Content Include="App_Plugins\formulate\lang\pl-PL.xml" />
+    <Content Include="App_Plugins\formulate\lang\pt-BR.xml" />
+    <Content Include="App_Plugins\formulate\lang\ru-RU.xml" />
+    <Content Include="App_Plugins\formulate\lang\sv-SE.xml" />
+    <Content Include="App_Plugins\formulate\lang\zh-CN.xml" />
     <Content Include="App_Plugins\formulate\Transforms\applications.config.uninstall.xdt" />
     <Content Include="App_Plugins\formulate\Transforms\applications.config.install.xdt" />
     <None Include="Resources\TransformApplications.txt" />

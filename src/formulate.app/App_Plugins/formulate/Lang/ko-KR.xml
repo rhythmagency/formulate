@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<language alias="en_us" intName="English (US)" localName="English (US)" lcid="" culture="en-US">
+<language alias="ko" intName="Korean" localName="한국어" lcid="" culture="ko-KR">
   <area alias="sections">
     <key alias="formulate">Formulate</key>
   </area>
