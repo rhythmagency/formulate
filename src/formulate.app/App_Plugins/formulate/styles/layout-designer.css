@@ -37,6 +37,7 @@
 .formulate-sample-cell--active:hover,
 .formulate-sample-cell--inactive:hover {
     background-color: #888;
+    cursor: pointer;
 }
 
 .formulate-sample-cell--active,
