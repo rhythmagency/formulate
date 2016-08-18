@@ -21,6 +21,7 @@ Here are a few pages that will help you get started with Formulate:
 * Advanced Topics:
   * [Extensibility](/extensibility)
   * [Contributing to Formulate](https://github.com/rhythmagency/formulate#contributing)
+  * [Custom Field Types](/articles/custom-field-types)
 * [Frequently Asked Questions](/faq)
 
 If you have any questions, feel free to [contact me](http://www.nicholaswestby.com/contact/) or report an issue [here](https://github.com/rhythmagency/formulate/issues).
