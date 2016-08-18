@@ -9,6 +9,10 @@ Formulate comes with a few common field types, such as text, checkbox, drop down
 However, you aren't limited to just these. You can create your own custom field types.
 Read the sections below for instructions on how to do this.
 
+When you are done, your new field type should appear in the dialog to add a field:
+
+![Field Picker Dialog](/images/field-picker.png)
+
 # The Back Office Directive
 
 In order to allow for your custom field type to be used when constructing a form in the back office form designer,
