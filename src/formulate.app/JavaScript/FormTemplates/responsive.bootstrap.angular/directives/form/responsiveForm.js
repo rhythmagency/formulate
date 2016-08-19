@@ -82,7 +82,12 @@ FormulateController.prototype.submit = function () {
                     // This is necessary for file uploads to submit properly via AJAX.
                     var formData = new FormData();
                     angular.forEach(obj, function (value, key) {
-                        formData.append(key, value);
+
+                        // Skip over null/undefined so they don't get sent as serialized version.
+                        if (typeof(value) !== 'undefined' && value !== null) {
+                            formData.append(key, value);
+                        }
+
                     });
                     return formData;
 
