@@ -71,13 +71,15 @@
         {
 
             // Variables.
-            var layout = new LayoutBasicConfiguration();
             var configData = JsonHelper.Deserialize<JObject>(configuration);
             var dynamicConfig = configData as dynamic;
             var properties = configData.Properties().Select(x => x.Name);
             var propertySet = new HashSet<string>(properties);
             var rows = new List<LayoutRow>();
-            layout.Rows = rows;
+            var layout = new LayoutBasicConfiguration()
+            {
+                Rows = rows
+            };
 
 
             // Process each row?
@@ -101,8 +103,7 @@
                         var cell = new LayoutCell();
                         var fields = new List<LayoutField>();
                         cell.Fields = fields;
-                        var hasColumnSpan = ReflectionHelper.HasMember(cellData, "columnSpan");
-                        cell.ColumnSpan = hasColumnSpan ? (int)cellData.columnSpan : 0;
+                        cell.ColumnSpan = TryGetColumnSpan(cellData);
                         cells.Add(cell);
 
 
@@ -135,6 +136,25 @@
 
 
         #region Private Methods
+
+        /// <summary>
+        /// Attempts to extract the column span from cell data.
+        /// </summary>
+        /// <param name="cellData">
+        /// The cell data to attempt to extract the column span from.
+        /// </param>
+        /// <remarks>
+        /// This method will eventually be deleted.
+        /// </remarks>
+        [Obsolete("This will stick around for a while for forms created in older versions of Formulate.")]
+        private int TryGetColumnSpan(dynamic cellData)
+        {
+            var hasColumnSpan = cellData["columnSpan"] != null;
+            return hasColumnSpan
+                ? (int)cellData.columnSpan
+                : 0;
+        }
+
 
         /// <summary>
         /// Fallback to a calculated column span when one is not otherwise specified.
