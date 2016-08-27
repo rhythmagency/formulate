@@ -306,6 +306,8 @@
     <Compile Include="Controllers\LayoutsController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Converters\ConfiguredFormConverter.cs" />
+    <Compile Include="DataValues\DataInterfaces\IGetValueAndLabelCollection.cs" />
+    <Compile Include="DataValues\DataInterfaces\IGetStringCollection.cs" />
     <Compile Include="DataValues\DataValue.cs" />
     <Compile Include="DataValues\IDataValueKind.cs" />
     <Compile Include="DataValues\Kinds\DataValueList.cs" />

@@ -2,7 +2,7 @@
 {
 
     // Namespaces.
-    using DataValues.Kinds;
+    using DataValues.DataInterfaces;
     using Helpers;
     using Newtonsoft.Json.Linq;
     using Persistence;
@@ -105,13 +105,37 @@
                     // Extract list items from the data value.
                     var kinds = DataValueHelper.GetAllDataValueKinds();
                     var kind = kinds.FirstOrDefault(x => x.Id == dataValue.KindId);
-                    var strItems = kind is DataValueList ? ExtractList(dataValue.Data) : new List<string>();
-                    items.AddRange(strItems.Select(x => new DropDownItem()
+                    var pairCollection = kind as IGetValueAndLabelCollection;
+                    var stringCollection = kind as IGetStringCollection;
+
+
+                    // Check type of collection returned by the data value kind.
+                    if (pairCollection != null)
                     {
-                        Label = x,
-                        Selected = false,
-                        Value = x
-                    }));
+
+                        // Create drop down items from values and labels.
+                        var pairs = pairCollection.GetValues(dataValue.Data);
+                        items.AddRange(pairs.Select(x => new DropDownItem()
+                        {
+                            Selected = false,
+                            Value = x.Value,
+                            Label = x.Label
+                        }));
+
+                    }
+                    else if (stringCollection != null)
+                    {
+
+                        // Create drop down items from strings.
+                        var strings = stringCollection.GetValues(dataValue.Data);
+                        items.AddRange(strings.Select(x => new DropDownItem()
+                        {
+                            Selected = false,
+                            Value = x,
+                            Label = x
+                        }));
+
+                    }
 
                 }
 
@@ -121,38 +145,6 @@
             // Return the data value configuration.
             return config;
 
-        }
-
-        #endregion
-
-
-        #region Private Methods
-
-        /// <summary>
-        /// Extracts a list of strings from a data value list.
-        /// </summary>
-        /// <param name="listDataValue">
-        /// The serialized list data.
-        /// </param>
-        /// <returns>
-        /// The list of strings.
-        /// </returns>
-        private List<string> ExtractList(string listDataValue)
-        {
-            var items = new List<string>();
-            var configData = JsonHelper.Deserialize<JObject>(listDataValue);
-            var dynamicConfig = configData as dynamic;
-            var properties = configData.Properties().Select(x => x.Name);
-            var propertySet = new HashSet<string>(properties);
-            if (propertySet.Contains("items"))
-            {
-                foreach (var item in dynamicConfig.items)
-                {
-                    var strItem = item.value.Value as string;
-                    items.Add(strItem);
-                }
-            }
-            return items;
         }
 
         #endregion
