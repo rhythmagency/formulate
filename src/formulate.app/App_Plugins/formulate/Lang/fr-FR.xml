@@ -15,6 +15,7 @@
   </area>
   <area alias="formulate-data-value-names">
     <key alias="List">List</key>
+    <key alias="List Function">List Function</key>
   </area>
   <area alias="formulate-layout-names">
     <key alias="Basic Layout">Basic Layout</key>
@@ -166,6 +167,7 @@
     </key>
   </area>
   <area alias="formulate-options">
+    <key alias="Select a Function">Select a Function</key>
     <key alias="Select a Template">Select a Template</key>
   </area>
   <area alias="formulate-labels">
@@ -225,6 +227,7 @@
     <key alias="Create Validation">Create Validation</key>
   </area>
   <area alias="formulate-headers">
+    <key alias="Choose Function">Choose Function</key>
     <key alias="Data Value Information">Data Value Information</key>
     <key alias="Items">Items</key>
     <key alias="Pick Configured Form">Pick Configured Form</key>

@@ -50,6 +50,29 @@
         public static T[] InstantiateInterfaceImplementations<T>()
         {
 
+            // Return instances.
+            var instances = GetTypesImplementingInterface<T>()
+                .Select(x => Activator.CreateInstance(x))
+                .Where(x => x is T)
+                .Where(x => x != null)
+                .Select(x => (T)x).ToArray();
+            return instances;
+
+        }
+
+
+        /// <summary>
+        /// Returns the types that implement an interface.
+        /// </summary>
+        /// <typeparam name="T">
+        /// The interface type.
+        /// </typeparam>
+        /// <returns>
+        /// The types.
+        /// </returns>
+        public static Type[] GetTypesImplementingInterface<T>()
+        {
+
             // Variables.
             var interfaceType = typeof(T);
             var types = default(List<Type>);
@@ -79,13 +102,8 @@
             }
 
 
-            // Return instances.
-            var instances = types
-                .Select(x => Activator.CreateInstance(x))
-                .Where(x => x is T)
-                .Where(x => x != null)
-                .Select(x => (T)x).ToArray();
-            return instances;
+            // Return types.
+            return types.ToArray();
 
         }
 

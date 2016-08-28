@@ -31,7 +31,10 @@ app.factory("formulateDataValues", function (formulateVars,
         getKinds: getGetKinds(services),
 
         // Moves a data value to a new parent on the server.
-        moveDataValue: getMoveDataValue(services)
+        moveDataValue: getMoveDataValue(services),
+
+        // Gets the data value suppliers from the server.
+        getSuppliers: getGetSuppliers(services)
 
     };
 
@@ -156,6 +159,26 @@ function getGetKinds(services) {
                     id: item.Id,
                     name: item.Name,
                     directive: item.Directive
+                };
+            });
+        });
+
+    };
+}
+
+// Returns the function that gets the data value suppliers.
+function getGetSuppliers(services) {
+    return function () {
+
+        // Variables.
+        var url = services.formulateVars.GetDataValueSuppliers;
+
+        // Get data value kinds from server.
+        return services.formulateServer.get(url, {}, function (data) {
+            return data.Kinds.map(function (item) {
+                return {
+                    name: item.Name,
+                    className: item.ClassName
                 };
             });
         });

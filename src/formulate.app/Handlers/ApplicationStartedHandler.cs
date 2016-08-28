@@ -170,6 +170,9 @@
                 { "GetDataValueKinds",
                     helper.GetUmbracoApiService<DataValuesController>(x =>
                         x.GetDataValueKinds()) },
+                { "GetDataValueSuppliers",
+                    helper.GetUmbracoApiService<DataValuesController>(x =>
+                        x.GetDataValueSuppliers()) },
                 { "MoveDataValue",
                     helper.GetUmbracoApiService<DataValuesController>(x =>
                         x.MoveDataValue(null)) },

@@ -4,6 +4,7 @@
     // Namespaces.
     using core.Extensions;
     using DataValues;
+    using DataValues.Suppliers;
     using Helpers;
     using Models.Requests;
     using Persistence;
@@ -37,6 +38,7 @@
         private const string DeleteDataValueError = @"An error occurred while attempting to delete the Formulate data value.";
         private const string GetKindsError = @"An error occurred while attempting to get the data value kinds.";
         private const string MoveDataValueError = @"An error occurred while attempting to move a Formulate data value.";
+        private const string GetSuppliersError = @"An error occurred while attempting to get the data value suppliers.";
 
         #endregion
 
@@ -414,6 +416,63 @@
 
                 // Error.
                 LogHelper.Error<DataValuesController>(GetKindsError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return result.
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// Returns the data value suppliers.
+        /// </summary>
+        /// <returns>
+        /// An object indicating success or failure, along with information
+        /// about data value suppliers.
+        /// </returns>
+        [HttpGet]
+        public object GetDataValueSuppliers()
+        {
+
+            // Variables.
+            var result = default(object);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Variables.
+                var suppliers = ReflectionHelper
+                    .InstantiateInterfaceImplementations<ISupplyValueAndLabelCollection>()
+                    .OrderBy(x => x.Name);
+
+
+                // Return results.
+                result = new
+                {
+                    Success = true,
+                    Kinds = suppliers.Select(x => new
+                    {
+                        Name = x.Name,
+                        ClassName = x.GetType().AssemblyQualifiedName
+                    }).ToArray()
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<DataValuesController>(GetSuppliersError, ex);
                 result = new
                 {
                     Success = false,
