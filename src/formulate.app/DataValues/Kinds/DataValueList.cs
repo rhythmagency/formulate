@@ -55,6 +55,10 @@
             }
         }
 
+        #endregion
+
+
+        #region Methods
 
         /// <summary>
         /// Extracts the string collection from the specified raw data.

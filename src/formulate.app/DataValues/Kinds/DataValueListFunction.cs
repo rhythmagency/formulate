@@ -56,6 +56,10 @@
             }
         }
 
+        #endregion
+
+
+        #region Methods
 
         /// <summary>
         /// Extracts the value and label collection from the specified raw data.
@@ -66,7 +70,7 @@
         /// <returns>
         /// The collection of value and label items.
         /// </returns>
-        IEnumerable<ValueAndLabel> IGetValueAndLabelCollection.GetValues(string rawData)
+        public IEnumerable<ValueAndLabel> GetValues(string rawData)
         {
 
             // Variables.
