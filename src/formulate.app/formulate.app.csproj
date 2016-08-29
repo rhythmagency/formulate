@@ -511,6 +511,8 @@
     <Content Include="Directives\dataValueDesigner\designer.js" />
     <Content Include="Directives\dataValueEditor\dataValueEditor.html" />
     <Content Include="Directives\dataValueEditor\dataValueEditor.js" />
+    <Content Include="Directives\dataValueKinds\dataValueListFunction\dataValueListFunction.html" />
+    <Content Include="Directives\dataValueKinds\dataValueListFunction\dataValueListFunction.js" />
     <Content Include="Directives\dataValueKinds\dataValueList\dataValueList.html" />
     <Content Include="Directives\dataValueKinds\dataValueList\dataValueList.js" />
     <Content Include="Directives\dataValueTypeChooser\dataValueChooser.html" />
