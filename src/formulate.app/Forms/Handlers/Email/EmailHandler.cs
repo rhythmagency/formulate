@@ -108,6 +108,10 @@
             {
                 config.AppendFields = dynamicConfig.appendFields.Value;
             }
+            if (propertySet.Contains("appendPayload"))
+            {
+                config.AppendPayload = dynamicConfig.appendPayload.Value;
+            }
             if (propertySet.Contains("message"))
             {
                 config.Message = dynamicConfig.message.Value;
@@ -130,9 +134,11 @@
         /// <param name="form">The form.</param>
         /// <param name="data">The form data.</param>
         /// <param name="files">The file data.</param>
+        /// <param name="payload">Extra data related to the submission.</param>
         /// <param name="configuration">The handler configuration.</param>
         public void HandleForm(Form form, IEnumerable<FieldSubmission> data,
-            IEnumerable<FileFieldSubmission> files, object configuration)
+            IEnumerable<FileFieldSubmission> files, IEnumerable<PayloadSubmission> payload,
+            object configuration)
         {
 
             // Create message.
@@ -160,7 +166,10 @@
             // Append fields?
             if (config.AppendFields)
             {
-                message.Body = ConstructMessage(form, data, files, config);
+                var chosenPayload = config.AppendPayload
+                    ? payload
+                    : payload.Take(0);
+                message.Body = ConstructMessage(form, data, files, chosenPayload, config);
                 foreach(var file in files)
                 {
                     var dataStream = new MemoryStream(file.FileData);
@@ -198,6 +207,9 @@
         /// <param name="files">
         /// The form files.
         /// </param>
+        /// <param name="payload">
+        /// Extra data related to the submission.
+        /// </param>
         /// <param name="config">
         /// The email configuration.
         /// </param>
@@ -205,7 +217,8 @@
         /// The email message.
         /// </returns>
         private string ConstructMessage(Form form, IEnumerable<FieldSubmission> data,
-            IEnumerable<FileFieldSubmission> files, EmailConfiguration config)
+            IEnumerable<FileFieldSubmission> files, IEnumerable<PayloadSubmission> payload,
+            EmailConfiguration config)
         {
 
             // Variables.
@@ -222,6 +235,13 @@
                 Filename = x.Select(y => y.FileName).FirstOrDefault()
             }).ToDictionary(x => x.Id, x => x.Filename);
             var fieldsById = form.Fields.ToDictionary(x => x.Id, x => x);
+
+
+            // Payload items.
+            foreach (var item in payload)
+            {
+                lines.Add($"{item.Name}: {item.Value}");
+            }
 
 
             // Normal fields.

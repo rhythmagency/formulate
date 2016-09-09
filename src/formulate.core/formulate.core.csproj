@@ -53,11 +53,13 @@
     <Compile Include="Types\FileFieldSubmission.cs" />
     <Compile Include="Types\FormDefinition.cs" />
     <Compile Include="Types\LayoutDefinition.cs" />
+    <Compile Include="Types\PayloadSubmission.cs" />
     <Compile Include="Types\SubmissionOptions.cs" />
     <Compile Include="Types\SubmissionResult.cs" />
     <Compile Include="Types\ValidationDefinition.cs" />
     <Compile Include="Types\ValueAndLabel.cs" />
     <Compile Include="Utilities\FileUtility.cs" />
+    <Compile Include="Utilities\NumberUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\formulate.meta\formulate.meta.csproj">

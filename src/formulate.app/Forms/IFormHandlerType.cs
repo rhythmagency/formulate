@@ -11,6 +11,7 @@
         Guid TypeId { get; }
         object DeserializeConfiguration(string configuration);
         void HandleForm(Form form, IEnumerable<FieldSubmission> data,
-            IEnumerable<FileFieldSubmission> files, object configuration);
+            IEnumerable<FileFieldSubmission> files, IEnumerable<PayloadSubmission> payload,
+            object configuration);
     }
 }

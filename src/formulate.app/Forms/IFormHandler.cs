@@ -23,7 +23,7 @@
         Type GetHandlerType();
         object DeserializeConfiguration();
         void HandleForm(Form form, IEnumerable<FieldSubmission> data,
-            IEnumerable<FileFieldSubmission> files);
+            IEnumerable<FileFieldSubmission> files, IEnumerable<PayloadSubmission> payload);
     }
 
 }

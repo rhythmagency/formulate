@@ -189,6 +189,7 @@
     <key alias="Recipient Emails">Recipient Emails</key>
     <key alias="Subject">Subject</key>
     <key alias="Message">Message</key>
+    <key alias="Append Payload">Append Payload (e.g., URL and name of page containing form)?</key>
     <key alias="Append Fields">Append Fields?</key>
     <key alias="Layout Alias">Layout Alias</key>
     <key alias="Edit Rows">Edit rows?</key>

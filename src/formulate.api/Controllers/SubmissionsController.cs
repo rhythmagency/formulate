@@ -5,7 +5,9 @@
     using app.Managers;
     using app.Resolvers;
     using core.Types;
+    using core.Utilities;
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
@@ -52,6 +54,12 @@
             var keys = Request.Form.AllKeys;
             var fileKeys = Request.Files.AllKeys;
             var formId = Guid.Parse(Request["FormId"]);
+            var pageId = NumberUtility.AttemptParseInt(Request["PageId"]);
+            var pageNode = pageId.HasValue
+                ? Umbraco.TypedContent(pageId.Value)
+                : null;
+            var pageUrl = pageNode?.Url;
+            var pageName = pageNode?.Name;
 
 
             // Get values.
@@ -96,11 +104,28 @@
                 .ToList();
 
 
+            // Payload.
+            var payload = new[]
+            {
+                new PayloadSubmission()
+                {
+                    Name = "URL",
+                    Value = pageUrl
+                },
+                new PayloadSubmission()
+                {
+                    Name = "Page Name",
+                    Value = pageName
+                }
+            }.Where(x => !string.IsNullOrWhiteSpace(x.Value));
+
+
             // Submit form.
-            var result = Submissions.SubmitForm(formId, values, fileValues, new SubmissionOptions()
+            var options = new SubmissionOptions()
             {
                 Validate = Config.EnableServerSideValidation
-            });
+            };
+            var result = Submissions.SubmitForm(formId, values, fileValues, payload, options);
 
 
             // Return result.
