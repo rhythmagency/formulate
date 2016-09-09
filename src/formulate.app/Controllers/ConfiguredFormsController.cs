@@ -23,7 +23,7 @@
     /// Controller for Formulate configured forms.
     /// </summary>
     [PluginController("formulate")]
-    [UmbracoApplicationAuthorize(CoreConstants.Applications.Users)]
+    [UmbracoApplicationAuthorize("formulate")]
     public class ConfiguredFormsController : UmbracoAuthorizedJsonController
     {
 

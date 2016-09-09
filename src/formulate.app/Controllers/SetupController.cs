@@ -17,7 +17,7 @@
 
     /// <summary>
     /// Controller that handles operations related to setup of
-    /// Forulate.
+    /// Formulate.
     /// </summary>
     [PluginController("Formulate")]
     [UmbracoApplicationAuthorize(Constants.Applications.Developer)]

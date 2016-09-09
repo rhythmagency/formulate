@@ -22,7 +22,7 @@
     /// Controller for Formulate entities.
     /// </summary>
     [PluginController("formulate")]
-    [UmbracoApplicationAuthorize(CoreConstants.Applications.Users)]
+    [UmbracoApplicationAuthorize("formulate")]
     public class EntitiesController : UmbracoAuthorizedJsonController
     {
 

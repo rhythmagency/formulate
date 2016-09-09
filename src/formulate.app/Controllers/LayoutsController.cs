@@ -24,7 +24,7 @@
     /// Controller for Formulate layouts.
     /// </summary>
     [PluginController("formulate")]
-    [UmbracoApplicationAuthorize(CoreConstants.Applications.Users)]
+    [UmbracoApplicationAuthorize("formulate")]
     public class LayoutsController : UmbracoAuthorizedJsonController
     {
 

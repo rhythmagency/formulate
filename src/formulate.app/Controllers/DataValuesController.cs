@@ -26,7 +26,7 @@
     /// Controller for Formulate data values.
     /// </summary>
     [PluginController("formulate")]
-    [UmbracoApplicationAuthorize(CoreConstants.Applications.Users)]
+    [UmbracoApplicationAuthorize("formulate")]
     public class DataValuesController : UmbracoAuthorizedJsonController
     {
 

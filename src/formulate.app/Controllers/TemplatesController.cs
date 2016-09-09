@@ -20,7 +20,7 @@
     /// Controller for Formulate templates.
     /// </summary>
     [PluginController("formulate")]
-    [UmbracoApplicationAuthorize(CoreConstants.Applications.Users)]
+    [UmbracoApplicationAuthorize("formulate")]
     public class TemplatesController : UmbracoAuthorizedJsonController
     {
 
