@@ -19,7 +19,9 @@ You can render your picked form like this (this assumes the form picker property
     // Get a view model for the picked form.
     var pickedForm = Model.Content.GetPropertyValue<ConfiguredFormInfo>("myFormPicker");
     var vm = formulate.api.Rendering.GetFormViewModel(pickedForm.FormId, pickedForm.LayoutId,
-        pickedForm.TemplateId);
+        pickedForm.TemplateId,
+        // Include this parameter in Formulate 0.3.7 or greater.
+        Model.Content);
 
 }<!doctype html>
 
