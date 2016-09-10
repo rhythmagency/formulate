@@ -170,6 +170,9 @@
     <key alias="Select a Function">Select a Function</key>
     <key alias="Select a Template">Select a Template</key>
   </area>
+  <area alias="formulate-label-descriptions">
+    <key alias="Append Payload">For example, the URL and name of the page containing the form.</key>
+  </area>
   <area alias="formulate-labels">
     <key alias="Layout:">Layout:</key>
     <key alias="Layout not chosen">Layout not yet chosen.</key>
@@ -189,7 +192,7 @@
     <key alias="Recipient Emails">Recipient Emails</key>
     <key alias="Subject">Subject</key>
     <key alias="Message">Message</key>
-    <key alias="Append Payload">Append Payload (e.g., URL and name of page containing form)?</key>
+    <key alias="Append Payload">Append Payload?</key>
     <key alias="Append Fields">Append Fields?</key>
     <key alias="Layout Alias">Layout Alias</key>
     <key alias="Edit Rows">Edit rows?</key>

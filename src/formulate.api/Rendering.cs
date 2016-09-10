@@ -8,6 +8,7 @@
     using app.Resolvers;
     using core.Models;
     using System;
+    using Umbraco.Core.Models;
     using ResolverConfig = app.Resolvers.Configuration;
 
 
@@ -83,18 +84,25 @@
         /// <param name="templateId">
         /// The template ID.
         /// </param>
+        /// <param name="page">
+        /// The current Umbraco page.
+        /// </param>
         /// <returns>
         /// The view model.
         /// </returns>
         /// <remarks>
         /// This model is used to render a form.
         /// </remarks>
-        public static FormViewModel GetFormViewModel(Guid? formId, Guid? layoutId, Guid? templateId)
+        public static FormViewModel GetFormViewModel(Guid? formId, Guid? layoutId,
+            Guid? templateId, IPublishedContent page)
         {
-            var model = new FormViewModel();
-            model.FormDefinition = DefinitionHelper.GetFormDefinition(formId);
-            model.LayoutDefinition = DefinitionHelper.GetLayoutDefinition(layoutId);
-            model.TemplatePath = DefinitionHelper.GetTemplatePath(templateId);
+            var model = new FormViewModel()
+            {
+                FormDefinition = DefinitionHelper.GetFormDefinition(formId),
+                LayoutDefinition = DefinitionHelper.GetLayoutDefinition(layoutId),
+                TemplatePath = DefinitionHelper.GetTemplatePath(templateId),
+                PageId = page.Id
+            };
             return model;
         }
 

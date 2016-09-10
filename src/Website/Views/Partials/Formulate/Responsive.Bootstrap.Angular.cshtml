@@ -123,7 +123,8 @@
             rows = rowsData,
             payload = new
             {
-                FormId = Model.FormDefinition.FormId.ToString("N")
+                FormId = Model.FormDefinition.FormId.ToString("N"),
+                PageId = Model.PageId
             },
             url = "/umbraco/formulate/submissions/submit"
         }

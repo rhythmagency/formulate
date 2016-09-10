@@ -13,6 +13,7 @@
         public FormDefinition FormDefinition { get; set; }
         public LayoutDefinition LayoutDefinition { get; set; }
         public string TemplatePath { get; set; }
+        public int PageId { get; set; }
     }
 
 }
