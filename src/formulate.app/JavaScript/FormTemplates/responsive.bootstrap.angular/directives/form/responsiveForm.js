@@ -17,7 +17,7 @@ var genFormName = (function () {
     };
 }());
 
-function FormulateController($scope, $element, $http, $q) {
+function FormulateController($scope, $element, $http, $q, $window) {
     var self = this;
 
     // Set reference to injected object to be used in prototype functions
@@ -25,7 +25,8 @@ function FormulateController($scope, $element, $http, $q) {
         $q: $q,
         $http: $http,
         $scope: $scope,
-        $element: $element
+        $element: $element,
+        $window: $window
     };
 
     // set unique form name
@@ -80,11 +81,15 @@ FormulateController.prototype.submit = function () {
 
                     // Convert to FormData: http://stackoverflow.com/a/25264008/2052963
                     // This is necessary for file uploads to submit properly via AJAX.
-                    var formData = new FormData();
+                    var formData = new self
+                        .injected
+                        .$window
+                        .FormData();
+
                     angular.forEach(obj, function (value, key) {
 
                         // Skip over null/undefined so they don't get sent as serialized version.
-                        if (typeof(value) !== 'undefined' && value !== null) {
+                        if (value !== undefined && value !== null) {
                             formData.append(key, value);
                         }
 
@@ -123,7 +128,7 @@ function formulate() {
         replace: true,
         template: '<div class="formulate-container">' +
             '<form data-ng-submit="ctrl.submit(ctrl.generatedName)" class="form" name="{{ctrl.generatedName}}">' +
-            '<formulate-rows rows="ctrl.formData.rows"></formulate-rows>' +
+                '<formulate-rows rows="ctrl.formData.rows"></formulate-rows>' +
             '</form>' +
             '</div>',
 

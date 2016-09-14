@@ -6,6 +6,21 @@ var app = angular.module('formulate');
 
 ////////////////////////////////////////
 // Functions that create html el
+function fieldId(field) {
+    return 'field-' + field.randomId;
+}
+
+function addLabel(elWrap, field) {
+    /*global document */
+    var contents = angular.element(document.createTextNode(field.label));
+    var label = angular.element('<label class="formulate__field-label"></label>');
+
+    label.append(contents);
+    label.attr('for', fieldId(field));
+
+    elWrap.append(label);
+}
+
 function addNgMessages(field) {
     var elMessages = null;
     var fieldName = 'formCtrl.field_' + field.id;
@@ -39,6 +54,7 @@ function setGlobalInputAttributes(field, el, options) {
         formControl: true,
         disableAutocomplete: true
     }, options);
+
     el.attr('id', fieldId(field));
     el.attr('name', 'field_' + field.id);
     el.attr('aria-label', field.label);
@@ -169,18 +185,6 @@ function createField(field) {
     elWrap.append(addNgMessages(field));
 
     return elWrap;
-}
-
-function addLabel(elWrap, field) {
-    var contents = angular.element(document.createTextNode(field.label));
-    var label = angular.element('<label class="formulate__field-label"></label>');
-    label.append(contents);
-    label.attr('for', fieldId(field));
-    elWrap.append(label);
-}
-
-function fieldId(field) {
-    return 'field-' + field.randomId;
 }
 
 ////////////////////////////////////////

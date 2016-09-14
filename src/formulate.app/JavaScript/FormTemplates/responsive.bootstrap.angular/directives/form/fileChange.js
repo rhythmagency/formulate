@@ -13,6 +13,13 @@ function directive() {
         require: 'ngModel',
         scope: {},
         link: function link(scope, element, attrs, ctrl) {
+            /*jslint unparam:true */
+
+            // Handle change event.
+            function onChange() {
+                // Set the model to the file.
+                ctrl.$setViewValue(element[0].files[0]);
+            }
 
             // Listen for change events.
             element.on('change', onChange);
@@ -21,15 +28,6 @@ function directive() {
             scope.$on('destroy', function () {
                 element.off('change', onChange);
             });
-
-            // Handle change event.
-            function onChange() {
-
-                // Set the model to the file.
-                ctrl.$setViewValue(element[0].files[0]);
-
-            }
-
         }
     };
 }
