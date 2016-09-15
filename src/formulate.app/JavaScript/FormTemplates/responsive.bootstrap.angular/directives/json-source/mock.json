@@ -1,0 +1,158 @@
+{
+    "data": {
+        "name": "Contact Us",
+        "alias": "contactUs",
+        "randomId": "8f8cba77ee9f417389d712c74e007cc7",
+        "fields": [
+            {
+                "alias": "topic",
+                "label": "Choose a topic*",
+                "id": "679c0447485c48cabf3343b11d6180b9",
+                "randomId": "6b22fc5a3ebf4551be98cbad1e10499b",
+                "fieldType": "select",
+                "validations": [],
+                "configuration": {
+                    "items": [
+                        {
+                            "value": "Topic 1",
+                            "label": "Topic 1",
+                            "selected": false
+                        },
+                        {
+                            "value": "Topic 2",
+                            "label": "Topic 2",
+                            "selected": false
+                        }
+                    ]
+                }
+            },
+            {
+                "alias": "name",
+                "label": "Enter Name*",
+                "id": "9850b2b5934149f498e4016185d5e981",
+                "randomId": "7dc2407c855c475da2ac23d459774434",
+                "fieldType": "text",
+                "validations": [],
+                "configuration": {}
+            },
+            {
+                "alias": "email",
+                "label": "Email*",
+                "id": "2061ed6f7db841e9964515d35320f5ab",
+                "randomId": "00f939c71ca84a119d20a5d385a43070",
+                "fieldType": "text",
+                "validations": [],
+                "configuration": {}
+            },
+            {
+                "alias": "phone",
+                "label": "Phone*",
+                "id": "bea42c30bba24c838066913cde372d57",
+                "randomId": "af6daf8ca8504c87b7deeb5501f6715e",
+                "fieldType": "text",
+                "validations": [],
+                "configuration": {}
+            },
+            {
+                "alias": "message",
+                "label": "Your Message (max 50 char)",
+                "id": "72be5b5f2dca40ee95dd4c9dd12d9d18",
+                "randomId": "11e556c250f44cd281dc434d50c76364",
+                "fieldType": "textarea",
+                "validations": [],
+                "configuration": {}
+            },
+            {
+                "alias": "submit",
+                "label": "Submit",
+                "id": "b024568a1b094ed28df6d03f01a204a5",
+                "randomId": "b5d05a26ca5948b9b919876bae5aa84c",
+                "fieldType": "submit",
+                "validations": [],
+                "configuration": {}
+            }
+        ],
+        "layout": [
+            {
+                "groupLabel": "Step 01",
+                "groupType": "Step",
+                "rows": [
+                    {
+                        "cells": [
+                            {
+                                "columns": 12,
+                                "fields": [
+                                    {
+                                        "id": "679c0447485c48cabf3343b11d6180b9"
+                                    },
+                                    {
+                                        "id": "9850b2b5934149f498e4016185d5e981"
+                                    },
+                                    {
+                                        "id": "2061ed6f7db841e9964515d35320f5ab"
+                                    },
+                                    {
+                                        "id": "bea42c30bba24c838066913cde372d57"
+                                    },
+                                    {
+                                        "id": "72be5b5f2dca40ee95dd4c9dd12d9d18"
+                                    },
+                                    {
+                                        "id": "b024568a1b094ed28df6d03f01a204a5"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "groupLabel": "Step 02",
+                "groupType": "Step",
+                "rows": [
+                    {
+                        "cells": [
+                            {
+                                "columns": 12,
+                                "fields": [
+                                    {
+                                        "id": "679c0447485c48cabf3343b11d6180b9"
+                                    },
+                                    {
+                                        "id": "9850b2b5934149f498e4016185d5e981"
+                                    },
+                                    {
+                                        "id": "2061ed6f7db841e9964515d35320f5ab"
+                                    },
+                                    {
+                                        "id": "bea42c30bba24c838066913cde372d57"
+                                    },
+                                    {
+                                        "id": "72be5b5f2dca40ee95dd4c9dd12d9d18"
+                                    },
+                                    {
+                                        "id": "b024568a1b094ed28df6d03f01a204a5"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+
+        "conditions": [
+            {
+                "type": "hide-and-show",
+                "conditionField": "23jkl32j4l2jl324j",
+                "hideShowField": "group-2lkjljldkjg030fj"
+            }
+        ],
+
+        "payload": {
+            "FormId": "840c2067c3294e908d3a7c92e0b2c98b",
+            "PageId": 1063
+        },
+        "url": "/umbraco/formulate/submissions/submit"
+    }
+}
