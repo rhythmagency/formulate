@@ -126,11 +126,12 @@ function formulate() {
     return {
         restrict: "E",
         replace: true,
-        template: '<div class="formulate-container">' +
-        '<form data-ng-submit="ctrl.submit(ctrl.generatedName)" class="form" name="{{ctrl.generatedName}}">' +
-        '<formulate-rows rows="ctrl.formData.rows"></formulate-rows>' +
-        '</form>' +
-        '</div>',
+        template:
+            '<div class="formulate-container">' +
+                '<form data-ng-submit="ctrl.submit(ctrl.generatedName)" class="form" name="{{ctrl.generatedName}}">' +
+                    '<formulate-rows rows="ctrl.formData.rows"></formulate-rows>' +
+                '</form>' +
+            '</div>',
 
         controller: FormulateController,
         controllerAs: "ctrl",
