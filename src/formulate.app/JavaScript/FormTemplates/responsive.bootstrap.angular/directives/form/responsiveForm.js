@@ -4,6 +4,19 @@ var angular = require('angular');
 
 var app = angular.module('formulate');
 
+/**
+ * @description Generate unique form names
+ */
+var genFormName = (function () {
+    var counter = 0;
+
+    return function () {
+        counter += 1;
+
+        return 'form' + counter;
+    };
+}());
+
 function FormulateController($scope, $element, $http, $q, $window) {
     var self = this;
 
@@ -16,11 +29,17 @@ function FormulateController($scope, $element, $http, $q, $window) {
         $window: $window
     };
 
+    // set unique form name
+    this.generatedName = genFormName();
+
     // Map Fields for faster access
     this.fieldMap = {};
     this.formData.fields.forEach(function (field) {
         self.fieldMap[field.id] = field;
     });
+
+    // ng-model of fields
+    this.fieldModels = {};
 }
 
 FormulateController.prototype.getFieldById = function (id) {
@@ -28,6 +47,11 @@ FormulateController.prototype.getFieldById = function (id) {
 };
 FormulateController.prototype.submit = function () {
     var self = this;
+    var formCtrl = this
+        .injected
+        .$element
+        .find('form')
+        .controller('form');
 
     function parseResponse(response) {
         var deferred = self.injected.$q.defer();
@@ -92,15 +116,21 @@ FormulateController.prototype.submit = function () {
             message: message
         });
     }
+
+    if (formCtrl.$valid) {
+        submitPost().then(postSuccess, postFailed);
+    }
 };
 
 function formulate() {
     return {
         restrict: "E",
         replace: true,
-        template: '<div class="formulate">' +
-                '<formulate-layout layout="ctrl.formData.layout"></formulate-layout>' +
-            '</div>',
+        template: '<div class="formulate-container">' +
+        '<form data-ng-submit="ctrl.submit(ctrl.generatedName)" class="form" name="{{ctrl.generatedName}}">' +
+        '<formulate-rows rows="ctrl.formData.rows"></formulate-rows>' +
+        '</form>' +
+        '</div>',
 
         controller: FormulateController,
         controllerAs: "ctrl",
