@@ -1,14 +1,18 @@
 ﻿<div>
+    <h2>
+        Layout
+        <small>
+            Organize your fields into rows and columns.
+        </small>
+    </h2>
     <div ui-sortable="rowsSortableOptions" ng-model="rows">
         <div ng-repeat="(rowIndex, row) in rows" class="row">
             <div ng-repeat="cell in row.cells" ng-class="getCellClass(row, cell)">
 
                 <!-- Show full fields when editing fields. -->
                 <div ng-if="!editRows" class="formulate-cell" ui-sortable="fieldSortableOptions" ng-model="cell.fields">
-                    <div ng-if="!editRows">
-                        <div ng-repeat="field in cell.fields" class="formulate-cell-field">
-                            {{field.name}}
-                        </div>
+                    <div ng-repeat="field in cell.fields" class="formulate-cell-field">
+                        {{field.name}}
                     </div>
                 </div>
 
@@ -28,6 +32,22 @@
 
             </div>
         </div>
+    </div>
+    <div>
+        <h2>
+            Unused Fields
+            <small>
+                These are the fields you are not using for this layout.
+            </small>
+        </h2>
+
+        <!-- Unused fields. -->
+        <div class="formulate-cell" ui-sortable="fieldSortableOptions" ng-model="unusedFields">
+            <div ng-repeat="field in unusedFields" class="formulate-cell-field">
+                {{field.name}}
+            </div>
+        </div>
+
     </div>
     <div>
 

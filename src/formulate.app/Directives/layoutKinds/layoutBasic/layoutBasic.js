@@ -1,7 +1,6 @@
 ﻿/**
  * The "formulateLayoutBasic" directive allows the user to create
- * a form layout that uses multiple rows and multiple columns. It
- * only supports a few row configurations (i.e., 1-4 columns).
+ * a form layout that uses multiple rows and multiple columns.
  */
 
 // Variables.
@@ -39,6 +38,7 @@ function controller($scope, formulateForms, dialogService) {
     $scope.editRows = false;
     $scope.allFields = [];
     $scope.rows = angular.copy($scope.data.rows || []);
+    $scope.unusedFields = [];
     $scope.fieldSortableOptions = getFieldSortableOptions();
     $scope.rowsSortableOptions = getRowSortableOptions();
     $scope.getCellClass = getGetCellClass();
