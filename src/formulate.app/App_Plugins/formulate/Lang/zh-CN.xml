@@ -230,7 +230,13 @@
     <key alias="Create Layout">Create Layout</key>
     <key alias="Create Validation">Create Validation</key>
   </area>
+  <area alias="formulate-header-descriptions">
+    <key alias="Layout">Organize your fields into rows and columns.</key>
+    <key alias="Unused Fields">These are the fields you are not using for this layout.</key>
+  </area>
   <area alias="formulate-headers">
+    <key alias="Layout">Layout</key>
+    <key alias="Unused Fields">Unused Fields</key>
     <key alias="Choose Function">Choose Function</key>
     <key alias="Data Value Information">Data Value Information</key>
     <key alias="Items">Items</key>

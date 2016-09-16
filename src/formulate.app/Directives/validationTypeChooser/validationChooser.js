@@ -16,14 +16,13 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, $location, notificationsService, $q,
-    $http, navigationService, formulateValidations, formulateVars) {
+function controller($scope, $location, $q, $http, navigationService,
+    formulateValidations, formulateVars) {
 
     // Variable containing the common services (easier to pass around).
     var services = {
         $scope: $scope,
         $location: $location,
-        notificationsService: notificationsService,
         $q: $q,
         $http: $http,
         navigationService: navigationService,

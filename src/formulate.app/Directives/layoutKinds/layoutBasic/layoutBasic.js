@@ -25,13 +25,14 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, formulateForms, dialogService) {
+function controller($scope, formulateForms, dialogService, notificationsService) {
 
     // Variables.
     var services = {
         $scope: $scope,
         formulateForms: formulateForms,
-        dialogService: dialogService
+        dialogService: dialogService,
+        notificationsService: notificationsService
     };
 
     // Scope variables.
@@ -54,6 +55,7 @@ function controller($scope, formulateForms, dialogService) {
     watchRowChanges(services);
 
     // Initialize.
+    ensureRowExists($scope);
     if ($scope.data.formId) {
         refreshFields($scope.data.formId, services);
     } else {
@@ -148,9 +150,16 @@ function getRowSortableOptions() {
 // Returns a function that deletes the row at the specified index.
 function getDeleteRow(services) {
     var $scope = services.$scope;
+    var notificationsService = services.notificationsService;
     return function (index) {
-        $scope.rows.splice(index, 1);
-        replenishFields($scope);
+        if ($scope.rows.length > 1) {
+            $scope.rows.splice(index, 1);
+            replenishFields($scope);
+        } else {
+            var title = "Unable to Delete Final Row";
+            var message = "The layout must contain at least one row.";
+            notificationsService.error(title, message);
+        }
     };
 }
 
@@ -284,26 +293,12 @@ function replenishFields($scope) {
         row = $scope.rows[i];
         for (j = 0; j < row.cells.length; j++) {
             cell = row.cells[j];
-            for (var k = cell.fields.length - 1; k >= 0; k--) {
-                field = cell.fields[k];
-                if (fields.hasOwnProperty(field.id)) {
-
-                    // Copy fresh data over.
-                    field.name = fields[field.id].name;
-
-                    // Remove field as it's accounted for.
-                    delete fields[field.id];
-
-                } else {
-
-                    // This field no longer exists in the layout,
-                    // so remove it from the rows.
-                    cell.fields.splice(k, 1);
-
-                }
-            }
+            deleteAndUpdateFields(fields, cell.fields);
         }
     }
+
+    // Remove or replenish the fields in the unused fields section.
+    deleteAndUpdateFields(fields, $scope.unusedFields);
 
     // Aggregate all fields which aren't yet assigned to a row.
     var unassignedFields = [];
@@ -313,22 +308,51 @@ function replenishFields($scope) {
         }
     }
 
-    // Construct a new row containing all of the unassigned fields.
+    // Add unassigned fields to the unused fields section.
     if (unassignedFields.length > 0) {
-        row = {
-            cells: [
-                {
-                    columnSpan: 12,
-                    fields: unassignedFields
-                }
-            ]
-        };
-        $scope.rows.push(row);
+        $scope.unusedFields = $scope.unusedFields.concat(unassignedFields);
     }
 
     // Ensure each cell has a column span.
     ensureFallbackColumnSpans($scope.rows);
 
+}
+
+// Ensure at least one row exists (otherwise, there would be nothing to drop fields into).
+function ensureRowExists($scope) {
+    if ($scope.rows.length < 1) {
+        $scope.rows.push({
+            cells: [
+                {
+                    columnSpan: 12,
+                    fields: []
+                }
+            ]
+        });
+    }
+}
+
+// Deletes and updates fields based on the information known about all fields.
+function deleteAndUpdateFields(allFieldsById, fieldsToUpdate) {
+    var i, field;
+    for (i = fieldsToUpdate.length - 1; i >= 0; i--) {
+        field = fieldsToUpdate[i];
+        if (allFieldsById.hasOwnProperty(field.id)) {
+
+            // Copy fresh data over.
+            field.name = allFieldsById[field.id].name;
+
+            // Remove field as it's accounted for.
+            delete allFieldsById[field.id];
+
+        } else {
+
+            // This field no longer exists in the layout,
+            // so remove it from the fields to update.
+            fieldsToUpdate.splice(i, 1);
+
+        }
+    }
 }
 
 // Deprecated. This will be deleted in a future version of Formulate.
