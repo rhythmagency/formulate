@@ -118,13 +118,14 @@ function createRichTextField(field) {
     return markup;
 }
 
-function createSubmitField(field) {
+function createButtonField(field) {
     var el = angular.element('<button></button>');
     var span = angular.element('<span></span>');
 
     span.text(field.label);
     el.append(span);
     el.attr('type', 'submit');
+    el.attr('button-kind', field.configuration.buttonKind);
 
     el.addClass('formulate__btn formulate__btn--submit btn btn-default');
 
@@ -164,8 +165,8 @@ function createField(field) {
         elWrap.append(createSelectField(field));
         break;
 
-    case 'submit':
-        elWrap.append(createSubmitField(field));
+    case 'button':
+        elWrap.append(createButtonField(field));
         break;
 
     case 'textarea':

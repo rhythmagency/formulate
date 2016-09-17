@@ -15,7 +15,11 @@ app.factory("formulateFields", function (formulateVars,
     return {
 
         // Gets the field types.
-        getFieldTypes: getGetFieldTypes(services)
+        getFieldTypes: getGetFieldTypes(services),
+
+
+        // Gets the button kinds.
+        getButtonKinds: getGetButtonKinds(services)
 
     };
 
@@ -40,6 +44,25 @@ function getGetFieldTypes(services) {
                     typeFullName: field.TypeFullName
                 };
             });
+
+        });
+
+    };
+}
+
+
+// Returns the function that gets button kinds.
+function getGetButtonKinds(services) {
+    return function () {
+
+        // Variables.
+        var url = services.formulateVars.GetButtonKinds;
+
+        // Get button kinds from server.
+        return services.formulateServer.get(url, {}, function (data) {
+
+            // Return button kinds.
+            return data.ButtonKinds;
 
         });
 

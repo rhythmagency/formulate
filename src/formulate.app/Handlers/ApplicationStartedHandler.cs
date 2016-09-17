@@ -191,6 +191,9 @@
                 { "GetFieldTypes",
                     helper.GetUmbracoApiService<FieldsController>(x =>
                         x.GetFieldTypes()) },
+                { "GetButtonKinds",
+                    helper.GetUmbracoApiService<FieldsController>(x =>
+                        x.GetButtonKinds()) },
                 { "GetHandlerTypes",
                     helper.GetUmbracoApiService<HandlersController>(x =>
                         x.GetHandlerTypes()) },

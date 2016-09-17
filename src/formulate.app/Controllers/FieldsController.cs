@@ -4,6 +4,7 @@
     // Namespaces.
     using Forms;
     using Helpers;
+    using Managers;
     using System;
     using System.Linq;
     using System.Web.Http;
@@ -12,11 +13,11 @@
     using Umbraco.Web.Editors;
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
-    using CoreConstants = Umbraco.Core.Constants;
+    using ResolverConfig = Resolvers.Configuration;
 
 
     /// <summary>
-    /// Controller for Formulate forms.
+    /// Controller for Formulate fields.
     /// </summary>
     [PluginController("formulate")]
     [UmbracoApplicationAuthorize("formulate")]
@@ -27,6 +28,23 @@
 
         private const string UnhandledError = @"An unhandled error occurred. Refer to the error log.";
         private const string GetFieldTypesError = @"An error occurred while attempting to get the field types for a Formulate form.";
+        private const string GetButtonKindsError = @"An error occurred while attempting to get the button kinds for a Formulate button field.";
+
+        #endregion
+
+
+        #region Properties
+
+        /// <summary>
+        /// Configuration manager.
+        /// </summary>
+        private IConfigurationManager Config
+        {
+            get
+            {
+                return ResolverConfig.Current.Manager;
+            }
+        }
 
         #endregion
 
@@ -99,6 +117,51 @@
 
                 // Error.
                 LogHelper.Error<FieldsController>(GetFieldTypesError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return result.
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// Returns the kinds of buttons that can be selected when creating a button in the form designer.
+        /// </summary>
+        /// <returns>
+        /// The button kinds.
+        /// </returns>
+        public object GetButtonKinds()
+        {
+
+            // Variables.
+            var result = default(object);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Return results.
+                result = new
+                {
+                    Success = true,
+                    ButtonKinds = Config.ButtonKinds
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<FieldsController>(GetButtonKindsError, ex);
                 result = new
                 {
                     Success = false,

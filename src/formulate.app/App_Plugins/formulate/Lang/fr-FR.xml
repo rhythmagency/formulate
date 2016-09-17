@@ -167,6 +167,7 @@
     </key>
   </area>
   <area alias="formulate-options">
+    <key alias="Select a Button Kind">Select a Button Kind</key>
     <key alias="Select a Function">Select a Function</key>
     <key alias="Select a Template">Select a Template</key>
   </area>
@@ -174,6 +175,7 @@
     <key alias="Append Payload">For example, the URL and name of the page containing the form.</key>
   </area>
   <area alias="formulate-labels">
+    <key alias="Button Kind">Button Kind</key>
     <key alias="Text Value">Text Value</key>
     <key alias="Layout:">Layout:</key>
     <key alias="Layout not chosen">Layout not yet chosen.</key>

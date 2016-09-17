@@ -2,6 +2,7 @@
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <configSections>
     <sectionGroup name="formulateConfiguration" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing">
+      <section name="buttons" type="formulate.app.Configuration.ButtonsConfigSection, formulate.app" requirePermission="false"/>
       <section name="persistence" type="formulate.app.Configuration.PersistenceConfigSection, formulate.app" requirePermission="false" />
       <section name="templates" type="formulate.app.Configuration.TemplatesConfigSection, formulate.app" requirePermission="false"/>
       <section name="submissions" type="formulate.app.Configuration.SubmissionsConfigSection, formulate.app" requirePermission="false"/>
@@ -15,6 +16,7 @@
 
   <!-- Add new element after Umbraco configuration. -->
   <formulateConfiguration xdt:Transform="InsertAfter(/configuration/umbracoConfiguration)">
+    <buttons configSource="config\Formulate\buttons.config"/>
     <persistence configSource="config\Formulate\persistence.config" />
     <templates configSource="config\Formulate\templates.config"/>
     <submissions configSource="config\Formulate\submissions.config"/>
@@ -23,6 +25,7 @@
 
   <!-- If the element couldn't be added, add it now. -->
   <formulateConfiguration xdt:Transform="InsertIfMissing">
+    <buttons configSource="config\Formulate\buttons.config"/>
     <persistence configSource="config\Formulate\persistence.config" />
     <templates configSource="config\Formulate\templates.config"/>
     <submissions configSource="config\Formulate\submissions.config"/>

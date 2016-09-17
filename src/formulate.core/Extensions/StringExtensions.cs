@@ -50,7 +50,7 @@
                     angularType = "select";
                     break;
                 case "buttonfield":
-                    angularType = "submit";
+                    angularType = "button";
                     break;
                 case "textareafield":
                     angularType = "textarea";

@@ -56,6 +56,21 @@
 
 
         /// <summary>
+        /// The button kinds used when creating button field types.
+        /// </summary>
+        public IEnumerable<string> ButtonKinds
+        {
+            get
+            {
+                var buttonsSection = ConfigurationManager
+                    .GetSection("formulateConfiguration/buttons") as ButtonsConfigSection;
+                var templateItems = buttonsSection?.Buttons;
+                return templateItems.Cast<ButtonElement>().Select(x => x.Kind).ToArray();
+            }
+        }
+
+
+        /// <summary>
         /// Enable server side validation of form submissions?
         /// </summary>
         public bool EnableServerSideValidation

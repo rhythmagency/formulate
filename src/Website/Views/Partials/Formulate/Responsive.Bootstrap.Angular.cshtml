@@ -3,6 +3,7 @@
 @using formulate.app.Validations.Kinds.Mandatory
 @using formulate.app.Forms.Fields.DropDown
 @using formulate.app.Forms.Fields.RichText
+@using formulate.app.Forms.Fields.Button
 @using formulate.core.Extensions
 @using formulate.core.Types
 @model formulate.core.Models.FormViewModel
@@ -66,6 +67,14 @@
             return new
             {
                 text = config.Text
+            };
+        }
+        else if (x.FieldType == typeof(ButtonField))
+        {
+            var config = x.Configuration as ButtonConfiguration;
+            return new
+            {
+                buttonKind = config.ButtonKind
             };
         }
         return new { };

@@ -278,10 +278,13 @@
     <Compile Include="Configuration\JsonElement.cs" />
     <Compile Include="Configuration\SubmissionsConfigSection.cs" />
     <Compile Include="Configuration\EmailCollection.cs" />
+    <Compile Include="Configuration\ButtonCollection.cs" />
     <Compile Include="Configuration\TemplateCollection.cs" />
     <Compile Include="Configuration\EmailElement.cs" />
+    <Compile Include="Configuration\ButtonElement.cs" />
     <Compile Include="Configuration\TemplateElement.cs" />
     <Compile Include="Configuration\EmailsConfigSection.cs" />
+    <Compile Include="Configuration\ButtonsConfigSection.cs" />
     <Compile Include="Configuration\TemplatesConfigSection.cs" />
     <Compile Include="Configuration\PersistenceConfigSection.cs" />
     <Compile Include="Constants\DataValues\DataValueListFunction.cs" />
@@ -320,6 +323,7 @@
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Folders\Folder.cs" />
     <Compile Include="Forms\ConfiguredForm.cs" />
+    <Compile Include="Forms\Fields\Button\ButtonConfiguration.cs" />
     <Compile Include="Forms\Fields\RichText\RichTextConfiguration.cs" />
     <Compile Include="Forms\Fields\RichText\RichTextField.cs" />
     <Compile Include="Forms\Fields\Checkbox\CheckboxField.cs" />
@@ -561,6 +565,8 @@
     <Content Include="Directives\fields\checkboxField\checkboxField.js" />
     <Content Include="Directives\fields\dropDownField\dropDownField.html" />
     <Content Include="Directives\fields\dropDownField\dropDownField.js" />
+    <Content Include="Directives\fields\richTextField\richTextField.html" />
+    <Content Include="Directives\fields\richTextField\richTextField.js" />
     <Content Include="Directives\fields\textAreaField\textAreaField.html" />
     <Content Include="Directives\fields\textAreaField\textAreaField.js" />
     <Content Include="Directives\fields\textField\textField.html" />

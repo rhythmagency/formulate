@@ -28,6 +28,12 @@
 
 
         /// <summary>
+        /// The button kinds used when creating button field types.
+        /// </summary>
+        IEnumerable<string> ButtonKinds { get; }
+
+
+        /// <summary>
         /// Enable server side validation of form submissions?
         /// </summary>
         bool EnableServerSideValidation { get; }
