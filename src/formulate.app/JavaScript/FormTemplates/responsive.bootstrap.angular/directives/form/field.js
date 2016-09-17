@@ -113,6 +113,11 @@ function createTextAreaField(field) {
     return setGlobalInputAttributes(field, el);
 }
 
+function createRichTextField(field) {
+    var markup = $(field.configuration.text);
+    return markup;
+}
+
 function createSubmitField(field) {
     var el = angular.element('<button></button>');
     var span = angular.element('<span></span>');
@@ -174,6 +179,10 @@ function createField(field) {
 
     case 'upload':
         elWrap.append(createUploadField(field));
+        break;
+
+    case 'rich-text':
+        elWrap.append(createRichTextField(field));
         break;
 
     default:

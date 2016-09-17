@@ -58,6 +58,9 @@
                 case "uploadfield":
                     angularType = "upload";
                     break;
+                case "richtextfield":
+                    angularType = "rich-text";
+                    break;
             }
             return angularType ?? fieldType;
         }

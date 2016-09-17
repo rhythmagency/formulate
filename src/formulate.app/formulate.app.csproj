@@ -320,6 +320,8 @@
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Folders\Folder.cs" />
     <Compile Include="Forms\ConfiguredForm.cs" />
+    <Compile Include="Forms\Fields\RichText\RichTextConfiguration.cs" />
+    <Compile Include="Forms\Fields\RichText\RichTextField.cs" />
     <Compile Include="Forms\Fields\Checkbox\CheckboxField.cs" />
     <Compile Include="Forms\Fields\DropDown\DropDownConfiguration.cs" />
     <Compile Include="Forms\Fields\DropDown\DropDownField.cs" />

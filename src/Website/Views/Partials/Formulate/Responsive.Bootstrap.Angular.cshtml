@@ -2,6 +2,7 @@
 @using formulate.app.Validations.Kinds.Regex
 @using formulate.app.Validations.Kinds.Mandatory
 @using formulate.app.Forms.Fields.DropDown
+@using formulate.app.Forms.Fields.RichText
 @using formulate.core.Extensions
 @using formulate.core.Types
 @model formulate.core.Models.FormViewModel
@@ -57,6 +58,14 @@
                     label = y.Label,
                     selected = y.Selected
                 }).ToArray()
+            };
+        }
+        else if (x.FieldType == typeof(RichTextField))
+        {
+            var config = x.Configuration as RichTextConfiguration;
+            return new
+            {
+                text = config.Text
             };
         }
         return new { };
