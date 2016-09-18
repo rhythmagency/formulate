@@ -16,6 +16,7 @@
   <area alias="formulate-data-value-names">
     <key alias="List">List</key>
     <key alias="List Function">List Function</key>
+    <key alias="Pair List">Pair List</key>
   </area>
   <area alias="formulate-layout-names">
     <key alias="Basic Layout">Basic Layout</key>
