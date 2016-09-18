@@ -9,6 +9,9 @@ var app = angular.module('formulate');
 function fieldId(field) {
     return 'field-' + field.randomId;
 }
+function fieldName(field, prefix) {
+    return (prefix || 'field-name-') + field.randomId;
+}
 
 function addLabel(elWrap, field) {
     /*global document */
@@ -52,16 +55,19 @@ function setGlobalInputAttributes(field, el, options) {
     options = angular.extend({
         // When set to true, this element will get the "form-control" class.
         formControl: true,
-        disableAutocomplete: true
+        disableAutocomplete: true,
+        bindToFieldModel: true
     }, options);
 
     el.attr('id', fieldId(field));
     el.attr('name', 'field_' + field.id);
     el.attr('aria-label', field.label);
-    el.attr('ng-model', 'ctrl.fieldModels[\'' + field.id + '\']');
-    el.attr('formulate-validation', true);
-
     el.addClass('formulate__control');
+
+    if (options.bindToFieldModel) {
+        el.attr('ng-model', 'ctrl.fieldModels[\'' + field.id + '\']');
+        el.attr('formulate-validation', true);
+    }
 
     if (options.formControl) {
         el.addClass('form-control');
@@ -84,6 +90,27 @@ function createSelectField(field) {
 
     return setGlobalInputAttributes(field, el, {
         disableAutocomplete: false
+    });
+}
+
+function createRadioButtonListField(field) {
+    var wrapper = angular.element('<div></div>');
+    var label = angular.element('<label ng-repeat="item in fieldCtrl.configuration.items"></label>');
+    var input = angular.element('<input type="radio" ng-value="item.value" />');
+    var span = angular.element('<span>{{item.label}}</span>');
+
+    // Set name/model.
+    input.attr('name', fieldName(field, 'radio-'));
+    input.attr('ng-model', 'ctrl.fieldModels[\'' + field.id + '\']');
+
+    // Append input/text span.
+    label.append(input);
+    label.append(span);
+    wrapper.append(label);
+
+    return setGlobalInputAttributes(field, wrapper, {
+        disableAutocomplete: false,
+        bindToFieldModel: false
     });
 }
 
@@ -163,6 +190,11 @@ function createField(field) {
         addLabel(elWrap, field);
         elWrap.addClass('formulate__group--select');
         elWrap.append(createSelectField(field));
+        break;
+
+    case 'radio-list':
+        addLabel(elWrap, field);
+        elWrap.append(createRadioButtonListField(field));
         break;
 
     case 'button':

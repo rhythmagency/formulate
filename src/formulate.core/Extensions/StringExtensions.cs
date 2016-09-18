@@ -61,6 +61,9 @@
                 case "richtextfield":
                     angularType = "rich-text";
                     break;
+                case "radiobuttonlistfield":
+                    angularType = "radio-list";
+                    break;
             }
             return angularType ?? fieldType;
         }

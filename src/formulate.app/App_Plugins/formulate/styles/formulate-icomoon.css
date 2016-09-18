@@ -2,11 +2,11 @@
    which contains the selection.json you can use to update the icons. */
 @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon/icomoon.eot?4duiy5');
-	src:url('../fonts/icomoon/icomoon.eot?4duiy5#iefix') format('embedded-opentype'),
-		url('../fonts/icomoon/icomoon.ttf?4duiy5') format('truetype'),
-		url('../fonts/icomoon/icomoon.woff?4duiy5') format('woff'),
-		url('../fonts/icomoon/icomoon.svg?4duiy5#icomoon') format('svg');
+	src:url('../fonts/icomoon/icomoon.eot?80va0a');
+	src:url('../fonts/icomoon/icomoon.eot?80va0a#iefix') format('embedded-opentype'),
+		url('../fonts/icomoon/icomoon.ttf?80va0a') format('truetype'),
+		url('../fonts/icomoon/icomoon.woff?80va0a') format('woff'),
+		url('../fonts/icomoon/icomoon.svg?80va0a#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -88,4 +88,7 @@
 }
 .icon-formulate-rich-text:before {
 	content: "\e913";
+}
+.icon-formulate-radio-button-list:before {
+	content: "\e914";
 }

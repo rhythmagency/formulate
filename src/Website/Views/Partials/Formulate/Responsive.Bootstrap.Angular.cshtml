@@ -4,6 +4,7 @@
 @using formulate.app.Forms.Fields.DropDown
 @using formulate.app.Forms.Fields.RichText
 @using formulate.app.Forms.Fields.Button
+@using formulate.app.Forms.Fields.RadioButtonList
 @using formulate.core.Extensions
 @using formulate.core.Types
 @model formulate.core.Models.FormViewModel
@@ -75,6 +76,19 @@
             return new
             {
                 buttonKind = config.ButtonKind
+            };
+        }
+        else if (x.FieldType == typeof(RadioButtonListField))
+        {
+            var config = x.Configuration as RadioButtonListConfiguration;
+            return new
+            {
+                items = config.Items.Select(y => new
+                {
+                    value = y.Value,
+                    label = y.Label,
+                    selected = y.Selected
+                }).ToArray()
             };
         }
         return new { };
