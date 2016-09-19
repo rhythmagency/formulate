@@ -1,0 +1,11 @@
+.formulate__data-sources-warn-icon {
+    font-size: 100px;
+    line-height: 100px;
+}
+
+.formulate__data-sources-warn-info {
+    background-color: #ffeeee;
+    border: 1px solid #ff0000;
+    border-radius: 10px;
+    padding: 15px;
+}

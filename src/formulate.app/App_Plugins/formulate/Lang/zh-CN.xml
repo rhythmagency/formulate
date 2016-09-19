@@ -53,6 +53,15 @@
     ]]></key>
     <key alias="Data Sources"><![CDATA[
       <h2>Data Sources</h2>
+      <p class="formulate__data-sources-warn-info">
+          <span class="color-red">
+              <i class="icon-stop-hand formulate__data-sources-warn-icon"></i>
+          </span>
+          <strong>
+              Note that the data sources feature is not yet implemented.
+              The below description explains how it will work in the future.
+          </strong>
+      </p>
       <p>
           Data sources are where Formulate fetches data from or adds data to. Here are some examples:
       </p>
@@ -159,8 +168,8 @@
   </area>
   <area alias="formulate-introductions">
     <key alias="Configured Form">
-        A configured form is just a form with a layout and template selected.
-        To configure this form, select a template and layout below.
+      A configured form is just a form with a layout and template selected.
+      To configure this form, select a template and layout below.
     </key>
     <key alias="Form Handlers">
       These are your form's handlers.
