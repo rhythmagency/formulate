@@ -329,6 +329,9 @@
     <Compile Include="Forms\Fields\ExtendedRadioButtonList\ExtendedRadioButtonListConfiguration.cs" />
     <Compile Include="Forms\Fields\ExtendedRadioButtonList\ExtendedRadioButtonListField.cs" />
     <Compile Include="Forms\Fields\ExtendedRadioButtonList\ExtendedRadioButtonListItem.cs" />
+    <Compile Include="Forms\Fields\CheckboxList\CheckboxListConfiguration.cs" />
+    <Compile Include="Forms\Fields\CheckboxList\CheckboxListField.cs" />
+    <Compile Include="Forms\Fields\CheckboxList\CheckboxListItem.cs" />
     <Compile Include="Forms\Fields\RadioButtonList\RadioButtonListConfiguration.cs" />
     <Compile Include="Forms\Fields\RadioButtonList\RadioButtonListField.cs" />
     <Compile Include="Forms\Fields\RadioButtonList\RadioButtonListItem.cs" />

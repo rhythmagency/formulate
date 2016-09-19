@@ -137,6 +137,27 @@ function createExtendedRadioButtonListField(field) {
     });
 }
 
+function createCheckboxListField(field) {
+    var wrapper = angular.element('<div></div>');
+    var label = angular.element('<label ng-repeat="item in fieldCtrl.configuration.items"></label>');
+    var input = angular.element('<input type="checkbox" ng-value="item.value" />');
+    var span = angular.element('<span>{{item.label}}</span>');
+
+    // Set name/model.
+    input.attr('name', fieldName(field, 'checkbox-'));
+    input.attr('ng-model', 'ctrl.fieldModels[\'' + field.id + '\']');
+
+    // Append input/text span.
+    label.append(input);
+    label.append(span);
+    wrapper.append(label);
+
+    return setGlobalInputAttributes(field, wrapper, {
+        disableAutocomplete: false,
+        bindToFieldModel: false
+    });
+}
+
 function createUploadField(field) {
     var el = angular.element('<formulate-file-upload></formulate-file-upload>');
 
@@ -223,6 +244,11 @@ function createField(field) {
     case 'extended-radio-list':
         addLabel(elWrap, field);
         elWrap.append(createExtendedRadioButtonListField(field));
+        break;
+
+    case 'checkbox-list':
+        addLabel(elWrap, field);
+        elWrap.append(createCheckboxListField(field));
         break;
 
     case 'button':
