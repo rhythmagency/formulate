@@ -64,6 +64,9 @@
                 case "radiobuttonlistfield":
                     angularType = "radio-list";
                     break;
+                case "extendedradiobuttonlistfield":
+                    angularType = "extended-radio-list";
+                    break;
             }
             return angularType ?? fieldType;
         }

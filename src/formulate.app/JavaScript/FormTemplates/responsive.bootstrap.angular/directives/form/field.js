@@ -114,6 +114,29 @@ function createRadioButtonListField(field) {
     });
 }
 
+function createExtendedRadioButtonListField(field) {
+    var wrapper = angular.element('<div></div>');
+    var label = angular.element('<label ng-repeat="item in fieldCtrl.configuration.items"></label>');
+    var input = angular.element('<input type="radio" ng-value="item.value" />');
+    var spanPrimary = angular.element('<span class="formulate__extended-radio__primary-label">{{item.primary}}</span>');
+    var spanSecondary = angular.element('<span class="formulate__extended-radio__secondary-label">{{item.secondary}}</span>');
+
+    // Set name/model.
+    input.attr('name', fieldName(field, 'radio-'));
+    input.attr('ng-model', 'ctrl.fieldModels[\'' + field.id + '\']');
+
+    // Append input/text spans.
+    label.append(input);
+    label.append(spanPrimary);
+    label.append(spanSecondary);
+    wrapper.append(label);
+
+    return setGlobalInputAttributes(field, wrapper, {
+        disableAutocomplete: false,
+        bindToFieldModel: false
+    });
+}
+
 function createUploadField(field) {
     var el = angular.element('<formulate-file-upload></formulate-file-upload>');
 
@@ -195,6 +218,11 @@ function createField(field) {
     case 'radio-list':
         addLabel(elWrap, field);
         elWrap.append(createRadioButtonListField(field));
+        break;
+
+    case 'extended-radio-list':
+        addLabel(elWrap, field);
+        elWrap.append(createExtendedRadioButtonListField(field));
         break;
 
     case 'button':
