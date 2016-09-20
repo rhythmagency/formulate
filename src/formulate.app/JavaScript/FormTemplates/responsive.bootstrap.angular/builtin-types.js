@@ -81,6 +81,31 @@ function createRadioButtonListField(field) {
 }
 module.exports.createRadioButtonListField = createRadioButtonListField;
 
+function createCheckboxListField(field) {
+    var el = angular.element('<div></div>');
+    var widgetLabel = angular.element('<label class="formulate__field-label" ng-bind="fieldCtrl.label"></label>');
+
+    var wrapper = angular.element('<div class="checkbox" ng-repeat="item in fieldCtrl.configuration.items"></div>');
+    var label = angular.element('<label></label>');
+    var input = angular.element('<input type="checkbox" checklist-value="item.value"/>');
+    var span = angular.element('<span ng-bind="item.label"></span>');
+
+    // Append input/text span.
+    label.append(input);
+    label.append(span);
+    wrapper.append(label);
+
+    input.attr('name', 'field_' + field.id);
+    input.attr('checklist-model', 'ctrl.fieldModels[\'' + field.id + '\']');
+
+    el.append(widgetLabel);
+    el.append(wrapper);
+    el.append('<div ng-bind="ctrl.fieldModels | json"></div>');
+
+    return el;
+}
+module.exports.createCheckboxListField = createCheckboxListField;
+
 
 function createUploadField(field) {
     var el = angular.element('<formulate-file-upload></formulate-file-upload>');
