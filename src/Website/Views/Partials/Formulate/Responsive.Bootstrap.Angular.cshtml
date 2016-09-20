@@ -7,6 +7,7 @@
 @using formulate.app.Forms.Fields.RadioButtonList
 @using formulate.app.Forms.Fields.ExtendedRadioButtonList
 @using formulate.app.Forms.Fields.CheckboxList
+@using formulate.app.Forms.Fields.Header
 @using formulate.core.Extensions
 @using formulate.core.Types
 @model formulate.core.Models.FormViewModel
@@ -67,6 +68,14 @@
         else if (x.FieldType == typeof(RichTextField))
         {
             var config = x.Configuration as RichTextConfiguration;
+            return new
+            {
+                text = config.Text
+            };
+        }
+        else if (x.FieldType == typeof(HeaderField))
+        {
+            var config = x.Configuration as HeaderConfiguration;
             return new
             {
                 text = config.Text

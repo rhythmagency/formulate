@@ -73,6 +73,9 @@
                 case "hiddenfield":
                     angularType = "hidden";
                     break;
+                case "headerfield":
+                    angularType = "header";
+                    break;
             }
             return angularType ?? fieldType;
         }

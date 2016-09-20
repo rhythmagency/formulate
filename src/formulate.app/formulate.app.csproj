@@ -335,6 +335,8 @@
     <Compile Include="Forms\Fields\RadioButtonList\RadioButtonListConfiguration.cs" />
     <Compile Include="Forms\Fields\RadioButtonList\RadioButtonListField.cs" />
     <Compile Include="Forms\Fields\RadioButtonList\RadioButtonListItem.cs" />
+    <Compile Include="Forms\Fields\Header\HeaderConfiguration.cs" />
+    <Compile Include="Forms\Fields\Header\HeaderField.cs" />
     <Compile Include="Forms\Fields\RichText\RichTextConfiguration.cs" />
     <Compile Include="Forms\Fields\RichText\RichTextField.cs" />
     <Compile Include="Forms\Fields\Checkbox\CheckboxField.cs" />
