@@ -147,7 +147,11 @@
             configuration = getValidationConfig(y)
         }).ToArray(),
         // The field configuration stores parameters particular to a field (e.g., a list of items).
-        configuration = getFieldConfig(x)
+        configuration = getFieldConfig(x),
+        // The initial value comes from the query string based on the field alias.
+        initialValue = string.IsNullOrWhiteSpace(x.Alias)
+            ? null
+            : Request.QueryString[x.Alias]
     }).ToArray();
 
 
