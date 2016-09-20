@@ -66,18 +66,34 @@ function FormulateFieldTypesProvider() {
         };
     }
 
-    this.register = function (fieldType, fieldTemplate, pLabel) {
+    /**
+     *
+     * Register field
+     *
+     * @param fieldType
+     * @param fieldTemplate
+     * @param addLabel bool add label before the field
+     * @returns {FormulateFieldTypesProvider}
+     */
+    this.register = function (fieldType, fieldTemplate, addLabel) {
         fieldTypes[fieldType] = angular.isString(fieldTemplate) ? fieldFactory(fieldTemplate) : fieldTemplate;
 
-        prependLabel[fieldType] = pLabel;
+        prependLabel[fieldType] = addLabel;
 
         return this;
     };
 
-    this.setDefault = function (fieldTemplate, pLabel) {
+    /**
+     * Register default field
+     *
+     * @param fieldTemplate
+     * @param addLabel bool add label before the field
+     * @returns {FormulateFieldTypesProvider}
+     */
+    this.setDefault = function (fieldTemplate, addLabel) {
         fieldTypes.defaultField = angular.isString(fieldTemplate) ? fieldFactory(fieldTemplate) : fieldTemplate;
 
-        prependLabel.defaultField = pLabel;
+        prependLabel.defaultField = addLabel;
 
         return this;
     };

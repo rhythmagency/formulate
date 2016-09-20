@@ -156,3 +156,9 @@ function createCheckboxField(field) {
     return container;
 }
 module.exports.createCheckboxField = createCheckboxField;
+
+function createNullField() {
+    return null;
+}
+module.exports.createNullField = createNullField;
+

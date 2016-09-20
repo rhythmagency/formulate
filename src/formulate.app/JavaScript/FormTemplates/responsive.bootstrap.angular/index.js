@@ -20,6 +20,7 @@ app.config(['FormulateFieldTypesProvider', function (FormulateFieldTypesProvider
         .register('checkbox', builtinTypes.createCheckboxField, false)
         .register('upload', builtinTypes.createUploadField, false)
         .register('rich-text', builtinTypes.createRichTextField, false)
+        .register('hidden', builtinTypes.createNullField, false)
         .setDefault(builtinTypes.createTextField, true);
 }]);
 

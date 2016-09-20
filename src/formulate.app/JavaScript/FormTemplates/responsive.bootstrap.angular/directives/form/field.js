@@ -28,21 +28,24 @@ function formulateField($compile, $controller, FormulateFieldTypes) {
         var field = ctrl.getFieldById(attr.fieldId);
         var elField = FormulateFieldTypes.createField(field);
 
-        var inputs = {
-            $scope: scope,
-            $element: elField,
-            field: field
-        };
+        // Exclude null/hidden fields
+        if (elField !== null) {
+            var inputs = {
+                $scope: scope,
+                $element: elField,
+                field: field
+            };
 
-        // Attach main controller
-        scope.ctrl = ctrl;
-        scope.formCtrl = formCtrl;
+            // Attach main controller
+            scope.ctrl = ctrl;
+            scope.formCtrl = formCtrl;
 
-        $controller('FormulateFieldController as fieldCtrl', inputs);
+            $controller('FormulateFieldController as fieldCtrl', inputs);
 
-        el.append(elField);
+            el.append(elField);
 
-        $compile(elField)(scope);
+            $compile(elField)(scope);
+        }
     }
 
     return {
