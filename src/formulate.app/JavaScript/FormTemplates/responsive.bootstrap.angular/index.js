@@ -14,7 +14,7 @@ require('./directives/**/*.js', { mode: 'expand' });
 app.config(['FormulateFieldTypesProvider', function (FormulateFieldTypesProvider) {
     FormulateFieldTypesProvider
         .register('select', builtinTypes.createSelectField, true)
-        .register('radio-list', builtinTypes.createRadioButtonListField, true)
+        .register('radio-list', builtinTypes.createRadioButtonListField, false)
         .register('button', builtinTypes.createButtonField, false)
         .register('textarea', builtinTypes.createTextAreaField, true)
         .register('checkbox', builtinTypes.createCheckboxField, false)

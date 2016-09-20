@@ -57,24 +57,27 @@ module.exports.createSelectField = createSelectField;
 
 
 function createRadioButtonListField(field) {
-    var wrapper = angular.element('<div></div>');
-    var label = angular.element('<label ng-repeat="item in fieldCtrl.configuration.items"></label>');
-    var input = angular.element('<input type="radio" ng-value="item.value" />');
-    var span = angular.element('<span>{{item.label}}</span>');
+    var el = angular.element('<div></div>');
+    var widgetLabel = angular.element('<label class="formulate__field-label" ng-bind="fieldCtrl.label"></label>');
 
-    // Set name/model.
-    input.attr('name', fieldName(field, 'radio-'));
-    input.attr('ng-model', 'ctrl.fieldModels[\'' + field.id + '\']');
+    var wrapper = angular.element('<div class="radio" ng-repeat="item in fieldCtrl.configuration.items"></div>');
+    var label = angular.element('<label></label>');
+    var input = angular.element('<input type="radio" ng-value="item.value" />');
+    var span = angular.element('<span ng-bind="item.label"></span>');
 
     // Append input/text span.
     label.append(input);
     label.append(span);
     wrapper.append(label);
 
-    return setGlobalInputAttributes(field, wrapper, {
-        disableAutocomplete: false,
-        bindToFieldModel: false
-    });
+    input.attr('name', 'field_' + field.id);
+    input.attr('ng-model', 'ctrl.fieldModels[\'' + field.id + '\']');
+    input.attr('formulate-validation', true);
+
+    el.append(widgetLabel);
+    el.append(wrapper);
+
+    return el;
 }
 module.exports.createRadioButtonListField = createRadioButtonListField;
 
