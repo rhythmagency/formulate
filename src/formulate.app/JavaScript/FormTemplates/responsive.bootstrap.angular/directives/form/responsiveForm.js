@@ -95,9 +95,13 @@ FormulateController.prototype.submit = function () {
                         .FormData();
 
                     angular.forEach(obj, function (value, key) {
+                        if (angular.isArray(value)) {
+                            value.forEach(function (itemVal) {
+                                formData.append(key, itemVal);
+                            });
 
                         // Skip over null/undefined so they don't get sent as serialized version.
-                        if (value !== undefined && value !== null) {
+                        } else if (value !== undefined && value !== null) {
                             formData.append(key, value);
                         }
 

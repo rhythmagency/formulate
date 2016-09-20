@@ -98,9 +98,10 @@ function createCheckboxListField(field) {
     input.attr('name', 'field_' + field.id);
     input.attr('checklist-model', 'ctrl.fieldModels[\'' + field.id + '\']');
 
+    //TODO: Add custom validation
+
     el.append(widgetLabel);
     el.append(wrapper);
-    el.append('<div ng-bind="ctrl.fieldModels | json"></div>');
 
     return el;
 }
