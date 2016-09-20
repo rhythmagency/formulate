@@ -64,6 +64,15 @@
                 case "radiobuttonlistfield":
                     angularType = "radio-list";
                     break;
+                case "extendedradiobuttonlistfield":
+                    angularType = "extended-radio-list";
+                    break;
+                case "checkboxlistfield":
+                    angularType = "checkbox-list";
+                    break;
+                case "hiddenfield":
+                    angularType = "hidden";
+                    break;
             }
             return angularType ?? fieldType;
         }

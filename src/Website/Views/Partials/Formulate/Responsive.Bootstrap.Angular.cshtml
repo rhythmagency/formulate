@@ -5,6 +5,8 @@
 @using formulate.app.Forms.Fields.RichText
 @using formulate.app.Forms.Fields.Button
 @using formulate.app.Forms.Fields.RadioButtonList
+@using formulate.app.Forms.Fields.ExtendedRadioButtonList
+@using formulate.app.Forms.Fields.CheckboxList
 @using formulate.core.Extensions
 @using formulate.core.Types
 @model formulate.core.Models.FormViewModel
@@ -81,6 +83,32 @@
         else if (x.FieldType == typeof(RadioButtonListField))
         {
             var config = x.Configuration as RadioButtonListConfiguration;
+            return new
+            {
+                items = config.Items.Select(y => new
+                {
+                    value = y.Value,
+                    label = y.Label,
+                    selected = y.Selected
+                }).ToArray()
+            };
+        }
+        else if (x.FieldType == typeof(ExtendedRadioButtonListField))
+        {
+            var config = x.Configuration as ExtendedRadioButtonListConfiguration;
+            return new
+            {
+                items = config.Items.Select(y => new
+                {
+                    primary = y.Primary,
+                    secondary = y.Secondary,
+                    selected = y.Selected
+                }).ToArray()
+            };
+        }
+        else if (x.FieldType == typeof(CheckboxListField))
+        {
+            var config = x.Configuration as CheckboxListConfiguration;
             return new
             {
                 items = config.Items.Select(y => new
