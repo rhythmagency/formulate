@@ -40,6 +40,14 @@ function FormulateController($scope, $element, $http, $q, $window) {
 
     // ng-model of fields
     this.fieldModels = {};
+
+    // Set initial values.
+    this.formData.fields.forEach(function (field) {
+        var initialValue = field.initialValue;
+        if (field.initialValue !== undefined && field.initialValue !== null) {
+            self.fieldModels[field.id] = initialValue;
+        }
+    });
 }
 
 FormulateController.prototype.getFieldById = function (id) {

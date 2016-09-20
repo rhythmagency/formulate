@@ -6,7 +6,7 @@ var builtinTypes = require('./builtin-types');
 // Create app
 var app = angular.module('formulate', ['ngMessages']);
 
-// Include all directives.
+// Include all services and directives.
 require('./services/**/*.js', { mode: 'expand' });
 require('./directives/**/*.js', { mode: 'expand' });
 
