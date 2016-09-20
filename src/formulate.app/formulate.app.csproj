@@ -343,6 +343,7 @@
     <Compile Include="Forms\Fields\DropDown\DropDownItem.cs" />
     <Compile Include="Forms\Fields\Button\ButtonField.cs" />
     <Compile Include="Forms\Fields\Hidden\HiddenField.cs" />
+    <Compile Include="Forms\Fields\Date\DateField.cs" />
     <Compile Include="Forms\Fields\Upload\UploadField.cs" />
     <Compile Include="Forms\Fields\TextArea\TextAreaField.cs" />
     <Compile Include="Forms\Fields\Text\TextField.cs" />
