@@ -342,6 +342,7 @@
     <Compile Include="Forms\Fields\DropDown\DropDownField.cs" />
     <Compile Include="Forms\Fields\DropDown\DropDownItem.cs" />
     <Compile Include="Forms\Fields\Button\ButtonField.cs" />
+    <Compile Include="Forms\Fields\Hidden\HiddenField.cs" />
     <Compile Include="Forms\Fields\Upload\UploadField.cs" />
     <Compile Include="Forms\Fields\TextArea\TextAreaField.cs" />
     <Compile Include="Forms\Fields\Text\TextField.cs" />
@@ -576,8 +577,16 @@
     <Content Include="Directives\fields\buttonField\buttonField.js" />
     <Content Include="Directives\fields\checkboxField\checkboxField.html" />
     <Content Include="Directives\fields\checkboxField\checkboxField.js" />
+    <Content Include="Directives\fields\checkboxListField\checkboxListField.html" />
+    <Content Include="Directives\fields\checkboxListField\checkboxListField.js" />
     <Content Include="Directives\fields\dropDownField\dropDownField.html" />
     <Content Include="Directives\fields\dropDownField\dropDownField.js" />
+    <Content Include="Directives\fields\extendedRadioButtonListField\extendedRadioButtonListField.html" />
+    <Content Include="Directives\fields\extendedRadioButtonListField\extendedRadioButtonListField.js" />
+    <Content Include="Directives\fields\hiddenField\hiddenField.html" />
+    <Content Include="Directives\fields\hiddenField\hiddenField.js" />
+    <Content Include="Directives\fields\radioButtonListField\radioButtonListField.html" />
+    <Content Include="Directives\fields\radioButtonListField\radioButtonListField.js" />
     <Content Include="Directives\fields\richTextField\richTextField.html" />
     <Content Include="Directives\fields\richTextField\richTextField.js" />
     <Content Include="Directives\fields\textAreaField\textAreaField.html" />

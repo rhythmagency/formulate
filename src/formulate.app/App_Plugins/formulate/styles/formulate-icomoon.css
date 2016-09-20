@@ -2,11 +2,11 @@
    which contains the selection.json you can use to update the icons. */
 @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon/icomoon.eot?qrw0ug');
-	src:url('../fonts/icomoon/icomoon.eot?qrw0ug#iefix') format('embedded-opentype'),
-		url('../fonts/icomoon/icomoon.ttf?qrw0ug') format('truetype'),
-		url('../fonts/icomoon/icomoon.woff?qrw0ug') format('woff'),
-		url('../fonts/icomoon/icomoon.svg?qrw0ug#icomoon') format('svg');
+	src:url('../fonts/icomoon/icomoon.eot?6diai');
+	src:url('../fonts/icomoon/icomoon.eot?6diai#iefix') format('embedded-opentype'),
+		url('../fonts/icomoon/icomoon.ttf?6diai') format('truetype'),
+		url('../fonts/icomoon/icomoon.woff?6diai') format('woff'),
+		url('../fonts/icomoon/icomoon.svg?6diai#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -97,4 +97,7 @@
 }
 .icon-formulate-checkbox-list:before {
 	content: "\e915";
+}
+.icon-formulate-hidden:before {
+	content: "\e916";
 }

@@ -70,6 +70,9 @@
                 case "checkboxlistfield":
                     angularType = "checkbox-list";
                     break;
+                case "hiddenfield":
+                    angularType = "hidden";
+                    break;
             }
             return angularType ?? fieldType;
         }

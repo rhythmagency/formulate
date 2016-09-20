@@ -176,6 +176,14 @@ function createTextField(field) {
     return setGlobalInputAttributes(field, el);
 }
 
+function createHiddenField(field) {
+    var el = angular.element('<input type="hidden" />');
+    return setGlobalInputAttributes(field, el, {
+        formControl: false,
+        disableAutocomplete: false
+    });
+}
+
 function createTextAreaField(field) {
     var el = angular.element('<textarea></textarea>');
 
@@ -270,6 +278,10 @@ function createField(field) {
 
     case 'rich-text':
         elWrap.append(createRichTextField(field));
+        break;
+
+    case 'hidden':
+        elWrap.append(createHiddenField(field));
         break;
 
     default:
