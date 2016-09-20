@@ -1,7 +1,7 @@
 /* Look in the assets folder at the root of the repo for the icomoon.zip,
    which contains the selection.json you can use to update the icons. */
 @font-face {
-	font-family: 'icomoon';
+	font-family: 'icomoon-formulate';
 	src:url('../fonts/icomoon/icomoon.eot?6diai');
 	src:url('../fonts/icomoon/icomoon.eot?6diai#iefix') format('embedded-opentype'),
 		url('../fonts/icomoon/icomoon.ttf?6diai') format('truetype'),
@@ -13,7 +13,7 @@
 
 [class^="icon-formulate-"], [class*=" icon-formulate-"] {
 	/* use !important to prevent issues with browser extensions that change fonts */
-	font-family: 'icomoon' !important;
+	font-family: 'icomoon-formulate' !important;
 	speak: none;
 	font-style: normal;
 	font-weight: normal;
