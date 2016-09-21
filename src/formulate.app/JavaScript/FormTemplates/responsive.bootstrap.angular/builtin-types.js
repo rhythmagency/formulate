@@ -7,9 +7,6 @@ var angular = require('angular');
 function fieldId(field) {
     return 'field-' + field.randomId;
 }
-function fieldName(field, prefix) {
-    return (prefix || 'field-name-') + field.randomId;
-}
 
 function setGlobalInputAttributes(field, el, options) {
     options = angular.extend({
@@ -57,7 +54,7 @@ module.exports.createSelectField = createSelectField;
 
 
 function createRadioButtonListField(field) {
-    var el = angular.element('<div></div>');
+    var el = angular.element('<div class="formulate__field formulate__field--radio-button-list"></div>');
     var widgetLabel = angular.element('<label class="formulate__field-label" ng-bind="fieldCtrl.label"></label>');
 
     var wrapper = angular.element('<div class="radio" ng-repeat="item in fieldCtrl.configuration.items"></div>');
@@ -81,8 +78,37 @@ function createRadioButtonListField(field) {
 }
 module.exports.createRadioButtonListField = createRadioButtonListField;
 
+
+function createExtendedRadioListField(field) {
+    var el = angular.element('<div class="formulate__field formulate__field--extended-radio-list"></div>');
+    var widgetLabel = angular.element('<label class="formulate__field-label" ng-bind="fieldCtrl.label"></label>');
+
+    var wrapper = angular.element('<div class="radio" ng-repeat="item in fieldCtrl.configuration.items"></div>');
+    var label = angular.element('<label></label>');
+    var input = angular.element('<input type="radio" ng-value="item.primary" />');
+    var span = angular.element('<span ng-bind="item.primary"></span>');
+    var desc = angular.element('<div class="formulate__field__desc" ng-bind="item.secondary"></div>');
+
+    // Append input/text span.
+    label.append(input);
+    label.append(span);
+    wrapper.append(label);
+    wrapper.append(desc);
+
+    input.attr('name', 'field_' + field.id);
+    input.attr('ng-model', 'ctrl.fieldModels[\'' + field.id + '\']');
+    input.attr('formulate-validation', true);
+
+    el.append(widgetLabel);
+    el.append(wrapper);
+
+    return el;
+}
+module.exports.createExtendedRadioListField = createExtendedRadioListField;
+
+
 function createCheckboxListField(field) {
-    var el = angular.element('<div></div>');
+    var el = angular.element('<div class="formulate__field formulate__field--checkbox-list"></div>');
     var widgetLabel = angular.element('<label class="formulate__field-label" ng-bind="fieldCtrl.label"></label>');
 
     var wrapper = angular.element('<div class="checkbox" ng-repeat="item in fieldCtrl.configuration.items"></div>');
@@ -147,15 +173,18 @@ module.exports.createRichTextField = createRichTextField;
 
 
 function createButtonField(field) {
-    var el = angular.element('<button></button>');
-    var span = angular.element('<span></span>');
+    var el = angular.element('<button ng-bind="fieldCtrl.label"></button>');
 
-    span.text(field.label);
-    el.append(span);
-    el.attr('type', 'submit');
-    el.attr('button-kind', field.configuration.buttonKind);
+    // Form Submit button
+    if (field.configuration.buttonKind === null) {
+        el.attr('type', 'submit');
+        el.addClass('formulate__btn formulate__btn--submit btn btn-primary');
 
-    el.addClass('formulate__btn formulate__btn--submit btn btn-default');
+    } else {
+        el.attr('type', 'button');
+        el.attr('ng-click', 'ctrl.buttonClicked($event, fieldCtrl.configuration.buttonKind)');
+        el.addClass('formulate__btn formulate__btn--default btn btn-default');
+    }
 
     return el;
 }

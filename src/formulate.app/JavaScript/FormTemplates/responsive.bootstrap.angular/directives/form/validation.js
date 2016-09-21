@@ -22,6 +22,10 @@ function regexValidation(validation) {
 
 function mandatoryValidation() {
     return function (value) {
+        if (angular.isArray(value)) {
+            return value.length > 0;
+        }
+
         return !!value;
     };
 }

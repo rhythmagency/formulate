@@ -53,6 +53,7 @@ function FormulateController($scope, $element, $http, $q, $window) {
 FormulateController.prototype.getFieldById = function (id) {
     return this.fieldMap[id];
 };
+
 FormulateController.prototype.submit = function () {
     var self = this;
     var formCtrl = this
@@ -131,6 +132,19 @@ FormulateController.prototype.submit = function () {
 
     if (formCtrl.$valid) {
         submitPost().then(postSuccess, postFailed);
+    }
+};
+
+/**
+ *
+ * @param $event
+ * @param buttonKind
+ */
+FormulateController.prototype.buttonClicked = function ($event, buttonKind) {
+    if (buttonKind !== null) {
+        $event.preventDefault();
+
+        this.injected.$scope.$emit('Formulate.buttonClicked', buttonKind);
     }
 };
 
