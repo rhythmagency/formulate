@@ -21,6 +21,7 @@ app.config(['FormulateFieldTypesProvider', function (FormulateFieldTypesProvider
         .register('textarea', builtinTypes.createTextAreaField, true)
         .register('checkbox', builtinTypes.createCheckboxField, false)
         .register('upload', builtinTypes.createUploadField, false)
+        .register('header', builtinTypes.createHeaderField, false)
         .register('rich-text', builtinTypes.createRichTextField, false)
         .register('hidden', builtinTypes.createNullField, false)
         .register('DateField', builtinTypes.createDateField, true)

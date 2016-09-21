@@ -166,6 +166,12 @@ function createTextAreaField(field) {
 module.exports.createTextAreaField = createTextAreaField;
 
 
+function createHeaderField() {
+    return angular.element('<h2 class="formulate__header" ng-bind="fieldCtrl.configuration.text"></h2>');
+}
+module.exports.createHeaderField = createHeaderField;
+
+
 function createRichTextField(field) {
     return field.configuration.text;
 }
