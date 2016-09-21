@@ -23,6 +23,7 @@ app.config(['FormulateFieldTypesProvider', function (FormulateFieldTypesProvider
         .register('upload', builtinTypes.createUploadField, false)
         .register('rich-text', builtinTypes.createRichTextField, false)
         .register('hidden', builtinTypes.createNullField, false)
+        .register('DateField', builtinTypes.createDateField, true)
         .setDefault(builtinTypes.createTextField, true);
 }]);
 

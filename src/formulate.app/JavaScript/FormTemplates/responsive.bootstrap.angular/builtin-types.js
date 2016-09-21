@@ -217,3 +217,14 @@ function createNullField() {
 }
 module.exports.createNullField = createNullField;
 
+
+function createDateField(field) {
+    var el = angular.element('<input type="date" />');
+
+    el.attr('placeholder', field.label);
+
+    return setGlobalInputAttributes(field, el, {
+        disableAutocomplete: false
+    });
+}
+module.exports.createDateField = createDateField;
