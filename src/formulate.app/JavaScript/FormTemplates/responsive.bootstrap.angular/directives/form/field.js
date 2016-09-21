@@ -18,7 +18,8 @@ app.controller('FormulateFieldController', FormulateFieldController);
  * @description Angular directive that is responsible for rendering input field
  * @param $compile
  * @param $controller
- * @returns {{restrict: string, replace: boolean, template: string, require: string, link: link, scope: {}}}
+ *
+ * @returns DDO (Directive Definition Object)
  */
 function formulateField($compile, $controller, FormulateFieldTypes) {
     function link(scope, el, attr, ctrls) {
@@ -51,7 +52,7 @@ function formulateField($compile, $controller, FormulateFieldTypes) {
     return {
         restrict: "E",
         replace: true,
-        template: '<div></div>',
+        template: '<div ng-class="\'formulate__field--\' + fieldCtrl.fieldType"></div>',
         require: ['^^formulateResponsiveForm', '^^form'],
 
         link: link,

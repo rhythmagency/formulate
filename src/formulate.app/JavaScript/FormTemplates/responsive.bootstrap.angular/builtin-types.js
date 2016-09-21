@@ -39,6 +39,7 @@ function setGlobalInputAttributes(field, el, options) {
 
 
 function createSelectField(field) {
+    var wrapper = angular.element('<div class="formulate__select-wrap"></div>');
     var el = angular.element('<select></select>');
 
     el.attr('ng-options', "item.value as item.label for item in fieldCtrl.configuration.items");
@@ -46,15 +47,19 @@ function createSelectField(field) {
     // Create empty option that serves as placeholder
     el.append('<option value="">' + field.label + '</option>');
 
-    return setGlobalInputAttributes(field, el, {
+    setGlobalInputAttributes(field, el, {
         disableAutocomplete: false
     });
+
+    wrapper.append(el);
+
+    return wrapper;
 }
 module.exports.createSelectField = createSelectField;
 
 
 function createRadioButtonListField(field) {
-    var el = angular.element('<div class="formulate__field formulate__field--radio-button-list"></div>');
+    var el = angular.element('<div></div>');
     var widgetLabel = angular.element('<label class="formulate__field-label" ng-bind="fieldCtrl.label"></label>');
 
     var wrapper = angular.element('<div class="radio" ng-repeat="item in fieldCtrl.configuration.items"></div>');
@@ -80,7 +85,7 @@ module.exports.createRadioButtonListField = createRadioButtonListField;
 
 
 function createExtendedRadioListField(field) {
-    var el = angular.element('<div class="formulate__field formulate__field--extended-radio-list"></div>');
+    var el = angular.element('<div></div>');
     var widgetLabel = angular.element('<label class="formulate__field-label" ng-bind="fieldCtrl.label"></label>');
 
     var wrapper = angular.element('<div class="radio" ng-repeat="item in fieldCtrl.configuration.items"></div>');
@@ -108,7 +113,7 @@ module.exports.createExtendedRadioListField = createExtendedRadioListField;
 
 
 function createCheckboxListField(field) {
-    var el = angular.element('<div class="formulate__field formulate__field--checkbox-list"></div>');
+    var el = angular.element('<div></div>');
     var widgetLabel = angular.element('<label class="formulate__field-label" ng-bind="fieldCtrl.label"></label>');
 
     var wrapper = angular.element('<div class="checkbox" ng-repeat="item in fieldCtrl.configuration.items"></div>');
