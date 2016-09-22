@@ -5,6 +5,80 @@ var angular = require('angular');
 var app = angular.module('formulate');
 
 /**
+ * Service responsible for ajax-post
+ *
+ * @constructor
+ */
+function FormulateSubmitService($rootScope, $http, $q, $window) {
+    ////////////////////////////////////////
+    // Handle Post
+    function submitPost(data) {
+        return $http({
+            method: 'POST',
+            url: data.url,
+            data: data.postData,
+            headers: {
+                'Content-Type': undefined
+            },
+            transformRequest: function (obj) {
+                // Convert to FormData: http://stackoverflow.com/a/25264008/2052963
+                // This is necessary for file uploads to submit properly via AJAX.
+                var formData = new $window.FormData();
+
+                angular.forEach(obj, function (value, key) {
+                    if (angular.isArray(value)) {
+                        value.forEach(function (itemVal) {
+                            formData.append(key, itemVal);
+                        });
+
+                        // Skip over null/undefined so they don't get sent as serialized version.
+                    } else if (value !== undefined && value !== null) {
+                        formData.append(key, value);
+                    }
+                });
+
+                return formData;
+            }
+        });
+    }
+
+    function parseResponse(response) {
+        var deferred = $q.defer();
+
+        if (response.data && response.data.Success === true) {
+            deferred.resolve(response);
+        } else {
+            deferred.reject(response.message);
+        }
+
+        return deferred.promise;
+    }
+
+    this.post = function (data) {
+        function postSuccess(response) {
+            $rootScope.$broadcast('Formulate.formSubmit.OK', {
+                fields: data.postData,
+                name: data.name,
+                response: response.data
+            });
+        }
+
+        function postFailed(message) {
+            $rootScope.$broadcast('Formulate.formSubmit.Failed', {
+                fields: data.postData,
+                name: data.name,
+                message: message
+            });
+        }
+
+        submitPost(data)
+            .then(parseResponse)
+            .then(postSuccess, postFailed);
+    };
+}
+app.service('FormulateSubmitService', FormulateSubmitService);
+
+/**
  * @description Generate unique form names
  */
 var genFormName = (function () {
@@ -17,13 +91,12 @@ var genFormName = (function () {
     };
 }());
 
-function FormulateController($rootScope, $scope, $element, $http, $q, $window) {
+function FormulateController($rootScope, $scope, $element, $window, FormulateSubmitService) {
     var self = this;
 
     // Set reference to injected object to be used in prototype functions
     this.injected = {
-        $q: $q,
-        $http: $http,
+        $rootScope: $rootScope,
         $scope: $scope,
         $element: $element,
         $window: $window
@@ -32,74 +105,9 @@ function FormulateController($rootScope, $scope, $element, $http, $q, $window) {
     // set unique form name
     this.generatedName = genFormName();
 
-    ////////////////////////////////////////
-    // Handle Post
-    function parseResponse(response) {
-        var deferred = self.injected.$q.defer();
-
-        if (response.data && response.data.Success === true) {
-            deferred.resolve(response.data);
-        } else {
-            deferred.reject(response.message);
-        }
-
-        return deferred.promise;
-    }
-
-    function submitPost(data) {
-        return $http({
-            method: 'POST',
-            url: self.formData.url,
-            data: data,
-            headers: {
-                'Content-Type': undefined
-            },
-            transformRequest: function (obj) {
-
-                // Convert to FormData: http://stackoverflow.com/a/25264008/2052963
-                // This is necessary for file uploads to submit properly via AJAX.
-                var formData = new self
-                    .injected
-                    .$window
-                    .FormData();
-
-                angular.forEach(obj, function (value, key) {
-                    if (angular.isArray(value)) {
-                        value.forEach(function (itemVal) {
-                            formData.append(key, itemVal);
-                        });
-
-                        // Skip over null/undefined so they don't get sent as serialized version.
-                    } else if (value !== undefined && value !== null) {
-                        formData.append(key, value);
-                    }
-
-                });
-                return formData;
-
-            }
-        }).then(parseResponse);
-    }
-
-    function postSuccess(data) {
-        $scope.$emit('Formulate.formSubmit.OK', {
-            fields: self.fieldModels,
-            name: self.formData.name,
-            response: data
-        });
-    }
-
-    function postFailed(message) {
-        $scope.$emit('Formulate.formSubmit.Failed', {
-            fields: self.fieldModels,
-            name: self.formData.name,
-            message: message
-        });
-    }
-
     function handleSubmitEvent($event, data) {
         if ($event.targetScope === $scope && !$event.defaultPrevented) {
-            submitPost(data).then(postSuccess, postFailed);
+            FormulateSubmitService.post(data);
         }
     }
 
@@ -134,7 +142,13 @@ function FormulateController($rootScope, $scope, $element, $http, $q, $window) {
             removeSubmitHandler();
         }
         $window.clearTimeout(timeout);
+
+        self.injected = null;
+        self.fieldMap = null;
+        self.formData = null;
+        self.fieldModels = null;
     }
+
     $scope.$on('$destroy', onDestroy);
 }
 
@@ -150,7 +164,11 @@ FormulateController.prototype.submit = function () {
         .controller('form');
 
     if (formCtrl.$valid) {
-        var data = angular.extend({}, this.formData.payload, this.fieldModels);
+        var data = {
+            name: this.formData.name,
+            url: this.formData.url,
+            postData: angular.extend({}, this.formData.payload, this.fieldModels)
+        };
 
         this
             .injected
