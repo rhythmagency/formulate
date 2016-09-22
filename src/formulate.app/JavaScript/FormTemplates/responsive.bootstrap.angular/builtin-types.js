@@ -185,15 +185,16 @@ module.exports.createRichTextField = createRichTextField;
 
 function createButtonField(field) {
     var el = angular.element('<button ng-bind="fieldCtrl.label"></button>');
+    var buttonKind = field.configuration.buttonKind;
 
     // Form Submit button
-    if (field.configuration.buttonKind === null) {
+    if (buttonKind === 'Submit' || buttonKind === null) {
         el.attr('type', 'submit');
         el.addClass('formulate__btn formulate__btn--submit btn btn-primary');
 
     } else {
         el.attr('type', 'button');
-        el.attr('ng-click', 'ctrl.buttonClicked($event, fieldCtrl.configuration.buttonKind)');
+        el.attr('ng-click', 'ctrl.buttonClicked(fieldCtrl.configuration.buttonKind)');
         el.addClass('formulate__btn formulate__btn--default btn btn-default');
     }
 

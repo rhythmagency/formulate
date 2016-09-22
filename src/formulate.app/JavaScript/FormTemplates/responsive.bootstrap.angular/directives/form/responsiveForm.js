@@ -17,7 +17,7 @@ var genFormName = (function () {
     };
 }());
 
-function FormulateController($scope, $element, $http, $q, $window) {
+function FormulateController($rootScope, $scope, $element, $http, $q, $window) {
     var self = this;
 
     // Set reference to injected object to be used in prototype functions
@@ -32,36 +32,8 @@ function FormulateController($scope, $element, $http, $q, $window) {
     // set unique form name
     this.generatedName = genFormName();
 
-    // Map Fields for faster access
-    this.fieldMap = {};
-    this.formData.fields.forEach(function (field) {
-        self.fieldMap[field.id] = field;
-    });
-
-    // ng-model of fields
-    this.fieldModels = {};
-
-    // Set initial values.
-    this.formData.fields.forEach(function (field) {
-        var initialValue = field.initialValue;
-        if (field.initialValue !== undefined && field.initialValue !== null) {
-            self.fieldModels[field.id] = initialValue;
-        }
-    });
-}
-
-FormulateController.prototype.getFieldById = function (id) {
-    return this.fieldMap[id];
-};
-
-FormulateController.prototype.submit = function () {
-    var self = this;
-    var formCtrl = this
-        .injected
-        .$element
-        .find('form')
-        .controller('form');
-
+    ////////////////////////////////////////
+    // Handle Post
     function parseResponse(response) {
         var deferred = self.injected.$q.defer();
 
@@ -74,48 +46,43 @@ FormulateController.prototype.submit = function () {
         return deferred.promise;
     }
 
-    function submitPost() {
-        var data = angular.extend({}, self.formData.payload, self.fieldModels);
+    function submitPost(data) {
+        return $http({
+            method: 'POST',
+            url: self.formData.url,
+            data: data,
+            headers: {
+                'Content-Type': undefined
+            },
+            transformRequest: function (obj) {
 
-        return self
-            .injected
-            .$http({
-                method: 'POST',
-                url: self.formData.url,
-                data: data,
-                headers: {
-                    'Content-Type': undefined
-                },
-                transformRequest: function (obj) {
+                // Convert to FormData: http://stackoverflow.com/a/25264008/2052963
+                // This is necessary for file uploads to submit properly via AJAX.
+                var formData = new self
+                    .injected
+                    .$window
+                    .FormData();
 
-                    // Convert to FormData: http://stackoverflow.com/a/25264008/2052963
-                    // This is necessary for file uploads to submit properly via AJAX.
-                    var formData = new self
-                        .injected
-                        .$window
-                        .FormData();
-
-                    angular.forEach(obj, function (value, key) {
-                        if (angular.isArray(value)) {
-                            value.forEach(function (itemVal) {
-                                formData.append(key, itemVal);
-                            });
+                angular.forEach(obj, function (value, key) {
+                    if (angular.isArray(value)) {
+                        value.forEach(function (itemVal) {
+                            formData.append(key, itemVal);
+                        });
 
                         // Skip over null/undefined so they don't get sent as serialized version.
-                        } else if (value !== undefined && value !== null) {
-                            formData.append(key, value);
-                        }
+                    } else if (value !== undefined && value !== null) {
+                        formData.append(key, value);
+                    }
 
-                    });
-                    return formData;
+                });
+                return formData;
 
-                }
-            })
-            .then(parseResponse);
+            }
+        }).then(parseResponse);
     }
 
     function postSuccess(data) {
-        self.injected.$scope.$emit('Formulate.formSubmit.OK', {
+        $scope.$emit('Formulate.formSubmit.OK', {
             fields: self.fieldModels,
             name: self.formData.name,
             response: data
@@ -123,15 +90,54 @@ FormulateController.prototype.submit = function () {
     }
 
     function postFailed(message) {
-        self.injected.$scope.$emit('Formulate.formSubmit.Failed', {
+        $scope.$emit('Formulate.formSubmit.Failed', {
             fields: self.fieldModels,
             name: self.formData.name,
             message: message
         });
     }
 
+    $rootScope.$on('Formulate.submit', function ($event, data) {
+        if (!$event.defaultPrevented) {
+            submitPost(data).then(postSuccess, postFailed);
+        }
+    });
+
+    // Map Fields for faster access
+    this.fieldMap = {};
+    this.formData.fields.forEach(function (field) {
+        self.fieldMap[field.id] = field;
+    });
+
+    // ng-model of fields
+    this.fieldModels = {};
+
+    // Set initial values.
+    this.formData.fields.forEach(function (field) {
+        var initialValue = field.initialValue;
+
+        if (field.initialValue !== undefined && field.initialValue !== null) {
+            self.fieldModels[field.id] = initialValue;
+        }
+    });
+}
+
+FormulateController.prototype.getFieldById = function (id) {
+    return this.fieldMap[id];
+};
+
+FormulateController.prototype.submit = function () {
+    var formCtrl = this
+        .injected
+        .$element
+        .find('form')
+        .controller('form');
+
     if (formCtrl.$valid) {
-        submitPost().then(postSuccess, postFailed);
+        this
+            .injected
+            .$scope
+            .$emit('Formulate.submit', angular.extend({}, this.formData.payload, this.fieldModels));
     }
 };
 
@@ -140,10 +146,8 @@ FormulateController.prototype.submit = function () {
  * @param $event
  * @param buttonKind
  */
-FormulateController.prototype.buttonClicked = function ($event, buttonKind) {
+FormulateController.prototype.buttonClicked = function (buttonKind) {
     if (buttonKind !== null) {
-        $event.preventDefault();
-
         this.injected.$scope.$emit('Formulate.buttonClicked', buttonKind);
     }
 };
