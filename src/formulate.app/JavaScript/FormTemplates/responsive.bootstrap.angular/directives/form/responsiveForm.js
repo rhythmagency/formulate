@@ -97,11 +97,11 @@ function FormulateController($rootScope, $scope, $element, $http, $q, $window) {
         });
     }
 
-    $rootScope.$on('Formulate.submit', function ($event, data) {
-        if (!$event.defaultPrevented) {
+    function handleSubmitEvent($event, data) {
+        if ($event.targetScope === $scope && !$event.defaultPrevented) {
             submitPost(data).then(postSuccess, postFailed);
         }
-    });
+    }
 
     // Map Fields for faster access
     this.fieldMap = {};
@@ -120,6 +120,22 @@ function FormulateController($rootScope, $scope, $element, $http, $q, $window) {
             self.fieldModels[field.id] = initialValue;
         }
     });
+
+    ////////////////////////////////////////
+    // Bind later - this is to allow consumers to intercept event on $rootScope
+    var removeSubmitHandler = null;
+    var timeout = $window.setTimeout(function () {
+        removeSubmitHandler = $rootScope.$on('Formulate.submit', handleSubmitEvent);
+    }, 40);
+
+    // Clean up pending requests
+    function onDestroy() {
+        if (removeSubmitHandler) {
+            removeSubmitHandler();
+        }
+        $window.clearTimeout(timeout);
+    }
+    $scope.$on('$destroy', onDestroy);
 }
 
 FormulateController.prototype.getFieldById = function (id) {
@@ -134,10 +150,12 @@ FormulateController.prototype.submit = function () {
         .controller('form');
 
     if (formCtrl.$valid) {
+        var data = angular.extend({}, this.formData.payload, this.fieldModels);
+
         this
             .injected
             .$scope
-            .$emit('Formulate.submit', angular.extend({}, this.formData.payload, this.fieldModels));
+            .$emit('Formulate.submit', data);
     }
 };
 
@@ -156,11 +174,10 @@ function formulate() {
     return {
         restrict: "E",
         replace: true,
-        template:
-            '<div class="formulate-container">' +
-                '<form data-ng-submit="ctrl.submit(ctrl.generatedName)" class="form" name="{{ctrl.generatedName}}">' +
-                    '<formulate-rows rows="ctrl.formData.rows"></formulate-rows>' +
-                '</form>' +
+        template: '<div class="formulate-container">' +
+            '<form data-ng-submit="ctrl.submit(ctrl.generatedName)" class="form" name="{{ctrl.generatedName}}">' +
+            '<formulate-rows rows="ctrl.formData.rows"></formulate-rows>' +
+            '</form>' +
             '</div>',
 
         controller: FormulateController,
