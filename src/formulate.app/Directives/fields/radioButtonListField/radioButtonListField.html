@@ -16,4 +16,15 @@
             </a>
         </div>
     </div>
+    <label class="control-label">
+        <localize key="formulate-labels_Orientation">
+            Orientation
+        </localize>
+    </label>
+    <div class="controls controls-row">
+        <select ng-options="option.value as option.label for option in orientations.values" ng-model="configuration.orientation">
+            <option value="" formulate-inject-localization="formulate-options_Select an Orientation">
+            </option>
+        </select>
+    </div>
 </div>

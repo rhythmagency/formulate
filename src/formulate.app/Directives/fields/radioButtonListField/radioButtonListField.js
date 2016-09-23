@@ -1,10 +1,6 @@
 ﻿// Variables.
 var app = angular.module("umbraco");
 
-// Associate directive/controller.
-app.directive("formulateRadioButtonListField", directive);
-app.controller("formulate.radioButtonListField", controller);
-
 // Directive.
 function directive(formulateDirectives) {
     return {
@@ -12,15 +8,16 @@ function directive(formulateDirectives) {
         replace: true,
         template: formulateDirectives.get(
             "fields/radioButtonListField/radioButtonListField.html"),
-        controller: "formulate.radioButtonListField",
+        controller: Controller,
         scope: {
             configuration: "="
         }
     };
 }
+app.directive("formulateRadioButtonListField", directive);
 
 // Controller.
-function controller($scope, dialogService, formulateDataValues) {
+function Controller($scope, dialogService, formulateDataValues) {
 
     // Variables.
     var services = {
@@ -31,6 +28,18 @@ function controller($scope, dialogService, formulateDataValues) {
 
     // Set scope variables.
     $scope.pickDataValue = getPickDataValue(services);
+    $scope.orientations = {
+        values: [
+            {
+                value: "Horizontal",
+                label: "Horizontal"
+            },
+            {
+                value: "Vertical",
+                label: "Vertical"
+            }
+        ]
+    };
 
     // Refresh the data value info.
     refreshDataValue(services);

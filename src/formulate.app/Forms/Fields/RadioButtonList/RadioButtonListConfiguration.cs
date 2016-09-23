@@ -4,5 +4,6 @@
     public class RadioButtonListConfiguration
     {
         public IEnumerable<RadioButtonListItem> Items { get; set; }
+        public string Orientation { get; set; }
     }
 }

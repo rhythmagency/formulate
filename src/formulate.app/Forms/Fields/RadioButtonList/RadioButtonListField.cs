@@ -81,15 +81,28 @@
         {
 
             // Variables.
+            var defaultOrientation = "Horizontal";
             var items = new List<RadioButtonListItem>();
             var config = new RadioButtonListConfiguration()
             {
-                Items = items
+                Items = items,
+                Orientation = defaultOrientation
             };
             var configData = JsonHelper.Deserialize<JObject>(configuration);
             var dynamicConfig = configData as dynamic;
             var properties = configData.Properties().Select(x => x.Name);
             var propertySet = new HashSet<string>(properties);
+
+
+            // An orientation is set?
+            if (propertySet.Contains("orientation"))
+            {
+                config.Orientation = dynamicConfig.orientation.Value as string;
+                if (string.IsNullOrWhiteSpace(config.Orientation))
+                {
+                    config.Orientation = defaultOrientation;
+                }
+            }
 
 
             // A data value is selected?

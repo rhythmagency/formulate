@@ -94,6 +94,7 @@
             var config = x.Configuration as RadioButtonListConfiguration;
             return new
             {
+                orientation = config.Orientation,
                 items = config.Items.Select(y => new
                 {
                     value = y.Value,
