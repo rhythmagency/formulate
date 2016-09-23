@@ -99,7 +99,8 @@ function FormulateController($rootScope, $scope, $element, $window, FormulateSub
         $rootScope: $rootScope,
         $scope: $scope,
         $element: $element,
-        $window: $window
+        $window: $window,
+        FormulateSubmitService: FormulateSubmitService
     };
 
     // set unique form name

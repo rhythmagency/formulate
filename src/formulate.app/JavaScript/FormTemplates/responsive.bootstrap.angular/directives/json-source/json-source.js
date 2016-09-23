@@ -5,9 +5,14 @@ var lodash = require('lodash');
 
 var app = angular.module('formulate');
 
-function JsonSourceCtrl($attrs) {
+function JsonSourceCtrl($scope, $attrs) {
+    var data = JSON.parse($attrs.source);
+
+    // Pass found formData up to parent scopes
+    $scope.$emit('Formulate.newForm', data);
+
     // Parse Json Source
-    lodash.assign(this, JSON.parse($attrs.source));
+    lodash.assign(this, data);
 }
 
 function jsonSource() {
