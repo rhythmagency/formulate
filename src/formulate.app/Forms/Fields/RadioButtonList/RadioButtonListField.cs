@@ -160,6 +160,24 @@
 
         }
 
+
+        /// <summary>
+        /// Formats a value in the specified field presentation format.
+        /// </summary>
+        /// <param name="values">
+        /// The values to format.
+        /// </param>
+        /// <param name="format">
+        /// The format to present the value in.
+        /// </param>
+        /// <returns>
+        /// The formatted value.
+        /// </returns>
+        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format)
+        {
+            return string.Join(", ", values);
+        }
+
         #endregion
 
     }

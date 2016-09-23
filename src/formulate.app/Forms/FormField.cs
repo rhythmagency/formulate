@@ -3,6 +3,7 @@
 
     // Namespaces.
     using System;
+    using System.Collections.Generic;
 
 
     /// <summary>
@@ -57,6 +58,26 @@
         /// </summary>
         public string FieldConfiguration { get; set; }
 
+
+        /// <summary>
+        /// The ID of the field type.
+        /// </summary>
+        public Guid TypeId
+        {
+            get
+            {
+                var instance = new T();
+                return instance.TypeId;
+            }
+            set
+            {
+            }
+        }
+
+        #endregion
+
+
+        #region Methods
 
         /// <summary>
         /// Gets the directive to use for this form field.
@@ -117,18 +138,21 @@
 
 
         /// <summary>
-        /// The ID of the field type.
+        /// Formats a value in the specified field presentation format.
         /// </summary>
-        public Guid TypeId
+        /// <param name="values">
+        /// The values to format.
+        /// </param>
+        /// <param name="format">
+        /// The format to present the value in.
+        /// </param>
+        /// <returns>
+        /// The formatted value.
+        /// </returns>
+        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format)
         {
-            get
-            {
-                var instance = new T();
-                return instance.TypeId;
-            }
-            set
-            {
-            }
+            var instance = new T();
+            return instance.FormatValue(values ?? new string[0], format);
         }
 
         #endregion

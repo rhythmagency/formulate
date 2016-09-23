@@ -248,14 +248,15 @@
             foreach (var key in valuesById.Keys)
             {
                 var values = valuesById[key];
-                var combined = string.Join(", ", values);
+                var formatted = string.Join(", ", values);
                 var field = default(IFormField);
                 var fieldName = "Unknown Field";
                 if (fieldsById.TryGetValue(key, out field))
                 {
                     fieldName = field.Name;
+                    formatted = field.FormatValue(values, FieldPresentationFormats.Email);
                 }
-                var line = string.Format("{0}: {1}", fieldName, combined);
+                var line = string.Format("{0}: {1}", fieldName, formatted);
                 lines.Add(line);
             }
 

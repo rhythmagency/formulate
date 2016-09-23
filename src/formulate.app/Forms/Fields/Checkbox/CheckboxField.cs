@@ -1,6 +1,7 @@
 ﻿namespace formulate.app.Forms.Fields.Checkbox
 {
     using System;
+    using System.Collections.Generic;
     public class CheckboxField : IFormFieldType
     {
         public string Directive => "formulate-checkbox-field";
@@ -10,6 +11,10 @@
         public object DeserializeConfiguration(string configuration)
         {
             return null;
+        }
+        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format)
+        {
+            return string.Join(", ", values);
         }
     }
 }

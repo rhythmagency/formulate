@@ -3,6 +3,7 @@
 
     // Namespaces.
     using System;
+    using System.Collections.Generic;
 
 
     /// <summary>
@@ -23,6 +24,7 @@
         string GetTypeLabel();
         Type GetFieldType();
         object DeserializeConfiguration();
+        string FormatValue(IEnumerable<string> values, FieldPresentationFormats format);
     }
 
 }

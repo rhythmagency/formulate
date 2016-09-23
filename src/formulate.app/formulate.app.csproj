@@ -325,6 +325,7 @@
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Folders\Folder.cs" />
     <Compile Include="Forms\ConfiguredForm.cs" />
+    <Compile Include="Forms\FieldPresentationFormats.cs" />
     <Compile Include="Forms\Fields\Button\ButtonConfiguration.cs" />
     <Compile Include="Forms\Fields\ExtendedRadioButtonList\ExtendedRadioButtonListConfiguration.cs" />
     <Compile Include="Forms\Fields\ExtendedRadioButtonList\ExtendedRadioButtonListField.cs" />
