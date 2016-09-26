@@ -62,7 +62,7 @@ function createRadioListField(field) {
     var el = angular.element('<div></div>');
     var widgetLabel = angular.element('<label class="formulate__field-label" ng-bind="fieldCtrl.label"></label>');
 
-    var wrapper = angular.element('<div class="formulate__field__item radio" ng-repeat="item in fieldCtrl.configuration.items"></div>');
+    var wrapper = angular.element('<div class="formulate__field__item radio" ng-repeat="item in fieldCtrl.configuration.items" ng-class="\'formulate__field__item--\' + fieldCtrl.configuration.orientation"></div>');
     var label = angular.element('<label></label>');
     var input = angular.element('<input type="radio" ng-value="item.value" />');
     var span = angular.element('<span ng-bind="item.label"></span>');
