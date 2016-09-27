@@ -52,7 +52,7 @@ function formulateField($compile, $controller, FormulateFieldTypes) {
     return {
         restrict: "E",
         replace: true,
-        template: '<div ng-class="\'formulate__field--\' + fieldCtrl.fieldType"></div>',
+        template: '<div ng-class="\'formulate__field--\' + fieldCtrl.fieldType" ng-show="ctrl.showField(fieldCtrl.id)"></div>',
         require: ['^^formulateResponsiveForm', '^^form'],
 
         link: link,

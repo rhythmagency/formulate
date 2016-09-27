@@ -91,6 +91,71 @@ var genFormName = (function () {
     };
 }());
 
+/**
+ *
+ * Returns a callback which in turn returns bool that indicates render state of field (referenced by fieldId)
+ *
+ * Sample conditional data structure:
+ * "conditionalControls": [
+ *     {
+ *         "fieldId": "A",
+ *         "show": "Yes",
+ *         "fields": ["B", "C", "D"]
+ *     }
+ * ]
+ *
+ * When field(Id: A) === "Yes" then callback for B, C, D will return true; otherwise false
+ *
+ *
+ *
+ * @param conditionalControls
+ * @param fieldModels
+ * @returns {show}
+ */
+function showConditionalFields(conditionalControls, fieldModels) {
+    var condMap = {};
+    var fieldMap = {};
+
+    function show(id) {
+        return function () {
+            return condMap[id].show === fieldModels[id];
+        };
+    }
+
+    function execCallback(fn) {
+        return fn();
+    }
+
+    function addConditionalControl(item) {
+        condMap[item.fieldId] = item;
+
+        function pushFieldCallback(fieldId) {
+            if (!fieldMap.hasOwnProperty(fieldId)) {
+                fieldMap[fieldId] = [];
+            }
+
+            fieldMap[fieldId].push(show(item.fieldId));
+        }
+
+        item.fields.forEach(pushFieldCallback);
+    }
+
+    if (angular.isArray(conditionalControls)) {
+        conditionalControls.forEach(addConditionalControl);
+    }
+
+    /**
+     * Returns bool whether to show input control (field)
+     */
+    return function (fieldId) {
+        if (fieldMap.hasOwnProperty(fieldId)) {
+            return fieldMap[fieldId].every(execCallback);
+        }
+
+        return true;
+    };
+}
+
 function FormulateController($rootScope, $scope, $element, $window, FormulateSubmitService) {
     var self = this;
 
@@ -130,6 +195,9 @@ function FormulateController($rootScope, $scope, $element, $window, FormulateSub
         }
     });
 
+    // Show conditional fields
+    this.showField = showConditionalFields(this.formData.conditionalControls, this.fieldModels);
+
     ////////////////////////////////////////
     // Bind later - this is to allow consumers to intercept event on $rootScope
     var removeSubmitHandler = null;
@@ -148,6 +216,7 @@ function FormulateController($rootScope, $scope, $element, $window, FormulateSub
         self.fieldMap = null;
         self.formData = null;
         self.fieldModels = null;
+        self.showField = null;
     }
 
     $scope.$on('$destroy', onDestroy);
