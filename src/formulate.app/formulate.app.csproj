@@ -355,6 +355,7 @@
     <Compile Include="Forms\FormFieldMetaInfo.cs" />
     <Compile Include="Forms\FormHandler.cs" />
     <Compile Include="Forms\FormMetaInfo.cs" />
+    <Compile Include="Forms\FormSubmissionContext.cs" />
     <Compile Include="Forms\Handlers\Email\EmailConfiguration.cs" />
     <Compile Include="Forms\Handlers\Email\EmailHandler.cs" />
     <Compile Include="Forms\IFormField.cs" />

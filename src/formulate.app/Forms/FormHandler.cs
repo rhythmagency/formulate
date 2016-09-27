@@ -2,9 +2,7 @@
 {
 
     // Namespaces.
-    using core.Types;
     using System;
-    using System.Collections.Generic;
 
 
     /// <summary>
@@ -16,7 +14,17 @@
         new()
     {
 
-        #region Properties
+        #region Private Properties
+
+        /// <summary>
+        /// The form handler.
+        /// </summary>
+        private T Handler { get; set; }
+
+        #endregion
+
+
+        #region Public Properties
 
         /// <summary>
         /// The unique ID of the handler.
@@ -115,24 +123,45 @@
         /// </returns>
         public object DeserializeConfiguration()
         {
-            var instance = new T();
-            return instance.DeserializeConfiguration(HandlerConfiguration);
+            if (Handler == null)
+            {
+                Handler = new T();
+            }
+            return Handler.DeserializeConfiguration(HandlerConfiguration);
+        }
+
+
+        /// <summary>
+        /// Prepares to handle a form submission.
+        /// </summary>
+        /// <param name="context">
+        /// The form submission context.
+        /// </param>
+        public void PrepareHandleForm(FormSubmissionContext context)
+        {
+            var config = DeserializeConfiguration();
+            if (Handler == null)
+            {
+                Handler = new T();
+            }
+            Handler.PrepareHandleForm(context, config);
         }
 
 
         /// <summary>
         /// Handles a form submission.
         /// </summary>
-        /// <param name="form">The form.</param>
-        /// <param name="data">The form data.</param>
-        /// <param name="files">The file data.</param>
-        /// <param name="payload">Extra data related to the submission.</param>
-        public void HandleForm(Form form, IEnumerable<FieldSubmission> data,
-            IEnumerable<FileFieldSubmission> files, IEnumerable<PayloadSubmission> payload)
+        /// <param name="context">
+        /// The form submission context.
+        /// </param>
+        public void HandleForm(FormSubmissionContext context)
         {
             var config = DeserializeConfiguration();
-            var instance = new T();
-            instance.HandleForm(form, data, files, payload, config);
+            if (Handler == null)
+            {
+                Handler = new T();
+            }
+            Handler.HandleForm(context, config);
         }
 
         #endregion
