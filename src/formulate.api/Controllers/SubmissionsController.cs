@@ -122,7 +122,7 @@
             // Submit form.
             var context = new FormRequestContext()
             {
-                CurrentPage = CurrentPage,
+                CurrentPage = pageNode,
                 HttpContext = HttpContext,
                 Services = Services,
                 UmbracoContext = UmbracoContext,
