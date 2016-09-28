@@ -13,18 +13,18 @@ require('./directives/**/*.js', { mode: 'expand' });
 // Register built-in types
 app.config(['FormulateFieldTypesProvider', function (FormulateFieldTypesProvider) {
     FormulateFieldTypesProvider
-        .register('select', builtinTypes.createSelectField, true)
-        .register('radio-list', builtinTypes.createRadioListField, false)
-        .register('extended-radio-list', builtinTypes.createExtendedRadioListField, false)
-        .register('checkbox-list', builtinTypes.createCheckboxListField, false)
-        .register('button', builtinTypes.createButtonField, false)
-        .register('textarea', builtinTypes.createTextAreaField, true)
-        .register('checkbox', builtinTypes.createCheckboxField, false)
-        .register('upload', builtinTypes.createUploadField, false)
-        .register('header', builtinTypes.createHeaderField, false)
-        .register('rich-text', builtinTypes.createRichTextField, false)
-        .register('hidden', builtinTypes.createNullField, false)
-        .register('DateField', builtinTypes.createDateField, true)
-        .setDefault(builtinTypes.createTextField, true);
+        .register('select', builtinTypes.createSelectField)
+        .register('radio-list', builtinTypes.createRadioListField, {optionalLabel: false})
+        .register('extended-radio-list', builtinTypes.createExtendedRadioListField, {optionalLabel: false})
+        .register('checkbox-list', builtinTypes.createCheckboxListField, {optionalLabel: false})
+        .register('button', builtinTypes.createButtonField, {optionalLabel: false})
+        .register('textarea', builtinTypes.createTextAreaField)
+        .register('checkbox', builtinTypes.createCheckboxField, {optionalLabel: false})
+        .register('upload', builtinTypes.createUploadField, {optionalLabel: false})
+        .register('header', builtinTypes.createHeaderField, {optionalLabel: false})
+        .register('rich-text', builtinTypes.createRichTextField, {optionalLabel: false})
+        .register('hidden', builtinTypes.createNullField, {optionalLabel: false})
+        .register('DateField', builtinTypes.createDateField)
+        .setDefault(builtinTypes.createTextField);
 }]);
 

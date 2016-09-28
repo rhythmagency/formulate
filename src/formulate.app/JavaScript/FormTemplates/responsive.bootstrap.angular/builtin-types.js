@@ -38,14 +38,16 @@ function setGlobalInputAttributes(field, el, options) {
 }
 
 
-function createSelectField(field) {
+function createSelectField(field, options) {
     var wrapper = angular.element('<div class="formulate__select-wrap"></div>');
     var el = angular.element('<select></select>');
 
     el.attr('ng-options', "item.value as item.label for item in fieldCtrl.configuration.items");
 
     // Create empty option that serves as placeholder
-    el.append('<option value="">' + field.label + '</option>');
+    if (options.firstSelectOptionLabel) {
+        el.append('<option value="">' + field.label + '</option>');
+    }
 
     setGlobalInputAttributes(field, el, {
         disableAutocomplete: false
@@ -151,20 +153,24 @@ function createUploadField(field) {
 module.exports.createUploadField = createUploadField;
 
 
-function createTextField(field) {
+function createTextField(field, options) {
     var el = angular.element('<input type="text" />');
 
-    el.attr('placeholder', field.label);
+    if (options.placeholderLabel) {
+        el.attr('placeholder', field.label);
+    }
 
     return setGlobalInputAttributes(field, el);
 }
 module.exports.createTextField = createTextField;
 
 
-function createTextAreaField(field) {
+function createTextAreaField(field, options) {
     var el = angular.element('<textarea></textarea>');
 
-    el.attr('placeholder', field.label);
+    if (options.placeholderLabel) {
+        el.attr('placeholder', field.label);
+    }
 
     return setGlobalInputAttributes(field, el);
 }
@@ -230,10 +236,12 @@ function createNullField() {
 module.exports.createNullField = createNullField;
 
 
-function createDateField(field) {
+function createDateField(field, options) {
     var el = angular.element('<input type="date" />');
 
-    el.attr('placeholder', field.label);
+    if (options.placeholderLabel) {
+        el.attr('placeholder', field.label);
+    }
 
     return setGlobalInputAttributes(field, el, {
         disableAutocomplete: false
