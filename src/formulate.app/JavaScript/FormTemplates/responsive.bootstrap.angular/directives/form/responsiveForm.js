@@ -93,9 +93,10 @@ var genFormName = (function () {
 
 /**
  *
- * Returns a callback which in turn returns bool that indicates render state of field (referenced by fieldId)
+ * Returns a callback which in turn returns a bool that indicates render state of a given field (referenced by fieldId)
  *
  * Sample conditional data structure:
+ * Field A controls display of fields B, C, D;
  * "conditionalControls": [
  *     {
  *         "fieldId": "A",
@@ -227,11 +228,9 @@ FormulateController.prototype.getFieldById = function (id) {
 };
 
 FormulateController.prototype.submit = function () {
-    var formCtrl = this
-        .injected
-        .$element
-        .find('form')
-        .controller('form');
+    var invalidEl;
+    var formEl = this.injected.$element.find('form');
+    var formCtrl = formEl.controller('form');
 
     if (formCtrl.$valid) {
         var data = {
@@ -244,6 +243,14 @@ FormulateController.prototype.submit = function () {
             .injected
             .$scope
             .$emit('Formulate.submit', data);
+
+    } else {
+        invalidEl = formEl.find('.ng-invalid');
+
+        // Scroll to first invalid field
+        if (invalidEl.length > 0) {
+            invalidEl[0].focus();
+        }
     }
 };
 
@@ -263,9 +270,9 @@ function formulate() {
         restrict: "E",
         replace: true,
         template: '<div class="formulate-container">' +
-            '<form data-ng-submit="ctrl.submit(ctrl.generatedName)" class="form" name="{{ctrl.generatedName}}">' +
-            '<formulate-rows rows="ctrl.formData.rows"></formulate-rows>' +
-            '</form>' +
+                '<form data-ng-submit="ctrl.submit(ctrl.generatedName)" class="form" name="{{ctrl.generatedName}}">' +
+                    '<formulate-rows></formulate-rows>' +
+                '</form>' +
             '</div>',
 
         controller: FormulateController,
