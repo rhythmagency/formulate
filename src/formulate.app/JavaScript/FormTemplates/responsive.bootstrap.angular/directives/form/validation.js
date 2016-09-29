@@ -38,6 +38,11 @@ function validationFactory(validation) {
         return mandatoryValidation();
     }
 }
+app.factory('formulateValidationFactory', function () {
+    return {
+        getInstance: validationFactory
+    };
+});
 
 function formulateValidation() {
     /*jslint unparam: true */
