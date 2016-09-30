@@ -2,6 +2,7 @@
 {
 
     // Namespaces.
+    using core.Extensions;
     using Helpers;
     using Models.Requests;
     using Persistence;
@@ -262,6 +263,7 @@
 
                 // Variables.
                 var ids = request.ValidationIds
+                    .MakeSafe()
                     .Select(x => GuidHelper.GetGuid(x)).ToList();
                 var kinds = ValidationHelper.GetAllValidationKinds();
 
