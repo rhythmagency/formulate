@@ -52,6 +52,11 @@
         <!-- Unused fields. -->
         <div class="formulate-cell" ui-sortable="fieldSortableOptions" ng-model="unusedFields">
             <div ng-repeat="field in unusedFields" class="formulate-cell-field">
+                <button type="button" class="btn btn-default formulate-btn-use" ng-click="useField($index)">
+                    <localize key="formulate-buttons_Use">
+                        Use
+                    </localize>
+                </button>
                 {{field.name}}
             </div>
         </div>

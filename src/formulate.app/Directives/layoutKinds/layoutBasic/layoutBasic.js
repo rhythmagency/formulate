@@ -49,6 +49,7 @@ function controller($scope, formulateForms, dialogService, notificationsService)
     $scope.getSampleCellClasses = getGetSampleCellClasses();
     $scope.toggleCell = getToggleCell();
     $scope.sampleCells = getSampleCells();
+    $scope.useField = getUseField(services);
 
     // Initialize watchers.
     watchEditRowsSetting(services);
@@ -62,6 +63,16 @@ function controller($scope, formulateForms, dialogService, notificationsService)
         replenishFields($scope);
     }
 
+}
+
+// Returns the function that moves a field from the unused collection to
+// a cell in the layout.
+function getUseField(services) {
+    var $scope = services.$scope;
+    return function (fieldIndex) {
+        var field = $scope.unusedFields.splice(fieldIndex, 1)[0];
+        $scope.rows[$scope.rows.length -1].cells[0].fields.push(field);
+    };
 }
 
 // Returns the function that returns a class for the specified cell

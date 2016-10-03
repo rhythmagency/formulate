@@ -220,6 +220,7 @@
     <key alias="Validation Name:">Validation Name:</key>
   </area>
   <area alias="formulate-buttons">
+    <key alias="Use">Use</key>
     <key alias="Pick Layout">Pick Layout</key>
     <key alias="Save">Save</key>
     <key alias="Cancel">Cancel</key>
