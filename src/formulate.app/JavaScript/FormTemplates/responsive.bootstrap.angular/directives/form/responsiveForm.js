@@ -245,7 +245,7 @@ FormulateController.prototype.submit = function () {
             .$emit('Formulate.submit', data);
 
     } else {
-        invalidEl = formEl.find('.ng-invalid');
+        invalidEl = formEl.find(':input.ng-invalid');
 
         // Scroll to first invalid field
         if (invalidEl.length > 0) {
