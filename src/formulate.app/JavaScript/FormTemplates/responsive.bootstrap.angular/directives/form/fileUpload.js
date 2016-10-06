@@ -43,8 +43,8 @@ function formulateFileUpload() {
                     '<!-- Can be styled with this approach: https://www.abeautifulsite.net/whipping-file-inputs-into-shape-with-bootstrap-3 -->' +
                     '<!-- TLDR: Hide the file input, and make the label look like a button. -->' +
                     '<label class="formulate__file-upload-button">' +
-                        '<span class="formulate__file-upload-button-text" ng-bind="ctrl.buttonLabel"></span>' +
                         '<input class="formulate__file-upload-input" type="file" formulate-file-change ng-model="ctrl.fieldModel" />' +
+                        '<span class="formulate__file-upload-button-text" ng-bind="ctrl.buttonLabel"></span>' +
                     '</label>' +
 
                     '<span class="formulate__file-upload-filename" ng-bind="ctrl.fieldModel.name"></span>' +
