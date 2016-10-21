@@ -141,14 +141,8 @@ function createCheckboxListField(field) {
 module.exports.createCheckboxListField = createCheckboxListField;
 
 
-function createUploadField(field) {
-    var el = angular.element('<formulate-file-upload></formulate-file-upload>');
-
-    el.attr('button-label', JSON.stringify(field.label));
-    var fieldModelValue = 'ctrl.fieldModels[' + JSON.stringify(field.id) + ']';
-    el.attr('field-model', fieldModelValue);
-
-    return el;
+function createUploadField() {
+    return '<formulate-file-upload></formulate-file-upload>';
 }
 module.exports.createUploadField = createUploadField;
 

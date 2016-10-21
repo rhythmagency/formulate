@@ -7,19 +7,20 @@ var angular = require('angular');
 var app = angular.module('formulate');
 
 // Controller.
-function FormulateFileUploadController() {
+function FormulateFileUploadController($scope) {
     // This is a trick to force Angular to render the file input again (thereby clearing the selection).
     this.uploadResetList = [{}];
+
+    // Clears the upload selection.
+    this.clearSelection = function () {
+        // This is a trick to force Angular to render the file input again (thereby clearing the selection).
+        this.uploadResetList = [{}];
+
+        if ($scope.ctrl && $scope.ctrl.fieldModels && $scope.fieldCtrl) {
+            $scope.ctrl.fieldModels[$scope.fieldCtrl.id] = null;
+        }
+    };
 }
-
-// Clears the upload selection.
-FormulateFileUploadController.prototype.clearSelection = function () {
-    // This is a trick to force Angular to render the file input again (thereby clearing the selection).
-    this.uploadResetList = [{}];
-
-    // Clear the model.
-    this.fieldModel = undefined;
-};
 
 // Directive.
 function formulateFileUpload() {
@@ -28,28 +29,21 @@ function formulateFileUpload() {
         replace: true,
 
         controller: FormulateFileUploadController,
-        controllerAs: "ctrl",
+        controllerAs: "uploadCtrl",
         bindToController: true,
 
-        scope: {
-            fieldId: "=",
-            fieldModel: "=",
-            buttonLabel: "="
-        },
-
-        template:
-            '<div class="formulate__file-upload">' +
-                '<div ng-repeat="uploadItem in ctrl.uploadResetList">' +
-                    '<!-- Can be styled with this approach: https://www.abeautifulsite.net/whipping-file-inputs-into-shape-with-bootstrap-3 -->' +
-                    '<!-- TLDR: Hide the file input, and make the label look like a button. -->' +
+        template: '<div class="formulate__file-upload">' +
+                '<div ng-repeat="uploadItem in uploadCtrl.uploadResetList">' +
+                '<!-- Can be styled with this approach: https://www.abeautifulsite.net/whipping-file-inputs-into-shape-with-bootstrap-3 -->' +
+                '<!-- TLDR: Hide the file input, and make the label look like a button. -->' +
                     '<label class="formulate__file-upload-button">' +
-                        '<input class="formulate__file-upload-input" type="file" formulate-file-change ng-model="ctrl.fieldModel" />' +
-                        '<span class="formulate__file-upload-button-text" ng-bind="ctrl.buttonLabel"></span>' +
+                        '<input name="field_{{fieldCtrl.id}}" class="formulate__file-upload-input" type="file" formulate-file-change ng-model="ctrl.fieldModels[fieldCtrl.id]" formulate-validation />' +
+                        '<span class="formulate__file-upload-button-text" ng-bind="fieldCtrl.label"></span>' +
                     '</label>' +
 
-                    '<span class="formulate__file-upload-filename" ng-bind="ctrl.fieldModel.name"></span>' +
+                    '<span class="formulate__file-upload-filename" ng-bind="ctrl.fieldModels[fieldCtrl.id].name"></span>' +
 
-                    '<a href class="formulate__file-upload-clear" ng-if="ctrl.fieldModel.name" ng-click="ctrl.clearSelection()">' +
+                    '<a href class="formulate__file-upload-clear" ng-if="ctrl.fieldModels[fieldCtrl.id].name" ng-click="uploadCtrl.clearSelection()">' +
                         '<span class="formulate__file-upload-clear--inner">Clear Selection</span>' +
                     '</a>' +
                 '</div>' +

@@ -11,7 +11,6 @@ function directive() {
     return {
         restrict: 'A',
         require: 'ngModel',
-        scope: {},
         link: function link(scope, element, attrs, ctrl) {
             /*jslint unparam:true */
 
