@@ -10,7 +10,7 @@
     /// <summary>
     /// Helps with GUID operations.
     /// </summary>
-    internal class GuidHelper
+    public class GuidHelper
     {
 
         #region Methods

@@ -41,6 +41,11 @@
                 },
                 new ValueAndLabel()
                 {
+                    Value = "AS",
+                    Label = "American Samoa"
+                },
+                new ValueAndLabel()
+                {
                     Value = "AZ",
                     Label = "Arizona"
                 },
@@ -78,6 +83,11 @@
                 {
                     Value = "GA",
                     Label = "Georgia"
+                },
+                new ValueAndLabel()
+                {
+                    Value = "GU",
+                    Label = "Guam"
                 },
                 new ValueAndLabel()
                 {
@@ -201,6 +211,11 @@
                 },
                 new ValueAndLabel()
                 {
+                    Value = "MP",
+                    Label = "Northern Mariana Islands"
+                },
+                new ValueAndLabel()
+                {
                     Value = "OH",
                     Label = "Ohio"
                 },
@@ -218,6 +233,11 @@
                 {
                     Value = "PA",
                     Label = "Pennsylvania"
+                },
+                new ValueAndLabel()
+                {
+                    Value = "PR",
+                    Label = "Puerto Rico"
                 },
                 new ValueAndLabel()
                 {
@@ -246,6 +266,11 @@
                 },
                 new ValueAndLabel()
                 {
+                    Value = "VI",
+                    Label = "U.S. Virgin Islands"
+                },
+                new ValueAndLabel()
+                {
                     Value = "UT",
                     Label = "Utah"
                 },
@@ -263,6 +288,11 @@
                 {
                     Value = "WA",
                     Label = "Washington"
+                },
+                new ValueAndLabel()
+                {
+                    Value = "DC",
+                    Label = "Washington, D.C."
                 },
                 new ValueAndLabel()
                 {

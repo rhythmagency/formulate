@@ -22,6 +22,10 @@ function regexValidation(validation) {
 
 function mandatoryValidation() {
     return function (value) {
+        if (angular.isArray(value)) {
+            return value.length > 0;
+        }
+
         return !!value;
     };
 }
@@ -34,6 +38,11 @@ function validationFactory(validation) {
         return mandatoryValidation();
     }
 }
+app.factory('formulateValidationFactory', function () {
+    return {
+        getInstance: validationFactory
+    };
+});
 
 function formulateValidation() {
     /*jslint unparam: true */

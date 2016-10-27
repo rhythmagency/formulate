@@ -16,6 +16,7 @@
   <area alias="formulate-data-value-names">
     <key alias="List">List</key>
     <key alias="List Function">List Function</key>
+    <key alias="Pair List">Pair List</key>
   </area>
   <area alias="formulate-layout-names">
     <key alias="Basic Layout">Basic Layout</key>
@@ -52,6 +53,15 @@
     ]]></key>
     <key alias="Data Sources"><![CDATA[
       <h2>Data Sources</h2>
+      <p class="formulate__data-sources-warn-info">
+          <span class="color-red">
+              <i class="icon-stop-hand formulate__data-sources-warn-icon"></i>
+          </span>
+          <strong>
+              Note that the data sources feature is not yet implemented.
+              The below description explains how it will work in the future.
+          </strong>
+      </p>
       <p>
           Data sources are where Formulate fetches data from or adds data to. Here are some examples:
       </p>
@@ -158,8 +168,8 @@
   </area>
   <area alias="formulate-introductions">
     <key alias="Configured Form">
-        A configured form is just a form with a layout and template selected.
-        To configure this form, select a template and layout below.
+      A configured form is just a form with a layout and template selected.
+      To configure this form, select a template and layout below.
     </key>
     <key alias="Form Handlers">
       These are your form's handlers.
@@ -167,6 +177,8 @@
     </key>
   </area>
   <area alias="formulate-options">
+    <key alias="Select an Orientation">Select an Orientation</key>
+    <key alias="Select a Button Kind">Select a Button Kind</key>
     <key alias="Select a Function">Select a Function</key>
     <key alias="Select a Template">Select a Template</key>
   </area>
@@ -174,6 +186,9 @@
     <key alias="Append Payload">For example, the URL and name of the page containing the form.</key>
   </area>
   <area alias="formulate-labels">
+    <key alias="Orientation">Orientation</key>
+    <key alias="Button Kind">Button Kind</key>
+    <key alias="Text Value">Text Value</key>
     <key alias="Layout:">Layout:</key>
     <key alias="Layout not chosen">Layout not yet chosen.</key>
     <key alias="Data Value Alias">Data Value Alias</key>
@@ -205,6 +220,7 @@
     <key alias="Validation Name:">Validation Name:</key>
   </area>
   <area alias="formulate-buttons">
+    <key alias="Use">Use</key>
     <key alias="Pick Layout">Pick Layout</key>
     <key alias="Save">Save</key>
     <key alias="Cancel">Cancel</key>
@@ -230,7 +246,13 @@
     <key alias="Create Layout">Create Layout</key>
     <key alias="Create Validation">Create Validation</key>
   </area>
+  <area alias="formulate-header-descriptions">
+    <key alias="Layout">Organize your fields into rows and columns.</key>
+    <key alias="Unused Fields">These are the fields you are not using for this layout.</key>
+  </area>
   <area alias="formulate-headers">
+    <key alias="Layout">Layout</key>
+    <key alias="Unused Fields">Unused Fields</key>
     <key alias="Choose Function">Choose Function</key>
     <key alias="Data Value Information">Data Value Information</key>
     <key alias="Items">Items</key>

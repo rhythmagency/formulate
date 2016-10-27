@@ -7,7 +7,6 @@
     using core.Types;
     using core.Utilities;
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
@@ -121,11 +120,19 @@
 
 
             // Submit form.
+            var context = new FormRequestContext()
+            {
+                CurrentPage = pageNode,
+                HttpContext = HttpContext,
+                Services = Services,
+                UmbracoContext = UmbracoContext,
+                UmbracoHelper = Umbraco
+            };
             var options = new SubmissionOptions()
             {
                 Validate = Config.EnableServerSideValidation
             };
-            var result = Submissions.SubmitForm(formId, values, fileValues, payload, options);
+            var result = Submissions.SubmitForm(formId, values, fileValues, payload, options, context);
 
 
             // Return result.

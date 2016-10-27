@@ -129,17 +129,39 @@
 
 
         /// <summary>
+        /// Prepares to handle to form submission.
+        /// </summary>
+        /// <param name="context">
+        /// The form submission context.
+        /// </param>
+        /// <param name="configuration">
+        /// The handler configuration.
+        /// </param>
+        /// <remarks>
+        /// In this case, no preparation is necessary.
+        /// </remarks>
+        public void PrepareHandleForm(FormSubmissionContext context, object configuration)
+        {
+        }
+
+
+        /// <summary>
         /// Handles a form submission (sends an email).
         /// </summary>
-        /// <param name="form">The form.</param>
-        /// <param name="data">The form data.</param>
-        /// <param name="files">The file data.</param>
-        /// <param name="payload">Extra data related to the submission.</param>
-        /// <param name="configuration">The handler configuration.</param>
-        public void HandleForm(Form form, IEnumerable<FieldSubmission> data,
-            IEnumerable<FileFieldSubmission> files, IEnumerable<PayloadSubmission> payload,
-            object configuration)
+        /// <param name="context">
+        /// The form submission context.
+        /// </param>
+        /// <param name="configuration">
+        /// The handler configuration.
+        /// </param>
+        public void HandleForm(FormSubmissionContext context, object configuration)
         {
+
+            // Variables.
+            var form = context.Form;
+            var data = context.Data;
+            var files = context.Files;
+            var payload = context.Payload;
 
             // Create message.
             var config = configuration as EmailConfiguration;
@@ -248,14 +270,15 @@
             foreach (var key in valuesById.Keys)
             {
                 var values = valuesById[key];
-                var combined = string.Join(", ", values);
+                var formatted = string.Join(", ", values);
                 var field = default(IFormField);
                 var fieldName = "Unknown Field";
                 if (fieldsById.TryGetValue(key, out field))
                 {
                     fieldName = field.Name;
+                    formatted = field.FormatValue(values, FieldPresentationFormats.Email);
                 }
-                var line = string.Format("{0}: {1}", fieldName, combined);
+                var line = string.Format("{0}: {1}", fieldName, formatted);
                 lines.Add(line);
             }
 

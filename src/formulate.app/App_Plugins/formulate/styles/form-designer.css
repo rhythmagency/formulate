@@ -29,7 +29,7 @@
 
 .formulate-field .formulate-field-details,
 .formulate-handler .formulate-handler-details {
-    max-height: 500px;
+    max-height: 600px;
     overflow: hidden;
     transition:
         max-height 0.25s,

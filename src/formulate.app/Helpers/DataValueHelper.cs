@@ -8,7 +8,7 @@
     /// <summary>
     /// Helps with operations related to data values.
     /// </summary>
-    internal class DataValueHelper
+    public class DataValueHelper
     {
 
         #region Methods

@@ -6,8 +6,10 @@ var lodash = require('lodash');
 var app = angular.module('formulate');
 
 function JsonSourceCtrl($attrs) {
+    var data = JSON.parse($attrs.source);
+
     // Parse Json Source
-    lodash.assign(this, JSON.parse($attrs.source));
+    lodash.assign(this, data);
 }
 
 function jsonSource() {

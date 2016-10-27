@@ -2,6 +2,12 @@
 @using formulate.app.Validations.Kinds.Regex
 @using formulate.app.Validations.Kinds.Mandatory
 @using formulate.app.Forms.Fields.DropDown
+@using formulate.app.Forms.Fields.RichText
+@using formulate.app.Forms.Fields.Button
+@using formulate.app.Forms.Fields.RadioButtonList
+@using formulate.app.Forms.Fields.ExtendedRadioButtonList
+@using formulate.app.Forms.Fields.CheckboxList
+@using formulate.app.Forms.Fields.Header
 @using formulate.core.Extensions
 @using formulate.core.Types
 @model formulate.core.Models.FormViewModel
@@ -59,6 +65,70 @@
                 }).ToArray()
             };
         }
+        else if (x.FieldType == typeof(RichTextField))
+        {
+            var config = x.Configuration as RichTextConfiguration;
+            return new
+            {
+                text = config.Text
+            };
+        }
+        else if (x.FieldType == typeof(HeaderField))
+        {
+            var config = x.Configuration as HeaderConfiguration;
+            return new
+            {
+                text = config.Text
+            };
+        }
+        else if (x.FieldType == typeof(ButtonField))
+        {
+            var config = x.Configuration as ButtonConfiguration;
+            return new
+            {
+                buttonKind = config.ButtonKind
+            };
+        }
+        else if (x.FieldType == typeof(RadioButtonListField))
+        {
+            var config = x.Configuration as RadioButtonListConfiguration;
+            return new
+            {
+                orientation = config.Orientation,
+                items = config.Items.Select(y => new
+                {
+                    value = y.Value,
+                    label = y.Label,
+                    selected = y.Selected
+                }).ToArray()
+            };
+        }
+        else if (x.FieldType == typeof(ExtendedRadioButtonListField))
+        {
+            var config = x.Configuration as ExtendedRadioButtonListConfiguration;
+            return new
+            {
+                items = config.Items.Select(y => new
+                {
+                    primary = y.Primary,
+                    secondary = y.Secondary,
+                    selected = y.Selected
+                }).ToArray()
+            };
+        }
+        else if (x.FieldType == typeof(CheckboxListField))
+        {
+            var config = x.Configuration as CheckboxListConfiguration;
+            return new
+            {
+                items = config.Items.Select(y => new
+                {
+                    value = y.Value,
+                    label = y.Label,
+                    selected = y.Selected
+                }).ToArray()
+            };
+        }
         return new { };
     });
 
@@ -87,7 +157,11 @@
             configuration = getValidationConfig(y)
         }).ToArray(),
         // The field configuration stores parameters particular to a field (e.g., a list of items).
-        configuration = getFieldConfig(x)
+        configuration = getFieldConfig(x),
+        // The initial value comes from the query string based on the field alias.
+        initialValue = string.IsNullOrWhiteSpace(x.Alias)
+            ? null
+            : Request.QueryString[x.Alias]
     }).ToArray();
 
 

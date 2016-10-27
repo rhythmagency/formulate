@@ -1,14 +1,13 @@
 ﻿<div class="umb-el-wrap">
     <label class="control-label">
-        <localize key="formulate-labels_Field">
-            Field
+        <localize key="formulate-labels_Button Kind">
+            Button Kind
         </localize>
     </label>
     <div class="controls controls-row">
-        <input
-            type="submit"
-            readonly disabled="disabled"
-            formulate-localize-attribute="value"
-            value="formulate-buttons_Submit" />
+        <select ng-options="option.value as option.label for option in kinds.values" ng-model="configuration.buttonKind">
+            <option value="" formulate-inject-localization="formulate-options_Select a Button Kind">
+            </option>
+        </select>
     </div>
 </div>

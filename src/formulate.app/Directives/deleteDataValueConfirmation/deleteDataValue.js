@@ -15,8 +15,8 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, $location, notificationsService, $q,
-    $http, navigationService, formulateDataValues, treeService) {
+function controller($scope, $location, $q, $http, navigationService,
+    formulateDataValues, treeService) {
 
     // Variables.
     var dataValueId = $scope.currentNode.id;
@@ -25,7 +25,6 @@ function controller($scope, $location, notificationsService, $q,
     var services = {
         $scope: $scope,
         $location: $location,
-        notificationsService: notificationsService,
         $q: $q,
         $http: $http,
         navigationService: navigationService,

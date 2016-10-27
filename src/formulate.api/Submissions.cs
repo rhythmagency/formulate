@@ -2,6 +2,7 @@
 {
 
     //  Namespaces.
+    using app.Forms;
     using app.Persistence;
     using app.Resolvers;
     using core.Types;
@@ -21,6 +22,7 @@
         #region Constants
 
         private const string HandlerError = "An error occurred while executing one of the Formulate form handlers.";
+        private const string PreHandlerError = "An error occurred while preparing one of the Formulate form handlers.";
 
         #endregion
 
@@ -73,12 +75,16 @@
         /// <param name="options">
         /// The options for this submission.
         /// </param>
+        /// <param name="context">
+        /// The contextual information for the form request.
+        /// </param>
         /// <returns>
         /// The result of the submission.
         /// </returns>
         public static SubmissionResult SubmitForm(Guid formId,
             IEnumerable<FieldSubmission> data, IEnumerable<FileFieldSubmission> files,
-            IEnumerable<PayloadSubmission> payload, SubmissionOptions options)
+            IEnumerable<PayloadSubmission> payload, SubmissionOptions options,
+            FormRequestContext context)
         {
 
             // Is the form ID valid?
@@ -111,6 +117,41 @@
             }
 
 
+            // Create submission context.
+            var submissionContext = new FormSubmissionContext()
+            {
+                Files = files,
+                Data = data,
+                Form = form,
+                Payload = payload,
+                CurrentPage = context.CurrentPage,
+                HttpContext = context.HttpContext,
+                Services = context.Services,
+                UmbracoContext = context.UmbracoContext,
+                UmbracoHelper = context.UmbracoHelper
+            };
+
+
+            // Prepare the form handlers.
+            // This occurs on the current thread in case the handler needs information
+            // only available in the current thread.
+            try
+            {
+                foreach (var handler in form.Handlers)
+                {
+                    handler.PrepareHandleForm(submissionContext);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error<Submissions_Instance>(PreHandlerError, ex);
+                return new SubmissionResult()
+                {
+                    Success = false
+                };
+            }
+
+
             // Initiate form handlers on a new thread (they may take some time to complete).
             var t = new Thread(() =>
             {
@@ -118,7 +159,7 @@
                 {
                     foreach (var handler in form.Handlers)
                     {
-                        handler.HandleForm(form, data, files, payload);
+                        handler.HandleForm(submissionContext);
                     }
                 }
                 catch (Exception ex)
