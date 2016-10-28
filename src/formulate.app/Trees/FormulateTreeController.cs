@@ -229,7 +229,7 @@
                 var entities = Persistence
                     .RetrieveChildren(rootLayoutsId);
                 LayoutHelper.AddLayoutChildrenToTree(nodes, queryStrings,
-                    entities);
+                    entities.OrderBy(x => x.Name));
 
             }
             else if (id.InvariantEquals(ValidationConstants.Id))
@@ -239,7 +239,7 @@
                 var entities = Persistence
                     .RetrieveChildren(rootValidationsId);
                 ValidationHelper.AddValidationChildrenToTree(
-                    nodes, queryStrings, entities);
+                    nodes, queryStrings, entities.OrderBy(x => x.Name));
 
             }
             else if (id.InvariantEquals(FormConstants.Id))
@@ -249,7 +249,7 @@
                 var entities = Persistence
                     .RetrieveChildren(rootFormsId);
                 FormHelper.AddFormChildrenToTree(nodes, queryStrings,
-                    entities);
+                    entities.OrderBy(x => x.Name));
 
             }
             else if (id.InvariantEquals(DataValueConstants.Id))
@@ -259,7 +259,7 @@
                 var entities = Persistence
                     .RetrieveChildren(rootDataValueId);
                 DataValueHelper.AddChildrenToTree(nodes, queryStrings,
-                    entities);
+                    entities.OrderBy(x => x.Name));
 
             }
             else
@@ -280,29 +280,29 @@
                     if (ancestorId == rootFormsId)
                     {
                         FormHelper.AddFormChildrenToTree(nodes, queryStrings,
-                            children);
+                            children.OrderBy(x => x.Name));
                     }
                     else if (ancestorId == rootLayoutsId)
                     {
                         LayoutHelper.AddLayoutChildrenToTree(nodes,
-                            queryStrings, children);
+                            queryStrings, children.OrderBy(x => x.Name));
                     }
                     else if (ancestorId == rootValidationsId)
                     {
                         ValidationHelper.AddValidationChildrenToTree(
-                            nodes, queryStrings, children);
+                            nodes, queryStrings, children.OrderBy(x => x.Name));
                     }
                     else if (ancestorId == rootDataValueId)
                     {
                         DataValueHelper.AddChildrenToTree(nodes,
-                            queryStrings, children);
+                            queryStrings, children.OrderBy(x => x.Name));
                     }
 
                 }
                 else if (entity is Form)
                 {
                     ConfiguredFormHelper.AddConfiguredFormChildrenToTree(nodes,
-                        queryStrings, children);
+                        queryStrings, children.OrderBy(x => x.Name));
                 }
 
             }
