@@ -11,8 +11,10 @@
     using Persistence;
     using Resolvers;
     using System;
+    using System.Globalization;
     using System.Linq;
     using System.Net.Http.Formatting;
+    using umbraco.BusinessLogic.Actions;
     using Umbraco.Core;
     using Umbraco.Web.Models.Trees;
     using Umbraco.Web.Mvc;
@@ -76,7 +78,7 @@
 
                 // Actions for forms.
                 FormHelper.AddCreateFormAction(menu);
-                FolderHelper.AddCreateFolderAction(menu);
+                FolderHelper.AddCreateFolderAction(menu, FormConstants.Id);
 
             }
             else if (id.InvariantEquals(LayoutConstants.Id))
@@ -84,7 +86,7 @@
 
                 // Actions for layouts.
                 LayoutHelper.AddCreateLayoutAction(menu);
-                FolderHelper.AddCreateFolderAction(menu);
+                FolderHelper.AddCreateFolderAction(menu, LayoutConstants.Id);
 
             }
             else if (id.InvariantEquals(DataValueConstants.Id))
@@ -92,7 +94,7 @@
 
                 // Actions for data values.
                 DataValueHelper.AddCreateAction(menu);
-                FolderHelper.AddCreateFolderAction(menu);
+                FolderHelper.AddCreateFolderAction(menu, DataValueConstants.Id);
 
             }
             else if (id.InvariantEquals(ValidationConstants.Id))
@@ -100,7 +102,7 @@
 
                 // Actions for validations.
                 ValidationHelper.AddCreateValidationAction(menu);
-                FolderHelper.AddCreateFolderAction(menu);
+                FolderHelper.AddCreateFolderAction(menu, ValidationConstants.Id);
 
             }
             else
@@ -165,6 +167,9 @@
                 }
 
             }
+            var textService = ApplicationContext.Current.Services.TextService;
+            var refreshNodeText = textService.Localize("actions/refreshNode", CultureInfo.CurrentCulture);
+            menu.Items.Add<RefreshNode, ActionRefresh>(refreshNodeText, true);
             return menu;
         }
 

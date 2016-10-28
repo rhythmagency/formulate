@@ -10,6 +10,15 @@
     using System.Net.Http.Formatting;
     using Umbraco.Web.Models.Trees;
     using Umbraco.Web.Trees;
+    using CoreConstants = Umbraco.Core.Constants;
+    using DataSourceConstants = formulate.app.Constants.Trees.DataSources;
+    using DataValueConstants = formulate.app.Constants.Trees.DataValues;
+    using DataValueHelper = Trees.Helpers.DataValueHelper;
+    using FormConstants = formulate.app.Constants.Trees.Forms;
+    using LayoutConstants = formulate.app.Constants.Trees.Layouts;
+    using LayoutHelper = Trees.Helpers.LayoutHelper;
+    using ValidationConstants = formulate.app.Constants.Trees.Validations;
+    using ValidationHelper = Trees.Helpers.ValidationHelper;
 
 
     /// <summary>
@@ -88,13 +97,32 @@
         /// <param name="menu">
         /// The menu items.
         /// </param>
-        public void AddCreateFolderAction(MenuItemCollection menu)
+        public void AddCreateFolderAction(MenuItemCollection menu, string sectionId = "")
         {
+            var folderIcon = string.Empty;
+            switch (sectionId)
+            {
+                case FormConstants.Id:
+                    folderIcon = "formulate-form-group";
+                    break;
+                case LayoutConstants.Id:
+                    folderIcon = "formulate-layout-group";
+                    break;
+                case DataValueConstants.Id:
+                    folderIcon = "formulate-value-group";
+                    break;
+                case ValidationConstants.Id:
+                    folderIcon = "formulate-validation-group";
+                    break;
+                default:
+                    folderIcon = "folder";
+                    break;
+            }
             var path = "/App_Plugins/formulate/menu-actions/createFolder.html";
             var menuItem = new MenuItem()
             {
                 Alias = "createFolder",
-                Icon = "folder",
+                Icon = folderIcon,
                 Name = LocalizationHelper.GetMenuItemName("Create Folder")
             };
             menuItem.LaunchDialogView(path, "Create Folder");
@@ -117,7 +145,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "moveFolder",
-                Icon = "folder",
+                Icon = "enter",
                 Name = LocalizationHelper.GetMenuItemName("Move")
             };
             var titleFormat = @"Move ""{0}"" Folder";
@@ -139,7 +167,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "deleteFolder",
-                Icon = "folder",
+                Icon = "delete",
                 Name = LocalizationHelper.GetMenuItemName("Delete Folder")
             };
             menuItem.LaunchDialogView(path, "Delete Folder");

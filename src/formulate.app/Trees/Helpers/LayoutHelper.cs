@@ -130,7 +130,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "deleteLayout",
-                Icon = "folder",
+                Icon = "delete",
                 Name = LocalizationHelper.GetMenuItemName("Delete Layout")
             };
             menuItem.LaunchDialogView(path, "Delete Layout");
@@ -153,7 +153,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "moveLayout",
-                Icon = "folder",
+                Icon = "enter",
                 Name = LocalizationHelper.GetMenuItemName("Move")
             };
             var titleFormat = @"Move ""{0}"" Layout";
@@ -181,7 +181,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "createLayout",
-                Icon = "folder",
+                Icon = "formulate-layout",
                 Name = LocalizationHelper.GetMenuItemName("Create Layout")
             };
             if (entityId.HasValue)

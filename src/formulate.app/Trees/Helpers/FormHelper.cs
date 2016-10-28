@@ -143,7 +143,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "deleteForm",
-                Icon = "folder",
+                Icon = "delete",
                 Name = LocalizationHelper.GetMenuItemName("Delete Form")
             };
             menuItem.LaunchDialogView(path, "Delete Form");
@@ -166,7 +166,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "moveForm",
-                Icon = "folder",
+                Icon = "enter",
                 Name = LocalizationHelper.GetMenuItemName("Move")
             };
             var titleFormat = @"Move ""{0}"" Form";
@@ -194,7 +194,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "createForm",
-                Icon = "folder",
+                Icon = "formulate-form",
                 Name = LocalizationHelper.GetMenuItemName("Create Form")
             };
             if (entityId.HasValue)
