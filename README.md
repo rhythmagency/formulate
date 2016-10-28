@@ -1,6 +1,3 @@
-# Progress / Status
-Alpha. Formulate is fully functional and early adopters can begin using it now.
-
 ![Formulate](assets/images/formulate-icon-zoomed-out.png?raw=true "Formulate")
 
 # Formulate Overview
