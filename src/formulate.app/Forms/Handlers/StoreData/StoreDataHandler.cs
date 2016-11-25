@@ -128,18 +128,6 @@
             }.Take(0).ToList();
 
 
-            // This will store the file information.
-            var fileList = new[]
-            {
-                new
-                {
-                    Key = default(string),
-                    PathSegment = default(string),
-                    Filename = default(string)
-                }
-            }.Take(0).ToList();
-
-
             // Group the data values by their field ID.
             var valuesById = data.GroupBy(x => x.FieldId).Select(x => new
             {
@@ -176,13 +164,25 @@
             }
 
 
+            // Store file information for serialization.
+            var fileList = filesById.Values.Select(x => new[]
+            {
+                new
+                {
+                    Key = x.Id,
+                    PathSegment = x.PathSegment,
+                    Filename = x.Filename
+                }
+            });
+
+
             // Store the files.
             if (files.Any())
             {
 
                 // Ensure base path exists.
                 var basePath = HostingEnvironment.MapPath(Config.FileStoreBasePath);
-                if (Directory.Exists(basePath))
+                if (!Directory.Exists(basePath))
                 {
                     Directory.CreateDirectory(basePath);
                 }
