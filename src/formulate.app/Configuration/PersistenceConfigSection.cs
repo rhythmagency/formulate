@@ -29,6 +29,23 @@
             }
         }
 
+
+        /// <summary>
+        /// The "fileStorage" element in this section.
+        /// </summary>
+        [ConfigurationProperty("fileStorage", IsRequired = false)]
+        public FileStorageElement FileStorage
+        {
+            get
+            {
+                return this["fileStorage"] as FileStorageElement;
+            }
+            set
+            {
+                this["fileStorage"] = value;
+            }
+        }
+
         #endregion
 
     }

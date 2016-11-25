@@ -22,6 +22,12 @@
 
 
         /// <summary>
+        /// The root directory to store submitted files in.
+        /// </summary>
+        string FileStoreBasePath { get; }
+
+
+        /// <summary>
         /// The templates (i.e., CSHTML files).
         /// </summary>
         IEnumerable<Template> Templates { get; }

@@ -3,8 +3,12 @@
 
     // Namespaces.
     using Helpers;
+    using Managers;
+    using Resolvers;
     using System;
+    using System.IO;
     using System.Linq;
+    using System.Web.Hosting;
 
     /// <summary>
     /// A form submission handler that stores the submitted data.
@@ -12,7 +16,23 @@
     public class StoreDataHandler : IFormHandlerType
     {
 
-        #region Properties
+        #region Private Properties
+
+        /// <summary>
+        /// Configuration manager.
+        /// </summary>
+        private IConfigurationManager Config
+        {
+            get
+            {
+                return Configuration.Current.Manager;
+            }
+        }
+
+        #endregion
+
+
+        #region Public Properties
 
         /// <summary>
         /// The Angular directive that renders this handler.
@@ -135,7 +155,7 @@
                 Filename = x.Select(y => y.FileName).FirstOrDefault(),
                 PathSegment = GenerateFilePathSegment(),
                 FileData = x.Select(y => y.FileData).FirstOrDefault()
-            }).ToDictionary(x => x.Id, x => x.Filename);
+            }).ToDictionary(x => x.Id, x => x);
 
 
             // Normal fields.
@@ -156,7 +176,29 @@
             }
 
 
-            //TODO: Store files (in a configured path).
+            // Store the files.
+            if (files.Any())
+            {
+
+                // Ensure base path exists.
+                var basePath = HostingEnvironment.MapPath(Config.FileStoreBasePath);
+                if (Directory.Exists(basePath))
+                {
+                    Directory.CreateDirectory(basePath);
+                }
+
+
+                // Create files.
+                foreach(var key in filesById.Keys)
+                {
+                    var file = filesById[key];
+                    var fullPath = Path.Combine(basePath, file.PathSegment);
+                    var pathOnly = Path.GetDirectoryName(fullPath);
+                    Directory.CreateDirectory(pathOnly);
+                    File.WriteAllBytes(fullPath, file.FileData);
+                }
+
+            }
 
 
             //TODO: Store data.

@@ -36,6 +36,22 @@
 
 
         /// <summary>
+        /// The base path toe store submitted files in.
+        /// </summary>
+        public string FileStoreBasePath
+        {
+            get
+            {
+                var persistence = ConfigurationManager
+                    .GetSection("formulateConfiguration/persistence")
+                    as PersistenceConfigSection;
+                var basePath = persistence.FileStorage.BasePath;
+                return basePath;
+            }
+        }
+
+
+        /// <summary>
         /// The templates used to render forms.
         /// </summary>
         public IEnumerable<Template> Templates

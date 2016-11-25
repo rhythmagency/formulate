@@ -275,6 +275,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\FileStorageElement.cs" />
     <Compile Include="Configuration\JsonElement.cs" />
     <Compile Include="Configuration\SubmissionsConfigSection.cs" />
     <Compile Include="Configuration\EmailCollection.cs" />
