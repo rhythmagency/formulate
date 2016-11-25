@@ -51,4 +51,5 @@ Each project is built into an assembly, and each assembly has a different purpos
 Thanks to the creators of the following Umbraco packages, which served as excellent points of reference while building Formulate:
 * [Archetype](https://github.com/imulus/Archetype)
 * [Umbraco Bookshelf](https://github.com/kgiszewski/UmbracoBookshelf)
+* [Form Editor](https://github.com/kjac/FormEditor)
 * [Merchello](https://github.com/Merchello/Merchello)

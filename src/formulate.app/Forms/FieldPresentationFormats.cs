@@ -3,6 +3,7 @@
     public enum FieldPresentationFormats
     {
         Unspecified,
-        Email
+        Email,
+        Storage
     }
 }

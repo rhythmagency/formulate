@@ -3,6 +3,7 @@
 
     // Namespaces.
     using core.Types;
+    using System;
     using System.Collections.Generic;
     using System.Web;
     using Umbraco.Core.Models;
@@ -70,6 +71,12 @@
         /// The Umbraco context.
         /// </summary>
         public UmbracoContext UmbracoContext { get; set; }
+
+
+        /// <summary>
+        /// A generated ID that can be used to track a submission.
+        /// </summary>
+        public Guid SubmissionId { get; set; }
 
         #endregion
 

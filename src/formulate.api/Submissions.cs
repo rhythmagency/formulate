@@ -128,7 +128,8 @@
                 HttpContext = context.HttpContext,
                 Services = context.Services,
                 UmbracoContext = context.UmbracoContext,
-                UmbracoHelper = context.UmbracoHelper
+                UmbracoHelper = context.UmbracoHelper,
+                SubmissionId = Guid.NewGuid()
             };
 
 
