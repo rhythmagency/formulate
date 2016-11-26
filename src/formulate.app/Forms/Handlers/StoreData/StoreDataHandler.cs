@@ -38,7 +38,7 @@
         /// <summary>
         /// The Angular directive that renders this handler.
         /// </summary>
-        public string Directive => "formulate-submission-handler";
+        public string Directive => "formulate-store-data-handler";
 
 
         /// <summary>
