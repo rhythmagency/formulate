@@ -3,6 +3,7 @@
 
     // Namespaces.
     using Controllers;
+    using Persistence.Internal.Sql.Models;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
@@ -19,6 +20,7 @@
     using Umbraco.Core.Configuration.Dashboard;
     using Umbraco.Core.IO;
     using Umbraco.Core.Logging;
+    using Umbraco.Core.Persistence;
     using Umbraco.Web;
     using Umbraco.Web.UI.JavaScript;
     using Constants = formulate.meta.Constants;
@@ -41,6 +43,7 @@
         private const string DeveloperSectionXPath = @"/dashBoard/section[@alias='StartupDeveloperDashboardSection']";
         private const string MissingDeveloperSection = @"Unable to locate StartupDeveloperDashboardSection in the dashboard.config. The Formulate tab will not be added to the Developer section.";
         private const string InstallActionsError = @"An unknown error occurred while attempting to asynchronously run the install actions for Formulate.";
+        private const string TableCreationError = @"An error occurred while attempting to create the FormulateSubmissions table.";
 
         #endregion
 
@@ -79,7 +82,31 @@
             ApplicationContext applicationContext)
         {
             HandleInstallAndUpgrade(applicationContext);
+            InitializeDatabase(applicationContext);
             ServerVariablesParser.Parsing += AddServerVariables;
+        }
+
+
+        /// <summary>
+        /// Modifies the database (e.g., adding necessary tables).
+        /// </summary>
+        /// <param name="applicationContext">
+        /// The application context.
+        /// </param>
+        private void InitializeDatabase(ApplicationContext applicationContext)
+        {
+            var dbContext = applicationContext.DatabaseContext;
+            var logger = applicationContext.ProfilingLogger.Logger;
+            var db = dbContext.Database;
+            var dbHelper = new DatabaseSchemaHelper(db, logger, dbContext.SqlSyntax);
+            try
+            {
+                dbHelper.CreateTable<FormulateSubmission>();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error<ApplicationStartedHandler>(TableCreationError, ex);
+            }
         }
 
 

@@ -425,6 +425,7 @@
     <Compile Include="Persistence\Internal\JsonDataValuePersistence.cs" />
     <Compile Include="Persistence\Internal\JsonConfiguredFormPersistence.cs" />
     <Compile Include="Persistence\Internal\JsonValidationPersistence.cs" />
+    <Compile Include="Persistence\Internal\Sql\Models\FormulateSubmission.cs" />
     <Compile Include="Persistence\IValidationPersistence.cs" />
     <Compile Include="Persistence\ILayoutPersistence.cs" />
     <Compile Include="Persistence\IFormPersistence.cs" />
