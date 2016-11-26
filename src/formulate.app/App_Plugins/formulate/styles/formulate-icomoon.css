@@ -2,11 +2,11 @@
    which contains the selection.json you can use to update the icons. */
 @font-face {
 	font-family: 'icomoon-formulate';
-	src:url('../fonts/icomoon/icomoon.eot?emtfgy');
-	src:url('../fonts/icomoon/icomoon.eot?emtfgy#iefix') format('embedded-opentype'),
-		url('../fonts/icomoon/icomoon.ttf?emtfgy') format('truetype'),
-		url('../fonts/icomoon/icomoon.woff?emtfgy') format('woff'),
-		url('../fonts/icomoon/icomoon.svg?emtfgy#icomoon') format('svg');
+	src:url('../fonts/icomoon/icomoon.eot?7gdpmq');
+	src:url('../fonts/icomoon/icomoon.eot?7gdpmq#iefix') format('embedded-opentype'),
+		url('../fonts/icomoon/icomoon.ttf?7gdpmq') format('truetype'),
+		url('../fonts/icomoon/icomoon.woff?7gdpmq') format('woff'),
+		url('../fonts/icomoon/icomoon.svg?7gdpmq#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -106,4 +106,7 @@
 }
 .icon-formulate-header:before {
 	content: "\e917";
+}
+.icon-formulate-submission:before {
+	content: "\e918";
 }
