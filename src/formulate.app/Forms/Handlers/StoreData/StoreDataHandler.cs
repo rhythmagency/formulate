@@ -4,6 +4,7 @@
     // Namespaces.
     using Helpers;
     using Managers;
+    using Persistence.Internal.Sql.Models;
     using Resolvers;
     using System;
     using System.IO;
@@ -115,6 +116,7 @@
             var files = context.Files;
             var payload = context.Payload;
             var fieldsById = form.Fields.ToDictionary(x => x.Id, x => x);
+            var db = context.UmbracoContext.Application.DatabaseContext.Database;
 
 
             // This will store the formatted values.
@@ -201,18 +203,19 @@
             }
 
 
-            //TODO: Store data.
+            // Store data to database.
             var serializedValues = JsonHelper.Serialize(valueList.ToArray());
             var serializedFiles = JsonHelper.Serialize(fileList.ToArray());
-            // Database fields:
-            //   Sequence ID.
-            //   Generated ID.
-            //   Date / Time.
-            //   Form ID.
-            //   Values.
-            //   File Values.
-            //   URL.
-            //   Page ID.
+            db.Insert(new FormulateSubmission()
+            {
+                CreationDate = DateTime.Now,
+                DataValues = serializedValues,
+                FileValues = serializedFiles,
+                FormId = form.Id,
+                GeneratedId = context.SubmissionId,
+                PageId = context?.CurrentPage?.Id,
+                Url = context?.CurrentPage?.Url
+            });
 
         }
 
