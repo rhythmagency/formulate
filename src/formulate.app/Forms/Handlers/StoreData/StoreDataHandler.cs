@@ -208,7 +208,7 @@
             var serializedFiles = JsonHelper.Serialize(fileList.ToArray());
             db.Insert(new FormulateSubmission()
             {
-                CreationDate = DateTime.Now,
+                CreationDate = DateTime.UtcNow,
                 DataValues = serializedValues,
                 FileValues = serializedFiles,
                 FormId = form.Id,
