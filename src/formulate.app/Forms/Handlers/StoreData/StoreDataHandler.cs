@@ -124,7 +124,7 @@
             {
                 new
                 {
-                    Key = default(string),
+                    FieldId = default(string),
                     Value = default(string)
                 }
             }.Take(0).ToList();
@@ -160,7 +160,7 @@
                 }
                 valueList.Add(new
                 {
-                    Key = GuidHelper.GetString(key),
+                    FieldId = GuidHelper.GetString(key),
                     Value = formatted
                 });
             }
@@ -171,7 +171,7 @@
             {
                 new
                 {
-                    Key = x.Id,
+                    FieldId = x.Id,
                     PathSegment = x.PathSegment,
                     Filename = x.Filename
                 }
