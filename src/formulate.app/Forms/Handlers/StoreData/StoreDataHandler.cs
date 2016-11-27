@@ -44,7 +44,7 @@
         /// <summary>
         /// The icon shown in the picker dialog.
         /// </summary>
-        public string Icon => "icon-formulate-submission";
+        public string Icon => "icon-formulate-store-data";
 
 
         /// <summary>

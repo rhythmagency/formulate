@@ -25,6 +25,7 @@
     using FormConstants = formulate.app.Constants.Trees.Forms;
     using LayoutConstants = formulate.app.Constants.Trees.Layouts;
     using LayoutHelper = Trees.Helpers.LayoutHelper;
+    using SubmissionConstants = formulate.app.Constants.Trees.Submissions;
     using ValidationConstants = formulate.app.Constants.Trees.Validations;
     using ValidationHelper = Trees.Helpers.ValidationHelper;
 
@@ -101,6 +102,12 @@
                 // Actions for validations.
                 ValidationHelper.AddCreateValidationAction(menu);
                 FolderHelper.AddCreateFolderAction(menu);
+
+            }
+            else if (id.InvariantEquals(SubmissionConstants.Id))
+            {
+
+                // Do nothing. The submissions node requires no actions.
 
             }
             else
@@ -220,6 +227,12 @@
                     ValidationConstants.TreeIcon, hasRootValidations,
                     string.Format(formatUrl, "validationLibrary", ValidationConstants.Id));
                 nodes.Add(validationsNode);
+                var submissionsNode = this.CreateTreeNode(
+                    SubmissionConstants.Id, id, queryStrings,
+                    LocalizationHelper.GetTreeName(SubmissionConstants.Title),
+                    SubmissionConstants.TreeIcon, false,
+                    string.Format(formatUrl, "submissions", SubmissionConstants.Id));
+                nodes.Add(submissionsNode);
 
             }
             else if (id.InvariantEquals(LayoutConstants.Id))
@@ -260,6 +273,12 @@
                     .RetrieveChildren(rootDataValueId);
                 DataValueHelper.AddChildrenToTree(nodes, queryStrings,
                     entities.OrderBy(x => x.Name));
+
+            }
+            else if (id.InvariantEquals(SubmissionConstants.Id))
+            {
+
+                // No nodes exist under the submissions node.
 
             }
             else

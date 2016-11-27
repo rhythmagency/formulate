@@ -12,6 +12,7 @@
     <key alias="Forms">Forms</key>
     <key alias="Layouts">Layouts</key>
     <key alias="Validation Library">Validation Library</key>
+    <key alias="Submissions">Submissions</key>
   </area>
   <area alias="formulate-data-value-names">
     <key alias="List">List</key>

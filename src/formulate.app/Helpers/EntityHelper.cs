@@ -11,6 +11,7 @@
     using DataValueConstants = formulate.app.Constants.Trees.DataValues;
     using FormConstants = formulate.app.Constants.Trees.Forms;
     using LayoutConstants = formulate.app.Constants.Trees.Layouts;
+    using SubmissionConstants = formulate.app.Constants.Trees.Submissions;
     using ValidationConstants = formulate.app.Constants.Trees.Validations;
 
 
@@ -34,6 +35,7 @@
         static readonly Guid ValidationId;
         static readonly Guid DataValueId;
         static readonly Guid DataSourceId;
+        static readonly Guid SubmissionId;
 
         #endregion
 
@@ -50,6 +52,7 @@
             ValidationId = GuidHelper.GetGuid(ValidationConstants.Id);
             DataValueId = GuidHelper.GetGuid(DataValueConstants.Id);
             DataSourceId = GuidHelper.GetGuid(DataSourceConstants.Id);
+            SubmissionId = GuidHelper.GetGuid(SubmissionConstants.Id);
         }
 
         #endregion
@@ -85,6 +88,10 @@
             else if (id == DataSourceId)
             {
                 return DataSourceConstants.TreeIcon;
+            }
+            else if (id == SubmissionId)
+            {
+                return SubmissionConstants.TreeIcon;
             }
             else
             {
@@ -164,6 +171,10 @@
             {
                 name = DataSourceConstants.Title;
             }
+            else if (id == SubmissionId)
+            {
+                name = SubmissionConstants.Title;
+            }
             else
             {
                 throw new ArgumentOutOfRangeException("id", InvalidId);
@@ -183,7 +194,7 @@
         public static bool IsRoot(Guid id)
         {
             return id == FormId || id == LayoutId || id == ValidationId
-                || id == DataValueId || id == DataSourceId;
+                || id == DataValueId || id == DataSourceId || id == SubmissionId;
         }
 
 
