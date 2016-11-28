@@ -7,6 +7,7 @@
     using Persistence.Internal.Sql.Models;
     using Resolvers;
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web.Hosting;
@@ -125,6 +126,9 @@
                 new
                 {
                     FieldId = default(string),
+                    // Field name is stored in case the field is deleted from the form
+                    // and this stored name is all we have to go on.
+                    FieldName = default(string),
                     Value = default(string)
                 }
             }.Take(0).ToList();
@@ -154,13 +158,16 @@
                 var values = valuesById[key];
                 var formatted = string.Join(", ", values);
                 var field = default(IFormField);
+                var fieldName = default(string);
                 if (fieldsById.TryGetValue(key, out field))
                 {
                     formatted = field.FormatValue(values, FieldPresentationFormats.Storage);
+                    fieldName = field.Name;
                 }
                 valueList.Add(new
                 {
                     FieldId = GuidHelper.GetString(key),
+                    FieldName = fieldName,
                     Value = formatted
                 });
             }
@@ -172,6 +179,9 @@
                 new
                 {
                     FieldId = x.Id,
+                    // Field name is stored in case the field is deleted from the form
+                    // and this stored name is all we have to go on.
+                    FieldName = GetFieldName(x.Id, fieldsById),
                     PathSegment = x.PathSegment,
                     Filename = x.Filename
                 }
@@ -223,6 +233,29 @@
 
 
         #region Private Methods
+
+        /// <summary>
+        /// Tries to get a field name by its ID.
+        /// </summary>
+        /// <param name="fieldId">
+        /// The field ID.
+        /// </param>
+        /// <param name="fieldsById">
+        /// The dictionary of fields.
+        /// </param>
+        /// <returns>
+        /// The field name, or null.
+        /// </returns>
+        private string GetFieldName(Guid fieldId, Dictionary<Guid, IFormField> fieldsById)
+        {
+            var field = default(IFormField);
+            if (fieldsById.TryGetValue(fieldId, out field))
+            {
+                return field.Name;
+            }
+            return null;
+        }
+
 
         /// <summary>
         /// Generates a file path segment.

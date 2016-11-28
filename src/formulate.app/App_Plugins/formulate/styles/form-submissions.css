@@ -1,0 +1,34 @@
+tr.formulate-submission-row-even {
+    background-color: #ddd;
+}
+tr.formulate-submission-row-odd {
+    background-color: #ccc;
+}
+table.form-submissions-table {
+    width: 100%;
+    margin-top: 50px;
+}
+td.form-submission-cell {
+    vertical-align: top;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.form-submissions-none {
+    margin-top: 50px;
+}
+th.form-submission-field-header {
+    text-align: left;
+    padding-right: 15px;
+}
+ul.formulate-pager {
+    list-style-type: none;
+    margin-top: 30px;
+    margin-left: 0;
+}
+ul.formulate-pager li {
+    float: left;
+    display: inline-block;
+}
+button.formulate-pager-item-active {
+    font-weight: bold;
+}

@@ -236,6 +236,9 @@
                 { "GetEntity",
                     helper.GetUmbracoApiService<EntitiesController>(x =>
                         x.GetEntity(null)) },
+                { "GetSubmissions",
+                    helper.GetUmbracoApiService<StoredDataController>(x =>
+                        x.GetSubmissions(null)) },
                 { "EditLayoutBase", "/formulate/formulate/editLayout/" },
                 { "EditValidationBase",
                     "/formulate/formulate/editValidation/" },

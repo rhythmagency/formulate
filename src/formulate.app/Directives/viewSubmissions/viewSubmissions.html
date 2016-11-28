@@ -1,0 +1,63 @@
+<div>
+    <h2>Form Submissions</h2>
+    <div>
+        {{formName}}
+    </div>
+    <button type="button" class="btn btn-default" ng-click="pickForm()">Pick Form</button>
+    <p ng-if="!submissions.length" class="form-submissions-none">
+        No form submissions to show.
+    </p>
+    <table class="form-submissions-table" ng-if="submissions.length">
+        <thead>
+        <tr>
+            <th>
+                Creation Date
+            </th>
+            <th>
+                Page
+            </th>
+            <th>
+                Field Values
+            </th>
+            <th>
+                File Values
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="submission in submissions" ng-class="getRowClass($index)">
+            <td class="form-submission-cell">
+                {{submission.creationDate}}
+            </td>
+            <td class="form-submission-cell">
+                <a ng-href="{{submission.url}}">{{submission.url}}</a>
+                <span ng-if="submission.pageId">
+                    (<a ng-href="{{getNodeUrl(submission.pageId)}}">View Content Page</a>)
+                </span>
+            </td>
+            <td class="form-submission-cell">
+                <table>
+                    <tbody>
+                    <tr ng-repeat="field in submission.fields">
+                        <th class="form-submission-field-header">
+                            {{field.name}}
+                        </th>
+                        <td class="form-submission-field-cell">
+                            {{field.value}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td class="form-submission-cell">
+                Files will go here.
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <ul class="formulate-pager">
+        <li ng-repeat="item in getPagerItems() track by $index">
+            <button type="button" ng-click="getPage(item.pageNumber)" ng-class="getPagerItemClass(item.active)" class="btn btn-default">{{item.pageNumber}}</button>
+        </li>
+    </ul>
+</div>
