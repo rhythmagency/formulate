@@ -239,6 +239,9 @@
                 { "GetSubmissions",
                     helper.GetUmbracoApiService<StoredDataController>(x =>
                         x.GetSubmissions(null)) },
+                { "DownloadFile",
+                    helper.GetUmbracoApiService<StoredDataDownloadController>(x =>
+                        x.DownloadFile(null)) },
                 { "EditLayoutBase", "/formulate/formulate/editLayout/" },
                 { "EditValidationBase",
                     "/formulate/formulate/editValidation/" },

@@ -50,7 +50,20 @@
                 </table>
             </td>
             <td class="form-submission-cell">
-                Files will go here.
+                <table ng-repeat="file in submission.files">
+                    <tbody>
+                    <tr ng-repeat="file in submission.files">
+                        <th class="form-submission-field-header">
+                            {{file.name}}
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="form-submission-field-cell">
+                            <a class="btn btn-default" ng-href="{{file.path}}">{{file.filename}}</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </td>
         </tr>
         </tbody>

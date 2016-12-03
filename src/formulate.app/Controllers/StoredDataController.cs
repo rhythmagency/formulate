@@ -121,8 +121,7 @@
                     Url = x.Url,
                     PageId = x.PageId,
                     Fields = GetDataForFields(x.DataValues, fieldsById),
-                    //TODO: Account for files.
-                    Files = new[] { new { } }.Take(0).ToArray()
+                    Files = GetDataForFiles(x.FileValues, fieldsById)
                 }).ToArray()
             };
 
@@ -185,6 +184,70 @@
                     Name = fieldName,
                     //TODO: Transform for presentation in grid?
                     Value = value
+                });
+
+            }
+
+
+            // Return the array of field information.
+            return fieldInfo.ToArray();
+
+        }
+
+        /// <summary>
+        /// Returns the anonymous object array for the specified form file fields.
+        /// </summary>
+        /// <param name="strJson">
+        /// The serialized form file fields.
+        /// </param>
+        /// <param name="fieldsById">
+        /// The form field information, stored in a dictionary by field ID.
+        /// </param>
+        /// <returns>
+        /// The anonymous object array containing file field information.
+        /// </returns>
+        private object GetDataForFiles(string strJson, Dictionary<Guid, IFormField> fieldsById)
+        {
+
+            // Create a list to store the field data in.
+            var fieldInfo = new[]
+            {
+                new
+                {
+                    Name = default(string),
+                    Filename = default(string),
+                    PathSegment = default(string)
+                }
+            }.Take(0).ToList();
+
+
+            // Deserialize the field data, gather extra field info, and populate the field info.
+            var deserialied = JsonHelper.Deserialize<dynamic>(strJson);
+            foreach (var field in deserialied)
+            {
+
+                // Variables.
+                var strGuid = (field.FieldId as object)?.ToString();
+                var guid = GuidHelper.GetGuid(strGuid);
+                var fieldName = (field.FieldName as object).ToString();
+                var pathSegment = (field.PathSegment as object).ToString();
+                var filename = (field.Filename as object).ToString();
+                var formField = default(IFormField);
+
+
+                // Attempt to get the current field name.
+                if (fieldsById.TryGetValue(guid, out formField))
+                {
+                    fieldName = formField.Name;
+                }
+
+
+                // Remember the field info.
+                fieldInfo.Add(new
+                {
+                    Name = fieldName,
+                    Filename = filename,
+                    PathSegment = pathSegment
                 });
 
             }

@@ -27,6 +27,7 @@ function getGetSubmissions(services) {
 
         // Variables.
         var url = services.formulateVars.GetSubmissions;
+        var downloadUrlBase = services.formulateVars.DownloadFile + "?PathSegment=";
         var params = {
             FormId: formId,
             Page: page,
@@ -50,10 +51,18 @@ function getGetSubmissions(services) {
                                 name: field.Name,
                                 value: field.Value
                             };
+                        }),
+                        files: item.Files.map(function (field) {
+                            var path = encodeURIComponent(field.PathSegment);
+                            var filename = encodeURIComponent(field.Filename);
+                            return {
+                                name: field.Name,
+                                filename: field.Filename,
+                                path: downloadUrlBase + path + "&Filename=" + filename
+                            };
                         })
                     };
                 })
-                //TODO: Files.
             };
 
         });

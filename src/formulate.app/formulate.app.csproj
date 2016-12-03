@@ -309,6 +309,7 @@
     <Compile Include="Controllers\FormsController.cs" />
     <Compile Include="Controllers\ConfiguredFormsController.cs" />
     <Compile Include="Controllers\StoredDataController.cs" />
+    <Compile Include="Controllers\StoredDataDownloadController.cs" />
     <Compile Include="Controllers\TemplatesController.cs" />
     <Compile Include="Controllers\ValidationsController.cs" />
     <Compile Include="Controllers\LayoutsController.cs" />
@@ -396,6 +397,7 @@
     <Compile Include="Models\Requests\DeleteDataValueRequest.cs" />
     <Compile Include="Models\Requests\DeleteFolderRequest.cs" />
     <Compile Include="Models\Requests\DeleteConfiguredFormRequest.cs" />
+    <Compile Include="Models\Requests\GetFileDownloadRequest.cs" />
     <Compile Include="Models\Requests\GetStoredDataRequest.cs" />
     <Compile Include="Models\Requests\DeleteValidationRequest.cs" />
     <Compile Include="Models\Requests\GetDataValuesInfoRequest.cs" />

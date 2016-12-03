@@ -174,17 +174,14 @@
 
 
             // Store file information for serialization.
-            var fileList = filesById.Values.Select(x => new[]
+            var fileList = filesById.Values.Select(x => new
             {
-                new
-                {
-                    FieldId = x.Id,
-                    // Field name is stored in case the field is deleted from the form
-                    // and this stored name is all we have to go on.
-                    FieldName = GetFieldName(x.Id, fieldsById),
-                    PathSegment = x.PathSegment,
-                    Filename = x.Filename
-                }
+                FieldId = x.Id,
+                // Field name is stored in case the field is deleted from the form
+                // and this stored name is all we have to go on.
+                FieldName = GetFieldName(x.Id, fieldsById),
+                PathSegment = x.PathSegment,
+                Filename = x.Filename
             });
 
 
