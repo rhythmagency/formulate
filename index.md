@@ -23,6 +23,7 @@ Here are a few pages that will help you get started with Formulate:
   * [Contributing to Formulate](https://github.com/rhythmagency/formulate#contributing)
   * [Custom Field Types](/articles/custom-field-types)
 * [Frequently Asked Questions](/faq)
+* [A Guided Tour of Formulate](https://code101.net/a-guided-tour-of-umbraco-formulate-2016-edition-4a3ce6af6d36)
 
 If you have any questions, feel free to [contact me](http://www.nicholaswestby.com/contact/) or report an issue [here](https://github.com/rhythmagency/formulate/issues).
 
