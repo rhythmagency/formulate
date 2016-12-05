@@ -3,6 +3,12 @@ layout: page
 title: Creating Custom Formulate Field Types
 ---
 
+# Updated Documentation Notice
+
+This page is the latest version of this documentation. If you are using an older version of Formulate,
+you will want to refer to the previous version of this page, which you can find here:
+[legacy documentation for custom field types](https://github.com/rhythmagency/formulate/blob/192ed5be397fa2a9b50b8a3f64f84429c1ef8cd7/articles/custom-field-types.md).
+
 # Custom Formulate Field Types
 
 Formulate comes with a few common field types, such as text, checkbox, drop down, and upload fields.
