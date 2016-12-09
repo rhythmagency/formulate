@@ -10,4 +10,5 @@ These are some things that are on the horizon for Formulate:
 * **SQL Persistence.** In addition to the current JSON file system persistence, there will eventually be persistence to SQL Server.
 * **Field Comparison Validation.** Once implemented, this can be used to ensure that two fields match (e.g., for a password confirmation field).
 * **Export / Import.** While it is possible to copy forms from the file system already, the ability to do so from the UI will eventually be added.
+* **Angular 2 Template.** In addition to the AngularJS 1.x template, we are hoping to have an Angular 2.x template in early 2017.
 * **Various Enhancements.** You can see a few more planned enhancements here: [Formulate Enhancements](https://github.com/rhythmagency/formulate/labels/enhancement).
