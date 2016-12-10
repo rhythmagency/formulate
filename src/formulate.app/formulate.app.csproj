@@ -531,9 +531,6 @@
     <Content Include="App_Plugins\formulate\menu-actions\deleteLayout.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteForm.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteValidation.html" />
-    <Content Include="App_Plugins\formulate\styles\entity-tree.css" />
-    <Content Include="App_Plugins\formulate\styles\form-designer.css" />
-    <Content Include="App_Plugins\formulate\styles\layout-designer.css" />
     <Content Include="Directives\configuredFormDesigner\designer.html" />
     <Content Include="Directives\configuredFormDesigner\designer.js" />
     <Content Include="Directives\createFolder\createFolder.html" />
@@ -644,7 +641,6 @@
     <Content Include="Directives\install\install.html" />
     <Content Include="Directives\install\install.js" />
     <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.svg" />
-    <Content Include="App_Plugins\formulate\styles\formulate-icomoon.css" />
     <Content Include="App_Plugins\formulate\lang\en-GB.xml" />
     <Content Include="JavaScript\Editors\configuredFormPicker.js" />
     <Content Include="JavaScript\FormTemplates\responsive.bootstrap.angular\directives\form\field.js" />

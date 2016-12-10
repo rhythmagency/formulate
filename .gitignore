@@ -13,6 +13,7 @@ obj/
 
 # Grunt build artifacts.
 src/formulate.app/App_Plugins/formulate/formulate.js
+src/formulate.app/App_Plugins/formulate/formulate.css
 src/formulate.app/App_Plugins/formulate/responsive.bootstrap.angular.js
 src/FormulateTemp/
 dist/

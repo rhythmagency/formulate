@@ -1,5 +1,9 @@
 module.exports = function(grunt) {
 
+    // Dependencies.
+    var sass = require("node-sass");
+    var fs = require("fs");
+
     // Config variables.
     var projectName = "formulate";
     var binaries = [].concat.apply([], [
@@ -16,6 +20,7 @@ module.exports = function(grunt) {
     ]);
     var appProject = projectName + ".app";
     var apiProject = projectName + ".api";
+    var uiProject = projectName + ".backoffice.ui";
     var buildConfig = grunt.option("buildConfiguration");
 
     // Extracts Formulate's version from the constants file.
@@ -88,7 +93,6 @@ module.exports = function(grunt) {
     // Tries to get the last modified date of a file.
     // If the file does not exist, null will be returned.
     function tryGetModifiedDate(path) {
-        var fs = require("fs");
         try {
             var info = fs.statSync(path);
             return info.mtime;
@@ -108,7 +112,8 @@ module.exports = function(grunt) {
                     rba: {
                         js: appProject + "/JavaScript/FormTemplates/responsive.bootstrap.angular/index.js"
                     }
-                }
+                },
+                sass: uiProject + "/styles/formulate.scss"
             },
             out: {
                 js: appProject + "/App_Plugins/formulate/formulate.js",
@@ -118,7 +123,8 @@ module.exports = function(grunt) {
                     rba: {
                         js: appProject + "/App_Plugins/formulate/responsive.bootstrap.angular.js"
                     }
-                }
+                },
+                css: appProject + "/App_Plugins/formulate/formulate.css"
             }
         },
         copy: {
@@ -332,6 +338,16 @@ module.exports = function(grunt) {
         grunt.config.merge(mergeConfig);
     });
 
+    // Task to compile the Sass to CSS.
+    grunt.registerTask("sass:default", function () {
+        var path = grunt.config.get("paths.in.sass");
+        var outFile = grunt.config.get("paths.out.css");
+        var styles = sass.renderSync({
+            file: path
+        });
+        grunt.file.write(outFile, styles.css);
+    });
+
     // Load NPM tasks.
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-html-convert");
@@ -347,12 +363,12 @@ module.exports = function(grunt) {
     grunt.registerTask("default",
         // The "default" task is for general development of Formulate.
         ["clean:before", "htmlConvert", "browserify:default", "ngAnnotate:main",
-        "configure:copy:main", "copy:main", "clean:after"]);
+        "sass:default", "configure:copy:main", "copy:main", "clean:after"]);
     grunt.registerTask("frontend",
         // The "frontend" task is for frontend development of Formulate. This
         // will skip copying the binaries.
         ["clean:before", "htmlConvert", "browserify:default", "ngAnnotate:main",
-        "copy:frontend", "jsdoc:main", "clean:after"]);
+        "sass:default", "copy:frontend", "jsdoc:main", "clean:after"]);
     grunt.registerTask("frontend-templates",
         // The "frontend-templates" task is for developing frontend templates
         // (e.g., the responsive Bootstrap Angular template).
@@ -365,12 +381,13 @@ module.exports = function(grunt) {
         // The "package" task is used to create an installer package
         // for Formulate.
         ["clean:before", "htmlConvert", "browserify:default", "ngAnnotate:main",
-        "configure:copy:package", "copy:package", "umbracoPackage:main", "clean:after"]);
+        "sass:default", "configure:copy:package", "copy:package",
+        "umbracoPackage:main", "clean:after"]);
     grunt.registerTask("package-full",
         // The "package-full" task is used to build the Visual Studio
         // solution and then create the installer package for Formulate.
         ["clean:before", "nuget_install", "configure:msbuild", "msbuild:main", "htmlConvert",
-        "browserify:default", "ngAnnotate:main", "configure:copy:package",
+        "browserify:default", "ngAnnotate:main", "sass:default", "configure:copy:package",
         "copy:package", "umbracoPackage:main", "clean:after"]);
 
 };
