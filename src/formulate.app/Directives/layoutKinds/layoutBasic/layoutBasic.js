@@ -50,6 +50,7 @@ function controller($scope, formulateForms, dialogService, notificationsService)
     $scope.toggleCell = getToggleCell();
     $scope.sampleCells = getSampleCells();
     $scope.useField = getUseField(services);
+    $scope.toggleEditRows = getToggleEditRows(services);
 
     // Initialize watchers.
     watchEditRowsSetting(services);
@@ -133,6 +134,14 @@ function getToggleCell() {
         if (index > 0) {
             cell.active = !cell.active;
         }
+    };
+}
+
+// Returns the function that toggles the "edit rows" option.
+function getToggleEditRows(services) {
+    var $scope = services.$scope;
+    return function () {
+        $scope.editRows = !$scope.editRows;
     };
 }
 

@@ -211,7 +211,8 @@
     <key alias="Append Payload">Append Payload?</key>
     <key alias="Append Fields">Append Fields?</key>
     <key alias="Layout Alias">Layout Alias</key>
-    <key alias="Edit Rows">Edit rows?</key>
+    <key alias="Edit Rows">Edit Rows</key>
+    <key alias="Edit Fields">Edit Fields</key>
     <key alias="Layout Name:">Layout Name:</key>
     <key alias="Layout Alias:">Layout Alias:</key>
     <key alias="Validation Alias">Validation Alias</key>

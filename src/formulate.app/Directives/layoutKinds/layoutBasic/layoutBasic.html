@@ -1,17 +1,18 @@
 ﻿<div>
     <div>
 
-        <!-- Pick form button. -->
-        <label>
-            <input
-                    type="checkbox"
-                    ng-model="editRows"
-                    id="editRows" />
-            <localize key="formulate-labels_Edit Rows">
-                Edit rows?
-            </localize>
-        </label>
+        <!-- Buttons (pick form, and edit rows). -->
         <button type="button" class="btn btn-default" ng-click="pickForm()">Pick Form</button>
+        <button ng-if="!editRows" type="button" class="btn btn-default" ng-click="toggleEditRows()">
+            <localize key="formulate-labels_Edit Rows">
+                Edit Rows
+            </localize>
+        </button>
+        <button ng-if="editRows" type="button" class="btn btn-default" ng-click="toggleEditRows()">
+            <localize key="formulate-labels_Edit Fields">
+                Edit Fields
+            </localize>
+        </button>
 
         <!-- Add row section. -->
         <div class="formulate-add-row-section">
