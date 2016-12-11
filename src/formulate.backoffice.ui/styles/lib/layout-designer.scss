@@ -1,18 +1,20 @@
+@import "colors";
+
 .formulate-cell {
     margin: 0 10px 10px 0;
     padding: 5px;
-    border: 1px dotted #888;
+    border: 1px dotted $grey-dark;
     min-height: 34px;
 }
 
 .formulate-cell-field {
-    background-color: #eee;
+    background-color: $white-dark;
     padding: 3px;
     margin: 3px;
 }
 
 .formulate-cell.editing-rows {
-    background-color: #eee;
+    background-color: $white-dark;
     border-color: transparent;
 }
 
@@ -26,29 +28,29 @@
 
 .formulate-sample-cell--active,
 .formulate-sample-cell--inactive {
-    background-color: #eee;
+    background-color: $white-dark;
     height: 40px;
     line-height: 40px;
     text-align: center;
-    border-top: 4px solid #888;
-    border-bottom: 4px solid #888;
+    border-top: 4px solid $grey-dark;
+    border-bottom: 4px solid $grey-dark;
 }
 
 .formulate-sample-cell--active:hover,
 .formulate-sample-cell--inactive:hover {
-    background-color: #888;
+    background-color: $grey-dark;
     cursor: pointer;
 }
 
 .formulate-sample-cell--active,
 .formulate-sample-cell--first {
     margin-left: 8px;
-    border-left: 4px solid #888;
+    border-left: 4px solid $grey-dark;
 }
 
 .formulate-sample-cell--adjacent,
 .formulate-sample-cell--last {
-    border-right: 4px solid #888;
+    border-right: 4px solid $grey-dark;
 }
 
 .formulate-add-row-section {

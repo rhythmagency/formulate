@@ -1,3 +1,5 @@
+@import "colors";
+
 ul.formulate-entity-tree,
 ul.formulate-entity-tree ul {
     list-style-type: none;
@@ -17,5 +19,5 @@ ul.formulate-entity-tree .child-toggle:hover {
 }
 
 ul.formulate-entity-tree .entity-icon.selected {
-    color: #2e8aea;
+    color: $blue-icon;
 }

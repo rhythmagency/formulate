@@ -1,3 +1,5 @@
+@import "colors";
+
 .formulate-field .collapser,
 .formulate-handler .collapser {
     -moz-transition: transform 0.25s;
@@ -53,11 +55,11 @@
 
 .formulate-field .deleter,
 .formulate-handler .deleter {
-    color: #9d261d;
+    color: $red-warn;
     float: right;
     vertical-align: middle;
     font-size: 1.2em;
-    text-shadow: 2px 2px #600;
+    text-shadow: 2px 2px $red-dark;
 }
 
 .formulate-field .type-identifier,
@@ -65,5 +67,5 @@
     vertical-align: text-bottom;
     font-size: 1.5em;
     margin-right: 5px;
-    text-shadow: 2px 2px 3px #000;
+    text-shadow: 2px 2px 3px $black;
 }

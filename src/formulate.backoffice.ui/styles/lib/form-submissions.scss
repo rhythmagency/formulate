@@ -1,8 +1,10 @@
+@import "colors";
+
 tr.formulate-submission-row-even {
-    background-color: #ddd;
+    background-color: $grey-light;
 }
 tr.formulate-submission-row-odd {
-    background-color: #ccc;
+    background-color: $grey;
 }
 table.form-submissions-table {
     width: 100%;
