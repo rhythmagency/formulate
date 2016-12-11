@@ -243,7 +243,7 @@
     <key alias="Add Handler">Add Handler</key>
     <key alias="Add Recipient">Add Recipient</key>
     <key alias="Delete Row">Delete Row</key>
-    <key alias="Add Row">Add Row</key>
+    <key alias="Click to Add Row">Click to Add Row</key>
     <key alias="Create Layout">Create Layout</key>
     <key alias="Create Validation">Create Validation</key>
   </area>

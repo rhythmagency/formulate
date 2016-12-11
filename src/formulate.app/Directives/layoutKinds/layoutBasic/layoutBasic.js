@@ -106,7 +106,7 @@ function getSampleCells() {
     return cells;
 }
 
-// Returns the function that returns a classes for the specified cell.
+// Returns the function that returns the classes for the specified cell.
 function getGetSampleCellClasses() {
     return function (cells, index) {
         var cell = cells[index];

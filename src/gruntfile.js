@@ -139,6 +139,17 @@ module.exports = function(grunt) {
                     }
                 ]
             },
+            "frontend-styles": {
+                files: [
+                    {
+                        // Frontend files.
+                        expand: true,
+                        src: ["App_Plugins/**/*.css"],
+                        dest: 'Website/',
+                        cwd: appProject + "/"
+                    }
+                ]
+            },
             templates: {
                 files: [
                     {
@@ -369,6 +380,10 @@ module.exports = function(grunt) {
         // will skip copying the binaries.
         ["clean:before", "htmlConvert", "browserify:default", "ngAnnotate:main",
         "sass:default", "copy:frontend", "jsdoc:main", "clean:after"]);
+    grunt.registerTask("frontend-styles",
+        // The "frontend-styles" task is for frontend development of Formulate styles.
+        // This will skip copying the binaries.
+        ["clean:before", "sass:default", "copy:frontend-styles", "clean:after"]);
     grunt.registerTask("frontend-templates",
         // The "frontend-templates" task is for developing frontend templates
         // (e.g., the responsive Bootstrap Angular template).

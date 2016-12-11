@@ -32,8 +32,10 @@
     height: 40px;
     line-height: 40px;
     text-align: center;
+    border-color: $grey-dark;
     border-top: 4px solid $grey-dark;
     border-bottom: 4px solid $grey-dark;
+    transition: border-color 0.25s;
 }
 
 .formulate-sample-cell--active:hover,
@@ -42,15 +44,20 @@
     cursor: pointer;
 }
 
-.formulate-sample-cell--active,
-.formulate-sample-cell--first {
+.formulate-sample-cell--active {
     margin-left: 8px;
     border-left: 4px solid $grey-dark;
+    transition: border-color 0.25s;
+}
+.formulate-sample-cell--first {
+    border-left: 4px solid $grey-dark;
+    transition: border-color 0.25s;
 }
 
 .formulate-sample-cell--adjacent,
 .formulate-sample-cell--last {
     border-right: 4px solid $grey-dark;
+    transition: border-color 0.25s;
 }
 
 .formulate-add-row-section {
@@ -59,4 +66,41 @@
 
 .formulate-btn-use {
     font-weight: bold;
+}
+
+.btn.btn-add-row {
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: $grey-dark;
+    border: none;
+    color: $white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: background-color 0.25s;
+
+    &:hover {
+        background-color: $green;
+    }
+    &:focus {
+        outline: none;
+    }
+}
+
+.btn-add-row:hover + .sample-cells {
+    .formulate-sample-cell--active,
+    .formulate-sample-cell--inactive {
+        border-top-color: $green;
+        border-bottom-color: $green;
+    }
+    .formulate-sample-cell--active {
+        border-left-color: $green;
+    }
+    .formulate-sample-cell--first {
+        border-left-color: $green;
+    }
+    .formulate-sample-cell--adjacent,
+    .formulate-sample-cell--last {
+        border-right-color: $green;
+    }
 }
