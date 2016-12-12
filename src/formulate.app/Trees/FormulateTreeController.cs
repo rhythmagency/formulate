@@ -124,9 +124,9 @@
                 // What type of entity does the node represent?
                 if (entity is Form)
                 {
-                    FormHelper.AddDeleteFormAction(menu);
-                    FormHelper.AddMoveFormAction(menu, entity as Form);
                     ConfiguredFormHelper.AddCreateConfiguredFormAction(menu, entityId);
+                    FormHelper.AddMoveFormAction(menu, entity as Form);
+                    FormHelper.AddDeleteFormAction(menu);
                 }
                 else if (entity is ConfiguredForm)
                 {
@@ -134,24 +134,21 @@
                 }
                 else if (entity is Layout)
                 {
-                    LayoutHelper.AddDeleteLayoutAction(menu);
                     LayoutHelper.AddMoveLayoutAction(menu, entity as Layout);
+                    LayoutHelper.AddDeleteLayoutAction(menu);
                 }
                 else if (entity is Validation)
                 {
-                    ValidationHelper.AddDeleteValidationAction(menu);
                     ValidationHelper.AddMoveValidationAction(menu, entity as Validation);
+                    ValidationHelper.AddDeleteValidationAction(menu);
                 }
                 else if (entity is DataValue)
                 {
-                    DataValueHelper.AddDeleteAction(menu);
                     DataValueHelper.AddMoveDataValueAction(menu, entity as DataValue);
+                    DataValueHelper.AddDeleteAction(menu);
                 }
                 else if (entity is Folder)
                 {
-                    FolderHelper.AddCreateFolderAction(menu);
-                    FolderHelper.AddMoveFolderAction(menu, entity as Folder);
-                    FolderHelper.AddDeleteFolderAction(menu);
                     if (ancestorId == rootFormsId)
                     {
                         FormHelper.AddCreateFormAction(menu, entityId);
@@ -169,6 +166,9 @@
                     {
                         DataValueHelper.AddCreateAction(menu, entityId);
                     }
+                    FolderHelper.AddCreateFolderAction(menu);
+                    FolderHelper.AddMoveFolderAction(menu, entity as Folder);
+                    FolderHelper.AddDeleteFolderAction(menu);
                 }
 
             }

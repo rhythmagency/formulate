@@ -2,11 +2,11 @@
    which contains the selection.json you can use to update the icons. */
 @font-face {
 	font-family: "icomoon-formulate";
-	src:url("fonts/icomoon/icomoon.eot?jios0i");
-	src:url("fonts/icomoon/icomoon.eot?jios0i#iefix") format("embedded-opentype"),
-		url("fonts/icomoon/icomoon.ttf?jios0i") format("truetype"),
-		url("fonts/icomoon/icomoon.woff?jios0i") format("woff"),
-		url("fonts/icomoon/icomoon.svg?jios0i#icomoon") format("svg");
+	src:url("fonts/icomoon/icomoon.eot?j1nx05");
+	src:url("fonts/icomoon/icomoon.eot?j1nx05#iefix") format("embedded-opentype"),
+		url("fonts/icomoon/icomoon.ttf?j1nx05") format("truetype"),
+		url("fonts/icomoon/icomoon.woff?j1nx05") format("woff"),
+		url("fonts/icomoon/icomoon.svg?j1nx05#icomoon") format("svg");
 	font-weight: normal;
 	font-style: normal;
 }
@@ -26,14 +26,14 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-formulate-button:before {
-	content: "\e911";
+.icon-formulate-move:before {
+	content: "\e91a";
 }
-.icon-formulate-email:before {
-	content: "\e910";
+.icon-formulate-values:before {
+	content: "\e905";
 }
-.icon-formulate-conform:before {
-	content: "\e90f";
+.icon-formulate-validations:before {
+	content: "\e903";
 }
 .icon-formulate-value-group:before {
 	content: "\e90e";
@@ -59,6 +59,18 @@
 .icon-formulate-form-group:before {
 	content: "\e908";
 }
+.icon-formulate-submissions:before {
+	content: "\e919";
+}
+.icon-formulate-store-data:before {
+	content: "\e918";
+}
+.icon-formulate-checkbox-list:before {
+	content: "\e915";
+}
+.icon-formulate-conform:before {
+	content: "\e90f";
+}
 .icon-formulate-layouts:before {
 	content: "\e901";
 }
@@ -68,11 +80,17 @@
 .icon-formulate-data:before {
 	content: "\e902";
 }
-.icon-formulate-values:before {
-	content: "\e905";
+.icon-formulate-hidden:before {
+	content: "\e916";
 }
-.icon-formulate-validations:before {
-	content: "\e903";
+.icon-formulate-textarea:before {
+	content: "\e912";
+}
+.icon-formulate-radio-button-list:before {
+	content: "\e914";
+}
+.icon-formulate-rich-text:before {
+	content: "\e913";
 }
 .icon-formulate-forms:before {
 	content: "\e904";
@@ -80,36 +98,33 @@
 .icon-formulate-form:before {
 	content: "\e909";
 }
+.icon-formulate-email:before {
+	content: "\e910";
+}
 .icon-formulate-upload:before {
 	content: "\e9c3";
-}
-.icon-formulate-textarea:before {
-	content: "\e912";
-}
-.icon-formulate-rich-text:before {
-	content: "\e913";
-}
-.icon-formulate-radio-button-list:before {
-	content: "\e914";
 }
 .icon-formulate-extended-radio-button-list:before {
 	content: "\e91d";
 }
-.icon-formulate-checkbox-list:before {
-	content: "\e915";
-}
-.icon-formulate-hidden:before {
-	content: "\e916";
-}
 .icon-formulate-date:before {
 	content: "\e953";
+}
+.icon-formulate-create-folder:before {
+	content: "\e931";
+}
+.icon-formulate-delete-folder:before {
+	content: "\e932";
+}
+.icon-formulate-create:before {
+	content: "\ea0a";
+}
+.icon-formulate-delete:before {
+	content: "\ea0f";
 }
 .icon-formulate-header:before {
 	content: "\e917";
 }
-.icon-formulate-store-data:before {
-	content: "\e918";
-}
-.icon-formulate-submissions:before {
-	content: "\e919";
+.icon-formulate-button:before {
+	content: "\e911";
 }

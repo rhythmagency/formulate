@@ -94,7 +94,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "createFolder",
-                Icon = "folder",
+                Icon = "formulate-create-folder",
                 Name = LocalizationHelper.GetMenuItemName("Create Folder")
             };
             menuItem.LaunchDialogView(path, "Create Folder");
@@ -117,7 +117,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "moveFolder",
-                Icon = "folder",
+                Icon = "formulate-move",
                 Name = LocalizationHelper.GetMenuItemName("Move")
             };
             var titleFormat = @"Move ""{0}"" Folder";
@@ -139,7 +139,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "deleteFolder",
-                Icon = "folder",
+                Icon = "formulate-delete-folder",
                 Name = LocalizationHelper.GetMenuItemName("Delete Folder")
             };
             menuItem.LaunchDialogView(path, "Delete Folder");

@@ -130,7 +130,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "deleteValidation",
-                Icon = "folder",
+                Icon = "formulate-delete",
                 Name = LocalizationHelper.GetMenuItemName("Delete Validation")
             };
             menuItem.LaunchDialogView(path, "Delete Validation");
@@ -153,7 +153,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "moveValidation",
-                Icon = "folder",
+                Icon = "formulate-move",
                 Name = LocalizationHelper.GetMenuItemName("Move")
             };
             var titleFormat = @"Move ""{0}"" Validation";
@@ -181,7 +181,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "createValidation",
-                Icon = "folder",
+                Icon = "formulate-create",
                 Name = LocalizationHelper.GetMenuItemName("Create Validation")
             };
             if (entityId.HasValue)

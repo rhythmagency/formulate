@@ -109,7 +109,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "deleteConfiguredForm",
-                Icon = "folder",
+                Icon = "formulate-delete",
                 Name = LocalizationHelper.GetMenuItemName("Delete Configuration")
             };
             menuItem.LaunchDialogView(path, "Delete Configuration");
@@ -135,7 +135,7 @@
             var menuItem = new MenuItem()
             {
                 Alias = "createConfiguredForm",
-                Icon = "folder",
+                Icon = "formulate-create",
                 Name = LocalizationHelper.GetMenuItemName("Create Configuration")
             };
             menuItem.NavigateToRoute(path);
