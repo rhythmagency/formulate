@@ -4,14 +4,16 @@
     </localize>
 </div>
 <div ng-if="initialized">
-    <formulate-localize-content key="formulate-confirmations_Delete Layout">
-    </formulate-localize-content>
-    <button type="button" class="btn btn-primary" ng-click="cancel()">
+    <div class="formulate__dialog-confirmation-message">
+        <formulate-localize-content key="formulate-confirmations_Delete Layout">
+        </formulate-localize-content>
+    </div>
+    <button type="button" class="btn btn-link" ng-click="cancel()">
         <localize key="formulate-buttons_Cancel">
             Cancel
         </localize>
     </button>
-    <button type="button" class="btn btn-primary" ng-click="deleteLayout()">
+    <button type="button" class="btn btn-danger" ng-click="deleteLayout()">
         <localize key="formulate-buttons_Delete Layout">
             Delete Layout
         </localize>
