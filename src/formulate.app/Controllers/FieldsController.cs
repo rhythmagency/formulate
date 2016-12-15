@@ -29,6 +29,7 @@
         private const string UnhandledError = @"An unhandled error occurred. Refer to the error log.";
         private const string GetFieldTypesError = @"An error occurred while attempting to get the field types for a Formulate form.";
         private const string GetButtonKindsError = @"An error occurred while attempting to get the button kinds for a Formulate button field.";
+        private const string GetFieldCategoriesError = @"An error occurred while attempting to get the Field Categories for a field.";
 
         #endregion
 
@@ -162,6 +163,51 @@
 
                 // Error.
                 LogHelper.Error<FieldsController>(GetButtonKindsError, ex);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return result.
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// Returns the categories of fields that can be selected when adding a field in the form designer.
+        /// </summary>
+        /// <returns>
+        /// The field categories.
+        /// </returns>
+        public object GetFieldCategories()
+        {
+
+            // Variables.
+            var result = default(object);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Return results.
+                result = new
+                {
+                    Success = true,
+                    FieldCategories = Config.FieldCategories
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                LogHelper.Error<FieldsController>(GetFieldCategoriesError, ex);
                 result = new
                 {
                     Success = false,

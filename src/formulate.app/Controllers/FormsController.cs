@@ -5,6 +5,7 @@
     using core.Extensions;
     using Forms;
     using Helpers;
+    using Managers;
     using Models.Requests;
     using Persistence;
     using Resolvers;
@@ -19,6 +20,7 @@
     using Umbraco.Web.WebApi.Filters;
     using CoreConstants = Umbraco.Core.Constants;
     using FormConstants = formulate.app.Constants.Trees.Forms;
+    using ResolverConfig = Resolvers.Configuration;
 
 
     /// <summary>
@@ -41,6 +43,18 @@
 
 
         #region Properties
+
+        /// <summary>
+        /// Configuration manager.
+        /// </summary>
+        private IConfigurationManager Config
+        {
+            get
+            {
+                return ResolverConfig.Current.Manager;
+            }
+        }
+
 
         private IFormPersistence Persistence { get; set; }
         private IEntityPersistence Entities { get; set; }
@@ -118,12 +132,14 @@
                     Path = fullPath,
                     Alias = form.Alias,
                     Name = form.Name,
+                    FieldCategories = Config.FieldCategories,
                     Fields = form.Fields.MakeSafe().Select(x => new
                     {
                         Id = GuidHelper.GetString(x.Id),
                         x.Alias,
                         x.Name,
                         x.Label,
+                        x.Category,
                         Validations = x.Validations.MakeSafe()
                             .Select(y => Validations.Retrieve(y))
                             .WithoutNulls()
@@ -220,6 +236,7 @@
                         field.Alias = x.Alias;
                         field.Name = x.Name;
                         field.Label = x.Label;
+                        field.Category = x.Category;
                         field.Validations = x.Validations.MakeSafe()
                             .Select(y => GuidHelper.GetGuid(y)).ToArray();
                         field.FieldConfiguration =

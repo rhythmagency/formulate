@@ -275,6 +275,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\FieldCategoryCollection.cs" />
+    <Compile Include="Configuration\FieldCategoriesConfigSection.cs" />
+    <Compile Include="Configuration\FieldCategoryElement.cs" />
     <Compile Include="Configuration\FileStorageElement.cs" />
     <Compile Include="Configuration\JsonElement.cs" />
     <Compile Include="Configuration\SubmissionsConfigSection.cs" />

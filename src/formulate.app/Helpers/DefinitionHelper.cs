@@ -132,6 +132,7 @@
                             FieldType = field.GetFieldType(),
                             Id = field.Id,
                             Label = field.Label,
+                            Category = field.Category,
                             Name = field.Name,
                             Validations = validations.Select(x => new ValidationDefinition()
                             {

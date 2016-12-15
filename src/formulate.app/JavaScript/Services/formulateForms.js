@@ -103,6 +103,7 @@ function getPersistForm(services) {
                     Name: field.name,
                     Alias: field.alias,
                     Label: field.label,
+                    Category: field.category,
                     TypeFullName: field.typeFullName,
                     Validations: (field.validations || [])
                         .map(function(validation) {

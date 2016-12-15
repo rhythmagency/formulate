@@ -98,7 +98,18 @@
                                                    placeholder="formulate-placeholders_Field Label" />
                                         </div>
                                     </div>
-                                    <div>
+                                    <div class="umb-el-wrap">
+                                        <label class="control-label">
+                                            <localize key="formulate-labels_Field Category">
+                                                Field Category
+                                            </localize>
+                                        </label>
+                                        <div class="controls controls-row">
+                                            <select ng-options="option.value as option.label for option in categories" ng-model="field.category">
+                                                <option value="" formulate-inject-localization="formulate-options_Select a Field Category"></option>
+                                            </select>
+                                        </div>
+                                    </div>                                    <div>
                                         <label class="control-label">
                                             <localize key="formulate-labels_Validations">
                                                 Validations

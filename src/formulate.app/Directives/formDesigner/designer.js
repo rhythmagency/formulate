@@ -17,7 +17,7 @@ function directive(formulateDirectives) {
 
 // Controller.
 function controller($scope, $routeParams, $route, formulateTrees,
-    formulateForms, $location, dialogService, formulateValidations, formulateLocalization) {
+    formulateForms, $location, dialogService, formulateValidations, formulateLocalization, formulateFields) {
 
     // Variables.
     var id = $routeParams.id;
@@ -31,7 +31,8 @@ function controller($scope, $routeParams, $route, formulateTrees,
         $location: $location,
         $route: $route,
         dialogService: dialogService,
-        formulateValidations: formulateValidations
+        formulateValidations: formulateValidations,
+        formulateFields: formulateFields
     };
 
     // Set scope variables.
@@ -236,6 +237,16 @@ function initializeForm(options, services) {
     var id = options.id;
     var isNew = options.isNew;
     var $scope = services.$scope;
+
+    // Get the field categories.
+    services.formulateFields.getFieldCategories().then(function (categories) {
+        $scope.categories = categories.map(function (category) {
+            return {
+                label: category,
+                value: category
+            };
+        });
+    });
 
     // Is this a new form?
     if (isNew) {

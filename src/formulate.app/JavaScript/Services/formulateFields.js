@@ -19,7 +19,11 @@ app.factory("formulateFields", function (formulateVars,
 
 
         // Gets the button kinds.
-        getButtonKinds: getGetButtonKinds(services)
+        getButtonKinds: getGetButtonKinds(services),
+
+
+        // Gets the field categories.
+        getFieldCategories: getGetFieldCategories(services)
 
     };
 
@@ -63,6 +67,25 @@ function getGetButtonKinds(services) {
 
             // Return button kinds.
             return data.ButtonKinds;
+
+        });
+
+    };
+}
+
+
+// Returns the function that gets field categories.
+function getGetFieldCategories(services) {
+    return function () {
+
+        // Variables.
+        var url = services.formulateVars.GetFieldCategories;
+
+        // Get field categories from server.
+        return services.formulateServer.get(url, {}, function (data) {
+
+            // Return field categories.
+            return data.FieldCategories;
 
         });
 

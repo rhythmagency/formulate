@@ -40,6 +40,12 @@
         /// </summary>
         public string Label { get; set; }
 
+        
+        /// <summary>
+        /// The category of the field.
+        /// </summary>
+        public string Category { get; set; }
+
 
         /// <summary>
         /// The validations for this field.

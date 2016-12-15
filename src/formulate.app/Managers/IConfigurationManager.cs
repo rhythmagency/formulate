@@ -56,6 +56,12 @@
         /// </summary>
         IEnumerable<AllowEmail> EmailWhitelist { get; }
 
+
+        /// <summary>
+        /// The field categories used for flagging field types.
+        /// </summary>
+        IEnumerable<string> FieldCategories { get; }
+        
         #endregion
 
     }

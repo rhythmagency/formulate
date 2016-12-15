@@ -83,6 +83,8 @@
                         return field.Alias;
                     case "{label}":
                         return field.Label;
+                    case "{category}":
+                        return field.Category;
                     case "{{}":
                         return "{";
                     default:
