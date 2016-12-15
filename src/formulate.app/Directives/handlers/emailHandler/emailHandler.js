@@ -20,7 +20,7 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope) {
+function controller($scope, formulateFields) {
     if (!$scope.configuration.recipients) {
         $scope.configuration.recipients = [];
     }
@@ -31,5 +31,26 @@ function controller($scope) {
     };
     $scope.deleteRecipient = function (index) {
         $scope.configuration.recipients.splice(index, 1);
+    };
+
+    formulateFields.getFieldCategories().then(function (categories) {
+        $scope.categories = categories;
+    });
+
+    if (!$scope.configuration.FieldCategoryFilter) {
+        $scope.configuration.FieldCategoryFilter = [];
+    }
+
+    // toggle selection for a given category
+    $scope.toggleSelection = function toggleSelection(category) {
+        var idx = $scope.configuration.FieldCategoryFilter.indexOf(category);
+
+        // is currently selected else is not selected
+        if (idx > -1) {
+            $scope.configuration.FieldCategoryFilter.splice(idx, 1);
+        }
+        else {
+            $scope.configuration.FieldCategoryFilter.push(category);
+        }
     };
 }
