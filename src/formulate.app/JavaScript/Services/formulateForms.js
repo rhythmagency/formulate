@@ -55,6 +55,7 @@ function getGetFormInfo(services) {
                         name: field.Name,
                         alias: field.Alias,
                         label: field.Label,
+                        category: field.Category,
                         directive: field.Directive,
                         icon: field.Icon,
                         typeLabel: field.TypeLabel,
