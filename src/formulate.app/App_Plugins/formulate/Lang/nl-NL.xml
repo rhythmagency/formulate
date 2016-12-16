@@ -182,9 +182,11 @@
     <key alias="Select a Button Kind">Select a Button Kind</key>
     <key alias="Select a Function">Select a Function</key>
     <key alias="Select a Template">Select a Template</key>
+    <key alias="Select a Field Category">Select a Field Category</key>
   </area>
   <area alias="formulate-label-descriptions">
     <key alias="Append Payload">For example, the URL and name of the page containing the form.</key>
+    <key alias="Append FieldCategories">The field categories to include.</key>
   </area>
   <area alias="formulate-labels">
     <key alias="Orientation">Orientation</key>
@@ -201,6 +203,7 @@
     <key alias="Field Name">Field Name</key>
     <key alias="Field Alias">Field Alias</key>
     <key alias="Field Label">Field Label</key>
+    <key alias="Field Category">Field Category</key>
     <key alias="Validations">Validations</key>
     <key alias="Handler Name">Handler Name</key>
     <key alias="Handler Alias">Handler Alias</key>
@@ -210,6 +213,7 @@
     <key alias="Message">Message</key>
     <key alias="Append Payload">Append Payload?</key>
     <key alias="Append Fields">Append Fields?</key>
+    <key alias="Append FieldCategories">Appended Field Categories</key>
     <key alias="Layout Alias">Layout Alias</key>
     <key alias="Edit Rows">Edit Rows</key>
     <key alias="Edit Fields">Edit Fields</key>
