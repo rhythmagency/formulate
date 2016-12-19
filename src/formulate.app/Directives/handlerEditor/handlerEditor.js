@@ -12,12 +12,13 @@ function directive(formulateDirectives, $compile) {
         replace: true,
         scope: {
             directive: "=",
-            configuration: "="
+            configuration: "=",
+            fields: "="
         },
         link: function (scope, element) {
 
             // Create directive.
-            var markup = "<" + scope.directive + " configuration=\"configuration\"></" + scope.directive + ">";
+            var markup = "<" + scope.directive + " configuration=\"configuration\" fields=\"fields\"></" + scope.directive + ">";
             var directive = $compile(markup)(scope);
             element.replaceWith(directive);
 

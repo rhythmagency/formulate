@@ -13,7 +13,8 @@ function directive(formulateDirectives) {
         template: formulateDirectives.get(
             "handlers/emailHandler/emailHandler.html"),
         scope: {
-            configuration: "="
+            configuration: "=",
+            fields: "="
         },
         controller: "formulate.emailHandler"
     };

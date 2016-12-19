@@ -10,7 +10,8 @@ function directive(formulateDirectives) {
         template: formulateDirectives.get(
             "handlers/storeDataHandler/storeDataHandler.html"),
         scope: {
-            configuration: "="
+            configuration: "=",
+            fields: "="
         },
         controller: controller
     };
