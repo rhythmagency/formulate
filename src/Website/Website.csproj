@@ -333,7 +333,6 @@
     <Content Include="App_Plugins\formulate\dialogs\pickValidations.html" />
     <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.svg" />
     <Content Include="App_Plugins\formulate\formulate.js" />
-    <Content Include="App_Plugins\formulate\Lang\en-GB.xml" />
     <Content Include="App_Plugins\formulate\menu-actions\createDataValue.html" />
     <Content Include="App_Plugins\formulate\menu-actions\createFolder.html" />
     <Content Include="App_Plugins\formulate\menu-actions\createLayout.html" />
@@ -519,6 +518,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Transforms\Formulate\dashboard.config.uninstall.xdt" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Config\Formulate\buttons.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\Formulate\fieldCategories.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
