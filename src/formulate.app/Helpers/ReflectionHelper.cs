@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
 
 
     /// <summary>
@@ -12,6 +13,13 @@
     /// </summary>
     internal class ReflectionHelper
     {
+
+        #region Read Only Variables
+
+        private static readonly Type[] EmptyTypeArray = new Type[0];
+
+        #endregion
+
 
         #region Properties
 
@@ -35,7 +43,7 @@
         #endregion
 
 
-        #region Methods
+        #region Public Methods
 
         /// <summary>
         /// Instantiates all of the classes that implement the specified
@@ -92,7 +100,7 @@
             if (types == null)
             {
                 types = AppDomain.CurrentDomain.GetAssemblies()
-                    .SelectMany(x => x.GetTypes())
+                    .SelectMany(x => SafelyGetTypes(x))
                     .Where(x => interfaceType.IsAssignableFrom(x)
                         && !x.IsInterface).ToList();
                 lock (TypeMapLock)
@@ -105,6 +113,34 @@
             // Return types.
             return types.ToArray();
 
+        }
+
+        #endregion
+
+
+        #region Private Methods
+
+        /// <summary>
+        /// Safely returns the types in an assembly.
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <returns>
+        /// The array of types, or an empty array.
+        /// </returns>
+        /// <remarks>
+        /// This is a workaround for an issue that happens when dependent assemblies
+        /// are missing: https://github.com/rhythmagency/formulate/issues/70
+        /// </remarks>
+        private static Type[] SafelyGetTypes(Assembly assembly)
+        {
+            try
+            {
+                return assembly.GetTypes() ?? EmptyTypeArray;
+            }
+            catch
+            {
+                return EmptyTypeArray;
+            }
         }
 
         #endregion
