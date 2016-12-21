@@ -9,6 +9,5 @@
         public string Subject { get; set; }
         public bool AppendFields { get; set; }
         public bool AppendPayload { get; set; }
-        public IEnumerable<string> FieldCategoryFilter { get; set; }
     }
 }
