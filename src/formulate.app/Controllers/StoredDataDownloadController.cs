@@ -2,6 +2,7 @@
 {
 
     // Namespaces.
+    using CsvHelper;
     using Managers;
     using Models.Requests;
     using System.IO;
@@ -69,6 +70,47 @@
             result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
             {
                 FileName = request.Filename
+            };
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+
+
+            // Return download result.
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// Returns a CSV export.
+        /// </summary>
+        /// <param name="request">
+        /// The request for the CSV export.
+        /// </param>
+        /// <returns>
+        /// The file download.
+        /// </returns>
+        [HttpGet]
+        public HttpResponseMessage DownloadCsvExport([FromUri] GetCsvExportRequest request)
+        {
+
+            // Variables.
+            var formId = request.FormId;
+            //TODO: Generate Csv.
+            var writer = default(CsvWriter);
+            var fileData = new byte[0];
+            //TODO: Add form name to filename.
+            var filename = "export.csv";
+
+
+            // Construct download result.
+            var result = new HttpResponseMessage()
+            {
+                Content = new ByteArrayContent(fileData),
+                StatusCode = HttpStatusCode.OK
+            };
+            result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = filename
             };
             result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 

@@ -60,6 +60,10 @@
     <Reference Include="CookComputing.XmlRpcV2">
       <HintPath>..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
+    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Examine, Version=0.1.68.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Examine.0.1.68.0\lib\Examine.dll</HintPath>
@@ -400,6 +404,7 @@
     <Compile Include="Models\Requests\DeleteDataValueRequest.cs" />
     <Compile Include="Models\Requests\DeleteFolderRequest.cs" />
     <Compile Include="Models\Requests\DeleteConfiguredFormRequest.cs" />
+    <Compile Include="Models\Requests\GetCsvExportRequest.cs" />
     <Compile Include="Models\Requests\GetFileDownloadRequest.cs" />
     <Compile Include="Models\Requests\GetStoredDataRequest.cs" />
     <Compile Include="Models\Requests\DeleteValidationRequest.cs" />

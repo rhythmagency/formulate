@@ -16,10 +16,10 @@ module.exports = function(grunt) {
             return projectName + "." + base + ext;
         });
     })).concat([
-        "Microsoft.Web.XmlTransform.dll"
+        "Microsoft.Web.XmlTransform.dll",
+        "CsvHelper.dll"
     ]);
     var appProject = projectName + ".app";
-    var apiProject = projectName + ".api";
     var uiProject = projectName + ".backoffice.ui";
     var buildConfig = grunt.option("buildConfiguration");
 
@@ -287,7 +287,7 @@ module.exports = function(grunt) {
                             expand: true,
                             src: binaries,
                             dest: 'Website/bin/',
-                            cwd: apiProject + "/bin/" + getConfiguration() + "/"
+                            cwd: appProject + "/bin/" + getConfiguration() + "/"
                         }
                     ]
                 }
@@ -314,7 +314,7 @@ module.exports = function(grunt) {
                             expand: true,
                             src: binaries,
                             dest: './FormulateTemp/package/bin/',
-                            cwd: apiProject + "/bin/" + getConfiguration() + "/"
+                            cwd: appProject + "/bin/" + getConfiguration() + "/"
                         }, {
                             // Config and view files.
                             expand: true,
