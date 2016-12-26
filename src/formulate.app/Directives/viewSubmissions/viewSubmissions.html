@@ -1,9 +1,10 @@
 <div>
-    <h2>Form Submissions</h2>
-    <div>
-        {{formName}}
-    </div>
+    <h2>
+        <span>Form Submissions</span>
+        <span ng-if="formId">({{formName}})</span>
+    </h2>
     <button type="button" class="btn btn-default" ng-click="pickForm()">Pick Form</button>
+    <a ng-if="formId" class="btn btn-primary" ng-href="{{getExportUrl(formId)}}">Export to CSV</a>
     <p ng-if="!submissions.length" class="form-submissions-none">
         No form submissions to show.
     </p>

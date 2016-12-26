@@ -80,6 +80,22 @@
             }
         }
 
+
+        /// <summary>
+        /// Is this type of field persistent or transitory?
+        /// </summary>
+        public bool IsTransitory
+        {
+            get
+            {
+                var instance = new T();
+                var casted = instance as IFormFieldTypeExtended;
+                return casted == null
+                    ? false
+                    : casted.IsTransitory;
+            }
+        }
+
         #endregion
 
 

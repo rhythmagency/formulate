@@ -26,6 +26,7 @@
         Type GetFieldType();
         object DeserializeConfiguration();
         string FormatValue(IEnumerable<string> values, FieldPresentationFormats format);
+        bool IsTransitory { get; }
     }
 
 }

@@ -5,7 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    public class ButtonField : IFormFieldType
+    public class ButtonField : IFormFieldType, IFormFieldTypeExtended
     {
 
         #region Properties
@@ -14,6 +14,7 @@
         public string TypeLabel => "Button";
         public string Icon => "icon-formulate-button";
         public Guid TypeId => new Guid("CDE8565C5E9241129A1F7FFA1940C53C");
+        public bool IsTransitory => true;
 
         #endregion
 

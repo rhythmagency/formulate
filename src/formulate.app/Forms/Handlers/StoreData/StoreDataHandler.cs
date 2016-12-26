@@ -12,6 +12,7 @@
     using System.Linq;
     using System.Web.Hosting;
 
+
     /// <summary>
     /// A form submission handler that stores the submitted data.
     /// </summary>
@@ -176,7 +177,7 @@
             // Store file information for serialization.
             var fileList = filesById.Values.Select(x => new
             {
-                FieldId = x.Id,
+                FieldId = GuidHelper.GetString(x.Id),
                 // Field name is stored in case the field is deleted from the form
                 // and this stored name is all we have to go on.
                 FieldName = GetFieldName(x.Id, fieldsById),

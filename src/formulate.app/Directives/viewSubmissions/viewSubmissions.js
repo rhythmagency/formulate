@@ -15,14 +15,15 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller(formulateSubmissions, dialogService, $scope, formulateForms) {
+function controller(formulateSubmissions, dialogService, $scope, formulateForms, formulateVars) {
 
     // Variables.
     var injected = {
         $scope: $scope,
         dialogService: dialogService,
         formulateForms: formulateForms,
-        formulateSubmissions: formulateSubmissions
+        formulateSubmissions: formulateSubmissions,
+        formulateVars: formulateVars
     };
 
     // Scope functions.
@@ -32,6 +33,7 @@ function controller(formulateSubmissions, dialogService, $scope, formulateForms)
     $scope.getRowClass = getRowClass;
     $scope.getNodeUrl = getNodeUrl;
     $scope.getPagerItemClass = getPagerItemClass;
+    $scope.getExportUrl = getGetExportUrl(injected);
 
     // Initialize scope variables.
     $scope.totalSubmissions = 0;
@@ -39,6 +41,16 @@ function controller(formulateSubmissions, dialogService, $scope, formulateForms)
     $scope.currentPage = 0;
     $scope.pagerItems = [];
 
+}
+
+// Returns the URL that downloads an export to a CSV.
+function getGetExportUrl(injected) {
+    var formulateVars = injected.formulateVars;
+    return function (formId) {
+        var downloadUrlBase = formulateVars.DownloadCsvExport + "?FormId=";
+        var url = downloadUrlBase + encodeURIComponent(formId);
+        return url;
+    };
 }
 
 // Returns the function that allows the user to pick a form.

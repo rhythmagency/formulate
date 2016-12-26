@@ -12,7 +12,7 @@
     /// <summary>
     /// A field that can be used to display rich text in a form.
     /// </summary>
-    public class RichTextField : IFormFieldType
+    public class RichTextField : IFormFieldType, IFormFieldTypeExtended
     {
 
         #region Properties
@@ -21,6 +21,7 @@
         public string TypeLabel => "Rich Text";
         public string Icon => "icon-formulate-rich-text";
         public Guid TypeId => new Guid("6FCDFDC9293F4913B762F4BA502216EB");
+        public bool IsTransitory => true;
 
         #endregion
 

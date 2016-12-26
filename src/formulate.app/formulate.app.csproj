@@ -308,6 +308,7 @@
     <Compile Include="Constants\Layouts\LayoutBasic.cs" />
     <Compile Include="Constants\Validations\ValidationMandatory.cs" />
     <Compile Include="Constants\Validations\ValidationRegex.cs" />
+    <Compile Include="Controllers\ControllerTypes\SubmissionExport.cs" />
     <Compile Include="Controllers\DataValuesController.cs" />
     <Compile Include="Controllers\HandlersController.cs" />
     <Compile Include="Controllers\FieldsController.cs" />
@@ -372,6 +373,7 @@
     <Compile Include="Forms\Handlers\StoreData\StoreDataHandler.cs" />
     <Compile Include="Forms\IFormField.cs" />
     <Compile Include="Forms\IFormFieldMetaInfo.cs" />
+    <Compile Include="Forms\IFormFieldTypeExtended.cs" />
     <Compile Include="Forms\IFormFieldType.cs" />
     <Compile Include="Forms\IFormHandler.cs" />
     <Compile Include="Forms\IFormHandlerType.cs" />

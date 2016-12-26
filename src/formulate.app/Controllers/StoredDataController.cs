@@ -159,8 +159,8 @@
 
 
             // Deserialize the field data, gather extra field info, and populate the field info.
-            var deserialied = JsonHelper.Deserialize<dynamic>(strJson);
-            foreach (var field in deserialied)
+            var deserialized = JsonHelper.Deserialize<dynamic>(strJson);
+            foreach (var field in deserialized)
             {
 
                 // Variables.
@@ -194,6 +194,7 @@
 
         }
 
+
         /// <summary>
         /// Returns the anonymous object array for the specified form file fields.
         /// </summary>
@@ -222,8 +223,8 @@
 
 
             // Deserialize the field data, gather extra field info, and populate the field info.
-            var deserialied = JsonHelper.Deserialize<dynamic>(strJson);
-            foreach (var field in deserialied)
+            var deserialized = JsonHelper.Deserialize<dynamic>(strJson);
+            foreach (var field in deserialized)
             {
 
                 // Variables.

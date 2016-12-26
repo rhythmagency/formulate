@@ -12,7 +12,7 @@
     /// <summary>
     /// A field that can be used to display a header in a form.
     /// </summary>
-    public class HeaderField : IFormFieldType
+    public class HeaderField : IFormFieldType, IFormFieldTypeExtended
     {
 
         #region Properties
@@ -21,6 +21,7 @@
         public string TypeLabel => "Header";
         public string Icon => "icon-formulate-header";
         public Guid TypeId => new Guid("6383DD2C68BD482B95DB811D09D01BC8");
+        public bool IsTransitory => true;
 
         #endregion
 

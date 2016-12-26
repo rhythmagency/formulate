@@ -245,6 +245,9 @@
                 { "DownloadFile",
                     helper.GetUmbracoApiService<StoredDataDownloadController>(x =>
                         x.DownloadFile(null)) },
+                { "DownloadCsvExport",
+                    helper.GetUmbracoApiService<StoredDataDownloadController>(x =>
+                        x.DownloadCsvExport(null)) },
                 { "EditLayoutBase", "/formulate/formulate/editLayout/" },
                 { "EditValidationBase",
                     "/formulate/formulate/editValidation/" },
