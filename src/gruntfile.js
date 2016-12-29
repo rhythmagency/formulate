@@ -20,6 +20,7 @@ module.exports = function(grunt) {
         "CsvHelper.dll"
     ]);
     var appProject = projectName + ".app";
+    var apiProject = projectName + ".api";
     var uiProject = projectName + ".backoffice.ui";
     var buildConfig = grunt.option("buildConfiguration");
 
@@ -287,7 +288,7 @@ module.exports = function(grunt) {
                             expand: true,
                             src: binaries,
                             dest: 'Website/bin/',
-                            cwd: appProject + "/bin/" + getConfiguration() + "/"
+                            cwd: apiProject + "/bin/" + getConfiguration() + "/"
                         }
                     ]
                 }
@@ -314,7 +315,7 @@ module.exports = function(grunt) {
                             expand: true,
                             src: binaries,
                             dest: './FormulateTemp/package/bin/',
-                            cwd: appProject + "/bin/" + getConfiguration() + "/"
+                            cwd: apiProject + "/bin/" + getConfiguration() + "/"
                         }, {
                             // Config and view files.
                             expand: true,

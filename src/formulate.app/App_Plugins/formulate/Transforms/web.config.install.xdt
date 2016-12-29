@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <configSections>
+
+    <!-- Remove existing element. -->
+    <sectionGroup name="formulateConfiguration" xdt:Locator="Match(name)" xdt:Transform="Remove">
+    </sectionGroup>
+
+    <!-- Add element back. -->
     <sectionGroup name="formulateConfiguration" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing">
       <section name="fieldCategories" type="formulate.app.Configuration.FieldCategoriesConfigSection, formulate.app" requirePermission="false"/>
       <section name="buttons" type="formulate.app.Configuration.ButtonsConfigSection, formulate.app" requirePermission="false"/>
@@ -9,6 +15,7 @@
       <section name="submissions" type="formulate.app.Configuration.SubmissionsConfigSection, formulate.app" requirePermission="false"/>
       <section name="emailWhitelist" type="formulate.app.Configuration.EmailsConfigSection, formulate.app" requirePermission="false"/>
     </sectionGroup>
+
   </configSections>
 
   <!-- Remove existing element. -->
