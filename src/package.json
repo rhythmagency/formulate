@@ -17,7 +17,9 @@
     "grunt-jsdoc": "^1.1.0",
     "grunt-msbuild": "^0.3.4",
     "grunt-ng-annotate": "^1.0.1",
+    "grunt-nuget": "^0.1.6",
     "grunt-nuget-install": "^1.0.7",
+    "grunt-template": "^1.0.0",
     "grunt-umbraco-package": "^1.0.0",
     "node-sass": "^4.0.0",
     "require-globify": "^1.3.0"

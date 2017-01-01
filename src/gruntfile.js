@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 
     // Config variables.
     var projectName = "formulate";
-    var binaries = [].concat.apply([], [
+    var mainBinaries = [].concat.apply([], [
         "api",
         "app",
         "core",
@@ -15,10 +15,12 @@ module.exports = function(grunt) {
         return [".dll", ".pdb"].map(function (ext) {
             return projectName + "." + base + ext;
         });
-    })).concat([
+    }));
+    var extraBinaries = [
         "Microsoft.Web.XmlTransform.dll",
         "CsvHelper.dll"
-    ]);
+    ];
+    var binaries = mainBinaries.concat(extraBinaries);
     var appProject = projectName + ".app";
     var apiProject = projectName + ".api";
     var uiProject = projectName + ".backoffice.ui";
@@ -128,6 +130,28 @@ module.exports = function(grunt) {
                 css: appProject + "/App_Plugins/formulate/formulate.css"
             }
         },
+        template: {
+            "nuspec-binaries": {
+                options: {
+                    data: {
+                        version: getVersion()
+                    }
+                },
+                files: {
+                    "nuget-temp/binaries/Formulate.Binaries.nuspec": ["templates/Formulate.Binaries.nuspec"]
+                }
+            },
+            "nuspec-package": {
+                options: {
+                    data: {
+                        version: getVersion()
+                    }
+                },
+                files: {
+                    "nuget-temp/package/Formulate.nuspec": ["templates/Formulate.nuspec"]
+                }
+            }
+        },
         copy: {
             frontend: {
                 files: [
@@ -170,6 +194,26 @@ module.exports = function(grunt) {
                         src: ["App_Plugins/formulate/lang/**"],
                         dest: 'Website/',
                         cwd: appProject + "/"
+                    }
+                ]
+            },
+            "nuget-package": {
+                files: [
+                    {
+                        // Frontend files.
+                        expand: true,
+                        src: ["App_Plugins/**"],
+                        dest: 'nuget-temp/package/content/',
+                        cwd: appProject + "/"
+                    }, {
+                        // Website files.
+                        expand: true,
+                        src: [
+                            "Config/Formulate/**",
+                            "Views/Partials/Formulate/**"
+                        ],
+                        dest: 'nuget-temp/package/content/',
+                        cwd: "Website/"
                     }
                 ]
             }
@@ -221,7 +265,9 @@ module.exports = function(grunt) {
                     // Temporary folder for intermediate build artifacts.
                     "./FormulateTemp",
                     // Temporary file (compiled version of JS).
-                    "./formulate.app/App_Plugins/formulate/formulate.js"
+                    "./formulate.app/App_Plugins/formulate/formulate.js",
+                    // Temporary folder for NuGet packaging process.
+                    "./nuget-temp"
                 ]
             },
             after: {
@@ -229,7 +275,9 @@ module.exports = function(grunt) {
                     // Temporary folder for intermediate build artifacts.
                     "./FormulateTemp",
                     // Temporary file (compiled version of JS).
-                    "./formulate.app/App_Plugins/formulate/formulate.js"
+                    "./formulate.app/App_Plugins/formulate/formulate.js",
+                    // Temporary folder for NuGet packaging process.
+                    "./nuget-temp"
                 ]
             }
         },
@@ -248,6 +296,16 @@ module.exports = function(grunt) {
                     readme: grunt.file.read("templates/inputs/readme.txt"),
                     manifest: "templates/package.template.xml"
                 }
+            }
+        },
+        nugetpack: {
+            binaries: {
+                src: "nuget-temp/binaries/Formulate.Binaries.nuspec",
+                dest: "../dist"
+            },
+            package: {
+                src: "nuget-temp/package/Formulate.nuspec",
+                dest: "../dist"
             }
         },
         nuget_install: {
@@ -333,6 +391,27 @@ module.exports = function(grunt) {
         grunt.config.merge(mergeConfig);
     });
 
+    // Task to initialize the "copy:nuget-binaries" grunt task. This is done so getConfiguration is not run too early.
+    grunt.registerTask("configure:copy:nuget-binaries", function () {
+        var mergeConfig = {
+            copy: {
+                // NuGet binaries is used to copy files to create the NuGet package for the binaries.
+                "nuget-binaries": {
+                    files: [
+                        {
+                            // App binaries.
+                            expand: true,
+                            src: mainBinaries,
+                            dest: 'nuget-temp/binaries/lib/net45',
+                            cwd: apiProject + "/bin/" + getConfiguration() + "/"
+                        }
+                    ]
+                }
+            }
+        };
+        grunt.config.merge(mergeConfig);
+    });
+
     // Task to initialize the "msbuild" grunt task. This is done so getConfiguration is not run too early.
     grunt.registerTask("configure:msbuild", function () {
         var mergeConfig = {
@@ -361,15 +440,17 @@ module.exports = function(grunt) {
     });
 
     // Load NPM tasks.
-    grunt.loadNpmTasks("grunt-contrib-copy");
-    grunt.loadNpmTasks("grunt-html-convert");
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("grunt-contrib-clean");
-    grunt.loadNpmTasks("grunt-umbraco-package");
-    grunt.loadNpmTasks("grunt-nuget-install");
+    grunt.loadNpmTasks("grunt-contrib-copy");
+    grunt.loadNpmTasks("grunt-html-convert");
+    grunt.loadNpmTasks("grunt-jsdoc");
     grunt.loadNpmTasks("grunt-msbuild");
     grunt.loadNpmTasks("grunt-ng-annotate");
-    grunt.loadNpmTasks("grunt-jsdoc");
+    grunt.loadNpmTasks("grunt-nuget");
+    grunt.loadNpmTasks("grunt-nuget-install");
+    grunt.loadNpmTasks("grunt-template");
+    grunt.loadNpmTasks("grunt-umbraco-package");
 
     // Register Grunt tasks.
     grunt.registerTask("default",
@@ -393,17 +474,22 @@ module.exports = function(grunt) {
         // The "translation" task is for working with translations for Formulate. This
         // will only copy language files.
         ["copy:translation"]);
+    grunt.registerTask("nuget",
+        // The "nuget" task is for building the NuGet packages. It is not intended to be run on
+        // its own and should be run as part of the other package tasks.
+        ["template:nuspec-package", "template:nuspec-binaries", "configure:copy:nuget-binaries",
+        "copy:nuget-binaries", "copy:nuget-package", "nugetpack:binaries", "nugetpack:package"]);
     grunt.registerTask("package",
         // The "package" task is used to create an installer package
         // for Formulate.
         ["clean:before", "htmlConvert", "browserify:default", "ngAnnotate:main",
         "sass:default", "configure:copy:package", "copy:package",
-        "umbracoPackage:main", "clean:after"]);
+        "umbracoPackage:main", "nuget", "clean:after"]);
     grunt.registerTask("package-full",
         // The "package-full" task is used to build the Visual Studio
         // solution and then create the installer package for Formulate.
         ["clean:before", "nuget_install", "configure:msbuild", "msbuild:main", "htmlConvert",
         "browserify:default", "ngAnnotate:main", "sass:default", "configure:copy:package",
-        "copy:package", "umbracoPackage:main", "clean:after"]);
+        "copy:package", "umbracoPackage:main", "nuget", "clean:after"]);
 
 };

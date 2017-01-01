@@ -403,10 +403,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Transforms\Formulate\web.config.install.xdt" />
-    <Content Include="Transforms\Formulate\web.config.uninstall.xdt" />
-  </ItemGroup>
-  <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
@@ -512,12 +508,6 @@
     <Content Include="Config\Formulate\emailWhitelist.config">
       <SubType>Designer</SubType>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Transforms\Formulate\dashboard.config.install.xdt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Transforms\Formulate\dashboard.config.uninstall.xdt" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

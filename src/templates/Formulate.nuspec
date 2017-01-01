@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Formulate</id>
+    <version><%= version %></version>
+    <title>Formulate</title>
+    <authors>Nicholas Westby</authors>
+    <owners>Nicholas Westby</owners>
+    <projectUrl>http://www.formulate.rocks/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An advanced form builder for Umbraco.</description>
+    <!-- Temporarily add release notes here (uncomment below tag). -->
+    <!--<releaseNotes>Release notes go here...</releaseNotes>-->
+    <copyright>Copyright 2016</copyright>
+    <tags>umbraco forms</tags>
+    <dependencies>
+      <dependency id="Formulate.Binaries" version="<%= version %>" />
+    </dependencies>
+  </metadata>
+</package>
