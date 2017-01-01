@@ -502,18 +502,18 @@
     <Content Include="App_Plugins\formulate\lang\ru-RU.xml" />
     <Content Include="App_Plugins\formulate\lang\sv-SE.xml" />
     <Content Include="App_Plugins\formulate\lang\zh-CN.xml" />
-    <Content Include="App_Plugins\formulate\Transforms\applications.config.uninstall.xdt" />
-    <Content Include="App_Plugins\formulate\Transforms\applications.config.install.xdt" />
+    <Content Include="App_Plugins\formulate\Transforms\applications.config.uninstall.xdt.txt" />
+    <Content Include="App_Plugins\formulate\Transforms\applications.config.install.xdt.txt" />
     <None Include="Resources\TransformApplications.txt" />
     <None Include="app.config" />
     <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.eot" />
     <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.ttf" />
     <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.woff" />
     <None Include="App_Plugins\formulate\package.manifest" />
-    <Content Include="App_Plugins\formulate\Transforms\dashboard.config.install.xdt" />
-    <Content Include="App_Plugins\formulate\Transforms\dashboard.config.uninstall.xdt" />
-    <Content Include="App_Plugins\formulate\Transforms\web.config.install.xdt" />
-    <Content Include="App_Plugins\formulate\Transforms\web.config.uninstall.xdt" />
+    <Content Include="App_Plugins\formulate\Transforms\dashboard.config.install.xdt.txt" />
+    <Content Include="App_Plugins\formulate\Transforms\dashboard.config.uninstall.xdt.txt" />
+    <Content Include="App_Plugins\formulate\Transforms\web.config.install.xdt.txt" />
+    <Content Include="App_Plugins\formulate\Transforms\web.config.uninstall.xdt.txt" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
