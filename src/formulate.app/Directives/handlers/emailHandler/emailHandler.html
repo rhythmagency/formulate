@@ -84,27 +84,4 @@
             </div>
         </div>
     </div>
-    <div class="umb-el-wrap" ng-if="categories">
-        <label class="control-label">
-            <localize key="formulate-labels_Append FieldCategories">
-                Field Categories
-            </localize>
-            <small>
-                <localize key="formulate-label-descriptions_Append FieldCategories">
-                    The Field Categories to include in this email.
-                </localize>
-            </small>
-        </label>
-        <div class="controls controls-row">
-            <div ng-repeat="category in categories">
-                <label>
-                    <input type="checkbox"
-                           name="configuration.FieldCategoryFilter[]"
-                           value="{{category}}"
-                           ng-checked="configuration.FieldCategoryFilter.indexOf(category) > -1"
-                           ng-click="toggleSelection(category)"> {{category}}
-                </label>
-            </div>
-        </div>
-    </div>
 </div>
