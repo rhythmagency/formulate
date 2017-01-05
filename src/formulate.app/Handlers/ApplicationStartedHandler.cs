@@ -3,6 +3,7 @@
 
     // Namespaces.
     using Controllers;
+    using core.Extensions;
     using Persistence.Internal.Sql.Models;
     using System;
     using System.Collections.Generic;
@@ -23,13 +24,13 @@
     using Umbraco.Core.Persistence;
     using Umbraco.Web;
     using Umbraco.Web.UI.JavaScript;
-    using Constants = formulate.meta.Constants;
-    using DataValueConstants = formulate.app.Constants.Trees.DataValues;
-    using FormConstants = formulate.app.Constants.Trees.Forms;
-    using LayoutConstants = formulate.app.Constants.Trees.Layouts;
-    using Resources = formulate.app.Properties.Resources;
-    using SettingConstants = formulate.core.Constants.Settings;
-    using ValidationConstants = formulate.app.Constants.Trees.Validations;
+    using DataValueConstants = Constants.Trees.DataValues;
+    using FormConstants = Constants.Trees.Forms;
+    using LayoutConstants = Constants.Trees.Layouts;
+    using MetaConstants = meta.Constants;
+    using Resources = Properties.Resources;
+    using SettingConstants = core.Constants.Settings;
+    using ValidationConstants = Constants.Trees.Validations;
 
 
     /// <summary>
@@ -122,7 +123,7 @@
             var routeData = new RouteData();
             var requestContext = new RequestContext(httpContext, routeData);
             var helper = new UrlHelper(requestContext);
-            var key = Constants.PackageNameCamelCase;
+            var key = MetaConstants.PackageNameCamelCase;
 
 
             // Add server variables.
@@ -270,7 +271,7 @@
         {
             var version = GetInstalledVersion();
             var isInstalled = version != null;
-            var needsUpgrade = !Constants.Version.InvariantEquals(version);
+            var needsUpgrade = !MetaConstants.Version.InvariantEquals(version);
             if (!isInstalled)
             {
 
@@ -284,7 +285,14 @@
             }
             else if (needsUpgrade)
             {
-                EnsureVersion();
+
+                // Logging.
+                LogHelper.Info<ApplicationStartedHandler>("Upgrading Formulate.");
+
+
+                // Perform an upgrade installation.
+                HandleInstall(applicationContext, true);
+
             }
         }
 
@@ -292,14 +300,33 @@
         /// <summary>
         /// Handles install operations.
         /// </summary>
-        private void HandleInstall(ApplicationContext applicationContext)
+        /// <param name="isUpgrade">
+        /// Is this an upgrade to an existing instllation?
+        /// </param>
+        /// <param name="applicationContext">
+        /// The current Umbraco application context.
+        /// </param>
+        private void HandleInstall(ApplicationContext applicationContext, bool isUpgrade = false)
         {
+
+            // Add the Formulate section and the Formulate dashboard in the Formulate section.
             AddSection(applicationContext);
             AddDashboard();
-            AddFormulateDeveloperTab();
-            PermitAccess();
+
+
+            // If this is a new install, add the Formulate dashboard in the Developer section,
+            // and check if users need to be given access to Formulate.
+            if (!isUpgrade)
+            {
+                AddFormulateDeveloperTab();
+                PermitAccess();
+            }
+
+
+            // Make changes to the web.config.
             AddConfigurationGroup();
             EnsureVersion();
+
         }
 
 
@@ -523,7 +550,7 @@
 
 
                 // Add version setting.
-                settings.Add(key, Constants.Version);
+                settings.Add(key, MetaConstants.Version);
                 config.Save();
 
 
@@ -567,8 +594,7 @@
 
 
         /// <summary>
-        /// Transforms the web.config to add the Formulate
-        /// configuration group.
+        /// Transforms the web.config to add the Formulate configuration group.
         /// </summary>
         private void AddConfigurationGroup()
         {
@@ -577,15 +603,27 @@
             QueueInstallAction(() =>
             {
 
-                // Does the section group already exist?
+                // Does the section group already exist and contain all the expected sections?
                 var config = WebConfigurationManager.OpenWebConfiguration("~");
                 var groupName = "formulateConfiguration";
                 var group = config.GetSectionGroup(groupName);
                 var exists = group != null;
+                var sectionKeys = (group?.Sections?.Keys?.Cast<string>()?.ToArray()).MakeSafe();
+                var sectionsSet = new HashSet<string>(sectionKeys);
+                var expectedSections = new[]
+                {
+                    "buttons",
+                    "emailWhitelist",
+                    "fieldCategories",
+                    "persistence",
+                    "submissions",
+                    "templates"
+                };
+                var containsAllSections = expectedSections.All(x => sectionsSet.Contains(x));
 
 
-                // Only add the group if it doesn't exist.
-                if (!exists)
+                // Only add the group if it doesn't exist or doesn't contain all the expected sections.
+                if (!exists || !containsAllSections)
                 {
 
                     // Logging.
