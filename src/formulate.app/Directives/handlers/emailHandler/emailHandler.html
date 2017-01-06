@@ -33,6 +33,36 @@
     </div>
     <div class="umb-el-wrap">
         <label class="control-label">
+            <localize key="formulate-labels_Recipient Email Fields">
+                Recipient Email Fields
+            </localize>
+            <small>
+                <localize key="formulate-label-descriptions_Recipient Email Fields">
+                    The email addresses to send the email to will be extracted from the value
+                    of the fields you specify here. Useful when you want users to receive a
+                    confirmation email.
+                </localize>
+            </small>
+        </label>
+        <div class="controls controls-row">
+            <div ng-repeat="field in configuration.recipientFields">
+                <div class="input-append">
+                    <input type="text" readonly ng-model="field.name" class="form-control" />
+                    <button type="button" class="btn btn-danger" ng-click="deleteRecipientField($index)">X</button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-default" ng-click="addRecipientField()" ng-disabled="!tempData.recipientEmailField">
+                <localize key="formulate-buttons_Add Recipient">
+                    Add Recipient
+                </localize>
+            </button>
+            <select ng-options="field.id as field.name for field in fields" ng-model="tempData.recipientEmailField">
+                <option value="" formulate-inject-localization="formulate-options_Select a Field"></option>
+            </select>
+        </div>
+    </div>
+    <div class="umb-el-wrap">
+        <label class="control-label">
             <localize key="formulate-labels_Subject">
                 Subject
             </localize>

@@ -182,9 +182,15 @@
     <key alias="Select a Button Kind">Select a Button Kind</key>
     <key alias="Select a Function">Select a Function</key>
     <key alias="Select a Template">Select a Template</key>
+    <key alias="Select a Field">Select a Field</key>
   </area>
   <area alias="formulate-label-descriptions">
     <key alias="Append Payload">For example, the URL and name of the page containing the form.</key>
+    <key alias="Recipient Email Fields">
+      The email addresses to send the email to will be extracted from the value
+      of the fields you specify here. Useful when you want users to receive a
+      confirmation email.
+    </key>
   </area>
   <area alias="formulate-labels">
     <key alias="Orientation">Orientation</key>
@@ -206,6 +212,7 @@
     <key alias="Handler Alias">Handler Alias</key>
     <key alias="Sender Email">Sender Email</key>
     <key alias="Recipient Emails">Recipient Emails</key>
+    <key alias="Recipient Email Fields">Recipient Email Fields</key>
     <key alias="Subject">Subject</key>
     <key alias="Message">Message</key>
     <key alias="Append Payload">Append Payload?</key>
