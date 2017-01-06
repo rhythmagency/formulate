@@ -80,9 +80,11 @@
 
             // Variables.
             var recipients = new List<string>();
+            var recipientFields = new List<Guid>();
             var config = new EmailConfiguration()
             {
-                Recipients = recipients
+                Recipients = recipients,
+                RecipientFields = recipientFields
             };
             var configData = JsonHelper.Deserialize<JObject>(configuration);
             var dynamicConfig = configData as dynamic;
@@ -98,6 +100,17 @@
                     recipients.Add(recipient.email.Value as string);
                 }
             }
+
+
+            // Get email recipient fields.
+            if (propertySet.Contains("recipientFields"))
+            {
+                foreach (var recipient in dynamicConfig.recipientFields)
+                {
+                    recipientFields.Add(GuidHelper.GetGuid(recipient.id.Value as string));
+                }
+            }
+
 
             // Get simple properties.
             if (propertySet.Contains("senderEmail"))
@@ -173,15 +186,26 @@
             message.Subject = config.Subject;
 
 
+            // Get recipients from field values.
+            var emailFieldIds = new HashSet<Guid>(config.RecipientFields);
+            var fieldEmails = data.Where(x => emailFieldIds.Contains(x.FieldId)).SelectMany(x => x.FieldValues)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Where(x => IsEmailInValidFormat(x));
+
+
             // Any allowed recipients (if not, abort early)?
-            var allowedRecipients = FilterEmails(config.Recipients);
+            var rawRecipients = config.Recipients.Concat(fieldEmails);
+            var allowedRecipients = FilterEmails(rawRecipients);
             if (!allowedRecipients.Any())
             {
                 return;
             }
             foreach (var recipient in allowedRecipients)
             {
-                message.To.Add(recipient);
+
+                // We don't want recipients to see each other, so we use BCC instead of TO.
+                message.Bcc.Add(recipient);
+
             }
 
 
@@ -340,6 +364,32 @@
             else
             {
                 return emails;
+            }
+        }
+
+
+        /// <summary>
+        /// Indicates whether or not the specified email address is in a valid format.
+        /// </summary>
+        /// <param name="email">
+        /// The email address.
+        /// </param>
+        /// <returns>
+        /// True, if the email address is in a valid format; otherwise, false.
+        /// </returns>
+        /// <remarks>
+        /// This code is based on this Stack Overflow answer: http://stackoverflow.com/a/1374644/2052963
+        /// </remarks>
+        private bool IsEmailInValidFormat(string email)
+        {
+            try
+            {
+                var address = new MailAddress(email);
+                return address.Address == email;
+            }
+            catch
+            {
+                return false;
             }
         }
 

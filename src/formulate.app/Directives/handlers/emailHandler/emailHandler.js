@@ -127,7 +127,7 @@ Controller.prototype.initializeRecipientFields = function () {
     // Based on the stored recipient field ID's, create an array containing
     // the full information about the fields with those ID's.
     for (var i = 0; i < $scope.configuration.recipientFields.length; i++) {
-        var fieldId = $scope.configuration.recipientFields[i];
+        var fieldId = $scope.configuration.recipientFields[i].id;
         var field = this.findFieldWithId(fieldId);
         if (field) {
             fields.push(field);
@@ -174,7 +174,9 @@ Controller.prototype.watchRecipientFieldChanges = function () {
     $scope.$watchCollection("tempData.recipientFields", function (fields) {
         var ids = [];
         for (var i = 0; i < fields.length; i++) {
-            ids.push(fields[i].id);
+            ids.push({
+                id: fields[i].id
+            });
         }
         $scope.configuration.recipientFields = ids;
     });
