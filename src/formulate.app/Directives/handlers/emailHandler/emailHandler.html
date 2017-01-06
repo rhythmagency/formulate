@@ -45,7 +45,7 @@
             </small>
         </label>
         <div class="controls controls-row">
-            <div ng-repeat="field in configuration.recipientFields">
+            <div ng-repeat="field in tempData.recipientFields">
                 <div class="input-append">
                     <input type="text" readonly ng-model="field.name" class="form-control" />
                     <button type="button" class="btn btn-danger" ng-click="deleteRecipientField($index)">X</button>
