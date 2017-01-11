@@ -58,6 +58,7 @@ function getGetFormInfo(services) {
                         category: field.Category,
                         directive: field.Directive,
                         icon: field.Icon,
+                        isServerSideOnly: field.IsServerSideOnly,
                         typeLabel: field.TypeLabel,
                         typeFullName: field.TypeFullName,
                         validations: field.Validations

@@ -2,14 +2,14 @@
 var app = angular.module("umbraco");
 
 // Associate directive.
-app.directive("formulateHeaderField", directive);
+app.directive("formulateTextConstantField", directive);
 
 // Directive.
 function directive(formulateDirectives) {
     return {
         restrict: "E",
         replace: true,
-        template: formulateDirectives.get("fields/headerField/headerField.html"),
+        template: formulateDirectives.get("fields/textConstantField/textConstantField.html"),
         scope: {
             configuration: "="
         }

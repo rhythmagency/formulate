@@ -16,6 +16,12 @@
         /// </remarks>
         bool IsTransitory { get; }
 
+        /// <summary>
+        /// This is set to true on form fields that are server-side only (i.e., they
+        /// aren't rendered on the frontend of the website).
+        /// </summary>
+        bool IsServerSideOnly { get; }
+
     }
 
 }

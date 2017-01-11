@@ -140,6 +140,7 @@
                         x.Name,
                         x.Label,
                         x.Category,
+                        x.IsServerSideOnly,
                         Validations = x.Validations.MakeSafe()
                             .Select(y => Validations.Retrieve(y))
                             .WithoutNulls()

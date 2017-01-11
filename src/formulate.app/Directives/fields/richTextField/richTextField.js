@@ -53,6 +53,9 @@ function directive(formulateDirectives) {
         restrict: "E",
         controller: Controller,
         replace: true,
-        template: formulateDirectives.get("fields/richTextField/richTextField.html")
+        template: formulateDirectives.get("fields/richTextField/richTextField.html"),
+        scope: {
+            configuration: "="
+        }
     };
 }

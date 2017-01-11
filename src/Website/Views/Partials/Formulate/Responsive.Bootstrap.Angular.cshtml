@@ -14,7 +14,9 @@
 @{
 
     // Variables.
-    var fields = Model.FormDefinition.Fields;
+    var fields = Model.FormDefinition.Fields
+        // Exclude server-side only fields.
+        .Where(x => !x.IsServerSideOnly);
     var layout = Model.LayoutDefinition.Configuration as LayoutBasicConfiguration;
 
 

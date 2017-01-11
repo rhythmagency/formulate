@@ -22,6 +22,7 @@
         public string Icon => "icon-formulate-header";
         public Guid TypeId => new Guid("6383DD2C68BD482B95DB811D09D01BC8");
         public bool IsTransitory => true;
+        public bool IsServerSideOnly => false;
 
         #endregion
 

@@ -30,6 +30,9 @@ function directive(formulateDirectives) {
         restrict: "E",
         replace: true,
         controller: Controller,
-        template: formulateDirectives.get("fields/buttonField/buttonField.html")
+        template: formulateDirectives.get("fields/buttonField/buttonField.html"),
+        scope: {
+            configuration: "="
+        }
     };
 }

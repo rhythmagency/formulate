@@ -96,6 +96,21 @@
             }
         }
 
+        /// <summary>
+        /// Is this type of field server-side only (i.e., not a frontend field)?
+        /// </summary>
+        public bool IsServerSideOnly
+        {
+            get
+            {
+                var instance = new T();
+                var casted = instance as IFormFieldTypeExtended;
+                return casted == null
+                    ? false
+                    : casted.IsServerSideOnly;
+            }
+        }
+
         #endregion
 
 

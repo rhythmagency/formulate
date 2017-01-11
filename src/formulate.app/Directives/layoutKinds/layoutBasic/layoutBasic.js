@@ -400,6 +400,9 @@ function refreshFields(formId, services) {
     formulateForms.getFormInfo(formId)
         .then(function (formData) {
             $scope.allFields = formData.fields
+                .filter(function (item) {
+                    return !item.isServerSideOnly;
+                })
                 .map(function (item) {
                     return {
                         id: item.id,

@@ -1,4 +1,4 @@
-﻿namespace formulate.app.Forms.Fields.RichText
+﻿namespace formulate.app.Forms.Fields.TextConstant
 {
 
     // Namespaces.
@@ -10,19 +10,24 @@
 
 
     /// <summary>
-    /// A field that can be used to display rich text in a form.
+    /// A field that can be used to store a text constant.
     /// </summary>
-    public class RichTextField : IFormFieldType, IFormFieldTypeExtended
+    /// <remarks>
+    /// A text constant field is useful, for example, when you need to store a bit of text
+    /// in a field so that it can be sent as a parameter to a web API, but you otherwise
+    /// don't need the field to be output to the page when the form is rendered.
+    /// </remarks>
+    public class TextConstantField : IFormFieldType, IFormFieldTypeExtended
     {
 
         #region Properties
 
-        public string Directive => "formulate-rich-text-field";
-        public string TypeLabel => "Rich Text";
-        public string Icon => "icon-formulate-rich-text";
-        public Guid TypeId => new Guid("6FCDFDC9293F4913B762F4BA502216EB");
+        public string Directive => "formulate-text-constant-field";
+        public string TypeLabel => "Text Constant";
+        public string Icon => "icon-formulate-text-constant";
+        public Guid TypeId => new Guid("D9B1A60A11864440887B93195C760B5E");
         public bool IsTransitory => true;
-        public bool IsServerSideOnly => false;
+        public bool IsServerSideOnly => true;
 
         #endregion
 
@@ -30,7 +35,7 @@
         #region Methods
 
         /// <summary>
-        /// Deserializes the configuration for the rich text field.
+        /// Deserializes the configuration for the text constant field.
         /// </summary>
         /// <param name="configuration">
         /// The serialized configuration.
@@ -42,7 +47,7 @@
         {
 
             // Variables.
-            var config = new RichTextConfiguration()
+            var config = new TextConstantConfiguration()
             {
                 Text = null
             };
