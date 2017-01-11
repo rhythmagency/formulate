@@ -109,7 +109,9 @@
                         TypeLabel = x.TypeLabel,
                         Directive = x.Directive,
                         TypeFullName = x.GetType().AssemblyQualifiedName
-                    }).ToArray()
+                    })
+                    .OrderBy(x => x.TypeLabel)
+                    .ToArray()
                 };
 
             }
