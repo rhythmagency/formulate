@@ -69,3 +69,11 @@
     margin-right: 5px;
     text-shadow: 2px 2px 3px $black;
 }
+
+.formulate-textbox {
+    &--url {
+        width: 80%;
+        max-width: 800px;
+        text-decoration: underline;
+    }
+}

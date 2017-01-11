@@ -7,19 +7,22 @@
         </label>
         <div class="controls controls-row">
             <div>
-                TODO...
+                <input type="text" ng-model="configuration.url" class="formulate-textbox--url" />
             </div>
         </div>
     </div>
     <div class="umb-el-wrap">
         <label class="control-label">
-            <localize key="formulate-labels_Action">
-                Action
+            <localize key="formulate-labels_Method">
+                Method
             </localize>
         </label>
         <div class="controls controls-row">
             <div>
-                TODO...
+                <select ng-model="configuration.method">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                </select>
             </div>
         </div>
     </div>
@@ -31,7 +34,9 @@
         </label>
         <div class="controls controls-row">
             <div>
-                TODO...
+                <select ng-model="configuration.dataFormat">
+                    <option value="Query String">Query String</option>
+                </select>
             </div>
         </div>
     </div>

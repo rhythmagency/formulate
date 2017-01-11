@@ -19,12 +19,24 @@ function directive(formulateDirectives) {
     };
 }
 
-// Controller.
+/**
+ * Controller for the "Send Data" handler directive.
+ * @param $scope The injected Angular scope.
+ * @constructor
+ */
 function Controller($scope) {
 
     // Variables.
     this.injected = {
         $scope: $scope
     };
+
+    // Initialize.
+    if (!$scope.configuration.method) {
+        $scope.configuration.method = "GET";
+    }
+    if (!$scope.configuration.dataFormat) {
+        $scope.configuration.dataFormat = "Query String";
+    }
 
 }

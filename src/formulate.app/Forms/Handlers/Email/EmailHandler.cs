@@ -115,23 +115,23 @@
             // Get simple properties.
             if (propertySet.Contains("senderEmail"))
             {
-                config.SenderEmail = dynamicConfig.senderEmail.Value;
+                config.SenderEmail = dynamicConfig.senderEmail.Value as string;
             }
             if (propertySet.Contains("appendFields"))
             {
-                config.AppendFields = dynamicConfig.appendFields.Value;
+                config.AppendFields = (dynamicConfig.appendFields.Value as bool?).GetValueOrDefault();
             }
             if (propertySet.Contains("appendPayload"))
             {
-                config.AppendPayload = dynamicConfig.appendPayload.Value;
+                config.AppendPayload = (dynamicConfig.appendPayload.Value as bool?).GetValueOrDefault();
             }
             if (propertySet.Contains("message"))
             {
-                config.Message = dynamicConfig.message.Value;
+                config.Message = dynamicConfig.message.Value as string;
             }
             if (propertySet.Contains("subject"))
             {
-                config.Subject = dynamicConfig.subject.Value;
+                config.Subject = dynamicConfig.subject.Value as string;
             }
 
 

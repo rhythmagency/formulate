@@ -76,8 +76,10 @@
         {
 
             // Variables.
+            var fields = new List<FieldMapping>();
             var config = new SendDataConfiguration()
             {
+                Fields = fields
             };
             var configData = JsonHelper.Deserialize<JObject>(configuration);
             var dynamicConfig = configData as dynamic;
@@ -85,7 +87,33 @@
             var propertySet = new HashSet<string>(properties);
 
 
-            //TODO: ...
+            // Get field mappings.
+            if (propertySet.Contains("fields"))
+            {
+                foreach (var field in dynamicConfig.fields)
+                {
+                    fields.Add(new FieldMapping()
+                    {
+                        FieldId = GuidHelper.GetGuid(field.id.Value as string),
+                        FieldName = field.name.Value as string
+                    });
+                }
+            }
+
+
+            // Get simple properties.
+            if (propertySet.Contains("url"))
+            {
+                config.Url = dynamicConfig.url.Value as string;
+            }
+            if (propertySet.Contains("method"))
+            {
+                config.Method = dynamicConfig.method.Value as string;
+            }
+            if (propertySet.Contains("dataFormat"))
+            {
+                config.DataFormat = dynamicConfig.dataFormat.Value as string;
+            }
 
 
             // Return the send data configuration.
