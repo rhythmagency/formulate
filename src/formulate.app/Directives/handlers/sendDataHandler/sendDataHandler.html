@@ -59,8 +59,9 @@
             </small>
         </label>
         <div class="controls controls-row">
-            <div class="formulate-field-map">
+            <div class="formulate-field-map" ui-sortable="sortableFieldOptions" ng-model="tempData.chosenFields">
                 <div ng-repeat="field in tempData.chosenFields" class="formulate-mapped-field">
+                    <i class="icon-navigation formulate-mapped-field-drag"></i>
                     <input class="formulate-mapped-field-alias" type="text" ng-model="field.storedField.name" size="{{field.storedField.name.length + field.fieldName.length + 3}}" />
                     <button type="button" class="btn btn-danger formulate-mapped-field-delete" ng-click="deleteField($index)">X</button>
                     <div class="formulate-mapped-field-name">

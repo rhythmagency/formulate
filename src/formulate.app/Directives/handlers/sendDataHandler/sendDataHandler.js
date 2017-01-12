@@ -64,6 +64,11 @@ function Controller($scope, notificationsService) {
     if (!$scope.configuration.dataFormat) {
         $scope.configuration.dataFormat = "Query String";
     }
+    $scope.sortableHandlerOptions = {
+        cursor: "move",
+        delay: 100,
+        opacity: 0.5
+    };
     this.initializeFields();
 
     // Add scope functions.
