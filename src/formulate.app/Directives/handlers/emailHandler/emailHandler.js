@@ -43,7 +43,6 @@ function Controller($scope, notificationsService) {
     $scope.deleteRecipient = this.deleteRecipient.bind(this);
     $scope.addRecipientField = this.addRecipientField.bind(this);
     $scope.deleteRecipientField = this.deleteRecipientField.bind(this);
-    $scope.deleteRecipientField = this.deleteRecipientField.bind(this);
 
     // Start watching changes to the recipient email fields.
     this.watchRecipientFieldChanges();
