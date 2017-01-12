@@ -1,4 +1,20 @@
-﻿// Variables.
+﻿/*
+ This directive handles the list of fields in a somewhat complicated way, so it could use some
+ explaining. In short, the fields chosen by the users are stored both in the
+ "$scope.configuration.fields" variable and the "$scope.tempData.chosenFields" variable. Both
+ of those variables are arrays. The elements in the "chosenFields" array containing objects that
+ have a "storedField" property. The values of the "storedField" properties are the same objects
+ that are in the "chosenFields" array. This facilitates a few things. For one, the objects in
+ "chosenFields" contain only the data necessary for persistence. The objects in "fields" contain
+ some additional information for temporary use (e.g., to show the Formulate field name, which is
+ not persisted). By storing the "chosenFields" objects as properties on the "fields" objects,
+ Angular is still able to perform binding (e.g., so when a user changes the value of the mapped
+ field name, it will update the persisted version of the mapped field name). Phrased another way,
+ you can think of "chosenFields" as the view model and "fields" as the data model, with a bit of
+ extra magic to keep them synchronized.
+  */
+
+// Variables.
 var app = angular.module("umbraco");
 
 // Associate directive.
