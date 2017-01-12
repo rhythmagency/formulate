@@ -62,6 +62,7 @@
             <div class="formulate-field-map">
                 <div ng-repeat="field in tempData.chosenFields" class="formulate-mapped-field">
                     <input class="formulate-mapped-field-alias" type="text" ng-model="field.storedField.name" size="{{field.storedField.name.length + field.fieldName.length + 3}}" />
+                    <button type="button" class="btn btn-danger formulate-mapped-field-delete" ng-click="deleteField($index)">X</button>
                     <div class="formulate-mapped-field-name">
                         {{field.fieldName}}
                     </div>

@@ -111,7 +111,7 @@ input.formulate-textbox {
     position: relative;
     display: inline-block;
     float: left;
-    margin-right: 5px;
+    margin-right: 10px;
     margin-bottom: 3px;
 }
 .formulate-mapped-field-alias {
@@ -121,7 +121,25 @@ input.formulate-textbox {
 .formulate-mapped-field-name {
     position: absolute;
     top: 50%;
-    right: 5px;
+    right: 10px;
     transform: translateY(-50%);
     color: #ccc;
+    transition: right 0.25s;
+}
+.formulate-mapped-field-delete {
+    height: 30px;
+    padding: 0;
+    vertical-align: top;
+    opacity: 0;
+    width: 0;
+    transition: opacity 0.25s, width 0.25s;
+}
+.formulate-mapped-field-alias:focus + .formulate-mapped-field-delete,
+.formulate-mapped-field-delete:active {
+    opacity: 1;
+    width: 36px;
+}
+.formulate-mapped-field-alias:focus + .formulate-mapped-field-delete + .formulate-mapped-field-name,
+.formulate-mapped-field-delete:active + .formulate-mapped-field-name {
+    right: 45px;
 }
