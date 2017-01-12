@@ -2,12 +2,12 @@
  This directive handles the list of fields in a somewhat complicated way, so it could use some
  explaining. In short, the fields chosen by the users are stored both in the
  "$scope.configuration.fields" variable and the "$scope.tempData.chosenFields" variable. Both
- of those variables are arrays. The elements in the "chosenFields" array containing objects that
+ of those variables are arrays. The elements in the "chosenFields" array contain objects that
  have a "storedField" property. The values of the "storedField" properties are the same objects
- that are in the "chosenFields" array. This facilitates a few things. For one, the objects in
- "chosenFields" contain only the data necessary for persistence. The objects in "fields" contain
+ that are in the "fields" array. This facilitates a few things. For one, the objects in
+ "fields" contain only the data necessary for persistence. The objects in "chosenFields" contain
  some additional information for temporary use (e.g., to show the Formulate field name, which is
- not persisted). By storing the "chosenFields" objects as properties on the "fields" objects,
+ not persisted). By storing the "fields" objects as properties on the "chosenFields" objects,
  Angular is still able to perform binding (e.g., so when a user changes the value of the mapped
  field name, it will update the persisted version of the mapped field name). Phrased another way,
  you can think of "chosenFields" as the view model and "fields" as the data model, with a bit of
