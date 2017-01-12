@@ -4,6 +4,11 @@
             <localize key="formulate-labels_URL">
                 URL
             </localize>
+            <small>
+                <localize key="formulate-label-descriptions_URL">
+                    The URL the data should be sent to.
+                </localize>
+            </small>
         </label>
         <div class="controls controls-row">
             <div class="formulate-textbox--url-container">
@@ -46,11 +51,30 @@
             <localize key="formulate-labels_Fields">
                 Fields
             </localize>
+            <small>
+                <localize key="formulate-label-descriptions_Fields">
+                    Select the fields you want to send. Also, specify the name used by the field
+                    in the external system.
+                </localize>
+            </small>
         </label>
         <div class="controls controls-row">
-            <div>
-                TODO...
+            <div class="formulate-field-map">
+                <div ng-repeat="field in tempData.chosenFields" class="formulate-mapped-field">
+                    <input class="formulate-mapped-field-alias" type="text" ng-model="field.storedField.name" size="{{field.storedField.name.length + field.fieldName.length + 3}}" />
+                    <div class="formulate-mapped-field-name">
+                        {{field.fieldName}}
+                    </div>
+                </div>
             </div>
+            <button type="button" class="btn btn-default" ng-click="addField()" ng-disabled="!tempData.chosenField">
+                <localize key="formulate-buttons_Add Field">
+                    Add Field
+                </localize>
+            </button>
+            <select ng-options="field.id as field.name for field in fields" ng-model="tempData.chosenField">
+                <option value="" formulate-inject-localization="formulate-options_Select a Field"></option>
+            </select>
         </div>
     </div>
 </div>

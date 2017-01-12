@@ -98,3 +98,30 @@ input.formulate-textbox {
         background: linear-gradient(to right,  $input-border-color 0%, $input-border-color-transparent 50%);
     }
 }
+
+// A mapping of fields to an alternate name.
+.formulate-field-map {
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+.formulate-mapped-field {
+    position: relative;
+    display: inline-block;
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 3px;
+}
+.formulate-mapped-field-alias {
+    position: relative;
+    width: auto;
+}
+.formulate-mapped-field-name {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    color: #ccc;
+}
