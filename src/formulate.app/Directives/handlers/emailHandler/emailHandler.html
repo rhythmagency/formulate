@@ -56,7 +56,7 @@
                     Add Recipient
                 </localize>
             </button>
-            <select ng-options="field.id as field.name for field in fields" ng-model="tempData.recipientEmailField">
+            <select ng-options="field.id as field.name for field in fields | filter: {id: '!!'}" ng-model="tempData.recipientEmailField">
                 <option value="" formulate-inject-localization="formulate-options_Select a Field"></option>
             </select>
         </div>
