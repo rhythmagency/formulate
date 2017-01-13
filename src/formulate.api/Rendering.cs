@@ -13,7 +13,7 @@
 
 
     /// <summary>
-    /// Handles operations related to rendering Formualte forms.
+    /// Handles operations related to rendering Formulate forms.
     /// </summary>
     public static class Rendering
     {
