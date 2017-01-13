@@ -64,7 +64,7 @@ function Controller($scope, notificationsService) {
     if (!$scope.configuration.transmissionFormat) {
         $scope.configuration.transmissionFormat = "Query String";
     }
-    $scope.sortableHandlerOptions = {
+    $scope.sortableFieldOptions = {
         cursor: "move",
         delay: 100,
         opacity: 0.5
