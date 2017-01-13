@@ -99,6 +99,23 @@
     </div>
     <div class="umb-el-wrap">
         <label class="control-label">
+            <localize key="formulate-labels_Include Hidden Fields">
+                Include Hidden Fields?
+            </localize>
+            <small>
+                <localize key="formulate-label-descriptions_Include Hidden Fields">
+                    When appending fields, also include hidden fields?
+                </localize>
+            </small>
+        </label>
+        <div class="controls controls-row">
+            <div>
+                <input type="checkbox" ng-model="configuration.includeHiddenFields" />
+            </div>
+        </div>
+    </div>
+    <div class="umb-el-wrap">
+        <label class="control-label">
             <localize key="formulate-labels_Append Payload">
                 Append Payload?
             </localize>

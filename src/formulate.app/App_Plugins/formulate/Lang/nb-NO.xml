@@ -199,6 +199,9 @@
       Select the fields you want to send. Also, specify the name used by the field
       in the external system.
     </key>
+    <key alias="Include Hidden Fields">
+      When appending fields, also include hidden fields?
+    </key>
   </area>
   <area alias="formulate-labels">
     <key alias="Orientation">Orientation</key>
@@ -240,6 +243,7 @@
     <key alias="Method">Method</key>
     <key alias="Transmission Format">Transmission Format</key>
     <key alias="Fields">Fields</key>
+    <key alias="Include Hidden Fields">Include Hidden Fields?</key>
   </area>
   <area alias="formulate-buttons">
     <key alias="Use">Use</key>

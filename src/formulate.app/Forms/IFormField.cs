@@ -28,6 +28,7 @@
         string FormatValue(IEnumerable<string> values, FieldPresentationFormats format);
         bool IsTransitory { get; }
         bool IsServerSideOnly { get; }
+        bool IsHidden { get; }
     }
 
 }

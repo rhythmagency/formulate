@@ -121,6 +121,11 @@
             {
                 config.AppendFields = (dynamicConfig.appendFields.Value as bool?).GetValueOrDefault();
             }
+            if (propertySet.Contains("includeHiddenFields"))
+            {
+                config.IncludeHiddenFields = (dynamicConfig.includeHiddenFields.Value as bool?)
+                    .GetValueOrDefault();
+            }
             if (propertySet.Contains("appendPayload"))
             {
                 config.AppendPayload = (dynamicConfig.appendPayload.Value as bool?).GetValueOrDefault();
@@ -215,7 +220,8 @@
                 var chosenPayload = config.AppendPayload
                     ? payload
                     : payload.Take(0);
-                message.Body = ConstructMessage(form, data, files, chosenPayload, config);
+                message.Body = ConstructMessage(form, data, files, chosenPayload, config,
+                    config.IncludeHiddenFields);
                 foreach(var file in files)
                 {
                     var dataStream = new MemoryStream(file.FileData);
@@ -259,12 +265,15 @@
         /// <param name="config">
         /// The email configuration.
         /// </param>
+        /// <param name="includeHiddenFields">
+        /// Include hidden fields in the message?
+        /// </param>
         /// <returns>
         /// The email message.
         /// </returns>
         private string ConstructMessage(Form form, IEnumerable<FieldSubmission> data,
             IEnumerable<FileFieldSubmission> files, IEnumerable<PayloadSubmission> payload,
-            EmailConfiguration config)
+            EmailConfiguration config, bool includeHiddenFields)
         {
 
             // Variables.
@@ -299,8 +308,18 @@
                 var fieldName = "Unknown Field";
                 if (fieldsById.TryGetValue(key, out field))
                 {
+
+                    // Skip this value?
+                    if (!includeHiddenFields && field.IsHidden)
+                    {
+                        continue;
+                    }
+
+
+                    // Get field name and formatted value.
                     fieldName = field.Name;
                     formatted = field.FormatValue(values, FieldPresentationFormats.Email);
+
                 }
                 var line = string.Format("{0}: {1}", fieldName, formatted);
                 lines.Add(line);
@@ -315,7 +334,17 @@
                 var fieldName = "Unknown Field";
                 if (fieldsById.TryGetValue(key, out field))
                 {
+
+                    // Skip this file?
+                    if (!includeHiddenFields && field.IsHidden)
+                    {
+                        continue;
+                    }
+
+
+                    // Get the field name.
                     fieldName = field.Name;
+
                 }
                 var line = string.Format(@"{0}: See attachment, ""{1}""", fieldName, filename);
                 lines.Add(line);

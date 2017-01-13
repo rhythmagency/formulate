@@ -10,6 +10,7 @@
         public string Message { get; set; }
         public string Subject { get; set; }
         public bool AppendFields { get; set; }
+        public bool IncludeHiddenFields { get; set; }
         public bool AppendPayload { get; set; }
     }
 }

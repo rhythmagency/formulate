@@ -28,6 +28,7 @@
         public Guid TypeId => new Guid("D9B1A60A11864440887B93195C760B5E");
         public bool IsTransitory => true;
         public bool IsServerSideOnly => true;
+        public bool IsHidden => false;
 
         #endregion
 

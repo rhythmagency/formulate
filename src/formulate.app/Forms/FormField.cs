@@ -111,6 +111,21 @@
             }
         }
 
+        /// <summary>
+        /// Is this type of field hidden?
+        /// </summary>
+        public bool IsHidden
+        {
+            get
+            {
+                var instance = new T();
+                var casted = instance as IFormFieldTypeExtended;
+                return casted == null
+                    ? false
+                    : casted.IsHidden;
+            }
+        }
+
         #endregion
 
 

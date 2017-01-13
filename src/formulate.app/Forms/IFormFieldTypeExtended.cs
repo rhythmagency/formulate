@@ -22,6 +22,11 @@
         /// </summary>
         bool IsServerSideOnly { get; }
 
+        /// <summary>
+        /// This is true for fields that are hidden during data entry.
+        /// </summary>
+        bool IsHidden { get; }
+
     }
 
 }
