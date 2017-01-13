@@ -27,6 +27,33 @@
         #endregion
 
 
+        #region Delegates
+
+        /// <summary>
+        /// Delegate used when forms are submitting.
+        /// </summary>
+        /// <param name="context">
+        /// The form submission context.
+        /// </param>
+        public delegate void FormSubmitEvent(FormSubmissionContext context);
+
+        #endregion
+
+
+        #region Events
+
+        /// <summary>
+        /// Event raised when forms are submitting.
+        /// </summary>
+        /// <remarks>
+        /// Subscribing to this gives you the opportunity to alter form submissions. This is
+        /// useful, for example, if you need to automatically alter some of the submitted data.
+        /// </remarks>
+        public static event FormSubmitEvent Submitting;
+
+        #endregion
+
+
         #region Properties
 
         /// <summary>
@@ -98,6 +125,26 @@
             }
 
 
+            // Create submission context.
+            var submissionContext = new FormSubmissionContext()
+            {
+                Files = files,
+                Data = data,
+                Form = form,
+                Payload = payload,
+                CurrentPage = context.CurrentPage,
+                HttpContext = context.HttpContext,
+                Services = context.Services,
+                UmbracoContext = context.UmbracoContext,
+                UmbracoHelper = context.UmbracoHelper,
+                SubmissionId = Guid.NewGuid()
+            };
+
+
+            // Invoke submitting event (gives listeners a chance to change the submission).
+            Submitting?.Invoke(submissionContext);
+
+
             // Validate?
             if (options.Validate)
             {
@@ -115,22 +162,6 @@
                     }
                 }
             }
-
-
-            // Create submission context.
-            var submissionContext = new FormSubmissionContext()
-            {
-                Files = files,
-                Data = data,
-                Form = form,
-                Payload = payload,
-                CurrentPage = context.CurrentPage,
-                HttpContext = context.HttpContext,
-                Services = context.Services,
-                UmbracoContext = context.UmbracoContext,
-                UmbracoHelper = context.UmbracoHelper,
-                SubmissionId = Guid.NewGuid()
-            };
 
 
             // Prepare the form handlers.
