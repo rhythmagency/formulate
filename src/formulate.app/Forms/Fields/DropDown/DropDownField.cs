@@ -157,10 +157,14 @@
         /// <param name="format">
         /// The format to present the value in.
         /// </param>
+        /// <param name="configuration">
+        /// The configuration for this field.
+        /// </param>
         /// <returns>
         /// The formatted value.
         /// </returns>
-        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format)
+        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format,
+            object configuration)
         {
             return string.Join(", ", values);
         }

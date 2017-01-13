@@ -12,7 +12,8 @@
         {
             return null;
         }
-        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format)
+        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format,
+            object configuration)
         {
             return string.Join(", ", values);
         }

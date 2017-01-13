@@ -61,8 +61,8 @@ function Controller($scope, notificationsService) {
     if (!$scope.configuration.method) {
         $scope.configuration.method = "GET";
     }
-    if (!$scope.configuration.dataFormat) {
-        $scope.configuration.dataFormat = "Query String";
+    if (!$scope.configuration.transmissionFormat) {
+        $scope.configuration.transmissionFormat = "Query String";
     }
     $scope.sortableHandlerOptions = {
         cursor: "move",

@@ -192,6 +192,13 @@
       of the fields you specify here. Useful when you want users to receive a
       confirmation email.
     </key>
+    <key alias="URL">
+      The URL the data should be sent to.
+    </key>
+    <key alias="Fields">
+      Select the fields you want to send. Also, specify the name used by the field
+      in the external system.
+    </key>
   </area>
   <area alias="formulate-labels">
     <key alias="Orientation">Orientation</key>
@@ -229,6 +236,10 @@
     <key alias="Error Message">Error Message</key>
     <key alias="Regular Expression">Regular Expression</key>
     <key alias="Validation Name:">Validation Name:</key>
+    <key alias="URL">URL</key>
+    <key alias="Method">Method</key>
+    <key alias="Transmission Format">Transmission Format</key>
+    <key alias="Fields">Fields</key>
   </area>
   <area alias="formulate-buttons">
     <key alias="Use">Use</key>

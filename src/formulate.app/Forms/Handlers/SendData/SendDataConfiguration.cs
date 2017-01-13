@@ -26,10 +26,10 @@
 
 
         /// <summary>
-        /// The data format (e.g., query string, form URL encoded, JSON, XML) to use when
+        /// The format (e.g., query string, form URL encoded, JSON, XML) to use when
         /// sending the data.
         /// </summary>
-        public string DataFormat { get; set; }
+        public string TransmissionFormat { get; set; }
 
 
         /// <summary>

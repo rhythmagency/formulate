@@ -8,7 +8,13 @@
     using Resolvers;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
+    using System.Net;
+    using System.Web;
+    using Umbraco.Core;
+    using Umbraco.Core.Logging;
+    using Umbraco.Web;
 
 
     /// <summary>
@@ -16,6 +22,14 @@
     /// </summary>
     public class SendDataHandler : IFormHandlerType
     {
+
+        #region Constants
+
+        private const string WebUserAgent = "Formulate, an Umbraco Form Builder";
+        private const string SendDataError = "An error occurred during an attempt to send data to an external URL.";
+
+        #endregion
+
 
         #region Private Properties
 
@@ -110,9 +124,9 @@
             {
                 config.Method = dynamicConfig.method.Value as string;
             }
-            if (propertySet.Contains("dataFormat"))
+            if (propertySet.Contains("transmissionFormat"))
             {
-                config.DataFormat = dynamicConfig.dataFormat.Value as string;
+                config.TransmissionFormat = dynamicConfig.transmissionFormat.Value as string;
             }
 
 
@@ -150,7 +164,120 @@
         /// </param>
         public void HandleForm(FormSubmissionContext context, object configuration)
         {
-            //TODO: ...
+
+            // Variables.
+            var config = configuration as SendDataConfiguration;
+            var form = context.Form;
+            var data = context.Data;
+
+
+            // Convert lists into dictionary.
+            var fieldsById = form.Fields.ToDictionary(x => x.Id, x => x);
+            var valuesById = data.GroupBy(x => x.FieldId).Select(x => new
+            {
+                Id = x.Key,
+                Values = x.SelectMany(y => y.FieldValues).ToList()
+            }).ToDictionary(x => x.Id, x => x.Values);
+
+
+            // Attempts to get a field value.
+            Func<Guid, string> tryGetValue = fieldId =>
+            {
+                var tempValues = default(List<string>);
+                var tempField = default(IFormField);
+                var hasValues = valuesById.TryGetValue(fieldId, out tempValues);
+                var hasField = fieldsById.TryGetValue(fieldId, out tempField);
+                if (hasField && (hasValues || tempField.IsServerSideOnly))
+                {
+                    tempValues = hasValues
+                        ? tempValues
+                        : null;
+                    return tempField.FormatValue(tempValues, FieldPresentationFormats.Transmission);
+                }
+                return null;
+            };
+
+
+            // Get the data to transmit.
+            var transmissionData = config.Fields
+                .Where(x => fieldsById.ContainsKey(x.FieldId))
+                .Select(x => new KeyValuePair<string, string>(x.FieldName, tryGetValue(x.FieldId)))
+                .Where(x => x.Value != null)
+                .ToArray();
+
+
+            // Query string format?
+            if ("Query String".InvariantEquals(config.TransmissionFormat))
+            {
+                SendQueryStringRequest(config.Url, transmissionData, config.Method);
+            }
+
+        }
+
+        #endregion
+
+
+        #region Private Methods
+
+        /// <summary>
+        /// Sends a web request with the data in the query string.
+        /// </summary>
+        /// <param name="url">
+        /// The URL to send the request to.
+        /// </param>
+        /// <param name="data">
+        /// The data to send.
+        /// </param>
+        /// <param name="method">
+        /// The HTTP method (e.g., GET, POST) to use when sending the request.
+        /// </param>
+        /// <returns>
+        /// True, if the request was a success; otherwise, false.
+        /// </returns>
+        /// <remarks>
+        /// Parts of this function are from: http://stackoverflow.com/a/9772003/2052963
+        /// </remarks>
+        private bool SendQueryStringRequest(string url, IEnumerable<KeyValuePair<string, string>> data,
+            string method)
+        {
+
+            // Construct a URL containing the data as query string parameters.
+            var uri = new Uri(url);
+            var queryString = HttpUtility.ParseQueryString(uri.Query);
+            foreach (var pair in data)
+            {
+                queryString.Set(pair.Key, pair.Value);
+            }
+            var bareUrl = uri.GetLeftPart(UriPartial.Path);
+            var strQueryString = queryString.ToString();
+            var hasQueryString = !string.IsNullOrWhiteSpace(strQueryString);
+            var requestUrl = hasQueryString
+                ? $"{bareUrl}?{strQueryString}"
+                : url;
+
+
+            // Attempt to send the web request.
+            var success = true;
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create(requestUrl);
+                request.UserAgent = WebUserAgent;
+                request.Method = method;
+                var response = (HttpWebResponse)request.GetResponse();
+                var responseStream = response.GetResponseStream();
+                var reader = new StreamReader(responseStream);
+                var result = reader.ReadToEnd();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error<SendDataHandler>(SendDataError, ex);
+                success = false;
+            }
+
+
+            // Indicate success or failure.
+            return success;
+
         }
 
         #endregion

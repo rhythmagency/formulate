@@ -4,6 +4,7 @@
     {
         Unspecified,
         Email,
-        Storage
+        Storage,
+        Transmission
     }
 }

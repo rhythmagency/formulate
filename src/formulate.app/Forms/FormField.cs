@@ -189,7 +189,8 @@
         public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format)
         {
             var instance = new T();
-            return instance.FormatValue(values ?? new string[0], format);
+            var configuration = instance.DeserializeConfiguration(FieldConfiguration);
+            return instance.FormatValue(values ?? new string[0], format, configuration);
         }
 
         #endregion
