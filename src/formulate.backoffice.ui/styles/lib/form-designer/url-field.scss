@@ -1,0 +1,30 @@
+@import "../colors";
+
+// Text input fields used for URL's. Gradient border and underlined text that looks similar
+// to the style of a typical anchor tag.
+input.formulate-textbox {
+    &--url {
+        position: relative;
+        width: 80%;
+        max-width: 800px;
+        text-decoration: underline;
+        border: none;
+        margin: 1px;
+    }
+}
+.formulate-textbox {
+    &--url-container {
+        position: relative;
+    }
+    &--url-border {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 80%;
+        max-width: 800px;
+        background: -moz-linear-gradient(left,  $input-border-color 0%, $input-border-color-transparent 50%);
+        background: -webkit-linear-gradient(left,  $input-border-color 0%, $input-border-color-transparent 50%);
+        background: linear-gradient(to right,  $input-border-color 0%, $input-border-color-transparent 50%);
+    }
+}

@@ -1,0 +1,71 @@
+@import "../colors";
+
+.formulate-field .collapser,
+.formulate-handler .collapser {
+    -moz-transition: transform 0.25s;
+    -o-transition: transform 0.25s;
+    -webkit-transition: transform 0.25s;
+    transition: transform 0.25s;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.formulate-field.collapsed .collapser,
+.formulate-handler.collapsed .collapser {
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+
+.formulate-field.expanded .collapser,
+.formulate-handler.expanded .collapser {
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.formulate-field .formulate-field-details,
+.formulate-handler .formulate-handler-details {
+    max-height: 1000px;
+    overflow: hidden;
+    transition:
+            max-height 0.25s,
+            opacity 0.25s;
+}
+
+.formulate-field.collapsed .formulate-field-details,
+.formulate-handler.collapsed .formulate-handler-details {
+    max-height: 0;
+    opacity: 0;
+}
+
+.formulate-field .drag-handle,
+.formulate-handler .drag-handle {
+    cursor: pointer;
+    opacity: 0.5;
+    margin-right: 5px;
+    font-size: 0.8em;
+    vertical-align: middle;
+}
+
+.formulate-field .deleter,
+.formulate-handler .deleter {
+    color: $red-warn;
+    float: right;
+    vertical-align: middle;
+    font-size: 1.2em;
+    text-shadow: 2px 2px $red-dark;
+}
+
+.formulate-field .type-identifier,
+.formulate-handler .type-identifier {
+    vertical-align: text-bottom;
+    font-size: 1.5em;
+    margin-right: 5px;
+    text-shadow: 2px 2px 3px $black;
+}
