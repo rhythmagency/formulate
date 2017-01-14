@@ -371,10 +371,12 @@
     <Compile Include="Forms\FormMetaInfo.cs" />
     <Compile Include="Forms\FormSubmissionContext.cs" />
     <Compile Include="Forms\Handlers\SendData\FieldMapping.cs" />
+    <Compile Include="Forms\Handlers\SendData\IHandleSendDataResult.cs" />
     <Compile Include="Forms\Handlers\SendData\SendDataConfiguration.cs" />
     <Compile Include="Forms\Handlers\SendData\SendDataHandler.cs" />
     <Compile Include="Forms\Handlers\Email\EmailConfiguration.cs" />
     <Compile Include="Forms\Handlers\Email\EmailHandler.cs" />
+    <Compile Include="Forms\Handlers\SendData\SendDataResult.cs" />
     <Compile Include="Forms\Handlers\StoreData\StoreDataHandler.cs" />
     <Compile Include="Forms\IFormField.cs" />
     <Compile Include="Forms\IFormFieldMetaInfo.cs" />

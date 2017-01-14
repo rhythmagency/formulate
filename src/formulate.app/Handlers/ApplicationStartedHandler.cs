@@ -228,6 +228,9 @@
                 { "GetHandlerTypes",
                     helper.GetUmbracoApiService<HandlersController>(x =>
                         x.GetHandlerTypes()) },
+                { "GetResultHandlers",
+                    helper.GetUmbracoApiService<HandlersController>(x =>
+                        x.GetResultHandlers()) },
                 { "GetTemplates",
                     helper.GetUmbracoApiService<TemplatesController>(x =>
                         x.GetTemplates()) },

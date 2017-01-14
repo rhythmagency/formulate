@@ -99,6 +99,8 @@
             var dynamicConfig = configData as dynamic;
             var properties = configData.Properties().Select(x => x.Name);
             var propertySet = new HashSet<string>(properties);
+            var handlerTypes = ReflectionHelper
+                .GetTypesImplementingInterface<IHandleSendDataResult>();
 
 
             // Get field mappings.
@@ -112,6 +114,21 @@
                         FieldName = field.name.Value as string
                     });
                 }
+            }
+
+
+            // Set the function that handles the result.
+            if (propertySet.Contains("resultHandler"))
+            {
+                var strHandler = dynamicConfig.resultHandler.Value as string;
+                var handlerType = handlerTypes
+                    .FirstOrDefault(x => x.AssemblyQualifiedName == strHandler);
+                var resultHandler = default(IHandleSendDataResult);
+                if (handlerType != null)
+                {
+                    resultHandler = Activator.CreateInstance(handlerType) as IHandleSendDataResult;
+                }
+                config.ResultHandler = resultHandler;
             }
 
 
@@ -169,6 +186,7 @@
             var config = configuration as SendDataConfiguration;
             var form = context.Form;
             var data = context.Data;
+            var result = default(SendDataResult);
 
 
             // Convert lists into dictionary.
@@ -209,8 +227,16 @@
             // Query string format?
             if ("Query String".InvariantEquals(config.TransmissionFormat))
             {
-                SendQueryStringRequest(config.Url, transmissionData, config.Method);
+                result = SendQueryStringRequest(config.Url, transmissionData, config.Method);
             }
+
+
+            // Call function to handle result?
+            if (context != null)
+            {
+                result.Context = context;
+            }
+            config?.ResultHandler?.HandleResult(result);
 
         }
 
@@ -237,11 +263,12 @@
         /// <remarks>
         /// Parts of this function are from: http://stackoverflow.com/a/9772003/2052963
         /// </remarks>
-        private bool SendQueryStringRequest(string url, IEnumerable<KeyValuePair<string, string>> data,
+        private SendDataResult SendQueryStringRequest(string url, IEnumerable<KeyValuePair<string, string>> data,
             string method)
         {
 
             // Construct a URL containing the data as query string parameters.
+            var sendDataResult = new SendDataResult();
             var uri = new Uri(url);
             var queryString = HttpUtility.ParseQueryString(uri.Query);
             foreach (var pair in data)
@@ -257,26 +284,29 @@
 
 
             // Attempt to send the web request.
-            var success = true;
             try
             {
                 var request = (HttpWebRequest)WebRequest.Create(requestUrl);
                 request.UserAgent = WebUserAgent;
                 request.Method = method;
                 var response = (HttpWebResponse)request.GetResponse();
+                sendDataResult.HttpWebResponse = response;
                 var responseStream = response.GetResponseStream();
                 var reader = new StreamReader(responseStream);
-                var result = reader.ReadToEnd();
+                var resultText = reader.ReadToEnd();
+                sendDataResult.ResponseText = resultText;
+                sendDataResult.Success = true;
             }
             catch (Exception ex)
             {
                 LogHelper.Error<SendDataHandler>(SendDataError, ex);
-                success = false;
+                sendDataResult.ResponseError = ex;
+                sendDataResult.Success = false;
             }
 
 
-            // Indicate success or failure.
-            return success;
+            // Return the result of the request.
+            return sendDataResult;
 
         }
 

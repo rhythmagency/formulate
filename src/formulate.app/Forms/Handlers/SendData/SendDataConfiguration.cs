@@ -37,6 +37,12 @@
         /// </summary>
         public IEnumerable<FieldMapping> Fields { get; set; }
 
+
+        /// <summary>
+        /// The function that handles the result of a "Send Data" request.
+        /// </summary>
+        public IHandleSendDataResult ResultHandler { get; set; }
+
         #endregion
 
     }

@@ -202,6 +202,9 @@
     <key alias="Include Hidden Fields">
       When appending fields, also include hidden fields?
     </key>
+    <key alias="Result Handler">
+      Optional. The function that should be called to process the result of the web request.
+    </key>
   </area>
   <area alias="formulate-labels">
     <key alias="Orientation">Orientation</key>
@@ -244,6 +247,7 @@
     <key alias="Transmission Format">Transmission Format</key>
     <key alias="Fields">Fields</key>
     <key alias="Include Hidden Fields">Include Hidden Fields?</key>
+    <key alias="Result Handler">Result Handler</key>
   </area>
   <area alias="formulate-buttons">
     <key alias="Use">Use</key>

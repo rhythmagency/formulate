@@ -45,12 +45,13 @@ function directive(formulateDirectives) {
  * @param notificationsService The injected Umbraco notifications service.
  * @constructor
  */
-function Controller($scope, notificationsService) {
+function Controller($scope, notificationsService, formulateHandlers) {
 
     // Variables.
     this.injected = {
         $scope: $scope,
-        notificationsService: notificationsService
+        notificationsService: notificationsService,
+        formulateHandlers: formulateHandlers
     };
 
     // Initialize scope variables.
@@ -77,6 +78,11 @@ function Controller($scope, notificationsService) {
 
     // Start watching changes to the fields.
     this.watchFieldChanges();
+
+    // Get the result handler kinds.
+    formulateHandlers.getResultHandlers().then(function (resultHandlers) {
+        $scope.resultHandlers = resultHandlers;
+    });
 
 }
 

@@ -79,4 +79,24 @@
             </select>
         </div>
     </div>
+    <div class="umb-el-wrap">
+        <label class="control-label">
+            <localize key="formulate-labels_Result Handler">
+                Result Handler
+            </localize>
+            <small>
+                <localize key="formulate-label-descriptions_Result Handler">
+                    Optional. The function that should be called to process the result of the web request.
+                </localize>
+            </small>
+        </label>
+        <div class="controls controls-row">
+            <div>
+                <select ng-options="option.className as option.name for option in resultHandlers" ng-model="configuration.resultHandler">
+                    <option value="" formulate-inject-localization="formulate-options_Select a Function">
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
 </div>

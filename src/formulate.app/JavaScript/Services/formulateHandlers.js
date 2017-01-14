@@ -15,7 +15,10 @@ app.factory("formulateHandlers", function (formulateVars,
     return {
 
         // Gets the handler types.
-        getHandlerTypes: getGetHandlerTypes(services)
+        getHandlerTypes: getGetHandlerTypes(services),
+
+        // Gets the result handler kinds.
+        getResultHandlers: getGetResultHandlers(services)
 
     };
 
@@ -41,6 +44,26 @@ function getGetHandlerTypes(services) {
                 };
             });
 
+        });
+
+    };
+}
+
+// Returns the function that gets the result handler functions.
+function getGetResultHandlers(services) {
+    return function () {
+
+        // Variables.
+        var url = services.formulateVars.GetResultHandlers;
+
+        // Get result handler kinds from server.
+        return services.formulateServer.get(url, {}, function (data) {
+            return data.Kinds.map(function (item) {
+                return {
+                    name: item.Name,
+                    className: item.ClassName
+                };
+            });
         });
 
     };
