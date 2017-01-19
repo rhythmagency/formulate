@@ -137,7 +137,8 @@
                 Services = context.Services,
                 UmbracoContext = context.UmbracoContext,
                 UmbracoHelper = context.UmbracoHelper,
-                SubmissionId = Guid.NewGuid()
+                SubmissionId = Guid.NewGuid(),
+                ExtraContext = new Dictionary<string, object>()
             };
 
 

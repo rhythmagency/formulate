@@ -2,6 +2,7 @@
 {
 
     // Namespaces.
+    using core.Extensions;
     using core.Types;
     using Helpers;
     using Managers;
@@ -19,6 +20,17 @@
     /// </summary>
     public class EmailHandler : IFormHandlerType
     {
+
+        #region Public Static Properties
+
+        /// <summary>
+        /// The key to use when extracting the extra email recipients from the extra context on the
+        /// form submission context. The value is expected to be a list of strings, with each string
+        /// being an email address.
+        /// </summary>
+        public const string ExtraRecipientsKey = "Formulate Core: Email: Extra Recipients";
+
+        #endregion
 
         #region Private Properties
 
@@ -180,6 +192,8 @@
             var data = context.Data;
             var files = context.Files;
             var payload = context.Payload;
+            var extraContext = context.ExtraContext;
+            var extraEmails = (extraContext[ExtraRecipientsKey] as List<string>).MakeSafe();
 
             // Create message.
             var config = configuration as EmailConfiguration;
@@ -199,7 +213,9 @@
 
 
             // Any allowed recipients (if not, abort early)?
-            var rawRecipients = config.Recipients.Concat(fieldEmails);
+            var rawRecipients = config.Recipients
+                .Concat(fieldEmails)
+                .Concat(extraEmails);
             var allowedRecipients = FilterEmails(rawRecipients);
             if (!allowedRecipients.Any())
             {
