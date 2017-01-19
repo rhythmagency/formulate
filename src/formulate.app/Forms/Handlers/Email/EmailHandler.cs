@@ -30,6 +30,20 @@
         /// </summary>
         public const string ExtraRecipientsKey = "Formulate Core: Email: Extra Recipients";
 
+
+        /// <summary>
+        /// The key to use when extracting the extra subject line text from the extra context on the
+        /// form submission context. The value is expected to be a string.
+        /// </summary>
+        public const string ExtraSubjectKey = "Formulate Core: Email: Extra Subject";
+
+
+        /// <summary>
+        /// The key to use when extracting the extra message boty text from the extra context on the
+        /// form submission context. The value is expected to be a string.
+        /// </summary>
+        public const string ExtraMessageKey = "Formulate Core: Email: Extra Message";
+
         #endregion
 
         #region Private Properties
@@ -188,21 +202,24 @@
         {
 
             // Variables.
+            var config = configuration as EmailConfiguration;
             var form = context.Form;
             var data = context.Data;
             var files = context.Files;
             var payload = context.Payload;
             var extraContext = context.ExtraContext;
             var extraEmails = (extraContext[ExtraRecipientsKey] as List<string>).MakeSafe();
+            var extraSubject = extraContext[ExtraSubjectKey] as string ?? string.Empty;
+            var extraMessage = extraContext[ExtraMessageKey] as string ?? string.Empty;
+            var baseMessage = config.Message + extraMessage;
 
             // Create message.
-            var config = configuration as EmailConfiguration;
             var message = new MailMessage()
             {
                 IsBodyHtml = false
             };
             message.From = new MailAddress(config.SenderEmail);
-            message.Subject = config.Subject;
+            message.Subject = config.Subject + extraSubject;
 
 
             // Get recipients from field values.
@@ -236,7 +253,7 @@
                 var chosenPayload = config.AppendPayload
                     ? payload
                     : payload.Take(0);
-                message.Body = ConstructMessage(form, data, files, chosenPayload, config,
+                message.Body = ConstructMessage(form, data, files, chosenPayload, baseMessage,
                     config.IncludeHiddenFields);
                 foreach(var file in files)
                 {
@@ -246,7 +263,7 @@
             }
             else
             {
-                message.Body = config.Message;
+                message.Body = baseMessage;
             }
 
 
@@ -278,8 +295,8 @@
         /// <param name="payload">
         /// Extra data related to the submission.
         /// </param>
-        /// <param name="config">
-        /// The email configuration.
+        /// <param name="baseMessage">
+        /// The base message to use (before any fields have been appended).
         /// </param>
         /// <param name="includeHiddenFields">
         /// Include hidden fields in the message?
@@ -289,7 +306,7 @@
         /// </returns>
         private string ConstructMessage(Form form, IEnumerable<FieldSubmission> data,
             IEnumerable<FileFieldSubmission> files, IEnumerable<PayloadSubmission> payload,
-            EmailConfiguration config, bool includeHiddenFields)
+            string baseMessage, bool includeHiddenFields)
         {
 
             // Variables.
@@ -368,7 +385,7 @@
 
 
             // Return message.
-            return config.Message + nl + string.Join(nl, lines);
+            return baseMessage + nl + string.Join(nl, lines);
 
         }
 
