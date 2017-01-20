@@ -202,6 +202,15 @@
                 {
                     Success = true,
                     FieldCategories = Config.FieldCategories
+                        .Select(x => new
+                        {
+                            Kind = x.Kind,
+                            Group = x.Group
+                        })
+                        .OrderBy(x => string.IsNullOrWhiteSpace(x.Group) ? 0 : 1)
+                        .OrderBy(x => x.Group)
+                        .ThenBy(x => x.Kind)
+                        .ToArray()
                 };
 
             }

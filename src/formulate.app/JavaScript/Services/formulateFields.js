@@ -85,7 +85,12 @@ function getGetFieldCategories(services) {
         return services.formulateServer.get(url, {}, function (data) {
 
             // Return field categories.
-            return data.FieldCategories;
+            return data.FieldCategories.map(function (category) {
+                return {
+                    kind: category.Kind,
+                    group: category.Group
+                };
+            });
 
         });
 

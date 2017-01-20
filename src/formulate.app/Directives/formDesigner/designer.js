@@ -242,8 +242,9 @@ function initializeForm(options, services) {
     services.formulateFields.getFieldCategories().then(function (categories) {
         $scope.categories = categories.map(function (category) {
             return {
-                label: category,
-                value: category
+                label: category.kind,
+                value: category.kind,
+                group: category.group
             };
         });
     });

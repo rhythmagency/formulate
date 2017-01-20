@@ -6,7 +6,7 @@
 
 
     /// <summary>
-    /// A configuration section for field Categories.
+    /// A configuration section for field categories.
     /// </summary>
     public class FieldCategoriesConfigSection : ConfigurationSection
     {

@@ -29,6 +29,23 @@
             }
         }
 
+
+        /// <summary>
+        /// The group for the category.
+        /// </summary>
+        [ConfigurationProperty("group", IsRequired = false)]
+        public string Group
+        {
+            get
+            {
+                return base["group"] as string;
+            }
+            set
+            {
+                base["group"] = value;
+            }
+        }
+
         #endregion
 
     }

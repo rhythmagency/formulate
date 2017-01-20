@@ -92,10 +92,10 @@
                                         </label>
                                         <div class="controls controls-row">
                                             <input
-                                                   type="text"
-                                                   ng-model="field.label"
-                                                   formulate-localize-attribute="placeholder"
-                                                   placeholder="formulate-placeholders_Field Label" />
+                                               type="text"
+                                               ng-model="field.label"
+                                               formulate-localize-attribute="placeholder"
+                                               placeholder="formulate-placeholders_Field Label" />
                                         </div>
                                     </div>
                                     <div class="umb-el-wrap" ng-if="categories">
@@ -105,7 +105,10 @@
                                             </localize>
                                         </label>
                                         <div class="controls controls-row">
-                                            <select ng-options="option.value as option.label for option in categories" ng-model="field.category">
+                                            <select
+                                                class="umb-editor umb-dropdown"
+                                                ng-model="field.category"
+                                                ng-options="option.value as option.label group by option.group for option in categories">
                                                 <option value="" formulate-inject-localization="formulate-options_Select a Field Category"></option>
                                             </select>
                                         </div>

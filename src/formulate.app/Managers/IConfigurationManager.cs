@@ -60,7 +60,7 @@
         /// <summary>
         /// The field categories used for flagging field types.
         /// </summary>
-        IEnumerable<string> FieldCategories { get; }
+        IEnumerable<FieldCategory> FieldCategories { get; }
         
         #endregion
 

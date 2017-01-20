@@ -139,14 +139,18 @@
         /// <summary>
         /// The field categories
         /// </summary>
-        public IEnumerable<string> FieldCategories
+        public IEnumerable<FieldCategory> FieldCategories
         {
             get
             {
                 var fieldCategoriesSection = ConfigurationManager
                     .GetSection("formulateConfiguration/fieldCategories") as FieldCategoriesConfigSection;
                 var FieldCategoryItems = fieldCategoriesSection?.Categories;
-                return FieldCategoryItems.Cast<FieldCategoryElement>().Select(x => x.Kind).ToArray();
+                return FieldCategoryItems.Cast<FieldCategoryElement>().Select(x => new FieldCategory()
+                {
+                    Kind = x.Kind,
+                    Group = x.Group
+                }).ToArray();
             }
         }
 

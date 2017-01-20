@@ -132,7 +132,6 @@
                     Path = fullPath,
                     Alias = form.Alias,
                     Name = form.Name,
-                    FieldCategories = Config.FieldCategories,
                     Fields = form.Fields.MakeSafe().Select(x => new
                     {
                         Id = GuidHelper.GetString(x.Id),
