@@ -107,10 +107,12 @@
             // Variables.
             var recipients = new List<string>();
             var recipientFields = new List<Guid>();
+            var fieldsToInclude = new List<Guid>();
             var config = new EmailConfiguration()
             {
                 Recipients = recipients,
-                RecipientFields = recipientFields
+                RecipientFields = recipientFields,
+                FieldsToInclude = fieldsToInclude
             };
             var configData = JsonHelper.Deserialize<JObject>(configuration);
             var dynamicConfig = configData as dynamic;
@@ -138,6 +140,16 @@
             }
 
 
+            // Get fields to include in message.
+            if (propertySet.Contains("fieldsToInclude"))
+            {
+                foreach (var field in dynamicConfig.fieldsToInclude)
+                {
+                    fieldsToInclude.Add(GuidHelper.GetGuid(field.id.Value as string));
+                }
+            }
+
+
             // Get simple properties.
             if (propertySet.Contains("senderEmail"))
             {
@@ -150,6 +162,11 @@
             if (propertySet.Contains("includeHiddenFields"))
             {
                 config.IncludeHiddenFields = (dynamicConfig.includeHiddenFields.Value as bool?)
+                    .GetValueOrDefault();
+            }
+            if (propertySet.Contains("excludeFieldLabels"))
+            {
+                config.ExcludeFieldLabels = (dynamicConfig.excludeFieldLabels.Value as bool?)
                     .GetValueOrDefault();
             }
             if (propertySet.Contains("appendPayload"))
@@ -205,12 +222,14 @@
             var config = configuration as EmailConfiguration;
             var form = context.Form;
             var data = context.Data;
+            var dataForMessage = data;
             var files = context.Files;
+            var filesForMessage = files;
             var payload = context.Payload;
             var extraContext = context.ExtraContext;
-            var extraEmails = (extraContext[ExtraRecipientsKey] as List<string>).MakeSafe();
-            var extraSubject = extraContext[ExtraSubjectKey] as string ?? string.Empty;
-            var extraMessage = extraContext[ExtraMessageKey] as string ?? string.Empty;
+            var extraEmails = (AttemptGetValue(extraContext, ExtraRecipientsKey) as List<string>).MakeSafe();
+            var extraSubject = AttemptGetValue(extraContext, ExtraSubjectKey) as string ?? string.Empty;
+            var extraMessage = AttemptGetValue(extraContext, ExtraMessageKey) as string ?? string.Empty;
             var baseMessage = config.Message + extraMessage;
 
             // Create message.
@@ -224,9 +243,28 @@
 
             // Get recipients from field values.
             var emailFieldIds = new HashSet<Guid>(config.RecipientFields);
-            var fieldEmails = data.Where(x => emailFieldIds.Contains(x.FieldId)).SelectMany(x => x.FieldValues)
+            var fieldEmails = data
+                .Where(x => emailFieldIds.Contains(x.FieldId)).SelectMany(x => x.FieldValues)
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .Where(x => IsEmailInValidFormat(x));
+
+
+            // Include only specific fields in the email message?
+            if (config.FieldsToInclude.Any())
+            {
+
+                // Variables.
+                var fieldIdsToInclude = new HashSet<Guid>(config.FieldsToInclude);
+
+                // Filter normal fields.
+                dataForMessage = data
+                    .Where(x => fieldIdsToInclude.Contains(x.FieldId)).ToArray();
+
+                // Filter file fields.
+                filesForMessage = files
+                    .Where(x => fieldIdsToInclude.Contains(x.FieldId)).ToArray();
+
+            }
 
 
             // Any allowed recipients (if not, abort early)?
@@ -253,9 +291,9 @@
                 var chosenPayload = config.AppendPayload
                     ? payload
                     : payload.Take(0);
-                message.Body = ConstructMessage(form, data, files, chosenPayload, baseMessage,
-                    config.IncludeHiddenFields);
-                foreach(var file in files)
+                message.Body = ConstructMessage(form, dataForMessage, filesForMessage,
+                    chosenPayload, baseMessage, config.IncludeHiddenFields, config.ExcludeFieldLabels);
+                foreach (var file in filesForMessage)
                 {
                     var dataStream = new MemoryStream(file.FileData);
                     message.Attachments.Add(new Attachment(dataStream, file.FileName));
@@ -301,12 +339,15 @@
         /// <param name="includeHiddenFields">
         /// Include hidden fields in the message?
         /// </param>
+        /// <param name="excludeFieldLabels">
+        /// Exclude the field labels when constructing the message?
+        /// </param>
         /// <returns>
         /// The email message.
         /// </returns>
         private string ConstructMessage(Form form, IEnumerable<FieldSubmission> data,
             IEnumerable<FileFieldSubmission> files, IEnumerable<PayloadSubmission> payload,
-            string baseMessage, bool includeHiddenFields)
+            string baseMessage, bool includeHiddenFields, bool excludeFieldLabels)
         {
 
             // Variables.
@@ -354,7 +395,9 @@
                     formatted = field.FormatValue(values, FieldPresentationFormats.Email);
 
                 }
-                var line = string.Format("{0}: {1}", fieldName, formatted);
+                var line = excludeFieldLabels
+                    ? formatted
+                    : $"{fieldName}: {formatted}";
                 lines.Add(line);
             }
 
@@ -379,7 +422,9 @@
                     fieldName = field.Name;
 
                 }
-                var line = string.Format(@"{0}: See attachment, ""{1}""", fieldName, filename);
+                var line = excludeFieldLabels
+                    ? $@"See attachment, ""{filename}"""
+                    : $@"{fieldName}: See attachment, ""{filename}""";
                 lines.Add(line);
             }
 
@@ -453,6 +498,27 @@
             {
                 return false;
             }
+        }
+
+
+        /// <summary>
+        /// Attempts to get a value from a dictionary.
+        /// </summary>
+        /// <param name="dictionary">
+        /// The dictionary to get the value from.
+        /// </param>
+        /// <param name="key">
+        /// The key to use when getting the value.
+        /// </param>
+        /// <returns>
+        /// The value, or null.
+        /// </returns>
+        private object AttemptGetValue(Dictionary<string, object> dictionary, string key)
+        {
+            var value = default(object);
+            return dictionary.TryGetValue(key, out value)
+                ? value
+                : null;
         }
 
         #endregion

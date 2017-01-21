@@ -45,20 +45,10 @@
             </small>
         </label>
         <div class="controls controls-row">
-            <div ng-repeat="field in tempData.recipientFields">
-                <div class="input-append">
-                    <input type="text" readonly ng-model="field.name" class="form-control" />
-                    <button type="button" class="btn btn-danger" ng-click="deleteRecipientField($index)">X</button>
-                </div>
-            </div>
-            <button type="button" class="btn btn-default" ng-click="addRecipientField()" ng-disabled="!tempData.recipientEmailField">
-                <localize key="formulate-buttons_Add Recipient">
-                    Add Recipient
-                </localize>
-            </button>
-            <select ng-options="field.id as field.name for field in fields | filter: {id: '!!'}" ng-model="tempData.recipientEmailField">
-                <option value="" formulate-inject-localization="formulate-options_Select a Field"></option>
-            </select>
+            <formulate-form-fields-chooser
+                all-fields="fields"
+                chosen-fields="configuration.recipientEmails">
+            </formulate-form-fields-chooser>
         </div>
     </div>
     <div class="umb-el-wrap">
@@ -112,6 +102,42 @@
             <div>
                 <input type="checkbox" ng-model="configuration.includeHiddenFields" />
             </div>
+        </div>
+    </div>
+    <div class="umb-el-wrap">
+        <label class="control-label">
+            <localize key="formulate-labels_Exclude Field Labels">
+                Exclude Field Labels?
+            </localize>
+            <small>
+                <localize key="formulate-label-descriptions_Exclude Field Labels">
+                    When appending fields, exclude the labels (i.e., only include the values)?
+                </localize>
+            </small>
+        </label>
+        <div class="controls controls-row">
+            <div>
+                <input type="checkbox" ng-model="configuration.excludeFieldLabels" />
+            </div>
+        </div>
+    </div>
+    <div class="umb-el-wrap">
+        <label class="control-label">
+            <localize key="formulate-labels_Include Specific Fields">
+                Include Specific Fields
+            </localize>
+            <small>
+                <localize key="formulate-label-descriptions_Include Specific Fields">
+                    If you would prefer this email only include specific fields rather than all
+                    fields, select the fields you would like to include.
+                </localize>
+            </small>
+        </label>
+        <div class="controls controls-row">
+            <formulate-form-fields-chooser
+                all-fields="fields"
+                chosen-fields="configuration.fieldsToInclude">
+            </formulate-form-fields-chooser>
         </div>
     </div>
     <div class="umb-el-wrap">

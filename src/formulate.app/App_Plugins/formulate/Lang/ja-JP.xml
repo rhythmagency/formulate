@@ -205,6 +205,13 @@
     <key alias="Result Handler">
       Optional. The function that should be called to process the result of the web request.
     </key>
+    <key alias="Include Specific Fields">
+      If you would prefer this email only include specific fields rather than all
+      fields, select the fields you would like to include.
+    </key>
+    <key alias="Exclude Field Labels">
+      When appending fields, exclude the labels (i.e., only include the values)?
+    </key>
   </area>
   <area alias="formulate-labels">
     <key alias="Orientation">Orientation</key>
@@ -248,6 +255,8 @@
     <key alias="Fields">Fields</key>
     <key alias="Include Hidden Fields">Include Hidden Fields?</key>
     <key alias="Result Handler">Result Handler</key>
+    <key alias="Include Specific Fields">Include Specific Fields</key>
+    <key alias="Exclude Field Labels">Exclude Field Labels?</key>
   </area>
   <area alias="formulate-buttons">
     <key alias="Use">Use</key>
@@ -271,6 +280,7 @@
     <key alias="Pick Validations">Pick Validations</key>
     <key alias="Add Handler">Add Handler</key>
     <key alias="Add Recipient">Add Recipient</key>
+    <key alias="Add Field">Add Field</key>
     <key alias="Delete Row">Delete Row</key>
     <key alias="Click to Add Row">Click to Add Row</key>
     <key alias="Create Layout">Create Layout</key>

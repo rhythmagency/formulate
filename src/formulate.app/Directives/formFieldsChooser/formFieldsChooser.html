@@ -1,0 +1,16 @@
+﻿<div>
+    <div ng-repeat="field in tempData.fields">
+        <div class="input-append">
+            <input type="text" readonly ng-model="field.name" class="form-control" />
+            <button type="button" class="btn btn-danger" ng-click="deleteField($index)">X</button>
+        </div>
+    </div>
+    <button type="button" class="btn btn-default" ng-click="addField()" ng-disabled="!tempData.field">
+        <localize key="formulate-buttons_Add Field">
+            Add Field
+        </localize>
+    </button>
+    <select ng-options="field.id as field.name for field in allFields | filter: {id: '!!'}" ng-model="tempData.field">
+        <option value="" formulate-inject-localization="formulate-options_Select a Field"></option>
+    </select>
+</div>
