@@ -9,7 +9,7 @@ var app = angular.module('formulate');
  *
  * @constructor
  */
-function FormulateSubmitService($rootScope, $http, $q, $window) {
+function FormulateSubmitService($http, $q, $window) {
     ////////////////////////////////////////
     // Handle Post
     function submitPost(data) {
@@ -54,9 +54,9 @@ function FormulateSubmitService($rootScope, $http, $q, $window) {
         return deferred.promise;
     }
 
-    this.post = function (data) {
+    this.post = function (data, $scope) {
         function postSuccess(response) {
-            $rootScope.$broadcast('Formulate.formSubmit.OK', {
+            $scope.$emit('Formulate.formSubmit.OK', {
                 fields: data.postData,
                 name: data.name,
                 response: response.data
@@ -64,7 +64,7 @@ function FormulateSubmitService($rootScope, $http, $q, $window) {
         }
 
         function postFailed(message) {
-            $rootScope.$broadcast('Formulate.formSubmit.Failed', {
+            $scope.$emit('Formulate.formSubmit.Failed', {
                 fields: data.postData,
                 name: data.name,
                 message: message
@@ -174,7 +174,7 @@ function FormulateController($rootScope, $scope, $element, $window, FormulateSub
 
     function handleSubmitEvent($event, data) {
         if ($event.targetScope === $scope && !$event.defaultPrevented) {
-            FormulateSubmitService.post(data);
+            FormulateSubmitService.post(data, self.injected.$scope);
         }
     }
 
