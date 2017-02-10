@@ -243,7 +243,6 @@
                         foreach (var fieldId in fieldIds)
                         {
                             var value = default(string);
-                            //TODO: ...
                             if (!row.Values.TryGetValue(fieldId, out value))
                             {
                                 value = null;
