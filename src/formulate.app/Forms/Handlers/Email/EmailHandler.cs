@@ -39,12 +39,13 @@
 
 
         /// <summary>
-        /// The key to use when extracting the extra message boty text from the extra context on the
+        /// The key to use when extracting the extra message body text from the extra context on the
         /// form submission context. The value is expected to be a string.
         /// </summary>
         public const string ExtraMessageKey = "Formulate Core: Email: Extra Message";
 
         #endregion
+
 
         #region Private Properties
 
@@ -364,6 +365,7 @@
                 Filename = x.Select(y => y.FileName).FirstOrDefault()
             }).ToDictionary(x => x.Id, x => x.Filename);
             var fieldsById = form.Fields.ToDictionary(x => x.Id, x => x);
+            var fieldIds = form.Fields.Select(x => x.Id);
 
 
             // Payload items.
@@ -374,7 +376,7 @@
 
 
             // Normal fields.
-            foreach (var key in valuesById.Keys)
+            foreach (var key in valuesById.Keys.OrderByCollection(fieldIds))
             {
                 var values = valuesById[key];
                 var formatted = string.Join(", ", values);
@@ -403,7 +405,7 @@
 
 
             // File fields.
-            foreach (var key in filesById.Keys)
+            foreach (var key in filesById.Keys.OrderByCollection(fieldIds))
             {
                 var filename = filesById[key];
                 var field = default(IFormField);
