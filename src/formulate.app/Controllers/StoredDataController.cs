@@ -2,6 +2,7 @@
 {
 
     // Namespaces.
+    using core.Extensions;
     using Forms;
     using Helpers;
     using Managers;
@@ -120,8 +121,8 @@
                     CreationDate = x.CreationDate.AddMinutes(-request.TimezoneOffset).ToString(),
                     Url = x.Url,
                     PageId = x.PageId,
-                    Fields = GetDataForFields(x.DataValues, fieldsById),
-                    Files = GetDataForFiles(x.FileValues, fieldsById)
+                    Fields = GetDataForFields(x.DataValues, fieldsById, form),
+                    Files = GetDataForFiles(x.FileValues, fieldsById, form)
                 }).ToArray()
             };
 
@@ -141,10 +142,13 @@
         /// <param name="fieldsById">
         /// The form field information, stored in a dictionary by field ID.
         /// </param>
+        /// <param name="form">
+        /// The form the fields relate to.
+        /// </param>
         /// <returns>
         /// The anonymous object array containing field information.
         /// </returns>
-        private object GetDataForFields(string strJson, Dictionary<Guid, IFormField> fieldsById)
+        private object GetDataForFields(string strJson, Dictionary<Guid, IFormField> fieldsById, Form form)
         {
 
             // Create a list to store the field data in.
@@ -153,7 +157,8 @@
                 new
                 {
                     Name = default(string),
-                    Value = default(string)
+                    Value = default(string),
+                    Id = default(Guid)
                 }
             }.Take(0).ToList();
 
@@ -183,14 +188,26 @@
                 {
                     Name = fieldName,
                     //TODO: Transform for presentation in grid?
-                    Value = value
+                    Value = value,
+                    Id = guid
                 });
 
             }
 
+            // Sort fields by their order in the form.
+            var fieldInfoById = fieldInfo.ToDictionary(x => x.Id, x => x);
+            var orderedFieldIds = fieldInfo.Select(x => x.Id)
+                .OrderByCollection(form.Fields.Select(y => y.Id));
 
             // Return the array of field information.
-            return fieldInfo.ToArray();
+            return orderedFieldIds
+                .Select(x => fieldInfoById[x])
+                .Select(x => new
+                {
+                    Name = x.Name,
+                    Value = x.Value
+                })
+                .ToArray();
 
         }
 
@@ -204,10 +221,13 @@
         /// <param name="fieldsById">
         /// The form field information, stored in a dictionary by field ID.
         /// </param>
+        /// <param name="form">
+        /// The form the file fields relate to.
+        /// </param>
         /// <returns>
         /// The anonymous object array containing file field information.
         /// </returns>
-        private object GetDataForFiles(string strJson, Dictionary<Guid, IFormField> fieldsById)
+        private object GetDataForFiles(string strJson, Dictionary<Guid, IFormField> fieldsById, Form form)
         {
 
             // Create a list to store the field data in.
@@ -217,7 +237,8 @@
                 {
                     Name = default(string),
                     Filename = default(string),
-                    PathSegment = default(string)
+                    PathSegment = default(string),
+                    Id = default(Guid)
                 }
             }.Take(0).ToList();
 
@@ -248,14 +269,29 @@
                 {
                     Name = fieldName,
                     Filename = filename,
-                    PathSegment = pathSegment
+                    PathSegment = pathSegment,
+                    Id = guid
                 });
 
             }
 
 
+            // Sort fields by their order in the form.
+            var fieldInfoById = fieldInfo.ToDictionary(x => x.Id, x => x);
+            var orderedFieldIds = fieldInfo.Select(x => x.Id)
+                .OrderByCollection(form.Fields.Select(y => y.Id));
+
+
             // Return the array of field information.
-            return fieldInfo.ToArray();
+            return orderedFieldIds
+                .Select(x => fieldInfoById[x])
+                .Select(x => new
+                {
+                    Name = x.Name,
+                    Filename = x.Filename,
+                    PathSegment = x.PathSegment
+                })
+                .ToArray();
 
         }
 
