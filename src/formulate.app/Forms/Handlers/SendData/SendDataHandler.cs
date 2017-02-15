@@ -287,6 +287,7 @@
             try
             {
                 var request = (HttpWebRequest)WebRequest.Create(requestUrl);
+                request.AllowAutoRedirect = false;
                 request.UserAgent = WebUserAgent;
                 request.Method = method;
                 var response = (HttpWebResponse)request.GetResponse();
