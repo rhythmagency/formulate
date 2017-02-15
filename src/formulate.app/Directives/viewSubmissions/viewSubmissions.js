@@ -40,7 +40,27 @@ function controller(formulateSubmissions, dialogService, $scope, formulateForms,
     $scope.submissions = [];
     $scope.currentPage = 0;
     $scope.pagerItems = [];
+    $scope.info = {
+        header: getFormHeader(),
+        tabs: [
+            {
+                id: 6,
+                active: true,
+                label: "Submissions",
+                alias: "submissions"
+            }
+        ]
+    };
 
+}
+
+// Returns the header to show for the given form name.
+function getFormHeader(formName) {
+    if (formName) {
+        return "Form Submisions (" + formName + ")";
+    } else {
+        return "Form Submissions";
+    }
 }
 
 // Returns the URL that downloads an export to a CSV.
@@ -66,7 +86,7 @@ function getPickForm(injected) {
                 // If no form was chosen, unset values.
                 if (!data.length) {
                     $scope.formId = null;
-                    $scope.formName = null;
+                    $scope.info.header = getFormHeader();
                     $scope.totalSubmissions = 0;
                     $scope.submissions = [];
                     $scope.currentPage = 0;
@@ -88,11 +108,11 @@ function getPickForm(injected) {
 // Gets info about the form based on its ID, then updates the info on the scope.
 function refreshForm(formId, injected) {
     var $scope = injected.$scope;
-    $scope.formName = null;
+    $scope.info.header = getFormHeader();
     var formulateForms = injected.formulateForms;
     formulateForms.getFormInfo(formId)
         .then(function (data) {
-            $scope.formName = data.name;
+            $scope.info.header = getFormHeader(data.name);
         });
 }
 
