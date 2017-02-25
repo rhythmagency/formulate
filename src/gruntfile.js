@@ -12,7 +12,7 @@ module.exports = function(grunt) {
         "core",
         "meta"
     ].map(function(base) {
-        return [".dll", ".pdb"].map(function (ext) {
+        return [".dll", ".pdb", ".xml"].map(function (ext) {
             return projectName + "." + base + ext;
         });
     }));
