@@ -101,14 +101,16 @@
                 result = new
                 {
                     Success = true,
-                    Children = children.Select(x => new
-                    {
-                        Id = GuidHelper.GetString(x.Id),
-                        x.Name,
-                        Icon = x.Icon,
-                        Kind = EntityHelper.GetString(x.Kind),
-                        HasChildren = Entities.RetrieveChildren(x.Id).Any()
-                    }).ToArray()
+                    Children = children
+                        .OrderBy(x => x.Name)
+                        .Select(x => new
+                        {
+                            Id = GuidHelper.GetString(x.Id),
+                            x.Name,
+                            Icon = x.Icon,
+                            Kind = EntityHelper.GetString(x.Kind),
+                            HasChildren = Entities.RetrieveChildren(x.Id).Any()
+                        }).ToArray()
                 };
 
             }
