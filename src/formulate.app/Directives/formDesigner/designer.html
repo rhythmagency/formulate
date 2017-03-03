@@ -54,7 +54,7 @@
                     <div ui-sortable="sortableOptions" ng-model="fields">
                         <fieldset ng-repeat="field in fields" class="formulate-field {{field.expanded ? 'expanded' : 'collapsed'}}">
                             <legend><i class="icon-navigation drag-handle"></i><i ng-click="toggleField(field)" class="collapser icon icon-add"></i><i class="type-identifier icon {{field.icon}}"></i>{{field.name || "formulate-general_Unnamed" | formulatelocalize:!field.name}}<i ng-click="deleteField(field)" class="icon-delete deleter"></i></legend>
-                            <div class="formulate-field-details">
+                            <div class="formulate-field-details" ng-if="field.expanded">
                                 <div class="control-group umb-control-group">
                                     <div class="umb-el-wrap">
                                         <label class="control-label">
