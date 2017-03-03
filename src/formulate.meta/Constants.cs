@@ -17,7 +17,7 @@
         /// Do not reformat this code. A grunt task reads this
         /// version number with a regular expression.
         /// </remarks>
-        public const string Version = "1.2.7.0";
+        public const string Version = "1.2.8.0";
 
 
         /// <summary>
