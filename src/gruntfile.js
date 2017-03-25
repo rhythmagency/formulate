@@ -124,7 +124,8 @@ module.exports = function(grunt) {
                 templates: {
                     // RBA = Responsive Bootstrap Angular.
                     rba: {
-                        js: appProject + "/App_Plugins/formulate/responsive.bootstrap.angular.js"
+                        js: appProject + "/App_Plugins/formulate/responsive.bootstrap.angular.js",
+                        js_min: appProject + "/App_Plugins/formulate/responsive.bootstrap.angular.min.js"
                     }
                 },
                 css: appProject + "/App_Plugins/formulate/formulate.css"
@@ -316,6 +317,11 @@ module.exports = function(grunt) {
                 files: {
                     "<%= paths.out.js %>": "<%= paths.out.js %>"
                 }
+            },
+            templates: {
+                files: {
+                    "<%= paths.out.templates.rba.js %>": "<%= paths.out.templates.rba.js %>"
+                }
             }
         },
         jsdoc: {
@@ -323,6 +329,13 @@ module.exports = function(grunt) {
                 src: ["<%= paths.out.js %>"],
                 options: {
                     destination: "<%= paths.out.jsdoc %>"
+                }
+            }
+        },
+        uglify: {
+            templates: {
+                files: {
+                    "<%= paths.out.templates.rba.js_min %>": ["<%= paths.out.templates.rba.js %>"]
                 }
             }
         }
@@ -443,6 +456,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-copy");
+    grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-html-convert");
     grunt.loadNpmTasks("grunt-jsdoc");
     grunt.loadNpmTasks("grunt-msbuild");
@@ -469,7 +483,7 @@ module.exports = function(grunt) {
     grunt.registerTask("frontend-templates",
         // The "frontend-templates" task is for developing frontend templates
         // (e.g., the responsive Bootstrap Angular template).
-        ["browserify:templates", "copy:templates"]);
+        ["browserify:templates", "ngAnnotate:templates", "uglify:templates", "copy:templates"]);
     grunt.registerTask("translation",
         // The "translation" task is for working with translations for Formulate. This
         // will only copy language files.
@@ -483,13 +497,14 @@ module.exports = function(grunt) {
         // The "package" task is used to create an installer package
         // for Formulate.
         ["clean:before", "htmlConvert", "browserify:default", "ngAnnotate:main",
-        "sass:default", "configure:copy:package", "copy:package",
-        "umbracoPackage:main", "nuget", "clean:after"]);
+        "ngAnnotate:templates", "uglify:templates", "sass:default", "configure:copy:package",
+        "copy:package", "umbracoPackage:main", "nuget", "clean:after"]);
     grunt.registerTask("package-full",
         // The "package-full" task is used to build the Visual Studio
         // solution and then create the installer package for Formulate.
         ["clean:before", "nuget_install", "configure:msbuild", "msbuild:main", "htmlConvert",
-        "browserify:default", "ngAnnotate:main", "sass:default", "configure:copy:package",
-        "copy:package", "umbracoPackage:main", "nuget", "clean:after"]);
+        "browserify:default", "ngAnnotate:main", "ngAnnotate:templates", "uglify:templates",
+        "sass:default", "configure:copy:package", "copy:package", "umbracoPackage:main",
+        "nuget", "clean:after"]);
 
 };
