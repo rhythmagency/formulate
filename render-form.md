@@ -91,3 +91,5 @@ You can render your picked form like this (this assumes the form picker property
 All you need to do is copy the above code into a CSHTML file on a page with a picked form on a property with the appropriate alias, and you will have a rendered form.
 
 You can of course integrate it with your site in a number of ways, but this is the simplest version.
+
+If you are interested in minified or modular JavaScript, read further about that [here](/include-javascript-rba).
