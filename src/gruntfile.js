@@ -396,6 +396,12 @@ module.exports = function(grunt) {
                             ],
                             dest: './FormulateTemp/package/',
                             cwd: "Website/"
+                        }, {
+                            // Raw frontend templates.
+                            expand: true,
+                            src: ["responsive.bootstrap.angular/**"],
+                            dest: './FormulateTemp/package/App_Plugins/formulate/templates/',
+                            cwd: appProject + "/JavaScript/FormTemplates/"
                         }
                     ]
                 }
