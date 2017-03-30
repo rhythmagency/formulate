@@ -1,4 +1,6 @@
-﻿namespace formulate.app.Forms.Handlers.SendData
+﻿using System.Text;
+
+namespace formulate.app.Forms.Handlers.SendData
 {
 
     // Namespaces.
@@ -229,7 +231,10 @@
             {
                 result = SendQueryStringRequest(config.Url, transmissionData, config.Method);
             }
-
+            if ("Form Body".InvariantEquals(config.TransmissionFormat))
+            {
+                result = SendUrlEncodedRequest(config.Url, transmissionData, config.Method);
+            }
 
             // Call function to handle result?
             if (context != null)
@@ -282,7 +287,6 @@
                 ? $"{bareUrl}?{strQueryString}"
                 : url;
 
-
             // Attempt to send the web request.
             try
             {
@@ -290,6 +294,81 @@
                 request.AllowAutoRedirect = false;
                 request.UserAgent = WebUserAgent;
                 request.Method = method;
+                var response = (HttpWebResponse)request.GetResponse();
+                sendDataResult.HttpWebResponse = response;
+                var responseStream = response.GetResponseStream();
+                var reader = new StreamReader(responseStream);
+                var resultText = reader.ReadToEnd();
+                sendDataResult.ResponseText = resultText;
+                sendDataResult.Success = true;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error<SendDataHandler>(SendDataError, ex);
+                sendDataResult.ResponseError = ex;
+                sendDataResult.Success = false;
+            }
+
+
+            // Return the result of the request.
+            return sendDataResult;
+
+        }
+
+
+        /// <summary>
+        /// Sends a web request with the data in the query string.
+        /// </summary>
+        /// <param name="url">
+        /// The URL to send the request to.
+        /// </param>
+        /// <param name="data">
+        /// The data to send.
+        /// </param>
+        /// <param name="method">
+        /// The HTTP method (e.g., GET, POST) to use when sending the request.
+        /// </param>
+        /// <returns>
+        /// True, if the request was a success; otherwise, false.
+        /// </returns>
+        /// <remarks>
+        /// Parts of this function are from: http://stackoverflow.com/a/9772003/2052963 and http://stackoverflow.com/questions/14702902
+        /// </remarks>
+        private SendDataResult SendUrlEncodedRequest(string url, IEnumerable<KeyValuePair<string, string>> data, string method)
+        {
+
+            // Construct a URL containing the data as query string parameters.
+            var sendDataResult = new SendDataResult();
+            var uri = new Uri(url);
+            var queryString = HttpUtility.ParseQueryString(uri.Query);
+            foreach (var pair in data)
+            {
+                queryString.Set(pair.Key, pair.Value);
+            }
+            var bareUrl = uri.GetLeftPart(UriPartial.Path);
+            var strQueryString = queryString.ToString();
+            var hasQueryString = !string.IsNullOrWhiteSpace(strQueryString);
+            var requestUrl = hasQueryString
+                ? $"{bareUrl}?{strQueryString}"
+                : url;
+
+            ASCIIEncoding ascii = new ASCIIEncoding();
+            byte[] postBytes = ascii.GetBytes(queryString.ToString());
+
+            // Attempt to send the web request.
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create(requestUrl);
+                request.AllowAutoRedirect = false;
+                request.UserAgent = WebUserAgent;
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.ContentLength = postBytes.Length;
+                request.Method = method;
+
+                // add post data to request
+                Stream postStream = request.GetRequestStream();
+                postStream.Write(postBytes, 0, postBytes.Length);
+
                 var response = (HttpWebResponse)request.GetResponse();
                 sendDataResult.HttpWebResponse = response;
                 var responseStream = response.GetResponseStream();
