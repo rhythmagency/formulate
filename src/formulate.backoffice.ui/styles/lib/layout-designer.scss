@@ -13,6 +13,10 @@
     margin: 3px;
 }
 
+.formulate-cell-field.ui-sortable-handle {
+	cursor:move;
+}
+
 .formulate-cell.editing-rows {
     background-color: $white-dark;
     border-color: transparent;
@@ -78,6 +82,7 @@
     font-weight: bold;
     font-size: 18px;
     transition: background-color 0.25s;
+    text-decoration:underline;
 
     &:hover {
         background-color: $green;
