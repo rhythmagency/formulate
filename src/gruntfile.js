@@ -215,6 +215,12 @@ module.exports = function(grunt) {
                         ],
                         dest: 'nuget-temp/package/content/',
                         cwd: "Website/"
+                    }, {
+                        // Raw frontend templates.
+                        expand: true,
+                        src: ["responsive.bootstrap.angular/**"],
+                        dest: './nuget-temp/package/content/App_Plugins/formulate/templates/',
+                        cwd: appProject + "/JavaScript/FormTemplates/"
                     }
                 ]
             }
