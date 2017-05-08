@@ -259,6 +259,7 @@
 
                 // Selected server side fields.
                 var serverSideFields = form.Fields
+                    .Where(x => x.IsServerSideOnly)
                     .Where(x => fieldIdsToInclude.Contains(x.Id))
                     .Select(x => new FieldSubmission()
                     {
