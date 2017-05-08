@@ -257,8 +257,22 @@
                 // Variables.
                 var fieldIdsToInclude = new HashSet<Guid>(config.FieldsToInclude);
 
+                // Selected server side fields.
+                var serverSideFields = form.Fields
+                    .Where(x => fieldIdsToInclude.Contains(x.Id))
+                    .Select(x => new FieldSubmission()
+                    {
+                        FieldId = x.Id,
+                        // The values don't matter here, as the IFormFieldType.FormatValue is how server
+                        // side fields return a field value.
+                        FieldValues = Enumerable.Empty<string>()
+                    });
+
+                // Combine submitted data and server side field data.
+                var dataWithServerSideFields = data.Concat(serverSideFields);
+
                 // Filter normal fields.
-                dataForMessage = data
+                dataForMessage = dataWithServerSideFields
                     .Where(x => fieldIdsToInclude.Contains(x.FieldId)).ToArray();
 
                 // Filter file fields.
