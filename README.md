@@ -47,6 +47,11 @@ Each project is built into an assembly, and each assembly has a different purpos
 * **formulate.meta**: This contains information about Formulate (e.g., version number). Used primarily during the build process.
 * **Website**: This is a sample website for developers who wish to contribute to the Formulate codebase. The binary is not part of the packaged releases, though a few of the files it contains are (e.g., some CSHTML, config, and XDT files).
 
+# Maintainers
+
+To create a new release to NuGet, see the [NuGet documentation](docs/nuget.md).
+Releases should also be made to [Our](https://our.umbraco.org/projects/backoffice-extensions/formulate/) and to [GitHub](https://github.com/rhythmagency/formulate/releases).
+
 # Thanks
 Thanks to the creators of the following Umbraco packages, which served as excellent points of reference while building Formulate:
 * [Archetype](https://github.com/imulus/Archetype)
