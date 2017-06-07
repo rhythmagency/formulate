@@ -102,7 +102,10 @@
             var dbHelper = new DatabaseSchemaHelper(db, logger, dbContext.SqlSyntax);
             try
             {
-                dbHelper.CreateTable<FormulateSubmission>();
+                if (!dbHelper.TableExist("FormulateSubmission"))
+                {
+                    dbHelper.CreateTable<FormulateSubmission>();
+                }
             }
             catch (Exception ex)
             {
