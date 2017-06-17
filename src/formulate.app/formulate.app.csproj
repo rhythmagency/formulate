@@ -397,6 +397,7 @@
     <Compile Include="Helpers\LayoutHelper.cs" />
     <Compile Include="Helpers\LocalizationHelper.cs" />
     <Compile Include="Helpers\ReflectionHelper.cs" />
+    <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Install\Package_Actions\GrantPermissionToSection.cs" />

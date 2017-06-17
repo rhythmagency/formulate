@@ -12,7 +12,7 @@
     internal class LocalizationHelper
     {
 
-        #region
+        #region Methods
 
         /// <summary>
         /// Gets the name of the specified tree in the current language.

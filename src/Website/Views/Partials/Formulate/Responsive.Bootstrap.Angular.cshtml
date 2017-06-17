@@ -8,6 +8,7 @@
 @using formulate.app.Forms.Fields.ExtendedRadioButtonList
 @using formulate.app.Forms.Fields.CheckboxList
 @using formulate.app.Forms.Fields.Header
+@using formulate.app.Helpers
 @using formulate.core.Extensions
 @using formulate.core.Types
 @model formulate.core.Models.FormViewModel
@@ -18,6 +19,7 @@
         // Exclude server-side only fields.
         .Where(x => !x.IsServerSideOnly);
     var layout = Model.LayoutDefinition.Configuration as LayoutBasicConfiguration;
+    var csrfToken = SecurityHelper.GenerateAntiForgeryToken();
 
 
     // This view can only render basic layouts.
@@ -200,7 +202,8 @@
             payload = new
             {
                 FormId = Model.FormDefinition.FormId.ToString("N"),
-                PageId = Model.PageId
+                PageId = Model.PageId,
+                __RequestVerificationToken = csrfToken
             },
             url = "/umbraco/formulate/submissions/submit"
         }
