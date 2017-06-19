@@ -243,3 +243,13 @@ function createDateField(field, options) {
     });
 }
 module.exports.createDateField = createDateField;
+
+function createRecaptchaField(field) {
+    var el = angular.element('<div vc-recaptcha key="fieldCtrl.configuration.key"></div>');
+
+    return setGlobalInputAttributes(field, el, {
+        formControl: false,
+        disableAutocomplete: false
+    });
+}
+module.exports.createRecaptchaField = createRecaptchaField;

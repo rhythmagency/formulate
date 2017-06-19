@@ -208,6 +208,30 @@
             return instance.FormatValue(values ?? new string[0], format, configuration);
         }
 
+
+        /// <summary>
+        /// Is the field value valid?
+        /// </summary>
+        /// <param name="value">
+        /// The value submitted with the form.
+        /// </param>
+        /// <returns>
+        /// True, if the value is valid; otherwise, false.
+        /// </returns>
+        public bool IsValid(IEnumerable<string> value)
+        {
+            if (typeof(IFormFieldTypeExtended).IsAssignableFrom(typeof(T)))
+            {
+                var instance = new T();
+                var casted = instance as IFormFieldTypeExtended;
+                return casted.IsValid(value);
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         #endregion
 
     }

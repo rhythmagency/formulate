@@ -352,6 +352,7 @@
     <Compile Include="Forms\Fields\RadioButtonList\RadioButtonListItem.cs" />
     <Compile Include="Forms\Fields\Header\HeaderConfiguration.cs" />
     <Compile Include="Forms\Fields\Header\HeaderField.cs" />
+    <Compile Include="Forms\Fields\Recaptcha\RecaptchaField.cs" />
     <Compile Include="Forms\Fields\TextConstant\TextConstantConfiguration.cs" />
     <Compile Include="Forms\Fields\TextConstant\TextConstantField.cs" />
     <Compile Include="Forms\Fields\RichText\RichTextConfiguration.cs" />

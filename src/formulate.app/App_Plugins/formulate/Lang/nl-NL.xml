@@ -317,6 +317,10 @@
     ]]></key>
   </area>
   <area alias="formulate-instructions">
+    <key alias="Recaptcha Field">
+      In order to use a recaptcha field, remember that the web.config must contain the app settings
+      "Formulate:RecaptchaSiteKey" and "Formulate:RecaptchaSecretKey".
+    </key>
     <key alias="Config Under Forms">
       Note that configured forms reside under forms.
     </key>

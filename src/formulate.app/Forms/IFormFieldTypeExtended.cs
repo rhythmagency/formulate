@@ -1,6 +1,10 @@
 ﻿namespace formulate.app.Forms
 {
 
+    // Namespaces.
+    using System.Collections.Generic;
+
+
     /// <summary>
     /// Interface for form field types that require additional, uncommon functionality.
     /// </summary>
@@ -26,6 +30,16 @@
         /// This is true for fields that are hidden during data entry.
         /// </summary>
         bool IsHidden { get; }
+
+
+        /// <summary>
+        /// Is the field value valid?
+        /// </summary>
+        /// <param name="value">The value submitted with the form.</param>
+        /// <returns>
+        /// True, if the value is valid; otherwise, false.
+        /// </returns>
+        bool IsValid(IEnumerable<string> value);
 
     }
 

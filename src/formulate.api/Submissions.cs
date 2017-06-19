@@ -146,6 +146,21 @@
             Submitting?.Invoke(submissionContext);
 
 
+            // Validate against native field validations.
+            foreach (var field in form.Fields)
+            {
+                var fieldId = field.Id;
+                var value = data.Where(x => x.FieldId == fieldId).SelectMany(x => x.FieldValues);
+                if (!field.IsValid(value))
+                {
+                    return new SubmissionResult()
+                    {
+                        Success = false
+                    };
+                }
+            }
+
+
             // Validate?
             if (options.Validate)
             {

@@ -80,6 +80,19 @@
             return null;
         }
 
+
+        /// <summary>
+        /// Is the field value valid?
+        /// </summary>
+        /// <param name="value">The value submitted with the form.</param>
+        /// <returns>
+        /// True, if the value is valid; otherwise, false.
+        /// </returns>
+        public bool IsValid(IEnumerable<string> value)
+        {
+            return true;
+        }
+
         #endregion
 
     }

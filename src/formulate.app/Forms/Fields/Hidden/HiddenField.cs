@@ -20,5 +20,9 @@
         {
             return string.Join(", ", values);
         }
+        public bool IsValid(IEnumerable<string> value)
+        {
+            return true;
+        }
     }
 }

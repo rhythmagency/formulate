@@ -76,6 +76,9 @@
                 case "headerfield":
                     angularType = "header";
                     break;
+                case "recaptchafield":
+                    angularType = "recaptcha";
+                    break;
             }
             return angularType ?? fieldType;
         }
