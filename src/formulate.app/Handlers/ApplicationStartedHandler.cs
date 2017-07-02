@@ -331,7 +331,7 @@
 
             // Make changes to the web.config.
             AddConfigurationGroup();
-            EnsureVersion();
+            EnsureAppSettings();
 
         }
 
@@ -349,6 +349,23 @@
                 version = null;
             }
             return version;
+        }
+
+
+        /// <summary>
+        /// Indicates whether or not the application setting with the specified key has a non-empty
+        /// value in the web.config.
+        /// </summary>
+        /// <param name="key">
+        /// The application setting key.
+        /// </param>
+        /// <returns>
+        /// True, if the value in the web.config is non-empty; otherwise, false.
+        /// </returns>
+        private bool DoesAppSettingExist(string key)
+        {
+            var value = ConfigurationManager.AppSettings[key];
+            return !string.IsNullOrWhiteSpace(value);
         }
 
 
@@ -529,9 +546,10 @@
 
 
         /// <summary>
-        /// Adds or replaces the Formulate version number in the web.config.
+        /// Adds or replaces the Formulate version number in the web.config, along with some other
+        /// application settings.
         /// </summary>
-        private void EnsureVersion()
+        private void EnsureAppSettings()
         {
 
             // Queue the web.config change.
@@ -546,17 +564,32 @@
                 var key = SettingConstants.VersionKey;
                 var config = WebConfigurationManager.OpenWebConfiguration("~");
                 var settings = config.AppSettings.Settings;
+                var recaptchaKeys = new[]
+                {
+                    SettingConstants.RecaptchaSecretKey,
+                    SettingConstants.RecaptchaSiteKey
+                };
 
 
-                // Remove existing version setting.
+                // Replace the version setting.
                 if (settings.AllKeys.Any(x => key.InvariantEquals(x)))
                 {
                     settings.Remove(key);
                 }
-
-
-                // Add version setting.
                 settings.Add(key, MetaConstants.Version);
+
+
+                // Ensure the Recaptcha keys exist in the web.config.
+                foreach (var recaptchaKey in recaptchaKeys)
+                {
+                    if (!DoesAppSettingExist(recaptchaKey))
+                    {
+                        settings.Add(recaptchaKey, string.Empty);
+                    }
+                }
+
+
+                // Save config changes.
                 config.Save();
 
 
