@@ -255,6 +255,9 @@
                 { "DownloadCsvExport",
                     helper.GetUmbracoApiService<StoredDataDownloadController>(x =>
                         x.DownloadCsvExport(null)) },
+                { "HasConfiguredRecaptcha",
+                    helper.GetUmbracoApiService<ServerConfigurationController>(x =>
+                        x.HasConfiguredRecaptcha()) },
                 { "EditLayoutBase", "/formulate/formulate/editLayout/" },
                 { "EditValidationBase",
                     "/formulate/formulate/editValidation/" },

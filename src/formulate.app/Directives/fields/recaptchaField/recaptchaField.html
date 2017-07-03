@@ -1,7 +1,7 @@
 ﻿<div class="umb-el-wrap">
-    <p>
+    <p ng-if="!hasConfiguredRecaptcha" class="formulate-recaptcha-instructions">
         <localize key="formulate-instructions_Recaptcha Field">
-            In order to use a recaptcha field, remember that the web.config must contain the app settings
+            In order to use a recaptcha field, you must first add the web.config app settings
             "Formulate:RecaptchaSiteKey" and "Formulate:RecaptchaSecretKey".
         </localize>
     </p>
