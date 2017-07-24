@@ -310,8 +310,10 @@
     <Compile Include="Constants\Layouts\LayoutBasic.cs" />
     <Compile Include="Constants\Validations\ValidationMandatory.cs" />
     <Compile Include="Constants\Validations\ValidationRegex.cs" />
+    <Compile Include="Controllers\ConfiguredFormsContentController.cs" />
     <Compile Include="Controllers\ControllerTypes\SubmissionExport.cs" />
     <Compile Include="Controllers\DataValuesController.cs" />
+    <Compile Include="Controllers\EntitiesContentController.cs" />
     <Compile Include="Controllers\HandlersController.cs" />
     <Compile Include="Controllers\FieldsController.cs" />
     <Compile Include="Controllers\FoldersController.cs" />

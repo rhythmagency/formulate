@@ -19,24 +19,26 @@
 
 
     /// <summary>
-    /// Controller for Formulate entities.
+    /// Controller for Formulate configured forms. This variation can be used in the content
+    /// section (e.g., for the form picker).
     /// </summary>
     [PluginController("formulate")]
-    [UmbracoApplicationAuthorize("formulate")]
-    public class EntitiesController : UmbracoAuthorizedJsonController
+    [UmbracoApplicationAuthorize("formulate", CoreConstants.Applications.Content)]
+    public class ConfiguredFormsContentController : UmbracoAuthorizedJsonController
     {
 
         #region Constants
 
         private const string UnhandledError = @"An unhandled error occurred. Refer to the error log.";
-        private const string GetEntityError = @"An error occurred while attempting to get the information for a Formulate entity.";
+        private const string GetConFormInfoError = @"An error occurred while attempting to get the configured form info for a Formulate configured form.";
+        private const string FormNotFoundError = @"The configured Formulate form requested could not be found.";
 
         #endregion
 
 
         #region Properties
 
-        private IEntityPersistence Entities { get; set; }
+        private IConfiguredFormPersistence Persistence { get; set; }
 
         #endregion
 
@@ -46,7 +48,7 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public EntitiesController()
+        public ConfiguredFormsContentController()
             : this(UmbracoContext.Current)
         {
         }
@@ -56,10 +58,10 @@
         /// Primary constructor.
         /// </summary>
         /// <param name="context">Umbraco context.</param>
-        public EntitiesController(UmbracoContext context)
+        public ConfiguredFormsContentController(UmbracoContext context)
             : base(context)
         {
-            Entities = EntityPersistence.Current.Manager;
+            Persistence = ConfiguredFormPersistence.Current.Manager;
         }
 
         #endregion
@@ -68,17 +70,17 @@
         #region Web Methods
 
         /// <summary>
-        /// Returns the form info for the specified entity.
+        /// Returns info about the configured form with the specified ID.
         /// </summary>
         /// <param name="request">
-        /// The request to get the entity info.
+        /// The request to get the configured form info.
         /// </param>
         /// <returns>
         /// An object indicating success or failure, along with some
         /// accompanying data.
         /// </returns>
         [HttpGet]
-        public object GetEntity([FromUri] GetEntityRequest request)
+        public object GetConfiguredFormInfo([FromUri] GetConfiguredFormInfoRequest request)
         {
 
             // Variables.
@@ -91,9 +93,24 @@
             {
 
                 // Variables.
-                var id = GuidHelper.GetGuid(request.EntityId);
-                var entity = Entities.Retrieve(id);
-                var partialPath = entity.Path
+                var id = GuidHelper.GetGuid(request.ConFormId);
+                var configuredForm = Persistence.Retrieve(id);
+
+
+                // Check for a null configured form.
+                if (configuredForm == null)
+                {
+                    result = new
+                    {
+                        Success = false,
+                        Reason = FormNotFoundError
+                    };
+                    return result;
+                }
+
+
+                // Variables.
+                var partialPath = configuredForm.Path
                     .Select(x => GuidHelper.GetString(x));
                 var fullPath = new[] { rootId }
                     .Concat(partialPath)
@@ -104,12 +121,15 @@
                 result = new
                 {
                     Success = true,
-                    Id = GuidHelper.GetString(entity.Id),
+                    ConFormId = GuidHelper.GetString(configuredForm.Id),
                     Path = fullPath,
-                    Name = entity.Name,
-                    Icon = entity.Icon,
-                    Kind = EntityHelper.GetString(entity.Kind),
-                    HasChildren = Entities.RetrieveChildren(entity.Id).Any()
+                    Name = configuredForm.Name,
+                    LayoutId = configuredForm.LayoutId.HasValue
+                        ? GuidHelper.GetString(configuredForm.LayoutId.Value)
+                        : null,
+                    TemplateId = configuredForm.TemplateId.HasValue
+                        ? GuidHelper.GetString(configuredForm.TemplateId.Value)
+                        : null
                 };
 
             }
@@ -117,7 +137,7 @@
             {
 
                 // Error.
-                LogHelper.Error<EntitiesController>(GetEntityError, ex);
+                LogHelper.Error<ConfiguredFormsController>(GetConFormInfoError, ex);
                 result = new
                 {
                     Success = false,

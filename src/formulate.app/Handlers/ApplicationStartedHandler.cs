@@ -151,7 +151,7 @@
                     helper.GetUmbracoApiService<ConfiguredFormsController>(x =>
                         x.PersistConfiguredForm(null)) },
                 { "GetConfiguredFormInfo",
-                    helper.GetUmbracoApiService<ConfiguredFormsController>(x =>
+                    helper.GetUmbracoApiService<ConfiguredFormsContentController>(x =>
                         x.GetConfiguredFormInfo(null)) },
                 { "DeleteLayout",
                     helper.GetUmbracoApiService<LayoutsController>(x =>
@@ -241,7 +241,7 @@
                     helper.GetUmbracoApiService<SetupController>(x =>
                         x.PermitAccessToFormulate()) },
                 { "GetEntityChildren",
-                    helper.GetUmbracoApiService<EntitiesController>(x =>
+                    helper.GetUmbracoApiService<EntitiesContentController>(x =>
                         x.GetEntityChildren(null)) },
                 { "GetEntity",
                     helper.GetUmbracoApiService<EntitiesController>(x =>

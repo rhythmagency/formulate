@@ -19,17 +19,18 @@
 
 
     /// <summary>
-    /// Controller for Formulate entities.
+    /// Controller for Formulate entities. This variation can be used in the content
+    /// section (e.g., for the form picker).
     /// </summary>
     [PluginController("formulate")]
-    [UmbracoApplicationAuthorize("formulate")]
-    public class EntitiesController : UmbracoAuthorizedJsonController
+    [UmbracoApplicationAuthorize("formulate", CoreConstants.Applications.Content)]
+    public class EntitiesContentController : UmbracoAuthorizedJsonController
     {
 
         #region Constants
 
         private const string UnhandledError = @"An unhandled error occurred. Refer to the error log.";
-        private const string GetEntityError = @"An error occurred while attempting to get the information for a Formulate entity.";
+        private const string GetChildrenError = @"An error occurred while attempting to get the children for a Formulate entity.";
 
         #endregion
 
@@ -46,7 +47,7 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public EntitiesController()
+        public EntitiesContentController()
             : this(UmbracoContext.Current)
         {
         }
@@ -56,7 +57,7 @@
         /// Primary constructor.
         /// </summary>
         /// <param name="context">Umbraco context.</param>
-        public EntitiesController(UmbracoContext context)
+        public EntitiesContentController(UmbracoContext context)
             : base(context)
         {
             Entities = EntityPersistence.Current.Manager;
@@ -68,17 +69,18 @@
         #region Web Methods
 
         /// <summary>
-        /// Returns the form info for the specified entity.
+        /// Returns the children of the specified entity.
         /// </summary>
         /// <param name="request">
-        /// The request to get the entity info.
+        /// The request to get the children.
         /// </param>
         /// <returns>
         /// An object indicating success or failure, along with some
         /// accompanying data.
         /// </returns>
         [HttpGet]
-        public object GetEntity([FromUri] GetEntityRequest request)
+        public object GetEntityChildren(
+            [FromUri] GetEntityChildrenRequest request)
         {
 
             // Variables.
@@ -92,24 +94,23 @@
 
                 // Variables.
                 var id = GuidHelper.GetGuid(request.EntityId);
-                var entity = Entities.Retrieve(id);
-                var partialPath = entity.Path
-                    .Select(x => GuidHelper.GetString(x));
-                var fullPath = new[] { rootId }
-                    .Concat(partialPath)
-                    .ToArray();
+                var children = Entities.RetrieveChildren(id);
 
 
                 // Set result.
                 result = new
                 {
                     Success = true,
-                    Id = GuidHelper.GetString(entity.Id),
-                    Path = fullPath,
-                    Name = entity.Name,
-                    Icon = entity.Icon,
-                    Kind = EntityHelper.GetString(entity.Kind),
-                    HasChildren = Entities.RetrieveChildren(entity.Id).Any()
+                    Children = children
+                        .OrderBy(x => x.Name)
+                        .Select(x => new
+                        {
+                            Id = GuidHelper.GetString(x.Id),
+                            x.Name,
+                            Icon = x.Icon,
+                            Kind = EntityHelper.GetString(x.Kind),
+                            HasChildren = Entities.RetrieveChildren(x.Id).Any()
+                        }).ToArray()
                 };
 
             }
@@ -117,7 +118,7 @@
             {
 
                 // Error.
-                LogHelper.Error<EntitiesController>(GetEntityError, ex);
+                LogHelper.Error<EntitiesController>(GetChildrenError, ex);
                 result = new
                 {
                     Success = false,
