@@ -16,8 +16,8 @@
     using Umbraco.Core;
     using Umbraco.Core.Logging;
     using Umbraco.Web;
-
-
+    using Newtonsoft.Json;
+    
     /// <summary>
     /// A handler that sends a data to a web API.
     /// </summary>
@@ -228,11 +228,15 @@
             // Query string format?
             if ("Query String".InvariantEquals(config.TransmissionFormat))
             {
-                result = SendData(config.Url, transmissionData, config.Method, false);
+                result = SendData(config.Url, transmissionData, config.Method, false, false);
             }
             if ("Form Body".InvariantEquals(config.TransmissionFormat))
             {
-                result = SendData(config.Url, transmissionData, config.Method, true);
+                result = SendData(config.Url, transmissionData, config.Method, true, false);
+            }
+            if ("JSON".InvariantEquals(config.TransmissionFormat))
+            {
+                result = SendData(config.Url, transmissionData, config.Method, true, true);
             }
 
             // Call function to handle result?
@@ -264,6 +268,9 @@
         /// <param name="sendInBody">
         /// Send the data as part of the body (or in the query string)?
         /// </param>
+        /// <param name="sendJson">
+        /// Send the data as json
+        /// </param>
         /// <returns>
         /// True, if the request was a success; otherwise, false.
         /// </returns>
@@ -272,7 +279,7 @@
         /// and http://stackoverflow.com/questions/14702902
         /// </remarks>
         private SendDataResult SendData(string url, IEnumerable<KeyValuePair<string, string>> data,
-            string method, bool sendInBody)
+            string method, bool sendInBody, bool sendJson)
         {
 
             // Construct a URL, possibly containing the data as query string parameters.
@@ -299,11 +306,30 @@
                 // Send the data in the body (rather than the query string)?
                 if (sendInBody)
                 {
-                    var postBytes = Encoding.UTF8.GetBytes(strQueryString);
-                    request.ContentType = "application/x-www-form-urlencoded";
-                    request.ContentLength = postBytes.Length;
-                    var postStream = request.GetRequestStream();
-                    postStream.Write(postBytes, 0, postBytes.Length);
+                    if (sendJson)
+                    {
+                        // if sending as json
+                            // Group duplicate Key Name Pair values
+                            var grouped = data.GroupBy(x => x.Key).Select(x => new
+                            {
+                                Key = x.Key,
+                                Value = x.Select(y=> y.Value)
+                            }).ToDictionary(x => x.Key, x => x.Value.Count() > 1 ? x.Value.ToArray() as object : x.Value.FirstOrDefault()); ;
+                            var json = JsonConvert.SerializeObject(grouped.ToArray());
+
+                            var postBytes = Encoding.UTF8.GetBytes(json);
+                            request.ContentType = "application/json; charset=utf-8";
+                            request.ContentLength = postBytes.Length;
+                            var postStream = request.GetRequestStream();
+                            postStream.Write(postBytes, 0, postBytes.Length);
+                    } else
+                    {
+                        var postBytes = Encoding.UTF8.GetBytes(strQueryString);
+                        request.ContentType = "application/x-www-form-urlencoded";
+                        request.ContentLength = postBytes.Length;
+                        var postStream = request.GetRequestStream();
+                        postStream.Write(postBytes, 0, postBytes.Length);
+                    }
                 }
 
                 // Get and retain response.
