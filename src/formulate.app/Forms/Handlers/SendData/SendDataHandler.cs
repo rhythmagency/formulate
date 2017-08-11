@@ -1,4 +1,6 @@
-﻿namespace formulate.app.Forms.Handlers.SendData
+﻿using System.Collections;
+
+namespace formulate.app.Forms.Handlers.SendData
 {
 
     // Namespaces.
@@ -21,7 +23,7 @@
     /// <summary>
     /// A handler that sends a data to a web API.
     /// </summary>
-    public class SendDataHandler : IFormHandlerType
+    public class String : IFormHandlerType
     {
 
         #region Constants
@@ -315,9 +317,10 @@
                                 Key = x.Key,
                                 Value = x.Select(y=> y.Value)
                             }).ToDictionary(x => x.Key, x => x.Value.Count() > 1 ? x.Value.ToArray() as object : x.Value.FirstOrDefault()); ;
-                            var json = JsonConvert.SerializeObject(grouped.ToArray());
+                            var json = JsonConvert.SerializeObject(new [] {grouped}  );
 
-                            var postBytes = Encoding.UTF8.GetBytes(json);
+
+                        var postBytes = Encoding.UTF8.GetBytes(json);
                             request.ContentType = "application/json; charset=utf-8";
                             request.ContentLength = postBytes.Length;
                             var postStream = request.GetRequestStream();
@@ -332,6 +335,8 @@
                     }
                 }
 
+
+
                 // Get and retain response.
                 var response = (HttpWebResponse)request.GetResponse();
                 sendDataResult.HttpWebResponse = response;
@@ -344,7 +349,7 @@
             }
             catch (Exception ex)
             {
-                LogHelper.Error<SendDataHandler>(SendDataError, ex);
+                LogHelper.Error<String>(SendDataError, ex);
                 sendDataResult.ResponseError = ex;
                 sendDataResult.Success = false;
             }
