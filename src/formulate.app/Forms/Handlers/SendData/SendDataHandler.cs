@@ -23,7 +23,7 @@ namespace formulate.app.Forms.Handlers.SendData
     /// <summary>
     /// A handler that sends a data to a web API.
     /// </summary>
-    public class String : IFormHandlerType
+    public class SendDataHandler : IFormHandlerType
     {
 
         #region Constants
@@ -349,7 +349,7 @@ namespace formulate.app.Forms.Handlers.SendData
             }
             catch (Exception ex)
             {
-                LogHelper.Error<String>(SendDataError, ex);
+                LogHelper.Error<SendDataHandler>(SendDataError, ex);
                 sendDataResult.ResponseError = ex;
                 sendDataResult.Success = false;
             }
