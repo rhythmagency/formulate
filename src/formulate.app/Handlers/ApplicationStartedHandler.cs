@@ -567,11 +567,25 @@
                 var key = SettingConstants.VersionKey;
                 var config = WebConfigurationManager.OpenWebConfiguration("~");
                 var settings = config.AppSettings.Settings;
-                var recaptchaKeys = new[]
+                var formulateKeys = new[]
                 {
-                    SettingConstants.RecaptchaSecretKey,
-                    SettingConstants.RecaptchaSiteKey
+                    new
+                    {
+                        key = SettingConstants.RecaptchaSiteKey,
+                        value = string.Empty
+                    },
+
+                    new {
+                      key = SettingConstants.RecaptchaSecretKey,
+                      value = string.Empty
+                    },
+
+                    new {
+                        key = SettingConstants.EnableJSONFormLogging,
+                        value = "false"
+                    }
                 };
+
 
 
                 // Replace the version setting.
@@ -583,11 +597,11 @@
 
 
                 // Ensure the Recaptcha keys exist in the web.config.
-                foreach (var recaptchaKey in recaptchaKeys)
+                foreach (var configKey in formulateKeys)
                 {
-                    if (!DoesAppSettingExist(recaptchaKey))
+                    if (!DoesAppSettingExist(configKey.key))
                     {
-                        settings.Add(recaptchaKey, string.Empty);
+                        settings.Add(configKey.key, configKey.value);
                     }
                 }
 

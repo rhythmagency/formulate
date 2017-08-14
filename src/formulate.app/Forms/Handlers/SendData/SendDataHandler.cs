@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Web.Configuration;
 
 namespace formulate.app.Forms.Handlers.SendData
 {
@@ -30,6 +31,7 @@ namespace formulate.app.Forms.Handlers.SendData
 
         private const string WebUserAgent = "Formulate, an Umbraco Form Builder";
         private const string SendDataError = "An error occurred during an attempt to send data to an external URL.";
+
 
         #endregion
 
@@ -319,6 +321,12 @@ namespace formulate.app.Forms.Handlers.SendData
                             }).ToDictionary(x => x.Key, x => x.Value.Count() > 1 ? x.Value.ToArray() as object : x.Value.FirstOrDefault()); ;
                             var json = JsonConvert.SerializeObject(new [] {grouped}  );
 
+                        // log json being sent
+                        var enableLogging = WebConfigurationManager.AppSettings["Formulate:EnableLogging"];
+                        if (enableLogging == "true")
+                        {
+                            LogHelper.Info<SendDataHandler>("{0}",()=>json);
+                        }
 
                         var postBytes = Encoding.UTF8.GetBytes(json);
                             request.ContentType = "application/json; charset=utf-8";

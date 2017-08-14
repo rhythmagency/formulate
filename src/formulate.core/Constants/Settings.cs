@@ -10,6 +10,7 @@
         public const string EnsureUsersCanAccess = @"Formulate:EnsureUsersCanAccess";
         public const string RecaptchaSecretKey = @"Formulate:RecaptchaSecretKey";
         public const string RecaptchaSiteKey = @"Formulate:RecaptchaSiteKey";
+        public const string EnableJSONFormLogging = @"Formulate:EnableJSONFormLogging";
     }
 
 }
