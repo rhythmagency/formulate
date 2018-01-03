@@ -291,11 +291,13 @@ namespace formulate.app.Forms.Handlers.SendData
             var sendDataResult = new SendDataResult();
             var uri = new Uri(url);
             var bareUrl = uri.GetLeftPart(UriPartial.Path);
-            var strQueryString = ConstructQueryString(uri, data);
+            var keyValuePairs = data as KeyValuePair<string, string>[] ?? data.ToArray();
+            var strQueryString = ConstructQueryString(uri, keyValuePairs);
             var hasQueryString = !string.IsNullOrWhiteSpace(strQueryString);
             var requestUrl = hasQueryString && sendInUrl
                 ? $"{bareUrl}?{strQueryString}"
                 : url;
+            var enableLogging = WebConfigurationManager.AppSettings["Formulate:EnableLogging"];
 
             // Attempt to send the web request.
             try
@@ -313,28 +315,40 @@ namespace formulate.app.Forms.Handlers.SendData
                     if (sendJson)
                     {
                         // if sending as json
-                            // Group duplicate Key Name Pair values
-                            var grouped = data.GroupBy(x => x.Key).Select(x => new
-                            {
-                                Key = x.Key,
-                                Value = x.Select(y=> y.Value)
-                            }).ToDictionary(x => x.Key, x => x.Value.Count() > 1 ? x.Value.ToArray() as object : x.Value.FirstOrDefault()); ;
-                            var json = JsonConvert.SerializeObject(new [] {grouped}  );
+                        // Group duplicate Key Name Pair values
+                        var grouped = keyValuePairs.GroupBy(x => x.Key).Select(x => new
+                        {
+                            Key = x.Key,
+                            Value = x.Select(y => y.Value)
+                        }).ToDictionary(x => x.Key,
+                            x => x.Value.Count() > 1 ? x.Value.ToArray() as object : x.Value.FirstOrDefault());
+                        ;
+                        var json = JsonConvert.SerializeObject(new[] {grouped});
 
                         // log json being sent
-                        var enableLogging = WebConfigurationManager.AppSettings["Formulate:EnableLogging"];
                         if (enableLogging == "true")
                         {
-                            LogHelper.Info<SendDataHandler>("{0}",()=>json);
+                            LogHelper.Info<SendDataHandler>("Sent URL: " + url);
+                            LogHelper.Info<SendDataHandler>("Sent Data: " + json);
                         }
 
                         var postBytes = Encoding.UTF8.GetBytes(json);
-                            request.ContentType = "application/json; charset=utf-8";
-                            request.ContentLength = postBytes.Length;
-                            var postStream = request.GetRequestStream();
+                        request.ContentType = "application/json; charset=utf-8";
+                        request.ContentLength = postBytes.Length;
+                        using (var postStream = request.GetRequestStream())
+                        {
                             postStream.Write(postBytes, 0, postBytes.Length);
-                    } else
+                        }
+                    }
+                    else
                     {
+                        // log data being sent
+                        if (enableLogging == "true")
+                        {
+                            LogHelper.Info<SendDataHandler>("Sent URL: " + url);
+                            LogHelper.Info<SendDataHandler>("Sent Data: " + strQueryString);
+                        }
+
                         var postBytes = Encoding.UTF8.GetBytes(strQueryString);
                         request.ContentType = "application/x-www-form-urlencoded";
                         request.ContentLength = postBytes.Length;
@@ -342,7 +356,6 @@ namespace formulate.app.Forms.Handlers.SendData
                         postStream.Write(postBytes, 0, postBytes.Length);
                     }
                 }
-
 
 
                 // Get and retain response.
