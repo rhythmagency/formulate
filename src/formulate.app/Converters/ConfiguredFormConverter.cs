@@ -73,11 +73,17 @@
         /// </returns>
         public override object ConvertDataToSource(PublishedPropertyType propertyType, object source, bool preview)
         {
-            var strSource = source as string;
-            strSource = string.IsNullOrWhiteSpace(strSource)
-                ? "{id:null}"
-                : strSource;
-            var deserialized = JsonHelper.Deserialize<dynamic>(strSource);
+            dynamic deserialized = source;
+            if (source.GetType() == typeof(string))
+            {
+                var strSource = source as string;
+                strSource = string.IsNullOrWhiteSpace(strSource)
+                    ? "{id:null}"
+                    : strSource;
+
+                deserialized = JsonHelper.Deserialize<dynamic>(strSource);
+            }
+
             var id = deserialized.id.Value as string;
             var guid = string.IsNullOrWhiteSpace(id) ? null : GuidHelper.GetGuid(id) as Guid?;
             var conForm = guid.HasValue ? ConfiguredForms.Retrieve(guid.Value) : null;
