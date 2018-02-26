@@ -12,7 +12,7 @@ These are some of the people who have made Formulate possible:
 
 # Contributing
 Requires:
-* Visual Studio 2015
+* Visual Studio 2017
 * Node.js
 * npm
 * grunt-cli (installed globally)
