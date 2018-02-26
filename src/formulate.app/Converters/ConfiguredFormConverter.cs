@@ -81,7 +81,7 @@
 
             // Source is typically a string, but may already be deserialized (e.g.,
             // when used with Umbraco grid and LeBlender).
-            if (source == null || source.GetType() == typeof(string))
+            if (source == null || source is string)
             {
 
                 // Source is a string, so deserialize it.
