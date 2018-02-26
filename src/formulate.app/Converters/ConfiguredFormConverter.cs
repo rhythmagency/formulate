@@ -71,22 +71,47 @@
         /// <returns>
         /// The ConfiguredFormInfo.
         /// </returns>
-        public override object ConvertDataToSource(PublishedPropertyType propertyType, object source, bool preview)
+        public override object ConvertDataToSource(PublishedPropertyType propertyType, object source,
+            bool preview)
         {
-            dynamic deserialized = source;
-            if (source.GetType() == typeof(string))
+
+            // Variables.
+            var deserialized = default(dynamic);
+
+
+            // Source is typically a string, but may already be deserialized (e.g.,
+            // when used with Umbraco grid and LeBlender).
+            if (source == null || source.GetType() == typeof(string))
             {
+
+                // Source is a string, so deserialize it.
                 var strSource = source as string;
                 strSource = string.IsNullOrWhiteSpace(strSource)
                     ? "{id:null}"
                     : strSource;
-
                 deserialized = JsonHelper.Deserialize<dynamic>(strSource);
+
+            }
+            else
+            {
+
+                // Source is not a string, so it was likely already deserialized.
+                deserialized = source as dynamic;
+
             }
 
+
+            // Variables.
             var id = deserialized.id.Value as string;
-            var guid = string.IsNullOrWhiteSpace(id) ? null : GuidHelper.GetGuid(id) as Guid?;
-            var conForm = guid.HasValue ? ConfiguredForms.Retrieve(guid.Value) : null;
+            var guid = string.IsNullOrWhiteSpace(id)
+                ? null
+                : GuidHelper.GetGuid(id) as Guid?;
+            var conForm = guid.HasValue
+                ? ConfiguredForms.Retrieve(guid.Value)
+                : null;
+
+
+            // Return configuration.
             return new ConfiguredFormInfo()
             {
                 Configuration = conForm?.Path[conForm.Path.Length - 1],
@@ -94,6 +119,7 @@
                 LayoutId = conForm?.LayoutId,
                 TemplateId = conForm?.TemplateId
             };
+
         }
 
         #endregion
