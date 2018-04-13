@@ -19,7 +19,7 @@
         #region Properties
 
         /// <summary>
-        /// Formulates field ID.
+        /// Formulate's field ID.
         /// </summary>
         public Guid FieldId { get; set; }
 
