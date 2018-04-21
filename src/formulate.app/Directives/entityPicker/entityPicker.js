@@ -6,7 +6,7 @@ app.directive("formulateEntityPicker", entityPickerDirective);
 app.controller("formulate.entityPicker", entityPickerController);
 
 // Directive.
-function entityPickerDirective(formulateDirectives, $compile) {
+function entityPickerDirective(formulateDirectives) {
     return {
         restrict: "E",
         template: formulateDirectives.get("entityPicker/entityPicker.html"),
@@ -17,7 +17,8 @@ function entityPickerDirective(formulateDirectives, $compile) {
             rootId: "=",
             maxCount: "=",
             includeRoot: "=",
-            selection: "="
+            selection: "=",
+            wrongKindError: "=?"//TODO: Is the question mark correct?
         }
     };
 }

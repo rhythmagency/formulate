@@ -315,6 +315,9 @@
         Add a Field (<a href="" ng-click="cancel()">Cancel</a>)
       </h5>
     ]]></key>
+    <key alias="Selection Failed">
+      Selection Failed
+    </key>
   </area>
   <area alias="formulate-instructions">
     <key alias="Recaptcha Field">
@@ -378,5 +381,13 @@
     <key alias="Handlers">Handlers</key>
     <key alias="Folder">Folder</key>
     <key alias="Data Value">Data Value</key>
+  </area>
+  <area alias="formulate-errors">
+    <key alias="Pick Configured Form Instead">
+      You are attempting to pick a form. Instead, pick a configured form. Configured forms exist under forms.
+    </key>
+    <key alias="Node Selection Invalid">
+      You are now allowed to select that kind of node.
+    </key>
   </area>
 </language>

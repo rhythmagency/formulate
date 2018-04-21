@@ -19,7 +19,7 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, formulateVars) {
+function controller($scope, formulateVars, localizationService) {
 
     // Initialize scope variables.
     $scope.selection = [];
@@ -32,6 +32,11 @@ function controller($scope, formulateVars) {
     };
     $scope.select = function() {
         $scope.$parent.submit($scope.selection);
-    }
+    };
+
+    // Localize the "wrong selection" message.
+    localizationService.localize("formulate-errors_Pick Configured Form Instead").then(function (value) {
+        $scope.wrongKindError = value;
+    });
 
 }

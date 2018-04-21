@@ -110,7 +110,6 @@ function getCanCreate(services) {
     return function() {
         var dataValueName = services.$scope.dataValueName;
         var kindId = services.$scope.kind.id;
-        //TODO: Check for whitespace and other edge cases that are invalid.
         if (dataValueName && kindId && dataValueName.length > 0) {
             return true;
         } else {

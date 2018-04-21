@@ -18,7 +18,8 @@ function entityPickerDirective(formulateDirectives, formulateRecursion) {
             isRoot: "=",
             entityKinds: "=",
             selection: "=",
-            maxCount: "="
+            maxCount: "=",
+            wrongKindError: "=?"
         },
         compile: function(element) {
             return formulateRecursion.getCompiler(element);
@@ -27,26 +28,37 @@ function entityPickerDirective(formulateDirectives, formulateRecursion) {
 }
 
 // Controller.
-function entityPickerController($scope, formulateEntities) {
+function entityPickerController($scope, formulateEntities, notificationsService, localizationService) {
 
     // Variables.
     var services = {
         $scope: $scope,
-        formulateEntities: formulateEntities
+        formulateEntities: formulateEntities,
+        notificationsService: notificationsService
     };
 
     // Set scope functions.
     $scope.toggleChildren = getToggleChildren(services);
     $scope.toggleNode = getToggleNode(services);
 
+    // Translations.
+    localizationService.localize("formulate-errors_Node Selection Invalid").then(function (value) {
+        $scope.defaultWrongKindError = value;
+    });
+    localizationService.localize("formulate-headers_Selection Failed").then(function (value) {
+        $scope.selectionFailedHeader = value;
+    });
+
 }
 
 // Gets the function that toggles selected nodes.
 function getToggleNode(services) {
     var $scope = services.$scope;
+    var notificationsService = services.notificationsService;
     return function(node) {
-        var allowedKinds = $scope.entityKinds || [];
-        if (allowedKinds.length === 0 || allowedKinds.indexOf(node.kind) >= 0) {
+        var allowedKinds = $scope.entityKinds || [],
+            allowAny = allowedKinds.length === 0;
+        if (allowAny || allowedKinds.indexOf(node.kind) >= 0) {
             node.selected = !node.selected;
             if (node.selected) {
 
@@ -68,6 +80,12 @@ function getToggleNode(services) {
                 }
 
             }
+        } else if (!allowAny) {
+
+            // Show notification to indicate that the user has selected the wrong kind of node.
+            var errorMessage = $scope.wrongKindError || $scope.defaultWrongKindError;
+            notificationsService.error($scope.selectionFailedHeader, errorMessage);
+
         }
     };
 }
