@@ -1,7 +1,9 @@
 'use strict';
 
+// Dependencies.
 var angular = require('angular');
 
+// Angular module.
 var app = angular.module('formulate');
 
 function FormulateRowController() {

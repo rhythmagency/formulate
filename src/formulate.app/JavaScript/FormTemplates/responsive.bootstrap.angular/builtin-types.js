@@ -1,5 +1,6 @@
 'use strict';
 
+// Dependencies.
 var angular = require('angular');
 
 ////////////////////////////////////////
@@ -36,7 +37,6 @@ function setGlobalInputAttributes(field, el, options) {
 
     return el;
 }
-
 
 function createSelectField(field, options) {
     var wrapper = angular.element('<div class="formulate__select-wrap"></div>');
