@@ -249,6 +249,9 @@
                 { "GetSubmissions",
                     helper.GetUmbracoApiService<StoredDataController>(x =>
                         x.GetSubmissions(null)) },
+                { "DeleteSubmission",
+                    helper.GetUmbracoApiService<StoredDataController>(x =>
+                        x.DeleteSubmission(null)) },
                 { "DownloadFile",
                     helper.GetUmbracoApiService<StoredDataDownloadController>(x =>
                         x.DownloadFile(null)) },

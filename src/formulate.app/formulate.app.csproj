@@ -420,6 +420,7 @@
     <Compile Include="Models\Requests\DeleteDataValueRequest.cs" />
     <Compile Include="Models\Requests\DeleteFolderRequest.cs" />
     <Compile Include="Models\Requests\DeleteConfiguredFormRequest.cs" />
+    <Compile Include="Models\Requests\DeleteSubmissionRequest.cs" />
     <Compile Include="Models\Requests\GetCsvExportRequest.cs" />
     <Compile Include="Models\Requests\GetFileDownloadRequest.cs" />
     <Compile Include="Models\Requests\GetStoredDataRequest.cs" />

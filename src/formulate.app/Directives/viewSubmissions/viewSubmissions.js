@@ -29,6 +29,7 @@ function controller(formulateSubmissions, dialogService, $scope, formulateForms,
     // Scope functions.
     $scope.pickForm = getPickForm(injected);
     $scope.getPage = getGetPage(injected);
+    $scope.deleteSubmission = getDeleteSubmission(injected);
     $scope.getPagerItems = getGetPagerItems(injected);
     $scope.getRowClass = getRowClass;
     $scope.getNodeUrl = getNodeUrl;
@@ -137,12 +138,30 @@ function getGetPage(injected) {
     };
 }
 
+// Returns the function that deletes the form submissions.
+function getDeleteSubmission(injected) {
+    var formulateSubmissions = injected.formulateSubmissions;
+    return function (submission) {
+        var shouldDelete = confirm("Are you sure you want to delete this entry? This cannot be undone.");
+        if (shouldDelete) {
+            formulateSubmissions.deleteSubmission(submission.generatedId)
+                .then(function (data) {
+                    submission.deleted = true;
+                });
+        }
+    };
+}
+
 // Returns a class to be used on a form submission row.
-function getRowClass(index) {
+function getRowClass(index, submission) {
     var isEven = (index % 2) === 0;
-    return isEven
+    var evenClass = isEven
         ? "formulate-submission-row-even"
         : "formulate-submission-row-odd";
+    var deletedClass = submission.deleted
+        ? "formulate-submission__row--deleted"
+        : "formulate-submission__row";
+    return evenClass + " " + deletedClass;
 }
 
 // Returns a class to be used on a pager item.

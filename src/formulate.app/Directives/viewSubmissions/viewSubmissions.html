@@ -27,6 +27,9 @@
                         <thead>
                         <tr>
                             <th>
+
+                            </th>
+                            <th>
                                 Creation Date
                             </th>
                             <th>
@@ -41,17 +44,27 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="submission in submissions" ng-class="getRowClass($index)">
-                            <td class="form-submission-cell">
+                        <tr ng-repeat="submission in submissions" ng-class="getRowClass($index, submission)">
+                            <td colspan="5" ng-if="submission.deleted" class="form-submission-cell">
+                                <div class="formulate-submission__row-deleted-message">
+                                    Submission deleted.
+                                </div>
+                            </td>
+                            <td ng-if="!submission.deleted">
+                                <button ng-click="deleteSubmission(submission)" type="button" class="btn btn-danger formulate__delete-submission">
+                                    Delete
+                                </button>
+                            </td>
+                            <td class="form-submission-cell" ng-if="!submission.deleted">
                                 {{submission.creationDate}}
                             </td>
-                            <td class="form-submission-cell">
+                            <td class="form-submission-cell" ng-if="!submission.deleted">
                                 <a ng-href="{{submission.url}}">{{submission.url}}</a>
                                 <span ng-if="submission.pageId">
                                 (<a ng-href="{{getNodeUrl(submission.pageId)}}">View Content Page</a>)
                             </span>
                             </td>
-                            <td class="form-submission-cell">
+                            <td class="form-submission-cell" ng-if="!submission.deleted">
                                 <table>
                                     <tbody>
                                     <tr ng-repeat="field in submission.fields">
@@ -65,7 +78,7 @@
                                     </tbody>
                                 </table>
                             </td>
-                            <td class="form-submission-cell">
+                            <td class="form-submission-cell" ng-if="!submission.deleted">
                                 <table ng-repeat="file in submission.files">
                                     <tbody>
                                     <tr ng-repeat="file in submission.files">

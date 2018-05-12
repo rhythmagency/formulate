@@ -15,7 +15,10 @@ app.factory("formulateSubmissions", function (formulateVars,
     return {
 
         // Gets the form submissions based on the specified criteria.
-        getSubmissions: getGetSubmissions(services)
+        getSubmissions: getGetSubmissions(services),
+
+        // Deletes the form submission with the specified ID.
+        deleteSubmission: getDeleteSubmission(services)
 
     };
 
@@ -43,6 +46,7 @@ function getGetSubmissions(services) {
                 total: data.Total,
                 submissions: data.Submissions.map(function (item) {
                     return {
+                        generatedId: item.GeneratedId,
                         pageId: item.PageId,
                         url: item.Url,
                         creationDate: item.CreationDate,
@@ -63,6 +67,29 @@ function getGetSubmissions(services) {
                         })
                     };
                 })
+            };
+
+        });
+
+    };
+}
+
+// Returns the function that deletes the specified form submission.
+function getDeleteSubmission(services) {
+    return function (generatedId) {
+
+        // Variables.
+        var url = services.formulateVars.DeleteSubmission;
+        var params = {
+            GeneratedId: generatedId
+        };
+
+        // Delete submission from server.
+        return services.formulateServer.post(url, params, function () {
+
+            // Indicate success.
+            return {
+                success: true,
             };
 
         });

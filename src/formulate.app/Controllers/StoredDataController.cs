@@ -118,12 +118,44 @@
                 Total = (int)dbResults.TotalItems,
                 Submissions = items.Select(x => new
                 {
+                    GeneratedId = GuidHelper.GetString(x.GeneratedId),
                     CreationDate = x.CreationDate.AddMinutes(-request.TimezoneOffset).ToString(),
                     Url = x.Url,
                     PageId = x.PageId,
                     Fields = GetDataForFields(x.DataValues, fieldsById, form),
                     Files = GetDataForFiles(x.FileValues, fieldsById, form)
                 }).ToArray()
+            };
+
+        }
+
+
+        /// <summary>
+        /// Deletes the form submission with the specified ID.
+        /// </summary>
+        /// <param name="request">
+        /// The request containing the ID of the submission to delete.
+        /// </param>
+        /// <returns>
+        /// An object indicating whether or not the deletion was successful.
+        /// </returns>
+        [HttpPost]
+        public object DeleteSubmission(DeleteSubmissionRequest request)
+        {
+
+            // Variables.
+            var id = GuidHelper.GetGuid(request.GeneratedId);
+            var db = ApplicationContext.DatabaseContext.Database;
+
+
+            // Delete the submission.
+            db.Delete("FormulateSubmission", "GeneratedId", null, id);
+
+
+            // Indicate success.
+            return new
+            {
+                Success = true
             };
 
         }

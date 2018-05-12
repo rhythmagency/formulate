@@ -34,3 +34,18 @@ ul.formulate-pager li {
 button.formulate-pager-item-active {
     font-weight: bold;
 }
+
+.formulate__delete-submission {
+    margin: 10px;
+}
+
+.formulate-submission__row--deleted {
+    opacity: 0.25;
+}
+
+.formulate-submission__row-deleted-message {
+    font-weight: bold;
+    text-align: center;
+    min-height: 30px;
+    line-height: 30px;
+}
