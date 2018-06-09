@@ -668,12 +668,6 @@
     <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.svg" />
     <Content Include="App_Plugins\formulate\lang\en-GB.xml" />
     <Content Include="JavaScript\Editors\configuredFormPicker.js" />
-    <Content Include="JavaScript\FormTemplates\responsive.bootstrap.angular\directives\form\field.js" />
-    <Content Include="JavaScript\FormTemplates\responsive.bootstrap.angular\directives\form\responsiveForm.js" />
-    <Content Include="JavaScript\FormTemplates\responsive.bootstrap.angular\directives\form\rows.js" />
-    <Content Include="JavaScript\FormTemplates\responsive.bootstrap.angular\directives\form\validation.js" />
-    <Content Include="JavaScript\FormTemplates\responsive.bootstrap.angular\directives\json-source\json-source.js" />
-    <Content Include="JavaScript\FormTemplates\responsive.bootstrap.angular\index.js" />
     <Content Include="JavaScript\formulate.js" />
     <Content Include="JavaScript\Services\formulateConfiguredForms.js" />
     <Content Include="JavaScript\Services\formulateDataValues.js" />
