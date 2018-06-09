@@ -24,6 +24,7 @@ module.exports = function(grunt) {
     var appProject = projectName + ".app";
     var apiProject = projectName + ".api";
     var uiProject = projectName + ".backoffice.ui";
+    var frontendProject = projectName + ".frontend";
     var buildConfig = grunt.option("buildConfiguration");
 
     // Extracts Formulate's version from the constants file.
@@ -113,7 +114,7 @@ module.exports = function(grunt) {
                 templates: {
                     // RBA = Responsive Bootstrap Angular.
                     rba: {
-                        js: appProject + "/JavaScript/FormTemplates/responsive.bootstrap.angular/index.js"
+                        js: frontendProject + "/responsive.bootstrap.angular/index.js"
                     }
                 },
                 sass: uiProject + "/styles/formulate.scss"
@@ -220,7 +221,7 @@ module.exports = function(grunt) {
                         expand: true,
                         src: ["responsive.bootstrap.angular/**"],
                         dest: './nuget-temp/package/content/App_Plugins/formulate/templates/',
-                        cwd: appProject + "/JavaScript/FormTemplates/"
+                        cwd: frontendProject + "/"
                     }
                 ]
             }
@@ -410,7 +411,7 @@ module.exports = function(grunt) {
                             expand: true,
                             src: ["responsive.bootstrap.angular/**"],
                             dest: './FormulateTemp/package/App_Plugins/formulate/templates/',
-                            cwd: appProject + "/JavaScript/FormTemplates/"
+                            cwd: frontendProject + "/"
                         }
                     ]
                 }
