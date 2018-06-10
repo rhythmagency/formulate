@@ -115,6 +115,10 @@ module.exports = function(grunt) {
                     // RBA = Responsive Bootstrap Angular.
                     rba: {
                         js: frontendProject + "/responsive.bootstrap.angular/index.js"
+                    },
+                    // Plain = Plain JavaScript.
+                    plain: {
+                        js: frontendProject + "/responsive.plain-javascript/plain-index.js"
                     }
                 },
                 sass: uiProject + "/styles/formulate.scss"
@@ -127,6 +131,11 @@ module.exports = function(grunt) {
                     rba: {
                         js: appProject + "/App_Plugins/formulate/responsive.bootstrap.angular.js",
                         js_min: appProject + "/App_Plugins/formulate/responsive.bootstrap.angular.min.js"
+                    },
+                    // Plain = Plain JavaScript.
+                    plain: {
+                        js: appProject + "/App_Plugins/formulate/responsive.plain-javascript.js",
+                        js_min: appProject + "/App_Plugins/formulate/responsive.plain-javascript.min.js"
                     }
                 },
                 css: appProject + "/App_Plugins/formulate/formulate.css"
@@ -262,6 +271,14 @@ module.exports = function(grunt) {
                 },
                 files: {
                     "<%= paths.out.templates.rba.js %>": "<%= paths.in.templates.rba.js %>"
+                }
+            },
+            "plain-template": {
+                options: {
+                    transform: ["require-globify", "browserify-shim"]
+                },
+                files: {
+                    "<%= paths.out.templates.plain.js %>": "<%= paths.in.templates.plain.js %>"
                 }
             }
         },
@@ -500,6 +517,10 @@ module.exports = function(grunt) {
         // The "frontend-templates" task is for developing frontend templates
         // (e.g., the responsive Bootstrap Angular template).
         ["browserify:templates", "ngAnnotate:templates", "uglify:templates", "copy:templates"]);
+    grunt.registerTask("frontend-template-plain",
+        // The "frontend-template-plain" task is for developing the "Plain JavaScript"
+        // frontend template.
+        ["browserify:plain-template", "copy:templates"]);
     grunt.registerTask("translation",
         // The "translation" task is for working with translations for Formulate. This
         // will only copy language files.

@@ -24,6 +24,7 @@
     </NuGetPackageImportStamp>
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -509,7 +510,9 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Partials\Formulate\Responsive.Plain JavaScript.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Config\Formulate\buttons.config" />
   </ItemGroup>
