@@ -16,6 +16,7 @@ src/formulate.app/App_Plugins/formulate/formulate.js
 src/formulate.app/App_Plugins/formulate/formulate.css
 src/formulate.app/App_Plugins/formulate/responsive.bootstrap.angular.js
 src/formulate.app/App_Plugins/formulate/responsive.bootstrap.angular.min.js
+src/formulate.app/App_Plugins/formulate/responsive.plain-javascript.js
 src/FormulateTemp/
 dist/
 frontendDocs/
