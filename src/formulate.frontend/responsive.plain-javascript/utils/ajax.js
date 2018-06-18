@@ -14,8 +14,6 @@ const STATUS_SUCCESS = 200;
 // HTTP request method to post data to the server: https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
 const METHOD_POST = "POST";
 
-// Payload should be an instance of FormData.
-
 /**
  * The function called when a SendRequest response is ready.
  * @callback SendRequestCallback
