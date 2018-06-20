@@ -1,6 +1,3 @@
-//TODO: This file will define the functionality required to send AJAX requests for forms. Some resources:
-//TODO: Maybe I should implement a promise shim rather than use a callback.
-
 // A readyState of 4 indicates the request has completed: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState
 const STATE_DONE = 4;
 
@@ -26,14 +23,17 @@ const METHOD_POST = "POST";
  */
 function SendRequest(url, payload, callback) {
 
+    // Variables.
+    let self = this;
+
     // Instance variables.
     this.callback = callback;
     this.request = new XMLHttpRequest();
 
-    // TODO: Do I need to set the request header (might happen automatically with FormData)? https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/setRequestHeader
-
     // Initiate the AJAX request.
-    this.request.onreadystatechange = this.handleStateChange;
+    this.request.onreadystatechange = function () {
+        self.handleStateChange();
+    };
     this.request.open(METHOD_POST, url, true);
     this.request.send(payload);
 
@@ -51,12 +51,12 @@ SendRequest.prototype.handleStateChange = function () {
         if (this.request.status === STATUS_SUCCESS){
 
             // Success.
-            callback(STATUS_SUCCESS, request.responseText);
+            this.callback(STATUS_SUCCESS, this.request.responseText);
 
         } else {
 
             // Error.
-            callback(this.request.status, null);
+            this.callback(this.request.status, null);
 
         }
 

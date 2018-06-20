@@ -7,7 +7,7 @@
 function renderField(fieldData, fieldRenderers) {
 
     // Variables.
-    let renderer, fieldElement, cssClasses;
+    let renderer, cssClasses, renderResult;
 
     // Get the field rendering function for the current field type.
     renderer = fieldRenderers[fieldData.fieldType];
@@ -18,10 +18,10 @@ function renderField(fieldData, fieldRenderers) {
     cssClasses.push("formulate__field--" + fieldData.fieldType);
 
     // Render the field.
-    fieldElement = renderer(fieldData, cssClasses);
+    renderResult = new renderer(fieldData, cssClasses);
 
-    // Return the DOM element for the field.
-    return fieldElement;
+    // Return the rendered field (an object that has information about the rendered field).
+    return renderResult;
 
 }
 

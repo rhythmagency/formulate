@@ -9,7 +9,7 @@ function renderForm(formData, formElement, fieldRenderers) {
     // Variables.
     let i, j, k, row, rows, rowElement, cells, cell, fields, fieldId,
         columnCount, cellElement, fieldElement, fieldsData, fieldMap,
-        field;
+        field, renderedFields, renderedField;
 
     // Map fields to an associative array for quick lookups.
     fieldsData = formData.data.fields;
@@ -17,6 +17,7 @@ function renderForm(formData, formElement, fieldRenderers) {
 
     // Process each row in the form.
     rows = formData.data.rows;
+    renderedFields = [];
     for(i = 0; i < rows.length; i++) {
 
         // Create the row.
@@ -41,7 +42,9 @@ function renderForm(formData, formElement, fieldRenderers) {
                 // Create the field.
                 fieldId = fields[k].id;
                 field = fieldMap[fieldId];
-                fieldElement = require("./render-field")(field, fieldRenderers);
+                renderedField = require("./render-field")(field, fieldRenderers);
+                renderedFields.push(renderedField);
+                fieldElement = renderedField.getElement();
                 cellElement.appendChild(fieldElement);
 
             }
@@ -49,6 +52,9 @@ function renderForm(formData, formElement, fieldRenderers) {
         }
 
     }
+
+    // Return the rendered fields.
+    return renderedFields;
 
 }
 
