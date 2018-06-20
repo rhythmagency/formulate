@@ -1,9 +1,5 @@
 //TODO: This file will define the functionality required to send AJAX requests for forms. Some resources:
 //TODO: Maybe I should implement a promise shim rather than use a callback.
-//TODO: For file uploads:
-/*
-formDataInstance.append(inputFileDomElement.files[0].name, inputFileDomElement.files[0]);
- */
 
 // A readyState of 4 indicates the request has completed: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState
 const STATE_DONE = 4;
