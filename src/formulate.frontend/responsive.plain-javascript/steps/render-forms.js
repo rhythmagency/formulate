@@ -49,7 +49,7 @@ function renderForms(forms, fieldRenderers) {
 function attachSubmitHandler(form, fields, payload, url) {
 
     // Variables.
-    let i, data, payloadKey;
+    let i, data, payloadKey, event;
 
     // Listen for submit events.
     form.addEventListener("submit", function (e) {
@@ -73,7 +73,15 @@ function attachSubmitHandler(form, fields, payload, url) {
         // Send data as AJAX submission.
         new (require("../utils/ajax"))(url, data, function (status) {
             if (status === 200) {
-                //TODO: Emit event to indicate success.
+
+                // Create success event.
+                event = new CustomEvent("formulate form: submit: success", {
+                    bubbles: true
+                });
+
+                // Emit success event.
+                form.dispatchEvent(event);
+
             }
         });
 

@@ -253,4 +253,18 @@
 </script>
 
 @* TODO: Temporary. *@
+<script>
+    (function () {
+
+        // On form submit, remove the form and display a message.
+        let wrapper = document.getElementById("formulate-form-@(randomFormId)").parentNode;
+        wrapper.addEventListener("formulate form: submit: success", function (e) {
+            let form = e.target;
+            form.parentNode.replaceChild(document.createTextNode("Form submitted!"), form);
+        });
+
+    })();
+</script>
+
+@* TODO: Temporary. *@
 <script src="/App_Plugins/formulate/responsive.plain-javascript.js"></script>
