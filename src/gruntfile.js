@@ -362,7 +362,8 @@ module.exports = function(grunt) {
         uglify: {
             templates: {
                 files: {
-                    "<%= paths.out.templates.rba.js_min %>": ["<%= paths.out.templates.rba.js %>"]
+                    "<%= paths.out.templates.rba.js_min %>": ["<%= paths.out.templates.rba.js %>"],
+                    "<%= paths.out.templates.plain.js_min %>": ["<%= paths.out.templates.plain.js %>"]
                 }
             }
         }
@@ -489,7 +490,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-copy");
-    grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("grunt-contrib-uglify-es");
     grunt.loadNpmTasks("grunt-exec");
     grunt.loadNpmTasks("grunt-html-convert");
     grunt.loadNpmTasks("grunt-jsdoc");
@@ -520,7 +521,7 @@ module.exports = function(grunt) {
     grunt.registerTask("frontend-template-plain",
         // The "frontend-template-plain" task is for developing the "Plain JavaScript"
         // frontend template.
-        ["browserify:plain-template", "copy:templates"]);
+        ["browserify:plain-template", "uglify:templates", "copy:templates"]);
     grunt.registerTask("translation",
         // The "translation" task is for working with translations for Formulate. This
         // will only copy language files.
