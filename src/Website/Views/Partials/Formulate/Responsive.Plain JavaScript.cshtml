@@ -262,6 +262,9 @@
             let form = e.target;
             form.parentNode.replaceChild(document.createTextNode("Form submitted!"), form);
         });
+        wrapper.addEventListener("formulate form: submit: failure", function () {
+            alert("Unknown error. Please try again.");
+        });
 
     })();
 </script>

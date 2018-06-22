@@ -71,22 +71,45 @@ function attachSubmitHandler(form, fields, payload, url) {
         }
 
         // Send data as AJAX submission.
-        new (require("../utils/ajax"))(url, data, function (status) {
-            if (status === 200) {
+        new (require("../utils/ajax"))(url, data).then(function() {
 
-                // Create success event.
-                event = new CustomEvent("formulate form: submit: success", {
-                    bubbles: true
-                });
+            // Dispatch success event.
+            dispatchEvent("formulate form: submit: success", form);
 
-                // Emit success event.
-                form.dispatchEvent(event);
+        }).catch(function() {
 
-            }
+            // Dispatch failure event.
+            dispatchEvent("formulate form: submit: failure", form);
+
         });
 
     }, true);
 
+}
+
+/**
+ * Dispatches the specified event.
+ * @param eventName The event to dispatch.
+ * @param form The form element to dispatch the element on.
+ */
+function dispatchEvent(eventName, form) {
+    let event;
+    if (typeof window.CustomEvent === "function") {
+
+        // Typical implementation for CustomEvent.
+        event = new CustomEvent(eventName, {
+            bubbles: true
+        });
+        form.dispatchEvent(event);
+
+    } else {
+
+        // IE11 implementation for CustomEvent.
+        event = document.createEvent("CustomEvent");
+        event.initCustomEvent(eventName, true, false, undefined);
+        form.dispatchEvent(event);
+
+    }
 }
 
 // Export the function that renders forms.

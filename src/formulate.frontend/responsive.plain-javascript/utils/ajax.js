@@ -18,29 +18,39 @@ const METHOD_POST = "POST";
  * Posts a form to the server with AJAX.
  * @param url {string} The URL to post the form to.
  * @param payload {FormData} The form data to send with the request.
- * @param {SendRequestCallback} callback - The function to call when the form has completed posting to the server.
+ * @returns {Promise<any>} A promise that resolves once the request is complete.
  * @constructor
  */
-function SendRequest(url, payload, callback) {
+function SendRequest(url, payload) {
 
     // Variables.
-    let self = this;
+    let self = this, Promise = require("../polyfills/promise"), state;
 
     // Instance variables.
-    this.callback = callback;
     this.request = new XMLHttpRequest();
 
-    // Initiate the AJAX request.
-    this.request.onreadystatechange = function () {
-        self.handleStateChange();
-    };
-    this.request.open(METHOD_POST, url, true);
-    this.request.send(payload);
+    // Return a promise that will resolve once the AJAX request has returned from the server.
+    return new Promise(function (resolve, reject) {
+
+        // Initiate the AJAX request.
+        self.request.onreadystatechange = function () {
+            state = self.handleStateChange();
+            if (state && state.status === STATUS_SUCCESS) {
+                resolve(state);
+            } else if (state && state.status !== STATUS_SUCCESS) {
+                reject(state);
+            }
+        };
+        self.request.open(METHOD_POST, url, true);
+        self.request.send(payload);
+
+    });
 
 }
 
 /**
  * Called whenever the state changes for the AJAX call.
+ * @returns {{} | null} The result of the state change, or null if it's an irrelevant state change.
  */
 SendRequest.prototype.handleStateChange = function () {
 
@@ -51,16 +61,24 @@ SendRequest.prototype.handleStateChange = function () {
         if (this.request.status === STATUS_SUCCESS){
 
             // Success.
-            this.callback(STATUS_SUCCESS, this.request.responseText);
+            return {
+                status: STATUS_SUCCESS,
+                text: this.request.responseText
+            };
 
         } else {
 
             // Error.
-            this.callback(this.request.status, null);
+            return {
+                status: this.request.status
+            };
 
         }
 
     }
+
+    // Not a state change we care about.
+    return null;
 
 };
 

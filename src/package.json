@@ -25,7 +25,6 @@
     "grunt-umbraco-package": "^1.0.0",
     "hoek": "^5.0.3",
     "node-sass": "^4.9.0",
-    "promiscuous": "^0.7.1",
     "require-globify": "^1.4.1"
   },
   "browserify-shim": {
