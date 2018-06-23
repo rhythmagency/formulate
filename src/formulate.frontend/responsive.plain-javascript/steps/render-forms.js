@@ -3,8 +3,9 @@
  * in the DOM.
  * @param forms The data for the forms to render.
  * @param fieldRenderers The associative array of the field rendering functions.
+ * @param fieldValidators The associative array of the field validating functions.
  */
-function renderForms(forms, fieldRenderers) {
+function renderForms(forms, fieldRenderers, fieldValidators) {
 
     // Variables.
     let i, form, formId, placeholderElement, formElement, formContainer, fields;
@@ -22,7 +23,7 @@ function renderForms(forms, fieldRenderers) {
         formElement.classList.add("formulate__form");
 
         // Render the contents of the form.
-        fields = require("./render-form")(form, formElement, fieldRenderers);
+        fields = require("./render-form")(form, formElement, fieldRenderers, fieldValidators);
 
         // Get the placeholder element to insert the form before.
         formId = "formulate-form-" + form.data.randomId;
@@ -49,7 +50,7 @@ function renderForms(forms, fieldRenderers) {
 function attachSubmitHandler(form, fields, payload, url) {
 
     // Variables.
-    let i, data, payloadKey, event;
+    let i, data, payloadKey;
 
     // Listen for submit events.
     form.addEventListener("submit", function (e) {

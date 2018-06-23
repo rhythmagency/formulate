@@ -3,8 +3,9 @@
  * @param formData The data to render a form for.
  * @param formElement The DOM element to insert elements into.
  * @param fieldRenderers The associative array of field rendering functions.
+ * @param fieldValidators The associative array of the field validating functions.
  */
-function renderForm(formData, formElement, fieldRenderers) {
+function renderForm(formData, formElement, fieldRenderers, fieldValidators) {
 
     // Variables.
     let i, j, k, row, rows, rowElement, cells, cell, fields, fieldId,
@@ -42,7 +43,7 @@ function renderForm(formData, formElement, fieldRenderers) {
                 // Create the field.
                 fieldId = fields[k].id;
                 field = fieldMap[fieldId];
-                renderedField = require("./render-field")(field, fieldRenderers);
+                renderedField = require("./render-field")(field, fieldRenderers, fieldValidators);
                 renderedFields.push(renderedField);
                 fieldElement = renderedField.getElement();
                 cellElement.appendChild(fieldElement);
