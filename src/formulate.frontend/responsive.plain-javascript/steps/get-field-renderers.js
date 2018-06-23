@@ -7,13 +7,15 @@
 function getFieldRenderers() {
 
     // Variables.
-    let i, fields, field, fieldKey, fieldMap;
+    let i, fields, extraFields, field, fieldKey, fieldMap;
 
     // Get the field renderers.
     fields = [
         require("../fields/plain-text"),
         require("../fields/plain-button")
     ];
+    extraFields = window["formulate-plain-js-fields"] || [];
+    fields = fields.concat(extraFields);
 
     // Store the field renderers to an associative array.
     fieldMap = {};
