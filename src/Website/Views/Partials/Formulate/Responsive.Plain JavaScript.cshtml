@@ -167,7 +167,7 @@
         {
             id = y.Id.ToString("N"),
             alias = y.Alias,
-            validationType = y.ValidationType.Name.ConvertValidationTypeToAngularType(),
+            validationType = y.ValidationType.Name.ConvertValidationTypeToJavaScriptType(),
             // The validation configuration stores parameters particular to a validation instance (e.g., a regex pattern).
             configuration = getValidationConfig(y)
         }).ToArray(),
@@ -194,8 +194,8 @@
     }).ToArray();
 
 
-    // Convert to a JSON string that can be consumed by Angular.
-    var angularModel = Json.Encode(new
+    // Convert to a JSON string that can be consumed by JavaScript.
+    var jsonModel = Json.Encode(new
     {
         data = new
         {
@@ -230,7 +230,7 @@
         let formData, key;
 
         // Get the form data into JavaScript.
-        formData = @Html.Raw(angularModel);
+        formData = @Html.Raw(jsonModel);
 
         // Store the form data to an array on the window object.
         // Once the JavaScript loads, it will create this form based
@@ -243,7 +243,7 @@
 
     // TODO: This is testing code to be deleted later.
     (function () {
-        var prettyJson = JSON.stringify(@Html.Raw(angularModel), null, 2);
+        var prettyJson = JSON.stringify(@Html.Raw(jsonModel), null, 2);
         var jsonElement = document.createTextNode(prettyJson);
         var preTag = document.createElement("pre");
         preTag.appendChild(jsonElement);

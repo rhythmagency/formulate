@@ -106,6 +106,31 @@
             return angularType ?? validationType;
         }
 
+
+        /// <summary>
+        /// Converts a validation type (e.g., "ValidationRegex") to a JavaScript-friendly type (e.g., "regex").
+        /// </summary>
+        /// <param name="validationType">
+        /// The validation type (e.g., "ValidationRegex").
+        /// </param>
+        /// <returns>
+        /// The JavaScript-friendly type (e.g., "regex").
+        /// </returns>
+        public static string ConvertValidationTypeToJavaScriptType(this string validationType)
+        {
+            var angularType = default(string);
+            switch ((validationType ?? string.Empty).ToLower())
+            {
+                case "validationregex":
+                    angularType = "regex";
+                    break;
+                case "validationmandatory":
+                    angularType = "required";
+                    break;
+            }
+            return angularType ?? validationType;
+        }
+
         #endregion
 
     }
