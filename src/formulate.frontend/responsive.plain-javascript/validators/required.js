@@ -8,10 +8,10 @@ function RequiredValidator() {
 /**
  * Validates the the specified text is set (i.e., not null/empty).
  * @param value {string} The text value to validate.
- * @returns {boolean} True, if the text is valid; otherwise, false.
+ * @returns {Promise} A promise that resolves to true, if the text is valid; otherwise, false.
  */
 RequiredValidator.prototype.validateText = function (value) {
-    return (new (require("../polyfills/promise")))(function (resolve) {
+    return new (require("../polyfills/promise"))(function (resolve) {
         let isValueSet = require("../utils/validation").isValueSet,
             valid = isValueSet(value) && value.hasOwnProperty("length") && value.length > 0;
         resolve(valid);
@@ -21,10 +21,10 @@ RequiredValidator.prototype.validateText = function (value) {
 /**
  * Validates that the specified array of text values are all set and that the array is not null/empty.
  * @param value {string[]} The array of text values.
- * @returns {boolean} True, if the array of text values is valid; otherwise, false.
+ * @returns {Promise} A promise that resolves to true, if the array of text values is valid; otherwise, false.
  */
 RequiredValidator.prototype.validateTextArray = function (value) {
-    return (new (require("../polyfills/promise")))(function (resolve) {
+    return new (require("../polyfills/promise"))(function (resolve) {
 
         // Variables.
         let i, item,
@@ -60,10 +60,10 @@ RequiredValidator.prototype.validateTextArray = function (value) {
 /**
  * Validates that the specified file has been selected.
  * @param value {*} The file value.
- * @returns {boolean} True, if the file is selected.
+ * @returns {Promise} A promise that resolves to true, if the file is selected; otherwise, false.
  */
 RequiredValidator.prototype.validateFile = function (value) {
-    return (new (require("../polyfills/promise")))(function (resolve) {
+    return new (require("../polyfills/promise"))(function (resolve) {
         //TODO: ...
         resolve(true);
     });

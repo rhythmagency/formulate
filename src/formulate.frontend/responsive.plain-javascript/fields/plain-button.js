@@ -1,10 +1,11 @@
 /**
  * Renders a submit button.
  * @param fieldData The field data that should be used to render the button.
+ * @param fieldValidators The associative array of the field validating functions.
  * @param cssClasses The CSS classes to attach to the element.
  * @constructor
  */
-function RenderButton(fieldData, cssClasses) {
+function RenderButton(fieldData, fieldValidators, cssClasses) {
 
     // Variables.
     let fieldElement;
@@ -33,7 +34,14 @@ RenderButton.prototype.getElement = function () {
 /**
  * Does nothing, as this field has no data.
  */
-RenderButton.prototype.setData = function () {
+RenderButton.prototype.setData = function () {};
+
+/**
+ * Does nothing, as this field has no data to validate.
+ * @returns {Promise[]} An empty array.
+ */
+RenderButton.prototype.checkValidity = function () {
+    return [];
 };
 
 // Export the field renderer configuration.

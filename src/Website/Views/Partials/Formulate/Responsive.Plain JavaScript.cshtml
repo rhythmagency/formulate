@@ -243,6 +243,7 @@
 
     // TODO: This is testing code to be deleted later.
     (function () {
+        return;
         var prettyJson = JSON.stringify(@Html.Raw(jsonModel), null, 2);
         var jsonElement = document.createTextNode(prettyJson);
         var preTag = document.createElement("pre");
@@ -256,18 +257,42 @@
 <script>
     (function () {
 
+        // Variables.
+        let validationListElement;
+
         // On form submit, remove the form and display a message.
         let wrapper = document.getElementById("formulate-form-@(randomFormId)").parentNode;
         wrapper.addEventListener("formulate form: submit: success", function (e) {
             let form = e.target;
             form.parentNode.replaceChild(document.createTextNode("Form submitted!"), form);
+            if (validationListElement) {
+                validationListElement.parentNode.removeChild(validationListElement);
+            }
+            validationListElement = null;
         });
         wrapper.addEventListener("formulate form: submit: failure", function () {
             alert("Unknown error. Please try again.");
+        });
+        wrapper.addEventListener("formulate: submit: validation errors", function (e) {
+            let i, message, messages = e.detail.messages, form = e.target, listElement, itemElement;
+            listElement = document.createElement("ul");
+            listElement.classList.add("formulate__validation-summary");
+            for (i = 0; i < messages.length; i++) {
+                message = messages[i];
+                itemElement = document.createElement("li");
+                itemElement.classList.add("formulate__validation-summary__error");
+                itemElement.appendChild(document.createTextNode(message));
+                listElement.appendChild(itemElement);
+            }
+            if (validationListElement) {
+                validationListElement.parentNode.replaceChild(listElement, validationListElement);
+            }
+            validationListElement = listElement;
+            form.parentNode.appendChild(listElement);
         });
 
     })();
 </script>
 
 @* TODO: Temporary. *@
-<script src="/App_Plugins/formulate/responsive.plain-javascript.min.js"></script>
+<script src="/App_Plugins/formulate/responsive.plain-javascript.js"></script>

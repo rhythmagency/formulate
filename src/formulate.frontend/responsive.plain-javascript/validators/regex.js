@@ -1,33 +1,35 @@
 /**
  * Validates a field to ensure its value matches a regular expression.
+ * @param configuration The configuration for this regex validator.
  * @constructor
  */
-function RegexValidator(regexPattern, flags) {
-    this.regex = new RegExp(regexPattern, flags);
+function RegexValidator(configuration) {
+    this.regex = new RegExp(configuration.pattern);
 }
 
 /**
  * Validates the the specified text matches the regex.
  * @param value {string} The text value to validate.
- * @returns {boolean} True, if the text is valid; otherwise, false.
+ * @returns {Promise} A promise that resolves to true, if the text is valid; otherwise, false.
  */
 RegexValidator.prototype.validateText = function (value) {
-    return (new (require("../polyfills/promise")))(function (resolve) {
+    let self = this;
+    return new (require("../polyfills/promise"))(function (resolve) {
         let isValueSet = require("../utils/validation").isValueSet;
-        if (!isValueSet()) {
+        if (!isValueSet(value)) {
             value = "";
         }
-        resolve(this.regex.test(value));
+        resolve(self.regex.test(value));
     });
 };
 
 /**
  * Validates that the specified array of text values all match the regex and that the array is not null/empty.
  * @param value {string[]} The array of text values.
- * @returns {boolean} True, if the array of text values is valid; otherwise, false.
+ * @returns {Promise} A promise that resolves to true, if the array of text values is valid; otherwise, false.
  */
 RegexValidator.prototype.validateTextArray = function (value) {
-    return (new (require("../polyfills/promise")))(function (resolve) {
+    return new (require("../polyfills/promise"))(function (resolve) {
 
         // Variables.
         let i, item,
@@ -63,10 +65,10 @@ RegexValidator.prototype.validateTextArray = function (value) {
 /**
  * Validates that the specified filename matches the regex.
  * @param value {*} The file value.
- * @returns {boolean} True, if the file is selected.
+ * @returns {Promise} A promise that resolves to true, if the file is selected; otherwise, false.
  */
 RegexValidator.prototype.validateFile = function (value) {
-    return (new (require("../polyfills/promise")))(function (resolve) {
+    return new (require("../polyfills/promise"))(function (resolve) {
         //TODO: ...
         resolve(true);
     });

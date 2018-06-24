@@ -29,9 +29,10 @@ function renderForms(forms, fieldRenderers, fieldValidators) {
         formId = "formulate-form-" + form.data.randomId;
         placeholderElement = document.getElementById(formId);
 
-        // Insert the form before the placeholder.
+        // Insert the form before the placeholder, and remove the placeholder.
         formContainer = placeholderElement.parentNode;
         formContainer.insertBefore(formElement, placeholderElement);
+        formContainer.removeChild(placeholderElement);
 
         // Handle submits.
         attachSubmitHandler(formElement, fields, form.data.payload, form.data.url);
@@ -58,33 +59,97 @@ function attachSubmitHandler(form, fields, payload, url) {
         // Cancel submit (since we'll be doing it with AJAX instead).
         e.preventDefault();
 
-        // Populate submission with initial payload.
-        data = new FormData();
-        for(payloadKey in payload) {
-            if (payload.hasOwnProperty(payloadKey)) {
-                data.append(payloadKey, payload[payloadKey]);
-            }
-        }
+        // First, ensure all fields are valid.
+        checkValidity(form, fields)
+            .then(function (validationResult) {
+                if (validationResult.success) {
 
-        // Populate submission with data from fields.
-        for (i = 0; i < fields.length; i++) {
-            fields[i].setData(data);
-        }
+                    // Populate submission with initial payload.
+                    sendPayloadToServer(form, fields, payload, url);
 
-        // Send data as AJAX submission.
-        new (require("../utils/ajax"))(url, data).then(function() {
+                } else {
 
-            // Dispatch success event.
-            dispatchEvent("formulate form: submit: success", form);
+                    // Validation failed.
+                    handleInvalidFields(validationResult.messages, form);
 
-        }).catch(function() {
-
-            // Dispatch failure event.
-            dispatchEvent("formulate form: submit: failure", form);
-
-        });
+                }
+            });
 
     }, true);
+
+}
+
+/**
+ * Handles invalid fields by dispatching an event with the validation errors.
+ * @param messages The messages for the validation errors.
+ * @param form The form.
+ */
+function handleInvalidFields(messages, form) {
+    dispatchEvent("formulate: submit: validation errors", form, {
+        messages: messages
+    });
+}
+
+/**
+ * Checks the form for validation errors.
+ * @param form The form.
+ * @param fields The fields in the form.
+ * @returns {*} A promise that will resolve to the result of the validations.
+ */
+function checkValidity(form, fields) {
+
+    // Variables.
+    let i, field, validationPromises = [], fieldPromises;
+
+    // Start validating each field.
+    for(i = 0; i < fields.length; i++) {
+        field = fields[i];
+        fieldPromises = field.checkValidity();
+        validationPromises = validationPromises.concat(fieldPromises);
+    }
+
+    // Finalize the validation of the fields.
+    return require("../utils/validation").aggregateValidations(validationPromises);
+
+}
+
+/**
+ * Sends the payload for the form to the server.
+ * @param form The form element.
+ * @param fields The fields for the form.
+ * @param payload The data to send to the server.
+ * @param url The URL to send the data to.
+ */
+function sendPayloadToServer(form, fields, payload, url) {
+
+    // Variables.
+    let i, data, payloadKey;
+
+    // Populate submission with initial payload.
+    data = new FormData();
+    for(payloadKey in payload) {
+        if (payload.hasOwnProperty(payloadKey)) {
+            data.append(payloadKey, payload[payloadKey]);
+        }
+    }
+
+    // Populate submission with data from fields.
+    for (i = 0; i < fields.length; i++) {
+        fields[i].setData(data);
+    }
+
+    // Send data as AJAX submission.
+    new (require("../utils/ajax"))(url, data).then(function() {
+
+        // Dispatch success event.
+        dispatchEvent("formulate form: submit: success", form);
+
+    }).catch(function() {
+
+        // Dispatch failure event.
+        dispatchEvent("formulate form: submit: failure", form);
+
+    });
 
 }
 
@@ -92,14 +157,16 @@ function attachSubmitHandler(form, fields, payload, url) {
  * Dispatches the specified event.
  * @param eventName The event to dispatch.
  * @param form The form element to dispatch the element on.
+ * @param data The data to send with the event.
  */
-function dispatchEvent(eventName, form) {
+function dispatchEvent(eventName, form, data) {
     let event;
     if (typeof window.CustomEvent === "function") {
 
         // Typical implementation for CustomEvent.
         event = new CustomEvent(eventName, {
-            bubbles: true
+            bubbles: true,
+            detail: data
         });
         form.dispatchEvent(event);
 
@@ -107,7 +174,7 @@ function dispatchEvent(eventName, form) {
 
         // IE11 implementation for CustomEvent.
         event = document.createEvent("CustomEvent");
-        event.initCustomEvent(eventName, true, false, undefined);
+        event.initCustomEvent(eventName, true, false, data);
         form.dispatchEvent(event);
 
     }

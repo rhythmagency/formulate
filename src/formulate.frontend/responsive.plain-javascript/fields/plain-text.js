@@ -1,33 +1,42 @@
 /**
  * Renders a text field.
  * @param fieldData The field data that should be used to render the text field.
+ * @param fieldValidators The associative array of the field validating functions.
  * @param cssClasses The CSS classes to attach to the element.
  * @constructor
  */
-function RenderText(fieldData, cssClasses) {
+function RenderText(fieldData, fieldValidators, cssClasses) {
 
     // Variables.
-    let fieldElement;
+    let fieldElement, wrapperElement;
+
+    // Create wrapper element.
+    wrapperElement = document.createElement("div");
+
+    // Attach CSS classes.
+    require("../utils/add-classes")(wrapperElement, cssClasses);
 
     // Create element.
     fieldElement = document.createElement("input");
     fieldElement.type = "text";
+    wrapperElement.appendChild(fieldElement);
 
-    // Attach CSS classes.
-    require("../utils/add-classes")(fieldElement, cssClasses);
-
-    // Retain text field DOM element.
+    // Retain DOM elements and field properties.
+    this.wrapper = wrapperElement;
     this.element = fieldElement;
     this.id = fieldData.id;
+
+    // Prepare the validators and retain them for later use.
+    this.validators = require("../utils/validation").prepareValidators(fieldData.validations, fieldValidators);
 
 }
 
 /**
  * Returns the DOM element for the text field.
- * @returns {HTMLInputElement} The DOM element for the text field.
+ * @returns {HTMLDivElement} The DOM element for the text field.
  */
 RenderText.prototype.getElement = function () {
-    return this.element;
+    return this.wrapper;
 };
 
 /**
@@ -37,6 +46,78 @@ RenderText.prototype.getElement = function () {
 RenderText.prototype.setData = function (data) {
     data.append(this.id, this.element.value);
 };
+
+//TODO: Make a "commonCheckValidity" or something to avoid writing this over and over.
+/**
+ * Checks the validity of the value in this field (adding inline validation messages if necessary).
+ * @returns {Promise[]} An array of promises that resolve to validation results.
+ */
+RenderText.prototype.checkValidity = function () {
+
+    // Dependencies.
+    let aggregateValidations = require("../utils/validation").aggregateValidations,
+        addValidationMessages = require("../utils/validation").addValidationMessages;
+
+    // Variables.
+    let self = this, i, validator, validationResults, value;
+
+    // Check each validator for the validity of the value in this field.
+    validationResults = [];
+    value = this.element.value;
+    for (i = 0; i < this.validators.length; i++) {
+        validator = this.validators[i];
+        validationResults.push(checkValidity(validator, value));
+    }
+
+    // Add inline validation messages.
+    aggregateValidations(validationResults)
+        .then(function (result) {
+
+            // Add inline validation messages.
+            self.validationListElement = addValidationMessages(
+                self.wrapper, result.messages, self.validationListElement);
+
+            // Add or remove validation error CSS class.
+            if (result.success) {
+                self.wrapper.classList.remove("formulate__field--validation-error");
+            } else {
+                self.wrapper.classList.add("formulate__field--validation-error");
+            }
+
+        });
+
+    // Return the validation results.
+    return validationResults;
+
+};
+
+/**
+ * Validates the specified value against the specified validator.
+ * @param validator The validator.
+ * @param value The value to validate.
+ * @returns {Promise} A promise that will resolve to the validation result.
+ */
+function checkValidity(validator, value) {
+    return validator.validator.validateText(value)
+        .then(function (result) {
+            if (result) {
+
+                // Success.
+                return {
+                    success: true
+                };
+
+            } else {
+
+                // Failure. Return validation message.
+                return {
+                    success: false,
+                    message: validator.data.configuration.message
+                };
+
+            }
+        });
+}
 
 // Export the field renderer configuration.
 module.exports = {
