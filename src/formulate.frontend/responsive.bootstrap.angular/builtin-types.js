@@ -128,10 +128,25 @@ function createCheckboxListField(field) {
     label.append(span);
     wrapper.append(label);
 
-    input.attr('name', 'field_' + field.id);
+    input.attr('name', 'field_' + field.id + '_item');
     input.attr('checklist-model', 'ctrl.fieldModels[\'' + field.id + '\']');
 
-    //TODO: Add custom validation
+    //If mandatory validation is set, make the fields required using a hidden field
+    if (angular.isArray(field.validations)) {
+
+        for (var i = 0; i < field.validations.length; i++) {
+            var validation = field.validations[i];
+
+            if (validation.validationType === 'ValidationMandatory') {
+                var hidden = angular.element('<input type="hidden" />');
+                hidden.attr('name', 'field_' + field.id);
+                hidden.attr('ng-model', 'ctrl.fieldModels[\'' + field.id + '\']');
+                hidden.attr('formulate-validation', true);
+                el.append(hidden);
+                break;
+            }
+        }
+    }
 
     el.append(widgetLabel);
     el.append(wrapper);

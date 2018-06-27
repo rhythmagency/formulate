@@ -31,7 +31,7 @@ function checklistModelDirective($parse, $compile) {
         if (!contains(arr, item, comparator)) {
             arr.push(item);
         }
-        return arr;
+        return arr.splice(0); //need to use splice to return a new array object so the Angular watch fires
     }
 
     // remove
@@ -44,7 +44,7 @@ function checklistModelDirective($parse, $compile) {
                 }
             }
         }
-        return arr;
+        return arr.splice(0); //need to use splice to return a new array object so the Angular watch fires
     }
 
     // http://stackoverflow.com/a/19228302/1458162
