@@ -33,6 +33,7 @@ function RenderText(fieldData, fieldValidators, cssClasses) {
     this.wrapper = wrapperElement;
     this.element = fieldElement;
     this.id = fieldData.id;
+    this.alias = fieldData.alias;
 
     // Prepare the validators and retain them for later use.
     this.validators = require("../utils/validation").prepareValidators(fieldData.validations, fieldValidators);
@@ -50,9 +51,24 @@ RenderText.prototype.getElement = function () {
 /**
  * Adds the data for this field on the specified FormData instance.
  * @param data {FormData} The FormData instance to set the field data on.
+ * @param options {{rawDataByAlias: boolean}} Optional. The options for setting the data.
  */
-RenderText.prototype.setData = function (data) {
-    data.append(this.id, this.element.value);
+RenderText.prototype.setData = function (data, options) {
+
+    // Variables.
+    let value = this.element.value;
+
+    // Adjust options.
+    options = options || {};
+    options.rawDataByAlias = options.rawDataByAlias || false;
+
+    // Set data.
+    if (options.rawDataByAlias && this.alias) {
+        data[this.alias] = value;
+    } else {
+        data.append(this.id, value);
+    }
+
 };
 
 //TODO: Make a "commonCheckValidity" or something to avoid writing this over and over.

@@ -123,7 +123,7 @@ function checkValidity(form, fields) {
 function sendPayloadToServer(form, fields, payload, url) {
 
     // Variables.
-    let i, data, payloadKey;
+    let i, data, payloadKey, dataByAlias = {};
 
     // Populate submission with initial payload.
     data = new FormData();
@@ -136,13 +136,18 @@ function sendPayloadToServer(form, fields, payload, url) {
     // Populate submission with data from fields.
     for (i = 0; i < fields.length; i++) {
         fields[i].setData(data);
+        fields[i].setData(dataByAlias, {
+            rawDataByAlias: true
+        });
     }
 
     // Send data as AJAX submission.
     new (require("../utils/ajax"))(url, data).then(function() {
 
         // Dispatch success event.
-        dispatchEvent("formulate form: submit: success", form);
+        dispatchEvent("formulate form: submit: success", form, {
+            dataByAlias: dataByAlias
+        });
 
     }).catch(function() {
 
