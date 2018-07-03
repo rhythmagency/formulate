@@ -8,10 +8,14 @@
 function RenderText(fieldData, fieldValidators, cssClasses) {
 
     // Variables.
-    let fieldElement, wrapperElement;
+    let fieldElement, wrapperElement, labelElement;
 
     // Create wrapper element.
     wrapperElement = document.createElement("div");
+
+    // Create label element.
+    labelElement = document.createElement("label");
+    labelElement.appendChild(document.createTextNode(fieldData.label));
 
     // Attach CSS classes.
     require("../utils/add-classes")(wrapperElement, cssClasses);
@@ -19,6 +23,10 @@ function RenderText(fieldData, fieldValidators, cssClasses) {
     // Create element.
     fieldElement = document.createElement("input");
     fieldElement.type = "text";
+    fieldElement.setAttribute("placeholder", fieldData.label);
+
+    // Add elements to wrapper.
+    wrapperElement.appendChild(labelElement);
     wrapperElement.appendChild(fieldElement);
 
     // Retain DOM elements and field properties.
