@@ -12,7 +12,8 @@ function getFieldRenderers() {
     // Get the field renderers.
     fields = [
         require("../fields/plain-text"),
-        require("../fields/plain-button")
+        require("../fields/plain-button"),
+        require("../fields/plain-rich-text")
     ];
     extraFields = window["formulate-plain-js-fields"] || [];
     fields = fields.concat(extraFields);
