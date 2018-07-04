@@ -1,3 +1,6 @@
+// Dependencies.
+let FieldUtility = require("../utils/field");
+
 /**
  * Renders a submit button.
  * @param fieldData The field data that should be used to render the button.
@@ -8,7 +11,7 @@
 function RenderButton(fieldData, fieldValidators, cssClasses) {
 
     // Initialize field.
-    require("../utils/field").initializeField(this, fieldData, fieldValidators, {
+    FieldUtility.initializeField(this, fieldData, fieldValidators, {
         nodeName: "button",
         type: "submit",
         cssClasses: cssClasses,
@@ -30,17 +33,9 @@ RenderButton.prototype.getElement = function () {
 };
 
 /**
- * Does nothing, as this field has no data.
+ * Ensure the prototype has the necessary functions.
  */
-RenderButton.prototype.setData = function () {};
-
-/**
- * Does nothing, as this field has no data to validate.
- * @returns {Promise[]} An empty array.
- */
-RenderButton.prototype.checkValidity = function () {
-    return [];
-};
+FieldUtility.initializeFieldPrototype(RenderButton.prototype);
 
 // Export the field renderer configuration.
 module.exports = {

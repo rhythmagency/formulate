@@ -1,3 +1,6 @@
+// Dependencies.
+let FieldUtility = require("../utils/field");
+
 /**
  * Renders rich text.
  * @param fieldData The field data that should be used to render the rich text.
@@ -8,7 +11,7 @@
 function RichText(fieldData, fieldValidators, cssClasses) {
 
     // Initialize field.
-    require("../utils/field").initializeField(this, fieldData, fieldValidators, {
+    FieldUtility.initializeField(this, fieldData, fieldValidators, {
         nodeName: "div",
         cssClasses: cssClasses,
         usePlaceholder: false,
@@ -30,17 +33,9 @@ RichText.prototype.getElement = function () {
 };
 
 /**
- * Does nothing, as this field has no data.
+ * Ensure the prototype has the necessary functions.
  */
-RichText.prototype.setData = function () {};
-
-/**
- * Does nothing, as this field has no data to validate.
- * @returns {Promise[]} An empty array.
- */
-RichText.prototype.checkValidity = function () {
-    return [];
-};
+FieldUtility.initializeFieldPrototype(RichText.prototype);
 
 // Export the field renderer configuration.
 module.exports = {

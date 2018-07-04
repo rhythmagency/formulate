@@ -9,6 +9,26 @@ function Field() {
 }
 
 /**
+ * Initializes a field renderer prototype to ensure it has all the necessary functions.
+ * @param fieldPrototype The prototype for the field renderer.
+ */
+Field.initializeFieldPrototype = function (fieldPrototype) {
+
+    // Use a fallback for setData?
+    if (!fieldPrototype.setData) {
+        fieldPrototype.setData = function () {};
+    }
+
+    // Use a fallback for checkValidity?
+    if (!fieldPrototype.checkValidity) {
+        fieldPrototype.checkValidity = function () {
+            return [];
+        };
+    }
+
+};
+
+/**
  * Adds the data for a field to the specified instance of either FormData or an object.
  * @param data The FormData or object to set the field data on.
  * @param value The value to set.
