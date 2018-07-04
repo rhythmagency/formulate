@@ -146,5 +146,77 @@ ValidationUtilities.aggregateValidations = function (validationPromises) {
 
 };
 
+/**
+ * Checks the validity of a text-based field, adding inline validation messages if there are
+ * any validations that fail.
+ * @param fieldRenderer The instance of the Formulate field renderer.
+ * @param validators The prepared validator functions.
+ * @param value The value to check the validity of.
+ * @param containerElement The container element to add validation messages to.
+ * @returns {Promise[]} An array of promises that resolve to validation results.
+ */
+ValidationUtilities.checkTextValidity = function (fieldRenderer, validators, value, containerElement) {
+
+    // Variables.
+    let i, validator, validationResults;
+
+    // Check each validator for the validity of the value in this field.
+    validationResults = [];
+    for (i = 0; i < validators.length; i++) {
+        validator = validators[i];
+        validationResults.push(checkValidity(validator, value, "validateText"));
+    }
+
+    // Add inline validation messages.
+    ValidationUtilities.aggregateValidations(validationResults)
+        .then(function (result) {
+
+            // Add inline validation messages.
+            fieldRenderer.validationListElement = ValidationUtilities.addValidationMessages(
+                containerElement, result.messages, fieldRenderer.validationListElement);
+
+            // Add or remove validation error CSS class.
+            if (result.success) {
+                containerElement.classList.remove("formulate__field--validation-error");
+            } else {
+                containerElement.classList.add("formulate__field--validation-error");
+            }
+
+        });
+
+    // Return the validation results.
+    return validationResults;
+
+};
+
+/**
+ * Validates the specified value against the specified validator.
+ * @param validator The validator.
+ * @param value The value to validate.
+ * @param validityFnName The name of the validity function (e.g., "validateText").
+ * @returns {Promise} A promise that will resolve to the validation result.
+ */
+function checkValidity(validator, value, validityFnName) {
+    return validator.validator[validityFnName](value)
+        .then(function (result) {
+            if (result) {
+
+                // Success.
+                return {
+                    success: true
+                };
+
+            } else {
+
+                // Failure. Return validation message.
+                return {
+                    success: false,
+                    message: validator.data.configuration.message
+                };
+
+            }
+        });
+}
+
 // Export the validation utility functions.
 module.exports = ValidationUtilities;

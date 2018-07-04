@@ -7,28 +7,26 @@
  */
 function RenderButton(fieldData, fieldValidators, cssClasses) {
 
-    // Variables.
-    let fieldElement;
+    // Initialize field.
+    require("../utils/field").initializeField(this, fieldData, fieldValidators, {
+        nodeName: "button",
+        type: "submit",
+        cssClasses: cssClasses,
+        usePlaceholder: false,
+        useLabel: false
+    });
 
-    // Create element.
-    fieldElement = document.createElement("button");
-    fieldElement.type = "submit";
-    fieldElement.appendChild(document.createTextNode(fieldData.label));
-
-    // Add CSS classes.
-    require("../utils/add-classes")(fieldElement, cssClasses);
-
-    // Retain button DOM element.
-    this.element = fieldElement;
+    // Add text to button.
+    this.element.appendChild(document.createTextNode(fieldData.label));
 
 }
 
 /**
  * Returns the DOM element for the button.
- * @returns {HTMLButtonElement} The DOM element for the button.
+ * @returns {HTMLDivElement} The DOM element for the button.
  */
 RenderButton.prototype.getElement = function () {
-    return this.element;
+    return this.wrapper;
 };
 
 /**

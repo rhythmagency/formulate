@@ -7,18 +7,17 @@
  */
 function RichText(fieldData, fieldValidators, cssClasses) {
 
-    // Variables.
-    let fieldElement;
+    // Initialize field.
+    require("../utils/field").initializeField(this, fieldData, fieldValidators, {
+        nodeName: "div",
+        cssClasses: cssClasses,
+        usePlaceholder: false,
+        useLabel: false,
+        useWrapper: false
+    });
 
-    // Create element.
-    fieldElement = document.createElement("div");
-    fieldElement.innerHTML = fieldData.configuration.text;
-
-    // Add CSS classes.
-    require("../utils/add-classes")(fieldElement, cssClasses);
-
-    // Retain rich text DOM element.
-    this.element = fieldElement;
+    // Add text to element.
+    this.element.innerHTML = fieldData.configuration.text;
 
 }
 
