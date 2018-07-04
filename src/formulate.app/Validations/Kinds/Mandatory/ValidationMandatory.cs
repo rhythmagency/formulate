@@ -2,6 +2,7 @@
 {
 
     // Namespaces.
+    using core.Types;
     using Helpers;
     using Newtonsoft.Json.Linq;
     using System;
@@ -83,6 +84,48 @@
                 config.Message = ValidationHelper.ReplaceMessageTokens(message, context);
             }
             return config;
+        }
+
+        /// <summary>
+        /// Is the submitted value valid?
+        /// </summary>
+        /// <param name="dataValues">
+        /// The data values.
+        /// </param>
+        /// <param name="fileValues">
+        /// The file values.
+        /// </param>
+        /// <param name="configuration">
+        /// The validation configuration.
+        /// </param>
+        /// <returns>
+        /// True, if the data is valid; otherwise, false.
+        /// </returns>
+        public bool IsValueValid(IEnumerable<string> dataValues,
+            IEnumerable<FileFieldSubmission> fileValues, object configuration)
+        {
+
+            // Validate input.
+            if (dataValues == null || fileValues == null)
+            {
+                return false;
+            }
+
+            // Is at least one of the values non-null and non-whitespace?
+            if (dataValues.Any(x => !string.IsNullOrWhiteSpace(x)))
+            {
+                return true;
+            }
+
+            // Is there at least one file?
+            if (fileValues.Any())
+            {
+                return true;
+            }
+
+            // Data is invalid.
+            return false;
+
         }
 
         #endregion

@@ -5,6 +5,7 @@
     using app.Forms;
     using app.Persistence;
     using app.Resolvers;
+    using app.Validations;
     using core.Types;
     using System;
     using System.Collections.Generic;
@@ -169,12 +170,40 @@
                     Id = x.Key,
                     Values = x.SelectMany(y => y.FieldValues).ToList()
                 }).ToDictionary(x => x.Id, x => x.Values);
+                var filesById = files.GroupBy(x => x.FieldId).Select(x => new
+                {
+                    Id = x.Key,
+                    Values = x.Select(y => y).ToList()
+                }).ToDictionary(x => x.Id, x => x.Values);
                 foreach (var field in form.Fields)
                 {
                     var validations = field.Validations.Select(x => Validations.Retrieve(x)).ToList();
+                    if (!validations.Any())
+                    {
+                        continue;
+                    }
+                    var validationContext = new ValidationContext()
+                    {
+                        Field = field,
+                        Form = form
+                    };
                     foreach (var validation in validations)
                     {
-                        //TODO: var validationResult = validation.Validate(form, field, valuesById);
+                        var dataValues = valuesById.ContainsKey(field.Id)
+                            ? valuesById[field.Id]
+                            : new List<string>();
+                        var fileValues = filesById.ContainsKey(field.Id)
+                            ? filesById[field.Id]
+                            : new List<FileFieldSubmission>();
+                        var isValid = validation
+                            .IsValueValid(dataValues, fileValues, validationContext);
+                        if (!isValid)
+                        {
+                            return new SubmissionResult()
+                            {
+                                Success = false
+                            };
+                        }
                     }
                 }
             }

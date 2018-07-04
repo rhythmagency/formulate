@@ -2,10 +2,12 @@
 {
 
     // Namespaces.
+    using core.Types;
     using Entities;
     using Helpers;
     using Newtonsoft.Json;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
 
@@ -92,6 +94,29 @@
         {
             var kind = GetValidationKind();
             return kind.DeserializeConfiguration(Data, context);
+        }
+
+        /// <summary>
+        /// Is the specified value valid?
+        /// </summary>
+        /// <param name="dataValues">
+        /// The data values to test.
+        /// </param>
+        /// <param name="fileValues">
+        /// The file values to test.
+        /// </param>
+        /// <param name="context">
+        /// The validation context.
+        /// </param>
+        /// <returns>
+        /// True, if the values are valid; otherwise, false.
+        /// </returns>
+        public bool IsValueValid(IEnumerable<string> dataValues,
+            IEnumerable<FileFieldSubmission> fileValues, ValidationContext context)
+        {
+            var config = DeserializeConfiguration(context);
+            var kind = GetValidationKind();
+            return kind.IsValueValid(dataValues, fileValues, config);
         }
 
 

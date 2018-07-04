@@ -2,11 +2,13 @@
 {
 
     // Namespaces.
+    using core.Types;
     using Helpers;
     using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using Constants = Constants.Validations.ValidationRegex;
 
 
@@ -87,6 +89,53 @@
                 config.Message = ValidationHelper.ReplaceMessageTokens(message, context);
             }
             return config;
+        }
+
+        /// <summary>
+        /// Is the submitted value valid?
+        /// </summary>
+        /// <param name="dataValues">
+        /// The data values.
+        /// </param>
+        /// <param name="fileValues">
+        /// The file values.
+        /// </param>
+        /// <param name="configuration">
+        /// The validation configuration.
+        /// </param>
+        /// <returns>
+        /// True, if the data is valid; otherwise, false.
+        /// </returns>
+        public bool IsValueValid(IEnumerable<string> dataValues,
+            IEnumerable<FileFieldSubmission> fileValues, object configuration)
+        {
+
+            // Variables.
+            var castedConfig = configuration as ValidationRegexConfiguration;
+
+            // Validate input.
+            if (dataValues == null || fileValues == null || configuration == null)
+            {
+                return false;
+            }
+
+            // All of the values must match the regex pattern.
+            var pattern = castedConfig.Pattern;
+            var regex = new Regex(pattern, RegexOptions.Compiled | RegexOptions.Singleline);
+            if (!dataValues.All(x => regex.IsMatch(x ?? string.Empty)))
+            {
+                return false;
+            }
+
+            // All of the filenames must match the regex pattern.
+            if (!fileValues.All(x => regex.IsMatch(x.FileName ?? string.Empty)))
+            {
+                return false;
+            }
+
+            // Data is valid.
+            return true;
+
         }
 
         #endregion

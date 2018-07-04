@@ -2,7 +2,9 @@
 {
 
     // Namespaces.
+    using core.Types;
     using System;
+    using System.Collections.Generic;
 
 
     /// <summary>
@@ -15,6 +17,8 @@
         string Name { get; }
         string Directive { get; }
         object DeserializeConfiguration(string configuration, ValidationContext context);
+        bool IsValueValid(IEnumerable<string> dataValues, IEnumerable<FileFieldSubmission> fileValues,
+            object configuration);
     }
 
 }
