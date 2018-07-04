@@ -1,3 +1,6 @@
+// Variables.
+let idCount = 0;
+
 /**
  * Utility functions for working with form fields.
  * @constructor
@@ -39,9 +42,7 @@ Field.setData = function (data, value, options, alias, id) {
 Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, options) {
 
     // Variables.
-    let fieldElement, wrapperElement, labelElement, useWrapper;
-
-    //TODO: The label should have a "for" attribute.
+    let fieldElement, wrapperElement, labelElement, useWrapper, fieldId;
 
     // Create element.
     fieldElement = document.createElement(options.nodeName || "input");
@@ -67,7 +68,10 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
 
     // Create label element?
     if (options.useLabel !== false) {
+        fieldId = generateId("formulate-field-");
+        fieldElement.setAttribute("id", fieldId);
         labelElement = document.createElement("label");
+        labelElement.setAttribute("for", fieldId);
         labelElement.appendChild(document.createTextNode(fieldData.label));
         wrapperElement.appendChild(labelElement);
     }
@@ -89,6 +93,16 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
     fieldRenderer.validators = require("./validation").prepareValidators(fieldData.validations, fieldValidators);
 
 };
+
+/**
+ * Generates a unique ID for an HTML element.
+ * @param prefix {string} The prefix to use for the ID.
+ * @returns {string} The unique ID.
+ */
+function generateId(prefix) {
+    idCount++;
+    return prefix + idCount.toString();
+}
 
 // Export the form field utility functions.
 module.exports = Field;
