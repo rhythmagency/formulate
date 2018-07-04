@@ -8,13 +8,6 @@ const STATUS_SUCCESS = 200;
 const METHOD_POST = "POST";
 
 /**
- * The function called when a SendRequest response is ready.
- * @callback SendRequestCallback
- * @param statusCode {number} The HTTP response code.
- * @param result The response data from the request.
- */
-
-/**
  * Posts a form to the server with AJAX.
  * @param url {string} The URL to post the form to.
  * @param payload {FormData} The form data to send with the request.
