@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Web.Configuration;
-
-namespace formulate.app.Forms.Handlers.SendData
+﻿namespace formulate.app.Forms.Handlers.SendData
 {
 
     // Namespaces.
     using Helpers;
     using Managers;
+    using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using Resolvers;
     using System;
@@ -16,11 +14,12 @@ namespace formulate.app.Forms.Handlers.SendData
     using System.Net;
     using System.Text;
     using System.Web;
+    using System.Web.Configuration;
     using Umbraco.Core;
     using Umbraco.Core.Logging;
     using Umbraco.Web;
-    using Newtonsoft.Json;
-    
+
+
     /// <summary>
     /// A handler that sends a data to a web API.
     /// </summary>
