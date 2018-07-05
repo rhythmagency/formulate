@@ -92,6 +92,7 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
         fieldElement.setAttribute("id", fieldId);
         labelElement = document.createElement("label");
         labelElement.setAttribute("for", fieldId);
+        labelElement.setAttribute("aria-label", fieldData.label);
         labelElement.appendChild(document.createTextNode(fieldData.label));
         wrapperElement.appendChild(labelElement);
     }
