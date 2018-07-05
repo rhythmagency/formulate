@@ -66,7 +66,7 @@ ValidationUtilities.addValidationMessages = function (containerElement, messages
     }
 
     // Variables.
-    let listElement, message, itemElement;
+    let i, listElement, message, itemElement;
 
     // Create the list element that contains the messages.
     listElement = document.createElement("ul");
