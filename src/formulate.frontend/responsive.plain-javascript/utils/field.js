@@ -70,6 +70,9 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
         fieldElement.type = options.type;
     }
 
+    // Set aria label.
+    fieldElement.setAttribute("aria-label", fieldData.label);
+
     // Create wrapper element, or just use the field element as the wrapper.
     useWrapper = options.useWrapper !== false;
     wrapperElement = useWrapper
@@ -92,7 +95,6 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
         fieldElement.setAttribute("id", fieldId);
         labelElement = document.createElement("label");
         labelElement.setAttribute("for", fieldId);
-        labelElement.setAttribute("aria-label", fieldData.label);
         labelElement.appendChild(document.createTextNode(fieldData.label));
         wrapperElement.appendChild(labelElement);
     }
