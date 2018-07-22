@@ -13,7 +13,8 @@ function getFieldRenderers() {
     fields = [
         require("../fields/plain-text"),
         require("../fields/plain-button"),
-        require("../fields/plain-rich-text")
+        require("../fields/plain-rich-text"),
+        require("../fields/plain-checkbox")
     ];
     extraFields = window["formulate-plain-js-fields"] || [];
     fields = fields.concat(extraFields);

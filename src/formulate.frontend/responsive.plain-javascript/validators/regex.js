@@ -24,6 +24,21 @@ RegexValidator.prototype.validateText = function (value) {
 };
 
 /**
+ * Validates the the specified boolean matches the regex.
+ * @param value {boolean} The boolean value to validate.
+ * @returns {Promise} A promise that resolves to true, if the boolean matches the regex; otherwise, false.
+ */
+RegexValidator.prototype.validateBool = function (value) {
+    let self = this,
+        textValue = value === true
+            ? "true"
+            : "false";
+    return new (require("../polyfills/promise"))(function (resolve) {
+        resolve(self.regex.test(textValue));
+    });
+};
+
+/**
  * Validates that the specified array of text values all match the regex and that the array is not null/empty.
  * @param value {string[]} The array of text values.
  * @returns {Promise} A promise that resolves to true, if the array of text values is valid; otherwise, false.

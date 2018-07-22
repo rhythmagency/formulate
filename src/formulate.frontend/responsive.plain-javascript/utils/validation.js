@@ -156,6 +156,32 @@ ValidationUtilities.aggregateValidations = function (validationPromises) {
  * @returns {Promise[]} An array of promises that resolve to validation results.
  */
 ValidationUtilities.checkTextValidity = function (fieldRenderer, validators, value, containerElement) {
+    return ValidationUtilities.checkValidityCommon(fieldRenderer, validators, value, containerElement, "validateText");
+};
+
+/**
+ * Checks the validity of a boolean-based field, adding inline validation messages if there are
+ * any validations that fail.
+ * @param fieldRenderer The instance of the Formulate field renderer.
+ * @param validators The prepared validator functions.
+ * @param value The value to check the validity of.
+ * @param containerElement The container element to add validation messages to.
+ * @returns {Promise[]} An array of promises that resolve to validation results.
+ */
+ValidationUtilities.checkBoolValidity = function (fieldRenderer, validators, value, containerElement) {
+    return ValidationUtilities.checkValidityCommon(fieldRenderer, validators, value, containerElement, "validateBool");
+};
+
+/**
+ * Checks the validity of a field, adding inline validation messages if there are any validations that fail.
+ * @param fieldRenderer The instance of the Formulate field renderer.
+ * @param validators The prepared validator functions.
+ * @param value The value to check the validity of.
+ * @param containerElement The container element to add validation messages to.
+ * @param validityFnName The name of the validity function (e.g., "validateText").
+ * @returns {Promise[]} An array of promises that resolve to validation results.
+ */
+ValidationUtilities.checkValidityCommon = function (fieldRenderer, validators, value, containerElement, validityFnName) {
 
     // Variables.
     let i, validator, validationResults;
@@ -164,7 +190,7 @@ ValidationUtilities.checkTextValidity = function (fieldRenderer, validators, val
     validationResults = [];
     for (i = 0; i < validators.length; i++) {
         validator = validators[i];
-        validationResults.push(checkValidity(validator, value, "validateText"));
+        validationResults.push(checkValidity(validator, value, validityFnName));
     }
 
     // Add inline validation messages.
