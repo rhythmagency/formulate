@@ -15,7 +15,8 @@ function getFieldRenderers() {
         require("../fields/plain-button"),
         require("../fields/plain-rich-text"),
         require("../fields/plain-checkbox"),
-        require("../fields/plain-textarea")
+        require("../fields/plain-textarea"),
+        require("../fields/plain-hidden")
     ];
     extraFields = window["formulate-plain-js-fields"] || [];
     fields = fields.concat(extraFields);
