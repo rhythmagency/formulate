@@ -43,8 +43,10 @@ Field.setData = function (data, value, options, alias, id) {
     options.rawDataByAlias = options.rawDataByAlias || false;
 
     // Set data.
-    if (options.rawDataByAlias && alias) {
-        data[alias] = value;
+    if (options.rawDataByAlias) {
+        if (alias) {
+            data[alias] = value;
+        }
     } else {
         data.append(id, value);
     }
@@ -95,6 +97,7 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
         fieldElement.setAttribute("id", fieldId);
         labelElement = document.createElement("label");
         labelElement.setAttribute("for", fieldId);
+        labelElement.classList.add("formulate__field__label");
         labelElement.appendChild(document.createTextNode(fieldData.label));
         wrapperElement.appendChild(labelElement);
     }
