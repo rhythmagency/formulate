@@ -73,7 +73,9 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
     }
 
     // Set aria label.
-    fieldElement.setAttribute("aria-label", fieldData.label);
+    if (options.useLabel) {
+        fieldElement.setAttribute("aria-label", fieldData.label);
+    }
 
     // Create wrapper element, or just use the field element as the wrapper.
     useWrapper = options.useWrapper !== false;
