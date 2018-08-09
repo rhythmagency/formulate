@@ -126,6 +126,21 @@
             }
         }
 
+        /// <summary>
+        /// Is this type of field stored?
+        /// </summary>
+        public bool IsStored
+        {
+            get
+            {
+                var instance = new T();
+                var casted = instance as IFormFieldTypeExtended;
+                return casted == null
+                    ? true
+                    : casted.IsStored;
+            }
+        }
+
         #endregion
 
 
