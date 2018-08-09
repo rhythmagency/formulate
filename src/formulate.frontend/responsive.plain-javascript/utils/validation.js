@@ -173,6 +173,19 @@ ValidationUtilities.checkBoolValidity = function (fieldRenderer, validators, val
 };
 
 /**
+ * Checks the validity of a file-based field, adding inline validation messages if there are
+ * any validations that fail.
+ * @param fieldRenderer The instance of the Formulate field renderer.
+ * @param validators The prepared validator functions.
+ * @param value The value to check the validity of.
+ * @param containerElement The container element to add validation messages to.
+ * @returns {Promise[]} An array of promises that resolve to validation results.
+ */
+ValidationUtilities.checkFileValidity = function (fieldRenderer, validators, value, containerElement) {
+    return ValidationUtilities.checkValidityCommon(fieldRenderer, validators, value, containerElement, "validateFile");
+};
+
+/**
  * Checks the validity of a field, adding inline validation messages if there are any validations that fail.
  * @param fieldRenderer The instance of the Formulate field renderer.
  * @param validators The prepared validator functions.

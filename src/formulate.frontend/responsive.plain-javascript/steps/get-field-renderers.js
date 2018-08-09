@@ -18,7 +18,8 @@ function getFieldRenderers() {
         require("../fields/plain-textarea"),
         require("../fields/plain-hidden"),
         require("../fields/plain-select"),
-        require("../fields/plain-header")
+        require("../fields/plain-header"),
+        require("../fields/plain-upload")
     ];
     extraFields = window["formulate-plain-js-fields"] || [];
     fields = fields.concat(extraFields);

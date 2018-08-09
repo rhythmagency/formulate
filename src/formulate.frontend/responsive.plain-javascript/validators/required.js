@@ -75,8 +75,8 @@ RequiredValidator.prototype.validateTextArray = function (value) {
  */
 RequiredValidator.prototype.validateFile = function (value) {
     return new (require("../polyfills/promise"))(function (resolve) {
-        //TODO: ...
-        resolve(true);
+        let hasFile = !!value && !!value.name;
+        resolve(hasFile);
     });
 };
 

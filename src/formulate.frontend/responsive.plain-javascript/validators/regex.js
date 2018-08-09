@@ -80,13 +80,14 @@ RegexValidator.prototype.validateTextArray = function (value) {
 /**
  * Validates that the specified filename matches the regex.
  * @param value {*} The file value.
- * @returns {Promise} A promise that resolves to true, if the file is selected; otherwise, false.
+ * @returns {Promise} A promise that resolves to true, if the filename matches; otherwise, false.
  */
 RegexValidator.prototype.validateFile = function (value) {
-    return new (require("../polyfills/promise"))(function (resolve) {
-        //TODO: ...
-        resolve(true);
-    });
+    let hasFile = !!value,
+        filename = hasFile
+            ? value.name
+            : null;
+    return this.validateText(filename);
 };
 
 // Export the field validator configuration.
