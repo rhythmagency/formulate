@@ -29,6 +29,7 @@
         bool IsTransitory { get; }
         bool IsServerSideOnly { get; }
         bool IsHidden { get; }
+        bool IsStored { get; }
         bool IsValid(IEnumerable<string> value);
     }
 

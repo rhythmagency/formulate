@@ -11,6 +11,7 @@
         public bool IsTransitory => false;
         public bool IsServerSideOnly => false;
         public bool IsHidden => true;
+        public bool IsStored => true;
         public object DeserializeConfiguration(string configuration)
         {
             return null;

@@ -41,6 +41,12 @@
         /// </returns>
         bool IsValid(IEnumerable<string> value);
 
+
+        /// <summary>
+        /// Is this field value stored (e.g., reCAPTCHA values would not be stored)?
+        /// </summary>
+        bool IsStored { get; }
+
     }
 
 }

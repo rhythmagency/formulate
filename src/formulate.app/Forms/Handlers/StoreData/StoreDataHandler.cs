@@ -162,6 +162,10 @@
                 var fieldName = default(string);
                 if (fieldsById.TryGetValue(key, out field))
                 {
+                    if (!field.IsStored)
+                    {
+                        continue;
+                    }
                     formatted = field.FormatValue(values, FieldPresentationFormats.Storage);
                     fieldName = field.Name;
                 }

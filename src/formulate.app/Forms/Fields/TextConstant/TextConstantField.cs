@@ -29,6 +29,7 @@
         public bool IsTransitory => true;
         public bool IsServerSideOnly => true;
         public bool IsHidden => false;
+        public bool IsStored => true;
 
         #endregion
 
