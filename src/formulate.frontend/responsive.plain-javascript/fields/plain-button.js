@@ -6,9 +6,10 @@ let FieldUtility = require("../utils/field");
  * @param fieldData The field data that should be used to render the button.
  * @param fieldValidators The associative array of the field validating functions.
  * @param cssClasses The CSS classes to attach to the element.
+ * @param extraOptions Additional options that are less commonly used.
  * @constructor
  */
-function RenderButton(fieldData, fieldValidators, cssClasses) {
+function RenderButton(fieldData, fieldValidators, cssClasses, extraOptions) {
 
     // Initialize field.
     FieldUtility.initializeField(this, fieldData, fieldValidators, {
@@ -22,7 +23,37 @@ function RenderButton(fieldData, fieldValidators, cssClasses) {
     // Add text to button.
     this.element.appendChild(document.createTextNode(fieldData.label));
 
+    // Store instance variables.
+    this.formElement = extraOptions.formElement;
+
+    // Listen for form events.
+    this.listenForSubmit();
+    this.listenForFailureEvents();
+
 }
+
+/**
+ * Listens for failure events on the form (in which case the button should be enabled again).
+ */
+RenderButton.prototype.listenForFailureEvents = function () {
+    let formElement = this.formElement,
+        element = this.element,
+        handleError = function () {
+            element.disabled = false;
+        };
+    formElement.addEventListener("formulate: submit: validation errors", handleError, true);
+    formElement.addEventListener("formulate form: submit: failure", handleError, true);
+};
+
+/**
+ * Listens for submit events on the form (in which case the button should be disabled).
+ */
+RenderButton.prototype.listenForSubmit = function () {
+    let self = this;
+    self.formElement.addEventListener("formulate: submit: started", function () {
+        self.element.disabled = true;
+    }, true);
+};
 
 /**
  * Returns the DOM element for the button.

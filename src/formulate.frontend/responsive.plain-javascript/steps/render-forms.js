@@ -59,6 +59,10 @@ function attachSubmitHandler(form, fields, payload, url) {
         // Cancel submit (since we'll be doing it with AJAX instead).
         e.preventDefault();
 
+        // Dispatch event to indicate the form submission has started.
+        dispatchEvent("formulate: submit: started", form);
+
+
         // First, ensure all fields are valid.
         checkValidity(form, fields)
             .then(function (validationResult) {

@@ -3,9 +3,10 @@
  * @param fieldData The data for the form field to render.
  * @param fieldRenderers The associative array of field rendering functions.
  * @param fieldValidators The associative array of the field validating functions.
+ * @param extraOptions Additional options that are less commonly used.
  * @returns {HTMLInputElement} The DOM element created by the field renderer.
  */
-function renderField(fieldData, fieldRenderers, fieldValidators) {
+function renderField(fieldData, fieldRenderers, fieldValidators, extraOptions) {
 
     // Variables.
     let renderer, cssClasses, renderResult;
@@ -19,7 +20,7 @@ function renderField(fieldData, fieldRenderers, fieldValidators) {
     cssClasses.push("formulate__field--" + fieldData.fieldType);
 
     // Render the field.
-    renderResult = new renderer(fieldData, fieldValidators, cssClasses);
+    renderResult = new renderer(fieldData, fieldValidators, cssClasses, extraOptions);
 
     // Return the rendered field (an object that has information about the rendered field).
     return renderResult;

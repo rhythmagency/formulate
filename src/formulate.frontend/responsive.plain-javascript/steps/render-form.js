@@ -43,7 +43,9 @@ function renderForm(formData, formElement, fieldRenderers, fieldValidators) {
                 // Create the field.
                 fieldId = fields[k].id;
                 field = fieldMap[fieldId];
-                renderedField = require("./render-field")(field, fieldRenderers, fieldValidators);
+                renderedField = require("./render-field")(field, fieldRenderers, fieldValidators, {
+                    formElement: formElement
+                });
                 renderedFields.push(renderedField);
                 fieldElement = renderedField.getElement();
                 cellElement.appendChild(fieldElement);
