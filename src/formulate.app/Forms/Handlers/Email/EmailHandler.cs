@@ -13,6 +13,7 @@
     using System.IO;
     using System.Linq;
     using System.Net.Mail;
+    using Umbraco.Core;
 
 
     /// <summary>
@@ -152,6 +153,10 @@
 
 
             // Get simple properties.
+            if (propertySet.Contains("deliveryType"))
+            {
+                config.DeliveryType = dynamicConfig.deliveryType.Value as string;
+            }
             if (propertySet.Contains("senderEmail"))
             {
                 config.SenderEmail = dynamicConfig.senderEmail.Value as string;
@@ -294,10 +299,18 @@
             }
             foreach (var recipient in allowedRecipients)
             {
-
-                // We don't want recipients to see each other, so we use BCC instead of TO.
-                message.Bcc.Add(recipient);
-
+                if ("to".InvariantEquals(config.DeliveryType))
+                {
+                    message.To.Add(recipient);
+                }
+                else if ("cc".InvariantEquals(config.DeliveryType))
+                {
+                    message.CC.Add(recipient);
+                }
+                else
+                {
+                    message.Bcc.Add(recipient);
+                }
             }
 
 

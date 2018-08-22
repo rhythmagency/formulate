@@ -178,6 +178,7 @@
     </key>
   </area>
   <area alias="formulate-options">
+    <key alias="Select a Delivery Type">Select a Delivery Type</key>
     <key alias="Select an Orientation">Select an Orientation</key>
     <key alias="Select a Button Kind">Select a Button Kind</key>
     <key alias="Select a Function">Select a Function</key>
@@ -186,6 +187,10 @@
     <key alias="Select a Field Category">Select a Field Category</key>
   </area>
   <area alias="formulate-label-descriptions">
+    <key alias="Delivery Type">
+      The type of delivery to each recipient (i.e., To, Cc, or Bcc). If unspecified,
+      Bcc will be assumed.
+    </key>
     <key alias="Append Payload">For example, the URL and name of the page containing the form.</key>
     <key alias="Recipient Email Fields">
       The email addresses to send the email to will be extracted from the value
@@ -214,6 +219,7 @@
     </key>
   </area>
   <area alias="formulate-labels">
+    <key alias="Delivery Type">Delivery Type</key>
     <key alias="Orientation">Orientation</key>
     <key alias="Button Kind">Button Kind</key>
     <key alias="Text Value">Text Value</key>
