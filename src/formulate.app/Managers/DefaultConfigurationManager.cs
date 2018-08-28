@@ -8,6 +8,7 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
+    using System.Net.Mail;
     using Templates;
 
 
@@ -132,6 +133,33 @@
                     Email = x.Email,
                     Domain = x.Domain
                 }).ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Is the email configuration enabled?
+        /// </summary>
+        public bool EnableEmailConfiguration
+        {
+            get
+            {
+                var emailConfiguration = ConfigurationManager
+                    .GetSection("formulateConfiguration/email") as EmailConfigurationSection;
+                var enable = emailConfiguration.Enabled;
+                return enable;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public MailMessage MailMessage
+        {
+            get
+            {
+                var emailConfiguration = ConfigurationManager
+                    .GetSection("formulateConfiguration/email") as EmailConfigurationSection;
+                return emailConfiguration.MailMessage;
             }
         }
 

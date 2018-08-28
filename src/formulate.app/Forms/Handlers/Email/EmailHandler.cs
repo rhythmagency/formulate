@@ -238,11 +238,15 @@
             var extraMessage = AttemptGetValue(extraContext, ExtraMessageKey) as string ?? string.Empty;
             var baseMessage = config.Message + extraMessage;
 
-            // Create message.
-            var message = new MailMessage()
+            // Get or Create message.
+            var message = Config.MailMessage;
+            if(message == null)
             {
-                IsBodyHtml = false
-            };
+                message = new MailMessage()
+                {
+                    IsBodyHtml = false
+                };
+            }
             message.From = new MailAddress(config.SenderEmail);
             message.Subject = config.Subject + extraSubject;
 

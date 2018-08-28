@@ -4,6 +4,7 @@
     // Namespaces.
     using core.Types;
     using System.Collections.Generic;
+    using System.Net.Mail;
     using Templates;
 
 
@@ -61,7 +62,17 @@
         /// The field categories used for flagging field types.
         /// </summary>
         IEnumerable<FieldCategory> FieldCategories { get; }
-        
+
+        /// <summary>
+        /// Is the email configuration enabled?
+        /// </summary>
+        bool EnableEmailConfiguration { get; }
+
+        /// <summary>
+        /// Is the email message to use from config
+        /// </summary>
+        MailMessage MailMessage { get; }
+
         #endregion
 
     }
