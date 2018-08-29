@@ -157,9 +157,16 @@
         {
             get
             {
-                var emailConfiguration = ConfigurationManager
-                    .GetSection("formulateConfiguration/email") as EmailConfigurationSection;
-                return emailConfiguration.MailMessage;
+                var mailMessage = new MailMessage();
+
+                var configuration = ConfigurationManager.GetSection("formulateConfiguration/email") as EmailConfigurationSection;
+
+                foreach(HeaderConfig header in configuration.Headers)
+                {
+                    mailMessage.Headers.Add(header.Name, header.Value);
+                }
+
+                return mailMessage;
             }
         }
 
