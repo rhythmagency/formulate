@@ -239,12 +239,11 @@
             var extraSubject = AttemptGetValue(extraContext, ExtraSubjectKey) as string ?? string.Empty;
             var extraMessage = AttemptGetValue(extraContext, ExtraMessageKey) as string ?? string.Empty;
             var baseMessage = config.Message + extraMessage;
+            var plainTextBody = default(string);
+            var htmlBody = default(string);
 
             // Create message.
-            var message = new MailMessage()
-            {
-                IsBodyHtml = true
-            };
+            var message = new MailMessage();
             message.From = new MailAddress(config.SenderEmail);
             message.Subject = config.Subject + extraSubject;
 
@@ -324,13 +323,12 @@
 
 
             // Append fields?
-            var plainTextBody = default(string);
             if (config.AppendFields)
             {
                 var chosenPayload = config.AppendPayload
                     ? payload
                     : payload.Take(0);
-                message.Body = ConstructMessage(form, dataForMessage, filesForMessage,
+                htmlBody = ConstructMessage(form, dataForMessage, filesForMessage,
                     chosenPayload, baseMessage, config.IncludeHiddenFields, config.ExcludeFieldLabels, true);
                 plainTextBody = ConstructMessage(form, dataForMessage, filesForMessage,
                     chosenPayload, baseMessage, config.IncludeHiddenFields, config.ExcludeFieldLabels, false);
@@ -342,15 +340,21 @@
             }
             else
             {
-                message.Body = WebUtility.HtmlEncode(baseMessage);
+                htmlBody = WebUtility.HtmlEncode(baseMessage);
                 plainTextBody = baseMessage;
             }
 
 
             // Add plain text alternate view.
             var mimeType = new ContentType(MediaTypeNames.Text.Plain);
-            var textView = AlternateView.CreateAlternateViewFromString(plainTextBody, mimeType);
-            message.AlternateViews.Add(textView);
+            var emailView = AlternateView.CreateAlternateViewFromString(plainTextBody, mimeType);
+            message.AlternateViews.Add(emailView);
+
+
+            // Add HTML alternate view.
+            mimeType = new ContentType(MediaTypeNames.Text.Html);
+            emailView = AlternateView.CreateAlternateViewFromString(htmlBody, mimeType);
+            message.AlternateViews.Add(emailView);
 
 
             // Send email.
