@@ -50,6 +50,7 @@
     <Compile Include="Models\FormViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\AllowEmail.cs" />
+    <Compile Include="Types\EmailHeader.cs" />
     <Compile Include="Types\FieldCategory.cs" />
     <Compile Include="Types\FieldDefinition.cs" />
     <Compile Include="Types\FieldSubmission.cs" />

@@ -8,7 +8,6 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
-    using System.Net.Mail;
     using Templates;
 
 
@@ -137,36 +136,23 @@
         }
 
         /// <summary>
-        /// Is the email configuration enabled?
+        /// The headers to use for emails.
         /// </summary>
-        public bool EnableEmailConfiguration
+        public IEnumerable<EmailHeader> EmailHeaders
         {
             get
             {
-                var emailConfiguration = ConfigurationManager
-                    .GetSection("formulateConfiguration/email") as EmailConfigurationSection;
-                var enable = emailConfiguration.Enabled;
-                return enable;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public MailMessage MailMessage
-        {
-            get
-            {
-                var mailMessage = new MailMessage();
-
                 var configuration = ConfigurationManager.GetSection("formulateConfiguration/email") as EmailConfigurationSection;
-
+                var headers = new List<EmailHeader>();
                 foreach(HeaderConfig header in configuration.Headers)
                 {
-                    mailMessage.Headers.Add(header.Name, header.Value);
+                    headers.Add(new EmailHeader()
+                    {
+                        Name = header.Name,
+                        Value = header.Value
+                    });
                 }
-
-                return mailMessage;
+                return headers;
             }
         }
 

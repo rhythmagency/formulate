@@ -286,6 +286,8 @@
     <Compile Include="Configuration\FieldCategoriesConfigSection.cs" />
     <Compile Include="Configuration\FieldCategoryElement.cs" />
     <Compile Include="Configuration\FileStorageElement.cs" />
+    <Compile Include="Configuration\HeaderCollection.cs" />
+    <Compile Include="Configuration\HeaderConfig.cs" />
     <Compile Include="Configuration\JsonElement.cs" />
     <Compile Include="Configuration\SubmissionsConfigSection.cs" />
     <Compile Include="Configuration\EmailCollection.cs" />
