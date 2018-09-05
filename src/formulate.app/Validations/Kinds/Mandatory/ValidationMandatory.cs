@@ -83,6 +83,11 @@
                 var message = dynamicConfig.message.Value as string;
                 config.Message = ValidationHelper.ReplaceMessageTokens(message, context);
             }
+            if (propertySet.Contains("clientSideOnly"))
+            {
+                var clientSideOnly = dynamicConfig.clientSideOnly.Value as bool?;
+                config.ClientSideOnly = clientSideOnly.GetValueOrDefault();
+            }
             return config;
         }
 
@@ -104,6 +109,13 @@
         public bool IsValueValid(IEnumerable<string> dataValues,
             IEnumerable<FileFieldSubmission> fileValues, object configuration)
         {
+
+            // Check configuration.
+            var config = configuration as ValidationMandatoryConfiguration;
+            if (config.ClientSideOnly)
+            {
+                return true;
+            }
 
             // Validate input.
             if (dataValues == null || fileValues == null)
