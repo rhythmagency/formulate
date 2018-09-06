@@ -212,9 +212,12 @@
             // Prepare the form handlers.
             // This occurs on the current thread in case the handler needs information
             // only available in the current thread.
+            var enabledHandlers = form.Handlers
+                .Where(x => x.Enabled)
+                .ToArray();
             try
             {
-                foreach (var handler in form.Handlers)
+                foreach (var handler in enabledHandlers)
                 {
                     handler.PrepareHandleForm(submissionContext);
                 }
@@ -234,7 +237,7 @@
             {
                 try
                 {
-                    foreach (var handler in form.Handlers)
+                    foreach (var handler in enabledHandlers)
                     {
                         handler.HandleForm(submissionContext);
                     }
