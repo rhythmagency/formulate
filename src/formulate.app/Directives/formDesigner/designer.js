@@ -96,6 +96,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
     $scope.handlerChosen = getHandlerChosen(services);
     $scope.toggleField = getToggleField();
     $scope.toggleHandler = getToggleHandler();
+    $scope.toggleHandlerEnabled = getToggleHandlerEnabled();
     $scope.deleteField = getDeleteField(services);
     $scope.deleteHandler = getDeleteHandler(services);
     $scope.pickValidations = getPickValidations(services);
@@ -344,6 +345,7 @@ function getHandlerChosen(services) {
         if (handler) {
             $scope.handlers.push({
                 name: null,
+                enabled: true,
                 alias: null,
                 icon: handler.icon,
                 directive: handler.directive,
@@ -367,6 +369,13 @@ function getToggleField() {
 function getToggleHandler() {
     return function(handler) {
         handler.expanded = !handler.expanded;
+    };
+}
+
+// Gets the function that toggles the enabled state of a handler.
+function getToggleHandlerEnabled() {
+    return function(handler) {
+        handler.enabled = !handler.enabled;
     };
 }
 

@@ -160,6 +160,7 @@
                         Id = GuidHelper.GetString(x.Id),
                         x.Alias,
                         x.Name,
+                        x.Enabled,
                         Configuration = JsonHelper.Deserialize<object>(
                             x.HandlerConfiguration),
                         Directive = x.GetDirective(),
@@ -260,6 +261,7 @@
                         : GuidHelper.GetGuid(x.Id);
                     handler.Alias = x.Alias;
                     handler.Name = x.Name;
+                    handler.Enabled = x.Enabled;
                     handler.HandlerConfiguration =
                         JsonHelper.Serialize(x.Configuration);
                     return handler;

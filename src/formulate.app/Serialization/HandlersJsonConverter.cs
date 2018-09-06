@@ -76,7 +76,12 @@
 
                 // Populate the form handler instance.
                 serializer.Populate(jsonObject.CreateReader(), instance);
-                handlers.Add(instance);
+
+                // Only retain the form handler instance if it's enabled.
+                if (instance.Enabled)
+                {
+                    handlers.Add(instance);
+                }
 
             }
 
