@@ -35,6 +35,7 @@ RequiredValidator.prototype.validateBool = function (value) {
  * @returns {Promise} A promise that resolves to true, if the array of text values is valid; otherwise, false.
  */
 RequiredValidator.prototype.validateTextArray = function (value) {
+    let self = this;
     return new (require("../polyfills/promise"))(function (resolve) {
 
         // Variables.
@@ -56,7 +57,7 @@ RequiredValidator.prototype.validateTextArray = function (value) {
         // Check if each value in the array is set to some valid text.
         for (i = 0; i < value.length; i++) {
             item = value[i];
-            if (!this.validateText(item)) {
+            if (!self.validateText(item)) {
                 resolve(false);
                 return;
             }

@@ -1,3 +1,6 @@
+// Dependencies.
+let FieldUtility = require("../utils/field");
+
 /**
  * Renders an upload field.
  * @param fieldData The field data that should be used to render the text field.
@@ -50,6 +53,11 @@ RenderUpload.prototype.checkValidity = function () {
     return require("../utils/validation")
         .checkFileValidity(this, this.validators, this.getFile(), this.wrapper);
 };
+
+/**
+ * Ensure the prototype has the necessary functions.
+ */
+FieldUtility.initializeFieldPrototype(RenderUpload.prototype);
 
 // Export the field renderer configuration.
 module.exports = {

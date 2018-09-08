@@ -1,3 +1,6 @@
+// Dependencies.
+let FieldUtility = require("../utils/field");
+
 /**
  * Renders a drop down field.
  * @param fieldData The field data that should be used to render the drop down field.
@@ -97,6 +100,11 @@ RenderSelect.prototype.checkValidity = function () {
     return require("../utils/validation")
         .checkTextValidity(this, this.validators, this.element.value, this.wrapper);
 };
+
+/**
+ * Ensure the prototype has the necessary functions.
+ */
+FieldUtility.initializeFieldPrototype(RenderSelect.prototype);
 
 // Export the field renderer configuration.
 module.exports = {

@@ -26,6 +26,13 @@ Field.initializeFieldPrototype = function (fieldPrototype) {
         };
     }
 
+    // Use fallback for getCategory?
+    if (!fieldPrototype.getCategory) {
+        fieldPrototype.getCategory = function () {
+            return null;
+        };
+    }
+
 };
 
 /**

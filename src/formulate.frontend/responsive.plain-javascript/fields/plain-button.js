@@ -25,6 +25,7 @@ function RenderButton(fieldData, fieldValidators, cssClasses, extraOptions) {
 
     // Store instance variables.
     this.formElement = extraOptions.formElement;
+    this.buttonKind = fieldData.configuration.buttonKind;
 
     // Listen for form events.
     this.listenForSubmit();
@@ -43,6 +44,7 @@ RenderButton.prototype.listenForFailureEvents = function () {
         };
     formElement.addEventListener("formulate: submit: validation errors", handleError, true);
     formElement.addEventListener("formulate form: submit: failure", handleError, true);
+    formElement.addEventListener("formulate: submit: cancelled", handleError, true);
 };
 
 /**
@@ -61,6 +63,14 @@ RenderButton.prototype.listenForSubmit = function () {
  */
 RenderButton.prototype.getElement = function () {
     return this.wrapper;
+};
+
+/**
+ * Returns the kind of button.
+ * @returns {string} The kind of button, or null.
+ */
+RenderButton.prototype.getButtonKind = function () {
+    return this.buttonKind;
 };
 
 /**

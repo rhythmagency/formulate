@@ -1,3 +1,6 @@
+// Dependencies.
+let FieldUtility = require("../utils/field");
+
 /**
  * Renders a hidden field.
  * @param fieldData The field data that should be used to render the hidden field.
@@ -38,6 +41,11 @@ RenderHidden.prototype.checkValidity = function () {
     return require("../utils/validation")
         .checkTextValidity(this, this.validators, this.element.value, this.wrapper);
 };
+
+/**
+ * Ensure the prototype has the necessary functions.
+ */
+FieldUtility.initializeFieldPrototype(RenderHidden.prototype);
 
 // Export the field renderer configuration.
 module.exports = {

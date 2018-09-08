@@ -1,3 +1,6 @@
+// Dependencies.
+let FieldUtility = require("../utils/field");
+
 /**
  * Renders a checkbox field.
  * @param fieldData The field data that should be used to render the checkbox field.
@@ -38,6 +41,11 @@ RenderCheckbox.prototype.checkValidity = function () {
     return require("../utils/validation")
         .checkBoolValidity(this, this.validators, this.element.checked, this.wrapper);
 };
+
+/**
+ * Ensure the prototype has the necessary functions.
+ */
+FieldUtility.initializeFieldPrototype(RenderCheckbox.prototype);
 
 // Export the field renderer configuration.
 module.exports = {

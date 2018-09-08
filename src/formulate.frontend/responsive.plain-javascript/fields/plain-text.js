@@ -1,3 +1,6 @@
+// Dependencies.
+let FieldUtility = require("../utils/field");
+
 /**
  * Renders a text field.
  * @param fieldData The field data that should be used to render the text field.
@@ -37,6 +40,11 @@ RenderText.prototype.checkValidity = function () {
     return require("../utils/validation")
         .checkTextValidity(this, this.validators, this.element.value, this.wrapper);
 };
+
+/**
+ * Ensure the prototype has the necessary functions.
+ */
+FieldUtility.initializeFieldPrototype(RenderText.prototype);
 
 // Export the field renderer configuration.
 module.exports = {

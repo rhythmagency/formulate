@@ -22,12 +22,12 @@ function renderForms(forms, fieldRenderers, fieldValidators) {
         // Add CSS class to DOM element.
         formElement.classList.add("formulate__form");
 
-        // Render the contents of the form.
-        fields = require("./render-form")(form, formElement, fieldRenderers, fieldValidators);
-
         // Get the placeholder element to insert the form before.
         formId = "formulate-form-" + form.data.randomId;
         placeholderElement = document.getElementById(formId);
+
+        // Render the contents of the form.
+        fields = require("./render-form")(form, formElement, placeholderElement, fieldRenderers, fieldValidators);
 
         // Insert the form before the placeholder, and remove the placeholder.
         formContainer = placeholderElement.parentNode;
@@ -51,7 +51,7 @@ function renderForms(forms, fieldRenderers, fieldValidators) {
 function attachSubmitHandler(form, fields, payload, url) {
 
     // Variables.
-    let i, data, payloadKey;
+    let i, data, payloadKey, validationData;
 
     // Listen for submit events.
     form.addEventListener("submit", function (e) {
@@ -62,11 +62,28 @@ function attachSubmitHandler(form, fields, payload, url) {
         // Dispatch event to indicate the form submission has started.
         dispatchEvent("formulate: submit: started", form);
 
-
         // First, ensure all fields are valid.
         checkValidity(form, fields)
             .then(function (validationResult) {
                 if (validationResult.success) {
+
+                    // Dispatch event to indicate the form submission validation succeeded.
+                    validationData = {
+                        cancelSubmit: false,
+                        fields: fields,
+                        payload: payload
+                    };
+                    dispatchEvent("formulate: validation: success", form, validationData);
+
+                    // Should the submit be cancelled?
+                    if (validationData.cancelSubmit) {
+                        dispatchEvent("formulate: submit: cancelled", form);
+                        return;
+                    }
+
+                    // Use the data from the validation event, in case it was modified by a listener.
+                    fields = validationData.fields;
+                    payload = validationData.payload;
 
                     // Populate submission with initial payload.
                     sendPayloadToServer(form, fields, payload, url);
