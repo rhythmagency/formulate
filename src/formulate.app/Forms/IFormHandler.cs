@@ -14,6 +14,7 @@
         Guid Id { get; set; }
         string Alias { get; set; }
         string Name { get; set; }
+        bool Enabled { get; set; }
         string HandlerConfiguration { get; set; }
         string GetIcon();
         string GetDirective();

@@ -12,7 +12,10 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Net;
     using System.Net.Mail;
+    using System.Net.Mime;
+    using Umbraco.Core;
 
 
     /// <summary>
@@ -152,6 +155,10 @@
 
 
             // Get simple properties.
+            if (propertySet.Contains("deliveryType"))
+            {
+                config.DeliveryType = dynamicConfig.deliveryType.Value as string;
+            }
             if (propertySet.Contains("senderEmail"))
             {
                 config.SenderEmail = dynamicConfig.senderEmail.Value as string;
@@ -232,14 +239,20 @@
             var extraSubject = AttemptGetValue(extraContext, ExtraSubjectKey) as string ?? string.Empty;
             var extraMessage = AttemptGetValue(extraContext, ExtraMessageKey) as string ?? string.Empty;
             var baseMessage = config.Message + extraMessage;
+            var plainTextBody = default(string);
+            var htmlBody = default(string);
 
             // Create message.
-            var message = new MailMessage()
-            {
-                IsBodyHtml = false
-            };
+            var message = new MailMessage();
             message.From = new MailAddress(config.SenderEmail);
             message.Subject = config.Subject + extraSubject;
+
+
+            // Add headers to message.
+            foreach (var header in Config.EmailHeaders)
+            {
+                message.Headers.Add(header.Name, header.Value);
+            }
 
 
             // Get recipients from field values.
@@ -294,10 +307,18 @@
             }
             foreach (var recipient in allowedRecipients)
             {
-
-                // We don't want recipients to see each other, so we use BCC instead of TO.
-                message.Bcc.Add(recipient);
-
+                if ("to".InvariantEquals(config.DeliveryType))
+                {
+                    message.To.Add(recipient);
+                }
+                else if ("cc".InvariantEquals(config.DeliveryType))
+                {
+                    message.CC.Add(recipient);
+                }
+                else
+                {
+                    message.Bcc.Add(recipient);
+                }
             }
 
 
@@ -307,8 +328,10 @@
                 var chosenPayload = config.AppendPayload
                     ? payload
                     : payload.Take(0);
-                message.Body = ConstructMessage(form, dataForMessage, filesForMessage,
-                    chosenPayload, baseMessage, config.IncludeHiddenFields, config.ExcludeFieldLabels);
+                htmlBody = ConstructMessage(form, dataForMessage, filesForMessage,
+                    chosenPayload, baseMessage, config.IncludeHiddenFields, config.ExcludeFieldLabels, true);
+                plainTextBody = ConstructMessage(form, dataForMessage, filesForMessage,
+                    chosenPayload, baseMessage, config.IncludeHiddenFields, config.ExcludeFieldLabels, false);
                 foreach (var file in filesForMessage)
                 {
                     var dataStream = new MemoryStream(file.FileData);
@@ -317,8 +340,21 @@
             }
             else
             {
-                message.Body = baseMessage;
+                htmlBody = WebUtility.HtmlEncode(baseMessage);
+                plainTextBody = baseMessage;
             }
+
+
+            // Add plain text alternate view.
+            var mimeType = new ContentType(MediaTypeNames.Text.Plain);
+            var emailView = AlternateView.CreateAlternateViewFromString(plainTextBody, mimeType);
+            message.AlternateViews.Add(emailView);
+
+
+            // Add HTML alternate view.
+            mimeType = new ContentType(MediaTypeNames.Text.Html);
+            emailView = AlternateView.CreateAlternateViewFromString(htmlBody, mimeType);
+            message.AlternateViews.Add(emailView);
 
 
             // Send email.
@@ -358,16 +394,21 @@
         /// <param name="excludeFieldLabels">
         /// Exclude the field labels when constructing the message?
         /// </param>
+        /// <param name="isHtml">
+        /// Construct the message as HTML?
+        /// </param>
         /// <returns>
         /// The email message.
         /// </returns>
         private string ConstructMessage(Form form, IEnumerable<FieldSubmission> data,
             IEnumerable<FileFieldSubmission> files, IEnumerable<PayloadSubmission> payload,
-            string baseMessage, bool includeHiddenFields, bool excludeFieldLabels)
+            string baseMessage, bool includeHiddenFields, bool excludeFieldLabels, bool isHtml = false)
         {
 
             // Variables.
-            var nl = Environment.NewLine;
+            var nl = isHtml
+                ? Environment.NewLine + "<br>" + Environment.NewLine
+                : Environment.NewLine;
             var lines = new List<string>();
             var valuesById = data.GroupBy(x => x.FieldId).Select(x => new
             {
@@ -443,6 +484,13 @@
                     ? $@"See attachment, ""{filename}"""
                     : $@"{fieldName}: See attachment, ""{filename}""";
                 lines.Add(line);
+            }
+
+            // HTML encode?
+            if (isHtml)
+            {
+                baseMessage = WebUtility.HtmlEncode(baseMessage);
+                lines = lines.Select(x => WebUtility.HtmlEncode(x)).ToList();
             }
 
 

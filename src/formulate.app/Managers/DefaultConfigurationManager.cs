@@ -135,6 +135,27 @@
             }
         }
 
+        /// <summary>
+        /// The headers to use for emails.
+        /// </summary>
+        public IEnumerable<EmailHeader> EmailHeaders
+        {
+            get
+            {
+                var configuration = ConfigurationManager.GetSection("formulateConfiguration/email") as EmailConfigurationSection;
+                var headers = new List<EmailHeader>();
+                foreach(HeaderConfig header in configuration.Headers)
+                {
+                    headers.Add(new EmailHeader()
+                    {
+                        Name = header.Name,
+                        Value = header.Value
+                    });
+                }
+                return headers;
+            }
+        }
+
 
         /// <summary>
         /// The field categories

@@ -75,6 +75,7 @@ function getGetFormInfo(services) {
                     return {
                         id: handler.Id,
                         name: handler.Name,
+                        enabled: handler.Enabled,
                         alias: handler.Alias,
                         directive: handler.Directive,
                         icon: handler.Icon,
@@ -122,6 +123,7 @@ function getPersistForm(services) {
                 var result = {
                     Name: handler.name,
                     Alias: handler.alias,
+                    Enabled: handler.enabled,
                     TypeFullName: handler.typeFullName,
                     Configuration: handler.configuration
                 };

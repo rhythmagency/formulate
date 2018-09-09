@@ -673,6 +673,7 @@
                 {
                     "buttons",
                     "emailWhitelist",
+                    "email",
                     "fieldCategories",
                     "persistence",
                     "submissions",

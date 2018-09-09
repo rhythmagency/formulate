@@ -61,7 +61,13 @@
         /// The field categories used for flagging field types.
         /// </summary>
         IEnumerable<FieldCategory> FieldCategories { get; }
-        
+
+
+        /// <summary>
+        /// The headers to use for emails.
+        /// </summary>
+        IEnumerable<EmailHeader> EmailHeaders { get; }
+
         #endregion
 
     }

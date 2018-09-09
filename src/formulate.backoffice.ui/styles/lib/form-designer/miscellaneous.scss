@@ -59,11 +59,25 @@
 .formulate-field .deleter,
 .formulate-handler .deleter {
     color: $red-warn;
-    float: right;
+    text-shadow: 2px 2px $red-dark;
+}
+
+.formulate-field .deleter,
+.formulate-handler .deleter,
+.formulate-handler .enabler {
     vertical-align: middle;
     font-size: 1.2em;
-    text-shadow: 2px 2px $red-dark;
     cursor:pointer;
+}
+
+.formulate-field .right-buttons,
+.formulate-handler .right-buttons {
+    display: inline-block;
+    float: right;
+}
+
+.formulate-handler.disabled {
+    opacity: 0.5;
 }
 
 .formulate-field .type-identifier,

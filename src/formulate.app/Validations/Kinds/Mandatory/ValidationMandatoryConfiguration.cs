@@ -14,6 +14,11 @@
         /// </summary>
         public string Message { get; set; }
 
+        /// <summary>
+        /// Only validate on the client side (i.e., skip server-side validation)?
+        /// </summary>
+        public bool ClientSideOnly { get; set; }
+
         #endregion
 
     }

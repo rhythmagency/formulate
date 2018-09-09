@@ -32,6 +32,16 @@ function Controller($scope, notificationsService) {
     if (!$scope.configuration.recipients) {
         $scope.configuration.recipients = [];
     }
+    $scope.deliveryTypes = [{
+        id: "to",
+        name: "To"
+    }, {
+        id: "cc",
+        name: "Cc"
+    }, {
+        id: "bcc",
+        name: "Bcc"
+    }];
 
     // Add scope functions.
     $scope.addRecipient = this.addRecipient.bind(this);

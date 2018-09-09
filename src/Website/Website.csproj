@@ -512,6 +512,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Partials\Formulate\Responsive.Plain JavaScript.cshtml" />
+    <Content Include="Config\Formulate\email.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\Formulate\buttons.config" />

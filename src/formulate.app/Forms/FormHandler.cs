@@ -2,7 +2,9 @@
 {
 
     // Namespaces.
+    using Newtonsoft.Json;
     using System;
+    using System.ComponentModel;
 
 
     /// <summary>
@@ -42,6 +44,14 @@
         /// The name of the handler.
         /// </summary>
         public string Name { get; set; }
+
+
+        /// <summary>
+        /// Is the handler enabled?
+        /// </summary>
+        [DefaultValue(true)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+        public bool Enabled { get; set; }
 
 
         /// <summary>

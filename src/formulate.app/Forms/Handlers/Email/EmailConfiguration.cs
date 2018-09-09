@@ -7,6 +7,7 @@
         public string SenderEmail { get; set; }
         public IEnumerable<string> Recipients { get; set; }
         public IEnumerable<Guid> RecipientFields { get; set; }
+        public string DeliveryType { get; set; }
         public IEnumerable<Guid> FieldsToInclude { get; set; }
         public string Message { get; set; }
         public string Subject { get; set; }
