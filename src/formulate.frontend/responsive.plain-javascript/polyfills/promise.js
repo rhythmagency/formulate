@@ -3,7 +3,7 @@ let FormulatePromise;
 
 // Get either the promise polyfill or the native promise.
 if (typeof Promise === "undefined") {
-    FormulatePromise = require("../lib/promiscuous-browser-shim-full");
+    FormulatePromise = require("promiscuous/dist/promiscuous-browser-shim-full");
 } else {
     FormulatePromise = Promise;
 }
