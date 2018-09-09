@@ -25,11 +25,27 @@ RenderUpload.prototype.listenForChanges = function () {
     this.element.addEventListener("change", function () {
 
         // Variables.
-        let name = self.getFile().name;
+        let file = self.getFile(),
+            hasFile = file !== null,
+            name = hasFile
+                ? file.name
+                : null;
 
-        // Change the filename and add the deselect button.
-        self.addFilename(name);
-        self.addDeselectButton();
+        // Was a file selected (or deselected)?
+        if (hasFile) {
+
+            // Change the filename and add the deselect button.
+            self.addFilename(name);
+            self.addDeselectButton();
+
+        } else {
+
+            // Some browsers (e.g., IE11) will get here if the file is deselected.
+            // Remove the filename and the deselect button.
+            self.removeFilename();
+            self.removeDeselectButton();
+
+        }
 
     });
 };
