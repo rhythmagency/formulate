@@ -65,13 +65,14 @@ Field.setData = function (data, value, options, alias, id) {
  * @param fieldRenderer The field renderer to initialize.
  * @param fieldData The field data that should be used to render the field.
  * @param fieldValidators The associative array of the field validating functions.
- * @param options {{type: string, usePlaceholder: boolean, useLabel: boolean, useWrapper: boolean, cssClasses: string[], nodeName: string}}
+ * @param options {{type: string, usePlaceholder: boolean, useLabel: boolean, useWrapper: boolean, cssClasses: string[], nodeName: string, nestFieldInLabel: boolean}}
  *        The options to use when constructing the field.
  */
 Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, options) {
 
     // Variables.
-    let fieldElement, wrapperElement, labelElement, useWrapper, fieldId;
+    let fieldElement, wrapperElement, labelElement, useWrapper, fieldId,
+        useLabel = options.useLabel !== false;
 
     // Create element.
     fieldElement = document.createElement(options.nodeName || "input");
@@ -80,7 +81,7 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
     }
 
     // Set aria label.
-    if (options.useLabel) {
+    if (useLabel) {
         fieldElement.setAttribute("aria-label", fieldData.label);
     }
 
@@ -101,7 +102,7 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
     }
 
     // Create label element?
-    if (options.useLabel !== false) {
+    if (useLabel) {
         fieldId = generateId("formulate-field-");
         fieldElement.setAttribute("id", fieldId);
         labelElement = document.createElement("label");
@@ -113,7 +114,11 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
 
     // Add element to wrapper?
     if (useWrapper) {
-        wrapperElement.appendChild(fieldElement);
+        if (options.nestFieldInLabel) {
+            labelElement.appendChild(fieldElement);
+        } else {
+            wrapperElement.appendChild(fieldElement);
+        }
     }
 
     // Retain DOM elements and field properties.
@@ -123,6 +128,7 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
     fieldRenderer.element = fieldElement;
     fieldRenderer.id = fieldData.id;
     fieldRenderer.alias = fieldData.alias;
+    fieldRenderer.label = labelElement;
 
     // Prepare the validators and retain them for later use.
     fieldRenderer.validators = require("./validation").prepareValidators(fieldData.validations, fieldValidators);

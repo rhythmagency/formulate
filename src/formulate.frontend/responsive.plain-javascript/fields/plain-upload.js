@@ -11,9 +11,99 @@ let FieldUtility = require("../utils/field");
 function RenderUpload(fieldData, fieldValidators, cssClasses) {
     require("../utils/field").initializeField(this, fieldData, fieldValidators, {
         type: "file",
-        cssClasses: cssClasses
+        cssClasses: cssClasses,
+        nestFieldInLabel: true
     });
+    this.listenForChanges();
 }
+
+/**
+ * Listens for changes to the selected file.
+ */
+RenderUpload.prototype.listenForChanges = function () {
+    let self = this;
+    this.element.addEventListener("change", function () {
+
+        // Variables.
+        let name = self.getFile().name;
+
+        // Change the filename and add the deselect button.
+        self.addFilename(name);
+        self.addDeselectButton();
+
+    });
+};
+
+/**
+ * Removes the "Deselect File" button.
+ */
+RenderUpload.prototype.removeDeselectButton = function () {
+    if (this.deselectElement) {
+        this.deselectElement.parentNode.removeChild(this.deselectElement);
+        this.deselectElement = null;
+    }
+};
+
+/**
+ * Removes the filename element.
+ */
+RenderUpload.prototype.removeFilename = function () {
+    if (this.filenameElement) {
+        this.filenameElement.parentNode.removeChild(this.filenameElement);
+        this.filenameElement = null;
+    }
+};
+
+/**
+ * Adds the filename element.
+ * @param name The name of the file.
+ */
+RenderUpload.prototype.addFilename = function (name) {
+    let filenameElement = document.createElement("div");
+    this.removeFilename();
+    this.filenameElement = filenameElement;
+    filenameElement.appendChild(document.createTextNode(name));
+    filenameElement.classList.add("formulate__field--upload__filename");
+    this.wrapper.insertBefore(filenameElement, this.label.nextSibling);
+};
+
+/**
+ * Adds the "Deselect File" button.
+ */
+RenderUpload.prototype.addDeselectButton = function () {
+
+    // Variables.
+    let deselectElement = document.createElement("button"), previousSibling;
+
+    // Remove existing button.
+    this.removeDeselectButton();
+
+    /// Create new button.
+    this.deselectElement = deselectElement;
+    deselectElement.appendChild(document.createTextNode("Deselect File"));
+    deselectElement.classList.add("formulate__field--upload__deselect");
+    deselectElement.type = "button";
+
+    // Add after the filename (if it exists) or the label.
+    previousSibling = this.filenameElement || this.label;
+    this.wrapper.insertBefore(deselectElement, previousSibling.nextSibling);
+
+    // Listen for clicks of the "Deselect File" button.
+    this.listenForDeselect();
+
+};
+
+/**
+ * Sets up the event handler that deselects the currently selected file.
+ */
+RenderUpload.prototype.listenForDeselect = function () {
+    let self = this;
+    this.deselectElement.addEventListener("click", function () {
+        self.element.value = "";
+        self.removeDeselectButton();
+        self.removeFilename();
+    });
+};
 
 /**
  * Returns the DOM element for the upload field.
