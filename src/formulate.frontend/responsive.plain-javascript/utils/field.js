@@ -65,14 +65,18 @@ Field.setData = function (data, value, options, alias, id) {
  * @param fieldRenderer The field renderer to initialize.
  * @param fieldData The field data that should be used to render the field.
  * @param fieldValidators The associative array of the field validating functions.
- * @param options {{type: string, usePlaceholder: boolean, useLabel: boolean, useWrapper: boolean, cssClasses: string[], nodeName: string, nestFieldInLabel: boolean}}
+ * @param options {{type: string, usePlaceholder: boolean, useLabel: boolean, useWrapper: boolean, cssClasses: string[], nodeName: string, nestFieldInLabel: boolean, wrapperElement: HTMLElement, wrapLabelText: boolean}}
  *        The options to use when constructing the field.
  */
 Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, options) {
 
     // Variables.
-    let fieldElement, wrapperElement, labelElement, useWrapper, fieldId,
-        useLabel = options.useLabel !== false;
+    let fieldElement, labelElement, useWrapper, fieldId, textNode, labelTextWrapper,
+        wrapperElement = options.wrapperElement,
+        useLabel = options.useLabel !== false,
+        labelText = options.hasOwnProperty("label")
+            ? options.label
+            : fieldData.label;
 
     // Create element.
     fieldElement = document.createElement(options.nodeName || "input");
@@ -80,15 +84,20 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
         fieldElement.type = options.type;
     }
 
+    // Set value?
+    if (options.hasOwnProperty("value")) {
+        fieldElement.value = options.value;
+    }
+
     // Set aria label.
     if (useLabel) {
-        fieldElement.setAttribute("aria-label", fieldData.label);
+        fieldElement.setAttribute("aria-label", labelText);
     }
 
     // Create wrapper element, or just use the field element as the wrapper.
     useWrapper = options.useWrapper !== false;
     wrapperElement = useWrapper
-        ? document.createElement("div")
+        ? (wrapperElement || document.createElement("div"))
         : fieldElement;
 
     // Attach CSS classes.
@@ -98,7 +107,7 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
 
     // Add placeholder?
     if (options.usePlaceholder !== false) {
-        fieldElement.setAttribute("placeholder", fieldData.label);
+        fieldElement.setAttribute("placeholder", labelText);
     }
 
     // Create label element?
@@ -108,7 +117,15 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
         labelElement = document.createElement("label");
         labelElement.setAttribute("for", fieldId);
         labelElement.classList.add("formulate__field__label");
-        labelElement.appendChild(document.createTextNode(fieldData.label));
+        textNode = document.createTextNode(labelText);
+        if (options.wrapLabelText) {
+            labelTextWrapper = document.createElement("span");
+            labelTextWrapper.classList.add("formulate__field__label-text");
+            labelTextWrapper.appendChild(textNode);
+            labelElement.appendChild(labelTextWrapper);
+        } else {
+            labelElement.appendChild(textNode);
+        }
         wrapperElement.appendChild(labelElement);
     }
 
