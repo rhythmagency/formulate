@@ -20,6 +20,9 @@ function renderField(fieldData, fieldRenderers, fieldValidators, extraOptions) {
     cssClasses.push("formulate__field--" + fieldData.fieldType);
 
     // Render the field.
+    if (!renderer) {
+        throw Error("Unable to find renderer for field of type " + fieldData.fieldType + ".");
+    }
     renderResult = new renderer(fieldData, fieldValidators, cssClasses, extraOptions);
 
     // Return the rendered field (an object that has information about the rendered field).
