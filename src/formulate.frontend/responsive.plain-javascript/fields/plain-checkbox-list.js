@@ -24,7 +24,7 @@ function RenderCheckboxList(fieldData, fieldValidators, cssClasses) {
         selected = item.selected;
 
         // Add checkbox.
-        require("../utils/field").initializeField(this, fieldData, fieldValidators, {
+        FieldUtility.initializeField(this, fieldData, fieldValidators, {
             type: "checkbox",
             cssClasses: cssClasses,
             usePlaceholder: false,
