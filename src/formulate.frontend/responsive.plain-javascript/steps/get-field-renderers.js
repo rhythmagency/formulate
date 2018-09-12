@@ -20,7 +20,8 @@ function getFieldRenderers() {
         require("../fields/plain-select"),
         require("../fields/plain-header"),
         require("../fields/plain-upload"),
-        require("../fields/plain-checkbox-list")
+        require("../fields/plain-checkbox-list"),
+        require("../fields/plain-date")
     ];
     extraFields = window["formulate-plain-js-fields"] || [];
     fields = fields.concat(extraFields);

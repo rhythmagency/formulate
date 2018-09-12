@@ -79,6 +79,9 @@
                 case "recaptchafield":
                     angularType = "recaptcha";
                     break;
+                case "datefield":
+                    angularType = "date";
+                    break;
             }
             return angularType ?? fieldType;
         }

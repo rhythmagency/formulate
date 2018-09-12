@@ -25,7 +25,7 @@ app.config(['FormulateFieldTypesProvider', function (FormulateFieldTypesProvider
         .register('header', builtinTypes.createHeaderField, {optionalLabel: false})
         .register('rich-text', builtinTypes.createRichTextField, {optionalLabel: false})
         .register('hidden', builtinTypes.createNullField, {optionalLabel: false})
-        .register('DateField', builtinTypes.createDateField)
+        .register('date', builtinTypes.createDateField)
         .register('recaptcha', builtinTypes.createRecaptchaField, {optionallabel: false})
         .setDefault(builtinTypes.createTextField);
 }]);
