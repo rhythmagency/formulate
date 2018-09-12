@@ -65,13 +65,14 @@ Field.setData = function (data, value, options, alias, id) {
  * @param fieldRenderer The field renderer to initialize.
  * @param fieldData The field data that should be used to render the field.
  * @param fieldValidators The associative array of the field validating functions.
- * @param options {{type: string, usePlaceholder: boolean, useLabel: boolean, useWrapper: boolean, cssClasses: string[], nodeName: string, nestFieldInLabel: boolean, wrapperElement: HTMLElement, wrapLabelText: boolean}}
+ * @param options {{type: string, usePlaceholder: boolean, useLabel: boolean, useWrapper: boolean, cssClasses: string[], nodeName: string, nestFieldInLabel: boolean, wrapperElement: HTMLElement, wrapLabelText: boolean, fieldBeforeLabelText: boolean}}
  *        The options to use when constructing the field.
  */
 Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, options) {
 
     // Variables.
-    let fieldElement, labelElement, useWrapper, fieldId, textNode, labelTextWrapper,
+    let fieldElement, labelElement, fieldId, textNode, labelTextWrapper,
+        useWrapper = options.useWrapper !== false,
         wrapperElement = options.wrapperElement,
         useLabel = options.useLabel !== false,
         labelText = options.hasOwnProperty("label")
@@ -95,7 +96,6 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
     }
 
     // Create wrapper element, or just use the field element as the wrapper.
-    useWrapper = options.useWrapper !== false;
     wrapperElement = useWrapper
         ? (wrapperElement || document.createElement("div"))
         : fieldElement;
@@ -132,9 +132,17 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
     // Add element to wrapper?
     if (useWrapper) {
         if (options.nestFieldInLabel) {
-            labelElement.appendChild(fieldElement);
+            if (options.fieldBeforeLabelText) {
+                labelElement.insertBefore(fieldElement, labelElement.childNodes[0]);
+            } else {
+                labelElement.appendChild(fieldElement);
+            }
         } else {
-            wrapperElement.appendChild(fieldElement);
+            if (options.fieldBeforeLabelText) {
+                wrapperElement.appendChild(fieldElement);
+            } else {
+                wrapperElement.insertBefore(fieldElement, wrapperElement.childNodes[0]);
+            }
         }
     }
 

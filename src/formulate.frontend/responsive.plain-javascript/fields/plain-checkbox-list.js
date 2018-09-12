@@ -32,7 +32,8 @@ function RenderCheckboxList(fieldData, fieldValidators, cssClasses) {
             nestFieldInLabel: true,
             value: value,
             label: label,
-            wrapLabelText: true
+            wrapLabelText: true,
+            fieldBeforeLabelText: true
         });
 
         // Remember wrapper element for next iteration.
