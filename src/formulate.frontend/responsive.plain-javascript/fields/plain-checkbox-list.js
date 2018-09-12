@@ -11,7 +11,8 @@ let FieldUtility = require("../utils/field");
 function RenderCheckboxList(fieldData, fieldValidators, cssClasses) {
 
     // Variables.
-    let items = fieldData.configuration.items, i, item, label, value, selected, wrapperElement, elements = [];
+    let items = fieldData.configuration.items, i, item, label, value, selected, wrapperElement, elements = [],
+        labelElement;
 
     // Add each checkbox.
     for (i = 0; i < items.length; i++) {
@@ -39,6 +40,15 @@ function RenderCheckboxList(fieldData, fieldValidators, cssClasses) {
 
         // Remember the checkbox input element.
         elements.push(this.element);
+
+        // Add a label if it hasn't been added yet.
+        if (!labelElement) {
+            labelElement = document.createElement("label");
+            labelElement.classList.add("formulate__field__label");
+            labelElement.classList.add("formulate__field__label--group");
+            labelElement.appendChild(document.createTextNode(fieldData.label));
+            wrapperElement.insertBefore(labelElement, this.element.parentNode);
+        }
 
     }
 
