@@ -21,7 +21,8 @@ function getFieldRenderers() {
         require("../fields/plain-header"),
         require("../fields/plain-upload"),
         require("../fields/plain-checkbox-list"),
-        require("../fields/plain-date")
+        require("../fields/plain-date"),
+        require("../fields/plain-radio-button-list")
     ];
     extraFields = window["formulate-plain-js-fields"] || [];
     fields = fields.concat(extraFields);

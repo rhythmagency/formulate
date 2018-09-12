@@ -65,7 +65,7 @@ Field.setData = function (data, value, options, alias, id) {
  * @param fieldRenderer The field renderer to initialize.
  * @param fieldData The field data that should be used to render the field.
  * @param fieldValidators The associative array of the field validating functions.
- * @param options {{type: string, usePlaceholder: boolean, useLabel: boolean, useWrapper: boolean, cssClasses: string[], nodeName: string, nestFieldInLabel: boolean, wrapperElement: HTMLElement, wrapLabelText: boolean, fieldBeforeLabelText: boolean}}
+ * @param options {{type: string, usePlaceholder: boolean, useLabel: boolean, useWrapper: boolean, cssClasses: string[], nodeName: string, nestFieldInLabel: boolean, wrapperElement: HTMLElement, wrapLabelText: boolean, fieldBeforeLabelText: boolean, name: string}}
  *        The options to use when constructing the field.
  */
 Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, options) {
@@ -83,6 +83,9 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
     fieldElement = document.createElement(options.nodeName || "input");
     if (options.type) {
         fieldElement.type = options.type;
+    }
+    if (options.hasOwnProperty("name")) {
+        fieldElement.name = options.name;
     }
 
     // Set value?
@@ -112,7 +115,7 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
 
     // Create label element?
     if (useLabel) {
-        fieldId = generateId("formulate-field-");
+        fieldId = Field.generateId("formulate-field-");
         fieldElement.setAttribute("id", fieldId);
         labelElement = document.createElement("label");
         labelElement.setAttribute("for", fieldId);
@@ -165,10 +168,10 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
  * @param prefix {string} The prefix to use for the ID.
  * @returns {string} The unique ID.
  */
-function generateId(prefix) {
+Field.generateId = function (prefix) {
     idCount++;
     return prefix + idCount.toString();
-}
+};
 
 // Export the form field utility functions.
 module.exports = Field;
