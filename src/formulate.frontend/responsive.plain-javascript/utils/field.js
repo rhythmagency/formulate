@@ -142,9 +142,9 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
             }
         } else {
             if (options.fieldBeforeLabelText) {
-                wrapperElement.appendChild(fieldElement);
-            } else {
                 wrapperElement.insertBefore(fieldElement, wrapperElement.childNodes[0]);
+            } else {
+                wrapperElement.appendChild(fieldElement);
             }
         }
     }
