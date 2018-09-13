@@ -9,7 +9,7 @@ let FieldUtility = require("../utils/field");
  * @constructor
  */
 function RenderHidden(fieldData, fieldValidators, cssClasses) {
-    require("../utils/field").initializeField(this, fieldData, fieldValidators, {
+    FieldUtility.initializeField(this, fieldData, fieldValidators, {
         type: "hidden",
         cssClasses: cssClasses,
         useLabel: false
@@ -30,7 +30,7 @@ RenderHidden.prototype.getElement = function () {
  * @param options {{rawDataByAlias: boolean}} Optional. The options for setting the data.
  */
 RenderHidden.prototype.setData = function (data, options) {
-    require("../utils/field").setData(data, this.element.value, options, this.alias, this.id);
+    FieldUtility.setData(data, this.element.value, options, this.alias, this.id);
 };
 
 /**
