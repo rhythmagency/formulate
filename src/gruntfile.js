@@ -226,9 +226,15 @@ module.exports = function(grunt) {
                         dest: 'nuget-temp/package/content/',
                         cwd: "Website/"
                     }, {
-                        // Raw frontend templates.
+                        // Raw frontend template (AngularJS).
                         expand: true,
                         src: ["responsive.bootstrap.angular/**"],
+                        dest: './nuget-temp/package/content/App_Plugins/formulate/templates/',
+                        cwd: frontendProject + "/"
+                    }, {
+                        // Raw frontend template (plain JavaScript).
+                        expand: true,
+                        src: ["responsive.plain-javascript/**"],
                         dest: './nuget-temp/package/content/App_Plugins/formulate/templates/',
                         cwd: frontendProject + "/"
                     }
@@ -425,9 +431,15 @@ module.exports = function(grunt) {
                             dest: './FormulateTemp/package/',
                             cwd: "Website/"
                         }, {
-                            // Raw frontend templates.
+                            // Raw frontend template (AngularJS).
                             expand: true,
                             src: ["responsive.bootstrap.angular/**"],
+                            dest: './FormulateTemp/package/App_Plugins/formulate/templates/',
+                            cwd: frontendProject + "/"
+                        }, {
+                            // Raw frontend template (plain JavaScript).
+                            expand: true,
+                            src: ["responsive.plain-javascript/**"],
                             dest: './FormulateTemp/package/App_Plugins/formulate/templates/',
                             cwd: frontendProject + "/"
                         }
