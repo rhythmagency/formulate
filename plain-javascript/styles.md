@@ -1,6 +1,6 @@
 # Styling the Grid
 
-This CodePen shows how you can style the grid rendered by Formulate's Plain JavaScript template: https://codepen.io/anon/pen/oPOOYZ?editors=1100
+This CodePen shows how you can style the grid rendered by Formulate's Plain JavaScript template: [https://codepen.io/anon/pen/oPOOYZ?editors=1100](https://codepen.io/anon/pen/oPOOYZ?editors=1100)
 
 Note that it includes a style reset you may want to remove, as you likely already have it in your styles.
 Also, it includes some decorative styles near the bottom that are purely for this demo, so you'll want to remove those as well.
