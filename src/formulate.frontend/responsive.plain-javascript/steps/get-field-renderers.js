@@ -23,7 +23,8 @@ function getFieldRenderers() {
         require("../fields/plain-checkbox-list"),
         require("../fields/plain-date"),
         require("../fields/plain-radio-button-list"),
-        require("../fields/plain-extended-radio-button-list")
+        require("../fields/plain-extended-radio-button-list"),
+        require("../fields/plain-recaptcha")
     ];
     extraFields = window["formulate-plain-js-fields"] || [];
     fields = fields.concat(extraFields);
