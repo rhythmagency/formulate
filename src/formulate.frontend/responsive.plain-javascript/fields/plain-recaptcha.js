@@ -4,8 +4,8 @@ let FieldUtility = require("../utils/field"),
     Validation = require("../utils/validation");
 
 /**
- * Renders a text field.
- * @param fieldData The field data that should be used to render the text field.
+ * Renders a recaptcha field.
+ * @param fieldData The field data that should be used to render the recaptcha field.
  * @param fieldValidators The associative array of the field validating functions.
  * @param cssClasses The CSS classes to attach to the element.
  * @constructor
@@ -30,8 +30,8 @@ function RenderRecaptcha(fieldData, fieldValidators, cssClasses) {
 }
 
 /**
- * Returns the DOM element for the text field.
- * @returns {HTMLDivElement} The DOM element for the text field.
+ * Returns the DOM element for the recaptcha field.
+ * @returns {HTMLDivElement} The DOM element for the recaptcha field.
  */
 RenderRecaptcha.prototype.getElement = function () {
     return this.wrapper;
