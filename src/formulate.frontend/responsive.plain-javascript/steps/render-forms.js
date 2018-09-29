@@ -163,12 +163,23 @@ function sendPayloadToServer(form, fields, payload, url) {
     }
 
     // Send data as AJAX submission.
-    new (require("../utils/ajax"))(url, data).then(function() {
+    new (require("../utils/ajax"))(url, data).then(function(result) {
 
-        // Dispatch success event.
-        dispatchEvent("formulate form: submit: success", form, {
-            dataByAlias: dataByAlias
-        });
+        // Was the request successful?
+        let success = JSON.parse(result.text).Success;
+        if (success) {
+
+            // Dispatch success event.
+            dispatchEvent("formulate form: submit: success", form, {
+                dataByAlias: dataByAlias
+            });
+
+        } else {
+
+            // Dispatch failure event.
+            dispatchEvent("formulate form: submit: failure", form);
+
+        }
 
     }).catch(function() {
 
