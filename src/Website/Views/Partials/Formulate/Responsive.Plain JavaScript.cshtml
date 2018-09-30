@@ -240,17 +240,6 @@
         window[key].push(formData);
 
     })();
-
-    // TODO: This is testing code to be deleted later.
-    (function () {
-        return;
-        var prettyJson = JSON.stringify(@Html.Raw(jsonModel), null, 2);
-        var jsonElement = document.createTextNode(prettyJson);
-        var preTag = document.createElement("pre");
-        preTag.appendChild(jsonElement);
-        document.body.appendChild(preTag);
-    })();
-
 </script>
 
 @* TODO: Temporary. *@
@@ -271,7 +260,6 @@
             validationListElement = null;
         });
         wrapper.addEventListener("formulate form: submit: failure", function () {
-            //TODO: Had an error (success was false), but this never got hit. Why?
             alert("Unknown error. Please try again.");
         });
         wrapper.addEventListener("formulate: submit: validation errors", function (e) {
