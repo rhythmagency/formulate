@@ -8,6 +8,7 @@ title: Rendering a Form in Formulate
 If you are using the plain JavaScript template rather than the AngularJS template, see: [Render Plain JavaScript Form](/plain-javascript/render-form)
 
 # Form Rendering
+
 Once you've gone through the trouble of installing Formulate, creating a form, and modifying a document type to pick a form, the final step is to render that form to HTML on your website.
 
 You can render your picked form like this (this assumes the form picker property is called "myFormPicker"):
