@@ -116,4 +116,4 @@ setTimeout(function () {
 }, 0);
 ```
 
-Next ups, you'll want to style the form: [Styles](/plain-javascript/styles)
+Next up, you'll want to style the form: [Styles](/plain-javascript/styles)
