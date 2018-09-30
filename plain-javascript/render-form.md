@@ -56,7 +56,7 @@ That goes in a CSHTML file.
 
 You will also need some custom JavaScript to respond to the events dispatched by Formulate (this is the `custom-formulate-script.js` referenced above):
 
-```js
+```
 /* This file listens for events dispatched by Formulate and responds to them appropriately. */
 
 // Wait until the markup has rendered
