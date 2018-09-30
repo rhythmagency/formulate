@@ -244,13 +244,16 @@
 
 @* TODO: Temporary. *@
 <script>
+
+    // This block listens for events dispatched by Formulate.
     (function () {
 
         // Variables.
-        let validationListElement;
+        let validationListElement,
+            wrapper = document.getElementById("formulate-form-@(randomFormId)").parentNode;
 
-        // On form submit, remove the form and display a message.
-        let wrapper = document.getElementById("formulate-form-@(randomFormId)").parentNode;
+        // On form submit, remove the form and display a success message. You can do what you like here
+        // (e.g., show a hidden element).
         wrapper.addEventListener("formulate form: submit: success", function (e) {
             let form = e.target;
             form.parentNode.replaceChild(document.createTextNode("Form submitted!"), form);
@@ -259,9 +262,15 @@
             }
             validationListElement = null;
         });
+
+        // When there is an error, show an alert dialog. Feel free to change this to something
+        // that makes more sense for your project.
         wrapper.addEventListener("formulate form: submit: failure", function () {
             alert("Unknown error. Please try again.");
         });
+
+        // When there are validation errors, add a list of error messages to the bottom of the
+        // form. If you remove this, the error messages will still be shown inline below each field.
         wrapper.addEventListener("formulate: submit: validation errors", function (e) {
             let i, message, messages = e.detail.messages, form = e.target, listElement, itemElement;
             listElement = document.createElement("ul");
@@ -281,6 +290,7 @@
         });
 
     })();
+
 </script>
 
 @* TODO: Temporary. *@
