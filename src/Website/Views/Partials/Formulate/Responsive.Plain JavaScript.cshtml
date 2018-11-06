@@ -138,7 +138,6 @@
         }
         else if (x.FieldType == typeof(RecaptchaField))
         {
-            var config = x.Configuration as RichTextConfiguration;
             return new
             {
                 key = WebConfigurationManager.AppSettings["Formulate:RecaptchaSiteKey"]
