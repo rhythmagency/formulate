@@ -128,7 +128,7 @@ ValidationUtilities.aggregateValidations = function (validationPromises) {
                 // Success.
                 return {
                     success: true
-                }
+                };
 
             } else {
 

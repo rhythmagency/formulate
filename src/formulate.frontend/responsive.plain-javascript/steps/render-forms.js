@@ -51,7 +51,7 @@ function renderForms(forms, fieldRenderers, fieldValidators) {
 function attachSubmitHandler(form, fields, payload, url) {
 
     // Variables.
-    let i, data, payloadKey, validationData;
+    let validationData;
 
     // Listen for submit events.
     form.addEventListener("submit", function (e) {

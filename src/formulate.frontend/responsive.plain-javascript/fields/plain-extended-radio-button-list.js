@@ -11,7 +11,7 @@ let FieldUtility = require("../utils/field");
 function RenderRadioList(fieldData, fieldValidators, cssClasses) {
 
     // Variables.
-    let i, item, primary, secondary, selected, wrapperElement, labelElement,
+    let i, item, primary, secondary, wrapperElement, labelElement,
         elements = [],
         items = fieldData.configuration.items,
         name = FieldUtility.generateId("radio-button-list-");
@@ -23,7 +23,6 @@ function RenderRadioList(fieldData, fieldValidators, cssClasses) {
         item = items[i];
         primary = item.primary;
         secondary = item.secondary;
-        selected = item.selected;
 
         // Add radio button.
         FieldUtility.initializeField(this, fieldData, fieldValidators, {
@@ -93,7 +92,7 @@ RenderRadioList.prototype.checkValidity = function () {
     let value,
         values = this.elements
         .filter(function (element) {
-            return element.checked
+            return element.checked;
         })
         .map(function (element) {
             return element.checked

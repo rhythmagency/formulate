@@ -11,7 +11,7 @@ let FieldUtility = require("../utils/field");
 function RenderCheckboxList(fieldData, fieldValidators, cssClasses) {
 
     // Variables.
-    let items = fieldData.configuration.items, i, item, label, value, selected, wrapperElement, elements = [],
+    let items = fieldData.configuration.items, i, item, label, value, wrapperElement, elements = [],
         labelElement;
 
     // Add each checkbox.
@@ -21,7 +21,6 @@ function RenderCheckboxList(fieldData, fieldValidators, cssClasses) {
         item = items[i];
         value = item.value;
         label = item.label;
-        selected = item.selected;
 
         // Add checkbox.
         FieldUtility.initializeField(this, fieldData, fieldValidators, {
@@ -88,7 +87,7 @@ RenderCheckboxList.prototype.setData = function (data, options) {
 RenderCheckboxList.prototype.checkValidity = function () {
     let values = this.elements
         .filter(function (element) {
-            return element.checked
+            return element.checked;
         })
         .map(function (element) {
             return element.checked
