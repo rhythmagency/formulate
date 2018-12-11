@@ -31,6 +31,7 @@ function addNgMessages(field) {
         elMessages.attr('ng-show', 'formCtrl.$submitted || ' + fieldName + '.$touched');
 
         elMessages.attr('role', 'alert');
+        elMessages.attr('aria-atomic', 'true');
 
         field.validations.forEach(function (validation) {
             var elMessage = angular.element('<div></div>');
