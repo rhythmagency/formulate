@@ -89,6 +89,11 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
         fieldElement.name = options.name;
     }
 
+    // Add the catagory to the field.
+    if (fieldData.category) {
+        fieldElement.setAttribute("data-category", fieldData.category);
+    }
+
     // Set value?
     if (options.hasOwnProperty("value")) {
         fieldElement.value = options.value;
