@@ -268,7 +268,8 @@ module.exports = function(grunt) {
                 },
                 files: {
                     "<%= paths.out.js %>": "<%= paths.in.js %>",
-                    "<%= paths.out.templates.rba.js %>": "<%= paths.in.templates.rba.js %>"
+                    "<%= paths.out.templates.rba.js %>": "<%= paths.in.templates.rba.js %>",
+                    "<%= paths.out.templates.plain.js %>": "<%= paths.in.templates.plain.js %>"
                 }
             },
             templates: {
