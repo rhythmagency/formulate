@@ -23,6 +23,7 @@ Here are a few pages that will help you get started with Formulate:
   * [Custom Field Types](/articles/custom-field-types)
   * [Data Value List Functions](https://our.umbraco.org/projects/backoffice-extensions/formulate/formulate-questions/79633-formulate-036-just-released-data-value-list-functions)
 * [Frequently Asked Questions](/faq)
+* [Testimonials](/testimonials)
 * [A Guided Tour of Formulate](https://code101.net/a-guided-tour-of-umbraco-formulate-2016-edition-4a3ce6af6d36)
   * [Umbraco Formulate 2.0, Plain JavaScript Edition](https://code101.net/umbraco-formulate-2-0-plain-javascript-edition-ecdb1ef27ea1)
 
