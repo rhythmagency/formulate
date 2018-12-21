@@ -5,6 +5,7 @@
     using core.Extensions;
     using DataValues;
     using DataValues.Suppliers;
+    using ExtensionMethods;
     using Helpers;
     using Models.Requests;
     using Persistence;
@@ -19,7 +20,7 @@
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
     using CoreConstants = Umbraco.Core.Constants;
-    using DataValuesConstants = formulate.app.Constants.Trees.DataValues;
+    using DataValuesConstants = Constants.Trees.DataValues;
 
 
     /// <summary>
@@ -463,7 +464,7 @@
                     Kinds = suppliers.Select(x => new
                     {
                         Name = x.Name,
-                        ClassName = x.GetType().AssemblyQualifiedName
+                        ClassName = x.GetType().ShortAssemblyQualifiedName()
                     }).ToArray()
                 };
 
