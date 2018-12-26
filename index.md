@@ -21,6 +21,7 @@ Here are a few pages that will help you get started with Formulate:
   * [Extensibility](/extensibility)
   * [Contributing to Formulate](https://github.com/rhythmagency/formulate#contributing)
   * [Custom Field Types](/articles/custom-field-types)
+  * [Custom Field Validation Types](https://code101.net/code-101/making-custom-field-validations-in-formulate)
   * [Data Value List Functions](https://our.umbraco.org/projects/backoffice-extensions/formulate/formulate-questions/79633-formulate-036-just-released-data-value-list-functions)
 * [Frequently Asked Questions](/faq)
 * [Testimonials](/testimonials)
