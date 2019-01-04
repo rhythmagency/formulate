@@ -9,6 +9,7 @@
     using Umbraco.Web.Models.Trees;
     using Umbraco.Web.Trees;
 
+
     /// <summary>
     /// Handles application startup events.
     /// </summary>
@@ -41,11 +42,13 @@
             var nodeId = e.NodeId;
             var guid = default(Guid);
 
+
             // Is this a Formulate context menu?
             if (!"formulate".InvariantEquals(alias))
             {
                 return;
             }
+
 
             // Is this a GUID (the root has "-1")?
             if (Guid.TryParse(nodeId, out guid))
@@ -55,6 +58,7 @@
                 var persistence = EntityPersistence.Current.Manager;
                 var entity = persistence.Retrieve(guid);
                 var strGuid = guid.ToString("N");
+
 
                 // Is this a non-root entity (e.g., a form, validation, folder, etc.)?
                 if (entity != null && entity.GetType() != typeof(EntityRoot))
@@ -72,6 +76,7 @@
                     path = path + "?entityGuid=" + strGuid;
                     menuItem.NavigateToRoute(path);
                     items.Add(menuItem);
+
 
                     // Add the "Remove from Cloud" menu item.
                     path = "/formulate/formulate/removeEntityFromCloud/null";
