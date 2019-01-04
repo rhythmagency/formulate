@@ -396,6 +396,10 @@
       <Project>{80f40f16-829d-430f-b325-0b5246fe4ac2}</Project>
       <Name>formulate.core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\formulate.deploy\formulate.deploy.csproj">
+      <Project>{7220feed-00dc-4855-bdc9-42c0637afe1d}</Project>
+      <Name>formulate.deploy</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Transform.config" />
