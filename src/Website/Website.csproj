@@ -296,6 +296,7 @@
   <ItemGroup>
     <Content Include="App_Plugins\formulate\backoffice\formulate\dataSources.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\dataValues.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editConfiguredForm.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\editDataValue.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\editFolder.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\editForm.html" />
@@ -303,6 +304,7 @@
     <Content Include="App_Plugins\formulate\backoffice\formulate\editValidation.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\forms.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\layouts.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\submissions.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\validationLibrary.html" />
     <Content Include="App_Plugins\formulate\Controls\Install.ascx" />
     <Content Include="App_Plugins\formulate\dashboards\install.html" />
@@ -316,10 +318,17 @@
     <Content Include="App_Plugins\formulate\menu-actions\createFolder.html" />
     <Content Include="App_Plugins\formulate\menu-actions\createLayout.html" />
     <Content Include="App_Plugins\formulate\menu-actions\createValidation.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteConfiguredForm.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteDataValue.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteFolder.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteForm.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteLayout.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteValidation.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\moveDataValue.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\moveFolder.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\moveForm.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\moveLayout.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\moveValidation.html" />
     <Content Include="App_Plugins\formulate\styles\entity-tree.css" />
     <Content Include="App_Plugins\formulate\styles\form-designer.css" />
     <Content Include="App_Plugins\formulate\styles\formulate-icomoon.css" />
