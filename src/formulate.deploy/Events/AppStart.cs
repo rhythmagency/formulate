@@ -65,7 +65,7 @@
                 {
 
                     // Add the "Store to Umbraco Cloud" menu item.
-                    var path = "/formulate/formulate/storeEntityToCloud/null";
+                    var path = "/App_Plugins/formulate/menu-actions/storeEntityToCloud.html";
                     var menuItem = new MenuItem()
                     {
                         Alias = "storeEntityToCloud",
@@ -74,12 +74,12 @@
                         SeperatorBefore = true
                     };
                     path = path + "?entityGuid=" + strGuid;
-                    menuItem.NavigateToRoute(path);
+                    menuItem.LaunchDialogView(path, "Store to Umbraco Cloud");
                     items.Add(menuItem);
 
 
                     // Add the "Remove from Cloud" menu item.
-                    path = "/formulate/formulate/removeEntityFromCloud/null";
+                    path = "/App_Plugins/formulate/menu-actions/removeEntityFromCloud.html";
                     menuItem = new MenuItem()
                     {
                         Alias = "removeEntityFromCloud",
@@ -87,7 +87,7 @@
                         Name = "Remove from Cloud"
                     };
                     path = path + "?entityGuid=" + strGuid;
-                    menuItem.NavigateToRoute(path);
+                    menuItem.LaunchDialogView(path, "Remove from Umbraco Cloud");
                     items.Add(menuItem);
 
                 }
