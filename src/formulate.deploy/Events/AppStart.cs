@@ -4,10 +4,17 @@
     // Namespaces.
     using app.Entities;
     using app.Resolvers;
+    using Controllers;
     using System;
+    using System.Collections.Generic;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Routing;
     using Umbraco.Core;
+    using Umbraco.Web;
     using Umbraco.Web.Models.Trees;
     using Umbraco.Web.Trees;
+    using Umbraco.Web.UI.JavaScript;
 
 
     /// <summary>
@@ -26,9 +33,56 @@
             TreeControllerBase.MenuRendering += Handle_RenderContextMenu;
         }
 
+        /// <summary>
+        /// Application started.
+        /// </summary>
+        protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
+        {
+            ServerVariablesParser.Parsing += AddServerVariables;
+        }
+
         #endregion
 
         #region Event Handlers
+
+        /// <summary>
+        /// Adds server variables so routes can be accessed by back office JavaScript.
+        /// </summary>
+        private void AddServerVariables(object sender, Dictionary<string, object> e)
+        {
+
+            // Variables.
+            var httpContext = new HttpContextWrapper(HttpContext.Current);
+            var routeData = new RouteData();
+            var requestContext = new RequestContext(httpContext, routeData);
+            var helper = new UrlHelper(requestContext);
+            var key = "formulate";
+
+
+            // Add server variables.
+            var newEntries = new Dictionary<string, string>()
+            {
+                { "StoreEntityToCloud",
+                    helper.GetUmbracoApiService<CloudController>(x =>
+                        x.StoreEntityToCloud(null)) },
+                { "RemoveEntityFromCloud",
+                    helper.GetUmbracoApiService<CloudController>(x =>
+                        x.RemoveEntityFromCloud(null)) }
+            };
+            if (e.ContainsKey(key))
+            {
+                var existing = e[key] as Dictionary<string, string>;
+                foreach (var item in newEntries)
+                {
+                    existing[item.Key] = item.Value;
+                }
+            }
+            else
+            {
+                e.Add(key, newEntries);
+            }
+
+        }
 
         /// <summary>
         /// Handles rendering of the context menu.
@@ -57,7 +111,6 @@
                 // Variables.
                 var persistence = EntityPersistence.Current.Manager;
                 var entity = persistence.Retrieve(guid);
-                var strGuid = guid.ToString("N");
 
 
                 // Is this a non-root entity (e.g., a form, validation, folder, etc.)?
@@ -73,7 +126,6 @@
                         Name = "Store to Umbraco Cloud",
                         SeperatorBefore = true
                     };
-                    path = path + "?entityGuid=" + strGuid;
                     menuItem.LaunchDialogView(path, "Store to Umbraco Cloud");
                     items.Add(menuItem);
 
@@ -86,7 +138,6 @@
                         Icon = "rain",
                         Name = "Remove from Cloud"
                     };
-                    path = path + "?entityGuid=" + strGuid;
                     menuItem.LaunchDialogView(path, "Remove from Umbraco Cloud");
                     items.Add(menuItem);
 

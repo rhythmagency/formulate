@@ -130,7 +130,7 @@
 
 
             // Add server variables.
-            e.Add(key, new Dictionary<string, string>()
+            var newEntries = new Dictionary<string, string>()
             {
                 { "DeleteForm",
                     helper.GetUmbracoApiService<FormsController>(x =>
@@ -270,7 +270,19 @@
                 { "Validation.RootId", ValidationConstants.Id },
                 { "DataValue.RootId", DataValueConstants.Id },
                 { "Form.RootId", FormConstants.Id }
-            });
+            };
+            if (e.ContainsKey(key))
+            {
+                var existing = e[key] as Dictionary<string, string>;
+                foreach (var item in newEntries)
+                {
+                    existing[item.Key] = item.Value;
+                }
+            }
+            else
+            {
+                e.Add(key, newEntries);
+            }
 
         }
 

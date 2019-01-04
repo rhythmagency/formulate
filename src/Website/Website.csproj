@@ -321,6 +321,7 @@
     <Content Include="App_Plugins\formulate\menu-actions\deleteConfiguredForm.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteDataValue.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteFolder.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\removeEntityFromCloud.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteForm.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteLayout.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteValidation.html" />
@@ -329,10 +330,7 @@
     <Content Include="App_Plugins\formulate\menu-actions\moveForm.html" />
     <Content Include="App_Plugins\formulate\menu-actions\moveLayout.html" />
     <Content Include="App_Plugins\formulate\menu-actions\moveValidation.html" />
-    <Content Include="App_Plugins\formulate\styles\entity-tree.css" />
-    <Content Include="App_Plugins\formulate\styles\form-designer.css" />
-    <Content Include="App_Plugins\formulate\styles\formulate-icomoon.css" />
-    <Content Include="App_Plugins\formulate\styles\layout-designer.css" />
+    <Content Include="App_Plugins\formulate\menu-actions\storeEntityToCloud.html" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />

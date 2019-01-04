@@ -528,6 +528,8 @@
     <Content Include="App_Plugins\formulate\menu-actions\moveForm.html" />
     <Content Include="App_Plugins\formulate\menu-actions\moveLayout.html" />
     <Content Include="App_Plugins\formulate\menu-actions\moveValidation.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\removeEntityFromCloud.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\storeEntityToCloud.html" />
     <Content Include="App_Plugins\formulate\Transforms\applications.config.uninstall.xdt.txt" />
     <Content Include="App_Plugins\formulate\Transforms\applications.config.install.xdt.txt" />
     <None Include="Resources\TransformApplications.txt" />
