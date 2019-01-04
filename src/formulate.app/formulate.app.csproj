@@ -521,6 +521,13 @@
     <Content Include="App_Plugins\formulate\lang\ru-RU.xml" />
     <Content Include="App_Plugins\formulate\lang\sv-SE.xml" />
     <Content Include="App_Plugins\formulate\lang\zh-CN.xml" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteConfiguredForm.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteFolder.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\moveDataValue.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\moveFolder.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\moveForm.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\moveLayout.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\moveValidation.html" />
     <Content Include="App_Plugins\formulate\Transforms\applications.config.uninstall.xdt.txt" />
     <Content Include="App_Plugins\formulate\Transforms\applications.config.install.xdt.txt" />
     <None Include="Resources\TransformApplications.txt" />
