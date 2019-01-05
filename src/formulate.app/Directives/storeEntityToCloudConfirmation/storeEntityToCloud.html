@@ -1,0 +1,23 @@
+﻿<div ng-if="!initialized">
+    <localize key="formulate-general_Loading">
+        Loading...
+    </localize>
+</div>
+<div ng-if="initialized">
+    <div class="formulate__dialog-confirmation-message">
+        Are you sure you want to store this entity, "{{entityName}}", to Umbraco Cloud?
+        <br>
+        <br>
+        This will add it to the Git repository for this environment, after which you
+        will be able to transfer this entity to another environment via the Umbraco
+        Cloud UI.
+    </div>
+    <button type="button" class="btn btn-link" ng-click="cancel()">
+        <localize key="formulate-buttons_Cancel">
+            Cancel
+        </localize>
+    </button>
+    <button type="button" class="btn btn-primary" ng-click="storeEntity()">
+        Store to Umbraco Cloud
+    </button>
+</div>

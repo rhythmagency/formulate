@@ -1,0 +1,26 @@
+﻿<div ng-if="!initialized">
+    <localize key="formulate-general_Loading">
+        Loading...
+    </localize>
+</div>
+<div ng-if="initialized">
+    <div class="formulate__dialog-confirmation-message">
+        Are you sure you want to <strong>remove</strong> this entity, "{{entityName}}", from Umbraco Cloud?
+        <br>
+        <br>
+        <u>This will delete the file on this environment!</u>
+        <br>
+        <br>
+        This will also remove it from the Git repository for this environment, after which you
+        will be able to transfer this removal to another environment via the Umbraco
+        Cloud UI.
+    </div>
+    <button type="button" class="btn btn-link" ng-click="cancel()">
+        <localize key="formulate-buttons_Cancel">
+            Cancel
+        </localize>
+    </button>
+    <button type="button" class="btn btn-danger" ng-click="removeEntity()">
+        Remove from Umbraco Cloud
+    </button>
+</div>
