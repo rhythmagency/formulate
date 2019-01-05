@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\formulate.deploy.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\formulate.deploy.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
@@ -248,6 +250,10 @@
     <ProjectReference Include="..\formulate.app\formulate.app.csproj">
       <Project>{c1294ac3-8a67-49d1-bec1-f88e82be152c}</Project>
       <Name>formulate.app</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\formulate.meta\formulate.meta.csproj">
+      <Project>{0a354b54-f772-4877-8bea-0d8b6391600b}</Project>
+      <Name>formulate.meta</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 
     // Config variables.
     var projectName = "formulate";
-    var mainBinaries = [].concat.apply([], [
+    var mainBinaries = [
         "api",
         "app",
         "core",
@@ -15,14 +15,23 @@ module.exports = function(grunt) {
         return [".dll", ".pdb", ".xml"].map(function (ext) {
             return projectName + "." + base + ext;
         });
-    }));
+    })
+    .reduce(function (a, b) {
+        return a.concat(b);
+    });
     var extraBinaries = [
         "Microsoft.Web.XmlTransform.dll",
         "CsvHelper.dll"
     ];
+    var deployBinaries = [
+        projectName + ".deploy.dll",
+        projectName + ".deploy.pdb",
+        projectName + ".deploy.xml"
+    ];
     var binaries = mainBinaries.concat(extraBinaries);
     var appProject = projectName + ".app";
     var apiProject = projectName + ".api";
+    var deployProject = projectName + ".deploy";
     var uiProject = projectName + ".backoffice.ui";
     var frontendProject = projectName + ".frontend";
     var buildConfig = grunt.option("buildConfiguration");
@@ -160,6 +169,16 @@ module.exports = function(grunt) {
                 },
                 files: {
                     "nuget-temp/package/Formulate.nuspec": ["templates/Formulate.nuspec"]
+                }
+            },
+            "nuspec-deploy": {
+                options: {
+                    data: {
+                        version: getVersion()
+                    }
+                },
+                files: {
+                    "nuget-temp/deploy/Formulate.Deploy.nuspec": ["templates/Formulate.Deploy.nuspec"]
                 }
             }
         },
@@ -328,6 +347,21 @@ module.exports = function(grunt) {
                     readme: grunt.file.read("templates/inputs/readme.txt"),
                     manifest: "templates/package.template.xml"
                 }
+            },
+            deploy: {
+                src: "./FormulateTemp/deploy",
+                dest: "../dist",
+                options: {
+                    name: "Formulate.Deploy",
+                    version: getVersion(),
+                    url: "http://www.formulate.rocks/",
+                    license: "MIT License",
+                    licenseUrl: "http://opensource.org/licenses/MIT",
+                    author: "Rhythm Agency",
+                    authorUrl: "http://rhythmagency.com/",
+                    readme: grunt.file.read("templates/inputs/readme.txt"),
+                    manifest: "templates/deploy.template.xml"
+                }
             }
         },
         exec: {
@@ -343,6 +377,10 @@ module.exports = function(grunt) {
             },
             package: {
                 src: "nuget-temp/package/Formulate.nuspec",
+                dest: "../dist"
+            },
+            deploy: {
+                src: "nuget-temp/deploy/Formulate.Deploy.nuspec",
                 dest: "../dist"
             }
         },
@@ -451,6 +489,27 @@ module.exports = function(grunt) {
         grunt.config.merge(mergeConfig);
     });
 
+    // Task to initialize the "copy:deploy" grunt task. This is done so getConfiguration is not run too early.
+    grunt.registerTask("configure:copy:deploy", function () {
+        var mergeConfig = {
+            copy: {
+                // Deploy is used to copy files to create the Umbraco Deploy package.
+                deploy: {
+                    files: [
+                        {
+                            // Binaries.
+                            expand: true,
+                            src: deployBinaries,
+                            dest: './FormulateTemp/deploy/bin/',
+                            cwd: deployProject + "/bin/" + getConfiguration() + "/"
+                        }
+                    ]
+                }
+            }
+        };
+        grunt.config.merge(mergeConfig);
+    });
+
     // Task to initialize the "copy:nuget-binaries" grunt task. This is done so getConfiguration is not run too early.
     grunt.registerTask("configure:copy:nuget-binaries", function () {
         var mergeConfig = {
@@ -464,6 +523,27 @@ module.exports = function(grunt) {
                             src: mainBinaries,
                             dest: 'nuget-temp/binaries/lib/net45',
                             cwd: apiProject + "/bin/" + getConfiguration() + "/"
+                        }
+                    ]
+                }
+            }
+        };
+        grunt.config.merge(mergeConfig);
+    });
+
+    // Task to initialize the "copy:nuget-deploy" grunt task. This is done so getConfiguration is not run too early.
+    grunt.registerTask("configure:copy:nuget-deploy", function () {
+        var mergeConfig = {
+            copy: {
+                // NuGet deploy is used to copy files to create the NuGet package for the Umbraco Deploy support.
+                "nuget-deploy": {
+                    files: [
+                        {
+                            // App binaries.
+                            expand: true,
+                            src: deployBinaries,
+                            dest: 'nuget-temp/deploy/lib/net45',
+                            cwd: deployProject + "/bin/" + getConfiguration() + "/"
                         }
                     ]
                 }
@@ -542,20 +622,23 @@ module.exports = function(grunt) {
     grunt.registerTask("nuget",
         // The "nuget" task is for building the NuGet packages. It is not intended to be run on
         // its own and should be run as part of the other package tasks.
-        ["template:nuspec-package", "template:nuspec-binaries", "configure:copy:nuget-binaries",
-        "copy:nuget-binaries", "copy:nuget-package", "nugetpack:binaries", "nugetpack:package"]);
+        ["template:nuspec-package", "template:nuspec-binaries", "template:nuspec-deploy",
+        "configure:copy:nuget-binaries", "copy:nuget-binaries", "configure:copy:nuget-deploy",
+        "copy:nuget-deploy", "copy:nuget-package", "nugetpack:binaries", "nugetpack:package",
+        "nugetpack:deploy"]);
     grunt.registerTask("package",
         // The "package" task is used to create an installer package
         // for Formulate.
         ["clean:before", "htmlConvert", "browserify:default", "ngAnnotate:main",
         "ngAnnotate:templates", "uglify:templates", "sass:default", "configure:copy:package",
-        "copy:package", "umbracoPackage:main", "nuget", "clean:after"]);
+        "copy:package", "configure:copy:deploy", "copy:deploy", "umbracoPackage:main",
+        "umbracoPackage:deploy", "nuget", "clean:after"]);
     grunt.registerTask("package-full",
         // The "package-full" task is used to build the Visual Studio
         // solution and then create the installer package for Formulate.
         ["clean:before", "exec:nugetRestore", "configure:msbuild", "msbuild:main", "htmlConvert",
         "browserify:default", "ngAnnotate:main", "ngAnnotate:templates", "uglify:templates",
-        "sass:default", "configure:copy:package", "copy:package", "umbracoPackage:main",
-        "nuget", "clean:after"]);
+        "sass:default", "configure:copy:package", "copy:package", "configure:copy:deploy",
+        "copy:deploy", "umbracoPackage:main", "umbracoPackage:deploy", "nuget", "clean:after"]);
 
 };
