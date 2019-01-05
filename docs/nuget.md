@@ -1,8 +1,9 @@
 If you are an owner of the NuGet package, you can deploy to NuGet with commands that look like this:
 
 ```text
-nuget push Formulate.Binaries.1.3.7.nupkg some-long-key-here -Source https://api.nuget.org/v3/index.json
-nuget push Formulate.1.3.7.nupkg some-long-key-here -Source https://api.nuget.org/v3/index.json
+nuget push Formulate.Binaries.2.1.0.nupkg some-long-key-here -Source https://api.nuget.org/v3/index.json
+nuget push Formulate.2.1.0.nupkg some-long-key-here -Source https://api.nuget.org/v3/index.json
+nuget push Formulate.Deploy.2.1.0.nupkg some-long-key-here -Source https://api.nuget.org/v3/index.json
 ```
 
 Just replace the version number in the filename and the API key (it's your API key you see when you log into your NuGet.org account).
