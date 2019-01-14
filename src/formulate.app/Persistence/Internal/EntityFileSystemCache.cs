@@ -21,12 +21,6 @@
         /// </summary>
         private MemoryCache Entities { get; set; }
 
-
-        /// <summary>
-        /// The entity cache policy.
-        /// </summary>
-        private CacheItemPolicy Policy { get; set; }
-
         #endregion
 
 
@@ -38,7 +32,6 @@
         public EntityFileSystemCache()
         {
             Entities = new MemoryCache("Formulate Entity File System Cache");
-            Policy = new CacheItemPolicy();
         }
 
         #endregion
@@ -65,7 +58,9 @@
                 : JsonHelper.Deserialize<T>(GetFileContents(path)) as T;
             if (!exists && item != null)
             {
-                Entities.Set(key, item, Policy);
+                var policy = new CacheItemPolicy();
+                policy.ChangeMonitors.Add(new HostFileChangeMonitor(new[] { path }));
+                Entities.Set(key, item, policy);
             }
             return item;
         }

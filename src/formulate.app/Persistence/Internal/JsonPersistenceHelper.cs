@@ -8,7 +8,6 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Web;
 
 
     /// <summary>
@@ -36,6 +35,12 @@
         /// </summary>
         private string WildcardPattern { get; set; }
 
+
+        /// <summary>
+        /// The cache of entities.
+        /// </summary>
+        private EntityFileSystemCache EntityCache { get; set; }
+
         #endregion
 
 
@@ -54,6 +59,7 @@
             this.BasePath = basePath;
             this.Extension = extension;
             this.WildcardPattern = wildcard;
+            this.EntityCache = new EntityFileSystemCache();
         }
 
         #endregion
@@ -119,7 +125,7 @@
             var path = GetEntityPath(entityId);
             var serialized = JsonHelper.Serialize(entity);
             WriteFile(path, serialized);
-            GetEntityCache().Invalidate(path);
+            EntityCache.Invalidate(path);
         }
 
 
@@ -133,7 +139,7 @@
             if (File.Exists(path))
             {
                 File.Delete(path);
-                GetEntityCache().Invalidate(path);
+                EntityCache.Invalidate(path);
             }
         }
 
@@ -148,7 +154,7 @@
         public EntityType Retrieve<EntityType>(Guid entityId) where EntityType : class
         {
             var path = GetEntityPath(entityId);
-            return GetEntityCache().Get<EntityType>(path);
+            return EntityCache.Get<EntityType>(path);
         }
 
 
@@ -188,23 +194,6 @@
         #region Private Methods
 
         /// <summary>
-        /// Returns the entity file system cache from the current HTTP context, creating one
-        /// if necessary.
-        /// </summary>
-        /// <returns>
-        /// The entity file system cache.
-        /// </returns>
-        private EntityFileSystemCache GetEntityCache()
-        {
-            var key = "Formulate Entities";
-            var items = HttpContext.Current.Items;
-            var cache = (items[key] as EntityFileSystemCache) ?? new EntityFileSystemCache();
-            items[key] = cache;
-            return cache;
-        }
-
-
-        /// <summary>
         /// Gets all entities of the specified type.
         /// </summary>
         /// <typeparam name="EntityType">
@@ -218,11 +207,10 @@
             var entities = new List<EntityType>();
             if (Directory.Exists(BasePath))
             {
-                var entityCache = GetEntityCache();
                 var files = Directory.GetFiles(BasePath, WildcardPattern);
                 foreach (var file in files)
                 {
-                    entities.Add(entityCache.Get<EntityType>(file));
+                    entities.Add(EntityCache.Get<EntityType>(file));
                 }
             }
             return entities;
