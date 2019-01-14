@@ -8,6 +8,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Web;
 
 
     /// <summary>
@@ -83,26 +84,6 @@
 
 
         /// <summary>
-        /// Gets the contents of the file at the specified path.
-        /// </summary>
-        /// <param name="path">The path to the file.</param>
-        /// <returns>
-        /// The file contents, or null.
-        /// </returns>
-        public string GetFileContents(string path)
-        {
-            if (File.Exists(path))
-            {
-                return File.ReadAllText(path);
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-
-        /// <summary>
         /// Gets the file path to the entity with the specified ID.
         /// </summary>
         /// <param name="entityId">The entity's ID.</param>
@@ -138,6 +119,7 @@
             var path = GetEntityPath(entityId);
             var serialized = JsonHelper.Serialize(entity);
             WriteFile(path, serialized);
+            GetEntityCache().Invalidate(path);
         }
 
 
@@ -151,6 +133,7 @@
             if (File.Exists(path))
             {
                 File.Delete(path);
+                GetEntityCache().Invalidate(path);
             }
         }
 
@@ -162,12 +145,10 @@
         /// <returns>
         /// The entity.
         /// </returns>
-        public EntityType Retrieve<EntityType>(Guid entityId)
+        public EntityType Retrieve<EntityType>(Guid entityId) where EntityType : class
         {
             var path = GetEntityPath(entityId);
-            var json = GetFileContents(path);
-            var entity = JsonHelper.Deserialize<EntityType>(json);
-            return entity;
+            return GetEntityCache().Get<EntityType>(path);
         }
 
 
@@ -182,9 +163,8 @@
         /// You can specify a parent ID of null to get the root entities.
         /// </remarks>
         public IEnumerable<EntityType> RetrieveChildren<EntityType>(Guid? parentId)
-            where EntityType: IEntity
+            where EntityType: class, IEntity
         {
-            // TODO: Optimize this. I'm reading in all entities just to get a subset of them.
             var entities = RetrieveAll<EntityType>();
             if (parentId.HasValue)
             {
@@ -208,6 +188,23 @@
         #region Private Methods
 
         /// <summary>
+        /// Returns the entity file system cache from the current HTTP context, creating one
+        /// if necessary.
+        /// </summary>
+        /// <returns>
+        /// The entity file system cache.
+        /// </returns>
+        private EntityFileSystemCache GetEntityCache()
+        {
+            var key = "Formulate Entities";
+            var items = HttpContext.Current.Items;
+            var cache = (items[key] as EntityFileSystemCache) ?? new EntityFileSystemCache();
+            items[key] = cache;
+            return cache;
+        }
+
+
+        /// <summary>
         /// Gets all entities of the specified type.
         /// </summary>
         /// <typeparam name="EntityType">
@@ -216,17 +213,16 @@
         /// <returns>
         /// The entities.
         /// </returns>
-        public IEnumerable<EntityType> RetrieveAll<EntityType>()
+        public IEnumerable<EntityType> RetrieveAll<EntityType>() where EntityType : class
         {
             var entities = new List<EntityType>();
             if (Directory.Exists(BasePath))
             {
+                var entityCache = GetEntityCache();
                 var files = Directory.GetFiles(BasePath, WildcardPattern);
                 foreach (var file in files)
                 {
-                    var contents = GetFileContents(file);
-                    var entity = JsonHelper.Deserialize<EntityType>(contents);
-                    entities.Add(entity);
+                    entities.Add(entityCache.Get<EntityType>(file));
                 }
             }
             return entities;
