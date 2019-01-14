@@ -75,8 +75,15 @@
 
 
                 // Populate the form field instance.
-                serializer.Populate(jsonObject.CreateReader(), instance);
-                fields.Add(instance);
+                if (instance != null)
+                {
+                    serializer.Populate(jsonObject.CreateReader(), instance);
+                    fields.Add(instance);
+                }
+                else
+                {
+                    //TODO: Add logging to indicate that field type is unknown.
+                }
 
             }
 
