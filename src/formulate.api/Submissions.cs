@@ -139,12 +139,23 @@
                 UmbracoContext = context.UmbracoContext,
                 UmbracoHelper = context.UmbracoHelper,
                 SubmissionId = Guid.NewGuid(),
-                ExtraContext = new Dictionary<string, object>()
+                ExtraContext = new Dictionary<string, object>(),
+                SubmissionCancelled = false
             };
 
 
             // Invoke submitting event (gives listeners a chance to change the submission).
             Submitting?.Invoke(submissionContext);
+
+
+			// Fail the form submission if SubmissionContext.SubmissionCancelled boolean is true
+			if (submissionContext.SubmissionCancelled)
+            {
+                return new SubmissionResult()
+                {
+                    Success = false
+                };
+            }
 
 
             // Validate against native field validations.
