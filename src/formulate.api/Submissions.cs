@@ -148,8 +148,8 @@
             Submitting?.Invoke(submissionContext);
 
 
-			// Fail the form submission if SubmissionContext.SubmissionCancelled boolean is true
-			if (submissionContext.SubmissionCancelled)
+            // Fail the form submission if SubmissionContext.SubmissionCancelled boolean is true
+            if (submissionContext.SubmissionCancelled)
             {
                 return new SubmissionResult()
                 {
