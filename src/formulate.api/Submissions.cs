@@ -148,7 +148,7 @@
             Submitting?.Invoke(submissionContext);
 
 
-            // Fail the form submission if SubmissionContext.SubmissionCancelled boolean is true
+            // Fail the form submission if SubmissionCancelled is true.
             if (submissionContext.SubmissionCancelled)
             {
                 return new SubmissionResult()
@@ -162,7 +162,8 @@
             foreach (var field in form.Fields)
             {
                 var fieldId = field.Id;
-                var value = data.Where(x => x.FieldId == fieldId).SelectMany(x => x.FieldValues);
+                var value = data.Where(x => x.FieldId == fieldId)
+                    .SelectMany(x => x.FieldValues);
                 if (!field.IsValid(value))
                 {
                     return new SubmissionResult()
@@ -188,7 +189,9 @@
                 }).ToDictionary(x => x.Id, x => x.Values);
                 foreach (var field in form.Fields)
                 {
-                    var validations = field.Validations.Select(x => Validations.Retrieve(x)).ToList();
+                    var validations = field.Validations
+                        .Select(x => Validations.Retrieve(x))
+                        .ToList();
                     if (!validations.Any())
                     {
                         continue;
