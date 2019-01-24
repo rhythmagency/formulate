@@ -1,4 +1,4 @@
-﻿namespace formulate.app.Forms.Handlers.SendData
+namespace formulate.app.Forms.Handlers.SendData
 {
 
     // Namespaces.
@@ -324,6 +324,7 @@
                 ? $"{bareUrl}?{strQueryString}"
                 : config.Url;
             var enableLogging = WebConfigurationManager.AppSettings["Formulate:EnableLogging"];
+            var returnJsonObject = WebConfigurationManager.AppSettings["Formulate:ReturnOuterJsonObject"];
 
 
             // Attempt to send the web request.
@@ -369,8 +370,10 @@
                             Value = x.Select(y => y.Value)
                         }).ToDictionary(x => x.Key,
                             x => x.Value.Count() > 1 ? x.Value.ToArray() as object : x.Value.FirstOrDefault());
-                        var json = JsonConvert.SerializeObject(new[] { grouped });
 
+                        var json = returnJsonObject == "true" ? 
+                            JsonConvert.SerializeObject(grouped) : 
+                            JsonConvert.SerializeObject(new[] { grouped });
 
                         // Log JSON being sent.
                         if (enableLogging == "true")
