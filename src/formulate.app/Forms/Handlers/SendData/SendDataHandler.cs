@@ -34,6 +34,32 @@
 
         #endregion
 
+        #region Delegates
+
+        /// <summary>
+        /// Delegate used when form data is sending.
+        /// </summary>
+        /// <param name="context">
+        /// The sending data context.
+        /// </param>
+        public delegate void SendingDataEvent(SendingDataContext context);
+
+        #endregion
+
+
+        #region Events
+
+        /// <summary>
+        /// Event raised when form data is being sent.
+        /// </summary>
+        /// <remarks>
+        /// Subscribing to this gives you the opportunity to alter data sent. This is
+        /// useful, for example, if you need to change the data or the headers.
+        /// </remarks>
+        public static event SendingDataEvent SendingData;
+
+        #endregion
+
 
         #region Private Properties
 
@@ -231,16 +257,17 @@
             // Query string format?
             if ("Query String".InvariantEquals(config.TransmissionFormat))
             {
-                result = SendData(config.Url, transmissionData, config.Method, false, false);
+                result = SendData(config, context, transmissionData, false, false);
             }
             if ("Form Body".InvariantEquals(config.TransmissionFormat))
             {
-                result = SendData(config.Url, transmissionData, config.Method, true, false);
+                result = SendData(config, context, transmissionData, true, false);
             }
             if ("JSON".InvariantEquals(config.TransmissionFormat))
             {
-                result = SendData(config.Url, transmissionData, config.Method, true, true);
+                result = SendData(config, context, transmissionData, true, true);
             }
+
 
             // Call function to handle result?
             if (context != null)
@@ -259,14 +286,14 @@
         /// <summary>
         /// Sends a web request with the data either in the query string or in the body.
         /// </summary>
-        /// <param name="url">
-        /// The URL to send the request to.
+        /// <param name="config">
+        /// The configuration for the data to be sent (e.g., contains the URL and request method).
+        /// </param>
+        /// <param name="context">
+        /// The context for the current form submission.
         /// </param>
         /// <param name="data">
         /// The data to send.
-        /// </param>
-        /// <param name="method">
-        /// The HTTP method (e.g., GET, POST) to use when sending the request.
         /// </param>
         /// <param name="sendInBody">
         /// Send the data as part of the body (or in the query string)?
@@ -281,22 +308,23 @@
         /// Parts of this function are from: http://stackoverflow.com/a/9772003/2052963
         /// and http://stackoverflow.com/questions/14702902
         /// </remarks>
-        private SendDataResult SendData(string url, IEnumerable<KeyValuePair<string, string>> data,
-            string method, bool sendInBody, bool sendJson)
+        private SendDataResult SendData(SendDataConfiguration config, FormSubmissionContext context,
+            IEnumerable<KeyValuePair<string, string>> data, bool sendInBody, bool sendJson)
         {
 
             // Construct a URL, possibly containing the data as query string parameters.
             var sendInUrl = !sendInBody;
             var sendDataResult = new SendDataResult();
-            var uri = new Uri(url);
+            var uri = new Uri(config.Url);
             var bareUrl = uri.GetLeftPart(UriPartial.Path);
             var keyValuePairs = data as KeyValuePair<string, string>[] ?? data.ToArray();
             var strQueryString = ConstructQueryString(uri, keyValuePairs);
             var hasQueryString = !string.IsNullOrWhiteSpace(strQueryString);
             var requestUrl = hasQueryString && sendInUrl
                 ? $"{bareUrl}?{strQueryString}"
-                : url;
+                : config.Url;
             var enableLogging = WebConfigurationManager.AppSettings["Formulate:EnableLogging"];
+
 
             // Attempt to send the web request.
             try
@@ -306,31 +334,53 @@
                 var request = (HttpWebRequest)WebRequest.Create(requestUrl);
                 request.AllowAutoRedirect = false;
                 request.UserAgent = WebUserAgent;
-                request.Method = method;
+                request.Method = config.Method;
+
+
+                // Send an event indicating that the data is about to be sent (which allows code
+                // external to Formulat to modify the request).
+                var sendContext = new SendingDataContext()
+                {
+                    Configuration = config,
+                    Data = keyValuePairs,
+                    Request = request,
+                    SubmissionContext = context
+                };
+                SendingData?.Invoke(sendContext);
+
+
+                // Update the key/value pairs in case they got changed in the sending data event.
+                // This only updates the methods that send the data in the body (as the URL has
+                // already been set on the request).
+                keyValuePairs = sendContext.Data as KeyValuePair<string, string>[]
+                    ?? sendContext.Data.ToArray();
+
 
                 // Send the data in the body (rather than the query string)?
                 if (sendInBody)
                 {
                     if (sendJson)
                     {
-                        // if sending as json
-                        // Group duplicate Key Name Pair values
+
+                        // If sending as JSON, group duplicate keys/value pairs.
                         var grouped = keyValuePairs.GroupBy(x => x.Key).Select(x => new
                         {
                             Key = x.Key,
                             Value = x.Select(y => y.Value)
                         }).ToDictionary(x => x.Key,
                             x => x.Value.Count() > 1 ? x.Value.ToArray() as object : x.Value.FirstOrDefault());
-                        ;
-                        var json = JsonConvert.SerializeObject(new[] {grouped});
+                        var json = JsonConvert.SerializeObject(new[] { grouped });
 
-                        // log json being sent
+
+                        // Log JSON being sent.
                         if (enableLogging == "true")
                         {
-                            LogHelper.Info<SendDataHandler>("Sent URL: " + url);
+                            LogHelper.Info<SendDataHandler>("Sent URL: " + config.Url);
                             LogHelper.Info<SendDataHandler>("Sent Data: " + json);
                         }
 
+
+                        // Write JSON data to the request request.
                         var postBytes = Encoding.UTF8.GetBytes(json);
                         request.ContentType = "application/json; charset=utf-8";
                         request.ContentLength = postBytes.Length;
@@ -338,21 +388,31 @@
                         {
                             postStream.Write(postBytes, 0, postBytes.Length);
                         }
+
                     }
                     else
                     {
-                        // log data being sent
+
+                        // Log data being sent.
                         if (enableLogging == "true")
                         {
-                            LogHelper.Info<SendDataHandler>("Sent URL: " + url);
+                            LogHelper.Info<SendDataHandler>("Sent URL: " + config.Url);
                             LogHelper.Info<SendDataHandler>("Sent Data: " + strQueryString);
                         }
 
+
+                        // Update the data (since the sending data event may have modified it).
+                        uri = new Uri(config.Url);
+                        strQueryString = ConstructQueryString(uri, keyValuePairs);
+
+
+                        // Write the data to the request stream.
                         var postBytes = Encoding.UTF8.GetBytes(strQueryString);
                         request.ContentType = "application/x-www-form-urlencoded";
                         request.ContentLength = postBytes.Length;
                         var postStream = request.GetRequestStream();
                         postStream.Write(postBytes, 0, postBytes.Length);
+
                     }
                 }
 
@@ -379,6 +439,7 @@
             return sendDataResult;
 
         }
+
 
         /// <summary>
         /// Constructs a query string from the specified URL and data.

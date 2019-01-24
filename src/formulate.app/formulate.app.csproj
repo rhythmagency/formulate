@@ -388,6 +388,7 @@
     <Compile Include="Forms\Handlers\Email\EmailConfiguration.cs" />
     <Compile Include="Forms\Handlers\Email\EmailHandler.cs" />
     <Compile Include="Forms\Handlers\SendData\SendDataResult.cs" />
+    <Compile Include="Forms\Handlers\SendData\SendingDataContext.cs" />
     <Compile Include="Forms\Handlers\StoreData\StoreDataHandler.cs" />
     <Compile Include="Forms\IFormField.cs" />
     <Compile Include="Forms\IFormFieldMetaInfo.cs" />
