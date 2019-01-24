@@ -324,7 +324,9 @@ namespace formulate.app.Forms.Handlers.SendData
                 ? $"{bareUrl}?{strQueryString}"
                 : config.Url;
             var enableLogging = WebConfigurationManager.AppSettings["Formulate:EnableLogging"];
-            var returnJsonObject = WebConfigurationManager.AppSettings["Formulate:ReturnOuterJsonObject"];
+            var jsonMode = WebConfigurationManager.AppSettings["Formulate:Send Data JSON Mode"];
+            var isJsonObjectMode = "JSON Object".InvariantEquals(jsonMode);
+            var isWrappedObjectMode = "Wrap JSON Object in Array".InvariantEquals(jsonMode);
 
 
             // Attempt to send the web request.
@@ -371,9 +373,27 @@ namespace formulate.app.Forms.Handlers.SendData
                         }).ToDictionary(x => x.Key,
                             x => x.Value.Count() > 1 ? x.Value.ToArray() as object : x.Value.FirstOrDefault());
 
-                        var json = returnJsonObject == "true" ? 
-                            JsonConvert.SerializeObject(grouped) : 
-                            JsonConvert.SerializeObject(new[] { grouped });
+
+                        // Convert data to JSON.
+                        var json = default(string);
+                        if (isJsonObjectMode)
+                        {
+                            json = JsonConvert.SerializeObject(grouped);
+                        }
+                        else if (isWrappedObjectMode)
+                        {
+                            json = JsonConvert.SerializeObject(new[] { grouped });
+                        }
+                        else
+                        {
+
+                            // Ideally, we can remove this "else" branch later. We never really want this
+                            // mode to be used, but it's here for legacy support in case anybody managed
+                            // to make use of this funky mode.
+                            json = JsonConvert.SerializeObject(new[] { grouped });
+
+                        }
+
 
                         // Log JSON being sent.
                         if (enableLogging == "true")
