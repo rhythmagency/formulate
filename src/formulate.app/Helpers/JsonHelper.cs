@@ -1,8 +1,9 @@
-﻿namespace formulate.app.Helpers
+namespace formulate.app.Helpers
 {
 
     // Namespaces.
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
 
 
     /// <summary>
@@ -54,6 +55,25 @@
             };
             var result = JsonConvert.DeserializeObject<T>(value, settings);
             return result;
+        }
+
+        /// <summary>
+        /// Serializes a JSON string that log4net doesn't complain about (brackets are escaped). It also adds indenting for readability
+        /// </summary>
+        /// <param name="input">The JSON string</param>
+        /// <returns>Escaped, indented, JSON string for logging</returns>
+        public static string FormatJsonForLogging(string input)
+        {
+            var generic = JsonConvert.DeserializeObject<dynamic>(input);
+
+            return JsonConvert.SerializeObject(generic,
+                Formatting.Indented,
+                new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                })
+                .Replace("{", "{{")
+                .Replace("}", "}}");
         }
 
         #endregion
