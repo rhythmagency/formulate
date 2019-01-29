@@ -44,6 +44,14 @@ namespace formulate.app.Forms.Handlers.SendData
         /// </param>
         public delegate void SendingDataEvent(SendingDataContext context);
 
+        /// <summary>
+        /// Delegate used when serializing JSON
+        /// </summary>
+        /// <param name="data">
+        /// The form data passed to the SendData method
+        /// </param>
+        public delegate string SerializingJsonEvent(IEnumerable<KeyValuePair<string, string>> data);
+
         #endregion
 
 
@@ -57,6 +65,15 @@ namespace formulate.app.Forms.Handlers.SendData
         /// useful, for example, if you need to change the data or the headers.
         /// </remarks>
         public static event SendingDataEvent SendingData;
+
+        /// <summary>
+        /// Event raised when form data is being serialized to json.
+        /// </summary>
+        /// <remarks>
+        /// Subscribing to this gives you the opportunity to alter data sent. This is
+        /// useful, for example, if you need to make custom JSON serialization.
+        /// </remarks>
+        public static event SerializingJsonEvent SerializingJson;
 
         #endregion
 
@@ -341,7 +358,7 @@ namespace formulate.app.Forms.Handlers.SendData
 
 
                 // Send an event indicating that the data is about to be sent (which allows code
-                // external to Formulat to modify the request).
+                // external to Formulate to modify the request).
                 var sendContext = new SendingDataContext()
                 {
                     Configuration = config,
@@ -364,42 +381,49 @@ namespace formulate.app.Forms.Handlers.SendData
                 {
                     if (sendJson)
                     {
-
-                        // If sending as JSON, group duplicate keys/value pairs.
-                        var grouped = keyValuePairs.GroupBy(x => x.Key).Select(x => new
-                        {
-                            Key = x.Key,
-                            Value = x.Select(y => y.Value)
-                        }).ToDictionary(x => x.Key,
-                            x => x.Value.Count() > 1 ? x.Value.ToArray() as object : x.Value.FirstOrDefault());
-
-
-                        // Convert data to JSON.
                         var json = default(string);
-                        if (isJsonObjectMode)
+
+                        // Send an event indicating that the data is about to be serialized to
+                        // JSON (which allows code external to Formulate to modify the request).
+                        if (SerializingJson != null)
                         {
-                            json = JsonConvert.SerializeObject(grouped);
-                        }
-                        else if (isWrappedObjectMode)
-                        {
-                            json = JsonConvert.SerializeObject(new[] { grouped });
+                            json = SerializingJson.Invoke(sendContext.Data);
                         }
                         else
                         {
+                            // If sending as JSON, group duplicate keys/value pairs.
+                            var grouped = keyValuePairs.GroupBy(x => x.Key).Select(x => new
+                            {
+                                Key = x.Key,
+                                Value = x.Select(y => y.Value)
+                            }).ToDictionary(x => x.Key,
+                                x => x.Value.Count() > 1 ? x.Value.ToArray() as object : x.Value.FirstOrDefault());
 
-                            // Ideally, we can remove this "else" branch later. We never really want this
-                            // mode to be used, but it's here for legacy support in case anybody managed
-                            // to make use of this funky mode.
-                            json = JsonConvert.SerializeObject(new[] { grouped });
+                            // Convert data to JSON.
+                            if (isJsonObjectMode)
+                            {
+                                json = JsonConvert.SerializeObject(grouped);
+                            }
+                            else if (isWrappedObjectMode)
+                            {
+                                json = JsonConvert.SerializeObject(new[] { grouped });
+                            }
+                            else
+                            {
 
+                                // Ideally, we can remove this "else" branch later. We never really want this
+                                // mode to be used, but it's here for legacy support in case anybody managed
+                                // to make use of this funky mode.
+                                json = JsonConvert.SerializeObject(new[] { grouped });
+
+                            }
                         }
-
 
                         // Log JSON being sent.
                         if (enableLogging == "true")
                         {
                             LogHelper.Info<SendDataHandler>("Sent URL: " + config.Url);
-                            LogHelper.Info<SendDataHandler>("Sent Data: " + json);
+                            LogHelper.Info<SendDataHandler>("Sent Data: " + JsonHelper.FormatJsonForLogging(json));
                         }
 
 
