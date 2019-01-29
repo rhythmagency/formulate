@@ -45,11 +45,14 @@ namespace formulate.app.Forms.Handlers.SendData
         public delegate void SendingDataEvent(SendingDataContext context);
 
         /// <summary>
-        /// Delegate used when serializing JSON
+        /// Delegate used when serializing JSON.
         /// </summary>
         /// <param name="data">
-        /// The form data passed to the SendData method
+        /// The form data passed to the SendData method.
         /// </param>
+        /// <returns>
+        /// The serialized JSON value, which will be used rather than the built-in serialized JSON.
+        /// </returns>
         public delegate string SerializingJsonEvent(IEnumerable<KeyValuePair<string, string>> data);
 
         #endregion
@@ -381,16 +384,20 @@ namespace formulate.app.Forms.Handlers.SendData
                 {
                     if (sendJson)
                     {
+
+                        // Variables.
                         var json = default(string);
 
+
                         // Send an event indicating that the data is about to be serialized to
-                        // JSON (which allows code external to Formulate to modify the request).
+                        // JSON (which allows code external to Formulate to modify the JSON)?
                         if (SerializingJson != null)
                         {
                             json = SerializingJson.Invoke(sendContext.Data);
                         }
                         else
                         {
+
                             // If sending as JSON, group duplicate keys/value pairs.
                             var grouped = keyValuePairs.GroupBy(x => x.Key).Select(x => new
                             {
@@ -398,6 +405,7 @@ namespace formulate.app.Forms.Handlers.SendData
                                 Value = x.Select(y => y.Value)
                             }).ToDictionary(x => x.Key,
                                 x => x.Value.Count() > 1 ? x.Value.ToArray() as object : x.Value.FirstOrDefault());
+
 
                             // Convert data to JSON.
                             if (isJsonObjectMode)
@@ -417,7 +425,9 @@ namespace formulate.app.Forms.Handlers.SendData
                                 json = JsonConvert.SerializeObject(new[] { grouped });
 
                             }
+
                         }
+
 
                         // Log JSON being sent.
                         if (enableLogging == "true")
