@@ -57,15 +57,26 @@ namespace formulate.app.Helpers
             return result;
         }
 
+
         /// <summary>
-        /// Serializes a JSON string that log4net doesn't complain about (brackets are escaped). It also adds indenting for readability
+        /// Reserializes a JSON string that log4net doesn't complain about (brackets are escaped).
+        /// It also adds indenting for readability.
         /// </summary>
-        /// <param name="input">The JSON string</param>
-        /// <returns>Escaped, indented, JSON string for logging</returns>
+        /// <param name="input">
+        /// The JSON string to reserialize.
+        /// </param>
+        /// <returns>
+        /// Escaped, indented, camel-cased JSON string for logging.
+        /// </returns>
         public static string FormatJsonForLogging(string input)
         {
+            
+            // Convert JSON string to object.
             var generic = JsonConvert.DeserializeObject<dynamic>(input);
 
+
+            // Convert back to JSON string with specific settings (e.g., indenting, camel casing).
+            // Then, escape curly braces.
             return JsonConvert.SerializeObject(generic,
                 Formatting.Indented,
                 new JsonSerializerSettings
@@ -74,6 +85,7 @@ namespace formulate.app.Helpers
                 })
                 .Replace("{", "{{")
                 .Replace("}", "}}");
+
         }
 
         #endregion
