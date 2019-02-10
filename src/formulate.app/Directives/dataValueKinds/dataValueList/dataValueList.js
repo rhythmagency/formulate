@@ -32,4 +32,10 @@ function controller($scope) {
     $scope.deleteItem = function (index) {
         $scope.data.items.splice(index, 1);
     };
+    $scope.sortableOptions = {
+        axis: "y",
+        cursor: "move",
+        delay: 100,
+        opacity: 0.5
+    };
 }

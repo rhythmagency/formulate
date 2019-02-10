@@ -4,14 +4,17 @@
             Items
         </localize>
     </legend>
-    <div ng-repeat="item in data.items">
-        <div class="input-append">
-            <input type="text" ng-model="item.primary" class="form-control" />
-            <input type="text" ng-model="item.secondary" class="form-control" />
-            <button type="button" class="btn btn-danger" ng-click="deleteItem($index)">X</button>
+    <div ui-sortable="sortableOptions" ng-model="data.items">
+        <div ng-repeat="item in data.items" class="formulate-data-value-item">
+            <i class="icon-navigation drag-handle"></i>
+            <div class="input-append">
+                <input type="text" ng-model="item.primary" class="form-control" />
+                <input type="text" ng-model="item.secondary" class="form-control" />
+                <button type="button" class="btn btn-danger" ng-click="deleteItem($index)">X</button>
+            </div>
         </div>
     </div>
-    <button type="button" class="btn btn-default" ng-click="addItem()">
+    <button type="button" class="btn btn-default formulate-add-data-value" ng-click="addItem()">
         <localize key="formulate-buttons_Add Item">
             Add Item
         </localize>
