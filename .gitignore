@@ -35,36 +35,31 @@ frontendDocs/
 .idea
 
 # Temporary test folders.
-/source/
-/dest/
+#TODO: Review this.
+#/source/
+#/dest/
 
 # Sample website files/folders.
 **/Website/bin/
 **/Website/obj/
-**/Website/umbraco/
-**/Website/umbraco_client/
-**/Website/App_Data/TEMP/
-**/Website/App_Data/Logs/
-**/Website/App_Data/packages/
-**/Website/media/
-**/Website/App_Plugins/
-**/Website/Views/*
-**/Website/Views/Partials/*
-**/Website/scripts/
-**/Website/js/
-**/Website/css/
-**/Website/App_Data/access.config
-**/Website/App_Data/umbraco.config
-**/Website/App_Data/Umbraco.sdf
-**/Website/App_Data/cache/
+**/Website/Umbraco/
+#TODO: Review these.
+#**/Website/Media/
+#**/Website/App_Plugins/
+#**/Website/Views/*
+**/Website/Views/Partials/Grid/*
+#TODO: Review these.
+#**/Website/App_Data/Umbraco.sdf
+#**/Website/App_Data/cache/
 **/Website/App_Data/Formulate/
 
+#TODO: Review these.
 # Generated config files.
-web.config
-applications.config
-ClientDependency.config
-Dashboard.config
-trees.config
+#web.config
+#applications.config
+#ClientDependency.config
+#Dashboard.config
+#trees.config
 
 # Allow some views.
 !**/Website/Views/Partials/

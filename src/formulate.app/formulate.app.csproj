@@ -1,17 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C1294AC3-8A67-49D1-BEC1-F88E82BE152C}</ProjectGuid>
+    <ProjectGuid>{30B02FDE-17BA-47C7-A27E-A9068DE3AA66}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>formulate.app</RootNamespace>
     <AssemblyName>formulate.app</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +23,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\formulate.app.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,314 +31,261 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\formulate.app.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper">
-      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper.Net4">
-      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.Net4.dll</HintPath>
-    </Reference>
-    <Reference Include="businesslogic, Version=1.0.5891.23241, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\businesslogic.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ClientDependency.Core, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ClientDependency.1.8.4\lib\net45\ClientDependency.Core.dll</HintPath>
+    <Reference Include="ClientDependency.Core, Version=1.9.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClientDependency.1.9.7\lib\net45\ClientDependency.Core.dll</HintPath>
     </Reference>
     <Reference Include="ClientDependency.Core.Mvc, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ClientDependency-Mvc5.1.8.0.0\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="cms, Version=1.0.5891.23241, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\cms.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="CSharpTest.Net.Collections, Version=14.906.1403.1082, Culture=neutral, PublicKeyToken=06aee00cce822474, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSharpTest.Net.Collections.14.906.1403.1082\lib\net40\CSharpTest.Net.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="controls, Version=1.0.5891.23243, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\controls.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Examine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Examine.1.0.0\lib\net452\Examine.dll</HintPath>
     </Reference>
-    <Reference Include="CookComputing.XmlRpcV2">
-      <HintPath>..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.8.14.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.8.14\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
-      <HintPath>..\packages\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Examine, Version=0.1.68.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Examine.0.1.68.0\lib\Examine.dll</HintPath>
-    </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="ImageProcessor, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ImageProcessor.2.3.3.0\lib\net45\ImageProcessor.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ImageProcessor, Version=2.7.0.100, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageProcessor.2.7.0.100\lib\net452\ImageProcessor.dll</HintPath>
     </Reference>
-    <Reference Include="ImageProcessor.Web, Version=4.5.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ImageProcessor.Web.4.5.3.0\lib\net45\ImageProcessor.Web.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="LightInject, Version=5.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.5.4.0\lib\net46\LightInject.dll</HintPath>
     </Reference>
-    <Reference Include="interfaces, Version=1.0.5891.23238, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\interfaces.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="LightInject.Annotation, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.Annotation.1.1.0\lib\net46\LightInject.Annotation.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\log4net.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="LightInject.Mvc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.Mvc.2.0.0\lib\net46\LightInject.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Lucene.Net">
-      <HintPath>..\packages\Lucene.Net.2.9.4.1\lib\net40\Lucene.Net.dll</HintPath>
+    <Reference Include="LightInject.Web, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.Web.2.0.0\lib\net46\LightInject.Web.dll</HintPath>
     </Reference>
-    <Reference Include="MarkdownSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Markdown.1.14.4\lib\net45\MarkdownSharp.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="LightInject.WebApi, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.WebApi.2.0.0\lib\net46\LightInject.WebApi.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ApplicationBlocks.Data, Version=1.0.1559.20655, Culture=neutral">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\Microsoft.ApplicationBlocks.Data.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Markdown, Version=2.0.0.0, Culture=neutral, PublicKeyToken=1b320cc08ad5aa89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Markdown.2.2.1\lib\net451\Markdown.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebHelpers.3.2.3\lib\net45\Microsoft.Web.Helpers.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.XmlTransform, Version=2.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Web.Xdt.2.1.1\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MiniProfiler, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MiniProfiler.4.0.138\lib\net461\MiniProfiler.dll</HintPath>
     </Reference>
-    <Reference Include="MiniProfiler">
-      <HintPath>..\packages\MiniProfiler.2.1.0\lib\net40\MiniProfiler.dll</HintPath>
+    <Reference Include="MiniProfiler.Shared, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MiniProfiler.Shared.4.0.138\lib\net461\MiniProfiler.Shared.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="NPoco, Version=3.9.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPoco.3.9.4\lib\net45\NPoco.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="Semver, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\semver.1.1.2\lib\net451\Semver.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Semver, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Semver.2.0.4\lib\net452\Semver.dll</HintPath>
     </Reference>
-    <Reference Include="SQLCE4Umbraco, Version=1.0.5891.23242, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\SQLCE4Umbraco.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.8.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Enrichers.Process, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Enrichers.Process.2.0.1\lib\net45\Serilog.Enrichers.Process.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Enrichers.Thread, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Enrichers.Thread.3.0.0\lib\net45\Serilog.Enrichers.Thread.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Filters.Expressions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Filters.Expressions.2.0.0\lib\net45\Serilog.Filters.Expressions.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Formatting.Compact, Version=1.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Formatting.Compact.1.0.0\lib\net45\Serilog.Formatting.Compact.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Formatting.Compact.Reader, Version=1.0.3.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Formatting.Compact.Reader.1.0.3\lib\net45\Serilog.Formatting.Compact.Reader.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Settings.AppSettings, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Settings.AppSettings.2.2.2\lib\net45\Serilog.Settings.AppSettings.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.4.0.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Superpower, Version=1.0.0.0, Culture=neutral, PublicKeyToken=aec39280ded1b3a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Superpower.2.0.0\lib\net45\Superpower.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\System.Data.SqlServerCe.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Umbraco.SqlServerCE.4.0.0.1\lib\net472\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\System.Data.SqlServerCe.Entity.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Umbraco.SqlServerCE.4.0.0.1\lib\net472\System.Data.SqlServerCe.Entity.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.IO" />
+    <Reference Include="System.Linq.Expressions" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime" />
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.9.0\lib\netstandard2.0\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\TidyNet.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Umbraco.Core, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Core.8.0.1\lib\net472\Umbraco.Core.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco, Version=1.0.5891.23243, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\umbraco.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Umbraco.Examine, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Web.8.0.1\lib\net472\Umbraco.Examine.dll</HintPath>
     </Reference>
-    <Reference Include="Umbraco.Core, Version=1.0.5891.23238, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\Umbraco.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Umbraco.Web, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Web.8.0.1\lib\net472\Umbraco.Web.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.DataLayer, Version=1.0.5891.23241, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\umbraco.DataLayer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="umbraco.editorControls, Version=1.0.5891.23246, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\umbraco.editorControls.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="umbraco.MacroEngines, Version=1.0.5891.23246, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\umbraco.MacroEngines.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="umbraco.providers, Version=1.0.5891.23243, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\umbraco.providers.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Umbraco.Web.UI, Version=1.0.5891.23247, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\Umbraco.Web.UI.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="UmbracoExamine, Version=0.7.0.23242, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.4.1\lib\UmbracoExamine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="UrlRewritingNet.UrlRewriter, Version=2.0.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UrlRewritingNet.2.0.7\lib\UrlRewritingNet.UrlRewriter.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.2.3\lib\net45\WebMatrix.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="WebMatrix.WebData, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.2.3\lib\net45\WebMatrix.WebData.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Umbraco.Web.UI, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Web.8.0.1\lib\net472\Umbraco.Web.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ButtonCollection.cs" />
+    <Compile Include="Configuration\ButtonElement.cs" />
+    <Compile Include="Configuration\ButtonsConfigSection.cs" />
+    <Compile Include="Configuration\EmailCollection.cs" />
     <Compile Include="Configuration\EmailConfigurationSection.cs" />
-    <Compile Include="Configuration\FieldCategoryCollection.cs" />
+    <Compile Include="Configuration\EmailElement.cs" />
+    <Compile Include="Configuration\EmailsConfigSection.cs" />
     <Compile Include="Configuration\FieldCategoriesConfigSection.cs" />
+    <Compile Include="Configuration\FieldCategoryCollection.cs" />
     <Compile Include="Configuration\FieldCategoryElement.cs" />
     <Compile Include="Configuration\FileStorageElement.cs" />
     <Compile Include="Configuration\HeaderCollection.cs" />
     <Compile Include="Configuration\HeaderConfig.cs" />
     <Compile Include="Configuration\JsonElement.cs" />
-    <Compile Include="Configuration\SubmissionsConfigSection.cs" />
-    <Compile Include="Configuration\EmailCollection.cs" />
-    <Compile Include="Configuration\ButtonCollection.cs" />
-    <Compile Include="Configuration\TemplateCollection.cs" />
-    <Compile Include="Configuration\EmailElement.cs" />
-    <Compile Include="Configuration\ButtonElement.cs" />
-    <Compile Include="Configuration\TemplateElement.cs" />
-    <Compile Include="Configuration\EmailsConfigSection.cs" />
-    <Compile Include="Configuration\ButtonsConfigSection.cs" />
-    <Compile Include="Configuration\TemplatesConfigSection.cs" />
     <Compile Include="Configuration\PersistenceConfigSection.cs" />
-    <Compile Include="Constants\DataValues\DataValuePairList.cs" />
-    <Compile Include="Constants\DataValues\DataValueListFunction.cs" />
+    <Compile Include="Configuration\SubmissionsConfigSection.cs" />
+    <Compile Include="Configuration\TemplateCollection.cs" />
+    <Compile Include="Configuration\TemplateElement.cs" />
+    <Compile Include="Configuration\TemplatesConfigSection.cs" />
     <Compile Include="Constants\DataValues\DataValueList.cs" />
+    <Compile Include="Constants\DataValues\DataValueListFunction.cs" />
+    <Compile Include="Constants\DataValues\DataValuePairList.cs" />
+    <Compile Include="Constants\Layouts\LayoutBasic.cs" />
+    <Compile Include="Constants\Trees\ConfiguredForms.cs" />
     <Compile Include="Constants\Trees\DataSources.cs" />
-    <Compile Include="Constants\Trees\Submissions.cs" />
     <Compile Include="Constants\Trees\DataValues.cs" />
     <Compile Include="Constants\Trees\Forms.cs" />
-    <Compile Include="Constants\Trees\ConfiguredForms.cs" />
     <Compile Include="Constants\Trees\Layouts.cs" />
+    <Compile Include="Constants\Trees\Submissions.cs" />
     <Compile Include="Constants\Trees\Validations.cs" />
-    <Compile Include="Constants\Layouts\LayoutBasic.cs" />
     <Compile Include="Constants\Validations\ValidationMandatory.cs" />
     <Compile Include="Constants\Validations\ValidationRegex.cs" />
     <Compile Include="Controllers\ConfiguredFormsContentController.cs" />
+    <Compile Include="Controllers\ConfiguredFormsController.cs" />
     <Compile Include="Controllers\ControllerTypes\SubmissionExport.cs" />
     <Compile Include="Controllers\DataValuesController.cs" />
     <Compile Include="Controllers\EntitiesContentController.cs" />
-    <Compile Include="Controllers\HandlersController.cs" />
+    <Compile Include="Controllers\EntitiesController.cs" />
     <Compile Include="Controllers\FieldsController.cs" />
     <Compile Include="Controllers\FoldersController.cs" />
-    <Compile Include="Controllers\EntitiesController.cs" />
     <Compile Include="Controllers\FormsController.cs" />
-    <Compile Include="Controllers\ConfiguredFormsController.cs" />
+    <Compile Include="Controllers\HandlersController.cs" />
+    <Compile Include="Controllers\LayoutsController.cs" />
     <Compile Include="Controllers\ServerConfigurationController.cs" />
+    <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Controllers\StoredDataController.cs" />
     <Compile Include="Controllers\StoredDataDownloadController.cs" />
     <Compile Include="Controllers\TemplatesController.cs" />
     <Compile Include="Controllers\ValidationsController.cs" />
-    <Compile Include="Controllers\LayoutsController.cs" />
-    <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Converters\ConfiguredFormConverter.cs" />
-    <Compile Include="DataValues\DataInterfaces\IGetValueAndLabelCollection.cs" />
     <Compile Include="DataValues\DataInterfaces\IGetStringCollection.cs" />
+    <Compile Include="DataValues\DataInterfaces\IGetValueAndLabelCollection.cs" />
     <Compile Include="DataValues\DataValue.cs" />
     <Compile Include="DataValues\IDataValueKind.cs" />
-    <Compile Include="DataValues\Kinds\DataValueListFunction.cs" />
     <Compile Include="DataValues\Kinds\DataValueList.cs" />
+    <Compile Include="DataValues\Kinds\DataValueListFunction.cs" />
     <Compile Include="DataValues\Kinds\DataValuePairList.cs" />
     <Compile Include="DataValues\Suppliers\ISupplyValueAndLabelCollection.cs" />
     <Compile Include="DataValues\Suppliers\Kinds\UsStateSupplier.cs" />
@@ -349,51 +297,51 @@
     <Compile Include="Forms\ConfiguredForm.cs" />
     <Compile Include="Forms\FieldPresentationFormats.cs" />
     <Compile Include="Forms\Fields\Button\ButtonConfiguration.cs" />
-    <Compile Include="Forms\Fields\ExtendedRadioButtonList\ExtendedRadioButtonListConfiguration.cs" />
-    <Compile Include="Forms\Fields\ExtendedRadioButtonList\ExtendedRadioButtonListField.cs" />
-    <Compile Include="Forms\Fields\ExtendedRadioButtonList\ExtendedRadioButtonListItem.cs" />
+    <Compile Include="Forms\Fields\Button\ButtonField.cs" />
     <Compile Include="Forms\Fields\CheckboxList\CheckboxListConfiguration.cs" />
     <Compile Include="Forms\Fields\CheckboxList\CheckboxListField.cs" />
     <Compile Include="Forms\Fields\CheckboxList\CheckboxListItem.cs" />
-    <Compile Include="Forms\Fields\RadioButtonList\RadioButtonListConfiguration.cs" />
-    <Compile Include="Forms\Fields\RadioButtonList\RadioButtonListField.cs" />
-    <Compile Include="Forms\Fields\RadioButtonList\RadioButtonListItem.cs" />
-    <Compile Include="Forms\Fields\Header\HeaderConfiguration.cs" />
-    <Compile Include="Forms\Fields\Header\HeaderField.cs" />
-    <Compile Include="Forms\Fields\Recaptcha\RecaptchaField.cs" />
-    <Compile Include="Forms\Fields\TextConstant\TextConstantConfiguration.cs" />
-    <Compile Include="Forms\Fields\TextConstant\TextConstantField.cs" />
-    <Compile Include="Forms\Fields\RichText\RichTextConfiguration.cs" />
-    <Compile Include="Forms\Fields\RichText\RichTextField.cs" />
     <Compile Include="Forms\Fields\Checkbox\CheckboxField.cs" />
+    <Compile Include="Forms\Fields\Date\DateField.cs" />
     <Compile Include="Forms\Fields\DropDown\DropDownConfiguration.cs" />
     <Compile Include="Forms\Fields\DropDown\DropDownField.cs" />
     <Compile Include="Forms\Fields\DropDown\DropDownItem.cs" />
-    <Compile Include="Forms\Fields\Button\ButtonField.cs" />
+    <Compile Include="Forms\Fields\ExtendedRadioButtonList\ExtendedRadioButtonListConfiguration.cs" />
+    <Compile Include="Forms\Fields\ExtendedRadioButtonList\ExtendedRadioButtonListField.cs" />
+    <Compile Include="Forms\Fields\ExtendedRadioButtonList\ExtendedRadioButtonListItem.cs" />
+    <Compile Include="Forms\Fields\Header\HeaderConfiguration.cs" />
+    <Compile Include="Forms\Fields\Header\HeaderField.cs" />
     <Compile Include="Forms\Fields\Hidden\HiddenField.cs" />
-    <Compile Include="Forms\Fields\Date\DateField.cs" />
-    <Compile Include="Forms\Fields\Upload\UploadField.cs" />
+    <Compile Include="Forms\Fields\RadioButtonList\RadioButtonListConfiguration.cs" />
+    <Compile Include="Forms\Fields\RadioButtonList\RadioButtonListField.cs" />
+    <Compile Include="Forms\Fields\RadioButtonList\RadioButtonListItem.cs" />
+    <Compile Include="Forms\Fields\Recaptcha\RecaptchaField.cs" />
+    <Compile Include="Forms\Fields\RichText\RichTextConfiguration.cs" />
+    <Compile Include="Forms\Fields\RichText\RichTextField.cs" />
     <Compile Include="Forms\Fields\TextArea\TextAreaField.cs" />
+    <Compile Include="Forms\Fields\TextConstant\TextConstantConfiguration.cs" />
+    <Compile Include="Forms\Fields\TextConstant\TextConstantField.cs" />
     <Compile Include="Forms\Fields\Text\TextField.cs" />
+    <Compile Include="Forms\Fields\Upload\UploadField.cs" />
     <Compile Include="Forms\Form.cs" />
     <Compile Include="Forms\FormField.cs" />
     <Compile Include="Forms\FormFieldMetaInfo.cs" />
     <Compile Include="Forms\FormHandler.cs" />
     <Compile Include="Forms\FormMetaInfo.cs" />
     <Compile Include="Forms\FormSubmissionContext.cs" />
+    <Compile Include="Forms\Handlers\Email\EmailConfiguration.cs" />
+    <Compile Include="Forms\Handlers\Email\EmailHandler.cs" />
     <Compile Include="Forms\Handlers\SendData\FieldMapping.cs" />
     <Compile Include="Forms\Handlers\SendData\IHandleSendDataResult.cs" />
     <Compile Include="Forms\Handlers\SendData\SendDataConfiguration.cs" />
     <Compile Include="Forms\Handlers\SendData\SendDataHandler.cs" />
-    <Compile Include="Forms\Handlers\Email\EmailConfiguration.cs" />
-    <Compile Include="Forms\Handlers\Email\EmailHandler.cs" />
     <Compile Include="Forms\Handlers\SendData\SendDataResult.cs" />
     <Compile Include="Forms\Handlers\SendData\SendingDataContext.cs" />
     <Compile Include="Forms\Handlers\StoreData\StoreDataHandler.cs" />
     <Compile Include="Forms\IFormField.cs" />
     <Compile Include="Forms\IFormFieldMetaInfo.cs" />
-    <Compile Include="Forms\IFormFieldTypeExtended.cs" />
     <Compile Include="Forms\IFormFieldType.cs" />
+    <Compile Include="Forms\IFormFieldTypeExtended.cs" />
     <Compile Include="Forms\IFormHandler.cs" />
     <Compile Include="Forms\IFormHandlerType.cs" />
     <Compile Include="Forms\IFormMetaInfo.cs" />
@@ -421,56 +369,56 @@
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Managers\DefaultConfigurationManager.cs" />
     <Compile Include="Managers\IConfigurationManager.cs" />
-    <Compile Include="Models\Parameters\HandlerInfo.cs" />
     <Compile Include="Models\Parameters\FieldInfo.cs" />
+    <Compile Include="Models\Parameters\HandlerInfo.cs" />
+    <Compile Include="Models\Requests\DeleteConfiguredFormRequest.cs" />
     <Compile Include="Models\Requests\DeleteDataValueRequest.cs" />
     <Compile Include="Models\Requests\DeleteFolderRequest.cs" />
-    <Compile Include="Models\Requests\DeleteConfiguredFormRequest.cs" />
+    <Compile Include="Models\Requests\DeleteFormRequest.cs" />
+    <Compile Include="Models\Requests\DeleteLayoutRequest.cs" />
     <Compile Include="Models\Requests\DeleteSubmissionRequest.cs" />
-    <Compile Include="Models\Requests\GetCsvExportRequest.cs" />
-    <Compile Include="Models\Requests\GetFileDownloadRequest.cs" />
-    <Compile Include="Models\Requests\GetStoredDataRequest.cs" />
     <Compile Include="Models\Requests\DeleteValidationRequest.cs" />
-    <Compile Include="Models\Requests\GetDataValuesInfoRequest.cs" />
-    <Compile Include="Models\Requests\GetEntityRequest.cs" />
-    <Compile Include="Models\Requests\GetEntityChildrenRequest.cs" />
-    <Compile Include="Models\Requests\GetDataValueInfoRequest.cs" />
-    <Compile Include="Models\Requests\GetFolderInfoRequest.cs" />
     <Compile Include="Models\Requests\GetConfiguredFormInfoRequest.cs" />
-    <Compile Include="Models\Requests\GetValidationsInfoRequest.cs" />
+    <Compile Include="Models\Requests\GetCsvExportRequest.cs" />
+    <Compile Include="Models\Requests\GetDataValueInfoRequest.cs" />
+    <Compile Include="Models\Requests\GetDataValuesInfoRequest.cs" />
+    <Compile Include="Models\Requests\GetEntityChildrenRequest.cs" />
+    <Compile Include="Models\Requests\GetEntityRequest.cs" />
+    <Compile Include="Models\Requests\GetFileDownloadRequest.cs" />
+    <Compile Include="Models\Requests\GetFolderInfoRequest.cs" />
+    <Compile Include="Models\Requests\GetFormInfoRequest.cs" />
+    <Compile Include="Models\Requests\GetLayoutInfoRequest.cs" />
+    <Compile Include="Models\Requests\GetStoredDataRequest.cs" />
     <Compile Include="Models\Requests\GetValidationInfoRequest.cs" />
+    <Compile Include="Models\Requests\GetValidationsInfoRequest.cs" />
     <Compile Include="Models\Requests\MoveDataValueRequest.cs" />
     <Compile Include="Models\Requests\MoveFolderRequest.cs" />
     <Compile Include="Models\Requests\MoveFormRequest.cs" />
     <Compile Include="Models\Requests\MoveLayoutRequest.cs" />
     <Compile Include="Models\Requests\MoveValidationRequest.cs" />
-    <Compile Include="Models\Requests\PersistFolderRequest.cs" />
-    <Compile Include="Models\Requests\PersistDataValueRequest.cs" />
     <Compile Include="Models\Requests\PersistConfiguredFormRequest.cs" />
-    <Compile Include="Models\Requests\PersistValidationRequest.cs" />
-    <Compile Include="Models\Requests\PersistLayoutRequest.cs" />
-    <Compile Include="Models\Requests\DeleteFormRequest.cs" />
-    <Compile Include="Models\Requests\DeleteLayoutRequest.cs" />
-    <Compile Include="Models\Requests\GetFormInfoRequest.cs" />
-    <Compile Include="Models\Requests\GetLayoutInfoRequest.cs" />
+    <Compile Include="Models\Requests\PersistDataValueRequest.cs" />
+    <Compile Include="Models\Requests\PersistFolderRequest.cs" />
     <Compile Include="Models\Requests\PersistFormRequest.cs" />
+    <Compile Include="Models\Requests\PersistLayoutRequest.cs" />
+    <Compile Include="Models\Requests\PersistValidationRequest.cs" />
+    <Compile Include="Persistence\IConfiguredFormPersistence.cs" />
     <Compile Include="Persistence\IDataValuePersistence.cs" />
     <Compile Include="Persistence\IEntityPersistence.cs" />
     <Compile Include="Persistence\IFolderPersistence.cs" />
-    <Compile Include="Persistence\IConfiguredFormPersistence.cs" />
+    <Compile Include="Persistence\IFormPersistence.cs" />
+    <Compile Include="Persistence\ILayoutPersistence.cs" />
+    <Compile Include="Persistence\Internal\DefaultEntityPersistence.cs" />
     <Compile Include="Persistence\Internal\EntityFileSystemCache.cs" />
-    <Compile Include="Persistence\Internal\JsonDataValuePersistence.cs" />
     <Compile Include="Persistence\Internal\JsonConfiguredFormPersistence.cs" />
+    <Compile Include="Persistence\Internal\JsonDataValuePersistence.cs" />
+    <Compile Include="Persistence\Internal\JsonFolderPersistence.cs" />
+    <Compile Include="Persistence\Internal\JsonFormPersistence.cs" />
+    <Compile Include="Persistence\Internal\JsonLayoutPersistence.cs" />
+    <Compile Include="Persistence\Internal\JsonPersistenceHelper.cs" />
     <Compile Include="Persistence\Internal\JsonValidationPersistence.cs" />
     <Compile Include="Persistence\Internal\Sql\Models\FormulateSubmission.cs" />
     <Compile Include="Persistence\IValidationPersistence.cs" />
-    <Compile Include="Persistence\ILayoutPersistence.cs" />
-    <Compile Include="Persistence\IFormPersistence.cs" />
-    <Compile Include="Persistence\Internal\DefaultEntityPersistence.cs" />
-    <Compile Include="Persistence\Internal\JsonFolderPersistence.cs" />
-    <Compile Include="Persistence\Internal\JsonPersistenceHelper.cs" />
-    <Compile Include="Persistence\Internal\JsonLayoutPersistence.cs" />
-    <Compile Include="Persistence\Internal\JsonFormPersistence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -478,23 +426,23 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Resolvers\Configuration.cs" />
+    <Compile Include="Resolvers\ConfiguredFormPersistence.cs" />
     <Compile Include="Resolvers\DataValuePersistence.cs" />
     <Compile Include="Resolvers\EntityPersistence.cs" />
     <Compile Include="Resolvers\FolderPersistence.cs" />
     <Compile Include="Resolvers\FormPersistence.cs" />
-    <Compile Include="Resolvers\ConfiguredFormPersistence.cs" />
-    <Compile Include="Resolvers\ValidationPersistence.cs" />
     <Compile Include="Resolvers\LayoutPersistence.cs" />
+    <Compile Include="Resolvers\ValidationPersistence.cs" />
     <Compile Include="Serialization\FieldsJsonConverter.cs" />
     <Compile Include="Serialization\HandlersJsonConverter.cs" />
     <Compile Include="Templates\Template.cs" />
     <Compile Include="Trees\FormulateTreeController.cs" />
+    <Compile Include="Trees\Helpers\ConfiguredFormHelper.cs" />
     <Compile Include="Trees\Helpers\DataValueHelper.cs" />
     <Compile Include="Trees\Helpers\FolderHelper.cs" />
     <Compile Include="Trees\Helpers\FormHelper.cs" />
-    <Compile Include="Trees\Helpers\ConfiguredFormHelper.cs" />
-    <Compile Include="Trees\Helpers\ValidationHelper.cs" />
     <Compile Include="Trees\Helpers\LayoutHelper.cs" />
+    <Compile Include="Trees\Helpers\ValidationHelper.cs" />
     <Compile Include="Types\ConfiguredFormInfo.cs" />
     <Compile Include="Validations\IValidationKind.cs" />
     <Compile Include="Validations\Kinds\Mandatory\ValidationMandatory.cs" />
@@ -505,27 +453,57 @@
     <Compile Include="Validations\ValidationContext.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\formulate\backoffice\formulate\dataSources.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\dataValues.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\editConfiguredForm.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editDataValue.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editFolder.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editForm.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editLayout.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editValidation.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\forms.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\layouts.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\submissions.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\validationLibrary.html" />
+    <Content Include="App_Plugins\formulate\Controls\Install.ascx" />
+    <Content Include="App_Plugins\formulate\dashboards\install.html" />
+    <Content Include="App_Plugins\formulate\dashboards\introduction.html" />
+    <Content Include="App_Plugins\formulate\dialogs\pickConfiguredForm.html" />
+    <Content Include="App_Plugins\formulate\dialogs\pickDataValue.html" />
+    <Content Include="App_Plugins\formulate\dialogs\pickForm.html" />
+    <Content Include="App_Plugins\formulate\dialogs\pickLayout.html" />
+    <Content Include="App_Plugins\formulate\dialogs\pickValidations.html" />
     <Content Include="App_Plugins\formulate\editors\configured-form-picker.html" />
-    <Content Include="App_Plugins\formulate\lang\cs-CZ.xml" />
-    <Content Include="App_Plugins\formulate\lang\da-DK.xml" />
-    <Content Include="App_Plugins\formulate\lang\de-DE.xml" />
-    <Content Include="App_Plugins\formulate\lang\en-US.xml" />
-    <Content Include="App_Plugins\formulate\lang\es-ES.xml" />
-    <Content Include="App_Plugins\formulate\lang\fr-FR.xml" />
-    <Content Include="App_Plugins\formulate\lang\he-IL.xml" />
-    <Content Include="App_Plugins\formulate\lang\it-IT.xml" />
-    <Content Include="App_Plugins\formulate\lang\ja-JP.xml" />
-    <Content Include="App_Plugins\formulate\lang\ko-KR.xml" />
-    <Content Include="App_Plugins\formulate\lang\nb-NO.xml" />
-    <Content Include="App_Plugins\formulate\lang\nl-NL.xml" />
-    <Content Include="App_Plugins\formulate\lang\pl-PL.xml" />
-    <Content Include="App_Plugins\formulate\lang\pt-BR.xml" />
-    <Content Include="App_Plugins\formulate\lang\ru-RU.xml" />
-    <Content Include="App_Plugins\formulate\lang\sv-SE.xml" />
-    <Content Include="App_Plugins\formulate\lang\zh-CN.xml" />
+    <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.svg" />
+    <Content Include="App_Plugins\formulate\formulate.css" />
+    <Content Include="App_Plugins\formulate\Lang\cs-CZ.xml" />
+    <Content Include="App_Plugins\formulate\Lang\da-DK.xml" />
+    <Content Include="App_Plugins\formulate\Lang\de-DE.xml" />
+    <Content Include="App_Plugins\formulate\Lang\en-GB.xml" />
+    <Content Include="App_Plugins\formulate\Lang\en-US.xml" />
+    <Content Include="App_Plugins\formulate\Lang\es-ES.xml" />
+    <Content Include="App_Plugins\formulate\Lang\fr-FR.xml" />
+    <Content Include="App_Plugins\formulate\Lang\he-IL.xml" />
+    <Content Include="App_Plugins\formulate\Lang\it-IT.xml" />
+    <Content Include="App_Plugins\formulate\Lang\ja-JP.xml" />
+    <Content Include="App_Plugins\formulate\Lang\ko-KR.xml" />
+    <Content Include="App_Plugins\formulate\Lang\nb-NO.xml" />
+    <Content Include="App_Plugins\formulate\Lang\nl-NL.xml" />
+    <Content Include="App_Plugins\formulate\Lang\pl-PL.xml" />
+    <Content Include="App_Plugins\formulate\Lang\pt-BR.xml" />
+    <Content Include="App_Plugins\formulate\Lang\ru-RU.xml" />
+    <Content Include="App_Plugins\formulate\Lang\sv-SE.xml" />
+    <Content Include="App_Plugins\formulate\Lang\zh-CN.xml" />
+    <Content Include="App_Plugins\formulate\menu-actions\createDataValue.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\createFolder.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\createLayout.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\createValidation.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteConfiguredForm.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteDataValue.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteFolder.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteForm.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteLayout.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteValidation.html" />
     <Content Include="App_Plugins\formulate\menu-actions\moveDataValue.html" />
     <Content Include="App_Plugins\formulate\menu-actions\moveFolder.html" />
     <Content Include="App_Plugins\formulate\menu-actions\moveForm.html" />
@@ -533,45 +511,16 @@
     <Content Include="App_Plugins\formulate\menu-actions\moveValidation.html" />
     <Content Include="App_Plugins\formulate\menu-actions\removeEntityFromCloud.html" />
     <Content Include="App_Plugins\formulate\menu-actions\storeEntityToCloud.html" />
-    <Content Include="App_Plugins\formulate\Transforms\applications.config.uninstall.xdt.txt" />
+    <Content Include="App_Plugins\formulate\responsive.bootstrap.angular.js" />
+    <Content Include="App_Plugins\formulate\responsive.bootstrap.angular.min.js" />
+    <Content Include="App_Plugins\formulate\responsive.plain-javascript.js" />
+    <Content Include="App_Plugins\formulate\responsive.plain-javascript.min.js" />
     <Content Include="App_Plugins\formulate\Transforms\applications.config.install.xdt.txt" />
-    <None Include="Resources\TransformApplications.txt" />
-    <None Include="app.config" />
-    <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.eot" />
-    <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.ttf" />
-    <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.woff" />
-    <None Include="App_Plugins\formulate\package.manifest" />
+    <Content Include="App_Plugins\formulate\Transforms\applications.config.uninstall.xdt.txt" />
     <Content Include="App_Plugins\formulate\Transforms\dashboard.config.install.xdt.txt" />
     <Content Include="App_Plugins\formulate\Transforms\dashboard.config.uninstall.xdt.txt" />
     <Content Include="App_Plugins\formulate\Transforms\web.config.install.xdt.txt" />
     <Content Include="App_Plugins\formulate\Transforms\web.config.uninstall.xdt.txt" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\formulate\backoffice\formulate\editDataValue.html" />
-    <Content Include="App_Plugins\formulate\backoffice\formulate\editValidation.html" />
-    <Content Include="App_Plugins\formulate\backoffice\formulate\editFolder.html" />
-    <Content Include="App_Plugins\formulate\backoffice\formulate\editForm.html" />
-    <Content Include="App_Plugins\formulate\backoffice\formulate\dataSources.html" />
-    <Content Include="App_Plugins\formulate\backoffice\formulate\dataValues.html" />
-    <Content Include="App_Plugins\formulate\backoffice\formulate\forms.html" />
-    <Content Include="App_Plugins\formulate\backoffice\formulate\editLayout.html" />
-    <Content Include="App_Plugins\formulate\backoffice\formulate\layouts.html" />
-    <Content Include="App_Plugins\formulate\backoffice\formulate\validationLibrary.html" />
-    <Content Include="App_Plugins\formulate\Controls\Install.ascx">
-      <SubType>ASPXCodeBehind</SubType>
-    </Content>
-    <Content Include="App_Plugins\formulate\dashboards\install.html" />
-    <Content Include="App_Plugins\formulate\dashboards\introduction.html" />
-    <Content Include="App_Plugins\formulate\dialogs\pickValidations.html" />
-    <Content Include="App_Plugins\formulate\menu-actions\createDataValue.html" />
-    <Content Include="App_Plugins\formulate\menu-actions\createFolder.html" />
-    <Content Include="App_Plugins\formulate\menu-actions\createLayout.html" />
-    <Content Include="App_Plugins\formulate\menu-actions\createValidation.html" />
-    <Content Include="App_Plugins\formulate\menu-actions\deleteDataValue.html" />
-    <Content Include="App_Plugins\formulate\menu-actions\deleteLayout.html" />
-    <Content Include="App_Plugins\formulate\menu-actions\deleteForm.html" />
-    <Content Include="App_Plugins\formulate\menu-actions\deleteValidation.html" />
     <Content Include="Directives\configuredFormDesigner\designer.html" />
     <Content Include="Directives\configuredFormDesigner\designer.js" />
     <Content Include="Directives\createFolder\createFolder.html" />
@@ -630,18 +579,26 @@
     <Content Include="Directives\fields\checkboxField\checkboxField.js" />
     <Content Include="Directives\fields\checkboxListField\checkboxListField.html" />
     <Content Include="Directives\fields\checkboxListField\checkboxListField.js" />
+    <Content Include="Directives\fields\dateField\dateField.html" />
+    <Content Include="Directives\fields\dateField\dateField.js" />
     <Content Include="Directives\fields\dropDownField\dropDownField.html" />
     <Content Include="Directives\fields\dropDownField\dropDownField.js" />
     <Content Include="Directives\fields\extendedRadioButtonListField\extendedRadioButtonListField.html" />
     <Content Include="Directives\fields\extendedRadioButtonListField\extendedRadioButtonListField.js" />
+    <Content Include="Directives\fields\headerField\headerField.html" />
+    <Content Include="Directives\fields\headerField\headerField.js" />
     <Content Include="Directives\fields\hiddenField\hiddenField.html" />
     <Content Include="Directives\fields\hiddenField\hiddenField.js" />
     <Content Include="Directives\fields\radioButtonListField\radioButtonListField.html" />
     <Content Include="Directives\fields\radioButtonListField\radioButtonListField.js" />
+    <Content Include="Directives\fields\recaptchaField\recaptchaField.html" />
+    <Content Include="Directives\fields\recaptchaField\recaptchaField.js" />
     <Content Include="Directives\fields\richTextField\richTextField.html" />
     <Content Include="Directives\fields\richTextField\richTextField.js" />
     <Content Include="Directives\fields\textAreaField\textAreaField.html" />
     <Content Include="Directives\fields\textAreaField\textAreaField.js" />
+    <Content Include="Directives\fields\textConstantField\textConstantField.html" />
+    <Content Include="Directives\fields\textConstantField\textConstantField.js" />
     <Content Include="Directives\fields\textField\textField.html" />
     <Content Include="Directives\fields\textField\textField.js" />
     <Content Include="Directives\fields\uploadField\uploadField.html" />
@@ -650,23 +607,37 @@
     <Content Include="Directives\folderDesigner\designer.js" />
     <Content Include="Directives\formDesigner\designer.html" />
     <Content Include="Directives\formDesigner\designer.js" />
+    <Content Include="Directives\formFieldsChooser\formFieldsChooser.html" />
+    <Content Include="Directives\formFieldsChooser\formFieldsChooser.js" />
     <Content Include="Directives\handlerChooser\handlerChooser.html" />
     <Content Include="Directives\handlerChooser\handlerChooser.js" />
     <Content Include="Directives\handlerEditor\handlerEditor.html" />
     <Content Include="Directives\handlerEditor\handlerEditor.js" />
     <Content Include="Directives\handlers\emailHandler\emailHandler.html" />
     <Content Include="Directives\handlers\emailHandler\emailHandler.js" />
+    <Content Include="Directives\handlers\sendDataHandler\sendDataHandler.html" />
+    <Content Include="Directives\handlers\sendDataHandler\sendDataHandler.js" />
+    <Content Include="Directives\handlers\storeDataHandler\storeDataHandler.html" />
+    <Content Include="Directives\handlers\storeDataHandler\storeDataHandler.js" />
     <Content Include="Directives\injectLocalization\injectLocalization.js" />
+    <Content Include="Directives\install\install.html" />
+    <Content Include="Directives\install\install.js" />
     <Content Include="Directives\layoutDesigner\designer.html" />
     <Content Include="Directives\layoutDesigner\designer.js" />
     <Content Include="Directives\layoutEditor\layoutEditor.html" />
     <Content Include="Directives\layoutEditor\layoutEditor.js" />
     <Content Include="Directives\layoutKinds\layoutBasic\layoutBasic.html" />
     <Content Include="Directives\layoutKinds\layoutBasic\layoutBasic.js" />
+    <Content Include="Directives\layoutTypeChooser\layoutChooser.html" />
+    <Content Include="Directives\layoutTypeChooser\layoutChooser.js" />
     <Content Include="Directives\localizeAttribute\localizeAttribute.js" />
     <Content Include="Directives\localizeContent\localizeContent.js" />
+    <Content Include="Directives\removeEntityFromCloudConfirmation\removeEntityFromCloud.html" />
+    <Content Include="Directives\removeEntityFromCloudConfirmation\removeEntityFromCloud.js" />
     <Content Include="Directives\rootEntityOverview\rootEntityOverview.html" />
     <Content Include="Directives\rootEntityOverview\rootEntityOverview.js" />
+    <Content Include="Directives\storeEntityToCloudConfirmation\storeEntityToCloud.html" />
+    <Content Include="Directives\storeEntityToCloudConfirmation\storeEntityToCloud.js" />
     <Content Include="Directives\validationDesigner\designer.html" />
     <Content Include="Directives\validationDesigner\designer.js" />
     <Content Include="Directives\validationEditor\validationEditor.html" />
@@ -677,14 +648,12 @@
     <Content Include="Directives\validationKinds\validationRegex\validationRegex.js" />
     <Content Include="Directives\validationTypeChooser\validationChooser.html" />
     <Content Include="Directives\validationTypeChooser\validationChooser.js" />
-    <Content Include="Directives\layoutTypeChooser\layoutChooser.html" />
-    <Content Include="Directives\layoutTypeChooser\layoutChooser.js" />
-    <Content Include="Directives\install\install.html" />
-    <Content Include="Directives\install\install.js" />
-    <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.svg" />
-    <Content Include="App_Plugins\formulate\lang\en-GB.xml" />
+    <Content Include="Directives\viewSubmissions\viewSubmissions.html" />
+    <Content Include="Directives\viewSubmissions\viewSubmissions.js" />
     <Content Include="JavaScript\Editors\configuredFormPicker.js" />
+    <Content Include="JavaScript\Filters\formulateLocalize.js" />
     <Content Include="JavaScript\formulate.js" />
+    <Content Include="JavaScript\Services\formulateCloud.js" />
     <Content Include="JavaScript\Services\formulateConfiguredForms.js" />
     <Content Include="JavaScript\Services\formulateDataValues.js" />
     <Content Include="JavaScript\Services\formulateDirectives.js" />
@@ -692,20 +661,35 @@
     <Content Include="JavaScript\Services\formulateFields.js" />
     <Content Include="JavaScript\Services\formulateFolders.js" />
     <Content Include="JavaScript\Services\formulateForms.js" />
+    <Content Include="JavaScript\Services\formulateHandlers.js" />
+    <Content Include="JavaScript\Services\formulateLayouts.js" />
+    <Content Include="JavaScript\Services\formulateLocalization.js" />
+    <Content Include="JavaScript\Services\formulatePermissions.js" />
     <Content Include="JavaScript\Services\formulateRecursion.js" />
     <Content Include="JavaScript\Services\formulateServer.js" />
+    <Content Include="JavaScript\Services\formulateServerConfig.js" />
+    <Content Include="JavaScript\Services\formulateSubmissions.js" />
     <Content Include="JavaScript\Services\formulateTemplates.js" />
     <Content Include="JavaScript\Services\formulateTrees.js" />
     <Content Include="JavaScript\Services\formulateValidations.js" />
-    <Content Include="JavaScript\Services\formulateLayouts.js" />
-    <Content Include="JavaScript\Services\formulatePermissions.js" />
     <Content Include="JavaScript\Services\formulateVars.js" />
     <Content Include="JavaScript\Utilities\getDirective.js" />
-    <None Include="Resources\TransformDashboard.txt" />
-    <None Include="Resources\TransformWebConfig.txt" />
-    <None Include="Resources\GrantAllUsersPermissionToSection.txt" />
-    <None Include="Resources\FormulateTab.txt" />
-    <None Include="Resources\GrantPermissionToSection.txt" />
+    <Content Include="Resources\FormulateTab.txt" />
+    <Content Include="Resources\GrantAllUsersPermissionToSection.txt" />
+    <Content Include="Resources\GrantPermissionToSection.txt" />
+    <Content Include="Resources\TransformApplications.txt" />
+    <Content Include="Resources\TransformDashboard.txt" />
+    <Content Include="Resources\TransformWebConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.eot" />
+    <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.ttf" />
+    <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.woff" />
+    <None Include="App_Plugins\formulate\package.manifest" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -713,26 +697,20 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\formulate.core\formulate.core.csproj">
-      <Project>{80f40f16-829d-430f-b325-0b5246fe4ac2}</Project>
+      <Project>{33eb014e-7bd9-4b65-b8d5-aa68c883f1d5}</Project>
       <Name>formulate.core</Name>
     </ProjectReference>
     <ProjectReference Include="..\formulate.meta\formulate.meta.csproj">
-      <Project>{0a354b54-f772-4877-8bea-0d8b6391600b}</Project>
+      <Project>{023b12b1-d627-4096-b1d0-f3dd7691e87e}</Project>
       <Name>formulate.meta</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
-  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
-    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
-    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  <Import Project="..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
