@@ -3,49 +3,50 @@
 
     // Namespaces.
     using System;
+    using System.Collections.Generic;
+    using System.IO;
     using System.Web.Http;
-    using System.Xml;
-    using umbraco.cms.businesslogic.packager;
+    using System.Xml.Linq;
     using Umbraco.Core.Logging;
-    using Umbraco.Web;
+    using Umbraco.Core.Packaging;
     using Umbraco.Web.Editors;
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
     using Constants = Umbraco.Core.Constants;
-    using Resources = formulate.app.Properties.Resources;
-
+    using Resources = Properties.Resources;
 
     /// <summary>
     /// Controller that handles operations related to setup of
     /// Formulate.
     /// </summary>
     [PluginController("Formulate")]
-    [UmbracoApplicationAuthorize(Constants.Applications.Developer)]
+    [UmbracoApplicationAuthorize(Constants.Applications.Settings)]
     public class SetupController : UmbracoAuthorizedJsonController
     {
+
+        #region Properties
+
+        /// <summary>
+        /// Runs package actions.
+        /// </summary>
+        private IPackageActionRunner PackageActionRunner { get; set; }
+
+        #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public SetupController()
-            : this(UmbracoContext.Current)
-        {
-        }
-
-
-        /// <summary>
         /// Primary constructor.
         /// </summary>
-        public SetupController(
-            UmbracoContext umbracoContext)
-            : base(umbracoContext)
+        /// <param name="packageActionRunner">
+        /// The service to run package actions.
+        /// </param>
+        public SetupController(IPackageActionRunner packageActionRunner)
         {
+            PackageActionRunner = packageActionRunner;
         }
 
         #endregion
-
 
         #region Web Methods
 
@@ -64,15 +65,17 @@
             {
 
                 // Variables.
-                var doc = new XmlDocument();
                 var actionXml = Resources.GrantPermissionToSection;
-                doc.LoadXml(actionXml);
-
+                var doc = default(XElement);
+                using (var reader = new StringReader(actionXml))
+                {
+                    doc = XElement.Load(actionXml);
+                }
 
                 // Grant access permission.
-                PackageAction.RunPackageAction("Formulate",
-                    "Formulate.GrantPermissionToSection", doc.FirstChild);
-
+                var errors = default(IEnumerable<string>);
+                PackageActionRunner.RunPackageAction("Formulate",
+                    "Formulate.GrantPermissionToSection", doc, out errors);
 
                 // Indicate success.
                 return new
@@ -86,7 +89,7 @@
 
                 // Error (log and indicate failure).
                 var message = "An error occurred while attempting to set permissions.";
-                LogHelper.Error<SetupController>(message, ex);
+                Logger.Error<SetupController>(ex, message);
                 return new
                 {
                     Success = false,

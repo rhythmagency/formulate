@@ -11,6 +11,7 @@
 * Composing Umbraco 8: https://www.zpqrtbnk.net/posts/composing-umbraco-v8/
 * Umbraco 8 Package Rewrite: https://our.umbraco.com/forum/extending-umbraco-and-using-the-api/96310-umbraco-8-package-rewrite-some-help-please
 * Dependency Handler issue: https://our.umbraco.com/forum/using-umbraco-and-getting-started/96460-umbraco-7132
+* UmbracoContext.Current: https://our.umbraco.com/forum/extending-umbraco-and-using-the-api/95917-getting-the-current-umbracocontext-in-v8#comment-304724
 
 # Upgrade Notes
 
