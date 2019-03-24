@@ -9,7 +9,7 @@
 # Resources
 
 * Composing Umbraco 8: https://www.zpqrtbnk.net/posts/composing-umbraco-v8/
-* Umbraco 8 Package Rewrit: https://our.umbraco.com/forum/extending-umbraco-and-using-the-api/96310-umbraco-8-package-rewrite-some-help-please
+* Umbraco 8 Package Rewrite: https://our.umbraco.com/forum/extending-umbraco-and-using-the-api/96310-umbraco-8-package-rewrite-some-help-please
 
 # Upgrade Notes
 
