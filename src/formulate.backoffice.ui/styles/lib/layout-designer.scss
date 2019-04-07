@@ -72,12 +72,18 @@
     font-weight: bold;
 }
 
+.formulate-add-row-button-and-cells {
+    display: flex;
+    flex-wrap: wrap-reverse;
+}
+
 .btn.btn-add-row {
     width: 100%;
     padding-top: 8px;
     padding-bottom: 8px;
     background-color: $grey-dark;
     border: none;
+    border-radius: 0;
     color: $white;
     font-weight: bold;
     font-size: 18px;
@@ -89,6 +95,10 @@
     &:focus {
         outline: none;
     }
+}
+
+.btn-add-row + .sample-cells {
+    width: 100%;
 }
 
 .btn-add-row:hover + .sample-cells {

@@ -153,7 +153,7 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
                 labelElement.appendChild(fieldElement);
             }
         } else {
-            if (options.fieldBeforeLabelText) {
+            if (options.fieldBeforeLabelText || window.labelAfterTextInput) {
                 wrapperElement.insertBefore(fieldElement, wrapperElement.childNodes[0]);
             } else {
                 wrapperElement.appendChild(fieldElement);
