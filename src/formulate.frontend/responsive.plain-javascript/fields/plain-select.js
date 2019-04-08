@@ -25,35 +25,23 @@ RenderSelect.prototype.addChangeEvent = function(fieldData) {
     const category = fieldData.category;
 
     this.element.addEventListener('change', function(e, i){
-        let currentNode = this;
-        
-        //iterate up the DOM until it reaches the parent form element
-        for(;;){
-            if(currentNode.nodeName == "FORM"){
-                //construct payload for custom event
-                const form = currentNode;
-                const eventName = "formulate form: select changed";
-                let event;
-                const data = {
-                    category: category,
-                    element: this
-                }
-                if (typeof window.CustomEvent === "function") {
-                    event = new CustomEvent(eventName, {
-                        bubbles: true,
-                        detail: data
-                    });
-                    form.dispatchEvent(event);
-
-                } else {
-                    event = document.createEvent("CustomEvent");
-                    event.initCustomEvent(eventName, true, false, data);
-                    form.dispatchEvent(event);
-                }
-                return;
-            } else{
-                currentNode = currentNode.parentElement;
-            }
+        //construct payload for custom event
+        const eventName = "formulate form: select changed";
+        let event;
+        const data = {
+            category: category,
+            element: this
+        }
+        if (typeof window.CustomEvent === "function") {
+            event = new CustomEvent(eventName, {
+                bubbles: true,
+                detail: data
+            });
+            this.dispatchEvent(event);
+        } else {
+            event = document.createEvent("CustomEvent");
+            event.initCustomEvent(eventName, true, false, data);
+            this.dispatchEvent(event);
         }
     });
 }
