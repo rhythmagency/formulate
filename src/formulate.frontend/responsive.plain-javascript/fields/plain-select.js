@@ -31,10 +31,10 @@ RenderSelect.prototype.addChangeEvent = function(fieldData) {
 
     // Variables.
     let category = fieldData.category,
-        element = this.wrapper;
+        element = this.element;
 
     // Add change event listener.
-    this.element.addEventListener('change', function() {
+    element.addEventListener('change', function() {
 
         // Dispatch event indicating the drop down value changed.
         dispatchEvent(element, "formulate form: select changed", {
