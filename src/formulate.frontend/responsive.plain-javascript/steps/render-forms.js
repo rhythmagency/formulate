@@ -1,3 +1,6 @@
+// Dependencies.
+let dispatchEvent = require("../utils/events");
+
 /**
  * Renders the Formulate forms, inserting them into the appropriate place
  * in the DOM.
@@ -60,7 +63,7 @@ function attachSubmitHandler(form, fields, payload, url) {
         e.preventDefault();
 
         // Dispatch event to indicate the form submission has started.
-        dispatchEvent("formulate: submit: started", form);
+        dispatchEvent(form, "formulate: submit: started");
 
         // First, ensure all fields are valid.
         checkValidity(form, fields)
@@ -73,11 +76,11 @@ function attachSubmitHandler(form, fields, payload, url) {
                         fields: fields,
                         payload: payload
                     };
-                    dispatchEvent("formulate: validation: success", form, validationData);
+                    dispatchEvent(form, "formulate: validation: success", validationData);
 
                     // Should the submit be cancelled?
                     if (validationData.cancelSubmit) {
-                        dispatchEvent("formulate: submit: cancelled", form);
+                        dispatchEvent(form, "formulate: submit: cancelled");
                         return;
                     }
 
@@ -106,7 +109,7 @@ function attachSubmitHandler(form, fields, payload, url) {
  * @param form The form.
  */
 function handleInvalidFields(messages, form) {
-    dispatchEvent("formulate: submit: validation errors", form, {
+    dispatchEvent(form, "formulate: submit: validation errors", {
         messages: messages
     });
 }
@@ -170,51 +173,24 @@ function sendPayloadToServer(form, fields, payload, url) {
         if (success) {
 
             // Dispatch success event.
-            dispatchEvent("formulate form: submit: success", form, {
+            dispatchEvent(form, "formulate form: submit: success", {
                 dataByAlias: dataByAlias
             });
 
         } else {
 
             // Dispatch failure event.
-            dispatchEvent("formulate form: submit: failure", form);
+            dispatchEvent(form, "formulate form: submit: failure");
 
         }
 
     }).catch(function() {
 
         // Dispatch failure event.
-        dispatchEvent("formulate form: submit: failure", form);
+        dispatchEvent(form, "formulate form: submit: failure");
 
     });
 
-}
-
-/**
- * Dispatches the specified event.
- * @param eventName The event to dispatch.
- * @param form The form element to dispatch the element on.
- * @param data The data to send with the event.
- */
-function dispatchEvent(eventName, form, data) {
-    let event;
-    if (typeof window.CustomEvent === "function") {
-
-        // Typical implementation for CustomEvent.
-        event = new CustomEvent(eventName, {
-            bubbles: true,
-            detail: data
-        });
-        form.dispatchEvent(event);
-
-    } else {
-
-        // IE11 implementation for CustomEvent.
-        event = document.createEvent("CustomEvent");
-        event.initCustomEvent(eventName, true, false, data);
-        form.dispatchEvent(event);
-
-    }
 }
 
 // Export the function that renders forms.

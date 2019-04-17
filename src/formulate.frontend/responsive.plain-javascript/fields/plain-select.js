@@ -1,5 +1,6 @@
 // Dependencies.
-let FieldUtility = require("../utils/field");
+let FieldUtility = require("../utils/field"),
+    dispatchEvent = require("../utils/events");
 
 /**
  * Renders a drop down field.
@@ -9,12 +10,17 @@ let FieldUtility = require("../utils/field");
  * @constructor
  */
 function RenderSelect(fieldData, fieldValidators, cssClasses) {
+
+    // Initialize field.
     FieldUtility.initializeField(this, fieldData, fieldValidators, {
         nodeName: "select",
         cssClasses: cssClasses
     });
     this.addOptions(fieldData);
+
+    // Listen for events.
     this.addChangeEvent(fieldData);
+
 }
 
 /**
@@ -22,29 +28,23 @@ function RenderSelect(fieldData, fieldValidators, cssClasses) {
  * @param fieldData The field data that should be used to render the drop down field.
  */
 RenderSelect.prototype.addChangeEvent = function(fieldData) {
-    const category = fieldData.category;
 
-    this.element.addEventListener('change', function(e, i){
-        //construct payload for custom event
-        const eventName = "formulate form: select changed";
-        let event;
-        const data = {
+    // Variables.
+    let category = fieldData.category,
+        element = this.wrapper;
+
+    // Add change event listener.
+    this.element.addEventListener('change', function() {
+
+        // Dispatch event indicating the drop down value changed.
+        dispatchEvent(element, "formulate form: select changed", {
             category: category,
             element: this
-        }
-        if (typeof window.CustomEvent === "function") {
-            event = new CustomEvent(eventName, {
-                bubbles: true,
-                detail: data
-            });
-            this.dispatchEvent(event);
-        } else {
-            event = document.createEvent("CustomEvent");
-            event.initCustomEvent(eventName, true, false, data);
-            this.dispatchEvent(event);
-        }
+        });
+
     });
-}
+
+};
 
 /**
  * Adds the options to the select.
