@@ -39,7 +39,7 @@ RenderSelect.prototype.addChangeEvent = function(fieldData) {
         // Dispatch event indicating the drop down value changed.
         dispatchEvent(element, "formulate form: select changed", {
             category: category,
-            element: this
+            element: element
         });
 
     });
