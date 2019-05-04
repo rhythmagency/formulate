@@ -217,6 +217,7 @@ namespace formulate.app.Forms.Handlers.SendData
         /// </remarks>
         public void PrepareHandleForm(FormSubmissionContext context, object configuration)
         {
+            //TODO: Should probably prepare the data to be sent here (to avoid threading issues), but then send it in HandleForm.
         }
 
 

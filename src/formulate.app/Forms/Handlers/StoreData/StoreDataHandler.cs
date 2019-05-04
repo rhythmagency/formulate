@@ -32,6 +32,11 @@
             }
         }
 
+        /// <summary>
+        /// The data to store to the database.
+        /// </summary>
+        private FormulateSubmission Submission { get; set; }
+
         #endregion
 
 
@@ -93,23 +98,9 @@
         /// The handler configuration.
         /// </param>
         /// <remarks>
-        /// In this case, no preparation is necessary.
+        /// This prepares the submission to be store to the database.
         /// </remarks>
         public void PrepareHandleForm(FormSubmissionContext context, object configuration)
-        {
-        }
-
-
-        /// <summary>
-        /// Handles a form submission (stores it).
-        /// </summary>
-        /// <param name="context">
-        /// The form submission context.
-        /// </param>
-        /// <param name="configuration">
-        /// The handler configuration.
-        /// </param>
-        public void HandleForm(FormSubmissionContext context, object configuration)
         {
 
             // Variables.
@@ -118,7 +109,6 @@
             var files = context.Files;
             var payload = context.Payload;
             var fieldsById = form.Fields.ToDictionary(x => x.Id, x => x);
-            var db = context.UmbracoContext.Application.DatabaseContext.Database;
 
 
             // This will store the formatted values.
@@ -203,7 +193,7 @@
 
 
                 // Create files.
-                foreach(var key in filesById.Keys)
+                foreach (var key in filesById.Keys)
                 {
                     var file = filesById[key];
                     var fullPath = Path.Combine(basePath, file.PathSegment);
@@ -215,10 +205,10 @@
             }
 
 
-            // Store data to database.
+            // Prepare the submission that will be stored in the database.
             var serializedValues = JsonHelper.Serialize(valueList.ToArray());
             var serializedFiles = JsonHelper.Serialize(fileList.ToArray());
-            db.Insert(new FormulateSubmission()
+            Submission = new FormulateSubmission()
             {
                 CreationDate = DateTime.UtcNow,
                 DataValues = serializedValues,
@@ -227,7 +217,29 @@
                 GeneratedId = context.SubmissionId,
                 PageId = context?.CurrentPage?.Id,
                 Url = context?.CurrentPage?.Url
-            });
+            };
+
+        }
+
+
+        /// <summary>
+        /// Handles a form submission (stores it).
+        /// </summary>
+        /// <param name="context">
+        /// The form submission context.
+        /// </param>
+        /// <param name="configuration">
+        /// The handler configuration.
+        /// </param>
+        public void HandleForm(FormSubmissionContext context, object configuration)
+        {
+
+            // Store the submission to the database.
+            if (Submission != null)
+            {
+                var db = context.UmbracoContext.Application.DatabaseContext.Database;
+                db.Insert(Submission);
+            }
 
         }
 

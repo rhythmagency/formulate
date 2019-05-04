@@ -371,9 +371,12 @@
         {
 
             // Send email.
-            using (var client = new SmtpClient())
+            if (Message != null)
             {
-                client.Send(Message);
+                using (var client = new SmtpClient())
+                {
+                    client.Send(Message);
+                }
             }
 
         }
