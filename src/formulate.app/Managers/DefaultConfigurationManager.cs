@@ -2,9 +2,7 @@
 {
 
     // Namespaces.
-
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Linq;
 
     using Configuration;
@@ -19,11 +17,6 @@
     internal sealed class DefaultConfigurationManager : IConfigurationManager
     {
         /// <summary>
-        /// Gets or sets the Formulate config.
-        /// </summary>
-        private IFormulateConfig Config { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="DefaultConfigurationManager"/> class.
         /// </summary>
         /// <param name="config">
@@ -37,7 +30,7 @@
         #region Properties
 
         /// <summary>
-        /// The base path to store JSON in.
+        /// Gets the json base path.
         /// </summary>
         public string JsonBasePath
         {
@@ -48,7 +41,7 @@
         }
 
         /// <summary>
-        /// The base path toe store submitted files in.
+        /// Gets the file store base path.
         /// </summary>
         public string FileStoreBasePath
         {
@@ -59,7 +52,7 @@
         }
 
         /// <summary>
-        /// The templates used to render forms.
+        /// Gets the templates.
         /// </summary>
         public IEnumerable<Template> Templates
         {
@@ -70,7 +63,7 @@
         }
 
         /// <summary>
-        /// The button kinds used when creating button field types.
+        /// Gets the button kinds.
         /// </summary>
         public IEnumerable<string> ButtonKinds
         {
@@ -80,9 +73,8 @@
             }
         }
 
-
         /// <summary>
-        /// Enable server side validation of form submissions?
+        /// Gets a value indicating whether enable server side validation.
         /// </summary>
         public bool EnableServerSideValidation
         {
@@ -93,7 +85,7 @@
         }
 
         /// <summary>
-        /// Is the email whitelist enabled?
+        /// Gets a value indicating whether enable email whitelisting.
         /// </summary>
         public bool EnableEmailWhitelist
         {
@@ -104,7 +96,7 @@
         }
 
         /// <summary>
-        /// The emails to whitelist.
+        /// Gets the emails to whitelist.
         /// </summary>
         public IEnumerable<AllowEmail> EmailWhitelist
         {
@@ -145,8 +137,11 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Formulate config.
+        /// </summary>
+        private IFormulateConfig Config { get; set; }
+
         #endregion
-
     }
-
 }
