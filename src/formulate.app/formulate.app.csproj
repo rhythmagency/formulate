@@ -250,6 +250,7 @@
     <Compile Include="Configuration\PersistenceConfig.cs" />
     <Compile Include="Configuration\SubmissionsConfig.cs" />
     <Compile Include="Configuration\TemplateConfigItem.cs" />
+    <Compile Include="Constants\Configuration\ConfigFiles.cs" />
     <Compile Include="Constants\DataValues\DataValueList.cs" />
     <Compile Include="Constants\DataValues\DataValueListFunction.cs" />
     <Compile Include="Constants\DataValues\DataValuePairList.cs" />
