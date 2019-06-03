@@ -20,7 +20,7 @@
         /// <summary>
         /// Gets the buttons configuration.
         /// </summary>
-        IEnumerable<Button> Buttons { get; }
+        IEnumerable<ButtonConfigItem> Buttons { get; }
 
         /// <summary>
         /// Gets the email configuration.

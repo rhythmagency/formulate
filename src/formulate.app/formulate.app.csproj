@@ -237,7 +237,7 @@
     <Compile Include="Backoffice\Dashboards\FormulateInstallDashboard.cs" />
     <Compile Include="Backoffice\Sections\FormulateSection.cs" />
     <Compile Include="Components\ServerVariablesComponent.cs" />
-    <Compile Include="Configuration\Button.cs" />
+    <Compile Include="Configuration\ButtonConfigItem.cs" />
     <Compile Include="Configuration\EmailConfig.cs" />
     <Compile Include="Configuration\EmailWhitelistConfigItem.cs" />
     <Compile Include="Configuration\EmailWhitelistConfig.cs" />

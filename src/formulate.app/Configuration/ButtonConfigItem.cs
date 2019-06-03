@@ -3,9 +3,9 @@
     using System.ComponentModel.DataAnnotations;
 
     /// <summary>
-    /// A "button" configuration element.
+    /// A "button" configuration item.
     /// </summary>
-    public class Button
+    public class ButtonConfigItem
     {
         #region Properties
 
