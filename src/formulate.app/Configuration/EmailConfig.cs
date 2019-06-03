@@ -11,5 +11,10 @@
         /// Gets or sets the headers configuration.
         /// </summary>
         public IEnumerable<EmailHeaderConfig> Headers { get; set; }
+
+        /// <summary>
+        /// Gets or sets the whitelist configuration.
+        /// </summary>
+        public EmailWhitelistConfig Whitelist { get; set; }
     }
 }

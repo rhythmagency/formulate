@@ -238,10 +238,9 @@
     <Compile Include="Backoffice\Sections\FormulateSection.cs" />
     <Compile Include="Components\ServerVariablesComponent.cs" />
     <Compile Include="Configuration\Button.cs" />
-    <Compile Include="Configuration\EmailCollection.cs" />
     <Compile Include="Configuration\EmailConfig.cs" />
-    <Compile Include="Configuration\EmailElement.cs" />
-    <Compile Include="Configuration\EmailsConfigSection.cs" />
+    <Compile Include="Configuration\EmailWhitelistConfigItem.cs" />
+    <Compile Include="Configuration\EmailWhitelistConfig.cs" />
     <Compile Include="Configuration\FieldCategoriesConfigSection.cs" />
     <Compile Include="Configuration\FieldCategoryCollection.cs" />
     <Compile Include="Configuration\FieldCategoryElement.cs" />

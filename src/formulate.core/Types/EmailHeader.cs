@@ -6,7 +6,6 @@
     /// </summary>
     public class EmailHeader
     {
-
         #region Properties
 
         /// <summary>
@@ -14,14 +13,11 @@
         /// </summary>
         public string Name { get; set; }
 
-
         /// <summary>
         /// The value of the header.
         /// </summary>
         public string Value { get; set; }
 
         #endregion
-
     }
-
 }
