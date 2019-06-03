@@ -238,6 +238,7 @@
     <Compile Include="Backoffice\Sections\FormulateSection.cs" />
     <Compile Include="Components\PermitAccessComponent.cs" />
     <Compile Include="Components\ServerVariablesComponent.cs" />
+    <Compile Include="Components\UpdateVersionComponent.cs" />
     <Compile Include="Configuration\ButtonConfigItem.cs" />
     <Compile Include="Configuration\EmailConfig.cs" />
     <Compile Include="Configuration\EmailWhitelistConfigItem.cs" />

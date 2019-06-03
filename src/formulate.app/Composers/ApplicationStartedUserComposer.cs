@@ -94,11 +94,11 @@
             var version = GetInstalledVersion(composition);
             var isInstalled = string.IsNullOrWhiteSpace(version) == false;
             var needsUpgrade = !MetaConstants.Version.InvariantEquals(version);
+
             if (!isInstalled)
             {
                 // Install Formulate.
                 HandleInstall(composition);
-
             }
             else if (needsUpgrade)
             {
@@ -106,7 +106,6 @@
                 HandleInstall(composition, true);
             }
         }
-
 
         /// <summary>
         /// Handles install operations.
@@ -129,10 +128,16 @@
             {
                 AddFormulateDeveloperDashboard(composition);
                 PermitAccess(composition);
+                UpdateVersion(composition);
             }
 
             // Make changes to the web.config.
             EnsureAppSettings();
+        }
+
+        private void UpdateVersion(Composition composition)
+        {
+            composition.Components().Append<UpdateVersionComponent>();
         }
 
         /// <summary>
