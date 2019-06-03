@@ -28,5 +28,10 @@
         /// Gets or sets the email configuration.
         /// </summary>
         public EmailConfig Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets the submissions configuration.
+        /// </summary>
+        public SubmissionsConfig Submissions { get; set; }
     }
 }

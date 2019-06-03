@@ -27,5 +27,10 @@
         /// Gets the email configuration.
         /// </summary>
         EmailConfig Email { get; }
+
+        /// <summary>
+        /// Gets the submissions configuration.
+        /// </summary>
+        SubmissionsConfig Submissions { get; }
     }
 }
