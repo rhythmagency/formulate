@@ -8,6 +8,7 @@
     using formulate.app.Backoffice.Dashboards;
     using formulate.app.Components;
     using formulate.app.Configuration;
+    using formulate.app.Constants.Configuration;
     using formulate.app.ExtensionMethods;
 
     using Umbraco.Core;
@@ -57,7 +58,7 @@
         /// </param>
         private void InitializeConfiguration(Composition composition)
         {
-            composition.Configs.AddJsonConfig<IFormulateConfig, FormulateConfig>("~/App_Plugins/Formulate/FormulateConfiguration.json");
+            composition.Configs.AddJsonConfig<IFormulateConfig, FormulateConfig>(ConfigFilePaths.FormulateConfigPath);
         }
 
         /// <summary>
