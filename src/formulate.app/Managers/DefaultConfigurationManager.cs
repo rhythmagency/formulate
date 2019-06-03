@@ -15,14 +15,20 @@
     /// </summary>
     internal sealed class DefaultConfigurationManager : IConfigurationManager
     {
-        private IPersistenceConfig PersistenceConfig { get; set; }
-        private ITemplatesConfig TemplatesConfig { get; set; }
+        /// <summary>
+        /// Gets or sets the Formulate config.
+        /// </summary>
+        private IFormulateConfig Config { get; set; }
 
-        public DefaultConfigurationManager(IPersistenceConfig persistenceConfig, ITemplatesConfig templatesConfig)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DefaultConfigurationManager"/> class.
+        /// </summary>
+        /// <param name="config">
+        /// The Formulate config.
+        /// </param>
+        public DefaultConfigurationManager(IFormulateConfig config)
         {
-            PersistenceConfig = persistenceConfig;
-
-            TemplatesConfig = templatesConfig;
+            Config = config;
         }
 
         #region Properties
@@ -34,7 +40,7 @@
         {
             get
             {
-                return PersistenceConfig.JsonBasePath;
+                return Config.Persistence.JsonBasePath;
             }
         }
 
@@ -45,7 +51,7 @@
         {
             get
             {
-                return PersistenceConfig.JsonBasePath;
+                return Config.Persistence.JsonBasePath;
             }
         }
 
@@ -56,10 +62,9 @@
         {
             get
             {
-                return TemplatesConfig.Templates;
+                return Config.Templates;
             }
         }
-
 
         /// <summary>
         /// The button kinds used when creating button field types.
