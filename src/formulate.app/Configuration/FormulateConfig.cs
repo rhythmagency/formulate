@@ -37,6 +37,9 @@
         /// <summary>
         /// Gets or sets the field categories configuration.
         /// </summary>
-        public FieldCategoriesConfig FieldCategories { get; set; }
+        /// <summary>
+        /// Gets or sets the field categories in this configuration section.
+        /// </summary>
+        public IEnumerable<FieldCategoryConfigItem> FieldCategories { get; set; }
     }
 }

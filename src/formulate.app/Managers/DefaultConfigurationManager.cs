@@ -129,7 +129,7 @@
         {
             get
             {
-                return Config.FieldCategories.Categories.Select(x => new FieldCategory()
+                return Config.FieldCategories.Select(x => new FieldCategory()
                 {
                     Kind = x.Kind,
                     Group = x.Group

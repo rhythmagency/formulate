@@ -35,6 +35,6 @@
         /// <summary>
         /// Gets the field categories configuration.
         /// </summary>
-        FieldCategoriesConfig FieldCategories { get; }
+        IEnumerable<FieldCategoryConfigItem> FieldCategories { get; }
     }
 }
