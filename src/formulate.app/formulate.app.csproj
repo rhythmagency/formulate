@@ -239,6 +239,7 @@
     <Compile Include="Components\ServerVariablesComponent.cs" />
     <Compile Include="Configuration\Button.cs" />
     <Compile Include="Configuration\EmailCollection.cs" />
+    <Compile Include="Configuration\EmailConfig.cs" />
     <Compile Include="Configuration\EmailConfigurationSection.cs" />
     <Compile Include="Configuration\EmailElement.cs" />
     <Compile Include="Configuration\EmailsConfigSection.cs" />
