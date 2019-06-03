@@ -91,8 +91,8 @@
         /// </param>
         private void HandleInstallAndUpgrade(Composition composition)
         {
-            var version = GetInstalledVersion();
-            var isInstalled = version != null;
+            var version = GetInstalledVersion(composition);
+            var isInstalled = string.IsNullOrWhiteSpace(version) == false;
             var needsUpgrade = !MetaConstants.Version.InvariantEquals(version);
             if (!isInstalled)
             {
@@ -138,16 +138,17 @@
         /// <summary>
         /// Gets the installed version.
         /// </summary>
-        /// <returns>The installed version, or null.</returns>
-        private string GetInstalledVersion()
+        /// <param name="composition">
+        /// The composition.
+        /// </param>
+        /// <returns>
+        /// The installed version, or null.
+        /// </returns>
+        private string GetInstalledVersion(Composition composition)
         {
-            var key = SettingConstants.VersionKey;
-            var version = ConfigurationManager.AppSettings[key];
-            if (string.IsNullOrWhiteSpace(version))
-            {
-                version = null;
-            }
-            return version;
+            var config = composition.Configs.GetConfig<IFormulateConfig>();
+
+            return config?.Version;
         }
 
         /// <summary>
