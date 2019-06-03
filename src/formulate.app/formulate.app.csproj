@@ -683,6 +683,7 @@
     <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.eot" />
     <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.ttf" />
     <None Include="App_Plugins\formulate\fonts\icomoon\icomoon.woff" />
+    <Content Include="App_Plugins\formulate\FormulateConfiguration.json" />
     <None Include="App_Plugins\formulate\package.manifest" />
     <None Include="packages.config" />
   </ItemGroup>
