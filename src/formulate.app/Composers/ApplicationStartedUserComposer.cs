@@ -1,4 +1,4 @@
-namespace formulate.app.Composers
+﻿namespace formulate.app.Composers
 {
     // Namespaces.
     using System.Configuration;
@@ -8,6 +8,7 @@ namespace formulate.app.Composers
     using formulate.app.Backoffice.Dashboards;
     using formulate.app.Components;
     using formulate.app.Configuration;
+    using formulate.app.ExtensionMethods;
 
     using Umbraco.Core;
     using Umbraco.Core.Composing;
@@ -44,8 +45,7 @@ namespace formulate.app.Composers
 
         private void InitializeConfiguration(Composition composition)
         {
-            composition.Configs.Add<IPersistenceConfig>("formulateConfiguration/persistence");
-            composition.Configs.Add<ITemplatesConfig>("formulateConfiguration/templates");
+            composition.Configs.AddJsonConfig<IFormulateConfig, FormulateConfig>("~/App_Plugins/Formulate/FormulateConfiguration.json");
         }
 
         private void InitializeServerVariables(Composition composition)
