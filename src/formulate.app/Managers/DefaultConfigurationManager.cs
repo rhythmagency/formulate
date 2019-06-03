@@ -2,12 +2,15 @@
 {
 
     // Namespaces.
-    using Configuration;
-    using core.Types;
-    using System;
+
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
+
+    using Configuration;
+
+    using core.Types;
+
     using Templates;
 
     /// <summary>
