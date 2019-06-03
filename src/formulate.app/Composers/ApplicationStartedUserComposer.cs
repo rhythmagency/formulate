@@ -126,8 +126,8 @@
             // and check if users need to be given access to Formulate.
             if (!isUpgrade)
             {
-                this.AddFormulateDeveloperDashboard(composition);
-                PermitAccess();
+                AddFormulateDeveloperDashboard(composition);
+                PermitAccess(composition);
             }
 
             // Make changes to the web.config.
@@ -268,36 +268,13 @@
 
         }
 
-
         /// <summary>
         /// Permits all users to access Formulate if configured in the web.config.
         /// </summary>
-        private void PermitAccess()
+        /// <param name="composition"></param>
+        private void PermitAccess(Composition composition)
         {
-
-            // Variables.
-            var key = SettingConstants.EnsureUsersCanAccess;
-            var ensure = ConfigurationManager.AppSettings[key];
-
-
-            // Should all users be given access to Formulate?
-            if (string.IsNullOrWhiteSpace(ensure))
-            {
-                return;
-            }
-
-
-            // Variables.
-            var doc = new XmlDocument();
-            var actionXml = Resources.GrantAllUsersPermissionToSection;
-            doc.LoadXml(actionXml);
-
-
-            // Grant access permission.
-
-            //TODO: Reinstate
-            //PackageAction.RunPackageAction("Formulate",
-            //    "Formulate.GrantPermissionToSection", doc.FirstChild);
+            composition.Components().Append<PermitAccessComponent>();
 
         }
         #endregion
