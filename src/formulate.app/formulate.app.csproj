@@ -240,7 +240,6 @@
     <Compile Include="Configuration\Button.cs" />
     <Compile Include="Configuration\EmailCollection.cs" />
     <Compile Include="Configuration\EmailConfig.cs" />
-    <Compile Include="Configuration\EmailConfigurationSection.cs" />
     <Compile Include="Configuration\EmailElement.cs" />
     <Compile Include="Configuration\EmailsConfigSection.cs" />
     <Compile Include="Configuration\FieldCategoriesConfigSection.cs" />
@@ -249,8 +248,7 @@
     <Compile Include="Configuration\FileStorageElement.cs" />
     <Compile Include="Configuration\FormulateConfig.cs" />
     <Compile Include="Configuration\IPersistenceConfig.cs" />
-    <Compile Include="Configuration\HeaderCollection.cs" />
-    <Compile Include="Configuration\HeaderConfig.cs" />
+    <Compile Include="Configuration\EmailHeaderConfig.cs" />
     <Compile Include="Configuration\IFormulateConfig.cs" />
     <Compile Include="Configuration\JsonElement.cs" />
     <Compile Include="Configuration\PersistenceConfig.cs" />

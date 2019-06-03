@@ -3,36 +3,23 @@
 
     // Namespaces.
     using System;
-    using System.Configuration;
 
     /// <summary>
-    /// The configuration item for an email header.
+    /// The configuration for an email header.
     /// </summary>
-    public class HeaderConfig : ConfigurationElement
+    public sealed class EmailHeaderConfig
     {
-
         #region Properties
 
         /// <summary>
-        /// The name of the email header.
+        /// Gets or sets the name of the email header.
         /// </summary>
-        [ConfigurationProperty("name", IsRequired = true, IsKey = true)]
-        public string Name
-        {
-            get => (string)this["name"];
-            set => this["name"] = value;
-        }
-
+        public string Name { get; set; }
 
         /// <summary>
-        /// The value of the email header.
+        /// Gets or sets the value of the email header.
         /// </summary>
-        [ConfigurationProperty("value", IsRequired = true, IsKey = false)]
-        public string Value
-        {
-            get => ReplaceTokens((string)this["value"]);
-            set => this["value"] = value;
-        }
+        public string Value { get; set; }
 
         #endregion
 
@@ -49,6 +36,7 @@
         /// </returns>
         private string ReplaceTokens(string input)
         {
+            // TODO: Apply this logic to JSON deserialize Value Get
             if (string.IsNullOrEmpty(input))
             {
                 return string.Empty;
@@ -57,7 +45,5 @@
         }
 
         #endregion
-
     }
-
 }
