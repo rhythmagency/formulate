@@ -114,7 +114,6 @@ namespace formulate.app.Composers
 
 
             // Make changes to the web.config.
-            AddConfigurationGroup();
             EnsureAppSettings();
 
         }
@@ -310,66 +309,6 @@ namespace formulate.app.Composers
             //    "Formulate.GrantPermissionToSection", doc.FirstChild);
 
         }
-
-
-        /// <summary>
-        /// Transforms the web.config to add the Formulate configuration group.
-        /// </summary>
-        private void AddConfigurationGroup()
-        {
-
-            // Queue web.config change to add Formulate configuration.
-            //QueueInstallAction(() =>
-            //{
-
-            //    // Does the section group already exist and contain all the expected sections?
-            //    var config = WebConfigurationManager.OpenWebConfiguration("~");
-            //    var groupName = "formulateConfiguration";
-            //    var group = config.GetSectionGroup(groupName);
-            //    var exists = group != null;
-            //    var sectionKeys = (group?.Sections?.Keys?.Cast<string>()?.ToArray()).MakeSafe();
-            //    var sectionsSet = new HashSet<string>(sectionKeys);
-            //    var expectedSections = new[]
-            //    {
-            //        "buttons",
-            //        "emailWhitelist",
-            //        "email",
-            //        "fieldCategories",
-            //        "persistence",
-            //        "submissions",
-            //        "templates"
-            //    };
-            //    var containsAllSections = expectedSections.All(x => sectionsSet.Contains(x));
-
-
-            //    // Only add the group if it doesn't exist or doesn't contain all the expected sections.
-            //    if (!exists || !containsAllSections)
-            //    {
-
-            //        // Logging.
-            //        Logger.Info<ApplicationStartedUserComposer>("Adding Formulate config to the web.config.");
-
-
-            //        // Variables.
-            //        var doc = new XmlDocument();
-            //        var actionXml = Resources.TransformWebConfig;
-            //        doc.LoadXml(actionXml);
-
-
-            //        // Add configuration group.
-            //        PackageAction.RunPackageAction("Formulate",
-            //            "Formulate.TransformXmlFile", doc.FirstChild);
-
-
-            //        // Logging.
-            //        Logger.Info<ApplicationStartedUserComposer>("Done adding Formulate config to the web.config.");
-
-            //    }
-
-            //});
-
-        }
-
         #endregion
     }
 }
