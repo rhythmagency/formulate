@@ -170,32 +170,6 @@ namespace formulate.app.Composers
         private void AddFormulateDashboard(Composition composition)
         {
             composition.Dashboards().Add<FormulateDashboard>();
-            //// Queue dashboard transformation.
-            //QueueInstallAction(() =>
-            //{
-            //    var exists = DashboardExists();
-            //    if (!exists)
-            //    {
-
-            //        // Logging.
-            //        Logger.Info<ApplicationStartedUserComposer>("Installing Formulate dashboard.");
-
-
-            //        // Variables.
-            //        var doc = new XmlDocument();
-            //        var actionXml = Resources.TransformDashboard;
-            //        doc.LoadXml(actionXml);
-
-            //        // Add dashboard.
-            //        PackageAction.RunPackageAction("Formulate",
-            //            "Formulate.TransformXmlFile", doc.FirstChild);
-
-            //        // Logging.
-            //        Logger.Info<ApplicationStartedUserComposer>("Done installing Formulate dashboard.");
-
-            //    }
-            //});
-
         }
 
         /// <summary>
