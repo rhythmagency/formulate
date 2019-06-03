@@ -248,11 +248,13 @@
     <Compile Include="Configuration\FieldCategoryCollection.cs" />
     <Compile Include="Configuration\FieldCategoryElement.cs" />
     <Compile Include="Configuration\FileStorageElement.cs" />
+    <Compile Include="Configuration\FormulateConfig.cs" />
     <Compile Include="Configuration\IPersistenceConfig.cs" />
     <Compile Include="Configuration\HeaderCollection.cs" />
     <Compile Include="Configuration\HeaderConfig.cs" />
     <Compile Include="Configuration\IFormulateConfig.cs" />
     <Compile Include="Configuration\JsonElement.cs" />
+    <Compile Include="Configuration\PersistenceConfig.cs" />
     <Compile Include="Configuration\PersistenceConfigSection.cs" />
     <Compile Include="Configuration\SubmissionsConfigSection.cs" />
     <Compile Include="Configuration\TemplateCollection.cs" />
