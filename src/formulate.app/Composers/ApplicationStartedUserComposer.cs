@@ -1,4 +1,4 @@
-﻿namespace formulate.app.Composers
+namespace formulate.app.Composers
 {
     // Namespaces.
     using System.Configuration;
@@ -31,23 +31,6 @@
         private const string TableCreationError = @"An error occurred while attempting to create the FormulateSubmissions table.";
 
         #endregion
-
-
-        #region Properties
-
-        private ILogger Logger { get; set; }
-        #endregion
-
-
-        #region Constructors
-
-        public ApplicationStartedUserComposer(ILogger logger)
-        {
-            Logger = logger;
-        }
-
-        #endregion
-
 
         #region Methods
         public void Compose(Composition composition)
@@ -91,19 +74,12 @@
             var needsUpgrade = !MetaConstants.Version.InvariantEquals(version);
             if (!isInstalled)
             {
-
-                // Logging.
-                Logger.Info<ApplicationStartedUserComposer>("Installing Formulate.");
-
                 // Install Formulate.
                 HandleInstall(composition);
 
             }
             else if (needsUpgrade)
             {
-                // Logging.
-                Logger.Info<ApplicationStartedUserComposer>("Upgrading Formulate.");
-
                 // Perform an upgrade installation.
                 HandleInstall(composition, true);
             }
