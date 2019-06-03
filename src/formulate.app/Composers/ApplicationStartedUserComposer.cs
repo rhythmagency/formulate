@@ -56,8 +56,8 @@ namespace formulate.app.Composers
         /// <summary>
         /// Modifies the database (e.g., adding necessary tables).
         /// </summary>
-        /// <param name="applicationContext">
-        /// The application context.
+        /// <param name="composition">
+        /// The composition.
         /// </param>
         private void InitializeDatabase(Composition composition)
         {
@@ -67,8 +67,10 @@ namespace formulate.app.Composers
         /// <summary>
         /// Handles install and upgrade operations.
         /// </summary>
-        private void HandleInstallAndUpgrade(
-            Composition composition)
+        /// <param name="composition">
+        /// The composition.
+        /// </param>
+        private void HandleInstallAndUpgrade(Composition composition)
         {
             var version = GetInstalledVersion();
             var isInstalled = version != null;
