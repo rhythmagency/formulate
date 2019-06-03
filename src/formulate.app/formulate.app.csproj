@@ -244,12 +244,9 @@
     <Compile Include="Configuration\FieldCategoryConfigItem.cs" />
     <Compile Include="Configuration\FileStorageElement.cs" />
     <Compile Include="Configuration\FormulateConfig.cs" />
-    <Compile Include="Configuration\IPersistenceConfig.cs" />
     <Compile Include="Configuration\EmailHeaderConfig.cs" />
     <Compile Include="Configuration\IFormulateConfig.cs" />
-    <Compile Include="Configuration\JsonElement.cs" />
     <Compile Include="Configuration\PersistenceConfig.cs" />
-    <Compile Include="Configuration\PersistenceConfigSection.cs" />
     <Compile Include="Configuration\SubmissionsConfig.cs" />
     <Compile Include="Configuration\TemplateConfigItem.cs" />
     <Compile Include="Constants\DataValues\DataValueList.cs" />
