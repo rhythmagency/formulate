@@ -73,10 +73,7 @@
         {
             get
             {
-                var buttonsSection = ConfigurationManager
-                    .GetSection("formulateConfiguration/buttons") as ButtonsConfigSection;
-                var templateItems = buttonsSection?.Buttons;
-                return templateItems.Cast<ButtonElement>().Select(x => x.Kind).ToArray();
+                return Config.Buttons?.Select(x => x.Kind);
             }
         }
 

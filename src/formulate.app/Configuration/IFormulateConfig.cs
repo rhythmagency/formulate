@@ -17,5 +17,10 @@
         /// Gets the templates configuration.
         /// </summary>
         IEnumerable<Template> Templates { get; }
+
+        /// <summary>
+        /// Gets the buttons configuration.
+        /// </summary>
+        IEnumerable<Button> Buttons { get; }
     }
 }
