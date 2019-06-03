@@ -33,5 +33,10 @@
         /// Gets or sets the submissions configuration.
         /// </summary>
         public SubmissionsConfig Submissions { get; set; }
+
+        /// <summary>
+        /// Gets or sets the field categories configuration.
+        /// </summary>
+        public FieldCategoriesConfig FieldCategories { get; set; }
     }
 }

@@ -32,5 +32,10 @@
         /// Gets the submissions configuration.
         /// </summary>
         SubmissionsConfig Submissions { get; }
+
+        /// <summary>
+        /// Gets the field categories configuration.
+        /// </summary>
+        FieldCategoriesConfig FieldCategories { get; }
     }
 }

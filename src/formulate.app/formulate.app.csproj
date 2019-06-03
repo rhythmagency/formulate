@@ -241,9 +241,8 @@
     <Compile Include="Configuration\EmailConfig.cs" />
     <Compile Include="Configuration\EmailWhitelistConfigItem.cs" />
     <Compile Include="Configuration\EmailWhitelistConfig.cs" />
-    <Compile Include="Configuration\FieldCategoriesConfigSection.cs" />
-    <Compile Include="Configuration\FieldCategoryCollection.cs" />
-    <Compile Include="Configuration\FieldCategoryElement.cs" />
+    <Compile Include="Configuration\FieldCategoriesConfig.cs" />
+    <Compile Include="Configuration\FieldCategoryConfigItem.cs" />
     <Compile Include="Configuration\FileStorageElement.cs" />
     <Compile Include="Configuration\FormulateConfig.cs" />
     <Compile Include="Configuration\IPersistenceConfig.cs" />
