@@ -5,7 +5,7 @@
     /// <summary>
     /// A "button" configuration item.
     /// </summary>
-    public class ButtonConfigItem
+    public sealed class ButtonConfigItem
     {
         #region Properties
 
