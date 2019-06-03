@@ -58,7 +58,7 @@
         {
             get
             {
-                return Config.Templates;
+                return Config.Templates.Select(x => new Template() { Id = x.Id, Name = x.Name, Path = x.Path }).ToArray();
             }
         }
 
@@ -117,7 +117,7 @@
         {
             get
             {
-                return Config.Email.Headers.Select(x => new EmailHeader() { Name = x.Name, Value = x.Value });
+                return Config.Email.Headers.Select(x => new EmailHeader() { Name = x.Name, Value = x.Value }).ToArray();
             }
         }
 
