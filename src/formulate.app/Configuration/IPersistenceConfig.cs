@@ -8,9 +8,4 @@
         string JsonBasePath { get; }
         string FileStorageBasePath { get; }
     }
-
-    public interface ITemplatesConfig
-    {
-        IEnumerable<Template> Templates { get; }
-    }
 }
