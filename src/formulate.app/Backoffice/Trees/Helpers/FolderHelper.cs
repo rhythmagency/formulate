@@ -1,4 +1,4 @@
-﻿namespace formulate.app.Trees.Helpers
+﻿namespace formulate.app.Backoffice.Trees.Helpers
 {
 
     // Namespaces.
@@ -31,6 +31,8 @@
         /// </summary>
         private TreeController Tree { get; set; }
 
+        private ILocalizationHelper LocalizationHelper { get; set; }
+
         #endregion
 
 
@@ -46,10 +48,11 @@
         /// The tree controller.
         /// </param>
         public FolderHelper(IEntityPersistence persistence,
-            TreeController tree)
+            TreeController tree, ILocalizationHelper localizationHelper)
         {
             Persistence = persistence;
             Tree = tree;
+            LocalizationHelper = localizationHelper;
         }
 
         #endregion

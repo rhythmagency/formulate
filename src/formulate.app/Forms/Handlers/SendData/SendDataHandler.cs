@@ -6,7 +6,6 @@ namespace formulate.app.Forms.Handlers.SendData
     using Managers;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
-    using Resolvers;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -86,15 +85,17 @@ namespace formulate.app.Forms.Handlers.SendData
         /// <summary>
         /// Configuration manager.
         /// </summary>
-        private IConfigurationManager Config
-        {
-            get
-            {
-                return Configuration.Current.Manager;
-            }
-        }
+        private IConfigurationManager Config { get; set; }
+
+        private ILogger Logger { get; set; }
 
         #endregion
+
+        public SendDataHandler(IConfigurationManager configurationManager, ILogger logger)
+        {
+            Config = configurationManager;
+            Logger = logger;
+        }
 
 
         #region Public Properties
@@ -432,8 +433,8 @@ namespace formulate.app.Forms.Handlers.SendData
                         // Log JSON being sent.
                         if (enableLogging == "true")
                         {
-                            LogHelper.Info<SendDataHandler>("Sent URL: " + config.Url);
-                            LogHelper.Info<SendDataHandler>("Sent Data: " + JsonHelper.FormatJsonForLogging(json));
+                            Logger.Info<SendDataHandler>("Sent URL: " + config.Url);
+                            Logger.Info<SendDataHandler>("Sent Data: " + JsonHelper.FormatJsonForLogging(json));
                         }
 
 
@@ -453,8 +454,8 @@ namespace formulate.app.Forms.Handlers.SendData
                         // Log data being sent.
                         if (enableLogging == "true")
                         {
-                            LogHelper.Info<SendDataHandler>("Sent URL: " + config.Url);
-                            LogHelper.Info<SendDataHandler>("Sent Data: " + strQueryString);
+                            Logger.Info<SendDataHandler>("Sent URL: " + config.Url);
+                            Logger.Info<SendDataHandler>("Sent Data: " + strQueryString);
                         }
 
 
@@ -486,7 +487,7 @@ namespace formulate.app.Forms.Handlers.SendData
             }
             catch (Exception ex)
             {
-                LogHelper.Error<SendDataHandler>(SendDataError, ex);
+                Logger.Error<SendDataHandler>(SendDataError, ex);
                 sendDataResult.ResponseError = ex;
                 sendDataResult.Success = false;
             }

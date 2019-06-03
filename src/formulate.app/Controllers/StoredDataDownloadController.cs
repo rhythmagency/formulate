@@ -10,7 +10,6 @@
     using Models.Requests;
     using Persistence;
     using Persistence.Internal.Sql.Models;
-    using Resolvers;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -20,11 +19,14 @@
     using System.Net.Http.Headers;
     using System.Web.Hosting;
     using System.Web.Http;
+
+    using NPoco;
+
     using Umbraco.Core.Persistence;
+    using Umbraco.Core.Scoping;
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi;
     using Umbraco.Web.WebApi.Filters;
-    using ResolverConfig = Resolvers.Configuration;
 
     /// <summary>
     /// Controller for downloading stored file data.
@@ -33,25 +35,18 @@
     [UmbracoApplicationAuthorize("formulate")]
     public class StoredDataDownloadController : UmbracoAuthorizedApiController
     {
-
         #region Properties
-
         /// <summary>
         /// Configuration manager.
         /// </summary>
-        private IConfigurationManager Config
-        {
-            get
-            {
-                return ResolverConfig.Current.Manager;
-            }
-        }
-
+        private IConfigurationManager Config { get; set; }
 
         /// <summary>
         /// Form persistence.
         /// </summary>
         private IFormPersistence Persistence { get; set; }
+
+        private IScopeProvider ScopeProvider { get; set; }
 
         #endregion
 
@@ -61,9 +56,11 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public StoredDataDownloadController()
+        public StoredDataDownloadController(IFormPersistence formPersistence, IConfigurationManager configurationManager, IScopeProvider scopeProvider)
         {
-            Persistence = FormPersistence.Current.Manager;
+            Persistence = formPersistence;
+            Config = configurationManager;
+            ScopeProvider = scopeProvider;
         }
 
         #endregion
@@ -166,7 +163,6 @@
 
             // Variables.
             var formId = form.Id;
-            var db = ApplicationContext.DatabaseContext.Database;
             var filteredFields = form.Fields.Where(x => !x.IsTransitory);
             var fieldIds = filteredFields.Select(x => x.Id).ToArray();
             var fieldsById = filteredFields.ToDictionary(x => x.Id, x => x);
@@ -174,10 +170,8 @@
 
 
             // Query database for form submissions.
-            var query = new Sql().Select("*").From("FormulateSubmission")
-                .Where("FormId = @0", formId).OrderByDescending("CreationDate");
-            var entries = db.Fetch<FormulateSubmission>(query).ToList();
 
+            var entries = FetchEntries(formId);
 
             // Extract field values from the database entries.
             foreach (var entry in entries)
@@ -210,10 +204,10 @@
 
 
             // Store to a CSV.
-            var config = new CsvHelper.Configuration.CsvConfiguration()
+            var config = new CsvHelper.Configuration.Configuration()
             {
                 HasHeaderRecord = true,
-                QuoteAllFields = true
+                ShouldQuote = (field, context) => true
             };
             using (var memStream = new MemoryStream())
             {
@@ -262,6 +256,19 @@
 
         }
 
+        private IEnumerable<FormulateSubmission> FetchEntries(Guid formId)
+        {
+            using (var scope = ScopeProvider.CreateScope())
+            {
+                var query = new Sql<ISqlContext>(scope.SqlContext)
+                            .Select("*")
+                            .From<FormulateSubmission>()
+                            .Where("FormId = @0", formId)
+                            .OrderByDescending("CreationDate");
+
+                return scope.Database.Fetch<FormulateSubmission>(query).ToList();
+            }
+        }
 
         /// <summary>
         /// Sanitizes a source string for use as a filename.

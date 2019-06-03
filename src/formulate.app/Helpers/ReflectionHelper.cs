@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Reflection;
 
+    using formulate.app.Persistence;
 
     /// <summary>
     /// Helps with reflection operations.

@@ -5,11 +5,12 @@
     using app.Helpers;
     using app.Managers;
     using app.Persistence;
-    using app.Resolvers;
     using core.Models;
     using System;
     using Umbraco.Core.Models;
-    using ResolverConfig = app.Resolvers.Configuration;
+    using Umbraco.Core.Models.PublishedContent;
+
+    using ResolverConfig = app.Configuration;
 
 
     /// <summary>

@@ -7,7 +7,6 @@
     using Helpers;
     using Managers;
     using Newtonsoft.Json.Linq;
-    using Resolvers;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -55,15 +54,15 @@
         /// <summary>
         /// Configuration manager.
         /// </summary>
-        private IConfigurationManager Config
-        {
-            get
-            {
-                return Configuration.Current.Manager;
-            }
-        }
+        private IConfigurationManager Config { get; set; }
 
         #endregion
+
+
+        public EmailHandler(IConfigurationManager configurationManager)
+        {
+            Config = configurationManager;
+        }
 
 
         #region Public Properties

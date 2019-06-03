@@ -6,18 +6,16 @@
     using core.Types;
     using Managers;
     using Persistence;
-    using Resolvers;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Validations;
-    using ResolverConfig = Resolvers.Configuration;
 
 
     /// <summary>
     /// Helps with type definitions.
     /// </summary>
-    public static class DefinitionHelper
+    public class DefinitionHelper : IDefinitionHelper
     {
 
         #region Properties
@@ -25,52 +23,34 @@
         /// <summary>
         /// Configuration manager.
         /// </summary>
-        private static IConfigurationManager Config
-        {
-            get
-            {
-                return ResolverConfig.Current.Manager;
-            }
-        }
-
+        private IConfigurationManager Config { get; set; }
 
         /// <summary>
         /// Form persistence.
         /// </summary>
-        private static IFormPersistence Forms
-        {
-            get
-            {
-                return FormPersistence.Current.Manager;
-            }
-        }
+        private IFormPersistence Forms { get; set; }
 
 
         /// <summary>
         /// Layout persistence.
         /// </summary>
-        private static ILayoutPersistence Layouts
-        {
-            get
-            {
-                return LayoutPersistence.Current.Manager;
-            }
-        }
+        private ILayoutPersistence Layouts { get; set; }
 
 
         /// <summary>
         /// Validation persistence.
         /// </summary>
-        private static IValidationPersistence Validations
-        {
-            get
-            {
-                return ValidationPersistence.Current.Manager;
-            }
-        }
+        private IValidationPersistence Validations { get; set; }
 
         #endregion
 
+        public DefinitionHelper(IConfigurationManager configurationManager, IFormPersistence formPersistence, ILayoutPersistence layoutPersistence, IValidationPersistence validationPersistence)
+        {
+            Config = configurationManager;
+            Forms = formPersistence;
+            Layouts = layoutPersistence;
+            Validations = validationPersistence;
+        }
 
         #region Public Methods
 
@@ -83,7 +63,7 @@
         /// <returns>
         /// The template path.
         /// </returns>
-        public static string GetTemplatePath(Guid? templateId)
+        public string GetTemplatePath(Guid? templateId)
         {
             if (templateId.HasValue)
             {
@@ -103,7 +83,7 @@
         /// <returns>
         /// The form definition.
         /// </returns>
-        public static FormDefinition GetFormDefinition(Guid? formId)
+        public FormDefinition GetFormDefinition(Guid? formId)
         {
             if (formId.HasValue)
             {
@@ -162,7 +142,7 @@
         /// <returns>
         /// The layout definition.
         /// </returns>
-        public static LayoutDefinition GetLayoutDefinition(Guid? layoutId)
+        public LayoutDefinition GetLayoutDefinition(Guid? layoutId)
         {
             if (layoutId.HasValue)
             {
@@ -187,4 +167,11 @@
 
     }
 
+    public interface IDefinitionHelper
+    {
+        string GetTemplatePath(Guid? templateId);
+
+        FormDefinition GetFormDefinition(Guid? formId);
+        LayoutDefinition GetLayoutDefinition(Guid? layoutId);
+    }
 }

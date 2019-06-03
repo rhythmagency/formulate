@@ -10,12 +10,20 @@
     using System.Linq;
     using Templates;
 
-
     /// <summary>
     /// The default configuration manager.
     /// </summary>
-    internal class DefaultConfigurationManager : IConfigurationManager
+    internal sealed class DefaultConfigurationManager : IConfigurationManager
     {
+        private IPersistenceConfig PersistenceConfig { get; set; }
+        private ITemplatesConfig TemplatesConfig { get; set; }
+
+        public DefaultConfigurationManager(IPersistenceConfig persistenceConfig, ITemplatesConfig templatesConfig)
+        {
+            PersistenceConfig = persistenceConfig;
+
+            TemplatesConfig = templatesConfig;
+        }
 
         #region Properties
 
@@ -26,14 +34,9 @@
         {
             get
             {
-                var persistence = ConfigurationManager
-                    .GetSection("formulateConfiguration/persistence")
-                    as PersistenceConfigSection;
-                var basePath = persistence.Json.BasePath;
-                return basePath;
+                return PersistenceConfig.JsonBasePath;
             }
         }
-
 
         /// <summary>
         /// The base path toe store submitted files in.
@@ -42,14 +45,9 @@
         {
             get
             {
-                var persistence = ConfigurationManager
-                    .GetSection("formulateConfiguration/persistence")
-                    as PersistenceConfigSection;
-                var basePath = persistence.FileStorage.BasePath;
-                return basePath;
+                return PersistenceConfig.JsonBasePath;
             }
         }
-
 
         /// <summary>
         /// The templates used to render forms.
@@ -58,15 +56,7 @@
         {
             get
             {
-                var templatesSection = ConfigurationManager
-                    .GetSection("formulateConfiguration/templates") as TemplatesConfigSection;
-                var templateItems = templatesSection?.Templates;
-                return templateItems.Cast<TemplateElement>().Select(x => new Template()
-                {
-                    Name = x.Name,
-                    Path = x.Path,
-                    Id = Guid.Parse(x.Id)
-                }).ToArray();
+                return TemplatesConfig.Templates;
             }
         }
 
@@ -144,7 +134,7 @@
             {
                 var configuration = ConfigurationManager.GetSection("formulateConfiguration/email") as EmailConfigurationSection;
                 var headers = new List<EmailHeader>();
-                foreach(HeaderConfig header in configuration.Headers)
+                foreach (HeaderConfig header in configuration.Headers)
                 {
                     headers.Add(new EmailHeader()
                     {

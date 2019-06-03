@@ -6,7 +6,6 @@
     using Helpers;
     using Newtonsoft.Json.Linq;
     using Persistence;
-    using Resolvers;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -60,7 +59,7 @@
         /// </summary>
         public RadioButtonListField()
         {
-            DataValues = DataValuePersistence.Current.Manager;
+            //DataValues = DataValuePersistence.Current.Manager;
         }
 
         #endregion

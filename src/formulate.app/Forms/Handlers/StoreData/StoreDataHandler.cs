@@ -5,13 +5,14 @@
     using Helpers;
     using Managers;
     using Persistence.Internal.Sql.Models;
-    using Resolvers;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web.Hosting;
 
+    using Umbraco.Core.Persistence;
+    using Umbraco.Core.Scoping;
 
     /// <summary>
     /// A form submission handler that stores the submitted data.
@@ -24,13 +25,9 @@
         /// <summary>
         /// Configuration manager.
         /// </summary>
-        private IConfigurationManager Config
-        {
-            get
-            {
-                return Configuration.Current.Manager;
-            }
-        }
+        private IConfigurationManager Config { get; set; }
+
+        private IScopeProvider ScopeProvider { get; set; }
 
         #endregion
 
@@ -118,8 +115,6 @@
             var files = context.Files;
             var payload = context.Payload;
             var fieldsById = form.Fields.ToDictionary(x => x.Id, x => x);
-            var db = context.UmbracoContext.Application.DatabaseContext.Database;
-
 
             // This will store the formatted values.
             var valueList = new[]
@@ -203,7 +198,7 @@
 
 
                 // Create files.
-                foreach(var key in filesById.Keys)
+                foreach (var key in filesById.Keys)
                 {
                     var file = filesById[key];
                     var fullPath = Path.Combine(basePath, file.PathSegment);
@@ -218,17 +213,21 @@
             // Store data to database.
             var serializedValues = JsonHelper.Serialize(valueList.ToArray());
             var serializedFiles = JsonHelper.Serialize(fileList.ToArray());
-            db.Insert(new FormulateSubmission()
-            {
-                CreationDate = DateTime.UtcNow,
-                DataValues = serializedValues,
-                FileValues = serializedFiles,
-                FormId = form.Id,
-                GeneratedId = context.SubmissionId,
-                PageId = context?.CurrentPage?.Id,
-                Url = context?.CurrentPage?.Url
-            });
 
+            using (var scope = ScopeProvider.CreateScope())
+            {
+                scope.Database.Insert(
+                    new FormulateSubmission()
+                    {
+                        CreationDate = DateTime.UtcNow,
+                        DataValues = serializedValues,
+                        FileValues = serializedFiles,
+                        FormId = form.Id,
+                        GeneratedId = context.SubmissionId,
+                        PageId = context?.CurrentPage?.Id,
+                        Url = context?.CurrentPage?.Url
+                    });
+            }
         }
 
         #endregion
@@ -278,6 +277,12 @@
         }
 
         #endregion
+
+        public StoreDataHandler(IConfigurationManager configurationManager, IScopeProvider scopeProvider)
+        {
+            Config = configurationManager;
+            ScopeProvider = scopeProvider;
+        }
 
     }
 

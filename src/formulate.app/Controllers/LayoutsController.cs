@@ -6,7 +6,6 @@
     using Layouts;
     using Models.Requests;
     using Persistence;
-    using Resolvers;
     using System;
     using System.Linq;
     using System.Web.Http;
@@ -44,6 +43,7 @@
 
         private ILayoutPersistence Persistence { get; set; }
         private IEntityPersistence Entities { get; set; }
+        private ILogger Logger { get; set; }
 
         #endregion
 
@@ -53,21 +53,11 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public LayoutsController()
-            : this(UmbracoContext.Current)
+        public LayoutsController(ILayoutPersistence layoutPersistence, IEntityPersistence entityPersistence, ILogger logger)
         {
-        }
-
-
-        /// <summary>
-        /// Primary constructor.
-        /// </summary>
-        /// <param name="context">Umbraco context.</param>
-        public LayoutsController(UmbracoContext context)
-            : base(context)
-        {
-            Persistence = LayoutPersistence.Current.Manager;
-            Entities = EntityPersistence.Current.Manager;
+            Persistence = layoutPersistence;
+            Entities = entityPersistence;
+            Logger = logger;
         }
 
         #endregion
@@ -149,7 +139,7 @@
             {
 
                 // Error.
-                LogHelper.Error<LayoutsController>(PersistLayoutError, ex);
+                Logger.Error<LayoutsController>(PersistLayoutError, ex);
                 result = new
                 {
                     Success = false,
@@ -220,7 +210,7 @@
             {
 
                 // Error.
-                LogHelper.Error<LayoutsController>(GetLayoutInfoError, ex);
+                Logger.Error<LayoutsController>(GetLayoutInfoError, ex);
                 result = new
                 {
                     Success = false,
@@ -277,7 +267,7 @@
             {
 
                 // Error.
-                LogHelper.Error<LayoutsController>(DeleteLayoutError, ex);
+                Logger.Error<LayoutsController>(DeleteLayoutError, ex);
                 result = new
                 {
                     Success = false,
@@ -333,7 +323,7 @@
             {
 
                 // Error.
-                LogHelper.Error<LayoutsController>(GetKindsError, ex);
+                Logger.Error<LayoutsController>(GetKindsError, ex);
                 result = new
                 {
                     Success = false,
@@ -410,7 +400,7 @@
             {
 
                 // Error.
-                LogHelper.Error<LayoutsController>(MoveLayoutError, ex);
+                Logger.Error<LayoutsController>(MoveLayoutError, ex);
                 result = new
                 {
                     Success = false,

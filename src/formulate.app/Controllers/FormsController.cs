@@ -8,7 +8,6 @@
     using Managers;
     using Models.Requests;
     using Persistence;
-    using Resolvers;
     using System;
     using System.Linq;
     using System.Web.Http;
@@ -20,7 +19,6 @@
     using Umbraco.Web.WebApi.Filters;
     using CoreConstants = Umbraco.Core.Constants;
     using FormConstants = formulate.app.Constants.Trees.Forms;
-    using ResolverConfig = Resolvers.Configuration;
 
 
     /// <summary>
@@ -47,19 +45,13 @@
         /// <summary>
         /// Configuration manager.
         /// </summary>
-        private IConfigurationManager Config
-        {
-            get
-            {
-                return ResolverConfig.Current.Manager;
-            }
-        }
-
-
+        private IConfigurationManager Config { get; set; }
         private IFormPersistence Persistence { get; set; }
         private IEntityPersistence Entities { get; set; }
         private IValidationPersistence Validations { get; set; }
         private IConfiguredFormPersistence ConFormPersistence { get; set; }
+        private ILogger Logger { get; set; }
+        private IEntityHelper EntityHelper { get; set; }
 
         #endregion
 
@@ -69,23 +61,13 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public FormsController()
-            : this(UmbracoContext.Current)
-        {
-        }
-
-
-        /// <summary>
-        /// Primary constructor.
-        /// </summary>
-        /// <param name="context">Umbraco context.</param>
-        public FormsController(UmbracoContext context)
-            : base(context)
-        {
-            Persistence = FormPersistence.Current.Manager;
-            Entities = EntityPersistence.Current.Manager;
-            Validations = ValidationPersistence.Current.Manager;
-            ConFormPersistence = ConfiguredFormPersistence.Current.Manager;
+        public FormsController(IFormPersistence formPersistence, IEntityPersistence entityPersistence, IValidationPersistence validationPersistence, IConfiguredFormPersistence configuredFormPersistence,  ILogger logger, IEntityHelper entityHelper) {
+            Persistence = formPersistence;
+            Entities = entityPersistence;
+            Validations = validationPersistence;
+            ConFormPersistence = configuredFormPersistence;
+            Logger = logger;
+            EntityHelper = entityHelper;
         }
 
         #endregion
@@ -175,7 +157,7 @@
             {
 
                 // Error.
-                LogHelper.Error<FormsController>(GetFormInfoError, ex);
+                Logger.Error<FormsController>(GetFormInfoError, ex);
                 result = new
                 {
                     Success = false,
@@ -303,7 +285,7 @@
             {
 
                 // Error.
-                LogHelper.Error<FormsController>(PersistFormError, ex);
+                Logger.Error<FormsController>(PersistFormError, ex);
                 result = new
                 {
                     Success = false,
@@ -347,7 +329,11 @@
 
 
                 // Delete the form and its configurations.
-                configs.ForEach(x => ConFormPersistence.Delete(x.Id));
+                foreach (var item in configs)
+                {
+                    ConFormPersistence.Delete(item.Id);
+                }
+
                 Persistence.Delete(formId);
 
 
@@ -362,7 +348,7 @@
             {
 
                 // Error.
-                LogHelper.Error<FormsController>(DeleteFormError, ex);
+                Logger.Error<FormsController>(DeleteFormError, ex);
                 result = new
                 {
                     Success = false,
@@ -453,7 +439,7 @@
             {
 
                 // Error.
-                LogHelper.Error<FormsController>(MoveFormError, ex);
+                Logger.Error<FormsController>(MoveFormError, ex);
                 result = new
                 {
                     Success = false,

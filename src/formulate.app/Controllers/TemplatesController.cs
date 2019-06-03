@@ -13,7 +13,6 @@
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
     using CoreConstants = Umbraco.Core.Constants;
-    using ResolverConfig = Resolvers.Configuration;
 
 
     /// <summary>
@@ -37,13 +36,9 @@
         /// <summary>
         /// Configuration manager.
         /// </summary>
-        private IConfigurationManager Config
-        {
-            get
-            {
-                return ResolverConfig.Current.Manager;
-            }
-        }
+        private IConfigurationManager Config { get; set; }
+
+        private  ILogger Logger { get; set; }
 
         #endregion
 
@@ -53,19 +48,10 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public TemplatesController()
-            : this(UmbracoContext.Current)
+        public TemplatesController(IConfigurationManager configurationManager, ILogger logger)
         {
-        }
-
-
-        /// <summary>
-        /// Primary constructor.
-        /// </summary>
-        /// <param name="context">Umbraco context.</param>
-        public TemplatesController(UmbracoContext context)
-            : base(context)
-        {
+            Config = configurationManager;
+            Logger = logger;
         }
 
         #endregion
@@ -112,7 +98,7 @@
             {
 
                 // Error.
-                LogHelper.Error<TemplatesController>(GetTemplatesError, ex);
+                Logger.Error<TemplatesController>(GetTemplatesError, ex);
                 result = new
                 {
                     Success = false,

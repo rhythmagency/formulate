@@ -4,7 +4,6 @@
     // Namespaces.
     using Helpers;
     using Persistence;
-    using Resolvers;
     using System;
     using Types;
     using Umbraco.Core;
@@ -15,7 +14,7 @@
     /// <summary>
     /// Converts property values to ConfiguredFormInfo.
     /// </summary>
-    [PropertyValueType(typeof(ConfiguredFormInfo))]
+    //[PropertyValueType(typeof(ConfiguredFormInfo))]
     public class ConfiguredFormConverter : PropertyValueConverterBase
     {
 
@@ -33,7 +32,7 @@
         /// </summary>
         public ConfiguredFormConverter()
         {
-            ConfiguredForms = ConfiguredFormPersistence.Current.Manager;
+            ConfiguredForms = null;//configuredFormPersistence;
         }
 
         #endregion
@@ -52,32 +51,14 @@
         /// </returns>
         public override bool IsConverter(PublishedPropertyType propertyType)
         {
-            return "Formulate.ConfiguredFormPicker".InvariantEquals(propertyType.PropertyEditorAlias);
+            return "Formulate.ConfiguredFormPicker".InvariantEquals(propertyType.EditorAlias);
         }
 
 
-        /// <summary>
-        /// Converts the raw property data to ConfiguredFormInfo.
-        /// </summary>
-        /// <param name="propertyType">
-        /// The property type.
-        /// </param>
-        /// <param name="source">
-        /// The property data.
-        /// </param>
-        /// <param name="preview">
-        /// Is this preview data?
-        /// </param>
-        /// <returns>
-        /// The ConfiguredFormInfo.
-        /// </returns>
-        public override object ConvertDataToSource(PublishedPropertyType propertyType, object source,
-            bool preview)
+        public override object ConvertIntermediateToObject(IPublishedElement owner, PublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object source, bool preview)
         {
-
             // Variables.
             var deserialized = default(dynamic);
-
 
             // Source is typically a string, but may already be deserialized (e.g.,
             // when used with Umbraco grid and LeBlender).

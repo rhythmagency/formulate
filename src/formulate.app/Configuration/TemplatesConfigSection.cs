@@ -2,13 +2,17 @@
 {
 
     // Namespaces.
+    using System;
+    using System.Collections.Generic;
     using System.Configuration;
+    using System.Linq;
 
+    using formulate.app.Templates;
 
     /// <summary>
     /// A configuration section for Formulate templates.
     /// </summary>
-    public class TemplatesConfigSection : ConfigurationSection
+    public class TemplatesConfigSection : ConfigurationSection, ITemplatesConfig
     {
 
         #region Properties
@@ -18,7 +22,7 @@
         /// </summary>
         [ConfigurationProperty("", IsDefaultCollection = true)]
         [ConfigurationCollection(typeof(TemplateCollection), AddItemName = "template")]
-        public TemplateCollection Templates
+        public TemplateCollection ConfiguredTemplates
         {
             get
             {
@@ -28,6 +32,17 @@
 
         #endregion
 
+        public IEnumerable<Template> Templates
+        {
+            get
+            {
+                return ConfiguredTemplates.Cast<TemplateElement>().Select(x => new Template()
+                {
+                    Name = x.Name,
+                    Path = x.Path,
+                    Id = Guid.Parse(x.Id)
+                }).ToArray();
+            }
+        }
     }
-
 }

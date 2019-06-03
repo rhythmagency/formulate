@@ -9,16 +9,20 @@
     using Models.Requests;
     using Persistence;
     using Persistence.Internal.Sql.Models;
-    using Resolvers;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
+
+    using NPoco;
+
+    using Umbraco.Core.Logging;
+    using Umbraco.Core.Persistence;
+    using Umbraco.Core.Scoping;
     using Umbraco.Web;
     using Umbraco.Web.Editors;
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
-    using ResolverConfig = Resolvers.Configuration;
 
 
     /// <summary>
@@ -34,19 +38,17 @@
         /// <summary>
         /// Configuration manager.
         /// </summary>
-        private IConfigurationManager Config
-        {
-            get
-            {
-                return ResolverConfig.Current.Manager;
-            }
-        }
+        private IConfigurationManager Config { get; set; }
 
 
         /// <summary>
         /// Form persistence.
         /// </summary>
         private IFormPersistence Forms { get; set; }
+
+        private ILogger Logger { get; set; }
+
+        private IScopeProvider ScopeProvider { get; set; }
 
         #endregion
 
@@ -56,20 +58,12 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public StoredDataController()
-            : this(UmbracoContext.Current)
+        public StoredDataController(IConfigurationManager configurationManager, IFormPersistence formPersistence, ILogger logger, IScopeProvider scopeProvider)
         {
-        }
-
-
-        /// <summary>
-        /// Primary constructor.
-        /// </summary>
-        /// <param name="context">Umbraco context.</param>
-        public StoredDataController(UmbracoContext context)
-            : base(context)
-        {
-            Forms = FormPersistence.Current.Manager;
+            Config = configurationManager;
+            Forms = formPersistence;
+            Logger = logger;
+            this.ScopeProvider = scopeProvider;
         }
 
         #endregion
@@ -94,11 +88,9 @@
             var formId = GuidHelper.GetGuid(request.FormId);
             var form = Forms.Retrieve(formId);
             var fieldsById = form.Fields.ToDictionary(x => x.Id, x => x);
-            var db = ApplicationContext.DatabaseContext.Database;
-            var dbResults = db.Page<FormulateSubmission>(request.Page, request.ItemsPerPage,
-                "WHERE FormId = @0 ORDER BY SequenceId DESC", formId);
-            var items = dbResults.Items;
 
+            var dbResults = GetPagedResults(request, formId);
+            var items = dbResults.Items;
 
             // If the form was not found, indicate an error.
             if (form == null)
@@ -129,6 +121,16 @@
 
         }
 
+        private Page<FormulateSubmission> GetPagedResults(GetStoredDataRequest request, Guid formId)
+        {
+            using (var scope = ScopeProvider.CreateScope())
+            {
+                var dbResults = scope.Database.Page<FormulateSubmission>(request.Page, request.ItemsPerPage,
+                    "WHERE FormId = @0 ORDER BY SequenceId DESC", formId);
+
+                return dbResults;
+            }
+        }
 
         /// <summary>
         /// Deletes the form submission with the specified ID.
@@ -142,16 +144,15 @@
         [HttpPost]
         public object DeleteSubmission(DeleteSubmissionRequest request)
         {
-
             // Variables.
             var id = GuidHelper.GetGuid(request.GeneratedId);
-            var db = ApplicationContext.DatabaseContext.Database;
-
 
             // Delete the submission.
-            db.Delete("FormulateSubmission", "GeneratedId", null, id);
-
-
+            using (var scope = ScopeProvider.CreateScope())
+            {
+                scope.Database.Delete("FormulateSubmission", "GeneratedId", null, id);
+            }
+            
             // Indicate success.
             return new
             {

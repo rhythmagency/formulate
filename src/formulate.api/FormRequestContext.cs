@@ -4,6 +4,7 @@
     // Namespaces.
     using System.Web;
     using Umbraco.Core.Models;
+    using Umbraco.Core.Models.PublishedContent;
     using Umbraco.Core.Services;
     using Umbraco.Web;
 

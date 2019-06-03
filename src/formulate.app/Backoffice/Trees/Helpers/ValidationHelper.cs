@@ -1,4 +1,4 @@
-﻿namespace formulate.app.Trees.Helpers
+﻿namespace formulate.app.Backoffice.Trees.Helpers
 {
 
     // Namespaces.
@@ -33,6 +33,7 @@
         /// The folder helper.
         /// </summary>
         private FolderHelper Helper { get; set; }
+        private ILocalizationHelper LocalizationHelper { get; set; }
 
         #endregion
 
@@ -48,10 +49,11 @@
         /// <param name="helper">
         /// The folder helper.
         /// </param>
-        public ValidationHelper(TreeController tree, FolderHelper helper)
+        public ValidationHelper(TreeController tree, FolderHelper helper, ILocalizationHelper localizationHelper)
         {
             Tree = tree;
             Helper = helper;
+            LocalizationHelper = localizationHelper;
         }
 
         #endregion

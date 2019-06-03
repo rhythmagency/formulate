@@ -4,7 +4,6 @@
     //  Namespaces.
     using app.Forms;
     using app.Persistence;
-    using app.Resolvers;
     using app.Validations;
     using core.Types;
     using System;
@@ -17,7 +16,7 @@
     /// <summary>
     /// Used for form submissions.
     /// </summary>
-    public static class Submissions
+    public class Submissions
     {
 
         #region Constants
@@ -60,27 +59,24 @@
         /// <summary>
         /// Form persistence.
         /// </summary>
-        private static IFormPersistence Forms
-        {
-            get
-            {
-                return FormPersistence.Current.Manager;
-            }
-        }
+        private IFormPersistence Forms { get; set; }
 
 
         /// <summary>
         /// Validation persistence.
         /// </summary>
-        private static IValidationPersistence Validations
-        {
-            get
-            {
-                return ValidationPersistence.Current.Manager;
-            }
-        }
+        private IValidationPersistence Validations { get; set; }
+
+        private ILogger Logger { get; set; }
 
         #endregion
+
+        public Submissions(IFormPersistence formPersistence, IValidationPersistence validationPersistence, ILogger logger)
+        {
+            Forms = formPersistence;
+            Validations = validationPersistence;
+            Logger = logger;
+        }
 
 
         #region Methods
@@ -109,7 +105,7 @@
         /// <returns>
         /// The result of the submission.
         /// </returns>
-        public static SubmissionResult SubmitForm(Guid formId,
+        public SubmissionResult SubmitForm(Guid formId,
             IEnumerable<FieldSubmission> data, IEnumerable<FileFieldSubmission> files,
             IEnumerable<PayloadSubmission> payload, SubmissionOptions options,
             FormRequestContext context)
@@ -238,7 +234,7 @@
             }
             catch (Exception ex)
             {
-                LogHelper.Error<Submissions_Instance>(PreHandlerError, ex);
+                Logger.Error<Submissions_Instance>(PreHandlerError, ex);
                 return new SubmissionResult()
                 {
                     Success = false
@@ -258,7 +254,7 @@
                 }
                 catch (Exception ex)
                 {
-                    LogHelper.Error<Submissions_Instance>(HandlerError, ex);
+                    Logger.Error<Submissions_Instance>(HandlerError, ex);
                 }
             });
             t.IsBackground = true;

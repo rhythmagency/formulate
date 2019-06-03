@@ -21,7 +21,8 @@
         #region Properties
 
         public Guid Id => GuidHelper.GetGuid(Constants.Id);
-        public string Name => LocalizationHelper.GetDataValueName(Constants.Name);
+
+        public string Name => Constants.Name; //LocalizationHelper.GetDataValueName(Constants.Name);
         public string Directive => Constants.Directive;
 
         #endregion

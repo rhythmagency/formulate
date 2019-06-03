@@ -8,9 +8,8 @@
     /// <summary>
     /// A configuration section for Formulate persistence.
     /// </summary>
-    public class PersistenceConfigSection : ConfigurationSection
+    public class PersistenceConfigSection : ConfigurationSection, IPersistenceConfig
     {
-
         #region Properties
 
         /// <summary>
@@ -48,6 +47,21 @@
 
         #endregion
 
+        public string JsonBasePath
+        {
+            get
+            {
+                return Json.BasePath;
+            }
+        }
+
+        public string FileStorageBasePath
+        {
+            get
+            {
+                return FileStorage.BasePath;
+            }
+        }
     }
 
 }

@@ -3,7 +3,6 @@
 
     // Namespaces.
     using Managers;
-    using Resolvers;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -50,13 +49,7 @@
         /// <summary>
         /// Configuration manager.
         /// </summary>
-        private IConfigurationManager Config
-        {
-            get
-            {
-                return Configuration.Current.Manager;
-            }
-        }
+        private IConfigurationManager Config { get; set; }
 
 
         /// <summary>
@@ -104,8 +97,9 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public JsonValidationPersistence()
+        public JsonValidationPersistence(IConfigurationManager configurationManager)
         {
+            Config = configurationManager;
         }
 
         #endregion

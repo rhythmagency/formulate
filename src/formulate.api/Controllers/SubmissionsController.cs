@@ -3,13 +3,16 @@
 
     // Namespaces.
     using app.Managers;
-    using app.Resolvers;
     using core.Types;
     using core.Utilities;
     using System;
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
+
+    using formulate.app.Persistence;
+
+    using Umbraco.Core.Models.PublishedContent;
     using Umbraco.Web.Mvc;
 
 
@@ -25,16 +28,19 @@
         /// <summary>
         /// Configuration manager.
         /// </summary>
-        private IConfigurationManager Config
-        {
-            get
-            {
-                return Configuration.Current.Manager;
-            }
-        }
+        private IConfigurationManager Config { get; set; }
 
         #endregion
 
+        public SubmissionsController(IConfigurationManager configurationManager, IFormPersistence formPersistence, IValidationPersistence validationPersistence)
+        {
+            Config = configurationManager;
+            Forms = formPersistence;
+            Validations = validationPersistence;
+        }
+
+        public IFormPersistence Forms { get; set; }
+        public IValidationPersistence Validations { get; set; }
 
         #region Action Methods
 
@@ -55,9 +61,11 @@
             var fileKeys = Request.Files.AllKeys;
             var formId = Guid.Parse(Request["FormId"]);
             var pageId = NumberUtility.AttemptParseInt(Request["PageId"]);
-            var pageNode = pageId.HasValue
-                ? Umbraco.TypedContent(pageId.Value)
-                : null;
+            IPublishedContent pageNode = null;
+
+            //pageId.HasValue
+            //? Umbraco.TypedContent(pageId.Value)
+            //: null;
             var pageUrl = pageNode?.Url;
             var pageName = pageNode?.Name;
 
@@ -133,8 +141,8 @@
             {
                 Validate = Config.EnableServerSideValidation
             };
-            var result = Submissions.SubmitForm(formId, values, fileValues, payload, options, context);
 
+            var result = new Submissions(Forms, Validations, Logger).SubmitForm(formId, values, fileValues, payload, options, context);
 
             // Return result.
             return Json(new

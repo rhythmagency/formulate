@@ -41,7 +41,7 @@
         {
             get
             {
-                return LocalizationHelper.GetDataValueName(Constants.Name);
+                return Constants.Name;// LocalizationHelper.GetDataValueName();
             }
         }
 

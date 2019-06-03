@@ -8,12 +8,14 @@
     using System;
     using System.Linq;
     using System.Web.Http;
+
+    using formulate.app.Persistence;
+
     using Umbraco.Core.Logging;
     using Umbraco.Web;
     using Umbraco.Web.Editors;
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
-    using ResolverConfig = Resolvers.Configuration;
 
 
     /// <summary>
@@ -39,13 +41,12 @@
         /// <summary>
         /// Configuration manager.
         /// </summary>
-        private IConfigurationManager Config
-        {
-            get
-            {
-                return ResolverConfig.Current.Manager;
-            }
-        }
+        private IConfigurationManager Config { get; set; }
+
+
+        private IDataValuePersistence DataValues { get; set; }
+
+        private ILogger Logger { get; set; }
 
         #endregion
 
@@ -55,19 +56,11 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public FieldsController()
-            : this(UmbracoContext.Current)
+        public FieldsController(IConfigurationManager configurationManager, IDataValuePersistence dataValuePersistence, ILogger logger)
         {
-        }
-
-
-        /// <summary>
-        /// Primary constructor.
-        /// </summary>
-        /// <param name="context">Umbraco context.</param>
-        public FieldsController(UmbracoContext context)
-            : base(context)
-        {
+            Config = configurationManager;
+            DataValues = dataValuePersistence;
+            Logger = logger;
         }
 
         #endregion
@@ -119,7 +112,7 @@
             {
 
                 // Error.
-                LogHelper.Error<FieldsController>(GetFieldTypesError, ex);
+                Logger.Error<FieldsController>(GetFieldTypesError, ex);
                 result = new
                 {
                     Success = false,
@@ -164,7 +157,7 @@
             {
 
                 // Error.
-                LogHelper.Error<FieldsController>(GetButtonKindsError, ex);
+                Logger.Error<FieldsController>(GetButtonKindsError, ex);
                 result = new
                 {
                     Success = false,
@@ -218,7 +211,7 @@
             {
 
                 // Error.
-                LogHelper.Error<FieldsController>(GetFieldCategoriesError, ex);
+                Logger.Error<FieldsController>(GetFieldCategoriesError, ex);
                 result = new
                 {
                     Success = false,

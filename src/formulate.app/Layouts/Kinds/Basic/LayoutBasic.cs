@@ -37,7 +37,7 @@
         {
             get
             {
-                return LocalizationHelper.GetLayoutName(Constants.Name);
+                return Constants.Name; //LocalizationHelper.GetLayoutName(Constants.Name);
             }
         }
 

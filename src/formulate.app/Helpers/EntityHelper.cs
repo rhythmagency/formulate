@@ -18,8 +18,9 @@
     /// <summary>
     /// Helps with entities.
     /// </summary>
-    internal class EntityHelper
+    internal class EntityHelper : IEntityHelper
     {
+        private ILocalizationHelper LocalizationHelper { get; set; }
 
         #region Constants
 
@@ -30,29 +31,24 @@
 
         #region Readonly Variables
 
-        static readonly Guid FormId;
-        static readonly Guid LayoutId;
-        static readonly Guid ValidationId;
-        static readonly Guid DataValueId;
-        static readonly Guid DataSourceId;
-        static readonly Guid SubmissionId;
+        static readonly Guid FormId = GuidHelper.GetGuid(FormConstants.Id);
+        static readonly Guid LayoutId = GuidHelper.GetGuid(LayoutConstants.Id);
+        static readonly Guid ValidationId = GuidHelper.GetGuid(ValidationConstants.Id);
+        static readonly Guid DataValueId = GuidHelper.GetGuid(DataValueConstants.Id);
+        static readonly Guid DataSourceId = GuidHelper.GetGuid(DataSourceConstants.Id);
+        static readonly Guid SubmissionId = GuidHelper.GetGuid(SubmissionConstants.Id);
+
 
         #endregion
 
 
         #region Constructors
 
-        /// <summary>
-        /// Static constructor.
-        /// </summary>
-        static EntityHelper()
+
+        public EntityHelper(ILocalizationHelper localizationHelper)
         {
-            FormId = GuidHelper.GetGuid(FormConstants.Id);
-            LayoutId = GuidHelper.GetGuid(LayoutConstants.Id);
-            ValidationId = GuidHelper.GetGuid(ValidationConstants.Id);
-            DataValueId = GuidHelper.GetGuid(DataValueConstants.Id);
-            DataSourceId = GuidHelper.GetGuid(DataSourceConstants.Id);
-            SubmissionId = GuidHelper.GetGuid(SubmissionConstants.Id);
+
+            LocalizationHelper = localizationHelper;
         }
 
         #endregion
@@ -67,7 +63,7 @@
         /// The root entity ID.
         /// </param>
         /// <returns>The icon.</returns>
-        public static string GetIconForRoot(Guid id)
+        public string GetIconForRoot(Guid id)
         {
             if (id == FormId)
             {
@@ -110,7 +106,7 @@
         /// <returns>
         /// The group icon.
         /// </returns>
-        public static string GetGroupIconByRoot(Guid id)
+        public string GetGroupIconByRoot(Guid id)
         {
             if (id == FormId)
             {
@@ -148,7 +144,7 @@
         /// <returns>
         /// The entity name.
         /// </returns>
-        public static string GetNameForRoot(Guid id)
+        public string GetNameForRoot(Guid id)
         {
             var name = default(string);
             if (id == FormId)
@@ -191,7 +187,7 @@
         /// <returns>
         /// True, if the entity is a root entity; otherwise, false.
         /// </returns>
-        public static bool IsRoot(Guid id)
+        public bool IsRoot(Guid id)
         {
             return id == FormId || id == LayoutId || id == ValidationId
                 || id == DataValueId || id == DataSourceId || id == SubmissionId;
@@ -205,7 +201,7 @@
         /// <returns>
         /// The entity kind string.
         /// </returns>
-        public static string GetString(EntityKind kind)
+        public string GetString(EntityKind kind)
         {
             return Enum.GetName(typeof(EntityKind), kind);
         }
@@ -224,7 +220,7 @@
         /// The client-side entity path expects an extra root ID of "-1",
         /// which this method includes.
         /// </remarks>
-        public static string[] GetClientPath(Guid[] path)
+        public string[] GetClientPath(Guid[] path)
         {
             var rootId = CoreConstants.System.Root.ToInvariantString();
             var clientPath = new[] { rootId }

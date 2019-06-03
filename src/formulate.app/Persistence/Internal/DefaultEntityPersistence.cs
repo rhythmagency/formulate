@@ -8,7 +8,6 @@
     using Forms;
     using Helpers;
     using Layouts;
-    using Resolvers;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -26,73 +25,40 @@
         /// <summary>
         /// Folder persistence.
         /// </summary>
-        private IFolderPersistence Folders
-        {
-            get
-            {
-                return FolderPersistence.Current.Manager;
-            }
-        }
+        private IFolderPersistence Folders { get; set; }
 
 
         /// <summary>
         /// Form persistence.
         /// </summary>
-        private IFormPersistence Forms
-        {
-            get
-            {
-                return FormPersistence.Current.Manager;
-            }
-        }
+        private IFormPersistence Forms { get; set; }
 
 
         /// <summary>
         /// Configured form persistence.
         /// </summary>
-        private IConfiguredFormPersistence ConfiguredForms
-        {
-            get
-            {
-                return ConfiguredFormPersistence.Current.Manager;
-            }
-        }
+        private IConfiguredFormPersistence ConfiguredForms { get; set; }
 
 
         /// <summary>
         /// Layout persistence.
         /// </summary>
-        private ILayoutPersistence Layouts
-        {
-            get
-            {
-                return LayoutPersistence.Current.Manager;
-            }
-        }
+        private ILayoutPersistence Layouts { get; set; }
 
 
         /// <summary>
         /// Validation persistence.
         /// </summary>
-        private IValidationPersistence Validations
-        {
-            get
-            {
-                return ValidationPersistence.Current.Manager;
-            }
-        }
+        private IValidationPersistence Validations { get; set; }
 
 
         /// <summary>
         /// Layout persistence.
         /// </summary>
-        private IDataValuePersistence DataValues
-        {
-            get
-            {
-                return DataValuePersistence.Current.Manager;
-            }
-        }
+        private IDataValuePersistence DataValues { get; set; }
+
+
+        private  IEntityHelper EntityHelper { get; set; }
 
         #endregion
 
@@ -102,8 +68,33 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public DefaultEntityPersistence()
+        /// <param name="configuredFormPersistence">
+        /// The configured Form Persistence.
+        /// </param>
+        /// <param name="dataValuePersistence">
+        /// The data Value Persistence.
+        /// </param>
+        /// <param name="folderPersistence">
+        /// The folder Persistence.
+        /// </param>
+        /// <param name="formPersistence">
+        /// The form Persistence.
+        /// </param>
+        /// <param name="layoutPersistence">
+        /// The layout Persistence.
+        /// </param>
+        /// <param name="validationPersistence">
+        /// The validation Persistence.
+        /// </param>
+        public DefaultEntityPersistence(IConfiguredFormPersistence configuredFormPersistence, IDataValuePersistence dataValuePersistence, IFolderPersistence folderPersistence, IFormPersistence formPersistence, ILayoutPersistence layoutPersistence, IValidationPersistence validationPersistence, IEntityHelper entityHelper)
         {
+            ConfiguredForms = configuredFormPersistence;
+            DataValues = dataValuePersistence;
+            Folders = folderPersistence;
+            Forms = formPersistence;
+            Layouts = layoutPersistence;
+            Validations = validationPersistence;
+            EntityHelper = entityHelper;
         }
 
         #endregion

@@ -5,7 +5,6 @@
     using Folders;
     using Helpers;
     using Managers;
-    using Resolvers;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -52,13 +51,8 @@
         /// <summary>
         /// Configuration manager.
         /// </summary>
-        private IConfigurationManager Config
-        {
-            get
-            {
-                return Configuration.Current.Manager;
-            }
-        }
+        private IConfigurationManager Config { get; set; }
+        private IEntityHelper EntityHelper { get; set; }
 
 
         /// <summary>
@@ -106,8 +100,10 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public JsonFolderPersistence()
+        public JsonFolderPersistence(IConfigurationManager configurationManager, IEntityHelper entityHelper)
         {
+            Config = configurationManager;
+            EntityHelper = entityHelper;
         }
 
         #endregion

@@ -233,6 +233,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backoffice\Dashboards\FormulateDashboard.cs" />
+    <Compile Include="Backoffice\Dashboards\FormulateInstallDashboard.cs" />
+    <Compile Include="Backoffice\Sections\FormulateSection.cs" />
+    <Compile Include="Components\ServerVariablesComponent.cs" />
     <Compile Include="Configuration\ButtonCollection.cs" />
     <Compile Include="Configuration\ButtonElement.cs" />
     <Compile Include="Configuration\ButtonsConfigSection.cs" />
@@ -244,8 +248,10 @@
     <Compile Include="Configuration\FieldCategoryCollection.cs" />
     <Compile Include="Configuration\FieldCategoryElement.cs" />
     <Compile Include="Configuration\FileStorageElement.cs" />
+    <Compile Include="Configuration\IPersistenceConfig.cs" />
     <Compile Include="Configuration\HeaderCollection.cs" />
     <Compile Include="Configuration\HeaderConfig.cs" />
+    <Compile Include="Configuration\IFormulateConfig.cs" />
     <Compile Include="Configuration\JsonElement.cs" />
     <Compile Include="Configuration\PersistenceConfigSection.cs" />
     <Compile Include="Configuration\SubmissionsConfigSection.cs" />
@@ -283,6 +289,7 @@
     <Compile Include="Controllers\TemplatesController.cs" />
     <Compile Include="Controllers\ValidationsController.cs" />
     <Compile Include="Converters\ConfiguredFormConverter.cs" />
+    <Compile Include="Components\InitialDatabaseMigrationComponent.cs" />
     <Compile Include="DataValues\DataInterfaces\IGetStringCollection.cs" />
     <Compile Include="DataValues\DataInterfaces\IGetValueAndLabelCollection.cs" />
     <Compile Include="DataValues\DataValue.cs" />
@@ -348,10 +355,14 @@
     <Compile Include="Forms\IFormHandler.cs" />
     <Compile Include="Forms\IFormHandlerType.cs" />
     <Compile Include="Forms\IFormMetaInfo.cs" />
+    <Compile Include="Composers\ApplicationStartedUserComposer.cs" />
+    <Compile Include="Composers\ApplicationStartingUserComposer.cs" />
     <Compile Include="Helpers\DataValueHelper.cs" />
     <Compile Include="Helpers\DefinitionHelper.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\GuidHelper.cs" />
+    <Compile Include="Helpers\IEntityHelper.cs" />
+    <Compile Include="Helpers\ILocalizationHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\LayoutHelper.cs" />
     <Compile Include="Helpers\LocalizationHelper.cs" />
@@ -359,8 +370,6 @@
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
-    <Compile Include="Install\Package_Actions\GrantPermissionToSection.cs" />
-    <Compile Include="Install\Package_Actions\TransformXmlFile.cs" />
     <Compile Include="Layouts\ILayoutKind.cs" />
     <Compile Include="Layouts\Kinds\Basic\LayoutBasic.cs" />
     <Compile Include="Layouts\Kinds\Basic\LayoutBasicConfiguration.cs" />
@@ -370,6 +379,7 @@
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Managers\DefaultConfigurationManager.cs" />
     <Compile Include="Managers\IConfigurationManager.cs" />
+    <Compile Include="Migrations\CreateSubmissionsTable.cs" />
     <Compile Include="Models\Parameters\FieldInfo.cs" />
     <Compile Include="Models\Parameters\HandlerInfo.cs" />
     <Compile Include="Models\Requests\DeleteConfiguredFormRequest.cs" />
@@ -429,13 +439,13 @@
     <Compile Include="Serialization\FieldsJsonConverter.cs" />
     <Compile Include="Serialization\HandlersJsonConverter.cs" />
     <Compile Include="Templates\Template.cs" />
-    <Compile Include="Trees\FormulateTreeController.cs" />
-    <Compile Include="Trees\Helpers\ConfiguredFormHelper.cs" />
-    <Compile Include="Trees\Helpers\DataValueHelper.cs" />
-    <Compile Include="Trees\Helpers\FolderHelper.cs" />
-    <Compile Include="Trees\Helpers\FormHelper.cs" />
-    <Compile Include="Trees\Helpers\LayoutHelper.cs" />
-    <Compile Include="Trees\Helpers\ValidationHelper.cs" />
+    <Compile Include="Backoffice\Trees\FormulateTreeController.cs" />
+    <Compile Include="Backoffice\Trees\Helpers\ConfiguredFormHelper.cs" />
+    <Compile Include="Backoffice\Trees\Helpers\DataValueHelper.cs" />
+    <Compile Include="Backoffice\Trees\Helpers\FolderHelper.cs" />
+    <Compile Include="Backoffice\Trees\Helpers\FormHelper.cs" />
+    <Compile Include="Backoffice\Trees\Helpers\LayoutHelper.cs" />
+    <Compile Include="Backoffice\Trees\Helpers\ValidationHelper.cs" />
     <Compile Include="Types\ConfiguredFormInfo.cs" />
     <Compile Include="Validations\IValidationKind.cs" />
     <Compile Include="Validations\Kinds\Mandatory\ValidationMandatory.cs" />
@@ -469,6 +479,7 @@
     <Content Include="App_Plugins\formulate\editors\configured-form-picker.html" />
     <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.svg" />
     <Content Include="App_Plugins\formulate\formulate.css" />
+    <Content Include="App_Plugins\formulate\formulate.js" />
     <Content Include="App_Plugins\formulate\Lang\cs-CZ.xml" />
     <Content Include="App_Plugins\formulate\Lang\da-DK.xml" />
     <Content Include="App_Plugins\formulate\Lang\de-DE.xml" />
@@ -506,8 +517,6 @@
     <Content Include="App_Plugins\formulate\menu-actions\storeEntityToCloud.html" />
     <Content Include="App_Plugins\formulate\responsive.bootstrap.angular.js" />
     <Content Include="App_Plugins\formulate\responsive.bootstrap.angular.min.js" />
-    <Content Include="App_Plugins\formulate\responsive.plain-javascript.js" />
-    <Content Include="App_Plugins\formulate\responsive.plain-javascript.min.js" />
     <Content Include="App_Plugins\formulate\Transforms\applications.config.install.xdt.txt" />
     <Content Include="App_Plugins\formulate\Transforms\applications.config.uninstall.xdt.txt" />
     <Content Include="App_Plugins\formulate\Transforms\dashboard.config.install.xdt.txt" />
@@ -697,6 +706,9 @@
       <Project>{023b12b1-d627-4096-b1d0-f3dd7691e87e}</Project>
       <Name>formulate.meta</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Install\Package_Actions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />

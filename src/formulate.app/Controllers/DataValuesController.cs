@@ -9,7 +9,6 @@
     using Helpers;
     using Models.Requests;
     using Persistence;
-    using Resolvers;
     using System;
     using System.Linq;
     using System.Web.Http;
@@ -48,6 +47,7 @@
 
         private IDataValuePersistence Persistence { get; set; }
         private IEntityPersistence Entities { get; set; }
+        private ILogger Logger { get; set; }
 
         #endregion
 
@@ -55,23 +55,14 @@
         #region Constructors
 
         /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public DataValuesController()
-            : this(UmbracoContext.Current)
-        {
-        }
-
-
-        /// <summary>
         /// Primary constructor.
         /// </summary>
         /// <param name="context">Umbraco context.</param>
-        public DataValuesController(UmbracoContext context)
-            : base(context)
+        public DataValuesController(IDataValuePersistence dataValuePersistence, IEntityPersistence entityPersistence, ILogger logger)
         {
-            Persistence = DataValuePersistence.Current.Manager;
-            Entities = EntityPersistence.Current.Manager;
+            Persistence = dataValuePersistence;
+            Entities = entityPersistence;
+            Logger = logger;
         }
 
         #endregion
@@ -153,7 +144,7 @@
             {
 
                 // Error.
-                LogHelper.Error<DataValuesController>(PersistDataValueError, ex);
+                Logger.Error<DataValuesController>(PersistDataValueError, ex);
                 result = new
                 {
                     Success = false,
@@ -222,7 +213,7 @@
             {
 
                 // Error.
-                LogHelper.Error<DataValuesController>(
+                Logger.Error<DataValuesController>(
                     GetDataValueInfoError, ex);
                 result = new
                 {
@@ -302,7 +293,7 @@
             {
 
                 // Error.
-                LogHelper.Error<DataValuesController>(
+                Logger.Error<DataValuesController>(
                     GetDataValueInfoError, ex);
                 result = new
                 {
@@ -360,7 +351,7 @@
             {
 
                 // Error.
-                LogHelper.Error<DataValuesController>(DeleteDataValueError, ex);
+                Logger.Error<DataValuesController>(DeleteDataValueError, ex);
                 result = new
                 {
                     Success = false,
@@ -416,7 +407,7 @@
             {
 
                 // Error.
-                LogHelper.Error<DataValuesController>(GetKindsError, ex);
+                Logger.Error<DataValuesController>(GetKindsError, ex);
                 result = new
                 {
                     Success = false,
@@ -473,7 +464,7 @@
             {
 
                 // Error.
-                LogHelper.Error<DataValuesController>(GetSuppliersError, ex);
+                Logger.Error<DataValuesController>(GetSuppliersError, ex);
                 result = new
                 {
                     Success = false,
@@ -550,7 +541,7 @@
             {
 
                 // Error.
-                LogHelper.Error<DataValuesController>(MoveDataValueError, ex);
+                Logger.Error<DataValuesController>(MoveDataValueError, ex);
                 result = new
                 {
                     Success = false,

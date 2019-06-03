@@ -9,8 +9,14 @@
     /// <summary>
     /// Assists with localization tasks (e.g., translating terms).
     /// </summary>
-    internal class LocalizationHelper
+    internal class LocalizationHelper : ILocalizationHelper
     {
+        private ILocalizedTextService LocalizedText { get; set; }
+
+        public LocalizationHelper(ILocalizedTextService localizedTextService)
+        {
+            LocalizedText = localizedTextService;
+        }
 
         #region Methods
 
@@ -23,10 +29,10 @@
         /// <returns>
         /// The name of the tree in the current language.
         /// </returns>
-        public static string GetTreeName(string tree)
+        public string GetTreeName(string tree)
         {
             var key = string.Format("formulate-trees/{0}", tree);
-            return ApplicationContext.Current.Services.TextService.Localize(key);
+            return LocalizedText.Localize(key);
         }
 
 
@@ -39,10 +45,10 @@
         /// <returns>
         /// The name of the data value in the current language.
         /// </returns>
-        public static string GetDataValueName(string name)
+        public string GetDataValueName(string name)
         {
             var key = string.Format("formulate-data-value-names/{0}", name);
-            return ApplicationContext.Current.Services.TextService.Localize(key);
+            return LocalizedText.Localize(key);
         }
 
 
@@ -55,10 +61,10 @@
         /// <returns>
         /// The name of the layout in the current language.
         /// </returns>
-        public static string GetLayoutName(string name)
+        public string GetLayoutName(string name)
         {
             var key = string.Format("formulate-layout-names/{0}", name);
-            return ApplicationContext.Current.Services.TextService.Localize(key);
+            return LocalizedText.Localize(key);
         }
 
 
@@ -71,10 +77,10 @@
         /// <returns>
         /// The name of the menu item in the current language.
         /// </returns>
-        public static string GetMenuItemName(string name)
+        public string GetMenuItemName(string name)
         {
             var key = string.Format("formulate-menu-item-names/{0}", name);
-            return ApplicationContext.Current.Services.TextService.Localize(key);
+            return LocalizedText.Localize(key);
         }
 
         #endregion

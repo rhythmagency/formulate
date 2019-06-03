@@ -1,4 +1,4 @@
-﻿namespace formulate.app.Trees
+﻿namespace formulate.app.Backoffice.Trees
 {
 
     // Namespaces.
@@ -6,16 +6,16 @@
     using Folders;
     using Forms;
     using formulate.app.Helpers;
-    using formulate.app.Trees.Helpers;
+    using formulate.app.Backoffice.Trees.Helpers;
     using Layouts;
     using Persistence;
-    using Resolvers;
     using System;
     using System.Linq;
     using System.Net.Http.Formatting;
     using Umbraco.Core;
     using Umbraco.Web.Models.Trees;
     using Umbraco.Web.Mvc;
+    using Umbraco.Web.PropertyEditors;
     using Umbraco.Web.Trees;
     using Validations;
     using CoreConstants = Umbraco.Core.Constants;
@@ -30,9 +30,12 @@
     using ValidationHelper = Trees.Helpers.ValidationHelper;
 
 
+
     //TODO: Much to do in this file.
-    [Tree("formulate", "formulate", null, "icon-folder",
-        "icon-folder-open", true, sortOrder: 0)]
+    [Tree("formulate", "formulate")]
+
+    //[Tree("formulate", "formulate", null, "icon-folder",
+    //    "icon-folder-open", true, sortOrder: 0)]
     [PluginController("formulate")]
     public class FormulateTreeController : TreeController
     {
@@ -44,17 +47,18 @@
         private ValidationHelper ValidationHelper { get; set; }
         private DataValueHelper DataValueHelper { get; set; }
         private ConfiguredFormHelper ConfiguredFormHelper { get; set; }
+        private ILocalizationHelper LocalizationHelper { get; set; }
 
-
-        public FormulateTreeController()
+        public FormulateTreeController(IEntityPersistence entityPersistence, ILocalizationHelper localizationHelper)
         {
-            Persistence = EntityPersistence.Current.Manager;
-            FolderHelper = new FolderHelper(Persistence, this);
-            FormHelper = new FormHelper(Persistence, this, FolderHelper);
-            LayoutHelper = new LayoutHelper(this, FolderHelper);
-            ValidationHelper = new ValidationHelper(this, FolderHelper);
-            DataValueHelper = new DataValueHelper(this, FolderHelper);
-            ConfiguredFormHelper = new ConfiguredFormHelper(this);
+            Persistence = entityPersistence;
+            LocalizationHelper = localizationHelper;
+            FolderHelper = new FolderHelper(Persistence, this, LocalizationHelper);
+            FormHelper = new FormHelper(Persistence, this, FolderHelper, LocalizationHelper);
+            LayoutHelper = new LayoutHelper(this, FolderHelper, LocalizationHelper);
+            ValidationHelper = new ValidationHelper(this, FolderHelper, LocalizationHelper);
+            DataValueHelper = new DataValueHelper(this, FolderHelper, LocalizationHelper);
+            ConfiguredFormHelper = new ConfiguredFormHelper(this, LocalizationHelper);
         }
 
         protected override MenuItemCollection GetMenuForNode(string id,

@@ -1,35 +1,27 @@
-﻿namespace formulate.app.Trees.Helpers
+﻿namespace formulate.app.Backoffice.Trees.Helpers
 {
 
     // Namespaces.
     using core.Extensions;
     using Entities;
     using Folders;
-    using Forms;
     using formulate.app.Helpers;
-    using Persistence;
+    using Layouts;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Net.Http.Formatting;
     using Umbraco.Web.Models.Trees;
     using Umbraco.Web.Trees;
-    using FormConstants = formulate.app.Constants.Trees.Forms;
+    using LayoutConstants = formulate.app.Constants.Trees.Layouts;
 
 
     /// <summary>
-    /// Helps with forms in the Formulate tree.
+    /// Helps with layouts in the Formulate tree.
     /// </summary>
-    internal class FormHelper
+    internal class LayoutHelper
     {
 
         #region Properties
-
-        /// <summary>
-        /// The entity persistence.
-        /// </summary>
-        private IEntityPersistence Persistence { get; set; }
-
 
         /// <summary>
         /// The tree controller.
@@ -42,6 +34,8 @@
         /// </summary>
         private FolderHelper Helper { get; set; }
 
+        private ILocalizationHelper LocalizationHelper { get; set; }
+
         #endregion
 
 
@@ -50,20 +44,17 @@
         /// <summary>
         /// Primary constructor.
         /// </summary>
-        /// <param name="persistence">
-        /// The entity persistence.
-        /// </param>
         /// <param name="tree">
         /// The tree controller.
         /// </param>
         /// <param name="helper">
         /// The folder helper.
         /// </param>
-        public FormHelper(IEntityPersistence persistence, TreeController tree, FolderHelper helper)
+        public LayoutHelper(TreeController tree, FolderHelper helper, ILocalizationHelper localizationHelper)
         {
-            Persistence = persistence;
             Tree = tree;
             Helper = helper;
+            LocalizationHelper = localizationHelper;
         }
 
         #endregion
@@ -71,8 +62,9 @@
 
         #region Methods
 
+
         /// <summary>
-        /// Adds the specified form entities (form or folder) to
+        /// Adds the specified layout entities (layout or folder) to
         /// the tree.
         /// </summary>
         /// <param name="nodes">
@@ -80,25 +72,25 @@
         /// </param>
         /// <param name="queryStrings">The query strings.</param>
         /// <param name="entities">
-        /// The entities (forms and folders) to add to the tree.
+        /// The entities (layouts and folders) to add to the tree.
         /// </param>
-        public void AddFormChildrenToTree(TreeNodeCollection nodes,
+        public void AddLayoutChildrenToTree(TreeNodeCollection nodes,
             FormDataCollection queryStrings, IEnumerable<IEntity> entities)
         {
             foreach (var entity in entities)
             {
 
-                // Folder or form?
+                // Folder or layout?
                 if (entity is Folder)
                 {
                     var folder = entity as Folder;
                     Helper.AddFolderToTree(nodes, queryStrings, folder,
-                        FormConstants.GroupIcon);
+                        LayoutConstants.GroupIcon);
                 }
-                else if (entity is Form)
+                else if (entity is Layout)
                 {
-                    var form = entity as Form;
-                    AddFormToTree(nodes, queryStrings, form);
+                    var layout = entity as Layout;
+                    AddLayoutToTree(nodes, queryStrings, layout);
                 }
 
             }
@@ -106,47 +98,45 @@
 
 
         /// <summary>
-        /// Adds a form node to the tree.
+        /// Adds a layout node to the tree.
         /// </summary>
         /// <param name="nodes">
-        /// The node collection to add the form to.
+        /// The node collection to add the layout to.
         /// </param>
         /// <param name="queryStrings">The query strings.</param>
-        /// <param name="form">The form to add.</param>
-        public void AddFormToTree(TreeNodeCollection nodes,
-            FormDataCollection queryStrings, Form form)
+        /// <param name="layout">The layout to add.</param>
+        public void AddLayoutToTree(TreeNodeCollection nodes,
+            FormDataCollection queryStrings, Layout layout)
         {
-            var formatUrl = "/formulate/formulate/editForm/{0}";
-            var formId = GuidHelper.GetString(form.Id);
-            var formRoute = string.Format(formatUrl, formId);
-            var formName = form.Name.Fallback("Unnamed");
-            var parentId = form.Path[form.Path.Length - 2];
+            var formatUrl = "/formulate/formulate/editLayout/{0}";
+            var layoutId = GuidHelper.GetString(layout.Id);
+            var layoutRoute = string.Format(formatUrl, layoutId);
+            var layoutName = layout.Name.Fallback("Unnamed");
+            var parentId = layout.Path[layout.Path.Length - 2];
             var strParentId = GuidHelper.GetString(parentId);
-            var hasChildren = Persistence
-                .RetrieveChildren(form.Id).Any();
-            var formNode = Tree.CreateTreeNode(formId,
-                strParentId, queryStrings,
-                formName, FormConstants.ItemIcon, hasChildren, formRoute);
-            nodes.Add(formNode);
+            var layoutNode = Tree.CreateTreeNode(layoutId,
+                strParentId, queryStrings, layoutName,
+                LayoutConstants.ItemIcon, false, layoutRoute);
+            nodes.Add(layoutNode);
         }
 
 
         /// <summary>
-        /// Adds the "Delete Form" action to the menu.
+        /// Adds the "Delete Layout" action to the layout node.
         /// </summary>
         /// <param name="menu">
-        /// The menu items to add the action to.
+        /// The menu to add the action to.
         /// </param>
-        public void AddDeleteFormAction(MenuItemCollection menu)
+        public void AddDeleteLayoutAction(MenuItemCollection menu)
         {
-            var path = "/App_Plugins/formulate/menu-actions/deleteForm.html";
+            var path = "/App_Plugins/formulate/menu-actions/deleteLayout.html";
             var menuItem = new MenuItem()
             {
-                Alias = "deleteForm",
+                Alias = "deleteLayout",
                 Icon = "formulate-delete",
-                Name = LocalizationHelper.GetMenuItemName("Delete Form")
+                Name = LocalizationHelper.GetMenuItemName("Delete Layout")
             };
-            menuItem.LaunchDialogView(path, "Delete Form");
+            menuItem.LaunchDialogView(path, "Delete Layout");
             menu.Items.Add(menuItem);
         }
 
@@ -157,51 +147,51 @@
         /// <param name="menu">
         /// The menu items to add the action to.
         /// </param>
-        /// <param name="form">
-        /// The form.
+        /// <param name="layout">
+        /// The layout.
         /// </param>
-        public void AddMoveFormAction(MenuItemCollection menu, Form form)
+        public void AddMoveLayoutAction(MenuItemCollection menu, Layout layout)
         {
-            var path = "/App_Plugins/formulate/menu-actions/moveForm.html";
+            var path = "/App_Plugins/formulate/menu-actions/moveLayout.html";
             var menuItem = new MenuItem()
             {
-                Alias = "moveForm",
+                Alias = "moveLayout",
                 Icon = "formulate-move",
                 Name = LocalizationHelper.GetMenuItemName("Move")
             };
-            var titleFormat = @"Move ""{0}"" Form";
-            var title = string.Format(titleFormat, form.Name);
+            var titleFormat = @"Move ""{0}"" Layout";
+            var title = string.Format(titleFormat, layout.Name);
             menuItem.LaunchDialogView(path, title);
             menu.Items.Add(menuItem);
         }
 
 
         /// <summary>
-        /// Adds the "Create Form" action with the specified ID used
-        /// as the parent for the form that is created.
+        /// Adds the "Create Layout" action with the specified ID used
+        /// as the parent for the layout that is created.
         /// </summary>
         /// <param name="menu">
         /// The menu to add the action to.
         /// </param>
         /// <param name="entityId">
-        /// The ID of the entity to create the form under.
-        /// If null, the form will be created at the root.
+        /// The ID of the entity to create the layout under.
+        /// If null, the layout will be created at the root.
         /// </param>
-        public void AddCreateFormAction(MenuItemCollection menu,
+        public void AddCreateLayoutAction(MenuItemCollection menu,
             Guid? entityId = null)
         {
-            var path = "/formulate/formulate/editForm/null";
+            var path = "/App_Plugins/formulate/menu-actions/createLayout.html";
             var menuItem = new MenuItem()
             {
-                Alias = "createForm",
+                Alias = "createLayout",
                 Icon = "formulate-create",
-                Name = LocalizationHelper.GetMenuItemName("Create Form")
+                Name = LocalizationHelper.GetMenuItemName("Create Layout")
             };
             if (entityId.HasValue)
             {
                 path = path + "?under=" + GuidHelper.GetString(entityId.Value);
             }
-            menuItem.NavigateToRoute(path);
+            menuItem.LaunchDialogView(path, "Create Layout");
             menu.Items.Add(menuItem);
         }
 

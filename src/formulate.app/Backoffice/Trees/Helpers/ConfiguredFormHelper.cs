@@ -1,4 +1,4 @@
-﻿namespace formulate.app.Trees.Helpers
+﻿namespace formulate.app.Backoffice.Trees.Helpers
 {
 
     // Namespaces.
@@ -27,6 +27,8 @@
         /// </summary>
         private TreeController Tree { get; set; }
 
+        private ILocalizationHelper LocalizationHelper { get; set; }
+
         #endregion
 
 
@@ -41,9 +43,10 @@
         /// <param name="helper">
         /// The folder helper.
         /// </param>
-        public ConfiguredFormHelper(TreeController tree)
+        public ConfiguredFormHelper(TreeController tree, ILocalizationHelper localizationHelper)
         {
             Tree = tree;
+            LocalizationHelper = localizationHelper;
         }
 
         #endregion
@@ -110,7 +113,7 @@
             {
                 Alias = "deleteConfiguredForm",
                 Icon = "formulate-delete",
-                Name = LocalizationHelper.GetMenuItemName("Delete Configuration")
+                Name = "Delete Configuration"// LocalizationHelper.GetMenuItemName("Delete Configuration")
             };
             menuItem.LaunchDialogView(path, "Delete Configuration");
             menu.Items.Add(menuItem);

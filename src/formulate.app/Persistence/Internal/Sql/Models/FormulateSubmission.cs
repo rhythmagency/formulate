@@ -3,6 +3,9 @@
 
     // Namespaces.
     using System;
+
+    using NPoco;
+
     using Umbraco.Core.Persistence;
     using Umbraco.Core.Persistence.DatabaseAnnotations;
 
@@ -11,7 +14,7 @@
     /// Model for the submissions database table.
     /// </summary>
     [TableName(nameof(FormulateSubmission))]
-    [PrimaryKey(nameof(SequenceId), autoIncrement = true)]
+    [PrimaryKey(nameof(SequenceId), AutoIncrement = true)]
     public class FormulateSubmission
     {
 

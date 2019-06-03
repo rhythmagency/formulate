@@ -31,25 +31,17 @@
 
         #endregion
 
+        private  ILogger Logger { get; set; }
+
 
         #region Constructors
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public HandlersController()
-            : this(UmbracoContext.Current)
+        public HandlersController(ILogger logger)
         {
-        }
-
-
-        /// <summary>
-        /// Primary constructor.
-        /// </summary>
-        /// <param name="context">Umbraco context.</param>
-        public HandlersController(UmbracoContext context)
-            : base(context)
-        {
+            Logger = logger;
         }
 
         #endregion
@@ -99,7 +91,7 @@
             {
 
                 // Error.
-                LogHelper.Error<HandlersController>(GetHandlerTypesError, ex);
+                Logger.Error<HandlersController>(GetHandlerTypesError, ex);
                 result = new
                 {
                     Success = false,
@@ -156,7 +148,7 @@
             {
 
                 // Error.
-                LogHelper.Error<HandlersController>(GetResultHandlersError, ex);
+                Logger.Error<HandlersController>(GetResultHandlersError, ex);
                 result = new
                 {
                     Success = false,
