@@ -21,6 +21,7 @@ namespace formulate.app.Composers
     /// <summary>
     /// Handles the application started event.
     /// </summary>
+    [RuntimeLevel(MinLevel = RuntimeLevel.Run)]
     public class ApplicationStartedUserComposer : IUserComposer
     {
         #region Constants
