@@ -12,7 +12,6 @@
 
     using Umbraco.Core;
     using Umbraco.Core.Composing;
-    using Umbraco.Core.Logging;
     using Umbraco.Web;
 
     using MetaConstants = meta.Constants;
@@ -35,6 +34,13 @@
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// The compose.
+        /// </summary>
+        /// <param name="composition">
+        /// The composition.
+        /// </param>
         public void Compose(Composition composition)
         {
             InitializeConfiguration(composition);
@@ -43,11 +49,23 @@
             InitializeServerVariables(composition);
         }
 
+        /// <summary>
+        /// The initialize configuration.
+        /// </summary>
+        /// <param name="composition">
+        /// The composition.
+        /// </param>
         private void InitializeConfiguration(Composition composition)
         {
             composition.Configs.AddJsonConfig<IFormulateConfig, FormulateConfig>("~/App_Plugins/Formulate/FormulateConfiguration.json");
         }
 
+        /// <summary>
+        /// The initialize server variables.
+        /// </summary>
+        /// <param name="composition">
+        /// The composition.
+        /// </param>
         private void InitializeServerVariables(Composition composition)
         {
             composition.Components().Append<ServerVariablesComponent>();
@@ -92,19 +110,17 @@
         /// <summary>
         /// Handles install operations.
         /// </summary>
-        /// <param name="isUpgrade">
-        /// Is this an upgrade to an existing instllation?
+        /// <param name="composition">
+        /// The composition.
         /// </param>
-        /// <param name="applicationContext">
-        /// The current Umbraco application context.
+        /// <param name="isUpgrade">
+        /// Is this an upgrade to an existing installation?
         /// </param>
         private void HandleInstall(Composition composition, bool isUpgrade = false)
         {
-
             // Add the Formulate section and the Formulate dashboard in the Formulate section.
             AddSection(composition);
             AddFormulateDashboard(composition);
-
 
             // If this is a new install, add the Formulate dashboard in the Developer section,
             // and check if users need to be given access to Formulate.
@@ -114,12 +130,9 @@
                 PermitAccess();
             }
 
-
             // Make changes to the web.config.
             EnsureAppSettings();
-
         }
-
 
         /// <summary>
         /// Gets the installed version.
@@ -135,7 +148,6 @@
             }
             return version;
         }
-
 
         /// <summary>
         /// Indicates whether or not the application setting with the specified key has a non-empty
@@ -153,31 +165,34 @@
             return !string.IsNullOrWhiteSpace(value);
         }
 
-
         /// <summary>
         /// Adds the Formulate section to Umbraco.
         /// </summary>
-        /// <param name="applicationContext">
-        /// The current application context.
+        /// <param name="composition">
+        /// The composition.
         /// </param>
         private void AddSection(Composition composition)
         {
             composition.Sections().Append<FormulateSection>();
         }
 
-
         /// <summary>
         /// Adds the Formulate dashboard to the Formulate section.
         /// </summary>
+        /// <param name="composition">
+        /// The composition.
+        /// </param>
         private void AddFormulateDashboard(Composition composition)
         {
             composition.Dashboards().Add<FormulateDashboard>();
         }
 
         /// <summary>
-        /// Adds the "Formulate" tab to the developer section of the
-        /// dashboard.config.
+        /// Adds the "Formulate" tab to the developer section of the dashboard.config.
         /// </summary>
+        /// <param name="composition">
+        /// The composition.
+        /// </param>
         private void AddFormulateDeveloperDashboard(Composition composition)
         {
             composition.Dashboards().Add<FormulateDeveloperDashboard>();
