@@ -348,8 +348,6 @@
     <Compile Include="Forms\IFormHandler.cs" />
     <Compile Include="Forms\IFormHandlerType.cs" />
     <Compile Include="Forms\IFormMetaInfo.cs" />
-    <Compile Include="Handlers\ApplicationStartedHandler.cs" />
-    <Compile Include="Handlers\ApplicationStartingHandler.cs" />
     <Compile Include="Helpers\DataValueHelper.cs" />
     <Compile Include="Helpers\DefinitionHelper.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
