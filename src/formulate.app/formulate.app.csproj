@@ -302,6 +302,7 @@
     <Compile Include="Entities\EntityKind.cs" />
     <Compile Include="Entities\EntityRoot.cs" />
     <Compile Include="Entities\IEntity.cs" />
+    <Compile Include="ExtensionMethods\JsonConfigExtensions.cs" />
     <Compile Include="ExtensionMethods\TypeExtensionMethods.cs" />
     <Compile Include="Folders\Folder.cs" />
     <Compile Include="Forms\ConfiguredForm.cs" />
