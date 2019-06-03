@@ -88,14 +88,9 @@
         {
             get
             {
-                var persistence = ConfigurationManager
-                    .GetSection("formulateConfiguration/submissions")
-                    as SubmissionsConfigSection;
-                var enable = persistence.EnableServerSideValidation;
-                return enable;
+                return Config.Submissions.EnableServerSideValidation;
             }
         }
-
 
         /// <summary>
         /// Is the email whitelist enabled?
@@ -104,13 +99,9 @@
         {
             get
             {
-                var whitelist = ConfigurationManager
-                    .GetSection("formulateConfiguration/emailWhitelist") as EmailsConfigSection;
-                var enable = whitelist.Enabled;
-                return enable;
+                return Config.Email.Whitelist.Enabled;
             }
         }
-
 
         /// <summary>
         /// The emails to whitelist.
@@ -119,10 +110,7 @@
         {
             get
             {
-                var emailsSection = ConfigurationManager
-                    .GetSection("formulateConfiguration/emailWhitelist") as EmailsConfigSection;
-                var emailItems = emailsSection?.Emails;
-                return emailItems.Cast<EmailElement>().Select(x => new AllowEmail()
+                return Config.Email.Whitelist.AllowedEmails.Select(x => new AllowEmail()
                 {
                     Email = x.Email,
                     Domain = x.Domain
