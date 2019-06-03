@@ -8,6 +8,11 @@
     public interface IFormulateConfig
     {
         /// <summary>
+        /// Gets the version of Formulate.
+        /// </summary>
+        string Version { get; }
+
+        /// <summary>
         /// Gets the persistence configuration.
         /// </summary>
         PersistenceConfig Persistence { get; }
