@@ -1,4 +1,5 @@
 ﻿{
+  "Version": "", 
   "Persistence": {
     "JsonBasePath": "~/App_Data/Formulate/Json/",
     "FileStorageBasePath": "~/App_Data/Formulate/FileStorage/Files/"
