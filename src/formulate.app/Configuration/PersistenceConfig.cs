@@ -1,9 +1,9 @@
-﻿namespace formulate.app.Configuration
+namespace formulate.app.Configuration
 {
     /// <summary>
     /// The persistence config.
     /// </summary>
-    public sealed class PersistenceConfig : IPersistenceConfig
+    public sealed class PersistenceConfig
     {
         /// <summary>
         /// Gets or sets the json base path.
