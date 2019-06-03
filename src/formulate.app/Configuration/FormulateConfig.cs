@@ -17,7 +17,7 @@
         /// <summary>
         /// Gets or sets the templates configuration.
         /// </summary>
-        public IEnumerable<Template> Templates { get; set; }
+        public IEnumerable<TemplateConfigItem> Templates { get; set; }
 
         /// <summary>
         /// Gets or sets the buttons configuration.

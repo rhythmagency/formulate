@@ -1,7 +1,6 @@
 ﻿namespace formulate.app.Configuration
 {
     using System.Collections.Generic;
-    using formulate.app.Templates;
 
     /// <summary>
     /// The FormulateConfig interface.
@@ -16,7 +15,7 @@
         /// <summary>
         /// Gets the templates configuration.
         /// </summary>
-        IEnumerable<Template> Templates { get; }
+        IEnumerable<TemplateConfigItem> Templates { get; }
 
         /// <summary>
         /// Gets the buttons configuration.
