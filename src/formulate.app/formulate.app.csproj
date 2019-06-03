@@ -428,14 +428,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resolvers\Configuration.cs" />
-    <Compile Include="Resolvers\ConfiguredFormPersistence.cs" />
-    <Compile Include="Resolvers\DataValuePersistence.cs" />
-    <Compile Include="Resolvers\EntityPersistence.cs" />
-    <Compile Include="Resolvers\FolderPersistence.cs" />
-    <Compile Include="Resolvers\FormPersistence.cs" />
-    <Compile Include="Resolvers\LayoutPersistence.cs" />
-    <Compile Include="Resolvers\ValidationPersistence.cs" />
     <Compile Include="Serialization\FieldsJsonConverter.cs" />
     <Compile Include="Serialization\HandlersJsonConverter.cs" />
     <Compile Include="Templates\Template.cs" />
