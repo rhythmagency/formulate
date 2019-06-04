@@ -2,6 +2,10 @@
 {
 
     // Namespaces.
+    using formulate.app.DataValues;
+    using formulate.app.DataValues.Kinds;
+    using formulate.app.ExtensionMethods;
+    using formulate.app.Forms;
     using formulate.app.Helpers;
     using formulate.app.Persistence;
     using Managers;
@@ -31,6 +35,14 @@
 
             // Initialize Localization Helper.
             composition.RegisterUnique<ILocalizationHelper, LocalizationHelper>();
+
+            var formFieldTypes = composition.TypeLoader.GetTypes<IFormFieldType>();
+            var formHandlerType = composition.TypeLoader.GetTypes<IFormHandlerType>();
+            var dataValueKinds = composition.TypeLoader.GetTypes<IDataValueKind>();
+
+            composition.FormFieldTypes().Add(() => formFieldTypes);
+            composition.FormHandlerTypes().Add(() => formHandlerType);
+            composition.DataValueKinds().Add(() => dataValueKinds);
 
             // Initialize Definition Helper.
             composition.RegisterUnique<IDefinitionHelper, DefinitionHelper>();
