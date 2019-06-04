@@ -2,9 +2,6 @@
 {
 
     // Namespaces.
-    using System.Configuration;
-
-    using formulate.app.Configuration;
     using formulate.app.Helpers;
     using formulate.app.Persistence;
     using Managers;
