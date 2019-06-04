@@ -9,6 +9,7 @@
     using System.Linq;
     using System.Web.Http;
 
+    using formulate.app.CollectionBuilders;
     using formulate.app.Persistence;
 
     using Umbraco.Core.Logging;
@@ -47,6 +48,7 @@
         private IDataValuePersistence DataValues { get; set; }
 
         private ILogger Logger { get; set; }
+        private FormFieldTypeCollection FormFieldTypeCollection { get; set; }
 
         #endregion
 
@@ -56,11 +58,12 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public FieldsController(IConfigurationManager configurationManager, IDataValuePersistence dataValuePersistence, ILogger logger)
+        public FieldsController(IConfigurationManager configurationManager, IDataValuePersistence dataValuePersistence, ILogger logger, FormFieldTypeCollection formFieldTypeCollection)
         {
             Config = configurationManager;
             DataValues = dataValuePersistence;
             Logger = logger;
+            FormFieldTypeCollection = formFieldTypeCollection;
         }
 
         #endregion
@@ -86,17 +89,11 @@
             // Catch all errors.
             try
             {
-
-                // Variables.
-                var instances = ReflectionHelper
-                    .InstantiateInterfaceImplementations<IFormFieldType>();
-
-
                 // Return results.
                 result = new
                 {
                     Success = true,
-                    FieldTypes = instances.Select(x => new
+                    FieldTypes = FormFieldTypeCollection.Select(x => new
                     {
                         Icon = x.Icon,
                         TypeLabel = x.TypeLabel,
@@ -118,13 +115,10 @@
                     Success = false,
                     Reason = UnhandledError
                 };
-
             }
-
 
             // Return result.
             return result;
-
         }
 
 

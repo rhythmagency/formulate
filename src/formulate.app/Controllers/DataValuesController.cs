@@ -2,25 +2,34 @@
 {
 
     // Namespaces.
-    using core.Extensions;
-    using DataValues;
-    using DataValues.Suppliers;
-    using ExtensionMethods;
-    using Helpers;
-    using Models.Requests;
-    using Persistence;
+
     using System;
     using System.Linq;
     using System.Web.Http;
+
+    using core.Extensions;
+
+    using DataValues;
+    using DataValues.Suppliers;
+
+    using ExtensionMethods;
+
+    using formulate.app.CollectionBuilders;
+
+    using Helpers;
+
+    using Models.Requests;
+
+    using Persistence;
+
     using Umbraco.Core;
     using Umbraco.Core.Logging;
-    using Umbraco.Web;
     using Umbraco.Web.Editors;
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
+
     using CoreConstants = Umbraco.Core.Constants;
     using DataValuesConstants = Constants.Trees.DataValues;
-
 
     /// <summary>
     /// Controller for Formulate data values.
@@ -48,6 +57,7 @@
         private IDataValuePersistence Persistence { get; set; }
         private IEntityPersistence Entities { get; set; }
         private ILogger Logger { get; set; }
+        private DataValueKindCollection DataValueKindCollection { get; set; }
 
         #endregion
 
@@ -58,11 +68,12 @@
         /// Primary constructor.
         /// </summary>
         /// <param name="context">Umbraco context.</param>
-        public DataValuesController(IDataValuePersistence dataValuePersistence, IEntityPersistence entityPersistence, ILogger logger)
+        public DataValuesController(IDataValuePersistence dataValuePersistence, IEntityPersistence entityPersistence, ILogger logger, DataValueKindCollection dataValueKindCollection)
         {
             Persistence = dataValuePersistence;
             Entities = entityPersistence;
             Logger = logger;
+            DataValueKindCollection = dataValueKindCollection;
         }
 
         #endregion
@@ -190,7 +201,7 @@
                 var fullPath = new[] { rootId }
                     .Concat(dataValue.Path.Select(x => GuidHelper.GetString(x)))
                     .ToArray();
-                var kinds = DataValueHelper.GetAllDataValueKinds();
+                var kinds = DataValueKindCollection;
                 var directive = kinds.Where(x => x.Id == dataValue.KindId)
                     .Select(x => x.Directive).FirstOrDefault();
 
@@ -259,7 +270,7 @@
                     .Select(x => GuidHelper.GetGuid(x));
                 var dataValues = ids.Select(x => Persistence.Retrieve(x))
                     .WithoutNulls();
-                var kinds = DataValueHelper.GetAllDataValueKinds();
+                var kinds = DataValueKindCollection;
                 var combined = dataValues.Join(kinds,
                     x => x.KindId,
                     y => y.Id,
@@ -387,7 +398,7 @@
             {
 
                 // Variables.
-                var kinds = DataValueHelper.GetAllDataValueKinds();
+                var kinds = DataValueKindCollection;
 
 
                 // Return results.

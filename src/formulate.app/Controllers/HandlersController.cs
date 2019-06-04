@@ -8,6 +8,10 @@
     using System;
     using System.Linq;
     using System.Web.Http;
+
+    using formulate.app.CollectionBuilders;
+    using formulate.app.Managers;
+
     using Umbraco.Core.Logging;
     using Umbraco.Web;
     using Umbraco.Web.Editors;
@@ -31,7 +35,10 @@
 
         #endregion
 
-        private  ILogger Logger { get; set; }
+        private ILogger Logger { get; set; }
+
+        private FormHandlerTypeCollection FormHandlerTypeCollection { get; set; }
+
 
 
         #region Constructors
@@ -39,9 +46,10 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public HandlersController(ILogger logger)
+        public HandlersController(ILogger logger, FormHandlerTypeCollection formHandlerTypeCollection)
         {
             Logger = logger;
+            FormHandlerTypeCollection = formHandlerTypeCollection;
         }
 
         #endregion
@@ -67,17 +75,11 @@
             // Catch all errors.
             try
             {
-
-                // Variables.
-                var instances = ReflectionHelper
-                    .InstantiateInterfaceImplementations<IFormHandlerType>();
-
-
                 // Return results.
                 result = new
                 {
                     Success = true,
-                    HandlerTypes = instances.Select(x => new
+                    HandlerTypes = FormHandlerTypeCollection.Select(x => new
                     {
                         Icon = x.Icon,
                         TypeLabel = x.TypeLabel,
