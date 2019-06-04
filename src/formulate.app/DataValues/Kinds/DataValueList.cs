@@ -20,6 +20,11 @@
     /// </summary>
     public class DataValueList : IDataValueKind, IGetStringCollection, IGetValueAndLabelCollection
     {
+        public DataValueList(ILocalizationHelper localizationHelper)
+        {
+            LocalizationHelper = localizationHelper;
+        }
+
 
         #region Properties
 
@@ -42,7 +47,7 @@
         {
             get
             {
-                return Constants.Name;//new LocalizationHelper().GetDataValueName();
+                return LocalizationHelper.GetDataValueName(Constants.Name);
             }
         }
 
@@ -57,6 +62,8 @@
                 return Constants.Directive;
             }
         }
+
+        private ILocalizationHelper LocalizationHelper { get; set; }
 
         #endregion
 
