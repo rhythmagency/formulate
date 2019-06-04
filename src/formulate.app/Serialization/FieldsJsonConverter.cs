@@ -84,7 +84,6 @@
                 var typeId = Guid.Parse(strTypeId);
                 var instance = InstantiateFieldByTypeId(typeId);
 
-
                 // Populate the form field instance.
                 if (instance != null)
                 {
@@ -133,12 +132,7 @@
         /// </returns>
         private IFormField InstantiateFieldByTypeId(Guid typeId)
         {
-            if (FieldTypes == null || FieldTypes.Any() == false)
-            {
-                return null;
-            }
-
-            var fieldType = FieldTypes.FirstOrDefault(x => x.TypeId == typeId);
+            var fieldType = FieldTypes?.FirstOrDefault(x => x.TypeId == typeId);
 
             if (fieldType == null)
             {
