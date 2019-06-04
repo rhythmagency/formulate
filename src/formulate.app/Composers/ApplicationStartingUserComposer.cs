@@ -27,37 +27,37 @@
         public void Compose(Composition composition)
         {
             // Register Config Manager
-            composition.Register<IConfigurationManager, DefaultConfigurationManager>(Lifetime.Singleton);
+            composition.RegisterUnique<IConfigurationManager, DefaultConfigurationManager>();
 
             // Initialize Localization Helper.
-            composition.Register<ILocalizationHelper, LocalizationHelper>(Lifetime.Singleton);
+            composition.RegisterUnique<ILocalizationHelper, LocalizationHelper>();
 
             // Initialize Definition Helper.
-            composition.Register<IDefinitionHelper, DefinitionHelper>(Lifetime.Singleton);
+            composition.RegisterUnique<IDefinitionHelper, DefinitionHelper>();
 
             // Initialize Definition Helper.
-            composition.Register<IEntityHelper, EntityHelper>(Lifetime.Singleton);
+            composition.RegisterUnique<IEntityHelper, EntityHelper>();
 
             // Initialize form persistence resolver.
-            composition.Register<IFormPersistence, JsonFormPersistence>(Lifetime.Singleton);
+            composition.RegisterUnique<IFormPersistence, JsonFormPersistence>();
 
             // Initialize configured form persistence resolver.
-            composition.Register<IConfiguredFormPersistence, JsonConfiguredFormPersistence>(Lifetime.Singleton);
-            
+            composition.RegisterUnique<IConfiguredFormPersistence, JsonConfiguredFormPersistence>();
+
             // Initialize layout persistence resolver.
-            composition.Register<ILayoutPersistence, JsonLayoutPersistence>(Lifetime.Singleton);
+            composition.RegisterUnique<ILayoutPersistence, JsonLayoutPersistence>();
 
             // Initialize validation persistence resolver.
-            composition.Register<IValidationPersistence, JsonValidationPersistence>(Lifetime.Singleton);
+            composition.RegisterUnique<IValidationPersistence, JsonValidationPersistence>();
 
             // Initialize data value persistence resolver.
-            composition.Register<IDataValuePersistence, JsonDataValuePersistence>(Lifetime.Singleton);
+            composition.RegisterUnique<IDataValuePersistence, JsonDataValuePersistence>();
 
             // Initialize folder persistence resolver.
-            composition.Register<IFolderPersistence, JsonFolderPersistence>(Lifetime.Singleton);
+            composition.RegisterUnique<IFolderPersistence, JsonFolderPersistence>();
 
             // Initialize entity persistence resolver.
-            composition.Register<IEntityPersistence, DefaultEntityPersistence>(Lifetime.Singleton);
+            composition.RegisterUnique<IEntityPersistence, DefaultEntityPersistence>();
         }
 
         #endregion
