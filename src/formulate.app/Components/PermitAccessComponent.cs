@@ -108,7 +108,7 @@
 
             try
             {
-                userGroup.AllowedSections.Append(formulateSection.Alias);
+                userGroup.AddAllowedSection(formulateSection.Alias);
                 UserService.Save(userGroup);
 
                 Logger.Info<PermitAccessComponent>(
