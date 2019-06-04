@@ -113,7 +113,7 @@
             {
                 Alias = "deleteConfiguredForm",
                 Icon = "formulate-delete",
-                Name = "Delete Configuration"// LocalizationHelper.GetMenuItemName("Delete Configuration")
+                Name = LocalizationHelper.GetMenuItemName("Delete Configuration")
             };
             menuItem.LaunchDialogView(path, "Delete Configuration");
             menu.Items.Add(menuItem);
