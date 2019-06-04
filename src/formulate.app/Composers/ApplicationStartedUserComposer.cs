@@ -1,4 +1,4 @@
-﻿namespace formulate.app.Composers
+namespace formulate.app.Composers
 {
     // Namespaces.
     using System.Configuration;
@@ -101,7 +101,7 @@
         private void HandleInstallAndUpgrade(Composition composition)
         {
             var version = GetInstalledVersion(composition);
-            var isNewInstall = string.IsNullOrWhiteSpace(version) == false;
+            var isNewInstall = string.IsNullOrWhiteSpace(version);
             var needsUpgrade = !MetaConstants.Version.InvariantEquals(version);
 
             if (isNewInstall)
