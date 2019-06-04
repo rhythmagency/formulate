@@ -10,6 +10,9 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using formulate.app.CollectionBuilders;
+    using Umbraco.Core;
+    using Current = Umbraco.Web.Composing.Current;
 
     /// <summary>
     /// Handles conversion of JSON to IFormHandler[].
@@ -22,6 +25,12 @@
     /// </remarks>
     public class HandlersJsonConverter : JsonConverter
     {
+        public HandlersJsonConverter()
+        {
+            // TODO: Find a way to resolve this without using Current.
+            // Get form handler types.
+            FormHandlerTypes = Current.Factory.GetInstance<FormHandlerTypeCollection>();
+        }
 
         #region Public Methods
 
@@ -115,32 +124,17 @@
         /// </returns>
         private IFormHandler InstantiateHandlerByTypeId(Guid typeId)
         {
+            var handler = FormHandlerTypes?.FirstOrDefault(x => x.TypeId == typeId);
 
-            // Get handler type.
-            var types = ReflectionHelper
-                .InstantiateInterfaceImplementations<IFormHandlerType>();
-            var type = types.FirstOrDefault(x => x.TypeId == typeId);
-            if (type != null)
-            {
-
-                // Create instance of form handler.
-                var handlerType = type.GetType();
-                var genericType = typeof(FormHandler<>);
-                var fullType = genericType.MakeGenericType(handlerType);
-                var instance = Activator.CreateInstance(fullType);
-                var casted = instance as IFormHandler;
-                return casted;
-
-            }
-
-
-            // Could not instantiate a form handler.
-            return null;
-
+            // Create instance of form field.
+            var genericType = typeof(FormHandler<>);
+            var fullType = genericType.MakeGenericType(handler.GetType());
+            var instance = Activator.CreateInstance(fullType);
+            var casted = instance as IFormHandler;
+            return casted;
         }
 
         #endregion
-
+        private FormHandlerTypeCollection FormHandlerTypes { get; set; }
     }
-
 }
