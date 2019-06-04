@@ -8,7 +8,7 @@
     /// <summary>
     /// Extension methods for the Type class.
     /// </summary>
-    internal static class TypeExtensionMethods
+    internal static class TypeExtensions
     {
 
         #region Extension Methods
