@@ -42,9 +42,21 @@ namespace formulate.app.Composers
         public void Compose(Composition composition)
         {
             InitializeConfiguration(composition);
+            InitializeBackoffice(composition);
             HandleInstallAndUpgrade(composition);
             InitializeDatabase(composition);
             InitializeServerVariables(composition);
+        }
+
+        /// <summary>
+        /// Add the Formulate section and the Formulate dashboards.
+        /// </summary>
+        /// <param name="composition">The composition.</param>
+        private void InitializeBackoffice(Composition composition)
+        {
+            AddSection(composition);
+            AddFormulateDashboard(composition);
+            AddFormulateDeveloperDashboard(composition);
         }
 
         /// <summary>
