@@ -28,6 +28,12 @@
     /// </remarks>
     public class FieldsJsonConverter : JsonConverter
     {
+        public FieldsJsonConverter()
+        {
+            // TODO: Find a way to resolve this without using Current.
+            // Get field type.
+            FieldTypes = Current.Factory.GetInstance<FormFieldTypeCollection>();
+        }
 
         #region Public Methods
 
@@ -127,16 +133,12 @@
         /// </returns>
         private IFormField InstantiateFieldByTypeId(Guid typeId)
         {
-            // TODO: Find a way to resolve this without using Current.
-            // Get field type.
-            var fieldTypes = Current.Factory.GetInstance<FormFieldTypeCollection>();
-
-            if (fieldTypes == null || fieldTypes.Any() == false)
+            if (FieldTypes == null || FieldTypes.Any() == false)
             {
                 return null;
             }
 
-            var fieldType = fieldTypes.FirstOrDefault(x => x.TypeId == typeId);
+            var fieldType = FieldTypes.FirstOrDefault(x => x.TypeId == typeId);
 
             if (fieldType == null)
             {
@@ -153,6 +155,6 @@
 
         #endregion
 
+        private FormFieldTypeCollection FieldTypes { get; set; }
     }
-
 }
