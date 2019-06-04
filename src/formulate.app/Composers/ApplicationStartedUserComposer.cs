@@ -1,8 +1,7 @@
-﻿namespace formulate.app.Composers
+namespace formulate.app.Composers
 {
     // Namespaces.
     using System.Configuration;
-    using System.Xml;
 
     using formulate.app.Backoffice;
     using formulate.app.Backoffice.Dashboards;
@@ -16,8 +15,6 @@
     using Umbraco.Web;
 
     using MetaConstants = meta.Constants;
-    using Resources = Properties.Resources;
-    using SettingConstants = core.Constants.Settings;
 
     /// <summary>
     /// Handles the application started event.
