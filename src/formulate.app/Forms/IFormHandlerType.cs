@@ -4,11 +4,13 @@
     // Namespaces.
     using System;
 
+    using Umbraco.Core.Composing;
+
 
     /// <summary>
     /// Any classes implementing this interface will be used as form submission handlers.
     /// </summary>
-    public interface IFormHandlerType
+    public interface IFormHandlerType : IDiscoverable
     {
 
         #region Properties

@@ -2,7 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    public interface IFormFieldType
+
+    using Umbraco.Core.Composing;
+
+    public interface IFormFieldType : IDiscoverable
     {
         string Directive { get; }
         string TypeLabel { get; }
