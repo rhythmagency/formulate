@@ -2,7 +2,9 @@
 {
 
     // Namespaces.
-    using System;
+    using formulate.app.Serialization;
+
+    using Newtonsoft.Json;
 
     /// <summary>
     /// The configuration for an email header.
@@ -19,30 +21,8 @@
         /// <summary>
         /// Gets or sets the value of the email header.
         /// </summary>
+        [JsonConverter(typeof(NewGuidTokenReplacementJsonConverter))]
         public string Value { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Replace a known set of supported tokens for "dynamic" header data.
-        /// </summary>
-        /// <param name="input">
-        /// The value that may contain a token to be replaced.
-        /// </param>
-        /// <returns>
-        /// The value after having the tokens replaced.
-        /// </returns>
-        private string ReplaceTokens(string input)
-        {
-            // TODO: Apply this logic to JSON deserialize Value Get
-            if (string.IsNullOrEmpty(input))
-            {
-                return string.Empty;
-            }
-            return input.Replace("{Guid.NewGuid()}", Guid.NewGuid().ToString());
-        }
 
         #endregion
     }
