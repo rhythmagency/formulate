@@ -236,6 +236,12 @@
     <Compile Include="Backoffice\Dashboards\FormulateDashboard.cs" />
     <Compile Include="Backoffice\Dashboards\FormulateInstallDashboard.cs" />
     <Compile Include="Backoffice\Sections\FormulateSection.cs" />
+    <Compile Include="CollectionBuilders\DataValueKindsCollection.cs" />
+    <Compile Include="CollectionBuilders\FormFieldTypeCollection.cs" />
+    <Compile Include="CollectionBuilders\DataValueKindCollectionBuilder.cs" />
+    <Compile Include="CollectionBuilders\FormFieldTypeCollectionBuilder.cs" />
+    <Compile Include="CollectionBuilders\FormHandlerTypeCollection.cs" />
+    <Compile Include="CollectionBuilders\FormHandlerTypeCollectionBuilder.cs" />
     <Compile Include="Components\PermitAccessComponent.cs" />
     <Compile Include="Components\ServerVariablesComponent.cs" />
     <Compile Include="Components\UpdateVersionComponent.cs" />
