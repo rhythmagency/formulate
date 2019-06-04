@@ -10,6 +10,12 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using formulate.app.CollectionBuilders;
+
+    using Umbraco.Core;
+    using Umbraco.Core.Composing;
+
+    using Current = Umbraco.Web.Composing.Current;
 
     /// <summary>
     /// Handles conversion of JSON to IFormField[].
@@ -57,7 +63,6 @@
             Type objectType, object existingValue,
             JsonSerializer serializer)
         {
-
             // Variables.
             var fields = new List<IFormField>();
             var jsonArray = JArray.Load(reader);
@@ -122,28 +127,28 @@
         /// </returns>
         private IFormField InstantiateFieldByTypeId(Guid typeId)
         {
-
+            // TODO: Find a way to resolve this without using Current.
             // Get field type.
-            var types = ReflectionHelper
-                .InstantiateInterfaceImplementations<IFormFieldType>();
-            var type = types.FirstOrDefault(x => x.TypeId == typeId);
-            if (type != null)
+            var fieldTypes = Current.Factory.GetInstance<FormFieldTypeCollection>();
+
+            if (fieldTypes == null || fieldTypes.Any() == false)
             {
-
-                // Create instance of form field.
-                var fieldType = type.GetType();
-                var genericType = typeof(FormField<>);
-                var fullType = genericType.MakeGenericType(fieldType);
-                var instance = Activator.CreateInstance(fullType);
-                var casted = instance as IFormField;
-                return casted;
-
+                return null;
             }
 
+            var fieldType = fieldTypes.FirstOrDefault(x => x.TypeId == typeId);
 
-            // Could not instantiate a form field.
-            return null;
+            if (fieldType == null)
+            {
+                return null;
+            }
 
+            // Create instance of form field.
+            var genericType = typeof(FormField<>);
+            var fullType = genericType.MakeGenericType(fieldType.GetType());
+            var instance = Activator.CreateInstance(fullType);
+            var casted = instance as IFormField;
+            return casted;
         }
 
         #endregion
