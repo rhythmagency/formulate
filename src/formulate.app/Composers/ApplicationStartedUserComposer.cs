@@ -139,9 +139,6 @@ namespace formulate.app.Composers
                 PermitAccess(composition);
                 UpdateVersion(composition);
             }
-
-            // Make changes to the web.config.
-            EnsureAppSettings();
         }
 
         private void UpdateVersion(Composition composition)
@@ -212,76 +209,6 @@ namespace formulate.app.Composers
         private void AddFormulateDeveloperDashboard(Composition composition)
         {
             composition.Dashboards().Add<FormulateDeveloperDashboard>();
-        }
-
-
-        /// <summary>
-        /// Adds or replaces the Formulate version number in the web.config, along with some other
-        /// application settings.
-        /// </summary>
-        private void EnsureAppSettings()
-        {
-
-            // Queue the web.config change.
-            //QueueInstallAction(() =>
-            //{
-
-            //    // Logging.
-            //    Logger.Info<ApplicationStartedUserComposer>("Ensuring Formulate version in the web.config.");
-
-
-            //    // Variables.
-            //    var key = SettingConstants.VersionKey;
-            //    var config = WebConfigurationManager.OpenWebConfiguration("~");
-            //    var settings = config.AppSettings.Settings;
-            //    var formulateKeys = new[]
-            //    {
-            //        new
-            //        {
-            //            key = SettingConstants.RecaptchaSiteKey,
-            //            value = string.Empty
-            //        },
-
-            //        new {
-            //          key = SettingConstants.RecaptchaSecretKey,
-            //          value = string.Empty
-            //        },
-
-            //        new {
-            //            key = SettingConstants.EnableJSONFormLogging,
-            //            value = "false"
-            //        }
-            //    };
-
-
-
-            //    // Replace the version setting.
-            //    if (settings.AllKeys.Any(x => key.InvariantEquals(x)))
-            //    {
-            //        settings.Remove(key);
-            //    }
-            //    settings.Add(key, MetaConstants.Version);
-
-
-            //    // Ensure the Recaptcha keys exist in the web.config.
-            //    foreach (var configKey in formulateKeys)
-            //    {
-            //        if (!DoesAppSettingExist(configKey.key))
-            //        {
-            //            settings.Add(configKey.key, configKey.value);
-            //        }
-            //    }
-
-
-            //    // Save config changes.
-            //    config.Save();
-
-
-            //    // Logging.
-            //    Logger.Info<ApplicationStartedUserComposer>("Done ensuring Formulate version in the web.config.");
-
-            //});
-
         }
 
         /// <summary>
