@@ -31,7 +31,7 @@
         public FieldsJsonConverter()
         {
             // TODO: Find a way to resolve this without using Current.
-            // Get field type.
+            // Get field types.
             FieldTypes = Current.Factory.GetInstance<FormFieldTypeCollection>();
         }
 
