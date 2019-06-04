@@ -433,6 +433,7 @@
     </Compile>
     <Compile Include="Serialization\FieldsJsonConverter.cs" />
     <Compile Include="Serialization\HandlersJsonConverter.cs" />
+    <Compile Include="Serialization\NewGuidTokenReplacementJsonConverter.cs" />
     <Compile Include="Templates\Template.cs" />
     <Compile Include="Backoffice\Trees\FormulateTreeController.cs" />
     <Compile Include="Backoffice\Trees\Helpers\ConfiguredFormHelper.cs" />
