@@ -1,4 +1,4 @@
-namespace formulate.app.Composers
+﻿namespace formulate.app.Composers
 {
     // Namespaces.
     using System.Configuration;
@@ -101,42 +101,16 @@ namespace formulate.app.Composers
         private void HandleInstallAndUpgrade(Composition composition)
         {
             var version = GetInstalledVersion(composition);
-            var isInstalled = string.IsNullOrWhiteSpace(version) == false;
+            var isNewInstall = string.IsNullOrWhiteSpace(version) == false;
             var needsUpgrade = !MetaConstants.Version.InvariantEquals(version);
 
-            if (!isInstalled)
+            if (isNewInstall)
             {
-                // Install Formulate.
-                HandleInstall(composition);
-            }
-            else if (needsUpgrade)
-            {
-                // Perform an upgrade installation.
-                HandleInstall(composition, true);
-            }
-        }
-
-        /// <summary>
-        /// Handles install operations.
-        /// </summary>
-        /// <param name="composition">
-        /// The composition.
-        /// </param>
-        /// <param name="isUpgrade">
-        /// Is this an upgrade to an existing installation?
-        /// </param>
-        private void HandleInstall(Composition composition, bool isUpgrade = false)
-        {
-            // Add the Formulate section and the Formulate dashboard in the Formulate section.
-            AddSection(composition);
-            AddFormulateDashboard(composition);
-
-            // If this is a new install, add the Formulate dashboard in the Developer section,
-            // and check if users need to be given access to Formulate.
-            if (!isUpgrade)
-            {
-                AddFormulateDeveloperDashboard(composition);
                 PermitAccess(composition);
+            }
+
+            if (isNewInstall || needsUpgrade)
+            {
                 UpdateVersion(composition);
             }
         }
