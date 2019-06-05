@@ -1,4 +1,4 @@
-﻿// Variables.
+// Variables.
 var app = angular.module("umbraco");
 
 // Register directive/controller.
@@ -13,6 +13,7 @@ function directive(formulateDirectives) {
         template: formulateDirectives.get(
             "dialogs/validationPicker/validationPicker.html"),
         scope: {
+            model: "="
         }
     };
 }
