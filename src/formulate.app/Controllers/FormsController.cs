@@ -11,6 +11,9 @@
     using System;
     using System.Linq;
     using System.Web.Http;
+
+    using formulate.app.CollectionBuilders;
+
     using Umbraco.Core;
     using Umbraco.Core.Logging;
     using Umbraco.Web;
@@ -53,6 +56,9 @@
         private ILogger Logger { get; set; }
         private IEntityHelper EntityHelper { get; set; }
 
+        private FormHandlerTypeCollection FormHandlerTypeCollection { get; set; }
+        private FormFieldTypeCollection FormFieldTypeCollection { get; set; }
+
         #endregion
 
 
@@ -61,13 +67,15 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public FormsController(IFormPersistence formPersistence, IEntityPersistence entityPersistence, IValidationPersistence validationPersistence, IConfiguredFormPersistence configuredFormPersistence,  ILogger logger, IEntityHelper entityHelper) {
+        public FormsController(IFormPersistence formPersistence, IEntityPersistence entityPersistence, IValidationPersistence validationPersistence, IConfiguredFormPersistence configuredFormPersistence,  ILogger logger, IEntityHelper entityHelper, FormFieldTypeCollection formFieldTypeCollection, FormHandlerTypeCollection formHandlerTypeCollection) {
             Persistence = formPersistence;
             Entities = entityPersistence;
             Validations = validationPersistence;
             ConFormPersistence = configuredFormPersistence;
             Logger = logger;
             EntityHelper = entityHelper;
+            FormHandlerTypeCollection = formHandlerTypeCollection;
+            FormFieldTypeCollection = formFieldTypeCollection;
         }
 
         #endregion
