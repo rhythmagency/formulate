@@ -216,22 +216,24 @@
                     .Select(x =>
                     {
                         var fieldType = Type.GetType(x.TypeFullName);
-                        var genericType = typeof(FormField<>);
-                        var specificType =
-                            genericType.MakeGenericType(new[] { fieldType });
-                        var field = Activator.CreateInstance(specificType)
-                            as IFormField;
-                        field.Id = string.IsNullOrWhiteSpace(x.Id)
-                            ? Guid.NewGuid()
-                            : GuidHelper.GetGuid(x.Id);
-                        field.Alias = x.Alias;
-                        field.Name = x.Name;
-                        field.Label = x.Label;
-                        field.Category = x.Category;
-                        field.Validations = x.Validations.MakeSafe()
-                            .Select(y => GuidHelper.GetGuid(y)).ToArray();
-                        field.FieldConfiguration =
-                            JsonHelper.Serialize(x.Configuration);
+                        var fieldTypeInstance = FormFieldTypeCollection.FirstOrDefault(y => y.GetType() == fieldType);
+
+                        var field = new FormField(fieldTypeInstance)
+                                        {
+                                            Id =
+                                                string.IsNullOrWhiteSpace(x.Id)
+                                                    ? Guid.NewGuid()
+                                                    : GuidHelper.GetGuid(x.Id),
+                                            Alias = x.Alias,
+                                            Name = x.Name,
+                                            Label = x.Label,
+                                            Category = x.Category,
+                                            Validations =
+                                                x.Validations.MakeSafe()
+                                                    .Select(y => GuidHelper.GetGuid(y)).ToArray(),
+                                            FieldConfiguration =
+                                                JsonHelper.Serialize(x.Configuration)
+                                        };
                         return field;
                     })
                     .ToArray();
@@ -241,19 +243,20 @@
                 var handlers = request.Handlers.MakeSafe().Select(x =>
                 {
                     var handlerType = Type.GetType(x.TypeFullName);
-                    var genericType = typeof(FormHandler<>);
-                    var specificType =
-                        genericType.MakeGenericType(new[] { handlerType });
-                    var handler = Activator.CreateInstance(specificType)
-                        as IFormHandler;
-                    handler.Id = string.IsNullOrWhiteSpace(x.Id)
-                        ? Guid.NewGuid()
-                        : GuidHelper.GetGuid(x.Id);
-                    handler.Alias = x.Alias;
-                    handler.Name = x.Name;
-                    handler.Enabled = x.Enabled;
-                    handler.HandlerConfiguration =
-                        JsonHelper.Serialize(x.Configuration);
+                    var handlerTypeInstance = FormHandlerTypeCollection.FirstOrDefault(y => y.GetType() == handlerType);
+
+                    var handler = new FormHandler(handlerTypeInstance)
+                                      {
+                                          Id = string.IsNullOrWhiteSpace(x.Id)
+                                                   ? Guid.NewGuid()
+                                                   : GuidHelper.GetGuid(x.Id),
+                                          Alias = x.Alias,
+                                          Name = x.Name,
+                                          Enabled = x.Enabled,
+                                          HandlerConfiguration =
+                                              JsonHelper.Serialize(x.Configuration)
+                                      };
+
                     return handler;
                 }).ToArray();
 
