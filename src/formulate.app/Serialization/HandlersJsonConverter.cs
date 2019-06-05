@@ -125,13 +125,7 @@
         private IFormHandler InstantiateHandlerByTypeId(Guid typeId)
         {
             var handler = FormHandlerTypes?.FirstOrDefault(x => x.TypeId == typeId);
-
-            // Create instance of form field.
-            var genericType = typeof(FormHandler<>);
-            var fullType = genericType.MakeGenericType(handler.GetType());
-            var instance = Activator.CreateInstance(fullType);
-            var casted = instance as IFormHandler;
-            return casted;
+            return new FormHandler(handler);
         }
 
         #endregion

@@ -139,12 +139,7 @@
                 return null;
             }
 
-            // Create instance of form field.
-            var genericType = typeof(FormField<>);
-            var fullType = genericType.MakeGenericType(fieldType.GetType());
-            var instance = Activator.CreateInstance(fullType);
-            var casted = instance as IFormField;
-            return casted;
+            return new FormField(fieldType);
         }
 
         #endregion
