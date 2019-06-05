@@ -78,8 +78,7 @@
                                                     </localize>
                                                 </label>
                                                 <div class="controls controls-row">
-                                                    <select class="umb-editor umb-dropdown"
-                                                            ng-model="field.category"
+                                                    <select ng-model="field.category"
                                                             ng-options="option.value as option.label group by option.group for option in categories">
                                                         <option value="" formulate-inject-localization="formulate-options_Select a Field Category"></option>
                                                     </select>
