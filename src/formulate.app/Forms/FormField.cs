@@ -5,91 +5,86 @@
     using System;
     using System.Collections.Generic;
 
-
     /// <summary>
     /// Stores information about a form field.
     /// </summary>
-    /// <typeparam name="T">The type of data stored by this form field.</typeparam>
-    public class FormField<T> : IFormField
-        where T : IFormFieldType,
-        new()
+    public class FormField : IFormField
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormField"/> class.
+        /// </summary>
+        /// <param name="formFieldType">
+        /// The form field type.
+        /// </param>
+        public FormField(IFormFieldType formFieldType)
+        {
+            FormFieldType = formFieldType;
+        }
 
         #region Properties
 
         /// <summary>
-        /// The unique ID of the field.
+        /// Gets or sets the unique ID of the field.
         /// </summary>
         public Guid Id { get; set; }
 
-
         /// <summary>
-        /// The alias of the field.
+        /// Gets or sets the alias of the field.
         /// </summary>
         public string Alias { get; set; }
 
-
         /// <summary>
-        /// The name of the field.
+        /// Gets or sets the name of the field.
         /// </summary>
         public string Name { get; set; }
 
-
         /// <summary>
-        /// The label for the field.
+        /// Gets or sets the label for the field.
         /// </summary>
         public string Label { get; set; }
-
         
         /// <summary>
-        /// The category of the field.
+        /// Gets or sets the category of the field.
         /// </summary>
         public string Category { get; set; }
 
-
         /// <summary>
-        /// The validations for this field.
+        /// Gets or sets the validations for this field.
         /// </summary>
         public Guid[] Validations { get; set; }
 
-
         /// <summary>
-        /// Information about the field.
+        /// Gets or sets information about the field.
         /// </summary>
         public IFormFieldMetaInfo[] MetaInfo { get; set; }
 
-
         /// <summary>
-        /// The configuration data stored by the field.
+        /// Gets or sets the configuration data stored by the field.
         /// </summary>
         public string FieldConfiguration { get; set; }
 
-
         /// <summary>
-        /// The ID of the field type.
+        /// Gets or sets the ID of the field type.
         /// </summary>
         public Guid TypeId
         {
             get
             {
-                var instance = new T();
-                return instance.TypeId;
+                return FormFieldType.TypeId;
             }
             set
             {
             }
         }
 
-
         /// <summary>
-        /// Is this type of field persistent or transitory?
+        /// Gets a value indicating whether is this type of field persistent or transitory?
         /// </summary>
         public bool IsTransitory
         {
             get
             {
-                var instance = new T();
-                var casted = instance as IFormFieldTypeExtended;
+                var casted = FormFieldType as IFormFieldTypeExtended;
                 return casted == null
                     ? false
                     : casted.IsTransitory;
@@ -97,14 +92,13 @@
         }
 
         /// <summary>
-        /// Is this type of field server-side only (i.e., not a frontend field)?
+        /// Gets a value indicating whether is this type of field server-side only (i.e., not a frontend field)?
         /// </summary>
         public bool IsServerSideOnly
         {
             get
             {
-                var instance = new T();
-                var casted = instance as IFormFieldTypeExtended;
+                var casted = FormFieldType as IFormFieldTypeExtended;
                 return casted == null
                     ? false
                     : casted.IsServerSideOnly;
@@ -112,14 +106,13 @@
         }
 
         /// <summary>
-        /// Is this type of field hidden?
+        /// Gets a value indicating whether is this type of field hidden?
         /// </summary>
         public bool IsHidden
         {
             get
             {
-                var instance = new T();
-                var casted = instance as IFormFieldTypeExtended;
+                var casted = FormFieldType as IFormFieldTypeExtended;
                 return casted == null
                     ? false
                     : casted.IsHidden;
@@ -127,22 +120,25 @@
         }
 
         /// <summary>
-        /// Is this type of field stored?
+        /// Gets a value indicating whether is this type of field stored?
         /// </summary>
         public bool IsStored
         {
             get
             {
-                var instance = new T();
-                var casted = instance as IFormFieldTypeExtended;
+                var casted = FormFieldType as IFormFieldTypeExtended;
                 return casted == null
                     ? true
                     : casted.IsStored;
             }
         }
 
-        #endregion
+        /// <summary>
+        /// Gets or sets the form field type.
+        /// </summary>
+        private IFormFieldType FormFieldType { get; set; }
 
+        #endregion
 
         #region Methods
 
@@ -152,10 +148,8 @@
         /// <returns>The directive.</returns>
         public string GetDirective()
         {
-            var instance = new T();
-            return instance.Directive;
+            return FormFieldType.Directive;
         }
-
 
         /// <summary>
         /// Gets the type label to use for this form field.
@@ -163,10 +157,8 @@
         /// <returns>The type label.</returns>
         public string GetTypeLabel()
         {
-            var instance = new T();
-            return instance.TypeLabel;
+            return FormFieldType.TypeLabel;
         }
-
 
         /// <summary>
         /// Gets the icon to use for this form field.
@@ -174,10 +166,8 @@
         /// <returns>The icon.</returns>
         public string GetIcon()
         {
-            var instance = new T();
-            return instance.Icon;
+            return FormFieldType.Icon;
         }
-
 
         /// <summary>
         /// Returns the type of field.
@@ -187,9 +177,8 @@
         /// </returns>
         public Type GetFieldType()
         {
-            return typeof(T);
+            return FormFieldType.GetType();
         }
-
 
         /// <summary>
         /// Deserializes the field configuration into a .NET object instance.
@@ -199,10 +188,8 @@
         /// </returns>
         public object DeserializeConfiguration()
         {
-            var instance = new T();
-            return instance.DeserializeConfiguration(FieldConfiguration);
+            return FormFieldType.DeserializeConfiguration(FieldConfiguration);
         }
-
 
         /// <summary>
         /// Formats a value in the specified field presentation format.
@@ -218,11 +205,9 @@
         /// </returns>
         public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format)
         {
-            var instance = new T();
-            var configuration = instance.DeserializeConfiguration(FieldConfiguration);
-            return instance.FormatValue(values ?? new string[0], format, configuration);
+            var configuration = FormFieldType.DeserializeConfiguration(FieldConfiguration);
+            return FormFieldType.FormatValue(values ?? new string[0], format, configuration);
         }
-
 
         /// <summary>
         /// Is the field value valid?
@@ -235,10 +220,9 @@
         /// </returns>
         public bool IsValid(IEnumerable<string> value)
         {
-            if (typeof(IFormFieldTypeExtended).IsAssignableFrom(typeof(T)))
+            if (FormFieldType is IFormFieldTypeExtended)
             {
-                var instance = new T();
-                var casted = instance as IFormFieldTypeExtended;
+                var casted = FormFieldType as IFormFieldTypeExtended;
                 return casted.IsValid(value);
             }
             else
@@ -248,7 +232,5 @@
         }
 
         #endregion
-
     }
-
 }
