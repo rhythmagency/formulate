@@ -17,7 +17,7 @@ function directive(formulateDirectives) {
 
 // Controller.
 function controller($scope, $routeParams, $route, formulateTrees,
-    formulateForms, $location, dialogService, formulateValidations, formulateLocalization, formulateFields) {
+    formulateForms, $location, editorService, formulateValidations, formulateLocalization, formulateFields) {
 
     // Variables.
     var id = $routeParams.id;
@@ -30,7 +30,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
         formulateForms: formulateForms,
         $location: $location,
         $route: $route,
-        dialogService: dialogService,
+        editorService: editorService,
         formulateValidations: formulateValidations,
         formulateFields: formulateFields
     };
@@ -39,22 +39,27 @@ function controller($scope, $routeParams, $route, formulateTrees,
     $scope.isNew = isNew;
     $scope.info = {
         formName: null,
-        formAlias: null,
-        tabs: [
-            {
-                id: 2,
-                active: true,
-                label: "Form",
-                alias: "form"
-            },
-            {
-                id: 25,
-                active: false,
-                label: "Handlers",
-                alias: "handlers"
-            }
-        ]
+        formAlias: null
     };
+
+    // TODO: Replace placeholder value for apps view to use separate subviews
+    // For now a placeholder value is set for view to ensure Umbraco EditorNavigationDirective setItemToActive function will toggle app navigation
+    $scope.apps = [
+        {
+            active: true,
+            name: "Form",
+            alias: "Form",
+            icon: "icon-formulate-form",
+            view: "#"
+        },
+        {
+            name: "Handlers",
+            alias: "Handlers",
+            icon: "icon-handshake",
+            view: "#"
+        }
+    ];
+
     $scope.fields = [];
     $scope.handlers = [];
     if (!isNew) {
@@ -83,7 +88,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
     };
 
     // Tabs need to be translated.
-    formulateLocalization.localizeTabs($scope.info.tabs);
+    formulateLocalization.localizeApps($scope.apps);
 
     // Set scope functions.
     $scope.save = getSaveForm(services);
@@ -101,6 +106,9 @@ function controller($scope, $routeParams, $route, formulateTrees,
     $scope.deleteHandler = getDeleteHandler(services);
     $scope.pickValidations = getPickValidations(services);
 
+    $scope.appChanged = appChanged(services);
+
+
     // Initializes form.
     initializeForm({
         id: id,
@@ -115,7 +123,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
 // Handles updating a form when it's moved.
 function handleFormMoves(services) {
     var $scope = services.$scope;
-    $scope.$on("formulateEntityMoved", function(event, data) {
+    $scope.$on("formulateEntityMoved", function (event, data) {
         var id = data.id;
         var newPath = data.path;
         if ($scope.formId === id) {
@@ -132,13 +140,13 @@ function handleFormMoves(services) {
 
 // Allows the user to pick their validations.
 function getPickValidations(services) {
-    var dialogService = services.dialogService;
+    var editorService = services.editorService;
     var formulateValidations = services.formulateValidations;
-    return function(field) {
-        dialogService.open({
+    return function (field) {
+        editorService.open({
             template: "../App_Plugins/formulate/dialogs/pickValidations.html",
             show: true,
-            callback: function(data) {
+            callback: function (data) {
 
                 // Get info about validations based on their ID's,
                 // then update the validations for the field.
@@ -180,7 +188,7 @@ function getSaveForm(services) {
 
         // Persist form on server.
         services.formulateForms.persistForm(formData)
-            .then(function(responseData) {
+            .then(function (responseData) {
 
                 // Variables.
                 var isNew = $scope.isNew;
@@ -239,6 +247,45 @@ function initializeForm(options, services) {
     var isNew = options.isNew;
     var $scope = services.$scope;
 
+    // we need to check wether an app is present in the current data, if not we will present the default app.
+    var isAppPresent = false;
+
+    // on first init, we dont have any apps. but if we are re-initializing, we do, but ...
+    if ($scope.app) {
+
+        // lets check if it still exists as part of our apps array. (if not we have made a change to our docType, even just a re-save of the docType it will turn into new Apps.)
+        _.forEach($scope.apps, function (app) {
+            if (app === $scope.app) {
+                isAppPresent = true;
+            }
+        });
+
+        // if we did reload our DocType, but still have the same app we will try to find it by the alias.
+        if (isAppPresent === false) {
+            _.forEach(content.apps, function (app) {
+                if (app.alias === $scope.app.alias) {
+                    isAppPresent = true;
+                    app.active = true;
+                    $scope.appChanged(app);
+                }
+            });
+        }
+
+    }
+
+    // if we still dont have a app, lets show the first one:
+    if (isAppPresent === false) {
+        $scope.apps[0].active = true;
+        $scope.appChanged($scope.apps[0]);
+    }
+
+
+
+
+
+
+
+
     // Get the field categories.
     services.formulateFields.getFieldCategories().then(function (categories) {
         $scope.categories = categories.map(function (category) {
@@ -262,7 +309,7 @@ function initializeForm(options, services) {
         $scope.initialized = false;
 
         // Get the form info.
-        services.formulateForms.getFormInfo(id).then(function(form) {
+        services.formulateForms.getFormInfo(id).then(function (form) {
 
             // Update tree.
             services.formulateTrees.activateEntity(form);
@@ -296,28 +343,28 @@ function initializeForm(options, services) {
 
 // Returns the function that indicates whether or not the form can be saved.
 function getCanSave(services) {
-    return function() {
+    return function () {
         return services.$scope.initialized;
     };
 }
 
 // Returns the function that indicates whether or not fields can be added.
 function getCanAddField(services) {
-    return function() {
+    return function () {
         return services.$scope.initialized;
     };
 }
 
 // Returns the function that indicates whether or not handlers can be added.
 function getCanAddHandler(services) {
-    return function() {
+    return function () {
         return services.$scope.initialized;
     };
 }
 
 // Gets the function that handles a chosen field.
 function getFieldChosen(services) {
-    return function(field) {
+    return function (field) {
         var $scope = services.$scope;
         $scope.fieldChooser.show = false;
         if (field) {
@@ -339,7 +386,7 @@ function getFieldChosen(services) {
 
 // Gets the function that handles a chosen handler.
 function getHandlerChosen(services) {
-    return function(handler) {
+    return function (handler) {
         var $scope = services.$scope;
         $scope.handlerChooser.show = false;
         if (handler) {
@@ -360,21 +407,21 @@ function getHandlerChosen(services) {
 
 // Gets the function that toggles the visibility of a field.
 function getToggleField() {
-    return function(field) {
+    return function (field) {
         field.expanded = !field.expanded;
     };
 }
 
 // Gets the function that toggles the visibility of a handler.
 function getToggleHandler() {
-    return function(handler) {
+    return function (handler) {
         handler.expanded = !handler.expanded;
     };
 }
 
 // Gets the function that toggles the enabled state of a handler.
 function getToggleHandlerEnabled() {
-    return function(handler) {
+    return function (handler) {
         handler.enabled = !handler.enabled;
     };
 }
@@ -382,7 +429,7 @@ function getToggleHandlerEnabled() {
 // Gets the function that deletes a field.
 function getDeleteField(services) {
     var $scope = services.$scope;
-    return function(field) {
+    return function (field) {
 
         // Confirm deletion.
         var name = field.name;
@@ -407,7 +454,7 @@ function getDeleteField(services) {
 // Gets the function that deletes a handler.
 function getDeleteHandler(services) {
     var $scope = services.$scope;
-    return function(handler) {
+    return function (handler) {
 
         // Confirm deletion.
         var name = handler.name;
@@ -448,4 +495,14 @@ function getParentId($scope) {
         ? path[path.length - 2]
         : null;
     return parentId;
+}
+
+function appChanged(services) {
+    var $scope = services.$scope;
+
+    return function (app) {
+        $scope.app = app;
+
+        $scope.$broadcast("editors.apps.appChanged", { app: app });
+    };
 }

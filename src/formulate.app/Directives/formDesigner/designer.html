@@ -1,239 +1,253 @@
-﻿<form name="formulateFormDesigner" val-form-manager>
-    <umb-panel umb-tabs>
-        <umb-header tabs="info.tabs">
-            <div class="span7">
+﻿<div>
+    <umb-load-indicator ng-if="!initialized"></umb-load-indicator>
 
-                <!-- Form name. -->
-                <umb-content-name
-                    ng-model="info.formName"
-                    placeholder="@formulate-placeholders_Form Name">
-                </umb-content-name>
+    <form novalidate name="formulateFormDesigner"
+          ng-submit="save()"
+          val-form-manager>
 
-            </div>
-        </umb-header>
-        <umb-tab-view>
-            <umb-tab id="tab2" rel="{{2}}">
+        <umb-editor-view ng-if="initialized">
 
-                <!-- Field chooser dialog. -->
-                <formulate-field-chooser
-                    show="fieldChooser.show"
-                    chosen="fieldChosen(field)">
-                </formulate-field-chooser>
+            <umb-editor-header name="info.formName"
+                               hide-icon="true"
+                               hide-description="true"
+                               hide-alias="true"
+                               navigation="apps"
+                               on-select-navigation-item="appChanged(item)">
+            </umb-editor-header>
 
-                <!-- Form designer. -->
-                <div class="umb-pane">
+            <umb-editor-container>
 
-                    <!-- Form alias. -->
-                    <fieldset>
-                        <legend>
-                            <h2>
-                                <localize key="formulate-headers_Form Information">
-                                    Form Information
-                                </localize>
-                            </h2>
-                        </legend>
-                        <div class="control-group umb-control-group">
-                            <div class="umb-el-wrap">
-                                <label class="control-label">
-                                    <localize key="formulate-labels_Form Alias">
-                                        Form Alias
-                                    </localize>
-                                </label>
-                                <div class="controls controls-row">
-                                    <input
-                                           ng-model="info.formAlias"
-                                           type="text"
-                                           formulate-localize-attribute="placeholder"
-                                           placeholder="formulate-placeholders_Form Alias" />
-                                </div>
+                <div class="form-horizontal" ng-if="app.alias == 'Form'">
+                    <div class="umb-group-panel">
+                        <div class="umb-group-panel__header">
+                            <div>
+                                <localize key="formulate-labels_Fields">Fields</localize>
                             </div>
                         </div>
-                    </fieldset>
 
-                    <!-- Render all fields. -->
-                    <div ui-sortable="sortableOptions" ng-model="fields">
-                        <fieldset ng-repeat="field in fields" class="formulate-field {{field.expanded ? 'expanded' : 'collapsed'}}">
-                            <legend><i class="icon-navigation drag-handle"></i><i ng-click="toggleField(field)" class="collapser icon icon-add"></i><i class="type-identifier icon {{field.icon}}"></i>{{field.name || "formulate-general_Unnamed" | formulatelocalize:!field.name}}<div class="right-buttons"><i ng-click="deleteField(field)" class="icon-delete deleter"></i></div></legend>
-                            <div class="formulate-field-details" ng-if="field.expanded">
-                                <div class="control-group umb-control-group">
-                                    <div class="umb-el-wrap">
-                                        <label class="control-label">
-                                            <localize key="formulate-labels_Field Name">
-                                                Field Name
-                                            </localize>
-                                        </label>
-                                        <div class="controls controls-row">
-                                            <input
-                                                   type="text"
-                                                   ng-model="field.name"
-                                                   formulate-localize-attribute="placeholder"
-                                                   placeholder="formulate-placeholders_Field Name" />
-                                        </div>
-                                    </div>
-                                    <div class="umb-el-wrap">
-                                        <label class="control-label">
-                                            <localize key="formulate-labels_Field Alias">
-                                                Field Alias
-                                            </localize>
-                                        </label>
-                                        <div class="controls controls-row">
-                                            <input
-                                                   type="text"
-                                                   ng-model="field.alias"
-                                                   formulate-localize-attribute="placeholder"
-                                                   placeholder="formulate-placeholders_Field Alias" />
-                                        </div>
-                                    </div>
-                                    <div class="umb-el-wrap">
-                                        <label class="control-label">
-                                            <localize key="formulate-labels_Field Label">
-                                                Field Label
-                                            </localize>
-                                        </label>
-                                        <div class="controls controls-row">
-                                            <input
-                                               type="text"
-                                               ng-model="field.label"
-                                               formulate-localize-attribute="placeholder"
-                                               placeholder="formulate-placeholders_Field Label" />
-                                        </div>
-                                    </div>
-                                    <div class="umb-el-wrap" ng-if="categories">
-                                        <label class="control-label">
-                                            <localize key="formulate-labels_Field Category">
-                                                Field Category
-                                            </localize>
-                                        </label>
-                                        <div class="controls controls-row">
-                                            <select
-                                                class="umb-editor umb-dropdown"
-                                                ng-model="field.category"
-                                                ng-options="option.value as option.label group by option.group for option in categories">
-                                                <option value="" formulate-inject-localization="formulate-options_Select a Field Category"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label class="control-label">
-                                            <localize key="formulate-labels_Validations">
-                                                Validations
-                                            </localize>
-                                        </label>
-                                        <div class="controls controls-row">
-                                            <ul>
-                                                <li ng-repeat="validation in field.validations">
-                                                    {{validation.name}}
-                                                </li>
-                                            </ul>
-                                            <div>
-                                                <a class="btn link" href ng-click="pickValidations(field)">
-                                                    <localize key="formulate-buttons_Pick Validations">
-                                                        Pick Validations
+                        <div class="umb-group-panel__content">
+                            <!-- Render all fields. -->
+                            <div ui-sortable="sortableOptions" ng-model="fields">
+                                <fieldset ng-repeat="field in fields" class="formulate-field {{field.expanded ? 'expanded' : 'collapsed'}}">
+                                    <legend><i class="icon-navigation drag-handle"></i><i ng-click="toggleField(field)" class="collapser icon icon-add"></i><i class="type-identifier icon {{field.icon}}"></i>{{field.name || "formulate-general_Unnamed" | formulatelocalize:!field.name}}<div class="right-buttons"><i ng-click="deleteField(field)" class="icon-delete deleter"></i></div></legend>
+                                    <div class="formulate-field-details" ng-if="field.expanded">
+                                        <div class="control-group umb-control-group">
+                                            <div class="umb-el-wrap">
+                                                <label class="control-label">
+                                                    <localize key="formulate-labels_Field Name">
+                                                        Field Name
                                                     </localize>
-                                                </a>
+                                                </label>
+                                                <div class="controls controls-row">
+                                                    <input type="text"
+                                                           ng-model="field.name"
+                                                           formulate-localize-attribute="placeholder"
+                                                           placeholder="formulate-placeholders_Field Name" />
+                                                </div>
                                             </div>
+                                            <div class="umb-el-wrap">
+                                                <label class="control-label">
+                                                    <localize key="formulate-labels_Field Alias">
+                                                        Field Alias
+                                                    </localize>
+                                                </label>
+                                                <div class="controls controls-row">
+                                                    <input type="text"
+                                                           ng-model="field.alias"
+                                                           formulate-localize-attribute="placeholder"
+                                                           placeholder="formulate-placeholders_Field Alias" />
+                                                </div>
+                                            </div>
+                                            <div class="umb-el-wrap">
+                                                <label class="control-label">
+                                                    <localize key="formulate-labels_Field Label">
+                                                        Field Label
+                                                    </localize>
+                                                </label>
+                                                <div class="controls controls-row">
+                                                    <input type="text"
+                                                           ng-model="field.label"
+                                                           formulate-localize-attribute="placeholder"
+                                                           placeholder="formulate-placeholders_Field Label" />
+                                                </div>
+                                            </div>
+                                            <div class="umb-el-wrap" ng-if="categories">
+                                                <label class="control-label">
+                                                    <localize key="formulate-labels_Field Category">
+                                                        Field Category
+                                                    </localize>
+                                                </label>
+                                                <div class="controls controls-row">
+                                                    <select class="umb-editor umb-dropdown"
+                                                            ng-model="field.category"
+                                                            ng-options="option.value as option.label group by option.group for option in categories">
+                                                        <option value="" formulate-inject-localization="formulate-options_Select a Field Category"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="control-label">
+                                                    <localize key="formulate-labels_Validations">
+                                                        Validations
+                                                    </localize>
+                                                </label>
+                                                <div class="controls controls-row">
+                                                    <ul>
+                                                        <li ng-repeat="validation in field.validations">
+                                                            {{validation.name}}
+                                                        </li>
+                                                    </ul>
+                                                    <div>
+                                                        <a class="btn link" href ng-click="pickValidations(field)">
+                                                            <localize key="formulate-buttons_Pick Validations">
+                                                                Pick Validations
+                                                            </localize>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <formulate-field-editor directive="field.directive" configuration="field.configuration">
+                                            </formulate-field-editor>
                                         </div>
                                     </div>
-                                    <formulate-field-editor directive="field.directive" configuration="field.configuration">
-                                    </formulate-field-editor>
-                                </div>
+                                </fieldset>
                             </div>
-                        </fieldset>
-                    </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn" ng-click="addField()" ng-disabled="!canAddField()" prevent-default>
+                                    <localize key="formulate-buttons_Add Field">
+                                        Add Field
+                                    </localize>
+                                </button>
+                            </div>
 
-                    <!-- Buttons. -->
-                    <div class="btn-group">
-                        <button type="button" class="btn" ng-click="addField()" ng-disabled="!canAddField()" prevent-default>
-                            <localize key="formulate-buttons_Add Field">
-                                Add Field
-                            </localize>
-                        </button>
-                        <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>
-                            <localize key="formulate-buttons_Save">
-                                Save
-                            </localize>
-                        </button>
+                            <!-- Field chooser dialog. -->
+                            <formulate-field-chooser show="fieldChooser.show"
+                                                     chosen="fieldChosen(field)">
+                            </formulate-field-chooser>
+
+                        </div>
                     </div>
                 </div>
 
-            </umb-tab>
-            <umb-tab id="tab25" rel="{{25}}">
-
-                <!-- Handler chooser dialog. -->
-                <formulate-handler-chooser
-                    show="handlerChooser.show"
-                    chosen="handlerChosen(handler)">
-                </formulate-handler-chooser>
-
-                <!-- Handlers designer. -->
-                <div class="umb-pane">
-
-                    <!-- Introduction. -->
-                    <p>
-                        <localize key="formulate-introductions_Form Handlers">
-                            These are your form's handlers.
-                            Handlers allow you to perform various actions when you submit the form.
-                        </localize>
-                    </p>
-
-                    <!-- Handlers. -->
-                    <div ui-sortable="sortableHandlerOptions" ng-model="handlers">
-                        <fieldset ng-repeat="handler in handlers" class="formulate-handler {{handler.expanded ? 'expanded' : 'collapsed'}} {{handler.enabled ? 'enabled' : 'disabled'}}">
-                            <legend><i class="icon-navigation drag-handle"></i><i ng-click="toggleHandler(handler)" class="collapser icon icon-add"></i><i class="type-identifier icon {{handler.icon}}"></i>{{handler.name || "formulate-general_Unnamed" | formulatelocalize:!handler.name}}<div class="right-buttons"><i ng-click="toggleHandlerEnabled(handler)" class="icon-eye enabler"></i><i ng-click="deleteHandler(handler)" class="icon-delete deleter"></i></div></legend>
-                            <div class="formulate-handler-details">
-                                <div class="control-group umb-control-group">
-                                    <div class="umb-el-wrap">
-                                        <label class="control-label">
-                                            <localize key="formulate-labels_Handler Name">
-                                                Handler Name
-                                            </localize>
-                                        </label>
-                                        <div class="controls controls-row">
-                                            <input
-                                                   type="text"
-                                                   ng-model="handler.name"
-                                                   formulate-localize-attribute="placeholder"
-                                                   placeholder="formulate-placeholders_Handler Name" />
-                                        </div>
-                                    </div>
-                                    <div class="umb-el-wrap">
-                                        <label class="control-label">
-                                            <localize key="formulate-labels_Handler Alias">
-                                                Handler Alias
-                                            </localize>
-                                        </label>
-                                        <div class="controls controls-row">
-                                            <input
-                                                   type="text"
-                                                   ng-model="handler.alias"
-                                                   formulate-localize-attribute="placeholder"
-                                                   placeholder="formulate-placeholders_Handler Alias" />
-                                        </div>
-                                    </div>
-                                    <formulate-handler-editor directive="handler.directive" configuration="handler.configuration" fields="fields">
-                                    </formulate-handler-editor>
-                                </div>
+                <div class="form-horizontal" ng-if="app.alias == 'Handlers'">
+                    <div class="umb-group-panel">
+                        <div class="umb-group-panel__header">
+                            <div>
+                                <localize key="formulate-introductions_Form Handlers">
+                                    These are your form's handlers.
+                                    Handlers allow you to perform various actions when you submit the form.
+                                </localize>
                             </div>
-                        </fieldset>
-                    </div>
+                        </div>
 
-                    <!-- Buttons. -->
-                    <div class="btn-group">
-                        <button type="button" class="btn" ng-click="addHandler()" ng-disabled="!canAddHandler()" prevent-default>
-                            <localize key="formulate-buttons_Add Handler">
-                                Add Handler
-                            </localize>
-                        </button>
-                        <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>
-                            <localize key="formulate-buttons_Save">
-                                Save
-                            </localize>
-                        </button>
-                    </div>
+                        <div class="umb-group-panel__content">
+                            <div ui-sortable="sortableHandlerOptions" ng-model="handlers">
+                                <fieldset ng-repeat="handler in handlers" class="formulate-handler {{handler.expanded ? 'expanded' : 'collapsed'}} {{handler.enabled ? 'enabled' : 'disabled'}}">
+                                    <legend><i class="icon-navigation drag-handle"></i><i ng-click="toggleHandler(handler)" class="collapser icon icon-add"></i><i class="type-identifier icon {{handler.icon}}"></i>{{handler.name || "formulate-general_Unnamed" | formulatelocalize:!handler.name}}<div class="right-buttons"><i ng-click="toggleHandlerEnabled(handler)" class="icon-eye enabler"></i><i ng-click="deleteHandler(handler)" class="icon-delete deleter"></i></div></legend>
+                                    <div class="formulate-handler-details">
+                                        <div class="control-group umb-control-group">
+                                            <div class="umb-el-wrap">
+                                                <label class="control-label">
+                                                    <localize key="formulate-labels_Handler Name">
+                                                        Handler Name
+                                                    </localize>
+                                                </label>
+                                                <div class="controls controls-row">
+                                                    <input type="text"
+                                                           ng-model="handler.name"
+                                                           formulate-localize-attribute="placeholder"
+                                                           placeholder="formulate-placeholders_Handler Name" />
+                                                </div>
+                                            </div>
+                                            <div class="umb-el-wrap">
+                                                <label class="control-label">
+                                                    <localize key="formulate-labels_Handler Alias">
+                                                        Handler Alias
+                                                    </localize>
+                                                </label>
+                                                <div class="controls controls-row">
+                                                    <input type="text"
+                                                           ng-model="handler.alias"
+                                                           formulate-localize-attribute="placeholder"
+                                                           placeholder="formulate-placeholders_Handler Alias" />
+                                                </div>
+                                            </div>
+                                            <formulate-handler-editor directive="handler.directive" configuration="handler.configuration" fields="fields">
+                                            </formulate-handler-editor>
+                                        </div>
+                                    </div>
+                                </fieldset>
 
+
+
+                                <!-- Buttons. -->
+                                <div class="btn-group">
+                                    <button type="button" class="btn" ng-click="addHandler()" ng-disabled="!canAddHandler()" prevent-default>
+                                        <localize key="formulate-buttons_Add Handler">
+                                            Add Handler
+                                        </localize>
+                                    </button>
+
+                                </div>
+
+                                <!-- Handler chooser dialog. -->
+                                <formulate-handler-chooser show="handlerChooser.show"
+                                                           chosen="handlerChosen(handler)">
+                                </formulate-handler-chooser>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-            </umb-tab>
-        </umb-tab-view>
-    </umb-panel>
-</form>
+            </umb-editor-container>
+
+
+            <umb-editor-footer>
+
+                <!--<umb-editor-footer-content-left>
+
+                    <umb-breadcrumbs ng-if="ancestors && ancestors.length > 0"
+                                     ancestors="ancestors"
+                                     entity-type="media">
+                    </umb-breadcrumbs>
+
+                </umb-editor-footer-content-left>-->
+
+
+                <umb-editor-footer-content-right>
+
+                    <!--<umb-button ng-if="model.infiniteMode"
+                                type="button"
+                                button-style="link"
+                                label-key="general_close"
+                                shortcut="esc"
+                                action="close()">
+                    </umb-button>-->
+                    <!--<umb-button alias="returnToList"
+                                ng-if="page.listViewPath && !model.infiniteMode"
+                                type="link"
+                                href="#{{page.listViewPath}}"
+                                label-key="buttons_returnToList">
+                    </umb-button>-->
+                    <!-- label-key="buttons_save" -->
+                    <umb-button alias="save"
+                                type="submit"
+                                button-style="success"
+                                shortcut="ctrl+s"
+                                label-key="formulate-buttons_Save">
+                    </umb-button>
+
+
+
+                    <!--state="page.saveButtonState"
+                    label-key="{{page.submitButtonLabelKey}}"-->
+
+                </umb-editor-footer-content-right>
+
+            </umb-editor-footer>
+
+        </umb-editor-view>
+
+
+    </form>
+</div>
