@@ -8,7 +8,7 @@
     /// <summary>
     /// Stores information about a form field.
     /// </summary>
-    public class FormField : IFormField
+    public seald class FormField : IFormField
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FormField"/> class.
