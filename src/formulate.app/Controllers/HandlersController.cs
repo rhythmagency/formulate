@@ -2,7 +2,6 @@
 {
 
     // Namespaces.
-    using Forms;
     using Forms.Handlers.SendData;
     using Helpers;
     using System;
@@ -10,10 +9,8 @@
     using System.Web.Http;
 
     using formulate.app.CollectionBuilders;
-    using formulate.app.Managers;
 
     using Umbraco.Core.Logging;
-    using Umbraco.Web;
     using Umbraco.Web.Editors;
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
