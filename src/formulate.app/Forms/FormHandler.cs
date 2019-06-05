@@ -2,73 +2,64 @@
 {
 
     // Namespaces.
-    using Newtonsoft.Json;
     using System;
     using System.ComponentModel;
 
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Stores information about a form handler.
     /// </summary>
-    /// <typeparam name="T">The type of data stored by this form handler.</typeparam>
-    public class FormHandler<T> : IFormHandler
-        where T : IFormHandlerType,
-        new()
+    public sealed class FormHandler : IFormHandler
     {
-
-        #region Private Properties
-
         /// <summary>
-        /// The form handler.
+        /// Initializes a new instance of the <see cref="FormHandler"/> class.
         /// </summary>
-        private T Handler { get; set; }
-
-        #endregion
-
+        /// <param name="handler">
+        /// The handler.
+        /// </param>
+        public FormHandler(IFormHandlerType handler)
+        {
+            Handler = handler;
+        }
 
         #region Public Properties
 
         /// <summary>
-        /// The unique ID of the handler.
+        /// Gets or sets the unique ID of the handler.
         /// </summary>
         public Guid Id { get; set; }
 
-
         /// <summary>
-        /// The alias of the handler.
+        /// Gets or sets the alias of the handler.
         /// </summary>
         public string Alias { get; set; }
 
-
         /// <summary>
-        /// The name of the handler.
+        /// Gets or sets the name of the handler.
         /// </summary>
         public string Name { get; set; }
 
-
         /// <summary>
-        /// Is the handler enabled?
+        /// Gets or sets a value indicating whether is the handler enabled?
         /// </summary>
         [DefaultValue(true)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         public bool Enabled { get; set; }
 
-
         /// <summary>
-        /// The configuration data stored by the handler.
+        /// Gets or sets the configuration data stored by the handler.
         /// </summary>
         public string HandlerConfiguration { get; set; }
 
-
         /// <summary>
-        /// The ID of the handler type.
+        /// Gets or sets the ID of the handler type.
         /// </summary>
         public Guid TypeId
         {
             get
             {
-                var instance = new T();
-                return instance.TypeId;
+                return Handler.TypeId;
             }
             set
             {
@@ -77,6 +68,14 @@
 
         #endregion
 
+        #region Private Properties
+
+        /// <summary>
+        /// Gets or sets the form handler.
+        /// </summary>
+        private IFormHandlerType Handler { get; set; }
+
+        #endregion
 
         #region Methods
 
@@ -86,10 +85,8 @@
         /// <returns>The directive.</returns>
         public string GetDirective()
         {
-            var instance = new T();
-            return instance.Directive;
+            return Handler.Directive;
         }
-
 
         /// <summary>
         /// Gets the type label to use for this form handler.
@@ -97,10 +94,8 @@
         /// <returns>The type label.</returns>
         public string GetTypeLabel()
         {
-            var instance = new T();
-            return instance.TypeLabel;
+            return Handler.TypeLabel;
         }
-
 
         /// <summary>
         /// Gets the icon to use for this form handler.
@@ -108,10 +103,8 @@
         /// <returns>The icon.</returns>
         public string GetIcon()
         {
-            var instance = new T();
-            return instance.Icon;
+            return Handler.Icon;
         }
-
 
         /// <summary>
         /// Returns the type of handler.
@@ -121,9 +114,8 @@
         /// </returns>
         public Type GetHandlerType()
         {
-            return typeof(T);
+            return Handler.GetType();
         }
-
 
         /// <summary>
         /// Deserializes the handler configuration into a .NET object instance.
@@ -133,13 +125,8 @@
         /// </returns>
         public object DeserializeConfiguration()
         {
-            if (Handler == null)
-            {
-                Handler = new T();
-            }
             return Handler.DeserializeConfiguration(HandlerConfiguration);
         }
-
 
         /// <summary>
         /// Prepares to handle a form submission.
@@ -150,13 +137,9 @@
         public void PrepareHandleForm(FormSubmissionContext context)
         {
             var config = DeserializeConfiguration();
-            if (Handler == null)
-            {
-                Handler = new T();
-            }
+
             Handler.PrepareHandleForm(context, config);
         }
-
 
         /// <summary>
         /// Handles a form submission.
@@ -167,15 +150,10 @@
         public void HandleForm(FormSubmissionContext context)
         {
             var config = DeserializeConfiguration();
-            if (Handler == null)
-            {
-                Handler = new T();
-            }
+
             Handler.HandleForm(context, config);
         }
 
         #endregion
-
     }
-
 }
