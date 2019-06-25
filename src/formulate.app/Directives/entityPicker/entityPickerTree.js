@@ -2,11 +2,11 @@
 var app = angular.module("umbraco");
 
 // Associate directive/controller.
-app.directive("formulateEntityPickerTree", entityPickerDirective);
-app.controller("formulate.entityPickerTree", entityPickerController);
+app.directive("formulateEntityPickerTree", entityPickerTreeDirective);
+app.controller("formulate.entityPickerTree", entityPickerTreeController);
 
 // Directive.
-function entityPickerDirective(formulateDirectives, formulateRecursion) {
+function entityPickerTreeDirective(formulateDirectives, formulateRecursion) {
     return {
         restrict: "E",
         replace: true,
@@ -28,7 +28,7 @@ function entityPickerDirective(formulateDirectives, formulateRecursion) {
 }
 
 // Controller.
-function entityPickerController($scope, formulateEntities, notificationsService, localizationService) {
+function entityPickerTreeController($scope, formulateEntities, notificationsService, localizationService) {
 
     // Variables.
     var services = {
