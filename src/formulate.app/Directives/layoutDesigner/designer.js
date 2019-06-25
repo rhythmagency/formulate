@@ -17,7 +17,7 @@ function directive(formulateDirectives) {
 
 // Controller.
 function controller($scope, $routeParams, $route, formulateTrees,
-    formulateLayouts, formulateLocalization) {
+    formulateLayouts) {
 
     // Variables.
     var id = $routeParams.id;
@@ -34,28 +34,15 @@ function controller($scope, $routeParams, $route, formulateTrees,
         layoutName: null,
         layoutAlias: null
     };
-    $scope.apps = [
-        {
-            active: true,
-            name: "Layout",
-            alias: "Layout",
-            icon: "icon-formulate-layout",
-            view: "#"
-        }
-    ];
 
     $scope.kindId = null;
     $scope.parentId = null;
     $scope.directive = null;
     $scope.data = null;
 
-    // Apps need to be translated.
-    formulateLocalization.localizeApps($scope.apps);
-
     // Set scope functions.
     $scope.save = getSaveLayout(services);
     $scope.canSave = getCanSave(services);
-    $scope.appChanged = appChanged(services);
 
     // Initializes layout.
     initializeLayout({
@@ -159,42 +146,6 @@ function initializeLayout(options, services) {
     // Disable layout saving until the data is populated.
     $scope.initialized = false;
 
-    // we need to check wether an app is present in the current data, if not we will present the default app.
-    var isAppPresent = false;
-
-    // on first init, we dont have any apps. but if we are re-initializing, we do, but ...
-    if ($scope.app) {
-
-        // lets check if it still exists as part of our apps array. (if not we have made a change to our docType, even just a re-save of the docType it will turn into new Apps.)
-        _.forEach($scope.apps, function (app) {
-            if (app === $scope.app) {
-                isAppPresent = true;
-            }
-        });
-
-        // if we did reload our DocType, but still have the same app we will try to find it by the alias.
-        if (isAppPresent === false) {
-            _.forEach(content.apps, function (app) {
-                if (app.alias === $scope.app.alias) {
-                    isAppPresent = true;
-                    app.active = true;
-                    $scope.appChanged(app);
-                }
-            });
-        }
-
-    }
-
-    // if we still dont have a app, lets show the first one:
-    if (isAppPresent === false) {
-        $scope.apps[0].active = true;
-        $scope.appChanged($scope.apps[0]);
-    }
-
-
-
-
-
     // Get the layout info.
     services.formulateLayouts.getLayoutInfo(id)
         .then(function(layout) {
@@ -222,15 +173,5 @@ function initializeLayout(options, services) {
 function getCanSave(services) {
     return function() {
         return services.$scope.initialized;
-    };
-}
-
-function appChanged(services) {
-    var $scope = services.$scope;
-
-    return function (app) {
-        $scope.app = app;
-
-        $scope.$broadcast("editors.apps.appChanged", { app: app });
     };
 }

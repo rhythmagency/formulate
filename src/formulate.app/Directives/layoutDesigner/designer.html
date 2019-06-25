@@ -10,13 +10,11 @@
                                alias="info.layoutAlias"
                                hide-icon="true"
                                hide-description="true"
-                               hide-alias="false"
-                               navigation="apps"
-                               on-select-navigation-item="appChanged(item)">
+                               hide-alias="false">
             </umb-editor-header>
 
             <umb-editor-container>
-                <div class="form-horizontal" ng-if="app.alias == 'Layout'">
+                <div class="form-horizontal">
                     <formulate-layout-editor ng-if="directive"
                                              directive="directive"
                                              data="data">
