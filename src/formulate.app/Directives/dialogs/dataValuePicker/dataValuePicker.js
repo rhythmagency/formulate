@@ -13,7 +13,8 @@ function directive(formulateDirectives) {
         template: formulateDirectives.get(
             "dialogs/dataValuePicker/dataValuePicker.html"),
         scope: {
-            maxCount: "="
+            maxCount: "=",
+            model: "="
         }
     };
 }
@@ -25,13 +26,18 @@ function controller($scope, formulateVars) {
     $scope.selection = [];
     $scope.entityKinds = ["DataValue"];
     $scope.rootId = formulateVars["DataValue.RootId"];
+    $scope.previouslySelectedIds = $scope.model.dataValues || [];
 
     // Set scope functions.
-    $scope.cancel = function() {
-        $scope.$parent.close();
-    };
-    $scope.select = function() {
-        $scope.$parent.submit($scope.selection);
+    $scope.cancel = function () {
+        if ($scope.model.close) {
+            $scope.model.close();
+        }
+    }
+    $scope.select = function () {
+        if ($scope.model.submit) {
+            $scope.model.submit($scope.selection);
+        }
     }
 
 }
