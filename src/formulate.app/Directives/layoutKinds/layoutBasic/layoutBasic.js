@@ -223,17 +223,23 @@ function getAddRow(services) {
 function getPickForm(services) {
     var editorService = services.editorService;
     var $scope = services.$scope;
-    return function() {
-        editorService.open({
-            template: "../App_Plugins/formulate/dialogs/pickForm.html",
-            show: true,
-            callback: function(data) {
+    return function () {
+        var forms = $scope.data.formId ? [$scope.data.formId] : [];
 
+        editorService.open({
+            forms: forms,
+            view: "../App_Plugins/formulate/dialogs/pickForm.html",
+            show: true,
+            close: function() {
+                editorService.close();
+            },
+            submit: function (data) {
                 // If no form was chosen, empty all fields.
                 if (!data.length) {
                     $scope.data.formId = null;
                     $scope.allFields = [];
                     replenishFields($scope);
+                    editorService.close();
                     return;
                 }
 
@@ -241,7 +247,7 @@ function getPickForm(services) {
                 var formId = data[0];
                 $scope.data.formId = formId;
                 refreshFields(formId, services);
-
+                editorService.close();
             }
         });
     };
