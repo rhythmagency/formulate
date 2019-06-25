@@ -14,19 +14,21 @@ function directive(formulateDirectives) {
             "dialogs/dataValuePicker/dataValuePicker.html"),
         scope: {
             maxCount: "=",
+            titleKey: "@",
             model: "="
         }
     };
 }
 
 // Controller.
-function controller($scope, formulateVars) {
+function controller($scope, formulateVars, localizationService) {
 
     // Initialize scope variables.
     $scope.selection = [];
     $scope.entityKinds = ["DataValue"];
     $scope.rootId = formulateVars["DataValue.RootId"];
     $scope.previouslySelectedIds = $scope.model.dataValues || [];
+    localizeTitle();
 
     // Set scope functions.
     $scope.cancel = function () {
@@ -40,4 +42,10 @@ function controller($scope, formulateVars) {
         }
     }
 
+    // Private helper functions
+    function localizeTitle() {
+        localizationService.localize($scope.titleKey).then(function (value) {
+            $scope.title = value;
+        });
+    }
 }
