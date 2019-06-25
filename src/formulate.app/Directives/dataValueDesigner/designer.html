@@ -1,63 +1,42 @@
-﻿<form novalidate name="dataValueForm"
-      val-form-manager>
-    <umb-panel umb-tabs>
-        <umb-header tabs="info.tabs">
+﻿<div>
+    <umb-load-indicator ng-if="!initialized"></umb-load-indicator>
+    <form novalidate name="formulateDataValueDesigner"
+          ng-submit="save()"
+          val-form-manager>
 
-            <div class="span7">
+        <umb-editor-view ng-if="initialized">
+            <umb-editor-header name="info.dataValueName"
+                               alias="info.dataValueAlias"
+                               hide-icon="true"
+                               hide-description="true"
+                               hide-alias="false">
+            </umb-editor-header>
 
-                <!-- Data value name. -->
-                <umb-content-name
-                    ng-model="info.dataValueName"
-                    placeholder="@formulate-placeholders_Data Value Name">
-                </umb-content-name>
 
-            </div>
-        </umb-header>
-        <umb-tab-view>
-            <umb-tab id="tab1" rel="{{1}}">
-                <div class="umb-pane">
+            <umb-editor-container>
 
-                    <!-- Data value alias. -->
-                    <fieldset>
-                        <legend>
-                            <h2>
-                                <localize key="formulate-headers_Data Value Information">
-                                    Data Value Information
-                                </localize>
-                            </h2>
-                        </legend>
-                        <div class="control-group umb-control-group">
-                            <div class="umb-el-wrap">
-                                <label class="control-label">
-                                    <localize key="formulate-labels_Data Value Alias">
-                                        Data Value Alias
-                                    </localize>
-                                </label>
-                                <div class="controls controls-row">
-                                    <input
-                                           ng-model="info.dataValueAlias"
-                                           type="text"
-                                           formulate-localize-attribute="placeholder"
-                                           placeholder="formulate-placeholders_Data Value Alias" />
-                                </div>
-                            </div>
+                <div class="form-horizontal">
+                    <div class="umb-group-panel">
+                        <div class="umb-group-panel__content">
+                            <formulate-data-value-editor ng-if="directive" directive="directive" data="data">
+                            </formulate-data-value-editor>
                         </div>
-                    </fieldset>
-
-                    <!-- Data value. -->
-                    <formulate-data-value-editor ng-if="directive" directive="directive" data="data">
-                    </formulate-data-value-editor>
-
-                    <!-- Save button. -->
-                    <br>
-                    <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>
-                        <localize key="formulate-buttons_Save">
-                            Save
-                        </localize>
-                    </button>
-
+                    </div>
                 </div>
-            </umb-tab>
-        </umb-tab-view>
-    </umb-panel>
-</form>
+            </umb-editor-container>
+
+            <umb-editor-footer>
+                <umb-editor-footer-content-right>
+                    <umb-button alias="save"
+                                type="submit"
+                                button-style="success"
+                                shortcut="ctrl+s"
+                                label-key="formulate-buttons_Save"
+                                disabled="!canSave()">
+                    </umb-button>
+                </umb-editor-footer-content-right>
+            </umb-editor-footer>
+
+        </umb-editor-view>
+    </form>
+</div>
