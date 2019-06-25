@@ -1,67 +1,40 @@
-﻿<form novalidate name="validationForm"
-      val-form-manager>
-    <umb-panel umb-tabs>
-        <umb-header tabs="info.tabs">
-
-            <div class="span7">
-
-                <!-- Validation name. -->
-                <umb-content-name
-                    ng-model="info.validationName"
-                    placeholder="@formulate-placeholders_Validation Name">
-                </umb-content-name>
-
-            </div>
-        </umb-header>
-        <umb-tab-view>
-            <umb-tab id="tab3" rel="{{3}}">
-                <div class="umb-pane">
-
-                    <!-- Validation alias. -->
-                    <fieldset>
-                        <legend>
-                            <h2>
-                                <localize key="formulate-headers_Validation Information">
-                                    Validation Information
-                                </localize>
-                            </h2>
-                        </legend>
-                        <div class="control-group umb-control-group">
-                            <div class="umb-el-wrap">
-                                <label class="control-label">
-                                    <localize key="formulate-labels_Validation Alias">
-                                        Validation Alias
-                                    </localize>
-                                </label>
-                                <div class="controls controls-row">
-                                    <input
-                                        ng-model="info.validationAlias"
-                                        type="text"
-                                        class="form-control input-block-level"
-                                        formulate-localize-attribute="placeholder"
-                                        placeholder="formulate-placeholders_Validation Alias" />
-                                </div>
-                            </div>
+﻿<div>
+    <umb-load-indicator ng-if="!initialized"></umb-load-indicator>
+    <form novalidate name="formulateValidationDesigner"
+          ng-submit="save()"
+          val-form-manager>
+        <umb-editor-view ng-if="initialized">
+            <umb-editor-header name="info.validationName"
+                               alias="info.validationAlias"
+                               hide-icon="true"
+                               hide-description="true"
+                               hide-alias="false">
+            </umb-editor-header>
+            
+            <umb-editor-container>
+                <div class="form-horizontal">
+                    <div class="umb-group-panel">
+                        <div class="umb-group-panel__content">
+                            <formulate-validation-editor ng-if="directive"
+                                                         directive="directive"
+                                                         data="data">
+                            </formulate-validation-editor>
                         </div>
-                    </fieldset>
-
-                    <!-- Validation. -->
-                    <formulate-validation-editor
-                        ng-if="directive"
-                        directive="directive"
-                        data="data">
-                    </formulate-validation-editor>
-
-                    <!-- Save button. -->
-                    <br>
-                    <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>
-                        <localize key="formulate-buttons_Save">
-                            Save
-                        </localize>
-                    </button>
-
+                    </div>
                 </div>
-            </umb-tab>
-        </umb-tab-view>
-    </umb-panel>
-</form>
+            </umb-editor-container>
+            
+            <umb-editor-footer>
+                <umb-editor-footer-content-right>
+                    <umb-button alias="save"
+                                type="submit"
+                                button-style="success"
+                                shortcut="ctrl+s"
+                                label-key="formulate-buttons_Save"
+                                disabled="!canSave()">
+                    </umb-button>
+                </umb-editor-footer-content-right>
+            </umb-editor-footer>
+        </umb-editor-view>
+    </form>
+</div>

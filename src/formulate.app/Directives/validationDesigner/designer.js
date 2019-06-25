@@ -32,23 +32,12 @@ function controller($scope, $routeParams, $route, formulateValidations,
     $scope.validationId = id;
     $scope.info = {
         validationName: null,
-        validationAlias: null,
-        tabs: [
-            {
-                id: 3,
-                active: true,
-                label: "Validation",
-                alias: "validation"
-            }
-        ]
+        validationAlias: null
     };
     $scope.kindId = null;
     $scope.parentId = null;
     $scope.directive = null;
     $scope.data = null;
-
-    // Tabs need to be translated.
-    formulateLocalization.localizeTabs($scope.info.tabs);
 
     // Set scope functions.
     $scope.save = getSaveValidation(services);
