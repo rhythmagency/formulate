@@ -143,7 +143,6 @@ function handleFormMoves(services) {
 function getPickValidations(services) {
     var editorService = services.editorService;
     var formulateValidations = services.formulateValidations;
-    var formulateLocalization = services.formulateLocalization;
 
     return function (field) {
         var fieldModel = angular.copy(field);
