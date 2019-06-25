@@ -1,65 +1,40 @@
-﻿<form novalidate name="layoutForm"
-      val-form-manager>
-    <umb-panel umb-tabs>
-        <umb-header tabs="info.tabs">
+﻿<div>
+    <umb-load-indicator ng-if="!initialized"></umb-load-indicator>
 
-            <div class="span7">
+    <form novalidate name="layoutForm"
+          ng-submit="save()"
+          val-form-manager>
 
-                <!-- Layout name. -->
-                <umb-content-name
-                    ng-model="info.layoutName"
-                    placeholder="@formulate-placeholders_Layout Name">
-                </umb-content-name>
+        <umb-editor-view ng-if="initialized">
+            <umb-editor-header name="info.layoutName"
+                               alias="info.layoutAlias"
+                               hide-icon="true"
+                               hide-description="true"
+                               hide-alias="false"
+                               navigation="apps"
+                               on-select-navigation-item="appChanged(item)">
+            </umb-editor-header>
 
-            </div>
-        </umb-header>
-        <umb-tab-view>
-            <umb-tab id="tab4" rel="{{4}}">
-                <div class="umb-pane">
-
-                    <!-- Layout alias. -->
-                    <fieldset>
-                        <legend>
-                            <h2>
-                                <localize key="formulate-headers_Layout Information">
-                                    Layout Information
-                                </localize>
-                            </h2>
-                        </legend>
-                        <div class="control-group umb-control-group">
-                            <div class="umb-el-wrap">
-                                <label class="control-label">
-                                    <localize key="formulate-labels_Layout Alias">
-                                        Layout Alias
-                                    </localize>
-                                </label>
-                                <div class="controls controls-row">
-                                    <input ng-model="info.layoutAlias"
-                                           type="text"
-                                           formulate-localize-attribute="placeholder"
-                                           placeholder="formulate-placeholders_Layout Alias" />
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-
-                    <!-- Layout. -->
-                    <formulate-layout-editor
-                        ng-if="directive"
-                        directive="directive"
-                        data="data">
+            <umb-editor-container>
+                <div class="form-horizontal" ng-if="app.alias == 'Layout'">
+                    <formulate-layout-editor ng-if="directive"
+                                             directive="directive"
+                                             data="data">
                     </formulate-layout-editor>
-
-                    <!-- Save button. -->
-                    <br>
-                    <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>
-                        <localize key="formulate-buttons_Save">
-                            Save
-                        </localize>
-                    </button>
-
                 </div>
-            </umb-tab>
-        </umb-tab-view>
-    </umb-panel>
-</form>
+            </umb-editor-container>
+            
+            <umb-editor-footer>
+                <umb-editor-footer-content-right>
+                    <umb-button alias="save"
+                                type="submit"
+                                button-style="success"
+                                shortcut="ctrl+s"
+                                label-key="formulate-buttons_Save"
+                                disabled="!canSave()">
+                    </umb-button>
+                </umb-editor-footer-content-right>
+            </umb-editor-footer>
+        </umb-editor-view>
+    </form>
+</div>
