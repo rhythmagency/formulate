@@ -36,7 +36,7 @@ function entityPickerTreeController($scope, formulateEntities, notificationsServ
         notificationsService: notificationsService
     };
 
-    initSelectedNodesToSelection(services);
+    initSelectedNodesIntoSelection(services);
 
     // Set scope functions.
     $scope.toggleChildren = getToggleChildren(services);
