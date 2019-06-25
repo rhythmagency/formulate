@@ -21,7 +21,7 @@ function entityPickerTreeDirective(formulateDirectives, formulateRecursion) {
             maxCount: "=",
             wrongKindError: "=?"
         },
-        compile: function(element) {
+        compile: function (element) {
             return formulateRecursion.getCompiler(element);
         }
     };
@@ -29,13 +29,14 @@ function entityPickerTreeDirective(formulateDirectives, formulateRecursion) {
 
 // Controller.
 function entityPickerTreeController($scope, formulateEntities, notificationsService, localizationService) {
-
     // Variables.
     var services = {
         $scope: $scope,
         formulateEntities: formulateEntities,
         notificationsService: notificationsService
     };
+
+    initSelectedNodesToSelection(services);
 
     // Set scope functions.
     $scope.toggleChildren = getToggleChildren(services);
@@ -48,20 +49,32 @@ function entityPickerTreeController($scope, formulateEntities, notificationsServ
     localizationService.localize("formulate-headers_Selection Failed").then(function (value) {
         $scope.selectionFailedHeader = value;
     });
-
 }
+
+// Loads the selected nodes into the selection variable. This should only be used to initialize the $scope.selection.
+function initSelectedNodesIntoSelection(services) {
+    var $scope = services.$scope;
+    var nodes = $scope.nodes;
+
+    for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+
+        if (node.selected) {
+            $scope.selection.push(node);
+        }
+    }
+};
 
 // Gets the function that toggles selected nodes.
 function getToggleNode(services) {
     var $scope = services.$scope;
     var notificationsService = services.notificationsService;
-    return function(node) {
+    return function (node) {
         var allowedKinds = $scope.entityKinds || [],
             allowAny = allowedKinds.length === 0;
         if (allowAny || allowedKinds.indexOf(node.kind) >= 0) {
             node.selected = !node.selected;
             if (node.selected) {
-
                 // Select node.
                 $scope.selection.push(node);
 
@@ -97,7 +110,7 @@ function getToggleChildren(services) {
     var formulateEntities = services.formulateEntities;
 
     // Return function.
-    return function(node) {
+    return function (node) {
 
         // Variables.
         var childCount = (node.children || []).length;
@@ -107,7 +120,7 @@ function getToggleChildren(services) {
 
         // If just expanded and has unloaded children, load the children.
         if (node.expanded && node.hasChildren && childCount === 0) {
-            formulateEntities.getEntityChildren(node.id).then(function(result) {
+            formulateEntities.getEntityChildren(node.id).then(function (result) {
                 node.children = result.children.map(getViewModel);
             });
         }

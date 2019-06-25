@@ -22,6 +22,7 @@ function directive(formulateDirectives) {
 function controller($scope, formulateVars, localizationService) {
     // Initialize scope variables.
     $scope.selection = [];
+    $scope.previouslySelectedIds = $scope.model.validations || [];
     $scope.entityKinds = ["Validation"];
     $scope.rootId = formulateVars["Validation.RootId"];
     localizeTitle();

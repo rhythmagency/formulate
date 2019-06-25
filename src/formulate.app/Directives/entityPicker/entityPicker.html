@@ -1,10 +1,9 @@
-﻿<div>
-    <formulate-entity-picker-tree
-        max-count="maxCount"
-        selection="selectedNodes"
-        entity-kinds="entityKinds"
-        nodes="rootNodes"
-        is-root="true"
-        wrong-kind-error="wrongKindError">
+﻿<div ng-if="rootNodes">
+    <formulate-entity-picker-tree max-count="maxCount"
+                                  selection="selectedNodes"
+                                  entity-kinds="entityKinds"
+                                  nodes="rootNodes"
+                                  is-root="true"
+                                  wrong-kind-error="wrongKindError">
     </formulate-entity-picker-tree>
 </div>

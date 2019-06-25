@@ -145,10 +145,11 @@ function getPickValidations(services) {
     var formulateValidations = services.formulateValidations;
 
     return function (field) {
-        var fieldModel = angular.copy(field);
+        var validations = field.validations.map(function(v) { return v.id; });
+
         editorService.open({
             titleKey: "formulate-headers_Pick Validations",
-            field: fieldModel,
+            validations: validations,
             view: "/App_Plugins/formulate/dialogs/pickValidations.html",
             show: true,
             submit: function (data) {
