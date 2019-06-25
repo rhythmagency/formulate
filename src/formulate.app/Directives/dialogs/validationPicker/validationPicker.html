@@ -1,23 +1,25 @@
-﻿<div class="umb-panel">
-    <div class="umb-panel-header">
-        <h2>
-            <localize key="formulate-headers_Pick Validations">
-                Pick Validations
-            </localize>
-        </h2>
-    </div>
-    <div class="umb-panel-body with-footer">
-        <formulate-entity-picker
-                include-root="false"
-                entity-kinds="entityKinds"
-                root-id="rootId"
-                selection="selection">
-        </formulate-entity-picker>
-    </div>
-    <div class="umb-panel-footer">
-        <div class="umb-el-wrap umb-panel-buttons">
-            <div class="btn-toolbar umb-btn-toolbar pull-right">
-                <button type="button" class="btn link" ng-click="cancel()">
+﻿<form name="validationPickerForm" novalidate val-form-manager>
+    <umb-editor-view data-element="editor-validation-picker">
+        <umb-editor-header name="title"
+                           name-locked="true"
+                           hide-alias="true"
+                           hide-icon="true"
+                           hide-description="true">
+        </umb-editor-header>
+        <umb-editor-container>
+            <umb-box>
+                <umb-box-content>
+                    <formulate-entity-picker include-root="false"
+                                             entity-kinds="entityKinds"
+                                             root-id="rootId"
+                                             selection="selection">
+                    </formulate-entity-picker>
+                </umb-box-content>
+            </umb-box>
+        </umb-editor-container>
+        <umb-editor-footer>
+            <umb-editor-footer-content-right>
+                <button type="button" class="btn btn-link" ng-click="cancel()">
                     <localize key="formulate-buttons_Cancel">
                         Cancel
                     </localize>
@@ -27,7 +29,7 @@
                         Select
                     </localize>
                 </button>
-            </div>
-        </div>
-    </div>
-</div>
+            </umb-editor-footer-content-right>
+        </umb-editor-footer>
+    </umb-editor-view>
+</form>

@@ -17,12 +17,12 @@ function directive(formulateDirectives) {
 app.directive("formulateRadioButtonListField", directive);
 
 // Controller.
-function Controller($scope, dialogService, formulateDataValues) {
+function Controller($scope, editorService, formulateDataValues) {
 
     // Variables.
     var services = {
         $scope: $scope,
-        dialogService: dialogService,
+        editorService: editorService,
         formulateDataValues: formulateDataValues
     };
 
@@ -49,9 +49,9 @@ function Controller($scope, dialogService, formulateDataValues) {
 // Allows the user to pick their data value.
 function getPickDataValue(services) {
     var $scope = services.$scope;
-    var dialogService = services.dialogService;
+    var editorService = services.editorService;
     return function() {
-        dialogService.open({
+        editorService.open({
             template: "../App_Plugins/formulate/dialogs/pickDataValue.html",
             show: true,
             callback: function(data) {

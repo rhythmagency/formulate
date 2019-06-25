@@ -32,7 +32,8 @@ function controller($scope, $routeParams, $route, formulateTrees,
         $route: $route,
         editorService: editorService,
         formulateValidations: formulateValidations,
-        formulateFields: formulateFields
+        formulateFields: formulateFields,
+        formulateLocalization: formulateLocalization
     };
 
     // Set scope variables.
@@ -142,12 +143,16 @@ function handleFormMoves(services) {
 function getPickValidations(services) {
     var editorService = services.editorService;
     var formulateValidations = services.formulateValidations;
-    return function (field) {
-        editorService.open({
-            template: "../App_Plugins/formulate/dialogs/pickValidations.html",
-            show: true,
-            callback: function (data) {
+    var formulateLocalization = services.formulateLocalization;
 
+    return function (field) {
+        var fieldModel = angular.copy(field);
+        editorService.open({
+            titleKey: "formulate-headers_Pick Validations",
+            field: fieldModel,
+            view: "/App_Plugins/formulate/dialogs/pickValidations.html",
+            show: true,
+            submit: function (data) {
                 // Get info about validations based on their ID's,
                 // then update the validations for the field.
                 formulateValidations.getValidationsInfo(data)
@@ -159,8 +164,12 @@ function getPickValidations(services) {
                                     name: item.name
                                 };
                             });
-                    });
 
+                        editorService.close();
+                    });
+            },
+            close() {
+                editorService.close();
             }
         });
     };

@@ -17,7 +17,7 @@ function directive(formulateDirectives) {
 
 // Controller.
 function controller($scope, $routeParams, $route, formulateTrees,
-    formulateConfiguredForms, $location, formulateTemplates, dialogService,
+    formulateConfiguredForms, $location, formulateTemplates, editorService,
     formulateLayouts, formulateLocalization) {
 
     // Variables.
@@ -29,7 +29,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
         formulateTrees: formulateTrees,
         formulateConfiguredForms: formulateConfiguredForms,
         formulateTemplates: formulateTemplates,
-        dialogService: dialogService,
+        editorService: editorService,
         formulateLayouts: formulateLayouts,
         $scope: $scope,
         $route: $route,
@@ -232,10 +232,10 @@ function getCanSave(services) {
 
 // Returns the function that allows the user to pick a form.
 function getPickLayout(services) {
-    var dialogService = services.dialogService;
+    var editorService = services.editorService;
     var $scope = services.$scope;
     return function() {
-        dialogService.open({
+        editorService.open({
             template: "../App_Plugins/formulate/dialogs/pickLayout.html",
             show: true,
             callback: function(data) {

@@ -2,13 +2,13 @@
 app.controller("formulate.editors.configuredFormPicker", controller);
 
 // Controller.
-function controller($scope, formulateConfiguredForms, dialogService) {
+function controller($scope, formulateConfiguredForms, editorService) {
 
     // Variables.
     var services = {
         $scope: $scope,
         formulateConfiguredForms: formulateConfiguredForms,
-        dialogService: dialogService
+        editorService: editorService
     };
 
     // Scope functions.
@@ -35,10 +35,10 @@ function initialize(services) {
 
 // Returns the function that opens a dialog to allow the user to pick a form.
 function getPickForm(services) {
-    var dialogService = services.dialogService;
+    var editorService = services.editorService;
     var $scope = services.$scope;
     return function() {
-        dialogService.open({
+        editorService.open({
             template: "../App_Plugins/formulate/dialogs/pickConfiguredForm.html",
             show: true,
             callback: function(data) {

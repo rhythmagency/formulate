@@ -15,12 +15,12 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller(formulateSubmissions, dialogService, $scope, formulateForms, formulateVars) {
+function controller(formulateSubmissions, editorService, $scope, formulateForms, formulateVars) {
 
     // Variables.
     var injected = {
         $scope: $scope,
-        dialogService: dialogService,
+        editorService: editorService,
         formulateForms: formulateForms,
         formulateSubmissions: formulateSubmissions,
         formulateVars: formulateVars
@@ -76,10 +76,10 @@ function getGetExportUrl(injected) {
 
 // Returns the function that allows the user to pick a form.
 function getPickForm(injected) {
-    var dialogService = injected.dialogService;
+    var editorService = injected.editorService;
     var $scope = injected.$scope;
     return function() {
-        dialogService.open({
+        editorService.open({
             template: "../App_Plugins/formulate/dialogs/pickForm.html",
             show: true,
             callback: function(data) {

@@ -25,13 +25,13 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, formulateForms, dialogService, notificationsService) {
+function controller($scope, formulateForms, editorService, notificationsService) {
 
     // Variables.
     var services = {
         $scope: $scope,
         formulateForms: formulateForms,
-        dialogService: dialogService,
+        editorService: editorService,
         notificationsService: notificationsService
     };
 
@@ -221,10 +221,10 @@ function getAddRow(services) {
 
 // Returns the function that allows the user to pick a form.
 function getPickForm(services) {
-    var dialogService = services.dialogService;
+    var editorService = services.editorService;
     var $scope = services.$scope;
     return function() {
-        dialogService.open({
+        editorService.open({
             template: "../App_Plugins/formulate/dialogs/pickForm.html",
             show: true,
             callback: function(data) {

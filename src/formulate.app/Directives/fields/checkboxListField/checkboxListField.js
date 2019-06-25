@@ -20,12 +20,12 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, dialogService, formulateDataValues) {
+function controller($scope, editorService, formulateDataValues) {
 
     // Variables.
     var services = {
         $scope: $scope,
-        dialogService: dialogService,
+        editorService: editorService,
         formulateDataValues: formulateDataValues
     };
 
@@ -40,9 +40,9 @@ function controller($scope, dialogService, formulateDataValues) {
 // Allows the user to pick their data value.
 function getPickDataValue(services) {
     var $scope = services.$scope;
-    var dialogService = services.dialogService;
+    var editorService = services.editorService;
     return function() {
-        dialogService.open({
+        editorService.open({
             template: "../App_Plugins/formulate/dialogs/pickDataValue.html",
             show: true,
             callback: function(data) {
