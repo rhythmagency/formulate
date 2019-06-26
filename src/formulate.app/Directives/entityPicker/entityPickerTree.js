@@ -29,6 +29,7 @@ function entityPickerTreeDirective(formulateDirectives, formulateRecursion) {
 
 // Controller.
 function entityPickerTreeController($scope, formulateEntities, notificationsService, localizationService) {
+
     // Variables.
     var services = {
         $scope: $scope,
@@ -65,8 +66,7 @@ function getToggleNode(services) {
 
                 // If max count is exceeded, deselect another node.
                 if ($scope.maxCount && $scope.selection.length > $scope.maxCount) {
-                    var oldNode = $scope.selection.splice(0, 1)[0];
-                    oldNode.selected = false;
+                    $scope.selection.shift();
                 }
 
             } else {
@@ -132,10 +132,6 @@ function isSelected(services) {
     var $scope = services.$scope;
 
     return function (item) {
-        if (item.hasOwnProperty("selected") === false) {
-            return $scope.selection.indexOf(item.id) > -1;
-        }
-
-        return item.selected;
+        return $scope.selection.indexOf(item.id) > -1;
     }
 }
