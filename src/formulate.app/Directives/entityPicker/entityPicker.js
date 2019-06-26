@@ -18,7 +18,7 @@ function entityPickerDirective(formulateDirectives) {
             maxCount: "=",
             includeRoot: "=",
             selection: "=",
-            previouslySelectedIds: "=",
+            previouslySelectedIds: "=?",
             wrongKindError: "=?"//TODO: Is the question mark correct?
         }
     };
@@ -29,6 +29,11 @@ function entityPickerController($scope, formulateEntities) {
 
     // Set scope variables.
     $scope.selectedNodes = [];
+
+    // Set default scope variables.
+    if (!$scope.previouslySelectedIds) {
+        $scope.previouslySelectedIds = [];
+    }
 
     // Include the root or skip to the children?
     if ($scope.includeRoot) {
