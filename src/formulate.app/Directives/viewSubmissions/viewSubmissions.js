@@ -42,15 +42,7 @@ function controller(formulateSubmissions, editorService, $scope, formulateForms,
     $scope.currentPage = 0;
     $scope.pagerItems = [];
     $scope.info = {
-        header: getFormHeader(),
-        tabs: [
-            {
-                id: 6,
-                active: true,
-                label: "Submissions",
-                alias: "submissions"
-            }
-        ]
+        header: getFormHeader()
     };
 
 }
@@ -211,7 +203,7 @@ function adjustPagerItems(injected) {
     }
 
     // Add enough items to the pager.
-    while(pages.length < pagerItemCount) {
+    while (pages.length < pagerItemCount) {
         pages.push({
             pageNumber: 0,
             active: false
