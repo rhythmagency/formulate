@@ -13,7 +13,9 @@ function directive(formulateDirectives) {
         template: formulateDirectives.get(
             "dialogs/configuredFormPicker/formPicker.html"),
         scope: {
-            maxCount: "="
+            maxCount: "=",
+            titleKey: "@",
+            model: "="
         }
     };
 }
@@ -25,18 +27,29 @@ function controller($scope, formulateVars, localizationService) {
     $scope.selection = [];
     $scope.entityKinds = ["ConfiguredForm"];
     $scope.rootId = formulateVars["Form.RootId"];
+    localizeTitle();
 
     // Set scope functions.
-    $scope.cancel = function() {
-        $scope.$parent.close();
-    };
-    $scope.select = function() {
-        $scope.$parent.submit($scope.selection);
-    };
+    $scope.cancel = function () {
+        if ($scope.model.close) {
+            $scope.model.close();
+        }
+    }
+    $scope.select = function () {
+        if ($scope.model.submit) {
+            $scope.model.submit($scope.selection);
+        }
+    }
 
     // Localize the "wrong selection" message.
     localizationService.localize("formulate-errors_Pick Configured Form Instead").then(function (value) {
         $scope.wrongKindError = value;
     });
 
+    // Private helper functions
+    function localizeTitle() {
+        localizationService.localize($scope.titleKey).then(function (value) {
+            $scope.title = value;
+        });
+    }
 }
