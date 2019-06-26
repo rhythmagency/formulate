@@ -48,7 +48,7 @@ function entityPickerController($scope, formulateEntities) {
 
         // Get children of root.
         formulateEntities.getEntityChildren($scope.rootId).then(function (result) {
-            $scope.rootNodes = result.children.map(function (c) { return getViewModel(c); });
+            $scope.rootNodes = result.children.map(getViewModel);
         });
 
     }
