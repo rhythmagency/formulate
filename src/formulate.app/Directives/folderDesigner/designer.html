@@ -1,39 +1,42 @@
-﻿<form novalidate name="folderForm"
-      val-form-manager>
-    <umb-panel umb-tabs>
-        <umb-header tabs="info.tabs">
+﻿<div>
+    <umb-load-indicator ng-if="!initialized"></umb-load-indicator>
+    <form novalidate name="formulateFormDesigner"
+          ng-submit="save()"
+          val-form-manager>
 
-            <div class="span7">
+        <umb-editor-view ng-if="initialized">
+            <umb-editor-header name="info.folderName"
+                               hide-icon="true"
+                               hide-description="true"
+                               hide-alias="true">
+            </umb-editor-header>
 
-                <!-- Folder name. -->
-                <umb-content-name ng-model="info.folderName"
-                                  placeholder="@formulate-placeholders_Folder Name">
-                </umb-content-name>
-
-            </div>
-        </umb-header>
-        <umb-tab-view>
-            <umb-tab id="tab5" rel="{{5}}">
-                <div class="umb-pane">
-
-                    <!-- Folder information. -->
-                    <p>
-                        <localize key="formulate-instructions_Folder">
-                            This is a folder. You can store items under it,
-                            including more folders.
-                        </localize>
-                    </p>
-
-                    <!-- Save button. -->
-                    <br>
-                    <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>
-                        <localize key="formulate-buttons_Save">
-                            Save
-                        </localize>
-                    </button>
-
+            <umb-editor-container>
+                <div class="form-horizontal">
+                    <div class="umb-group-panel">
+                        <div class="umb-group-panel__content">
+                            <p>
+                                <localize key="formulate-instructions_Folder">
+                                    This is a folder. You can store items under it,
+                                    including more folders.
+                                </localize>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </umb-tab>
-        </umb-tab-view>
-    </umb-panel>
-</form>
+            </umb-editor-container>
+
+            <umb-editor-footer>
+                <umb-editor-footer-content-right>
+                    <umb-button alias="save"
+                                type="submit"
+                                button-style="success"
+                                shortcut="ctrl+s"
+                                label-key="formulate-buttons_Save"
+                                disabled="!canSave()">
+                    </umb-button>
+                </umb-editor-footer-content-right>
+            </umb-editor-footer>
+        </umb-editor-view>
+    </form>
+</div>
