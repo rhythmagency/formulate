@@ -7,6 +7,7 @@
     using System;
     using Types;
     using Umbraco.Core;
+    using Umbraco.Core.Composing;
     using Umbraco.Core.Models.PublishedContent;
     using Umbraco.Core.PropertyEditors;
 
@@ -32,7 +33,8 @@
         /// </summary>
         public ConfiguredFormConverter()
         {
-            ConfiguredForms = null;//configuredFormPersistence;
+            //TODO: Work around using Current.
+            ConfiguredForms = Current.Factory.GetInstance<IConfiguredFormPersistence>();
         }
 
         #endregion
