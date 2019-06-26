@@ -1,82 +1,83 @@
-﻿<form name="formulateConfiguredFormDesigner" val-form-manager class="configured-form-designer">
-    <umb-panel umb-tabs>
-        <umb-header tabs="info.tabs">
-            <div class="span7">
+﻿<div>
+    <umb-load-indicator ng-if="!initialized"></umb-load-indicator>
+    <form novalidate name="formulateConfiguredFormDesigner"
+          ng-submit="save()"
+          val-form-manager
+          class="configured-form-designer">
 
-                <!-- Configured form name. -->
-                <umb-content-name ng-model="info.conFormName"
-                                  placeholder="@formulate-placeholders_Configured Form Name">
-                </umb-content-name>
+        <umb-editor-view ng-if="initialized">
+            <umb-editor-header name="info.conFormName"
+                               hide-icon="true"
+                               hide-description="true"
+                               hide-alias="true">
+            </umb-editor-header>
 
-            </div>
-        </umb-header>
-        <umb-tab-view>
-            <umb-tab id="tab20" rel="{{20}}">
-
-                <!-- Configured form designer. -->
-                <div class="umb-pane">
-
-                    <!-- Introduction. -->
-                    <div class="row">
-                        <div class="span12">
-                            <p>
-                                <localize key="formulate-introductions_Configured Form">
-                                    A configured form is just a form with a layout and template selected.
-                                    To configure this form, select a template and layout below.
-                                </localize>
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Template. -->
-                    <div class="row">
-                        <div class="span12">
-                            <select ng-options="option.id as option.name for option in template.templates" ng-model="template.id">
-                                <option value="" formulate-inject-localization="formulate-options_Select a Template">
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Layout. -->
-                    <div class="row">
-                        <div class="span12">
-                            <div ng-if="layoutId">
-                                <strong>
-                                    <localize key="formulate-labels_Layout:">
-                                        Layout:
-                                    </localize>
-                                </strong> {{layoutName}}
+            <umb-editor-container>
+                <div class="form-horizontal">
+                    <div class="umb-group-panel">
+                        <div class="umb-group-panel__content">
+                            <!-- Introduction. -->
+                            <div class="row">
+                                <div class="span12">
+                                    <p>
+                                        <localize key="formulate-introductions_Configured Form">
+                                            A configured form is just a form with a layout and template selected.
+                                            To configure this form, select a template and layout below.
+                                        </localize>
+                                    </p>
+                                </div>
                             </div>
-                            <div ng-if="!layoutId">
-                                <localize key="formulate-labels_Layout not chosen">
-                                    Layout not yet chosen.
-                                </localize>
+
+                            <!-- Template. -->
+                            <div class="row">
+                                <div class="span12">
+                                    <select ng-options="option.id as option.name for option in template.templates" ng-model="template.id">
+                                        <option value="" formulate-inject-localization="formulate-options_Select a Template"></option>
+                                    </select>
+                                </div>
                             </div>
-                            <div>
-                                <button type="button" class="btn btn-default" ng-click="pickLayout()">
-                                    <localize key="formulate-buttons_Pick Layout">
-                                        Pick Layout
-                                    </localize>
-                                </button>
+
+                            <!-- Layout. -->
+                            <div class="row">
+                                <div class="span12">
+                                    <div ng-if="layoutId">
+                                        <strong>
+                                            <localize key="formulate-labels_Layout:">
+                                                Layout:
+                                            </localize>
+                                        </strong> {{layoutName}}
+                                    </div>
+                                    <div ng-if="!layoutId">
+                                        <localize key="formulate-labels_Layout not chosen">
+                                            Layout not yet chosen.
+                                        </localize>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-default" ng-click="pickLayout()">
+                                            <localize key="formulate-buttons_Pick Layout">
+                                                Pick Layout
+                                            </localize>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
-
-                    <!-- Button. -->
-                    <div class="row">
-                        <div class="span12">
-                            <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()" prevent-default>
-                                <localize key="formulate-buttons_Save">
-                                    Save
-                                </localize>
-                            </button>
-                        </div>
-                    </div>
-
                 </div>
+            </umb-editor-container>
 
-            </umb-tab>
-        </umb-tab-view>
-    </umb-panel>
-</form>
+            <umb-editor-footer>
+                <umb-editor-footer-content-right>
+                    <umb-button alias="save"
+                                type="submit"
+                                button-style="success"
+                                shortcut="ctrl+s"
+                                label-key="formulate-buttons_Save"
+                                disabled="!canSave()">
+                    </umb-button>
+                </umb-editor-footer-content-right>
+            </umb-editor-footer>
+        </umb-editor-view>
+    </form>
+</div>

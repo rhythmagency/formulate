@@ -18,7 +18,7 @@ function directive(formulateDirectives) {
 // Controller.
 function controller($scope, $routeParams, $route, formulateTrees,
     formulateConfiguredForms, $location, formulateTemplates, editorService,
-    formulateLayouts, formulateLocalization) {
+    formulateLayouts) {
 
     // Variables.
     var id = $routeParams.id;
@@ -39,15 +39,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
     // Set scope variables.
     $scope.isNew = isNew;
     $scope.info = {
-        conFormName: null,
-        tabs: [
-            {
-                id: 20,
-                active: true,
-                label: "Configured Form",
-                alias: "configuredForm"
-            }
-        ]
+        conFormName: null
     };
     $scope.parentId = null;
     $scope.template = {
@@ -60,9 +52,6 @@ function controller($scope, $routeParams, $route, formulateTrees,
     if (hasParent) {
         $scope.parentId = parentId;
     }
-
-    // Tabs need to be translated.
-    formulateLocalization.localizeTabs($scope.info.tabs);
 
     // Set scope functions.
     $scope.save = getSaveConfiguredForm(services);
@@ -234,16 +223,24 @@ function getCanSave(services) {
 function getPickLayout(services) {
     var editorService = services.editorService;
     var $scope = services.$scope;
-    return function() {
+    return function () {
+
+        var layouts = $scope.layoutId ? [$scope.layoutId] : [];
+
         editorService.open({
-            template: "../App_Plugins/formulate/dialogs/pickLayout.html",
-            show: true,
-            callback: function(data) {
+            layouts: layouts,
+            view: "../App_Plugins/formulate/dialogs/pickLayout.html",
+            close: function() {
+                editorService.close();
+            },
+            submit: function(data) {
 
                 // If no layout was chosen, unchoose layout.
                 if (!data.length) {
                     $scope.layoutId = null;
                     $scope.layoutName = null;
+                    editorService.close();
+
                     return;
                 }
 
@@ -254,6 +251,7 @@ function getPickLayout(services) {
                 // Refresh layout information.
                 refreshLayoutInfo(layoutId, services);
 
+                editorService.close();
             }
         });
     };
