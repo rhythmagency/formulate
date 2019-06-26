@@ -36,11 +36,10 @@ function entityPickerTreeController($scope, formulateEntities, notificationsServ
         notificationsService: notificationsService
     };
 
-    initSelectedNodesIntoSelection(services);
-
     // Set scope functions.
     $scope.toggleChildren = getToggleChildren(services);
     $scope.toggleNode = getToggleNode(services);
+    $scope.isSelected = isSelected(services);
 
     // Translations.
     localizationService.localize("formulate-errors_Node Selection Invalid").then(function (value) {
@@ -51,20 +50,6 @@ function entityPickerTreeController($scope, formulateEntities, notificationsServ
     });
 }
 
-// Loads the selected nodes into the selection variable. This should only be used to initialize the $scope.selection.
-function initSelectedNodesIntoSelection(services) {
-    var $scope = services.$scope;
-    var nodes = $scope.nodes;
-
-    for (var i = 0; i < nodes.length; i++) {
-        var node = nodes[i];
-
-        if (node.selected) {
-            $scope.selection.push(node);
-        }
-    }
-};
-
 // Gets the function that toggles selected nodes.
 function getToggleNode(services) {
     var $scope = services.$scope;
@@ -73,10 +58,10 @@ function getToggleNode(services) {
         var allowedKinds = $scope.entityKinds || [],
             allowAny = allowedKinds.length === 0;
         if (allowAny || allowedKinds.indexOf(node.kind) >= 0) {
-            node.selected = !node.selected;
+            node.selected = !$scope.isSelected(node);
             if (node.selected) {
                 // Select node.
-                $scope.selection.push(node);
+                $scope.selection.push(node.id);
 
                 // If max count is exceeded, deselect another node.
                 if ($scope.maxCount && $scope.selection.length > $scope.maxCount) {
@@ -87,7 +72,7 @@ function getToggleNode(services) {
             } else {
 
                 // Deselect node.
-                var index = $scope.selection.indexOf(node);
+                var index = $scope.selection.indexOf(node.id);
                 if (index >= 0) {
                     $scope.selection.splice(index, 1);
                 }
@@ -138,7 +123,19 @@ function getViewModel(item) {
         kind: item.kind,
         children: item.children || [],
         hasChildren: item.hasChildren,
-        expanded: false,
-        selected: false
+        expanded: false
     };
+}
+
+// is the node already selected
+function isSelected(services) {
+    var $scope = services.$scope;
+
+    return function (item) {
+        if (item.hasOwnProperty("selected") === false) {
+            return $scope.selection.indexOf(item.id) > -1;
+        }
+
+        return item.selected;
+    }
 }

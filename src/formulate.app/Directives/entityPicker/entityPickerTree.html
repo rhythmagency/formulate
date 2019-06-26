@@ -2,7 +2,7 @@
     <li ng-repeat="node in nodes">
         <ins ng-click="toggleChildren(node)" ng-if="node.hasChildren" ng-class="node.expanded ? 'icon-navigation-down' : 'icon-navigation-right'" class="child-toggle">
         </ins>
-        <i ng-class="node.selected ? 'icon-check selected' : node.icon" class="icon entity-icon"></i>
+        <i ng-class="isSelected(node) ? 'icon-check selected' : node.icon" class="icon entity-icon"></i>
         <a href ng-click="toggleNode(node)">{{node.name}}</a>
         <formulate-entity-picker-tree
             ng-if="node.expanded"

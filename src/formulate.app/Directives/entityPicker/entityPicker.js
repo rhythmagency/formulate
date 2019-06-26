@@ -27,12 +27,11 @@ function entityPickerDirective(formulateDirectives) {
 // Controller.
 function entityPickerController($scope, formulateEntities) {
 
-    // Set scope variables.
-    $scope.selectedNodes = [];
+    // Push any previously selected IDs into the current selection
+    var ids = $scope.previouslySelectedIds || [];
 
-    // Set default scope variables.
-    if (!$scope.previouslySelectedIds) {
-        $scope.previouslySelectedIds = [];
+    for (var i = 0; i < ids.length; i++) {
+        $scope.selection.push(ids[i]);
     }
 
     // Include the root or skip to the children?
@@ -41,7 +40,7 @@ function entityPickerController($scope, formulateEntities) {
         // Get root.
         formulateEntities.getEntity($scope.rootId).then(function (result) {
             $scope.rootNodes = [
-                getViewModel(result, $scope.previouslySelectedIds)
+                getViewModel(result)
             ];
         });
 
@@ -49,23 +48,14 @@ function entityPickerController($scope, formulateEntities) {
 
         // Get children of root.
         formulateEntities.getEntityChildren($scope.rootId).then(function (result) {
-            $scope.rootNodes = result.children.map(function(c) { return getViewModel(c, $scope.previouslySelectedIds); });
+            $scope.rootNodes = result.children.map(function (c) { return getViewModel(c); });
         });
 
     }
-
-    // Watch selected nodes and update selection.
-    $scope.$watchCollection("selectedNodes", function (newValue) {
-        $scope.selection.splice(0, $scope.selection.length);
-        for (var i = 0; i < newValue.length; i++) {
-            var id = newValue[i].id;
-            $scope.selection.push(id);
-        }
-    });
 }
 
 // Gets the view model from a node.
-function getViewModel(item, previouslySelectedIds) {
+function getViewModel(item) {
     return {
         id: item.id,
         name: item.name,
@@ -73,12 +63,6 @@ function getViewModel(item, previouslySelectedIds) {
         kind: item.kind,
         children: item.children || [],
         hasChildren: item.hasChildren,
-        expanded: false,
-        selected: isSelected(item.id, previouslySelectedIds)
+        expanded: false
     };
-}
-
-// is the node already selected
-function isSelected(id, previouslySelectedIds) {
-    return previouslySelectedIds.indexOf(id) > -1;
 }

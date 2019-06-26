@@ -1,9 +1,10 @@
 ﻿<div ng-if="rootNodes">
     <formulate-entity-picker-tree max-count="maxCount"
-                                  selection="selectedNodes"
+                                  selection="selection"
                                   entity-kinds="entityKinds"
                                   nodes="rootNodes"
                                   is-root="true"
+                                  previously-selected-ids="previouslySelectedIds"
                                   wrong-kind-error="wrongKindError">
     </formulate-entity-picker-tree>
 </div>
