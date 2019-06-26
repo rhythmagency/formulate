@@ -70,11 +70,16 @@ function getGetExportUrl(injected) {
 function getPickForm(injected) {
     var editorService = injected.editorService;
     var $scope = injected.$scope;
-    return function() {
+    return function () {
+        var forms = $scope.formId ? [$scope.formId] : [];
+
         editorService.open({
-            template: "../App_Plugins/formulate/dialogs/pickForm.html",
-            show: true,
-            callback: function(data) {
+            forms: forms,
+            view: "../App_Plugins/formulate/dialogs/pickForm.html",
+            close: function () {
+                editorService.close();
+            },
+            submit: function (data) {
 
                 // If no form was chosen, unset values.
                 if (!data.length) {
@@ -83,6 +88,8 @@ function getPickForm(injected) {
                     $scope.totalSubmissions = 0;
                     $scope.submissions = [];
                     $scope.currentPage = 0;
+
+                    editorService.close();
                     return;
                 }
 
@@ -93,6 +100,7 @@ function getPickForm(injected) {
                 refreshForm(formId, injected);
                 updateSubmissions(injected);
 
+                editorService.close();
             }
         });
     };
