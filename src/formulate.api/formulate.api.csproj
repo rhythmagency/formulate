@@ -230,6 +230,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\FormulateRenderingController.cs" />
     <Compile Include="Controllers\SubmissionsController.cs" />
     <Compile Include="FormRequestContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
