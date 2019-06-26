@@ -25,6 +25,7 @@ function controller($scope, formulateVars, localizationService) {
 
     // Initialize scope variables.
     $scope.selection = [];
+    $scope.previouslySelectedIds = $scope.model.configureForms || [];
     $scope.entityKinds = ["ConfiguredForm"];
     $scope.rootId = formulateVars["Form.RootId"];
     localizeTitle();

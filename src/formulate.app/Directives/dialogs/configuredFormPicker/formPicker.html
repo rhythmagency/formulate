@@ -1,31 +1,31 @@
-﻿<div class="umb-panel formulate-cf-picker-dialog">
-    <div class="umb-panel-header">
-        <h2>
-            <localize key="formulate-headers_Pick Configured Form">
-                Pick Configured Form
-            </localize>
-        </h2>
-        <p class="formulate-cf-picker-dialog__instructions">
-            <localize key="formulate-instructions_Config Under Forms">
-                Note that configured forms reside under forms.
-            </localize>
-        </p>
-    </div>
-    <div class="umb-panel-body with-footer">
-        <formulate-entity-picker class="formulate-cf-picker-dialog__picker"
-                                 max-count="maxCount"
-                                 include-root="false"
-                                 entity-kinds="entityKinds"
-                                 root-id="rootId"
-                                 selection="selection"
-                                 previously-selected-ids="previouslySelectedIds"
-                                 wrong-kind-error="wrongKindError">
-        </formulate-entity-picker>
-    </div>
-    <div class="umb-panel-footer">
-        <div class="umb-el-wrap umb-panel-buttons">
-            <div class="btn-toolbar umb-btn-toolbar pull-right">
-                <button type="button" class="btn link" ng-click="cancel()">
+﻿<form name="configuredFormPickerForm" novalidate val-form-manager>
+    <umb-editor-view data-element="editor-configured-form-picker">
+        <umb-editor-header name="title"
+                           name-locked="true"
+                           hide-alias="true"
+                           hide-icon="true"
+                           hide-description="true">
+        </umb-editor-header>
+
+        <umb-editor-container>
+            <p>
+                <localize key="formulate-instructions_Config Under Forms">
+                    Note that configured forms reside under forms.
+                </localize>
+            </p>
+            <formulate-entity-picker max-count="maxCount"
+                                     include-root="false"
+                                     entity-kinds="entityKinds"
+                                     root-id="rootId"
+                                     selection="selection"
+                                     previously-selected-ids="previouslySelectedIds"
+                                     wrong-kind-error="wrongKindError">
+            </formulate-entity-picker>
+        </umb-editor-container>
+
+        <umb-editor-footer>
+            <umb-editor-footer-content-right>
+                <button type="button" class="btn btn-link" ng-click="cancel()">
                     <localize key="formulate-buttons_Cancel">
                         Cancel
                     </localize>
@@ -35,7 +35,7 @@
                         Select
                     </localize>
                 </button>
-            </div>
-        </div>
-    </div>
-</div>
+            </umb-editor-footer-content-right>
+        </umb-editor-footer>
+    </umb-editor-view>
+</form>
