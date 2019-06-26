@@ -37,15 +37,21 @@ function initialize(services) {
 function getPickForm(services) {
     var editorService = services.editorService;
     var $scope = services.$scope;
-    return function() {
+    return function () {
+        var configureForms  = $scope.model.value.id ? [$scope.model.value.id] : [];
+
         editorService.open({
-            template: "../App_Plugins/formulate/dialogs/pickConfiguredForm.html",
-            show: true,
-            callback: function(data) {
+            configureForms: configureForms,
+            view: "../App_Plugins/formulate/dialogs/pickConfiguredForm.html",
+            close: function () {
+                editorService.close();
+            },
+            submit: function (data) {
 
                 // If no form was chosen, deselect form.
                 if (!data.length) {
                     $scope.model.value.id = null;
+                    editorService.close();
                     return;
                 }
 
@@ -55,7 +61,7 @@ function getPickForm(services) {
 
                 // Update form info.
                 refreshForm(conFormId, services);
-
+                editorService.close();
             }
         });
     };
