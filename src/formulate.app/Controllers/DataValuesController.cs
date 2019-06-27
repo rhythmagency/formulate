@@ -56,7 +56,6 @@
 
         private IDataValuePersistence Persistence { get; set; }
         private IEntityPersistence Entities { get; set; }
-        private ILogger Logger { get; set; }
         private DataValueKindCollection DataValueKindCollection { get; set; }
 
         #endregion
@@ -68,11 +67,10 @@
         /// Primary constructor.
         /// </summary>
         /// <param name="context">Umbraco context.</param>
-        public DataValuesController(IDataValuePersistence dataValuePersistence, IEntityPersistence entityPersistence, ILogger logger, DataValueKindCollection dataValueKindCollection)
+        public DataValuesController(IDataValuePersistence dataValuePersistence, IEntityPersistence entityPersistence, DataValueKindCollection dataValueKindCollection)
         {
             Persistence = dataValuePersistence;
             Entities = entityPersistence;
-            Logger = logger;
             DataValueKindCollection = dataValueKindCollection;
         }
 

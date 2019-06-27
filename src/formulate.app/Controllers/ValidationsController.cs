@@ -45,21 +45,25 @@
 
         private IValidationPersistence Persistence { get; set; }
         private IEntityPersistence Entities { get; set; }
-        private ILogger Logger { get; set; }
 
         #endregion
 
 
         #region Constructors
 
+        /// <summary>
         /// Primary constructor.
         /// </summary>
-        /// <param name="context">Umbraco context.</param>
-        public ValidationsController(IEntityPersistence entityPersistence, ILogger logger, IValidationPersistence validationPersistence)
+        /// <param name="entityPersistence">
+        /// The entity Persistence.
+        /// </param>
+        /// <param name="validationPersistence">
+        /// The validation Persistence.
+        /// </param>
+        public ValidationsController(IEntityPersistence entityPersistence, IValidationPersistence validationPersistence)
         {
             Persistence = validationPersistence;
             Entities = entityPersistence;
-            Logger = logger;
         }
 
         #endregion

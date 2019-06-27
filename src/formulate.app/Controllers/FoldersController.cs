@@ -45,8 +45,6 @@
 
         private IEntityHelper EntityHelper { get; set; }
 
-        private ILogger Logger { get; set; }
-
         #endregion
 
 
@@ -55,12 +53,11 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public FoldersController(IEntityHelper entityHelper, IEntityPersistence entityPersistence, IFolderPersistence folderPersistence, ILogger logger)
+        public FoldersController(IEntityHelper entityHelper, IEntityPersistence entityPersistence, IFolderPersistence folderPersistence)
         {
             Persistence = folderPersistence;
             Entities = entityPersistence;
             EntityHelper = entityHelper;
-            Logger = logger;
         }
 
         #endregion

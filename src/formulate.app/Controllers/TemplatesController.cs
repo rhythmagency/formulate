@@ -38,8 +38,6 @@
         /// </summary>
         private IConfigurationManager Config { get; set; }
 
-        private  ILogger Logger { get; set; }
-
         #endregion
 
 
@@ -48,10 +46,9 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public TemplatesController(IConfigurationManager configurationManager, ILogger logger)
+        public TemplatesController(IConfigurationManager configurationManager)
         {
             Config = configurationManager;
-            Logger = logger;
         }
 
         #endregion

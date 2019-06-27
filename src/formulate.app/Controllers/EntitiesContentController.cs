@@ -38,7 +38,6 @@
 
         private IEntityPersistence Entities { get; set; }
         private IEntityHelper EntityHelper { get; set; }
-        private ILogger Logger { get; set; }
 
         #endregion
 
@@ -48,11 +47,10 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public EntitiesContentController(IEntityPersistence entityPersistence, IEntityHelper entityHelper, ILogger logger)
+        public EntitiesContentController(IEntityPersistence entityPersistence, IEntityHelper entityHelper)
         {
             Entities = entityPersistence;
             EntityHelper = entityHelper;
-            Logger = logger;
         }
 
         #endregion

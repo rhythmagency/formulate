@@ -44,10 +44,8 @@
         /// </summary>
         private IConfigurationManager Config { get; set; }
 
-
         private IDataValuePersistence DataValues { get; set; }
 
-        private ILogger Logger { get; set; }
         private FormFieldTypeCollection FormFieldTypeCollection { get; set; }
 
         #endregion
@@ -58,11 +56,10 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public FieldsController(IConfigurationManager configurationManager, IDataValuePersistence dataValuePersistence, ILogger logger, FormFieldTypeCollection formFieldTypeCollection)
+        public FieldsController(IConfigurationManager configurationManager, IDataValuePersistence dataValuePersistence, FormFieldTypeCollection formFieldTypeCollection)
         {
             Config = configurationManager;
             DataValues = dataValuePersistence;
-            Logger = logger;
             FormFieldTypeCollection = formFieldTypeCollection;
         }
 

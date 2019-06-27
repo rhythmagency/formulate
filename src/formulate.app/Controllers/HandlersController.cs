@@ -31,9 +31,7 @@
         private const string GetResultHandlersError = @"An error occurred while attempting to get the result handler functions.";
 
         #endregion
-
-        private ILogger Logger { get; set; }
-
+        
         private FormHandlerTypeCollection FormHandlerTypeCollection { get; set; }
 
 
@@ -43,9 +41,8 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public HandlersController(ILogger logger, FormHandlerTypeCollection formHandlerTypeCollection)
+        public HandlersController(FormHandlerTypeCollection formHandlerTypeCollection)
         {
-            Logger = logger;
             FormHandlerTypeCollection = formHandlerTypeCollection;
         }
 

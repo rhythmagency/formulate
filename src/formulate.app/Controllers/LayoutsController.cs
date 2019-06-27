@@ -43,7 +43,6 @@
 
         private ILayoutPersistence Persistence { get; set; }
         private IEntityPersistence Entities { get; set; }
-        private ILogger Logger { get; set; }
 
         #endregion
 
@@ -53,11 +52,10 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public LayoutsController(ILayoutPersistence layoutPersistence, IEntityPersistence entityPersistence, ILogger logger)
+        public LayoutsController(ILayoutPersistence layoutPersistence, IEntityPersistence entityPersistence)
         {
             Persistence = layoutPersistence;
             Entities = entityPersistence;
-            Logger = logger;
         }
 
         #endregion

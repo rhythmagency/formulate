@@ -53,7 +53,6 @@
         private IEntityPersistence Entities { get; set; }
         private IValidationPersistence Validations { get; set; }
         private IConfiguredFormPersistence ConFormPersistence { get; set; }
-        private ILogger Logger { get; set; }
         private IEntityHelper EntityHelper { get; set; }
 
         private FormHandlerTypeCollection FormHandlerTypeCollection { get; set; }
@@ -67,12 +66,11 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public FormsController(IFormPersistence formPersistence, IEntityPersistence entityPersistence, IValidationPersistence validationPersistence, IConfiguredFormPersistence configuredFormPersistence,  ILogger logger, IEntityHelper entityHelper, FormFieldTypeCollection formFieldTypeCollection, FormHandlerTypeCollection formHandlerTypeCollection) {
+        public FormsController(IFormPersistence formPersistence, IEntityPersistence entityPersistence, IValidationPersistence validationPersistence, IConfiguredFormPersistence configuredFormPersistence, IEntityHelper entityHelper, FormFieldTypeCollection formFieldTypeCollection, FormHandlerTypeCollection formHandlerTypeCollection) {
             Persistence = formPersistence;
             Entities = entityPersistence;
             Validations = validationPersistence;
             ConFormPersistence = configuredFormPersistence;
-            Logger = logger;
             EntityHelper = entityHelper;
             FormHandlerTypeCollection = formHandlerTypeCollection;
             FormFieldTypeCollection = formFieldTypeCollection;

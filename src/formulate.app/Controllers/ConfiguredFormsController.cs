@@ -41,7 +41,6 @@
 
         private IConfiguredFormPersistence Persistence { get; set; }
         private IEntityPersistence Entities { get; set; }
-        private ILogger Logger { get; set; }
 
         #endregion
 
@@ -52,11 +51,10 @@
         /// Primary constructor.
         /// </summary>
         /// <param name="context">Umbraco context.</param>
-        public ConfiguredFormsController(IConfiguredFormPersistence configuredFormPersistence, IEntityPersistence entityPersistence, ILogger logger)
+        public ConfiguredFormsController(IConfiguredFormPersistence configuredFormPersistence, IEntityPersistence entityPersistence)
         {
             Persistence = configuredFormPersistence;
             Entities = entityPersistence;
-            Logger = logger;
         }
 
         #endregion

@@ -46,7 +46,6 @@
         /// </summary>
         private IFormPersistence Forms { get; set; }
 
-        private ILogger Logger { get; set; }
 
         private IScopeProvider ScopeProvider { get; set; }
 
@@ -58,12 +57,11 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public StoredDataController(IConfigurationManager configurationManager, IFormPersistence formPersistence, ILogger logger, IScopeProvider scopeProvider)
+        public StoredDataController(IConfigurationManager configurationManager, IFormPersistence formPersistence, IScopeProvider scopeProvider)
         {
             Config = configurationManager;
             Forms = formPersistence;
-            Logger = logger;
-            this.ScopeProvider = scopeProvider;
+            ScopeProvider = scopeProvider;
         }
 
         #endregion
