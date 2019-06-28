@@ -282,7 +282,6 @@
     <Compile Include="Controllers\HandlersController.cs" />
     <Compile Include="Controllers\LayoutsController.cs" />
     <Compile Include="Controllers\ServerConfigurationController.cs" />
-    <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Controllers\StoredDataController.cs" />
     <Compile Include="Controllers\StoredDataDownloadController.cs" />
     <Compile Include="Controllers\TemplatesController.cs" />
@@ -655,7 +654,6 @@
     <Content Include="JavaScript\Services\formulateHandlers.js" />
     <Content Include="JavaScript\Services\formulateLayouts.js" />
     <Content Include="JavaScript\Services\formulateLocalization.js" />
-    <Content Include="JavaScript\Services\formulatePermissions.js" />
     <Content Include="JavaScript\Services\formulateRecursion.js" />
     <Content Include="JavaScript\Services\formulateServer.js" />
     <Content Include="JavaScript\Services\formulateServerConfig.js" />

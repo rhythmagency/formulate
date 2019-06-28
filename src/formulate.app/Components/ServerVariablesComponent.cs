@@ -158,9 +158,6 @@
                 { "GetTemplates",
                     helper.GetUmbracoApiService<TemplatesController>(x =>
                         x.GetTemplates()) },
-                { "PermitAccess",
-                    helper.GetUmbracoApiService<SetupController>(x =>
-                        x.PermitAccessToFormulate()) },
                 { "GetEntityChildren",
                     helper.GetUmbracoApiService<EntitiesContentController>(x =>
                         x.GetEntityChildren(null)) },
