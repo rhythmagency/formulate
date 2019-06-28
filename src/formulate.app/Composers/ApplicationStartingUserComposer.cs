@@ -2,8 +2,9 @@
 {
 
     // Namespaces.
+    using formulate.app.Configuration;
+    using formulate.app.Constants.Configuration;
     using formulate.app.DataValues;
-    using formulate.app.DataValues.Kinds;
     using formulate.app.ExtensionMethods;
     using formulate.app.Forms;
     using formulate.app.Helpers;
@@ -17,7 +18,8 @@
     /// <summary>
     /// Handles the application starting event.
     /// </summary>
-    [RuntimeLevel(MinLevel = RuntimeLevel.Boot)]
+    [RuntimeLevel(MinLevel = RuntimeLevel.Install)]
+    [ComposeBefore(typeof(ApplicationStartedUserComposer))]
     public sealed class ApplicationStartingUserComposer : IUserComposer
     {
         #region Methods
@@ -30,6 +32,9 @@
         /// </param>
         public void Compose(Composition composition)
         {
+            // Register Configuration
+            composition.Configs.AddJsonConfig<IFormulateConfig, FormulateConfig>(ConfigFilePaths.FormulateConfigPath);
+
             // Register Config Manager
             composition.RegisterUnique<IConfigurationManager, DefaultConfigurationManager>();
 

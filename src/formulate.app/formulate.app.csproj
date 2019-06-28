@@ -242,9 +242,9 @@
     <Compile Include="CollectionBuilders\FormFieldTypeCollectionBuilder.cs" />
     <Compile Include="CollectionBuilders\FormHandlerTypeCollection.cs" />
     <Compile Include="CollectionBuilders\FormHandlerTypeCollectionBuilder.cs" />
-    <Compile Include="Components\PermitAccessComponent.cs" />
+    <Compile Include="Components\HandleInstallAndUpgradeComponent.cs" />
     <Compile Include="Components\ServerVariablesComponent.cs" />
-    <Compile Include="Components\UpdateVersionComponent.cs" />
+    <Compile Include="Composers\PostUmbracoInstallComposer.cs" />
     <Compile Include="Configuration\ButtonConfigItem.cs" />
     <Compile Include="Configuration\EmailConfig.cs" />
     <Compile Include="Configuration\EmailWhitelistConfigItem.cs" />

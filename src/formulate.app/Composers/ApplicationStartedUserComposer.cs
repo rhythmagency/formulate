@@ -19,7 +19,7 @@
     /// <summary>
     /// Handles the application started event.
     /// </summary>
-    [RuntimeLevel(MinLevel = RuntimeLevel.Run)]
+    [RuntimeLevel(MinLevel = RuntimeLevel.Install)]
     public class ApplicationStartedUserComposer : IUserComposer
     {
         #region Constants
@@ -43,8 +43,6 @@
         {
             InitializeConfiguration(composition);
             InitializeBackoffice(composition);
-            HandleInstallAndUpgrade(composition);
-            InitializeDatabase(composition);
             InitializeServerVariables(composition);
         }
 
@@ -81,60 +79,7 @@
             composition.Components().Append<ServerVariablesComponent>();
         }
 
-        /// <summary>
-        /// Modifies the database (e.g., adding necessary tables).
-        /// </summary>
-        /// <param name="composition">
-        /// The composition.
-        /// </param>
-        private void InitializeDatabase(Composition composition)
-        {
-            composition.Components().Append<InstallDatabaseMigrationComponent>();
-        }
-
-        /// <summary>
-        /// Handles install and upgrade operations.
-        /// </summary>
-        /// <param name="composition">
-        /// The composition.
-        /// </param>
-        private void HandleInstallAndUpgrade(Composition composition)
-        {
-            var version = GetInstalledVersion(composition);
-            var isNewInstall = string.IsNullOrWhiteSpace(version);
-            var isDifferentVersion = (isNewInstall && MetaConstants.Version.InvariantEquals(version)) == false;
-
-            if (isNewInstall)
-            {
-                PermitAccess(composition);
-            }
-
-            if (isNewInstall || isDifferentVersion)
-            {
-                UpdateVersion(composition);
-            }
-        }
-
-        private void UpdateVersion(Composition composition)
-        {
-            composition.Components().Append<UpdateVersionComponent>();
-        }
-
-        /// <summary>
-        /// Gets the installed version.
-        /// </summary>
-        /// <param name="composition">
-        /// The composition.
-        /// </param>
-        /// <returns>
-        /// The installed version, or null.
-        /// </returns>
-        private string GetInstalledVersion(Composition composition)
-        {
-            var config = composition.Configs.GetConfig<IFormulateConfig>();
-
-            return config?.Version;
-        }
+        
 
         /// <summary>
         /// Indicates whether or not the application setting with the specified key has a non-empty
@@ -183,16 +128,6 @@
         private void AddFormulateDeveloperDashboard(Composition composition)
         {
             composition.Dashboards().Add<FormulateDeveloperDashboard>();
-        }
-
-        /// <summary>
-        /// Permits all users to access Formulate if configured in the web.config.
-        /// </summary>
-        /// <param name="composition"></param>
-        private void PermitAccess(Composition composition)
-        {
-            composition.Components().Append<PermitAccessComponent>();
-
         }
         #endregion
     }
