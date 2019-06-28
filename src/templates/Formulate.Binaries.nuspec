@@ -4,8 +4,8 @@
     <id>Formulate.Binaries</id>
     <version><%= version %></version>
     <title>Formulate Binaries</title>
-    <authors>Nicholas Westby</authors>
-    <owners>Nicholas Westby</owners>
+    <authors>Nicholas Westby, Jamie Pollock</authors>
+    <owners>Nicholas Westby, Jamie Pollock</owners>
     <projectUrl>http://www.formulate.rocks/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Binary files for Formulate.</description>

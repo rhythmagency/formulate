@@ -11,6 +11,7 @@ A form builder for Umbraco. More info here: [www.formulate.rocks](http://www.for
 These are some of the people who have made Formulate possible:
 
 * Nicholas Westby - Rhythm Agency - [nicholaswestby.com](http://www.nicholaswestby.com/)
+* Jamie Pollock - Rhythm Agency = [@jamiepollock](https://github.com/jamiepollock)
 * Josef Kohout - Rhythm Agency - [rhythmagency.com](http://rhythmagency.com/leadership?idoeverything=Josef.Kohout)
 
 # Contributing

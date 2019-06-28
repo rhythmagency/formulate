@@ -4,14 +4,14 @@
     <id>Formulate</id>
     <version><%= version %></version>
     <title>Formulate</title>
-    <authors>Nicholas Westby</authors>
-    <owners>Nicholas Westby</owners>
+    <authors>Nicholas Westby, Jamie Pollock</authors>
+    <owners>Nicholas Westby, Jamie Pollock</owners>
     <projectUrl>http://www.formulate.rocks/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>An advanced form builder for Umbraco.</description>
     <!-- Temporarily add release notes here (uncomment below tag). -->
     <!--<releaseNotes>Release notes go here...</releaseNotes>-->
-    <copyright>Copyright 2016</copyright>
+    <copyright>Copyright 2019</copyright>
     <tags>umbraco forms</tags>
     <dependencies>
       <dependency id="Formulate.Binaries" version="<%= version %>" />
