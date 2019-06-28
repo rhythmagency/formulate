@@ -357,7 +357,7 @@
     <Compile Include="Forms\IFormHandlerType.cs" />
     <Compile Include="Forms\IFormMetaInfo.cs" />
     <Compile Include="Composers\ApplicationStartedUserComposer.cs" />
-    <Compile Include="Composers\ApplicationStartingUserComposer.cs" />
+    <Compile Include="Composers\CompositionRegistryUserComposer.cs" />
     <Compile Include="Helpers\DefinitionHelper.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\GuidHelper.cs" />

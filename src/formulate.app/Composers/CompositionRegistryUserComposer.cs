@@ -16,16 +16,16 @@
     using Umbraco.Core.Composing;
 
     /// <summary>
-    /// Handles the application starting event.
+    /// Handles registering Formulate components to the Umbraco composition.
     /// </summary>
     [RuntimeLevel(MinLevel = RuntimeLevel.Install)]
     [ComposeBefore(typeof(ApplicationStartedUserComposer))]
-    public sealed class ApplicationStartingUserComposer : IUserComposer
+    public sealed class CompositionRegistryUserComposer : IUserComposer
     {
         #region Methods
 
         /// <summary>
-        /// Registers resolvers.
+        /// Registers compoents.
         /// </summary>
         /// <param name="composition">
         /// The composition.
