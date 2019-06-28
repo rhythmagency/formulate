@@ -626,6 +626,11 @@ module.exports = function(grunt) {
         "configure:copy:nuget-binaries", "copy:nuget-binaries", "configure:copy:nuget-deploy",
         "copy:nuget-deploy", "copy:nuget-package", "nugetpack:binaries", "nugetpack:package",
         "nugetpack:deploy"]);
+    grunt.registerTask("nuget-core",
+        // The "nuget" task is for building the NuGet packages without formulate.Deploy. It is not intended to be run on
+        // its own and should be run as part of the other package tasks.
+        ["template:nuspec-package", "template:nuspec-binaries",
+        "configure:copy:nuget-binaries", "copy:nuget-binaries", "copy:nuget-package", "nugetpack:binaries", "nugetpack:package"]);
     grunt.registerTask("package",
         // The "package" task is used to create an installer package
         // for Formulate.
@@ -633,6 +638,13 @@ module.exports = function(grunt) {
         "ngAnnotate:templates", "uglify:templates", "sass:default", "configure:copy:package",
         "copy:package", "configure:copy:deploy", "copy:deploy", "umbracoPackage:main",
         "umbracoPackage:deploy", "nuget", "clean:after"]);
+    grunt.registerTask("package-core",
+        // The "package" task is used to create an installer package
+        // for Formulate without formulate.Deploy.
+        ["clean:before", "htmlConvert", "browserify:default", "ngAnnotate:main",
+        "ngAnnotate:templates", "uglify:templates", "sass:default", "configure:copy:package",
+        "copy:package", "umbracoPackage:main", "nuget-core", "clean:after"]);
+
     grunt.registerTask("package-full",
         // The "package-full" task is used to build the Visual Studio
         // solution and then create the installer package for Formulate.
