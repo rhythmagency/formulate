@@ -481,7 +481,6 @@
     <Content Include="App_Plugins\formulate\editors\configured-form-picker.html" />
     <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.svg" />
     <Content Include="App_Plugins\formulate\formulate.css" />
-    <Content Include="App_Plugins\formulate\formulate.js" />
     <Content Include="App_Plugins\formulate\Lang\cs-CZ.xml" />
     <Content Include="App_Plugins\formulate\Lang\da-DK.xml" />
     <Content Include="App_Plugins\formulate\Lang\de-DE.xml" />
