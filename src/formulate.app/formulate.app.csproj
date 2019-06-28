@@ -234,7 +234,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Backoffice\Dashboards\FormulateDashboard.cs" />
-    <Compile Include="Backoffice\Dashboards\FormulateInstallDashboard.cs" />
     <Compile Include="Backoffice\Sections\FormulateSection.cs" />
     <Compile Include="CollectionBuilders\DataValueKindsCollection.cs" />
     <Compile Include="CollectionBuilders\FormFieldTypeCollection.cs" />
@@ -470,8 +469,6 @@
     <Content Include="App_Plugins\formulate\backoffice\formulate\layouts.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\submissions.html" />
     <Content Include="App_Plugins\formulate\backoffice\formulate\validationLibrary.html" />
-    <Content Include="App_Plugins\formulate\Controls\Install.ascx" />
-    <Content Include="App_Plugins\formulate\dashboards\install.html" />
     <Content Include="App_Plugins\formulate\dashboards\introduction.html" />
     <Content Include="App_Plugins\formulate\dialogs\pickConfiguredForm.html" />
     <Content Include="App_Plugins\formulate\dialogs\pickDataValue.html" />
@@ -617,8 +614,6 @@
     <Content Include="Directives\handlers\storeDataHandler\storeDataHandler.html" />
     <Content Include="Directives\handlers\storeDataHandler\storeDataHandler.js" />
     <Content Include="Directives\injectLocalization\injectLocalization.js" />
-    <Content Include="Directives\install\install.html" />
-    <Content Include="Directives\install\install.js" />
     <Content Include="Directives\layoutDesigner\designer.html" />
     <Content Include="Directives\layoutDesigner\designer.js" />
     <Content Include="Directives\layoutEditor\layoutEditor.html" />

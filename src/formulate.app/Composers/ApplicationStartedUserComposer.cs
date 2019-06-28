@@ -54,7 +54,6 @@
         {
             AddSection(composition);
             AddFormulateDashboard(composition);
-            AddFormulateDeveloperDashboard(composition);
         }
 
         /// <summary>
@@ -117,17 +116,6 @@
         private void AddFormulateDashboard(Composition composition)
         {
             composition.Dashboards().Add<FormulateDashboard>();
-        }
-
-        /// <summary>
-        /// Adds the "Formulate" tab to the developer section of the dashboard.config.
-        /// </summary>
-        /// <param name="composition">
-        /// The composition.
-        /// </param>
-        private void AddFormulateDeveloperDashboard(Composition composition)
-        {
-            composition.Dashboards().Add<FormulateDeveloperDashboard>();
         }
         #endregion
     }

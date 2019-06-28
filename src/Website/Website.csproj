@@ -434,13 +434,6 @@
     <Content Include="config\HealthChecks.config" />
     <Content Include="config\ClientDependency.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
-    <Content Include="config\Formulate\buttons.config" />
-    <Content Include="config\Formulate\email.config" />
-    <Content Include="config\Formulate\emailWhitelist.config" />
-    <Content Include="config\Formulate\fieldCategories.config" />
-    <Content Include="config\Formulate\persistence.config" />
-    <Content Include="config\Formulate\submissions.config" />
-    <Content Include="config\Formulate\templates.config" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
