@@ -4,9 +4,6 @@
     using formulate.app.Backoffice;
     using formulate.app.Backoffice.Dashboards;
     using formulate.app.Components;
-    using formulate.app.Configuration;
-    using formulate.app.Constants.Configuration;
-    using formulate.app.ExtensionMethods;
 
     using Umbraco.Core;
     using Umbraco.Core.Composing;
@@ -28,7 +25,6 @@
         /// </param>
         public void Compose(Composition composition)
         {
-            InitializeConfiguration(composition);
             InitializeBackoffice(composition);
             InitializeServerVariables(composition);
         }
@@ -41,17 +37,6 @@
         {
             AddSection(composition);
             AddFormulateDashboard(composition);
-        }
-
-        /// <summary>
-        /// The initialize configuration.
-        /// </summary>
-        /// <param name="composition">
-        /// The composition.
-        /// </param>
-        private void InitializeConfiguration(Composition composition)
-        {
-            composition.Configs.AddJsonConfig<IFormulateConfig, FormulateConfig>(ConfigFilePaths.FormulateConfigPath);
         }
 
         /// <summary>
