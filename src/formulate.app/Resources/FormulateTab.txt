@@ -1,3 +1,0 @@
-<tab caption="Formulate">
-    <control>/App_Plugins/formulate/dashboards/install.html</control>
-</tab>

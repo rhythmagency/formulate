@@ -1,4 +1,0 @@
-<Action runat="install" undo="false" alias="Formulate.TransformXmlFile"
-  installTransform="~/App_Plugins/formulate/Transforms/applications.config.install.xdt.txt"
-  uninstallTransform="~/App_Plugins/formulate/Transforms/applications.config.uninstall.xdt.txt"
-  file="~/Config/applications.config" />

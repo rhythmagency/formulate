@@ -658,12 +658,6 @@
     <Content Include="JavaScript\Services\formulateValidations.js" />
     <Content Include="JavaScript\Services\formulateVars.js" />
     <Content Include="JavaScript\Utilities\getDirective.js" />
-    <Content Include="Resources\FormulateTab.txt" />
-    <Content Include="Resources\GrantAllUsersPermissionToSection.txt" />
-    <Content Include="Resources\GrantPermissionToSection.txt" />
-    <Content Include="Resources\TransformApplications.txt" />
-    <Content Include="Resources\TransformDashboard.txt" />
-    <Content Include="Resources\TransformWebConfig.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
