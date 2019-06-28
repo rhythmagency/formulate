@@ -16,7 +16,8 @@
     <dependencies>
       <dependency id="CsvHelper" version="2.16.3.0" />
       <dependency id="Microsoft.Web.Xdt" version="2.1.1" />
-      <dependency id="UmbracoCms.Core" version="7.4.1" />
+      <dependency id="UmbracoCms.Core" version="8.0.2" />
+      <dependency id="UmbracoCms.Web" version="8.0.2" />
     </dependencies>
   </metadata>
 </package>
