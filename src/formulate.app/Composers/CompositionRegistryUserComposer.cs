@@ -19,7 +19,6 @@
     /// Handles registering Formulate components to the Umbraco composition.
     /// </summary>
     [RuntimeLevel(MinLevel = RuntimeLevel.Install)]
-    [ComposeBefore(typeof(ApplicationStartedUserComposer))]
     public sealed class CompositionRegistryUserComposer : IUserComposer
     {
         #region Methods

@@ -1,6 +1,5 @@
 ﻿namespace formulate.app.Composers
 {
-    // Namespaces.
     using formulate.app.Backoffice;
     using formulate.app.Backoffice.Dashboards;
     using formulate.app.Components;
@@ -10,23 +9,24 @@
     using Umbraco.Web;
 
     /// <summary>
-    /// Handles the application started event.
+    /// The initialize formulate user composer.
     /// </summary>
-    [RuntimeLevel(MinLevel = RuntimeLevel.Install)]
-    public class ApplicationStartedUserComposer : IUserComposer
+    [RuntimeLevel(MinLevel = RuntimeLevel.Run)]
+    [ComposeAfter(typeof(CompositionRegistryUserComposer))]
+    public sealed class InitializeFormulateUserComposer : IUserComposer
     {
-        #region Methods
-
         /// <summary>
-        /// The compose.
+        /// Composes features of Formulate that must run after Umbraco has been installed.
         /// </summary>
         /// <param name="composition">
         /// The composition.
         /// </param>
         public void Compose(Composition composition)
         {
+            InitializeDatabase(composition);
             InitializeBackoffice(composition);
             InitializeServerVariables(composition);
+            HandleInstallAndUpgrade(composition);
         }
 
         /// <summary>
@@ -71,6 +71,27 @@
         {
             composition.Dashboards().Add<FormulateDashboard>();
         }
-        #endregion
+
+        /// <summary>
+        /// Modifies the database (e.g., adding necessary tables).
+        /// </summary>
+        /// <param name="composition">
+        /// The composition.
+        /// </param>
+        private void InitializeDatabase(Composition composition)
+        {
+            composition.Components().Append<InstallDatabaseMigrationComponent>();
+        }
+
+        /// <summary>
+        /// Handles install and upgrade operations.
+        /// </summary>
+        /// <param name="composition">
+        /// The composition.
+        /// </param>
+        private void HandleInstallAndUpgrade(Composition composition)
+        {
+            composition.Components().Append<HandleInstallAndUpgradeComponent>();
+        }
     }
 }
