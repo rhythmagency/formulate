@@ -651,4 +651,12 @@ module.exports = function(grunt) {
         "sass:default", "configure:copy:package", "copy:package", "configure:copy:deploy",
         "copy:deploy", "umbracoPackage:main", "umbracoPackage:deploy", "nuget", "clean:after"]);
 
+    grunt.registerTask("package-full-core",
+        // The "package-full" task is used to build the Visual Studio
+        // solution and then create the installer package for Formulate without formulate.Deploy.
+        ["clean:before", "exec:nugetRestore", "configure:msbuild", "msbuild:main", "htmlConvert",
+        "browserify:default", "ngAnnotate:main", "ngAnnotate:templates", "uglify:templates",
+        "sass:default", "configure:copy:package", "copy:package", 
+        "umbracoPackage:main", "nuget", "clean:after"]);
+
 };
