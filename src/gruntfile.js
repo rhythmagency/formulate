@@ -20,7 +20,6 @@ module.exports = function(grunt) {
         return a.concat(b);
     });
     var extraBinaries = [
-        "Microsoft.Web.XmlTransform.dll",
         "CsvHelper.dll"
     ];
     var deployBinaries = [
