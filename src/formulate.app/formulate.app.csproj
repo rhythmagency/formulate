@@ -518,12 +518,6 @@
     <Content Include="App_Plugins\formulate\menu-actions\storeEntityToCloud.html" />
     <Content Include="App_Plugins\formulate\responsive.bootstrap.angular.js" />
     <Content Include="App_Plugins\formulate\responsive.bootstrap.angular.min.js" />
-    <Content Include="App_Plugins\formulate\Transforms\applications.config.install.xdt.txt" />
-    <Content Include="App_Plugins\formulate\Transforms\applications.config.uninstall.xdt.txt" />
-    <Content Include="App_Plugins\formulate\Transforms\dashboard.config.install.xdt.txt" />
-    <Content Include="App_Plugins\formulate\Transforms\dashboard.config.uninstall.xdt.txt" />
-    <Content Include="App_Plugins\formulate\Transforms\web.config.install.xdt.txt" />
-    <Content Include="App_Plugins\formulate\Transforms\web.config.uninstall.xdt.txt" />
     <Content Include="Directives\configuredFormDesigner\designer.html" />
     <Content Include="Directives\configuredFormDesigner\designer.js" />
     <Content Include="Directives\createFolder\createFolder.html" />

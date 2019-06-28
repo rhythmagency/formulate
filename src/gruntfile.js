@@ -239,7 +239,6 @@ module.exports = function(grunt) {
                         // Website files.
                         expand: true,
                         src: [
-                            "Config/Formulate/**",
                             "Views/Partials/Formulate/**"
                         ],
                         dest: 'nuget-temp/package/content/',

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<dashBoard xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-
-  <!-- Remove the Formulate application if it exists. -->
-  <add alias="formulate" xdt:Locator="Match(alias)" xdt:Transform="Remove" />
-
-</dashBoard>
