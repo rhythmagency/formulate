@@ -6,15 +6,14 @@ app.directive("formulateRichTextField", directive);
 
 // Controller.
 function Controller($scope) {
-
     // Configure rich text editor model.
     $scope.textEditorModel = {
-        editor: "Umbraco.TinyMCEv3",
-        view: "rte",
+        editor: "Umbraco.TinyMCE",
+        view: "views/propertyeditors/rte/rte.html",
         config: {
             editor: {
                 toolbar: [
-                    "code",
+                    "ace",
                     "removeformat",
                     "bold",
                     "italic",
@@ -26,12 +25,16 @@ function Controller($scope) {
                     "alignjustify",
                     "bullist",
                     "numlist",
+                    "outdent",
+                    "indent",
                     "link",
                     "unlink",
                     "anchor",
                     "table",
                     "hr"
                 ],
+                stylesheets: [],
+                maxImageSize: 500,
                 dimensions: {
                     height: 250
                 }
@@ -48,7 +51,7 @@ function Controller($scope) {
 }
 
 // Directive.
-function directive(formulateDirectives) {
+function directive(formulateDirectives, tinyMceService) {
     return {
         restrict: "E",
         controller: Controller,
