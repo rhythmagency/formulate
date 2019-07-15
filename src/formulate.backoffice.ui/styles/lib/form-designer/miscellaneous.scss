@@ -88,3 +88,14 @@
     margin-right: 5px;
     text-shadow: 2px 2px 3px $black;
 }
+
+.formulate-field-details {
+    .controls {
+        &.rte {
+            > .umb-editor {
+                position: relative;
+                background: transparent;
+            }
+        }
+    }
+}
