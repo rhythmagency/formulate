@@ -22,7 +22,7 @@ function controller($scope, formulateConfiguredForms, editorService) {
 // Initializes the scope variables.
 function initialize(services) {
     var $scope = services.$scope;
-    if (!$scope.model.value) {
+    if (!$scope.model.value || !$scope.model.value.id) {
         $scope.model.value = {
             id: null
         };
