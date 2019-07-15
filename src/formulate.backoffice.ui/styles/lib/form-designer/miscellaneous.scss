@@ -91,11 +91,9 @@
 
 .formulate-field-details {
     .controls {
-        &.rte {
-            > .umb-editor {
-                position: relative;
-                background: transparent;
-            }
+        > .umb-editor {
+            position: relative;
+            background: transparent;
         }
     }
 }
