@@ -1,0 +1,102 @@
+﻿<!doctype html>
+<html>
+<head>
+    <title>Pure Frontend Formulate Example</title>
+</head>
+<body>
+
+<div class="formulate-wrapper">
+    <script id="formulate-form-a790d91b4bf8498693f3bbe0d3d66d54">
+        (function () {
+
+            // Variables.
+            let formData, key;
+
+            // Get the form data into JavaScript.
+            formData = {
+                "data":{
+                    "name":"Nick Test Form",
+                    "alias":null,
+                    "randomId":"a790d91b4bf8498693f3bbe0d3d66d54",
+                    "fields":[
+                        {
+                            "alias":null,
+                            "label":"Full Name",
+                            "id":"f9d2629875ca4f13a6cde7c089afb19d",
+                            "randomId":"30d60581744f42ff9f8a077e6844b0af",
+                            "fieldType":"text",
+                            "validations":[],
+                            "configuration":{},
+                            "initialValue":null,
+                            "category":null
+                        },
+                        {
+                            "alias":null,
+                            "label":"Date of Birth",
+                            "id":"9b27b8fd0cd5406582769510ed6cdd33",
+                            "randomId":"4aaf4b7b3d1a4ec99e76a2cff5b45598",
+                            "fieldType":"date",
+                            "validations":[],
+                            "configuration":{},
+                            "initialValue":null,
+                            "category":null
+                        },
+                        {
+                            "alias":null,
+                            "label":"Submit",
+                            "id":"5428d120bfab429abcca0bbd75e3b950",
+                            "randomId":"bbc77599433b407e81f898f814965040",
+                            "fieldType":"button",
+                            "validations":[],
+                            "configuration":{
+                                "buttonKind":null
+                            },
+                            "initialValue":null,
+                            "category":null
+                        }
+                    ],
+                    "rows":[
+                        {
+                            "cells":[
+                                {
+                                    "columns":12,
+                                    "fields":[
+                                        {
+                                            "id":"f9d2629875ca4f13a6cde7c089afb19d"
+                                        },
+                                        {
+                                            "id":"9b27b8fd0cd5406582769510ed6cdd33"
+                                        },
+                                        {
+                                            "id":"5428d120bfab429abcca0bbd75e3b950"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "payload":{
+                        "FormId":"5f0b01223c1b4760a8063907763061c9",
+                        "PageId":0,
+                        "__RequestVerificationToken":"N/A (Only Used With Server-Side Generated Forms)"
+                    },
+                    "url":"/umbraco/formulate/submissions/submit"
+                }
+            };
+
+            // Store the form data to an array on the window object.
+            // Once the JavaScript loads, it will create this form based
+            // on the data in this window object.
+            key = "formulate-plain-js-forms";
+            window[key] = window[key] || [];
+            window[key].push(formData);
+
+        })();
+    </script>
+</div>
+
+<script src="responsive.plain-javascript.js" async></script>
+<script src="custom-formulate-script.js" async></script>
+
+</body>
+</html>
