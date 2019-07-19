@@ -8,8 +8,8 @@
       <url><%= url %></url>
       <requirements>
         <major>8</major>
-        <minor>0</minor>
-        <patch>2</patch>
+        <minor>1</minor>
+        <patch>0</patch>
       </requirements>
     </package>
     <author>

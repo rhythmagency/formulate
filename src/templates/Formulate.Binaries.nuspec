@@ -15,8 +15,8 @@
     <tags>umbraco forms</tags>
     <dependencies>
       <dependency id="CsvHelper" version="12.1.2" />
-      <dependency id="UmbracoCms.Core" version="8.0.2" />
-      <dependency id="UmbracoCms.Web" version="8.0.2" />
+      <dependency id="UmbracoCms.Core" version="8.1.0" />
+      <dependency id="UmbracoCms.Web" version="8.1.0" />
     </dependencies>
   </metadata>
 </package>

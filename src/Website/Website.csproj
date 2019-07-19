@@ -1,5 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\UmbracoCms.8.0.2\build\UmbracoCms.props" Condition="Exists('..\packages\UmbracoCms.8.0.2\build\UmbracoCms.props')" />
+  <Import Project="..\packages\UmbracoCms.8.1.0\build\UmbracoCms.props" Condition="Exists('..\packages\UmbracoCms.8.1.0\build\UmbracoCms.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -175,8 +175,14 @@
     <Reference Include="Serilog.Settings.AppSettings, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.Settings.AppSettings.2.2.2\lib\net45\Serilog.Settings.AppSettings.dll</HintPath>
     </Reference>
+    <Reference Include="Serilog.Sinks.Async, Version=1.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.Async.1.3.0\lib\net45\Serilog.Sinks.Async.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.Sinks.File.4.0.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Map, Version=1.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.Map.1.0.0\lib\netstandard2.0\Serilog.Sinks.Map.dll</HintPath>
     </Reference>
     <Reference Include="Superpower, Version=1.0.0.0, Culture=neutral, PublicKeyToken=aec39280ded1b3a7, processorArchitecture=MSIL">
       <HintPath>..\packages\Superpower.2.0.0\lib\net45\Superpower.dll</HintPath>
@@ -376,22 +382,89 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Umbraco.Core, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.8.0.2\lib\net472\Umbraco.Core.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Core.8.1.0\lib\net472\Umbraco.Core.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Examine, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Web.8.0.2\lib\net472\Umbraco.Examine.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Web.8.1.0\lib\net472\Umbraco.Examine.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.ModelsBuilder, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Umbraco.ModelsBuilder.8.0.4\lib\net472\Umbraco.ModelsBuilder.dll</HintPath>
+      <HintPath>..\packages\Umbraco.ModelsBuilder.8.1.0\lib\net472\Umbraco.ModelsBuilder.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Web, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Web.8.0.2\lib\net472\Umbraco.Web.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Web.8.1.0\lib\net472\Umbraco.Web.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Web.UI, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Web.8.0.2\lib\net472\Umbraco.Web.UI.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Web.8.1.0\lib\net472\Umbraco.Web.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\formulate\backoffice\formulate\dataSources.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\dataValues.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editConfiguredForm.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editDataValue.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editFolder.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editForm.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editLayout.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\editValidation.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\forms.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\layouts.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\submissions.html" />
+    <Content Include="App_Plugins\formulate\backoffice\formulate\validationLibrary.html" />
+    <Content Include="App_Plugins\formulate\dashboards\introduction.html" />
+    <Content Include="App_Plugins\formulate\dialogs\pickConfiguredForm.html" />
+    <Content Include="App_Plugins\formulate\dialogs\pickDataValue.html" />
+    <Content Include="App_Plugins\formulate\dialogs\pickForm.html" />
+    <Content Include="App_Plugins\formulate\dialogs\pickLayout.html" />
+    <Content Include="App_Plugins\formulate\dialogs\pickValidations.html" />
+    <Content Include="App_Plugins\formulate\editors\configured-form-picker.html" />
+    <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.svg" />
+    <Content Include="App_Plugins\formulate\formulate.css" />
+    <Content Include="App_Plugins\formulate\formulate.js" />
+    <Content Include="App_Plugins\formulate\Lang\cs-CZ.xml" />
+    <Content Include="App_Plugins\formulate\Lang\da-DK.xml" />
+    <Content Include="App_Plugins\formulate\Lang\de-DE.xml" />
+    <Content Include="App_Plugins\formulate\Lang\en-GB.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Plugins\formulate\Lang\en-US.xml" />
+    <Content Include="App_Plugins\formulate\Lang\es-ES.xml" />
+    <Content Include="App_Plugins\formulate\Lang\fr-FR.xml" />
+    <Content Include="App_Plugins\formulate\Lang\he-IL.xml" />
+    <Content Include="App_Plugins\formulate\Lang\it-IT.xml" />
+    <Content Include="App_Plugins\formulate\Lang\ja-JP.xml" />
+    <Content Include="App_Plugins\formulate\Lang\ko-KR.xml" />
+    <Content Include="App_Plugins\formulate\Lang\nb-NO.xml" />
+    <Content Include="App_Plugins\formulate\Lang\nl-NL.xml" />
+    <Content Include="App_Plugins\formulate\Lang\pl-PL.xml" />
+    <Content Include="App_Plugins\formulate\Lang\pt-BR.xml" />
+    <Content Include="App_Plugins\formulate\Lang\ru-RU.xml" />
+    <Content Include="App_Plugins\formulate\Lang\sv-SE.xml" />
+    <Content Include="App_Plugins\formulate\Lang\zh-CN.xml" />
+    <Content Include="App_Plugins\formulate\menu-actions\createDataValue.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\createFolder.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\createLayout.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\createValidation.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteConfiguredForm.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteDataValue.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteFolder.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteForm.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteLayout.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\deleteValidation.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\moveDataValue.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\moveFolder.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\moveForm.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\moveLayout.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\moveValidation.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\removeEntityFromCloud.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\storeEntityToCloud.html" />
+    <Content Include="App_Plugins\formulate\responsive.bootstrap.angular.js" />
+    <Content Include="App_Plugins\formulate\responsive.bootstrap.angular.min.js" />
+    <Content Include="App_Plugins\formulate\Transforms\applications.config.install.xdt.txt" />
+    <Content Include="App_Plugins\formulate\Transforms\applications.config.uninstall.xdt.txt" />
+    <Content Include="App_Plugins\formulate\Transforms\dashboard.config.install.xdt.txt" />
+    <Content Include="App_Plugins\formulate\Transforms\dashboard.config.uninstall.xdt.txt" />
+    <Content Include="App_Plugins\formulate\Transforms\web.config.install.xdt.txt" />
+    <Content Include="App_Plugins\formulate\Transforms\web.config.uninstall.xdt.txt" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.html" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
@@ -425,17 +498,29 @@
     <Content Include="config\imageprocessor\security.config" />
     <Content Include="config\imageprocessor\processing.config" />
     <Content Include="config\imageprocessor\cache.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Partials\Formulate\RenderForm.cshtml" />
+    <Content Include="Views\Partials\Formulate\Responsive.Bootstrap.Angular.cshtml" />
+    <Content Include="Views\Partials\Formulate\Responsive.Plain JavaScript.cshtml" />
+    <Content Include="Transform.config" />
+    <Content Include="config\umbracoSettings.config" />
+    <Content Include="config\ClientDependency.config" />
+    <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.eot" />
+    <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.ttf" />
+    <Content Include="App_Plugins\formulate\fonts\icomoon\icomoon.woff" />
+    <Content Include="App_Plugins\formulate\package.manifest" />
+    <Content Include="App_Plugins\formulate\FormulateConfiguration.json" />
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
     <Content Include="Media\Web.config" />
-    <Content Include="config\umbracoSettings.config" />
     <Content Include="config\tinyMceConfig.config" />
     <Content Include="config\serilog.user.config" />
     <Content Include="config\serilog.config" />
     <Content Include="config\HealthChecks.config" />
-    <Content Include="config\ClientDependency.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
     <None Include="packages.config" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\TypicalPage.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />
@@ -444,10 +529,6 @@
     <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
-    <Content Include="Views\Partials\Formulate\RenderForm.cshtml" />
-    <Content Include="Views\Partials\Formulate\Responsive.Bootstrap.Angular.cshtml" />
-    <Content Include="Views\Partials\Formulate\Responsive.Plain JavaScript.cshtml" />
-    <Content Include="Transform.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -473,6 +554,7 @@
       <Name>formulate.core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -505,11 +587,11 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets'))" />
-    <Error Condition="!Exists('..\packages\UmbracoCms.8.0.2\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.8.0.2\build\UmbracoCms.props'))" />
-    <Error Condition="!Exists('..\packages\UmbracoCms.8.0.2\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.8.0.2\build\UmbracoCms.targets'))" />
+    <Error Condition="!Exists('..\packages\UmbracoCms.8.1.0\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.8.1.0\build\UmbracoCms.props'))" />
+    <Error Condition="!Exists('..\packages\UmbracoCms.8.1.0\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.8.1.0\build\UmbracoCms.targets'))" />
   </Target>
   <Import Project="..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />
-  <Import Project="..\packages\UmbracoCms.8.0.2\build\UmbracoCms.targets" Condition="Exists('..\packages\UmbracoCms.8.0.2\build\UmbracoCms.targets')" />
+  <Import Project="..\packages\UmbracoCms.8.1.0\build\UmbracoCms.targets" Condition="Exists('..\packages\UmbracoCms.8.1.0\build\UmbracoCms.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
