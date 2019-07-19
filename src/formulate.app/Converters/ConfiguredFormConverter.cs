@@ -51,13 +51,13 @@
         /// <returns>
         /// True, if this can convert the property type; otherwise, false.
         /// </returns>
-        public override bool IsConverter(PublishedPropertyType propertyType)
+        public override bool IsConverter(IPublishedPropertyType propertyType)
         {
             return "Formulate.ConfiguredFormPicker".InvariantEquals(propertyType.EditorAlias);
         }
 
 
-        public override object ConvertIntermediateToObject(IPublishedElement owner, PublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object source, bool preview)
+        public override object ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object source, bool preview)
         {
             // Variables.
             var deserialized = default(dynamic);
@@ -66,7 +66,6 @@
             // when used with Umbraco grid and LeBlender).
             if (source == null || source is string)
             {
-
                 // Source is a string, so deserialize it.
                 var strSource = source as string;
                 strSource = string.IsNullOrWhiteSpace(strSource)
