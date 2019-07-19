@@ -10,8 +10,6 @@
     using System.IO;
     using System.Linq;
     using System.Web.Hosting;
-
-    using Umbraco.Core.Persistence;
     using Umbraco.Core.Scoping;
 
     /// <summary>
@@ -216,17 +214,16 @@
 
             using (var scope = ScopeProvider.CreateScope())
             {
-                scope.Database.Insert(
-                    new FormulateSubmission()
-                    {
-                        CreationDate = DateTime.UtcNow,
-                        DataValues = serializedValues,
-                        FileValues = serializedFiles,
-                        FormId = form.Id,
-                        GeneratedId = context.SubmissionId,
-                        PageId = context?.CurrentPage?.Id,
-                        Url = context?.CurrentPage?.Url
-                    });
+                scope.Database.Insert(new FormulateSubmission()
+                {
+                    CreationDate = DateTime.UtcNow,
+                    DataValues = serializedValues,
+                    FileValues = serializedFiles,
+                    FormId = form.Id,
+                    GeneratedId = context.SubmissionId,
+                    PageId = context?.CurrentPage?.Id
+                });
+
                 scope.Complete();
             }
         }

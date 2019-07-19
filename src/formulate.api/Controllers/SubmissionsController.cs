@@ -61,11 +61,7 @@
             var fileKeys = Request.Files.AllKeys;
             var formId = Guid.Parse(Request["FormId"]);
             var pageId = NumberUtility.AttemptParseInt(Request["PageId"]);
-            IPublishedContent pageNode = null;
-
-            //pageId.HasValue
-            //? Umbraco.TypedContent(pageId.Value)
-            //: null;
+            IPublishedContent pageNode = pageId.HasValue ? Umbraco.Content(pageId.Value) : null;
             var pageUrl = pageNode?.Url;
             var pageName = pageNode?.Name;
 
