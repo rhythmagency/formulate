@@ -227,6 +227,7 @@
                         PageId = context?.CurrentPage?.Id,
                         Url = context?.CurrentPage?.Url
                     });
+                scope.Complete();
             }
         }
 

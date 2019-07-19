@@ -258,7 +258,7 @@
 
         private IEnumerable<FormulateSubmission> FetchEntries(Guid formId)
         {
-            using (var scope = ScopeProvider.CreateScope())
+            using (var scope = ScopeProvider.CreateScope(autoComplete: true))
             {
                 var query = new Sql<ISqlContext>(scope.SqlContext)
                             .Select("*")
