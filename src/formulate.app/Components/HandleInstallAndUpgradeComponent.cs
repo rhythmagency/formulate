@@ -200,7 +200,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error<Configs>(ex, "Config error");
+                    Logger.Error<Configs>(ex, "Unable to save Formulate Config to file system.");
                 }
             }
         }
