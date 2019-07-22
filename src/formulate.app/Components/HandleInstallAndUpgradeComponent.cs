@@ -200,8 +200,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Current.Logger.Error(typeof(Configs), ex, "Config error");
-                    throw ex;
+                    Logger.Error<Configs>(ex, "Config error");
                 }
             }
         }
