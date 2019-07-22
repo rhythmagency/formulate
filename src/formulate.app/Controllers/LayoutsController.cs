@@ -137,7 +137,7 @@
             {
 
                 // Error.
-                Logger.Error<LayoutsController>(PersistLayoutError, ex);
+                Logger.Error<LayoutsController>(ex, PersistLayoutError);
                 result = new
                 {
                     Success = false,
@@ -208,7 +208,7 @@
             {
 
                 // Error.
-                Logger.Error<LayoutsController>(GetLayoutInfoError, ex);
+                Logger.Error<LayoutsController>(ex, GetLayoutInfoError);
                 result = new
                 {
                     Success = false,
@@ -265,7 +265,7 @@
             {
 
                 // Error.
-                Logger.Error<LayoutsController>(DeleteLayoutError, ex);
+                Logger.Error<LayoutsController>(ex, DeleteLayoutError);
                 result = new
                 {
                     Success = false,
@@ -321,7 +321,7 @@
             {
 
                 // Error.
-                Logger.Error<LayoutsController>(GetKindsError, ex);
+                Logger.Error<LayoutsController>(ex, GetKindsError);
                 result = new
                 {
                     Success = false,
@@ -398,7 +398,7 @@
             {
 
                 // Error.
-                Logger.Error<LayoutsController>(MoveLayoutError, ex);
+                Logger.Error<LayoutsController>(ex, MoveLayoutError);
                 result = new
                 {
                     Success = false,

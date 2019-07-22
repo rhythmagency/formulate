@@ -135,7 +135,7 @@
             {
 
                 // Error.
-                Logger.Error<ConfiguredFormsController>(PersistConFormError, ex);
+                Logger.Error<ConfiguredFormsController>(ex, PersistConFormError);
                 result = new
                 {
                     Success = false,
@@ -192,7 +192,7 @@
             {
 
                 // Error.
-                Logger.Error<ConfiguredFormsController>(DeleteConFormError, ex);
+                Logger.Error<ConfiguredFormsController>(ex, DeleteConFormError);
                 result = new
                 {
                     Success = false,

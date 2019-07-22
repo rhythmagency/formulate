@@ -125,7 +125,7 @@
             {
 
                 // Error.
-                Logger.Error<ConfiguredFormsController>(GetConFormInfoError, ex);
+                Logger.Error<ConfiguredFormsController>(ex, GetConFormInfoError);
                 result = new
                 {
                     Success = false,

@@ -487,7 +487,7 @@ namespace formulate.app.Forms.Handlers.SendData
             }
             catch (Exception ex)
             {
-                Logger.Error<SendDataHandler>(SendDataError, ex);
+                Logger.Error<SendDataHandler>(ex, SendDataError);
                 sendDataResult.ResponseError = ex;
                 sendDataResult.Success = false;
             }

@@ -95,7 +95,7 @@
             {
 
                 // Error.
-                Logger.Error<TemplatesController>(GetTemplatesError, ex);
+                Logger.Error<TemplatesController>(ex, GetTemplatesError);
                 result = new
                 {
                     Success = false,

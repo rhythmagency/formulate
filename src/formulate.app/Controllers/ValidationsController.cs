@@ -145,7 +145,7 @@
             {
 
                 // Error.
-                Logger.Error<ValidationsController>(PersistValidationError, ex);
+                Logger.Error<ValidationsController>(ex, PersistValidationError);
                 result = new
                 {
                     Success = false,
@@ -214,7 +214,7 @@
             {
 
                 // Error.
-                Logger.Error<ValidationsController>(GetValidationInfoError, ex);
+                Logger.Error<ValidationsController>(ex, GetValidationInfoError);
                 result = new
                 {
                     Success = false,
@@ -313,7 +313,7 @@
             {
 
                 // Error.
-                Logger.Error<ValidationsController>(GetValidationInfoError, ex);
+                Logger.Error<ValidationsController>(ex, GetValidationInfoError);
                 result = new
                 {
                     Success = false,
@@ -370,7 +370,7 @@
             {
 
                 // Error.
-                Logger.Error<ValidationsController>(DeleteValidationError, ex);
+                Logger.Error<ValidationsController>(ex, DeleteValidationError);
                 result = new
                 {
                     Success = false,
@@ -426,7 +426,7 @@
             {
 
                 // Error.
-                Logger.Error<ValidationsController>(GetKindsError, ex);
+                Logger.Error<ValidationsController>(ex, GetKindsError);
                 result = new
                 {
                     Success = false,
@@ -503,7 +503,7 @@
             {
 
                 // Error.
-                Logger.Error<ValidationsController>(MoveValidationError, ex);
+                Logger.Error<ValidationsController>(ex, MoveValidationError);
                 result = new
                 {
                     Success = false,

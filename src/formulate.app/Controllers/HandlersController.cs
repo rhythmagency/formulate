@@ -87,7 +87,7 @@
             {
 
                 // Error.
-                Logger.Error<HandlersController>(GetHandlerTypesError, ex);
+                Logger.Error<HandlersController>(ex, GetHandlerTypesError);
                 result = new
                 {
                     Success = false,
@@ -144,7 +144,7 @@
             {
 
                 // Error.
-                Logger.Error<HandlersController>(GetResultHandlersError, ex);
+                Logger.Error<HandlersController>(ex, GetResultHandlersError);
                 result = new
                 {
                     Success = false,

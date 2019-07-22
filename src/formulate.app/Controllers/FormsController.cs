@@ -163,7 +163,7 @@
             {
 
                 // Error.
-                Logger.Error<FormsController>(GetFormInfoError, ex);
+                Logger.Error<FormsController>(ex, GetFormInfoError);
                 result = new
                 {
                     Success = false,
@@ -294,7 +294,7 @@
             {
 
                 // Error.
-                Logger.Error<FormsController>(PersistFormError, ex);
+                Logger.Error<FormsController>(ex, PersistFormError);
                 result = new
                 {
                     Success = false,
@@ -357,7 +357,7 @@
             {
 
                 // Error.
-                Logger.Error<FormsController>(DeleteFormError, ex);
+                Logger.Error<FormsController>(ex, DeleteFormError);
                 result = new
                 {
                     Success = false,

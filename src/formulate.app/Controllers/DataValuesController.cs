@@ -153,7 +153,7 @@
             {
 
                 // Error.
-                Logger.Error<DataValuesController>(PersistDataValueError, ex);
+                Logger.Error<DataValuesController>(ex, PersistDataValueError);
                 result = new
                 {
                     Success = false,
@@ -222,8 +222,7 @@
             {
 
                 // Error.
-                Logger.Error<DataValuesController>(
-                    GetDataValueInfoError, ex);
+                Logger.Error<DataValuesController>(ex, GetDataValueInfoError);
                 result = new
                 {
                     Success = false,
@@ -302,8 +301,7 @@
             {
 
                 // Error.
-                Logger.Error<DataValuesController>(
-                    GetDataValueInfoError, ex);
+                Logger.Error<DataValuesController>(ex, GetDataValueInfoError);
                 result = new
                 {
                     Success = false,
@@ -360,7 +358,7 @@
             {
 
                 // Error.
-                Logger.Error<DataValuesController>(DeleteDataValueError, ex);
+                Logger.Error<DataValuesController>(ex, DeleteDataValueError);
                 result = new
                 {
                     Success = false,
@@ -416,7 +414,7 @@
             {
 
                 // Error.
-                Logger.Error<DataValuesController>(GetKindsError, ex);
+                Logger.Error<DataValuesController>(ex, GetKindsError);
                 result = new
                 {
                     Success = false,
@@ -473,7 +471,7 @@
             {
 
                 // Error.
-                Logger.Error<DataValuesController>(GetSuppliersError, ex);
+                Logger.Error<DataValuesController>(ex, GetSuppliersError);
                 result = new
                 {
                     Success = false,
@@ -550,7 +548,7 @@
             {
 
                 // Error.
-                Logger.Error<DataValuesController>(MoveDataValueError, ex);
+                Logger.Error<DataValuesController>(ex, MoveDataValueError);
                 result = new
                 {
                     Success = false,

@@ -107,7 +107,7 @@
             {
 
                 // Error.
-                Logger.Error<EntitiesController>(GetEntityError, ex);
+                Logger.Error<EntitiesController>(ex, GetEntityError);
                 result = new
                 {
                     Success = false,

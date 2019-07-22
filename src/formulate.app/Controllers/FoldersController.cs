@@ -112,7 +112,7 @@
             {
 
                 // Error.
-                Logger.Error<FoldersController>(GetFolderInfoError, ex);
+                Logger.Error<FoldersController>(ex, GetFolderInfoError);
                 result = new
                 {
                     Success = false,
@@ -190,7 +190,7 @@
             {
 
                 // Error.
-                Logger.Error<FoldersController>(PersistFolderError, ex);
+                Logger.Error<FoldersController>(ex, PersistFolderError);
                 result = new
                 {
                     Success = false,
@@ -296,7 +296,7 @@
             {
 
                 // Error.
-                Logger.Error<FoldersController>(MoveFolderError, ex);
+                Logger.Error<FoldersController>(ex, MoveFolderError);
                 result = new
                 {
                     Success = false,
@@ -361,7 +361,7 @@
             {
 
                 // Error.
-                Logger.Error<FoldersController>(DeleteFolderError, ex);
+                Logger.Error<FoldersController>(ex, DeleteFolderError);
                 result = new
                 {
                     Success = false,

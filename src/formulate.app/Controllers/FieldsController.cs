@@ -106,7 +106,7 @@
             {
 
                 // Error.
-                Logger.Error<FieldsController>(GetFieldTypesError, ex);
+                Logger.Error<FieldsController>(ex, GetFieldTypesError);
                 result = new
                 {
                     Success = false,
@@ -148,7 +148,7 @@
             {
 
                 // Error.
-                Logger.Error<FieldsController>(GetButtonKindsError, ex);
+                Logger.Error<FieldsController>(ex, GetButtonKindsError);
                 result = new
                 {
                     Success = false,
@@ -202,7 +202,7 @@
             {
 
                 // Error.
-                Logger.Error<FieldsController>(GetFieldCategoriesError, ex);
+                Logger.Error<FieldsController>(ex, GetFieldCategoriesError);
                 result = new
                 {
                     Success = false,
