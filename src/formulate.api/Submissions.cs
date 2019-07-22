@@ -236,7 +236,8 @@
             }
             catch (Exception ex)
             {
-                Logger.Error<Submissions_Instance>(PreHandlerError, ex);
+                Logger.Error<Submissions_Instance>(ex, PreHandlerError);
+
                 return new SubmissionResult()
                 {
                     Success = false
