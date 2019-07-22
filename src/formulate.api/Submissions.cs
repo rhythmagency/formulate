@@ -10,6 +10,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
+    using System.Threading.Tasks;
+
     using Umbraco.Core.Logging;
 
 
@@ -243,30 +245,27 @@
 
 
             // Initiate form handlers on a new thread (they may take some time to complete).
-            var t = new Thread(() =>
+            var task = new Task(() =>
             {
-                try
+                foreach (var handler in enabledHandlers)
                 {
-                    foreach (var handler in enabledHandlers)
-                    {
-                        handler.HandleForm(submissionContext);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error<Submissions_Instance>(HandlerError, ex);
+                    handler.HandleForm(submissionContext);
                 }
             });
-            t.IsBackground = true;
-            t.Start();
 
+            task.ContinueWith(FormHandlersExceptionHandler, TaskContinuationOptions.OnlyOnFaulted);
+            task.Start();
 
             // Return success.
             return new SubmissionResult()
             {
                 Success = true
             };
+        }
 
+        private void FormHandlersExceptionHandler(Task task)
+        {
+            Logger.Error<Submissions_Instance>(task.Exception, HandlerError);
         }
 
         #endregion
