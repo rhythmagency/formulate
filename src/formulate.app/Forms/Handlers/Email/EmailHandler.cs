@@ -15,6 +15,8 @@
     using System.Net;
     using System.Net.Mail;
     using System.Net.Mime;
+    using System.Text;
+	using System.Text.RegularExpressions;
     using Umbraco.Core;
 
 
@@ -62,6 +64,11 @@
                 return Configuration.Current.Manager;
             }
         }
+
+        /// <summary>
+        /// The email message to send.
+        /// </summary>
+        private MailMessage Message { get; set; }
 
         #endregion
 
@@ -207,23 +214,10 @@
         /// The handler configuration.
         /// </param>
         /// <remarks>
-        /// In this case, no preparation is necessary.
+        /// The email message is prepared here so that the current HTTP request can be
+        /// accessed. The email is sent in HandleForm rather than being sent here.
         /// </remarks>
         public void PrepareHandleForm(FormSubmissionContext context, object configuration)
-        {
-        }
-
-
-        /// <summary>
-        /// Handles a form submission (sends an email).
-        /// </summary>
-        /// <param name="context">
-        /// The form submission context.
-        /// </param>
-        /// <param name="configuration">
-        /// The handler configuration.
-        /// </param>
-        public void HandleForm(FormSubmissionContext context, object configuration)
         {
 
             // Variables.
@@ -356,11 +350,34 @@
             emailView = AlternateView.CreateAlternateViewFromString(htmlBody, mimeType);
             message.AlternateViews.Add(emailView);
 
+            // Use UTF8 encoding to avoid any issues with special characters.
+            message.BodyEncoding = Encoding.UTF8;
+
+            // Remember the mail message so it can be sent in HandleForm.
+            Message = message;
+
+        }
+
+
+        /// <summary>
+        /// Handles a form submission (sends an email).
+        /// </summary>
+        /// <param name="context">
+        /// The form submission context.
+        /// </param>
+        /// <param name="configuration">
+        /// The handler configuration.
+        /// </param>
+        public void HandleForm(FormSubmissionContext context, object configuration)
+        {
 
             // Send email.
-            using (var client = new SmtpClient())
+            if (Message != null)
             {
-                client.Send(message);
+                using (var client = new SmtpClient())
+                {
+                    client.Send(Message);
+                }
             }
 
         }
@@ -490,7 +507,9 @@
             if (isHtml)
             {
                 baseMessage = WebUtility.HtmlEncode(baseMessage);
-                lines = lines.Select(x => WebUtility.HtmlEncode(x)).ToList();
+				// just in case other browsers enter new lines differently, cater to all three
+				baseMessage = Regex.Replace(baseMessage, @"\r\n?|\n", "<br />");
+				lines = lines.Select(x => WebUtility.HtmlEncode(x)).ToList();
             }
 
 
