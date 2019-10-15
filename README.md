@@ -38,6 +38,7 @@ These are the steps you can take to build and test Formulate:
 
 * Build the solution.
 * Run `npm install` (this only needs to be done once).
+* Run `npm i grunt-cli -g` (this only needs to be done once).
 * Run `grunt`.
   * Pro-tip: Running `grunt frontend` is faster
 * Run the sample website.

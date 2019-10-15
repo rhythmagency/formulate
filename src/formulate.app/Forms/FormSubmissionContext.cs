@@ -84,6 +84,12 @@
         /// </summary>
         public Dictionary<string, object> ExtraContext { get; set; }
 
+
+        /// <summary>
+        /// Flag to allow this form to be cancelled by the event handler.
+        /// </summary>
+        public bool SubmissionCancelled { get; set; }
+
         #endregion
 
     }

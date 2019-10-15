@@ -30,6 +30,7 @@
             // Variables.
             var context = HttpContext.Current;
             var request = context.Request;
+            var isSecure = request.IsSecureConnection;
             var response = context.Response;
             var cookie = request.Cookies[AntiForgeryConfig.CookieName];
             var oldCookieToken = cookie?.Value;
@@ -46,6 +47,8 @@
             {
                 cookie = cookie ?? new HttpCookie(AntiForgeryConfig.CookieName);
                 cookie.Value = cookieToken;
+                cookie.Secure = isSecure;
+                cookie.HttpOnly = true;
                 response.Cookies.Add(cookie);
             }
 

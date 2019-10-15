@@ -59,13 +59,6 @@ frontendDocs/
 **/Website/App_Data/cache/
 **/Website/App_Data/Formulate/
 
-# Generated config files.
-web.config
-applications.config
-ClientDependency.config
-Dashboard.config
-trees.config
-
 # Allow some views.
 !**/Website/Views/Partials/
 !**/Website/Views/Partials/Formulate/

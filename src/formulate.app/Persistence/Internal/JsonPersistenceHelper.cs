@@ -35,6 +35,12 @@
         /// </summary>
         private string WildcardPattern { get; set; }
 
+
+        /// <summary>
+        /// The cache of entities.
+        /// </summary>
+        private EntityFileSystemCache EntityCache { get; set; }
+
         #endregion
 
 
@@ -53,6 +59,7 @@
             this.BasePath = basePath;
             this.Extension = extension;
             this.WildcardPattern = wildcard;
+            this.EntityCache = new EntityFileSystemCache();
         }
 
         #endregion
@@ -79,26 +86,6 @@
             // Write file contents.
             File.WriteAllText(path, contents);
 
-        }
-
-
-        /// <summary>
-        /// Gets the contents of the file at the specified path.
-        /// </summary>
-        /// <param name="path">The path to the file.</param>
-        /// <returns>
-        /// The file contents, or null.
-        /// </returns>
-        public string GetFileContents(string path)
-        {
-            if (File.Exists(path))
-            {
-                return File.ReadAllText(path);
-            }
-            else
-            {
-                return null;
-            }
         }
 
 
@@ -138,6 +125,7 @@
             var path = GetEntityPath(entityId);
             var serialized = JsonHelper.Serialize(entity);
             WriteFile(path, serialized);
+            EntityCache.Invalidate(path);
         }
 
 
@@ -151,6 +139,7 @@
             if (File.Exists(path))
             {
                 File.Delete(path);
+                EntityCache.Invalidate(path);
             }
         }
 
@@ -162,12 +151,10 @@
         /// <returns>
         /// The entity.
         /// </returns>
-        public EntityType Retrieve<EntityType>(Guid entityId)
+        public EntityType Retrieve<EntityType>(Guid entityId) where EntityType : class
         {
             var path = GetEntityPath(entityId);
-            var json = GetFileContents(path);
-            var entity = JsonHelper.Deserialize<EntityType>(json);
-            return entity;
+            return EntityCache.Get<EntityType>(path);
         }
 
 
@@ -182,9 +169,8 @@
         /// You can specify a parent ID of null to get the root entities.
         /// </remarks>
         public IEnumerable<EntityType> RetrieveChildren<EntityType>(Guid? parentId)
-            where EntityType: IEntity
+            where EntityType: class, IEntity
         {
-            // TODO: Optimize this. I'm reading in all entities just to get a subset of them.
             var entities = RetrieveAll<EntityType>();
             if (parentId.HasValue)
             {
@@ -216,7 +202,7 @@
         /// <returns>
         /// The entities.
         /// </returns>
-        public IEnumerable<EntityType> RetrieveAll<EntityType>()
+        public IEnumerable<EntityType> RetrieveAll<EntityType>() where EntityType : class
         {
             var entities = new List<EntityType>();
             if (Directory.Exists(BasePath))
@@ -224,9 +210,7 @@
                 var files = Directory.GetFiles(BasePath, WildcardPattern);
                 foreach (var file in files)
                 {
-                    var contents = GetFileContents(file);
-                    var entity = JsonHelper.Deserialize<EntityType>(contents);
-                    entities.Add(entity);
+                    entities.Add(EntityCache.Get<EntityType>(file));
                 }
             }
             return entities;

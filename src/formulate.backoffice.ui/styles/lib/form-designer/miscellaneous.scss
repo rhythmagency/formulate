@@ -48,7 +48,8 @@
 }
 
 .formulate-field .drag-handle,
-.formulate-handler .drag-handle {
+.formulate-handler .drag-handle,
+.formulate-data-value-item .drag-handle {
     cursor: move;
     opacity: 0.5;
     margin-right: 5px;

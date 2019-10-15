@@ -1,5 +1,6 @@
 // Dependencies.
-let FieldUtility = require("../utils/field");
+let FieldUtility = require("../utils/field"),
+    dispatchEvent = require("../utils/events");
 
 /**
  * Renders a drop down field.
@@ -9,12 +10,41 @@ let FieldUtility = require("../utils/field");
  * @constructor
  */
 function RenderSelect(fieldData, fieldValidators, cssClasses) {
+
+    // Initialize field.
     FieldUtility.initializeField(this, fieldData, fieldValidators, {
         nodeName: "select",
         cssClasses: cssClasses
     });
     this.addOptions(fieldData);
+
+    // Listen for events.
+    this.addChangeEvent(fieldData);
+
 }
+
+/**
+ * Add event listener for the change event
+ * @param fieldData The field data that should be used to render the drop down field.
+ */
+RenderSelect.prototype.addChangeEvent = function(fieldData) {
+
+    // Variables.
+    let category = fieldData.category,
+        element = this.element;
+
+    // Add change event listener.
+    element.addEventListener('change', function() {
+
+        // Dispatch event indicating the drop down value changed.
+        dispatchEvent(element, "formulate form: select changed", {
+            category: category,
+            element: element
+        });
+
+    });
+
+};
 
 /**
  * Adds the options to the select.

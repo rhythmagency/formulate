@@ -25,20 +25,25 @@
                 </localize>
             </p>
 
-            <!-- Add row button. -->
-            <button type="button" class="btn btn-default btn-add-row" ng-click="addRow(sampleCells)">
-                <localize key="formulate-buttons_Click to Add Row">
-                    Click to Add Row
-                </localize>
-            </button>
+            <!-- The button and the neighboring cells. -->
+            <div class="formulate-add-row-button-and-cells">
 
-            <!-- Sample cells for new rows. -->
-            <div class="row sample-cells">
-                <div ng-repeat="cell in sampleCells" class="span1">
-                    <div ng-class="getSampleCellClasses(sampleCells, $index)" ng-click="toggleCell(sampleCells, $index)">
-                        {{$index + 1}}
+                <!-- Add row button. -->
+                <button type="button" class="btn btn-default btn-add-row" ng-click="addRow(sampleCells)">
+                    <localize key="formulate-buttons_Click to Add Row">
+                        Click to Add Row
+                    </localize>
+                </button>
+
+                <!-- Sample cells for new rows. -->
+                <div class="row sample-cells">
+                    <div ng-repeat="cell in sampleCells" class="span1">
+                        <div ng-class="getSampleCellClasses(sampleCells, $index)" ng-click="toggleCell(sampleCells, $index)">
+                            {{$index + 1}}
+                        </div>
                     </div>
                 </div>
+
             </div>
 
         </div>
