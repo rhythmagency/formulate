@@ -16,6 +16,7 @@
     using System.Net.Mail;
     using System.Net.Mime;
     using System.Text;
+    using System.Text.RegularExpressions;
     using Umbraco.Core;
 
 
@@ -506,6 +507,8 @@
             if (isHtml)
             {
                 baseMessage = WebUtility.HtmlEncode(baseMessage);
+                // just in case other browsers enter new lines differently, cater to all three
+                baseMessage = Regex.Replace(baseMessage, @"\r\n?|\n", "<br />");
                 lines = lines.Select(x => WebUtility.HtmlEncode(x)).ToList();
             }
 
