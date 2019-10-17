@@ -334,7 +334,7 @@
             }
             else
             {
-                htmlBody = WebUtility.HtmlEncode(baseMessage);
+                htmlBody = Regex.Replace(WebUtility.HtmlEncode(baseMessage), @"\r\n?|\n", "<br />");
                 plainTextBody = baseMessage;
             }
 
