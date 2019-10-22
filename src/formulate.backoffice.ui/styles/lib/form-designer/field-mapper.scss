@@ -38,6 +38,10 @@
     width: 0;
     transition: opacity 0.25s, width 0.25s;
 }
+.formulate-mapped-field-alias,
+.formulate-mapped-field-name {
+    font-family: monospace;
+}
 .formulate-mapped-field-alias:focus + .formulate-mapped-field-delete,
 .formulate-mapped-field-delete:active {
     opacity: 1;

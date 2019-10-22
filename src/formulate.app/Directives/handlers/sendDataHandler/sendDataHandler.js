@@ -75,6 +75,7 @@ function Controller($scope, notificationsService, formulateHandlers) {
     // Add scope functions.
     $scope.addField = this.addField.bind(this);
     $scope.deleteField = this.deleteField.bind(this);
+    $scope.getFieldSize = this.getFieldSize.bind(this);
 
     // Start watching changes to the fields.
     this.watchFieldChanges();
@@ -85,6 +86,20 @@ function Controller($scope, notificationsService, formulateHandlers) {
     });
 
 }
+
+/**
+ * Returns the size to set on the HTML input for the specified field.
+ * @param field One of the chosen fields.
+ * @returns {number} The size to set the HTML field to.
+ */
+Controller.prototype.getFieldSize = function (field) {
+    var combinedLength = (field.storedField.name || "").length + (field.fieldName || "").length,
+        stretchFactor = 1.1,
+        stretched = combinedLength * stretchFactor,
+        offset = stretched + 1,
+        rounded = Math.round(offset);
+    return Math.max(rounded, 5);
+};
 
 /**
  * Adds the currently selected field to the list of fields.
