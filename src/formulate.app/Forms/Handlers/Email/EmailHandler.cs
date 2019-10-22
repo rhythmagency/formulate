@@ -26,6 +26,17 @@
     public class EmailHandler : IFormHandlerType
     {
 
+        #region Private Static Properties
+
+        /// <summary>
+        /// A regular expression to match line breaks. This will match line breaks from multiple
+        /// operating systems.
+        /// </summary>
+        private static Regex LineBreakRegex { get; set; }
+
+        #endregion
+
+
         #region Public Static Properties
 
         /// <summary>
@@ -52,7 +63,7 @@
         #endregion
 
 
-        #region Private Properties
+        #region Private Instance Properties
 
         /// <summary>
         /// Configuration manager.
@@ -73,7 +84,7 @@
         #endregion
 
 
-        #region Public Properties
+        #region Public Instance Properties
 
         /// <summary>
         /// The Angular directive that renders this handler.
@@ -97,6 +108,19 @@
         /// The label that appears when the user is choosing the handler.
         /// </summary>
         public string TypeLabel => "Email";
+
+        #endregion
+
+
+        #region Constructors
+
+        /// <summary>
+        /// Static constructor.
+        /// </summary>
+        static EmailHandler()
+        {
+            LineBreakRegex = new Regex(@"\r\n?|\n", RegexOptions.Compiled | RegexOptions.Singleline);
+        }
 
         #endregion
 
@@ -334,7 +358,7 @@
             }
             else
             {
-                htmlBody = WebUtility.HtmlEncode(baseMessage);
+                htmlBody = LineBreakRegex.Replace(WebUtility.HtmlEncode(baseMessage), "<br />");
                 plainTextBody = baseMessage;
             }
 
@@ -507,8 +531,7 @@
             if (isHtml)
             {
                 baseMessage = WebUtility.HtmlEncode(baseMessage);
-                // just in case other browsers enter new lines differently, cater to all three
-                baseMessage = Regex.Replace(baseMessage, @"\r\n?|\n", "<br />");
+                baseMessage = LineBreakRegex.Replace(baseMessage, "<br />");
                 lines = lines.Select(x => WebUtility.HtmlEncode(x)).ToList();
             }
 
