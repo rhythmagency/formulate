@@ -174,6 +174,20 @@
             Handler.HandleForm(context, config);
         }
 
+        /// <summary>
+        /// Creates a new copy of this form handler. Similar to cloning, but some
+        /// properties are not copied to avoid sharing instance data.
+        /// </summary>
+        /// <returns>
+        /// The fresh copy of this form handler.
+        /// </returns>
+        public IFormHandler GetFreshCopy()
+        {
+            var copy = MemberwiseClone() as FormHandler<T>;
+            copy.Handler = default(T);
+            return copy;
+        }
+
         #endregion
 
     }

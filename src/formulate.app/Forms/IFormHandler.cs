@@ -23,6 +23,7 @@
         object DeserializeConfiguration();
         void PrepareHandleForm(FormSubmissionContext context);
         void HandleForm(FormSubmissionContext context);
+        IFormHandler GetFreshCopy();
     }
 
 }
