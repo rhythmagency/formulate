@@ -2,10 +2,13 @@
 {
 
     // Namespaces.
+    using CollectionBuilders;
+    using Newtonsoft.Json;
     using System;
     using System.ComponentModel;
-
-    using Newtonsoft.Json;
+    using System.Linq;
+    using Umbraco.Core;
+    using Current = Umbraco.Web.Composing.Current;
 
     /// <summary>
     /// Stores information about a form handler.
@@ -152,6 +155,21 @@
             var config = DeserializeConfiguration();
 
             Handler.HandleForm(context, config);
+        }
+
+        /// <summary>
+        /// Creates a new copy of this form handler. Similar to cloning, but some
+        /// properties are not copied to avoid sharing instance data.
+        /// </summary>
+        /// <returns>
+        /// The fresh copy of this form handler.
+        /// </returns>
+        public IFormHandler GetFreshCopy()
+        {
+            var copy = MemberwiseClone() as FormHandler;
+            var FormHandlerTypes = Current.Factory.GetInstance<FormHandlerTypeCollection>();
+            copy.Handler = FormHandlerTypes.FirstOrDefault(x => x.TypeId == Handler.TypeId);
+            return copy;
         }
 
         #endregion

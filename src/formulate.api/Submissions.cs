@@ -221,12 +221,17 @@
             }
 
 
+            // Get a fresh instance of each handler (this is to avoid any cross-threading issues
+            // with multiple threads sharing data).
+            var enabledHandlers = form.Handlers
+                .Where(x => x.Enabled)
+                .Select(x => x.GetFreshCopy())
+                .ToArray();
+
+
             // Prepare the form handlers.
             // This occurs on the current thread in case the handler needs information
             // only available in the current thread.
-            var enabledHandlers = form.Handlers
-                .Where(x => x.Enabled)
-                .ToArray();
             try
             {
                 foreach (var handler in enabledHandlers)
