@@ -30,6 +30,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
     };
 
     // Set scope variables.
+    $scope.saveButtonState = "init";
     $scope.dataValueId = id;
     $scope.info = {
         dataValueName: null,
@@ -81,6 +82,9 @@ function getSaveDataValue(services) {
         var $scope = services.$scope;
         var parentId = getParentId($scope);
 
+        // Update button state.
+        $scope.saveButtonState = "busy";
+
         // Get data value data.
         var dataValueData = {
             parentId: parentId,
@@ -98,6 +102,9 @@ function getSaveDataValue(services) {
                 // Data value is no longer new.
                 var isNew = $scope.isNew;
                 $scope.isNew = false;
+
+                // Update button state.
+                $scope.saveButtonState = "success";
 
                 // Redirect or reload page.
                 if (isNew) {
