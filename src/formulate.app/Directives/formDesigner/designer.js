@@ -186,7 +186,7 @@ function getSaveForm(services) {
         var handlers = $scope.handlers;
         var parentId = getParentId($scope);
 
-        // Update scope.
+        // Update button state.
         $scope.saveButtonState = "busy";
 
         // Get form data.
@@ -206,7 +206,7 @@ function getSaveForm(services) {
                 // Variables.
                 var isNew = $scope.isNew;
 
-                // Update scope.
+                // Update button state.
                 $scope.saveButtonState = "success";
 
                 // Prevent "discard" notification.
