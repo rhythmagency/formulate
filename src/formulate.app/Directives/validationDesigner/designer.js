@@ -29,6 +29,7 @@ function controller($scope, $routeParams, $route, formulateValidations,
     };
 
     // Set scope variables.
+    $scope.saveButtonState = "init";
     $scope.validationId = id;
     $scope.info = {
         validationName: null,
@@ -79,6 +80,9 @@ function getSaveValidation(services) {
         var $scope = services.$scope;
         var parentId = getParentId($scope);
 
+        // Update button state.
+        $scope.saveButtonState = "busy";
+
         // Get validation data.
         var validationData = {
             parentId: parentId,
@@ -96,6 +100,9 @@ function getSaveValidation(services) {
                 // Validation is no longer new.
                 var isNew = $scope.isNew;
                 $scope.isNew = false;
+
+                // Update button state.
+                $scope.saveButtonState = "success";
 
                 // Redirect or reload page.
                 if (isNew) {
