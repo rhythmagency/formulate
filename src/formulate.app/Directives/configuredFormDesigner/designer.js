@@ -37,6 +37,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
     };
 
     // Set scope variables.
+    $scope.saveButtonState = "init";
     $scope.isNew = isNew;
     $scope.info = {
         conFormName: null
@@ -110,6 +111,9 @@ function getSaveConfiguredForm(services) {
         var $scope = services.$scope;
         var parentId = getParentId($scope);
 
+        // Update button state.
+        $scope.saveButtonState = "busy";
+
         // Get configured form data.
         var conFormData = {
             parentId: parentId,
@@ -126,6 +130,9 @@ function getSaveConfiguredForm(services) {
                 // Configured form is no longer new.
                 var isNew = $scope.isNew;
                 $scope.isNew = false;
+
+                // Update button state.
+                $scope.saveButtonState = "success";
 
                 // Prevent "discard" notification.
                 $scope.formulateConfiguredFormDesigner.$dirty = false;
