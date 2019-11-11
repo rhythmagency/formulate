@@ -143,7 +143,8 @@
             // Return result.
             return Json(new
             {
-                Success = result.Success
+                Success = result.Success,
+                ValidationErrors = result.ValidationErrors
             });
 
         }

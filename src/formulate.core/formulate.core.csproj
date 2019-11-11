@@ -60,6 +60,8 @@
     <Compile Include="Types\SubmissionOptions.cs" />
     <Compile Include="Types\SubmissionResult.cs" />
     <Compile Include="Types\ValidationDefinition.cs" />
+    <Compile Include="Types\ValidationError.cs" />
+    <Compile Include="Types\ValidationErrorMessage.cs" />
     <Compile Include="Types\ValueAndLabel.cs" />
     <Compile Include="Utilities\DateUtility.cs" />
     <Compile Include="Utilities\FileUtility.cs" />

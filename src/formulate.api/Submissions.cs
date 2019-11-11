@@ -6,6 +6,7 @@
     using app.Persistence;
     using app.Validations;
     using core.Types;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -113,6 +114,8 @@
             FormRequestContext context)
         {
 
+            var validationErrors = new List<ValidationError>();
+            
             // Is the form ID valid?
             var form = Forms.Retrieve(formId);
             if (form == null)
@@ -162,15 +165,17 @@
                 var fieldId = field.Id;
                 var value = data.Where(x => x.FieldId == fieldId)
                     .SelectMany(x => x.FieldValues);
+                
+                // this is hardcoded as "true" for everything but recaptcha
                 if (!field.IsValid(value))
                 {
-                    return new SubmissionResult()
+                    validationErrors.Add(new ValidationError
                     {
-                        Success = false
-                    };
+                        Field = field.Name,
+                        Messages = new List<string>{"Recaptcha failed"}
+                    });
                 }
             }
-
 
             // Validate?
             if (options.Validate)
@@ -211,15 +216,36 @@
                             .IsValueValid(dataValues, fileValues, validationContext);
                         if (!isValid)
                         {
-                            return new SubmissionResult()
+                            var fieldError = validationErrors.FirstOrDefault(x => x.Field == field.Name);
+
+                            if(fieldError == null)
                             {
-                                Success = false
-                            };
+                                validationErrors.Add(new ValidationError
+                                {
+                                    Field = field.Name,
+                                    Messages = new List<string>
+                                    {
+                                        JsonConvert.DeserializeObject<ValidationErrorMessage>(validation.Data)?.Message
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                fieldError.Messages.Add(JsonConvert.DeserializeObject<ValidationErrorMessage>(validation.Data)?.Message);
+                            }
                         }
                     }
                 }
             }
 
+            if (validationErrors.Any())
+            {
+                return new SubmissionResult()
+                {
+                    Success = false,
+                    ValidationErrors = validationErrors
+                };
+            }
 
             // Get a fresh instance of each handler (this is to avoid any cross-threading issues
             // with multiple threads sharing data).
