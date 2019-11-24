@@ -1,47 +1,47 @@
 ﻿{
-  "Version": "", 
-  "Persistence": {
-    "JsonBasePath": "~/App_Data/Formulate/Json/",
-    "FileStorageBasePath": "~/App_Data/Formulate/FileStorage/Files/"
-  },
-  "Templates": [
-    {
-      "Id": "0088536F694C4C4E949EBF6B91D32B59",
-      "Name": "Responsive",
-      "Path": "~/Views/Partials/Formulate/Responsive.Bootstrap.Angular.cshtml"
+    "Version": "",
+    "Persistence": {
+        "JsonBasePath": "~/App_Data/Formulate/Json/",
+        "FileStorageBasePath": "~/App_Data/Formulate/FileStorage/Files/"
     },
-    {
-      "Id": "F3FB1485C1D14806B4190D7ABDE39530",
-      "Name": "Responsive (Plain JavaScript)",
-      "Path": "~/Views/Partials/Formulate/Responsive.Plain JavaScript.cshtml"
-    }
-  ],
-  "Buttons": [
-    { "Kind": "Submit" },
-    { "Kind": "Previous" },
-    { "Kind": "Next" }
-  ],
-  "Email": {
-    "Headers": [],
-    "Whitelist": {
-      "Enabled": true,
-      "AllowedEmails": [
+    "Templates": [
         {
-          "Email": "person@domain.com"
+            "Id": "0088536F694C4C4E949EBF6B91D32B59",
+            "Name": "Responsive",
+            "Path": "~/Views/Partials/Formulate/Responsive.Bootstrap.Angular.cshtml"
         },
         {
-          "Domain": "site.com"
+            "Id": "F3FB1485C1D14806B4190D7ABDE39530",
+            "Name": "Responsive (Plain JavaScript)",
+            "Path": "~/Views/Partials/Formulate/Responsive.Plain JavaScript.cshtml"
         }
-      ]
-    }
-  },
-  "Submissions": {
-    "EnableServerSideValidation": true
-  },
-  "FieldCategories": [
-    {
-      "Kind": "Standard",
-      "Group": "General"
-    }
-  ]
+    ],
+    "Buttons": [
+        { "Kind": "Submit" },
+        { "Kind": "Previous" },
+        { "Kind": "Next" }
+    ],
+    "Email": {
+        "Headers": [],
+        "Whitelist": {
+            "Enabled": true,
+            "AllowedEmails": [
+                {
+                    "Email": "person@domain.com"
+                },
+                {
+                    "Domain": "site.com"
+                }
+            ]
+        }
+    },
+    "Submissions": {
+        "EnableServerSideValidation": true
+    },
+    "FieldCategories": [
+        {
+            "Kind": "Standard",
+            "Group": "General"
+        }
+    ]
 }
