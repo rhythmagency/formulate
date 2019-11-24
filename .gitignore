@@ -49,9 +49,35 @@ frontendDocs/
 #**/Website/Views/*
 **/Website/Views/Partials/Grid/*
 #TODO: Review these.
+**/Website/Media/
 #**/Website/App_Data/Umbraco.sdf
 #**/Website/App_Data/cache/
 **/Website/App_Data/Formulate/
+**/Website/App_Data/TEMP/TypesCache/
+**/Website/App_Data/packages/
+**/Website/App_Data/TEMP/ClientDependency/
+**/Website/App_Data/TEMP/DistCache/
+**/Website/App_Data/TEMP/ExamineIndexes/
+**/Website/App_Data/TEMP/NuCache/
+**/Website/App_Data/Logs/
+**/Website/App_Data/Umbraco.sdf
+**/Website/App_Data/cache/
+**/Website/App_Data/Models/
+**/Website/App_Plugins/formulate/*.js
+**/Website/App_Plugins/formulate/*.css
+**/Website/App_Plugins/formulate/*.manifest
+**/Website/App_Plugins/formulate/backoffice/formulate/
+**/Website/App_Plugins/formulate/dashboards/
+**/Website/App_Plugins/formulate/dialogs/
+**/Website/App_Plugins/formulate/fonts/icomoon/
+**/Website/App_Plugins/formulate/Lang/
+**/Website/App_Plugins/formulate/editors/
+**/Website/App_Plugins/formulate/menu-actions/
+**/Website/App_Plugins/OsmMaps/
+**/Website/App_Plugins/StarterKit/
+**/Website/css/
+**/Website/scripts/
+**/Website/Views/
 
 #TODO: Review these.
 # Generated config files.
