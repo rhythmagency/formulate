@@ -7,26 +7,18 @@ title: Rendering a Form Using Formulate's Plain JavaScript Template
 
 Note that this page only applies to the plain JavaScript template (i.e., it does not apply to the AngularJS template).
 
+Also, this applies to Umbraco 8. For the Umbraco 7 version, go here: https://github.com/rhythmagency/formulate/blob/a0b705a71a6a9034e1041d7c8d08ee4a748a6359/plain-javascript/render-form.md
+
 # Form Rendering
+
 Once you've gone through the trouble of installing Formulate, creating a form, and modifying a document type to pick a form,
 the final step is to render that form to HTML on your website.
 
-You can render your picked form like this (this assumes the form picker property is called "myFormPicker"):
+You can render your picked form like this (this assumes the document type is called "Contact" and the form picker property is called "My Form"):
 
 ```csharp
-@using formulate.app.Types
-@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
-@{
-
-    // Boilerplate.
-    Layout = null;
-
-    // Get a view model for the picked form.
-    var pickedForm = Model.Content.GetPropertyValue<ConfiguredFormInfo>("myFormPicker");
-    var vm = formulate.api.Rendering.GetFormViewModel(pickedForm.FormId, pickedForm.LayoutId,
-        pickedForm.TemplateId, Model.Content);
-
-}<!doctype html>
+@inherits UmbracoViewPage<Contact>
+<!doctype html>
 
 <html>
 <head>
@@ -38,7 +30,7 @@ You can render your picked form like this (this assumes the form picker property
     <div class="formulate-wrapper">
 
         @* Render the form. *@
-        @Html.Partial("~/Views/Partials/Formulate/RenderForm.cshtml", vm)
+        @Html.Action("Render", "FormulateRendering", new { form = Model.MyForm })
 
     </div>
 
