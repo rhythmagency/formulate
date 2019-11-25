@@ -7,7 +7,7 @@ title: Rendering a Form Using Formulate's Plain JavaScript Template
 
 Note that this page only applies to the plain JavaScript template (i.e., it does not apply to the AngularJS template).
 
-Also, this applies to Umbraco 8. For the Umbraco 7 version, go here: https://github.com/rhythmagency/formulate/blob/a0b705a71a6a9034e1041d7c8d08ee4a748a6359/plain-javascript/render-form.md
+Also, this applies to Umbraco 8. For the Umbraco 7 version, go here: [github.com/.../plain-javascript/render-form.md](https://github.com/rhythmagency/formulate/blob/a0b705a71a6a9034e1041d7c8d08ee4a748a6359/plain-javascript/render-form.md)
 
 # Form Rendering
 
