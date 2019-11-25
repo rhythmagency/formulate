@@ -14,8 +14,21 @@
             </localize>
         </button>
 
+        <!-- Checkbox for "Autopopulate?" -->
+        <div class="formulate-autopopulate-layout-checkbox">
+            <label>
+                <input type="checkbox" ng-model="data.autopopulate" />
+                Autopopulate?
+                <small>
+                    Should the layout be automatically populated from the fields in the
+                    form? This is more convenient, but gives you less control over the
+                    layout (e.g., splitting the fields into rows and columns).
+                </small>
+            </label>
+        </div>
+
         <!-- Add row section. -->
-        <div class="formulate-add-row-section">
+        <div class="formulate-add-row-section" ng-if="!data.autopopulate">
 
             <!-- Add row instructions. -->
             <p>
@@ -49,7 +62,7 @@
         </div>
 
     </div>
-    <h2>
+    <h2 ng-if="!data.autopopulate">
         <localize key="formulate-headers_Layout">
             Layout
         </localize>
@@ -59,7 +72,7 @@
             </localize>
         </small>
     </h2>
-    <div ui-sortable="rowsSortableOptions" ng-model="rows">
+    <div ui-sortable="rowsSortableOptions" ng-model="rows" ng-if="!data.autopopulate">
         <div ng-repeat="(rowIndex, row) in rows" class="row">
             <div ng-repeat="cell in row.cells" ng-class="getCellClass(row, cell)">
 
@@ -87,7 +100,7 @@
             </div>
         </div>
     </div>
-    <div>
+    <div ng-if="!data.autopopulate">
         <h2>
             <localize key="formulate-headers_Unused Fields">
                 Unused Fields
