@@ -11,7 +11,6 @@
     using System.Web.Http;
     using Umbraco.Core;
     using Umbraco.Core.Logging;
-    using Umbraco.Web;
     using Umbraco.Web.Editors;
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
