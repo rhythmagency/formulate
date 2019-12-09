@@ -166,13 +166,12 @@
                 var value = data.Where(x => x.FieldId == fieldId)
                     .SelectMany(x => x.FieldValues);
                 
-                // this is hardcoded as "true" for everything but recaptcha
                 if (!field.IsValid(value))
                 {
                     validationErrors.Add(new ValidationError
                     {
                         Field = field.Name,
-                        Messages = new List<string>{"Recaptcha failed"}
+                        Messages = new List<string>{field.GetNativeFieldValidationMessage()}
                     });
                 }
             }

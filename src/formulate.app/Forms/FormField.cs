@@ -231,6 +231,17 @@
             }
         }
 
+        /// <summary>
+        /// Creates a generic validation message for IsValid method.
+        /// </summary>
+        /// <returns>
+        /// A generic validation error message.
+        /// </returns>
+        public string GetNativeFieldValidationMessage()
+        {
+            return "Invalid value for this field.";
+        }
+
         #endregion
     }
 }
