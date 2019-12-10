@@ -47,6 +47,17 @@
         /// </summary>
         bool IsStored { get; }
 
+
+        /// <summary>
+        /// Returns a validation message that is shown for fields that have validation
+        /// built in (i.e., rather than relying on the messages specific to validations
+        /// that can be attached to any field).
+        /// </summary>
+        /// <returns>
+        /// The validation error message.
+        /// </returns>
+        string GetNativeFieldValidationMessage();
+
     }
 
 }

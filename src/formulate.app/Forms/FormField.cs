@@ -239,7 +239,15 @@
         /// </returns>
         public string GetNativeFieldValidationMessage()
         {
-            return "Invalid value for this field.";
+            if (FormFieldType is IFormFieldTypeExtended)
+            {
+                var casted = FormFieldType as IFormFieldTypeExtended;
+                return casted.GetNativeFieldValidationMessage();
+            }
+            else
+            {
+                return "Invalid value for this field.";
+            }
         }
 
         #endregion

@@ -25,5 +25,14 @@
         {
             return true;
         }
+
+        /// <summary>
+        /// Returns null (part of the interface, but not required for this field type).
+        /// </summary>
+        /// <returns>
+        /// Null.
+        /// </returns>
+        public string GetNativeFieldValidationMessage() => null;
+
     }
 }

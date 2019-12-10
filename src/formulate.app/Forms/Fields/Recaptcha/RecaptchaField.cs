@@ -41,5 +41,17 @@
             var validResponse = (decoded.success.Value as bool?).GetValueOrDefault(false);
             return validResponse;
         }
+
+        /// <summary>
+        /// Returns the validation message that is native to this field.
+        /// </summary>
+        /// <returns>
+        /// The validation error message.
+        /// </returns>
+        public string GetNativeFieldValidationMessage()
+        {
+            return "Recaptcha failed.";
+        }
+
     }
 }
