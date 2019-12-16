@@ -74,7 +74,8 @@
         {
             var version = GetConfiguredVersion();
             var isNewInstall = string.IsNullOrWhiteSpace(version);
-            var isDifferentVersion = (!isNewInstall && meta.Constants.Version.InvariantEquals(version)) == false;
+            var versionNumbersMatch = meta.Constants.Version.InvariantEquals(version);
+            var isDifferentVersion = !isNewInstall && !versionNumbersMatch;
 
             if (isNewInstall)
             {
