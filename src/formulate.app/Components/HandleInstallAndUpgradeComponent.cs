@@ -193,6 +193,7 @@
                     using (var file = File.CreateText(mappedPath))
                     {
                         var serializer = new JsonSerializer();
+                        serializer.Formatting = Formatting.Indented;
                         serializer.Serialize(file, config);
 
                         Logger.Info<HandleInstallAndUpgradeComponent>($"Updated configured Formulate version to {config.Version}.");
