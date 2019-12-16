@@ -3,6 +3,7 @@
 
     //  Namespaces.
     using app.Forms;
+    using app.Helpers;
     using app.Persistence;
     using app.Validations;
     using core.Types;
@@ -10,9 +11,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading;
     using System.Threading.Tasks;
-
     using Umbraco.Core.Logging;
 
 
@@ -165,12 +164,13 @@
                 var fieldId = field.Id;
                 var value = data.Where(x => x.FieldId == fieldId)
                     .SelectMany(x => x.FieldValues);
-                
+
                 if (!field.IsValid(value))
                 {
                     validationErrors.Add(new ValidationError
                     {
-                        Field = field.Name,
+                        FieldName = field.Name,
+                        FieldId = GuidHelper.GetString(field.Id),
                         Messages = new List<string>{field.GetNativeFieldValidationMessage()}
                     });
                 }
@@ -191,6 +191,7 @@
                 }).ToDictionary(x => x.Id, x => x.Values);
                 foreach (var field in form.Fields)
                 {
+                    var fieldId = GuidHelper.GetString(field.Id);
                     var validations = field.Validations
                         .Select(x => Validations.Retrieve(x))
                         .ToList();
@@ -215,13 +216,14 @@
                             .IsValueValid(dataValues, fileValues, validationContext);
                         if (!isValid)
                         {
-                            var fieldError = validationErrors.FirstOrDefault(x => x.Field == field.Name);
+                            var fieldError = validationErrors.FirstOrDefault(x => x.FieldId == fieldId);
 
                             if(fieldError == null)
                             {
                                 validationErrors.Add(new ValidationError
                                 {
-                                    Field = field.Name,
+                                    FieldName = field.Name,
+                                    FieldId = GuidHelper.GetString(field.Id),
                                     Messages = new List<string>
                                     {
                                         JsonConvert.DeserializeObject<ValidationErrorMessage>(validation.Data)?.Message

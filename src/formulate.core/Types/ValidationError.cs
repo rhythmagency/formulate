@@ -9,7 +9,8 @@
     /// </summary>
     public class ValidationError
     {
-        public string Field { get; set; }
+        public string FieldName { get; set; }
+        public string FieldId { get; set; }
         public List<string> Messages { get; set; }
     }
 }
