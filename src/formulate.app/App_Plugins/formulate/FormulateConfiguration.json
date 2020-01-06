@@ -24,7 +24,7 @@
     "Email": {
         "Headers": [],
         "Whitelist": {
-            "Enabled": true,
+            "Enabled": false,
             "AllowedEmails": [
                 {
                     "Email": "person@domain.com"
