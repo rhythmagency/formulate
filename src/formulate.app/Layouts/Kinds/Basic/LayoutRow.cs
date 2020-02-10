@@ -14,6 +14,12 @@
         #region Properties
 
         /// <summary>
+        /// Is this a row that starts a new step in the layout?
+        /// </summary>
+        public bool IsStep { get; set; }
+
+
+        /// <summary>
         /// The cells in this row.
         /// </summary>
         public IEnumerable<LayoutCell> Cells { get; set; }

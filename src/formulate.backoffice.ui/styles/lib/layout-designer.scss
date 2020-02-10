@@ -122,3 +122,37 @@
 .formulate-autopopulate-layout-checkbox {
     margin-top: 20px;
 }
+
+.formulate-step-divider {
+    position: relative;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 34px;
+    margin-bottom: 10px;
+}
+
+.formulate-step-divider:before {
+    display: block;
+    content: "";
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 2px dashed $grey-dark;
+}
+
+.formulate-step-divider__contents {
+    background-color: #f6f4f4;//TODO: Variable.
+    padding-left: 10px;
+    padding-right: 10px;
+    display: inline-block;
+    position: relative;
+    font-weight: bold;
+}
+
+button.formulate-step-divider__delete {
+    margin-left: 5px;
+    padding: 2px 7px;
+}

@@ -74,30 +74,50 @@
     </h2>
     <div ui-sortable="rowsSortableOptions" ng-model="rows" ng-if="!data.autopopulate">
         <div ng-repeat="(rowIndex, row) in rows" class="row">
-            <div ng-repeat="cell in row.cells" ng-class="getCellClass(row, cell)">
 
-                <!-- Show full fields when editing fields. -->
-                <div ng-if="!editRows" class="formulate-cell" ui-sortable="fieldSortableOptions" ng-model="cell.fields">
-                    <div ng-repeat="field in cell.fields" class="formulate-cell-field">
-                        {{field.name}}
+            <!-- Loop over cells if this is a row with cells. -->
+            <div ng-if="row.cells.length">
+                <div ng-repeat="cell in row.cells" ng-class="getCellClass(row, cell)">
+
+                    <!-- Show full fields when editing fields. -->
+                    <div ng-if="!editRows" class="formulate-cell" ui-sortable="fieldSortableOptions" ng-model="cell.fields">
+                        <div ng-repeat="field in cell.fields" class="formulate-cell-field">
+                            {{field.name}}
+                        </div>
                     </div>
-                </div>
 
-                <!-- Show field summaries when editing rows. -->
-                <div ng-if="editRows" class="formulate-cell editing-rows">
-                    <span ng-repeat="field in cell.fields" class="formulate-cell-field">
-                        <span class="formulate-cell-field-name">{{field.name}}</span>
-                    </span>
-                    <div>
-                        <button type="button" ng-click="deleteRow(rowIndex)" ng-if="$index === 0" class="btn btn-danger">
-                            <localize key="formulate-buttons_Delete Row">
-                                Delete Row
-                            </localize>
-                        </button>
+                    <!-- Show field summaries when editing rows. -->
+                    <div ng-if="editRows" class="formulate-cell editing-rows">
+                        <span ng-repeat="field in cell.fields" class="formulate-cell-field">
+                            <span class="formulate-cell-field-name">{{field.name}}</span>
+                        </span>
+                        <div>
+                            <button type="button" ng-click="deleteRow(rowIndex)" ng-if="$index === 0" class="btn btn-danger">
+                                <localize key="formulate-buttons_Delete Row">
+                                    Delete Row
+                                </localize>
+                            </button>
+                            <button type="button" ng-click="addStep(rowIndex)" ng-if="$index === 0" class="btn btn-success">
+                                <localize key="formulate-buttons_Add Step">
+                                    Add Step
+                                </localize>
+                            </button>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
+
+            <!-- Display a divider for a step. -->
+            <div ng-if="row.isStep" class="formulate-step-divider">
+                <span class="formulate-step-divider__contents">
+                    Step #{{countStep(row)}}
+                    <button ng-if="editRows" type="button" ng-click="deleteRow(rowIndex)" class="btn btn-danger formulate-step-divider__delete" aria-label="Delete Row">
+                        X
+                    </button>
+                </span>
+            </div>
+
         </div>
     </div>
     <div ng-if="!data.autopopulate">

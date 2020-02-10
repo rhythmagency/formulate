@@ -44,6 +44,7 @@ function controller($scope, formulateForms, editorService, notificationsService)
     $scope.rowsSortableOptions = getRowSortableOptions();
     $scope.getCellClass = getGetCellClass();
     $scope.deleteRow = getDeleteRow(services);
+    $scope.addStep = getAddStep(services);
     $scope.addRow = getAddRow(services);
     $scope.pickForm = getPickForm(services);
     $scope.getSampleCellClasses = getGetSampleCellClasses();
@@ -51,6 +52,7 @@ function controller($scope, formulateForms, editorService, notificationsService)
     $scope.sampleCells = getSampleCells();
     $scope.useField = getUseField(services);
     $scope.toggleEditRows = getToggleEditRows(services);
+    $scope.countStep = getCountStep(services);
 
     // Initialize watchers.
     watchEditRowsSetting(services);
@@ -183,6 +185,19 @@ function getDeleteRow(services) {
     };
 }
 
+// Returns a function that adds a step at the row at the specified index.
+function getAddStep(services) {
+    var $scope = services.$scope;
+    return function (index) {
+        var newRow = {
+            isStep: true,
+            cells: []
+        };
+        $scope.rows.splice(index + 1, 0, newRow);
+        replenishFields($scope);
+    };
+}
+
 // Returns a function that adds a row based on the specified sample cells.
 function getAddRow(services) {
     var $scope = services.$scope;
@@ -253,6 +268,24 @@ function getPickForm(services) {
     };
 }
 
+// Returns the function that returns the step number for the specified step.
+function getCountStep(services) {
+    var $scope = services.$scope;
+    return function (stepRow) {
+        var stepNum = 1, currentRow, i;
+        for (i = 0; i < $scope.rows.length; i++) {
+            currentRow = $scope.rows[i];
+            if (currentRow.isStep) {
+                stepNum++;
+            }
+            if (currentRow === stepRow) {
+                return stepNum;
+            }
+        }
+        return stepNum;
+    };
+}
+
 // Watches the "Edit Rows" setting to enable/disable sorting.
 function watchEditRowsSetting(services) {
     var $scope = services.$scope;
@@ -279,6 +312,9 @@ function refreshDataRows(rows, services) {
         var dataRow = {
             cells: []
         };
+        if (row.isStep) {
+            dataRow.isStep = true;
+        }
         dataRows.push(dataRow);
         for (var j = 0; j < row.cells.length; j++) {
             var cell = row.cells[j];

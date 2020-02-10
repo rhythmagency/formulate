@@ -8,13 +8,16 @@
 function renderForms(forms, fieldRenderers, fieldValidators) {
 
     // Variables.
-    let i, form, formId, placeholderElement, formElement, formContainer, fields;
+    let i, form, formId, placeholderElement, formElement, formContainer, fields, formState;
 
     // Process each form.
     for (i = 0; i < forms.length; i++) {
 
         // Variables.
         form = forms[i];
+        formState = {
+            stepIndex: 0
+        };
 
         // Create the form DOM element.
         formElement = document.createElement("form");
@@ -35,7 +38,7 @@ function renderForms(forms, fieldRenderers, fieldValidators) {
         formContainer.removeChild(placeholderElement);
 
         // Handle submits.
-        attachSubmitHandler(formElement, fields, form.data.payload, form.data.url);
+        attachSubmitHandler(formState, formElement, fields, form.data.payload, form.data.url);
 
     }
 
@@ -43,12 +46,13 @@ function renderForms(forms, fieldRenderers, fieldValidators) {
 
 /**
  * Attaches the function that handles the submit event.
+ * @param formState {Object} Information about the current state of the form.
  * @param form {HTMLFormElement} The HTML form DOM element.
  * @param fields {Array} The fields in this form.
  * @param payload {Object} The additional data to send with the submission.
  * @param url {string} The URL to send the submission to.
  */
-function attachSubmitHandler(form, fields, payload, url) {
+function attachSubmitHandler(formState, form, fields, payload, url) {
 
     // Variables.
     let validationData;
@@ -97,6 +101,38 @@ function attachSubmitHandler(form, fields, payload, url) {
             });
 
     }, true);
+
+    // Listen for the event that occurs when navigating to the previous step in the form.
+    form.addEventListener("formulate: submit: previous", function () {
+        let i,
+            oldStepRows = form.querySelectorAll(".formulate__row--step-" + formState.stepIndex.toString()),
+            newStepRows = form.querySelectorAll(".formulate__row--step-" + (formState.stepIndex -1).toString());
+        formState.stepIndex--;
+        for (i = 0; i < oldStepRows.length; i++) {
+            oldStepRows[i].classList.remove("formulate__row--active");
+            oldStepRows[i].classList.add("formulate__row--inactive");
+        }
+        for (i = 0; i < newStepRows.length; i++) {
+            newStepRows[i].classList.remove("formulate__row--inactive");
+            newStepRows[i].classList.add("formulate__row--active");
+        }
+    });
+
+    // Listen for the event that occurs when navigating to the next step in the form.
+    form.addEventListener("formulate: submit: next", function () {
+        let i,
+            oldStepRows = form.querySelectorAll(".formulate__row--step-" + formState.stepIndex.toString()),
+            newStepRows = form.querySelectorAll(".formulate__row--step-" + (formState.stepIndex + 1).toString());
+        formState.stepIndex++;
+        for (i = 0; i < oldStepRows.length; i++) {
+            oldStepRows[i].classList.remove("formulate__row--active");
+            oldStepRows[i].classList.add("formulate__row--inactive");
+        }
+        for (i = 0; i < newStepRows.length; i++) {
+            newStepRows[i].classList.remove("formulate__row--inactive");
+            newStepRows[i].classList.add("formulate__row--active");
+        }
+    });
 
 }
 

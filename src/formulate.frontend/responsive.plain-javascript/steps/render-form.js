@@ -11,7 +11,7 @@ function renderForm(formData, formElement, placeholderElement, fieldRenderers, f
     // Variables.
     let i, j, k, row, rows, rowElement, cells, cell, fields, fieldId,
         columnCount, cellElement, fieldElement, fieldsData, fieldMap,
-        field, renderedFields, renderedField;
+        field, renderedFields, renderedField, stepIndex, isActiveStep;
 
     // Map fields to an associative array for quick lookups.
     fieldsData = formData.data.fields;
@@ -20,13 +20,21 @@ function renderForm(formData, formElement, placeholderElement, fieldRenderers, f
     // Process each row in the form.
     rows = formData.data.rows;
     renderedFields = [];
-    for(i = 0; i < rows.length; i++) {
+    isActiveStep = true;
+    stepIndex = 0;
+    for (i = 0; i < rows.length; i++) {
 
         // Create the row.
         row = rows[i];
         cells = row.cells;
-        rowElement = require("./render-row")();
-        formElement.appendChild(rowElement);
+        if (row.isStep) {
+            stepIndex++;
+            isActiveStep = false;
+            continue;
+        } else {
+            rowElement = require("./render-row")(stepIndex, isActiveStep);
+            formElement.appendChild(rowElement);
+        }
 
         // Process each cell in this row.
         for (j = 0; j < cells.length; j++) {

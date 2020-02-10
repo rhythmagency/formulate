@@ -185,6 +185,7 @@
     // Structure layout as an anonymous object suitable for serialization to JSON.
     var rowsData = layout.Rows.Select(x => new
     {
+        isStep = x.IsStep,
         cells = x.Cells.Select(y => new
         {
             columns = y.ColumnSpan,

@@ -297,6 +297,7 @@
     <key alias="Click to Add Row">Click to Add Row</key>
     <key alias="Create Layout">Create Layout</key>
     <key alias="Create Validation">Create Validation</key>
+    <key alias="Add Step">Add Step</key>
   </area>
   <area alias="formulate-header-descriptions">
     <key alias="Layout">Organize your fields into rows and columns.</key>
