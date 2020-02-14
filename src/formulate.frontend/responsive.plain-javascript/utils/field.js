@@ -1,3 +1,6 @@
+// Dependencies.
+let AddClasses = require("./add-classes");
+
 // Variables.
 let idCount = 0;
 
@@ -111,8 +114,11 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
 
     // Attach CSS classes.
     if (options.cssClasses) {
-        require("./add-classes")(wrapperElement, options.cssClasses);
+        AddClasses(wrapperElement, options.cssClasses);
     }
+    AddClasses(wrapperElement, Object.keys(fieldValidators).map(function (x) {
+        return "formulate__validation-type--" + x;
+    }));
 
     // Add placeholder?
     if (options.usePlaceholder !== false) {
