@@ -54,7 +54,8 @@ function renderForm(formData, formElement, placeholderElement, fieldRenderers, f
                 field = fieldMap[fieldId];
                 renderedField = require("./render-field")(field, fieldRenderers, fieldValidators, {
                     formElement: formElement,
-                    placeholderElement: placeholderElement
+                    placeholderElement: placeholderElement,
+                    stepIndex
                 });
                 renderedFields.push(renderedField);
                 fieldElement = renderedField.getElement();

@@ -12,9 +12,10 @@ let FieldUtility = require("../utils/field");
 function RenderButton(fieldData, fieldValidators, cssClasses, extraOptions) {
 
     // Initialize field.
+    this.buttonType = this.getTypeValue(fieldData.configuration.buttonKind);
     FieldUtility.initializeField(this, fieldData, fieldValidators, {
         nodeName: "button",
-        type: this.getTypeValue(fieldData.configuration.buttonKind),
+        type: this.buttonType,
         cssClasses: cssClasses,
         usePlaceholder: false,
         useLabel: false
@@ -22,6 +23,11 @@ function RenderButton(fieldData, fieldValidators, cssClasses, extraOptions) {
 
     // Add text to button.
     this.element.appendChild(document.createTextNode(fieldData.label));
+
+    // Disable submit button if this is a multi-step form.
+    if (extraOptions.stepIndex > 0) {
+        this.toggleSubmitButton(false);
+    }
 
     // Store instance variables.
     this.formElement = extraOptions.formElement;
@@ -33,6 +39,19 @@ function RenderButton(fieldData, fieldValidators, cssClasses, extraOptions) {
     this.listenForButtonClicks();
 
 }
+
+/**
+ * Toggle the disabled attribute on the submit button.
+ * @param enabled Should the button be enabled or disabled?
+ */
+RenderButton.prototype.toggleSubmitButton = function (enabled) {
+
+    // Only toggle the enabled state on the submit button.
+    if (this.buttonType === "submit") {
+        this.element.disabled = !enabled;
+    }
+
+};
 
 /**
  * Listen for previous/next button clicks.

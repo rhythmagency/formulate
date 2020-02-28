@@ -104,35 +104,78 @@ function attachSubmitHandler(formState, form, fields, payload, url) {
 
     // Listen for the event that occurs when navigating to the previous step in the form.
     form.addEventListener("formulate: submit: previous", function () {
-        let i,
-            oldStepRows = form.querySelectorAll(".formulate__row--step-" + formState.stepIndex.toString()),
-            newStepRows = form.querySelectorAll(".formulate__row--step-" + (formState.stepIndex -1).toString());
-        formState.stepIndex--;
-        for (i = 0; i < oldStepRows.length; i++) {
-            oldStepRows[i].classList.remove("formulate__row--active");
-            oldStepRows[i].classList.add("formulate__row--inactive");
-        }
-        for (i = 0; i < newStepRows.length; i++) {
-            newStepRows[i].classList.remove("formulate__row--inactive");
-            newStepRows[i].classList.add("formulate__row--active");
-        }
+        advanceFormStepInDom(form, formState, fields, -1);
     });
 
     // Listen for the event that occurs when navigating to the next step in the form.
     form.addEventListener("formulate: submit: next", function () {
-        let i,
-            oldStepRows = form.querySelectorAll(".formulate__row--step-" + formState.stepIndex.toString()),
-            newStepRows = form.querySelectorAll(".formulate__row--step-" + (formState.stepIndex + 1).toString());
-        formState.stepIndex++;
-        for (i = 0; i < oldStepRows.length; i++) {
-            oldStepRows[i].classList.remove("formulate__row--active");
-            oldStepRows[i].classList.add("formulate__row--inactive");
-        }
-        for (i = 0; i < newStepRows.length; i++) {
-            newStepRows[i].classList.remove("formulate__row--inactive");
-            newStepRows[i].classList.add("formulate__row--active");
-        }
+
+        // Get the fields for the current step (before advancing).
+        let currentFields = fields.filter(function (field) {
+            return field.stepIndex === formState.stepIndex;
+        });
+
+        // Check if the visible fields are valid.
+        checkValidity(form, currentFields)
+            .then(function (validationResult) {
+                if (validationResult.success) {
+
+                    // Dispatch event to indicate the validation succeeded for the current step
+                    validationData = {
+                        fields: currentFields,
+                        payload: payload
+                    };
+                    dispatchEvent("formulate: validation: next: success", form, validationData);
+
+                    // Show the next step in the DOM.
+                    advanceFormStepInDom(form, formState, fields, 1);
+
+                } else {
+
+                    // Validation failed.
+                    handleInvalidFields(validationResult.messages, form);
+
+                }
+            });
     });
+
+}
+
+/**
+ * Update the DOM to reflect the adjacent step.
+ * @param form The form element.
+ * @param formState The form state.
+ * @param allFields All the form fields.
+ * @param direction The direction to advance (1 for forward, -1 for backward).
+ */
+function advanceFormStepInDom(form, formState, allFields, direction) {
+
+    // Variables.
+    let i, field, enabled,
+        oldStepRows = form.querySelectorAll(".formulate__row--step-" + formState.stepIndex.toString()),
+        newStepRows = form.querySelectorAll(".formulate__row--step-" + (formState.stepIndex + direction).toString());
+
+    // Advance to adjacent step.
+    formState.stepIndex += direction;
+
+    // Update CSS classes on the active and inactive rows.
+    for (i = 0; i < oldStepRows.length; i++) {
+        oldStepRows[i].classList.remove("formulate__row--active");
+        oldStepRows[i].classList.add("formulate__row--inactive");
+    }
+    for (i = 0; i < newStepRows.length; i++) {
+        newStepRows[i].classList.remove("formulate__row--inactive");
+        newStepRows[i].classList.add("formulate__row--active");
+    }
+
+    // Enable/disable submit buttons, depending on if they are in the current step.
+    for (i = 0; i < allFields.length; i++) {
+        field = allFields[i];
+        enabled = field.stepIndex === formState.stepIndex;
+        if (field.toggleSubmitButton) {
+            field.toggleSubmitButton(enabled);
+        }
+    }
 
 }
 
