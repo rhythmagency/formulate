@@ -159,10 +159,10 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
                 labelElement.appendChild(fieldElement);
             }
         } else {
-            if (options.fieldBeforeLabelText || window.labelAfterTextInput) {
-                wrapperElement.insertBefore(fieldElement, wrapperElement.childNodes[0]);
-            } else {
+            if (options.fieldBeforeLabelText === false || window.labelAfterTextInput === false) {
                 wrapperElement.appendChild(fieldElement);
+            } else {
+                wrapperElement.insertBefore(fieldElement, wrapperElement.childNodes[wrapperElement.childNodes.length - 1]);
             }
         }
     }
