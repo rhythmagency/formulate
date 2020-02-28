@@ -76,6 +76,14 @@ setTimeout(function () {
                 validationListElement = null;
             });
 
+            // When proceeding to the next step in a multi-step form, clear any validation errors.
+            wrapper.addEventListener("formulate: validation: next: success", function () {
+                if (validationListElement) {
+                    validationListElement.parentNode.removeChild(validationListElement);
+                }
+                validationListElement = null;
+            });
+
             // When there is an error, show an alert dialog. Feel free to change this to something
             // that makes more sense for your project.
             wrapper.addEventListener("formulate form: submit: failure", function () {
