@@ -92,8 +92,13 @@ RenderButton.prototype.getTypeValue = function (buttonKind) {
 RenderButton.prototype.listenForFailureEvents = function () {
     let formElement = this.formElement,
         element = this.element,
-        handleError = function () {
-            element.disabled = false;
+        handleError = function (e) {
+
+            // Enable the button (unless this is a step in a multi-step form rather).
+            if (!e.detail.isStep) {
+                element.disabled = false;
+            }
+
         };
     formElement.addEventListener("formulate: submit: validation errors", handleError, true);
     formElement.addEventListener("formulate form: submit: failure", handleError, true);

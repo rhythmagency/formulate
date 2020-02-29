@@ -133,7 +133,7 @@ function attachSubmitHandler(formState, form, fields, payload, url) {
                 } else {
 
                     // Validation failed.
-                    handleInvalidFields(validationResult.messages, form);
+                    handleInvalidFields(validationResult.messages, form, true);
 
                 }
             });
@@ -183,10 +183,12 @@ function advanceFormStepInDom(form, formState, allFields, direction) {
  * Handles invalid fields by dispatching an event with the validation errors.
  * @param messages The messages for the validation errors.
  * @param form The form.
+ * @param isStep Is this a step in a multi-step form (rather than the final submit)?
  */
-function handleInvalidFields(messages, form) {
+function handleInvalidFields(messages, form, isStep) {
     dispatchEvent("formulate: submit: validation errors", form, {
-        messages: messages
+        messages: messages,
+        isStep: !!isStep
     });
 }
 
