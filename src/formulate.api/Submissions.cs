@@ -3,15 +3,15 @@
 
     //  Namespaces.
     using app.Forms;
+    using app.Helpers;
     using app.Persistence;
     using app.Validations;
     using core.Types;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading;
     using System.Threading.Tasks;
-
     using Umbraco.Core.Logging;
 
 
@@ -113,6 +113,8 @@
             FormRequestContext context)
         {
 
+            var validationErrors = new List<ValidationError>();
+            
             // Is the form ID valid?
             var form = Forms.Retrieve(formId);
             if (form == null)
@@ -162,15 +164,17 @@
                 var fieldId = field.Id;
                 var value = data.Where(x => x.FieldId == fieldId)
                     .SelectMany(x => x.FieldValues);
+
                 if (!field.IsValid(value))
                 {
-                    return new SubmissionResult()
+                    validationErrors.Add(new ValidationError
                     {
-                        Success = false
-                    };
+                        FieldName = field.Name,
+                        FieldId = GuidHelper.GetString(field.Id),
+                        Messages = new List<string>{field.GetNativeFieldValidationMessage()}
+                    });
                 }
             }
-
 
             // Validate?
             if (options.Validate)
@@ -187,6 +191,7 @@
                 }).ToDictionary(x => x.Id, x => x.Values);
                 foreach (var field in form.Fields)
                 {
+                    var fieldId = GuidHelper.GetString(field.Id);
                     var validations = field.Validations
                         .Select(x => Validations.Retrieve(x))
                         .ToList();
@@ -211,15 +216,37 @@
                             .IsValueValid(dataValues, fileValues, validationContext);
                         if (!isValid)
                         {
-                            return new SubmissionResult()
+                            var fieldError = validationErrors.FirstOrDefault(x => x.FieldId == fieldId);
+
+                            if(fieldError == null)
                             {
-                                Success = false
-                            };
+                                validationErrors.Add(new ValidationError
+                                {
+                                    FieldName = field.Name,
+                                    FieldId = GuidHelper.GetString(field.Id),
+                                    Messages = new List<string>
+                                    {
+                                        JsonConvert.DeserializeObject<ValidationErrorMessage>(validation.Data)?.Message
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                fieldError.Messages.Add(JsonConvert.DeserializeObject<ValidationErrorMessage>(validation.Data)?.Message);
+                            }
                         }
                     }
                 }
             }
 
+            if (validationErrors.Any())
+            {
+                return new SubmissionResult()
+                {
+                    Success = false,
+                    ValidationErrors = validationErrors
+                };
+            }
 
             // Get a fresh instance of each handler (this is to avoid any cross-threading issues
             // with multiple threads sharing data).

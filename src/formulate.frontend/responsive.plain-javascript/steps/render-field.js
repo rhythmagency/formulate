@@ -25,6 +25,9 @@ function renderField(fieldData, fieldRenderers, fieldValidators, extraOptions) {
     }
     renderResult = new renderer(fieldData, fieldValidators, cssClasses, extraOptions);
 
+    // Set the field step.
+    renderResult.stepIndex = extraOptions.stepIndex;
+
     // Return the rendered field (an object that has information about the rendered field).
     return renderResult;
 

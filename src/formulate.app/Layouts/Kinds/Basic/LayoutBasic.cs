@@ -82,6 +82,21 @@
             };
 
 
+            // Get the autopopulate value.
+            if (propertySet.Contains("autopopulate"))
+            {
+                var autopopulate = dynamicConfig.autopopulate.Value as bool?;
+                layout.Autopopulate = autopopulate.GetValueOrDefault();
+            }
+
+
+            // Get the form ID.
+            if (propertySet.Contains("formId"))
+            {
+                layout.FormId = GuidHelper.GetGuid(dynamicConfig.formId.Value as string);
+            }
+
+
             // Process each row?
             if (propertySet.Contains("rows"))
             {
@@ -89,10 +104,20 @@
                 {
 
                     // Variables.
+                    var castedRowData = rowData as JObject;
+                    var rowProperties = castedRowData.Properties().Select(x => x.Name);
+                    var rowPropertySet = new HashSet<string>(rowProperties);
                     var row = new LayoutRow();
                     var cells = new List<LayoutCell>();
                     row.Cells = cells;
                     rows.Add(row);
+
+
+                    // Is this a row that indicates a new step has started?
+                    if (rowPropertySet.Contains("isStep"))
+                    {
+                        row.IsStep = (rowData.isStep.Value as bool?).GetValueOrDefault();
+                    }
 
 
                     // Process each cell.
@@ -168,6 +193,10 @@
         [Obsolete("This will stick around for a while for forms created in older versions of Formulate.")]
         private void SetFallbackColumnSpans(List<LayoutCell> cells)
         {
+            if (cells.Count == 0)
+            {
+                return;
+            }
             var columnSpan = 12 / cells.Count;
             foreach (var cell in cells)
             {

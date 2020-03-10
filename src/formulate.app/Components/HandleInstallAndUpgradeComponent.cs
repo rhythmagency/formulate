@@ -74,7 +74,8 @@
         {
             var version = GetConfiguredVersion();
             var isNewInstall = string.IsNullOrWhiteSpace(version);
-            var isDifferentVersion = (isNewInstall && meta.Constants.Version.InvariantEquals(version)) == false;
+            var versionNumbersMatch = meta.Constants.Version.InvariantEquals(version);
+            var isDifferentVersion = !isNewInstall && !versionNumbersMatch;
 
             if (isNewInstall)
             {
@@ -193,6 +194,7 @@
                     using (var file = File.CreateText(mappedPath))
                     {
                         var serializer = new JsonSerializer();
+                        serializer.Formatting = Formatting.Indented;
                         serializer.Serialize(file, config);
 
                         Logger.Info<HandleInstallAndUpgradeComponent>($"Updated configured Formulate version to {config.Version}.");

@@ -3,16 +3,13 @@
 
     // Namespaces.
     using app.Managers;
+    using app.Persistence;
     using core.Types;
     using core.Utilities;
     using System;
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
-
-    using formulate.app.Persistence;
-
-    using Umbraco.Core.Models.PublishedContent;
     using Umbraco.Web.Mvc;
 
 
@@ -61,7 +58,7 @@
             var fileKeys = Request.Files.AllKeys;
             var formId = Guid.Parse(Request["FormId"]);
             var pageId = NumberUtility.AttemptParseInt(Request["PageId"]);
-            IPublishedContent pageNode = pageId.HasValue ? Umbraco.Content(pageId.Value) : null;
+            var pageNode = pageId.HasValue ? Umbraco.Content(pageId.Value) : null;
             var pageUrl = pageNode?.Url;
             var pageName = pageNode?.Name;
 
@@ -138,12 +135,14 @@
                 Validate = Config.EnableServerSideValidation
             };
 
-            var result = new Submissions(Forms, Validations, Logger).SubmitForm(formId, values, fileValues, payload, options, context);
+            var result = new Submissions(Forms, Validations, Logger)
+                .SubmitForm(formId, values, fileValues, payload, options, context);
 
             // Return result.
             return Json(new
             {
-                Success = result.Success
+                Success = result.Success,
+                ValidationErrors = result.ValidationErrors
             });
 
         }

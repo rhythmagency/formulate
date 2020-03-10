@@ -8,13 +8,16 @@
 function renderForms(forms, fieldRenderers, fieldValidators) {
 
     // Variables.
-    let i, form, formId, placeholderElement, formElement, formContainer, fields;
+    let i, form, formId, placeholderElement, formElement, formContainer, fields, formState;
 
     // Process each form.
     for (i = 0; i < forms.length; i++) {
 
         // Variables.
         form = forms[i];
+        formState = {
+            stepIndex: 0
+        };
 
         // Create the form DOM element.
         formElement = document.createElement("form");
@@ -35,7 +38,7 @@ function renderForms(forms, fieldRenderers, fieldValidators) {
         formContainer.removeChild(placeholderElement);
 
         // Handle submits.
-        attachSubmitHandler(formElement, fields, form.data.payload, form.data.url);
+        attachSubmitHandler(formState, formElement, fields, form.data.payload, form.data.url);
 
     }
 
@@ -43,12 +46,13 @@ function renderForms(forms, fieldRenderers, fieldValidators) {
 
 /**
  * Attaches the function that handles the submit event.
+ * @param formState {Object} Information about the current state of the form.
  * @param form {HTMLFormElement} The HTML form DOM element.
  * @param fields {Array} The fields in this form.
  * @param payload {Object} The additional data to send with the submission.
  * @param url {string} The URL to send the submission to.
  */
-function attachSubmitHandler(form, fields, payload, url) {
+function attachSubmitHandler(formState, form, fields, payload, url) {
 
     // Variables.
     let validationData;
@@ -98,16 +102,93 @@ function attachSubmitHandler(form, fields, payload, url) {
 
     }, true);
 
+    // Listen for the event that occurs when navigating to the previous step in the form.
+    form.addEventListener("formulate: submit: previous", function () {
+        advanceFormStepInDom(form, formState, fields, -1);
+    });
+
+    // Listen for the event that occurs when navigating to the next step in the form.
+    form.addEventListener("formulate: submit: next", function () {
+
+        // Get the fields for the current step (before advancing).
+        let currentFields = fields.filter(function (field) {
+            return field.stepIndex === formState.stepIndex;
+        });
+
+        // Check if the visible fields are valid.
+        checkValidity(form, currentFields)
+            .then(function (validationResult) {
+                if (validationResult.success) {
+
+                    // Dispatch event to indicate the validation succeeded for the current step
+                    validationData = {
+                        fields: currentFields,
+                        payload: payload
+                    };
+                    dispatchEvent("formulate: validation: next: success", form, validationData);
+
+                    // Show the next step in the DOM.
+                    advanceFormStepInDom(form, formState, fields, 1);
+
+                } else {
+
+                    // Validation failed.
+                    handleInvalidFields(validationResult.messages, form, true);
+
+                }
+            });
+    });
+
+}
+
+/**
+ * Update the DOM to reflect the adjacent step.
+ * @param form The form element.
+ * @param formState The form state.
+ * @param allFields All the form fields.
+ * @param direction The direction to advance (1 for forward, -1 for backward).
+ */
+function advanceFormStepInDom(form, formState, allFields, direction) {
+
+    // Variables.
+    let i, field, enabled,
+        oldStepRows = form.querySelectorAll(".formulate__row--step-" + formState.stepIndex.toString()),
+        newStepRows = form.querySelectorAll(".formulate__row--step-" + (formState.stepIndex + direction).toString());
+
+    // Advance to adjacent step.
+    formState.stepIndex += direction;
+
+    // Update CSS classes on the active and inactive rows.
+    for (i = 0; i < oldStepRows.length; i++) {
+        oldStepRows[i].classList.remove("formulate__row--active");
+        oldStepRows[i].classList.add("formulate__row--inactive");
+    }
+    for (i = 0; i < newStepRows.length; i++) {
+        newStepRows[i].classList.remove("formulate__row--inactive");
+        newStepRows[i].classList.add("formulate__row--active");
+    }
+
+    // Enable/disable submit buttons, depending on if they are in the current step.
+    for (i = 0; i < allFields.length; i++) {
+        field = allFields[i];
+        enabled = field.stepIndex === formState.stepIndex;
+        if (field.toggleSubmitButton) {
+            field.toggleSubmitButton(enabled);
+        }
+    }
+
 }
 
 /**
  * Handles invalid fields by dispatching an event with the validation errors.
  * @param messages The messages for the validation errors.
  * @param form The form.
+ * @param isStep Is this a step in a multi-step form (rather than the final submit)?
  */
-function handleInvalidFields(messages, form) {
+function handleInvalidFields(messages, form, isStep) {
     dispatchEvent("formulate: submit: validation errors", form, {
-        messages: messages
+        messages: messages,
+        isStep: !!isStep
     });
 }
 

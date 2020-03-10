@@ -231,6 +231,25 @@
             }
         }
 
+        /// <summary>
+        /// Creates a generic validation message for IsValid method.
+        /// </summary>
+        /// <returns>
+        /// A generic validation error message.
+        /// </returns>
+        public string GetNativeFieldValidationMessage()
+        {
+            if (FormFieldType is IFormFieldTypeExtended)
+            {
+                var casted = FormFieldType as IFormFieldTypeExtended;
+                return casted.GetNativeFieldValidationMessage();
+            }
+            else
+            {
+                return "Invalid value for this field.";
+            }
+        }
+
         #endregion
     }
 }

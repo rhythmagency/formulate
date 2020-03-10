@@ -4,24 +4,25 @@
     // Namespaces.
     using core.Extensions;
     using Forms;
+    using formulate.app.CollectionBuilders;
+    using formulate.app.Layouts.Kinds.Basic;
     using Helpers;
+    using Layouts;
     using Managers;
     using Models.Requests;
     using Persistence;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
-
-    using formulate.app.CollectionBuilders;
-
     using Umbraco.Core;
     using Umbraco.Core.Logging;
-    using Umbraco.Web;
     using Umbraco.Web.Editors;
     using Umbraco.Web.Mvc;
     using Umbraco.Web.WebApi.Filters;
     using CoreConstants = Umbraco.Core.Constants;
-    using FormConstants = formulate.app.Constants.Trees.Forms;
+    using FormConstants = Constants.Trees.Forms;
+    using LayoutConstants = Constants.Trees.Layouts;
 
 
     /// <summary>
@@ -50,6 +51,7 @@
         /// </summary>
         private IConfigurationManager Config { get; set; }
         private IFormPersistence Persistence { get; set; }
+        private ILayoutPersistence LayoutPersistence { get; set; }
         private IEntityPersistence Entities { get; set; }
         private IValidationPersistence Validations { get; set; }
         private IConfiguredFormPersistence ConFormPersistence { get; set; }
@@ -66,8 +68,15 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public FormsController(IFormPersistence formPersistence, IEntityPersistence entityPersistence, IValidationPersistence validationPersistence, IConfiguredFormPersistence configuredFormPersistence, IEntityHelper entityHelper, FormFieldTypeCollection formFieldTypeCollection, FormHandlerTypeCollection formHandlerTypeCollection) {
+        public FormsController(IConfigurationManager configurationManager, IFormPersistence formPersistence,
+            ILayoutPersistence layoutPersistence, IEntityPersistence entityPersistence,
+            IValidationPersistence validationPersistence, IConfiguredFormPersistence configuredFormPersistence,
+            IEntityHelper entityHelper, FormFieldTypeCollection formFieldTypeCollection,
+            FormHandlerTypeCollection formHandlerTypeCollection)
+        {
+            Config = configurationManager;
             Persistence = formPersistence;
+            LayoutPersistence = layoutPersistence;
             Entities = entityPersistence;
             Validations = validationPersistence;
             ConFormPersistence = configuredFormPersistence;
@@ -204,7 +213,8 @@
             {
 
                 // Parse or create the form ID.
-                var formId = string.IsNullOrWhiteSpace(request.FormId)
+                var isNew = string.IsNullOrWhiteSpace(request.FormId);
+                var formId = isNew
                     ? Guid.NewGuid()
                     : GuidHelper.GetGuid(request.FormId);
 
@@ -214,24 +224,22 @@
                     .Select(x =>
                     {
                         var fieldType = Type.GetType(x.TypeFullName);
-                        var fieldTypeInstance = FormFieldTypeCollection.FirstOrDefault(y => y.GetType() == fieldType);
+                        var fieldTypeInstance = FormFieldTypeCollection
+                            .FirstOrDefault(y => y.GetType() == fieldType);
 
                         var field = new FormField(fieldTypeInstance)
-                                        {
-                                            Id =
-                                                string.IsNullOrWhiteSpace(x.Id)
-                                                    ? Guid.NewGuid()
-                                                    : GuidHelper.GetGuid(x.Id),
-                                            Alias = x.Alias,
-                                            Name = x.Name,
-                                            Label = x.Label,
-                                            Category = x.Category,
-                                            Validations =
-                                                x.Validations.MakeSafe()
-                                                    .Select(y => GuidHelper.GetGuid(y)).ToArray(),
-                                            FieldConfiguration =
-                                                JsonHelper.Serialize(x.Configuration)
-                                        };
+                        {
+                            Id = string.IsNullOrWhiteSpace(x.Id)
+                                ? Guid.NewGuid()
+                                : GuidHelper.GetGuid(x.Id),
+                            Alias = x.Alias,
+                            Name = x.Name,
+                            Label = x.Label,
+                            Category = x.Category,
+                            Validations = x.Validations.MakeSafe()
+                                    .Select(y => GuidHelper.GetGuid(y)).ToArray(),
+                            FieldConfiguration = JsonHelper.Serialize(x.Configuration)
+                        };
                         return field;
                     })
                     .ToArray();
@@ -241,19 +249,19 @@
                 var handlers = request.Handlers.MakeSafe().Select(x =>
                 {
                     var handlerType = Type.GetType(x.TypeFullName);
-                    var handlerTypeInstance = FormHandlerTypeCollection.FirstOrDefault(y => y.GetType() == handlerType);
+                    var handlerTypeInstance = FormHandlerTypeCollection
+                        .FirstOrDefault(y => y.GetType() == handlerType);
 
                     var handler = new FormHandler(handlerTypeInstance)
-                                      {
-                                          Id = string.IsNullOrWhiteSpace(x.Id)
-                                                   ? Guid.NewGuid()
-                                                   : GuidHelper.GetGuid(x.Id),
-                                          Alias = x.Alias,
-                                          Name = x.Name,
-                                          Enabled = x.Enabled,
-                                          HandlerConfiguration =
-                                              JsonHelper.Serialize(x.Configuration)
-                                      };
+                    {
+                        Id = string.IsNullOrWhiteSpace(x.Id)
+                            ? Guid.NewGuid()
+                            : GuidHelper.GetGuid(x.Id),
+                        Alias = x.Alias,
+                        Name = x.Name,
+                        Enabled = x.Enabled,
+                        HandlerConfiguration = JsonHelper.Serialize(x.Configuration)
+                    };
 
                     return handler;
                 }).ToArray();
@@ -280,6 +288,104 @@
 
                 // Persist the form.
                 Persistence.Persist(form);
+
+
+                // For new forms, automatically create a layout and a form configuration.
+                var layoutNamePrefix = "Layout for ";
+                var layoutNameSuffix = " (Autogenerated)";
+                var layoutAliasPrefix = "layout_";
+                var layoutAliasSuffix = "_autogenerated";
+                var autoLayoutData = JsonHelper.Serialize(new
+                {
+                    rows = new[]
+                    {
+                        new
+                        {
+                            cells = new []
+                            {
+                                new
+                                {
+                                    columnSpan = 12,
+                                    fields = form.Fields.Select(x => new
+                                    {
+                                        id = GuidHelper.GetString(x.Id)
+                                    })
+                                }
+                            }
+                        }
+                    },
+                    formId = GuidHelper.GetString(form.Id),
+                    autopopulate = true
+                });
+                if (isNew)
+                {
+
+                    // Create new layout.
+                    var layoutId = Guid.NewGuid();
+                    var layout = new Layout()
+                    {
+                        KindId = GuidHelper.GetGuid(app.Constants.Layouts.LayoutBasic.Id),
+                        Id = layoutId,
+                        Path = new[] { GuidHelper.GetGuid(LayoutConstants.Id), layoutId },
+                        Name = layoutNamePrefix + request.Name + layoutNameSuffix,
+                        Alias = layoutAliasPrefix + request.Alias + layoutAliasSuffix,
+                        Data = autoLayoutData
+                    };
+
+
+                    // Persist layout.
+                    LayoutPersistence.Persist(layout);
+
+
+                    // Create a new form configuration.
+                    var plainJsTemplateId = GuidHelper.GetGuid("f3fb1485c1d14806b4190d7abde39530");
+                    var template = Config.Templates.FirstOrDefault(x => x.Id == plainJsTemplateId)
+                        ?? Config.Templates.FirstOrDefault();
+                    var configId = Guid.NewGuid();
+                    var configuredForm = new ConfiguredForm()
+                    {
+                        Id = configId,
+                        Path = path.Concat(new[] { configId }).ToArray(),
+                        Name = request.Name,
+                        TemplateId = template?.Id,
+                        LayoutId = layoutId
+                    };
+
+
+                    // Persist form configuration.
+                    ConFormPersistence.Persist(configuredForm);
+
+                }
+
+
+                // Get existing layouts that should autopopulate.
+                var layouts = GetFormLayouts(null)
+                    .Select(x => new
+                    {
+                        Layout = x,
+                        Configuration = x.DeserializeConfiguration() as LayoutBasicConfiguration
+                    })
+                    .Where(x => x.Configuration != null)
+                    .Where(x => x.Configuration.FormId.HasValue && x.Configuration.FormId.Value == formId)
+                    .Where(x => x.Configuration.Autopopulate);
+
+
+                //: Autopopulate the layouts.
+                foreach (var existingLayout in layouts)
+                {
+                    existingLayout.Layout.Data = autoLayoutData;
+                    var layoutName = existingLayout.Layout.Name ?? string.Empty;
+                    var layoutAlias = existingLayout.Layout.Alias ?? string.Empty;
+                    if (layoutName.StartsWith(layoutNamePrefix) && layoutName.EndsWith(layoutNameSuffix))
+                    {
+                        existingLayout.Layout.Name = layoutNamePrefix + form.Name + layoutNameSuffix;
+                    }
+                    if (layoutAlias.StartsWith(layoutAliasPrefix) && layoutAlias.EndsWith(layoutAliasSuffix))
+                    {
+                        existingLayout.Layout.Alias = layoutAliasPrefix + form.Name + layoutAliasSuffix;
+                    }
+                    LayoutPersistence.Persist(existingLayout.Layout);
+                }
 
 
                 // Success.
@@ -461,6 +567,34 @@
             // Return result.
             return result;
 
+        }
+
+        #endregion
+
+
+        #region Helper Methods
+
+        /// <summary>
+        /// Returns all the form layouts that are descendants of the specified layout ID.
+        /// </summary>
+        /// <param name="parentId">
+        /// The ID of the parent layout. If null, the search will start at the root.
+        /// </param>
+        /// <returns>
+        /// The descendants of the specified layout.
+        /// </returns>
+        private IEnumerable<Layout> GetFormLayouts(Guid? parentId)
+        {
+            var children = LayoutPersistence.RetrieveChildren(parentId);
+            foreach (var child in children)
+            {
+                var descendants = GetFormLayouts(child.Id);
+                yield return child;
+                foreach (var descendant in descendants)
+                {
+                    yield return descendant;
+                }
+            }
         }
 
         #endregion

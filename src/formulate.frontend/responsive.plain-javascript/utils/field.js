@@ -1,3 +1,6 @@
+// Dependencies.
+let AddClasses = require("./add-classes");
+
 // Variables.
 let idCount = 0;
 
@@ -111,8 +114,11 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
 
     // Attach CSS classes.
     if (options.cssClasses) {
-        require("./add-classes")(wrapperElement, options.cssClasses);
+        AddClasses(wrapperElement, options.cssClasses);
     }
+    AddClasses(wrapperElement, Object.keys(fieldValidators).map(function (x) {
+        return "formulate__validation-type--" + x;
+    }));
 
     // Add placeholder?
     if (options.usePlaceholder !== false) {
@@ -153,10 +159,10 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
                 labelElement.appendChild(fieldElement);
             }
         } else {
-            if (options.fieldBeforeLabelText || window.labelAfterTextInput) {
-                wrapperElement.insertBefore(fieldElement, wrapperElement.childNodes[0]);
-            } else {
+            if (options.fieldBeforeLabelText === false || window.labelAfterTextInput === false) {
                 wrapperElement.appendChild(fieldElement);
+            } else {
+                wrapperElement.insertBefore(fieldElement, wrapperElement.childNodes[wrapperElement.childNodes.length - 1]);
             }
         }
     }
