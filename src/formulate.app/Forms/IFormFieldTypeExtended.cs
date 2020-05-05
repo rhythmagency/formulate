@@ -47,6 +47,13 @@
         /// </summary>
         bool IsStored { get; }
 
+
+        /// <summary>
+        /// Is the value of this field already HTML encoded (if so, any markup it contains may be
+        /// rendered, such as in an email).
+        /// </summary>
+        bool AlreadyHtmlEncoded { get; }
+
     }
 
 }

@@ -30,6 +30,7 @@
         public bool IsServerSideOnly => true;
         public bool IsHidden => false;
         public bool IsStored => true;
+        public bool AlreadyHtmlEncoded => false;
 
         #endregion
 

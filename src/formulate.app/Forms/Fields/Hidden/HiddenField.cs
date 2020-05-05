@@ -12,6 +12,7 @@
         public bool IsServerSideOnly => false;
         public bool IsHidden => true;
         public bool IsStored => true;
+        public bool AlreadyHtmlEncoded => false;
         public object DeserializeConfiguration(string configuration)
         {
             return null;

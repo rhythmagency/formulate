@@ -141,6 +141,22 @@
             }
         }
 
+        /// <summary>
+        /// Is the value of this field already HTML encoded (if so, any markup it contains may be
+        /// rendered, such as in an email).
+        /// </summary>
+        public bool AlreadyHtmlEncoded
+        {
+            get
+            {
+                var instance = new T();
+                var casted = instance as IFormFieldTypeExtended;
+                return casted == null
+                    ? false
+                    : casted.AlreadyHtmlEncoded;
+            }
+        }
+
         #endregion
 
 

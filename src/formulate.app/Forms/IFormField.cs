@@ -25,11 +25,12 @@
         string GetTypeLabel();
         Type GetFieldType();
         object DeserializeConfiguration();
-        string FormatValue(IEnumerable<string> values, FieldPresentationFormats format);
         bool IsTransitory { get; }
         bool IsServerSideOnly { get; }
         bool IsHidden { get; }
         bool IsStored { get; }
+        bool AlreadyHtmlEncoded { get; }
+        string FormatValue(IEnumerable<string> values, FieldPresentationFormats format);
         bool IsValid(IEnumerable<string> value);
     }
 

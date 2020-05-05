@@ -463,12 +463,21 @@
             }).ToDictionary(x => x.Id, x => x.Filename);
             var fieldsById = form.Fields.ToDictionary(x => x.Id, x => x);
             var fieldIds = form.Fields.Select(x => x.Id);
+            var shouldEncode = isHtml;
 
 
             // Payload items.
             foreach (var item in payload)
             {
-                lines.Add($"{item.Name}: {item.Value}");
+                var line = $"{item.Name}: {item.Value}";
+                if (shouldEncode)
+                {
+                    lines.Add(WebUtility.HtmlEncode(line));
+                }
+                else
+                {
+                    lines.Add(line);
+                }
             }
 
 
@@ -479,6 +488,7 @@
                 var formatted = string.Join(", ", values);
                 var field = default(IFormField);
                 var fieldName = "Unknown Field";
+                var alreadyEncoded = false;
                 if (fieldsById.TryGetValue(key, out field))
                 {
 
@@ -492,11 +502,18 @@
                     // Get field name and formatted value.
                     fieldName = field.Name;
                     formatted = field.FormatValue(values, FieldPresentationFormats.Email);
+                    alreadyEncoded = field.AlreadyHtmlEncoded;
 
                 }
+                var fieldNameEncoded = shouldEncode
+                    ? WebUtility.HtmlEncode(fieldName)
+                    : fieldName;
+                var formattedEncoded = shouldEncode && !alreadyEncoded
+                    ? WebUtility.HtmlEncode(formatted)
+                    : formatted;
                 var line = excludeFieldLabels
-                    ? formatted
-                    : $"{fieldName}: {formatted}";
+                    ? formattedEncoded
+                    : $"{fieldNameEncoded}: {formattedEncoded}";
                 lines.Add(line);
             }
 
@@ -524,7 +541,14 @@
                 var line = excludeFieldLabels
                     ? $@"See attachment, ""{filename}"""
                     : $@"{fieldName}: See attachment, ""{filename}""";
-                lines.Add(line);
+                if (shouldEncode)
+                {
+                    lines.Add(WebUtility.HtmlEncode(line));
+                }
+                else
+                {
+                    lines.Add(line);
+                }
             }
 
             // HTML encode?
@@ -532,7 +556,6 @@
             {
                 baseMessage = WebUtility.HtmlEncode(baseMessage);
                 baseMessage = LineBreakRegex.Replace(baseMessage, "<br />");
-                lines = lines.Select(x => WebUtility.HtmlEncode(x)).ToList();
             }
 
 

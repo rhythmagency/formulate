@@ -25,6 +25,7 @@
         public bool IsServerSideOnly => false;
         public bool IsHidden => false;
         public bool IsStored => false;
+        public bool AlreadyHtmlEncoded => false;
 
         #endregion
 
