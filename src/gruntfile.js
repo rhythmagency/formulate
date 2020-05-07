@@ -561,7 +561,8 @@ module.exports = function(grunt) {
                     options: {
                         projectConfiguration: getConfiguration("Release"),
                         targets: ["Rebuild"],
-                        stdout: true
+                        stdout: true,
+                        inferMsbuildPath: true
                     }
                 }
             }
