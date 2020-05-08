@@ -577,6 +577,7 @@
         private IEnumerable<string> FilterEmails(IEnumerable<string> emails)
         {
             var shouldFilter = Config.EnableEmailWhitelist;
+            emails = FilterEmailsByBlacklist(emails);
             if (shouldFilter)
             {
                 var whitelist = Config.EmailWhitelist;
@@ -602,6 +603,38 @@
             {
                 return emails;
             }
+        }
+
+
+        /// <summary>
+        /// Filters the email addresses to exclude any that appear in the blacklist.
+        /// </summary>
+        /// <param name="emails">
+        /// The email addresses to filter.
+        /// </param>
+        /// <returns>
+        /// The allowed email addresses.
+        /// </returns>
+        private IEnumerable<string> FilterEmailsByBlacklist(IEnumerable<string> emails)
+        {
+            var blacklist = Config.EmailBlacklist;
+            var emailBlacklist = blacklist
+                    .Where(x => !string.IsNullOrWhiteSpace(x.Email))
+                    .Select(x => x.Email.ToLower()).Distinct();
+            var emailSet = new HashSet<string>(emailBlacklist);
+            var domainBlacklist = blacklist
+                .Where(x => !string.IsNullOrWhiteSpace(x.Domain))
+                .Select(x => x.Domain.ToLower()).Distinct();
+            var domainSet = new HashSet<string>(domainBlacklist);
+            var emailInfo = emails.Select(x => new
+            {
+                Original = x,
+                Email = x.ToLower(),
+                Domain = new MailAddress(x).Host.ToLower()
+            });
+            return emailInfo
+                .Where(x => !emailSet.Contains(x.Email) && !domainSet.Contains(x.Domain))
+                .Select(x => x.Original);
         }
 
 

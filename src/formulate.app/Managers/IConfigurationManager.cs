@@ -58,6 +58,12 @@
 
 
         /// <summary>
+        /// The emails to blacklist.
+        /// </summary>
+        IEnumerable<DisallowEmail> EmailBlacklist { get; }
+
+
+        /// <summary>
         /// The field categories used for flagging field types.
         /// </summary>
         IEnumerable<FieldCategory> FieldCategories { get; }

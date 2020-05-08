@@ -14,7 +14,7 @@
         #region Properties
 
         /// <summary>
-        /// The email to whitelist.
+        /// The email to whitelist/blacklist.
         /// </summary>
         [ConfigurationProperty("email", IsRequired = false)]
         public string Email
@@ -31,7 +31,7 @@
 
 
         /// <summary>
-        /// The email domain to whitelist.
+        /// The email domain to whitelist/blacklist.
         /// </summary>
         [ConfigurationProperty("domain", IsRequired = false)]
         public string Domain

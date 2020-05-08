@@ -135,6 +135,25 @@
             }
         }
 
+
+        /// <summary>
+        /// The emails to blacklist.
+        /// </summary>
+        public IEnumerable<DisallowEmail> EmailBlacklist
+        {
+            get
+            {
+                var emailsSection = ConfigurationManager
+                    .GetSection("formulateConfiguration/emailBlacklist") as BlacklistEmailsConfigSection;
+                var emailItems = emailsSection?.Emails;
+                return emailItems.Cast<EmailElement>().Select(x => new DisallowEmail()
+                {
+                    Email = x.Email,
+                    Domain = x.Domain
+                }).ToArray();
+            }
+        }
+
         /// <summary>
         /// The headers to use for emails.
         /// </summary>

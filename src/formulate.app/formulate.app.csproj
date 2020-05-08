@@ -283,6 +283,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\EmailConfigurationSection.cs" />
+    <Compile Include="Configuration\BlacklistEmailsConfigSection.cs" />
     <Compile Include="Configuration\FieldCategoryCollection.cs" />
     <Compile Include="Configuration\FieldCategoriesConfigSection.cs" />
     <Compile Include="Configuration\FieldCategoryElement.cs" />
