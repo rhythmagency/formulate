@@ -22,7 +22,7 @@
         /// <summary>
         /// The base path to store JSON in.
         /// </summary>
-        public string JsonBasePath
+        public virtual string JsonBasePath
         {
             get
             {
@@ -38,7 +38,7 @@
         /// <summary>
         /// The base path toe store submitted files in.
         /// </summary>
-        public string FileStoreBasePath
+        public virtual string FileStoreBasePath
         {
             get
             {
@@ -54,7 +54,7 @@
         /// <summary>
         /// The templates used to render forms.
         /// </summary>
-        public IEnumerable<Template> Templates
+        public virtual IEnumerable<Template> Templates
         {
             get
             {
@@ -74,7 +74,7 @@
         /// <summary>
         /// The button kinds used when creating button field types.
         /// </summary>
-        public IEnumerable<string> ButtonKinds
+        public virtual IEnumerable<string> ButtonKinds
         {
             get
             {
@@ -89,7 +89,7 @@
         /// <summary>
         /// Enable server side validation of form submissions?
         /// </summary>
-        public bool EnableServerSideValidation
+        public virtual bool EnableServerSideValidation
         {
             get
             {
@@ -105,7 +105,7 @@
         /// <summary>
         /// Is the email whitelist enabled?
         /// </summary>
-        public bool EnableEmailWhitelist
+        public virtual bool EnableEmailWhitelist
         {
             get
             {
@@ -120,7 +120,7 @@
         /// <summary>
         /// The emails to whitelist.
         /// </summary>
-        public IEnumerable<AllowEmail> EmailWhitelist
+        public virtual IEnumerable<AllowEmail> EmailWhitelist
         {
             get
             {
@@ -139,7 +139,7 @@
         /// <summary>
         /// The emails to blacklist.
         /// </summary>
-        public IEnumerable<DisallowEmail> EmailBlacklist
+        public virtual IEnumerable<DisallowEmail> EmailBlacklist
         {
             get
             {
@@ -157,7 +157,7 @@
         /// <summary>
         /// The headers to use for emails.
         /// </summary>
-        public IEnumerable<EmailHeader> EmailHeaders
+        public virtual IEnumerable<EmailHeader> EmailHeaders
         {
             get
             {
@@ -179,7 +179,7 @@
         /// <summary>
         /// The field categories
         /// </summary>
-        public IEnumerable<FieldCategory> FieldCategories
+        public virtual IEnumerable<FieldCategory> FieldCategories
         {
             get
             {
