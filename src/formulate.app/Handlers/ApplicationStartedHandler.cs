@@ -685,6 +685,7 @@
                 {
                     "buttons",
                     "emailWhitelist",
+                    "emailBlacklist",
                     "email",
                     "fieldCategories",
                     "persistence",
