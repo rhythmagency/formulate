@@ -37,7 +37,7 @@
         /// <param name="manager">
         /// The configuration manager to use.
         /// </param>
-        internal Configuration(IConfigurationManager manager)
+        public Configuration(IConfigurationManager manager)
             : base(manager)
         {
         }

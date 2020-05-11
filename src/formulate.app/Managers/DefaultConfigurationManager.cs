@@ -14,7 +14,7 @@
     /// <summary>
     /// The default configuration manager.
     /// </summary>
-    internal class DefaultConfigurationManager : IConfigurationManager
+    public class DefaultConfigurationManager : IConfigurationManager
     {
 
         #region Properties
@@ -153,6 +153,7 @@
                 }).ToArray();
             }
         }
+
 
         /// <summary>
         /// The headers to use for emails.

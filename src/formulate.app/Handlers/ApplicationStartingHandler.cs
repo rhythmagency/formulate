@@ -36,48 +36,72 @@
 
             // Initialize configuration resolver.
             var configManager = new DefaultConfigurationManager();
-            ConfigResolver.Current = new ConfigResolver(configManager);
+            if (!ConfigResolver.HasCurrent)
+            {
+                ConfigResolver.Current = new ConfigResolver(configManager);
+            }
 
 
             // Initialize form persistence resolver.
             var formPersistence = new JsonFormPersistence();
-            FormPersistence.Current = new FormPersistence(formPersistence);
+            if (!FormPersistence.HasCurrent)
+            {
+                FormPersistence.Current = new FormPersistence(formPersistence);
+            }
 
 
             // Initialize configured form persistence resolver.
             var conFormPersistence = new JsonConfiguredFormPersistence();
-            ConfiguredFormPersistence.Current =
-                new ConfiguredFormPersistence(conFormPersistence);
+            if (!ConfiguredFormPersistence.HasCurrent)
+            {
+                ConfiguredFormPersistence.Current =
+                    new ConfiguredFormPersistence(conFormPersistence);
+            }
 
 
             // Initialize layout persistence resolver.
             var layoutPersistence = new JsonLayoutPersistence();
-            LayoutPersistence.Current =
-                new LayoutPersistence(layoutPersistence);
+            if (!LayoutPersistence.HasCurrent)
+            {
+                LayoutPersistence.Current =
+                    new LayoutPersistence(layoutPersistence);
+            }
 
 
             // Initialize validation persistence resolver.
             var validationPersistence = new JsonValidationPersistence();
-            ValidationPersistence.Current =
-                new ValidationPersistence(validationPersistence);
+            if (!ValidationPersistence.HasCurrent)
+            {
+                ValidationPersistence.Current =
+                    new ValidationPersistence(validationPersistence);
+            }
 
 
             // Initialize data value persistence resolver.
             var dataValuePersistence = new JsonDataValuePersistence();
-            DataValuePersistence.Current =
-                new DataValuePersistence(dataValuePersistence);
+            if (!DataValuePersistence.HasCurrent)
+            {
+                DataValuePersistence.Current =
+                    new DataValuePersistence(dataValuePersistence);
+            }
 
 
             // Initialize folder persistence resolver.
             var folderPersistence = new JsonFolderPersistence();
-            FolderPersistence.Current =
-                new FolderPersistence(folderPersistence);
+            if (!FolderPersistence.HasCurrent)
+            {
+                FolderPersistence.Current =
+                    new FolderPersistence(folderPersistence);
+            }
 
 
             // Initialize entity persistence resolver.
             var entityPersistence = new DefaultEntityPersistence();
-            EntityPersistence.Current =
-                new EntityPersistence(entityPersistence);
+            if (!EntityPersistence.HasCurrent)
+            {
+                EntityPersistence.Current =
+                    new EntityPersistence(entityPersistence);
+            }
 
         }
 
