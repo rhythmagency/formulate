@@ -16,7 +16,7 @@ Here are a few pages that will help you get started with Formulate:
 * Create Forms:
   * [Simple Form](/simple-form)
   * [Complex Form](/complex-form)
-* [Render Form](/render-form)
+* [Render Form](/plain-javascript/render-form)
 * Advanced Topics:
   * [Extensibility](/extensibility)
   * [Contributing to Formulate](https://github.com/rhythmagency/formulate#contributing)
