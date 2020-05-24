@@ -4,7 +4,8 @@ title: Including Formulate JavaScript for the RBA Template
 ---
 
 # Include JavaScript
-If you've followed the instructions to [render a form](/render-form), you will have a line that includes the JavaScript for the Responsive Bootstrap Angular template:
+
+If you've followed the instructions to [render a form](/angularjs/render-form), you will have a line that includes the JavaScript for the Responsive Bootstrap Angular template:
 
 ```html
 <script src="/App_Plugins/formulate/responsive.bootstrap.angular.js"></script>

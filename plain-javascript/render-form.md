@@ -3,6 +3,10 @@ layout: page
 title: Rendering a Form Using Formulate's Plain JavaScript Template
 ---
 
+# AngularJS Template Alternative
+
+If you are using the AngularJS template rather than the plain JavaScript template, see: [Render AngularJS Form](/angularjs/render-form)
+
 # Plain JavaScript Template
 
 Note that this page only applies to the plain JavaScript template (i.e., it does not apply to the AngularJS template).

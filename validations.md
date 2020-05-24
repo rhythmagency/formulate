@@ -4,7 +4,8 @@ title: Formulate Validations
 ---
 
 # Validations
-Validations allow you to ensure users enter correct input values. When you create a validation in Formulate, you are able to indicate a message to be displayed when the validation fails (i.e., when the user types an incorrect value into a field). You can include special placeholders in this message and they will be dynamically replaced. These placeholders are:
+
+Validations allow you to ensure users enter correct input values. When you create a validation in Formulate, you are able to indicate a message to be displayed when the validation fails (i.e., when the user types an incorrect value into a field). You can include special placeholders in this message, and they will be dynamically replaced. These placeholders are:
 
 * **{name}** - The name of the field.
 * **{alias}** - The field alias.

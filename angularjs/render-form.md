@@ -3,10 +3,6 @@ layout: page
 title: Rendering a Form in Formulate
 ---
 
-# Plain JavaScript Template Alternative
-
-If you are using the plain JavaScript template rather than the AngularJS template, see: [Render Plain JavaScript Form](/plain-javascript/render-form)
-
 # Form Rendering
 
 Once you've gone through the trouble of installing Formulate, creating a form, and modifying a document type to pick a form, the final step is to render that form to HTML on your website.
@@ -96,4 +92,4 @@ All you need to do is copy the above code into a CSHTML file on a page with a pi
 
 You can of course integrate it with your site in a number of ways, but this is the simplest version.
 
-If you are interested in minified or modular JavaScript, read further about that [here](/include-javascript-rba).
+If you are interested in minified or modular JavaScript, read further about that [here](/angularjs/include-javascript-rba).
