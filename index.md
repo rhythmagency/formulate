@@ -35,6 +35,6 @@ If you have any questions, feel free to [contact me](http://www.nicholaswestby.c
 # Video: Introduction to Formulate
 For a short introduction to Formulate, watch this video (1 minute, 20 seconds):
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=Vv3_9fWsq6M" target="_blank">
-<img src="http://img.youtube.com/vi/Vv3_9fWsq6M/0.jpg" alt="Introduction to Formulate" width="240" height="180" border="10" />
+<a href="https://www.youtube.com/watch?feature=player_embedded&v=Vv3_9fWsq6M" target="_blank">
+<img src="https://img.youtube.com/vi/Vv3_9fWsq6M/0.jpg" alt="Introduction to Formulate" width="240" height="180" border="10" />
 </a>
