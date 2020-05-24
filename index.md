@@ -31,7 +31,7 @@ Here are a few pages that will help you get started with Formulate:
 * [A Guided Tour of Formulate](https://code101.net/a-guided-tour-of-umbraco-formulate-2016-edition-4a3ce6af6d36)
   * [Umbraco Formulate 2.0, Plain JavaScript Edition](https://code101.net/umbraco-formulate-2-0-plain-javascript-edition-ecdb1ef27ea1)
 
-If you have any questions, feel free to [contact me](http://www.nicholaswestby.com/contact/) or report an issue [here](https://github.com/rhythmagency/formulate/issues).
+If you have any questions, feel free to [contact me](https://www.nicholaswestby.com/contact/) or report an issue [here](https://github.com/rhythmagency/formulate/issues).
 
 # Video: Introduction to Formulate
 

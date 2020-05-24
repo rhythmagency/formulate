@@ -1,4 +1,4 @@
 user-agent: *
 allow: /
 
-sitemap: http://www.formulate.rocks/sitemap.xml
+sitemap: https://www.formulate.rocks/sitemap.xml
