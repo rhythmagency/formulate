@@ -4,9 +4,11 @@ title: What is Formulate?
 ---
 
 # What is Formulate?
+
 In short, Formulate allows non-technical users to design forms in Umbraco. That dynamically built form (e.g., a contact form) can then be displayed on the website. It's a free, open source form builder.
 
 # Features
+
 Here are some of Formulate's capabilities and features:
 
 * Construct forms by adding any number of fields.

@@ -4,6 +4,7 @@ title: Configuration SMTP for Formulate Emails
 ---
 
 # Configuring SMTP for Emails
+
 If you'd like to send emails when Formulate forms are submitted, you'll have to configure SMTP. There are many ways to do this, though they all involve modifying the web.config. If you just want to test emails locally, you can configure SMTP to deliver emails to your file system as `.eml` files. You can do that by making these changes to your web.config:
 
 ```

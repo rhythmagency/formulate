@@ -4,6 +4,7 @@ title: Installing Formulate
 ---
 
 # Installing Locally
+
 There are a number of ways to install Formulate. This will cover the local installation method:
 
 * Download the ZIP file from the latest release here: [Umbraco.com](https://our.umbraco.org/projects/backoffice-extensions/formulate/)
@@ -15,6 +16,7 @@ There are a number of ways to install Formulate. This will cover the local insta
   * Select the ZIP file you downloaded and follow the instructions to complete the installation.
 
 # Installing with NuGet
+
 If you have setup your Umbraco website with NuGet in Visual Studio, you can also install
 Formulate using NuGet. There are two packages available:
 

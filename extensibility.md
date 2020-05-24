@@ -4,6 +4,7 @@ title: Formulate Extensibility
 ---
 
 # Extensibility
+
 Most everything in Formulate can be extended or replaced. Here are some examples:
 
 * **Fields.** You can create your own types of fields. If you want to create a field that allows users to choose their favorite cat pictures, you absolutely can do so. No judgement. Read more [here](/articles/custom-field-types).
