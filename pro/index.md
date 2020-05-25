@@ -68,8 +68,7 @@ Note that there are no license files or keys. Once you've paid, all you need to 
 </script>
 
 <style>
-  .payment-option,
-  .sandbox-notice {
+  .payment-option {
     background-color: #fdd;
     margin: 10px;
     padding: 10px;
@@ -82,12 +81,5 @@ Note that there are no license files or keys. Once you've paid, all you need to 
     padding: 15px;
     font-weight: bold;
     font-size: 24px;
-  }
-  .sandbox-notice h1 {
-    font-size: 50px;
-  }
-  .sandbox-notice p {
-    font-size: 24px;
-    font-weight: bold;
   }
 </style>
