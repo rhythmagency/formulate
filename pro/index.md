@@ -11,7 +11,7 @@ Currently, this includes a form submission handler that facilitates sending desi
 
 # Installing Formulate Pro
 
-You can install Formulate Pro using NuGet (search for "Formulate Pro").
+You can install Formulate Pro using NuGet (search for "Formulate Pro"): [Formulate.Pro](https://www.nuget.org/packages/Formulate.Pro)
 
 # Paying for Formulate Pro
 
