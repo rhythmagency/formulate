@@ -13,7 +13,7 @@ You can read more about it here: [github.com/Formulate-Pro/Formulate-Pro](https:
 
 # Installing Formulate Pro
 
-You can install Formulate Pro using NuGet (search for "Formulate Pro"): [Formulate.Pro](https://www.nuget.org/packages/Formulate.Pro)
+You can install Formulate Pro using NuGet (search for "Formulate.Pro"): [Formulate.Pro](https://www.nuget.org/packages/Formulate.Pro)
 
 Be sure you've already installed the Umbraco 8 and Formulate 3 NuGet packages.
 
