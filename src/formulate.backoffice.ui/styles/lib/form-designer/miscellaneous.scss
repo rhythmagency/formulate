@@ -97,3 +97,12 @@
         }
     }
 }
+
+.formulate__text-button-group--wide {
+    width: calc(100% - 38px);
+    margin-top: 2px;
+
+    input {
+        width: 100%;
+    }
+}
