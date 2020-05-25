@@ -347,6 +347,7 @@
     <Compile Include="Forms\FormSubmissionContext.cs" />
     <Compile Include="Forms\Handlers\Email\EmailConfiguration.cs" />
     <Compile Include="Forms\Handlers\Email\EmailHandler.cs" />
+    <Compile Include="Forms\Handlers\Email\IEmailSenderRecipientConfiguration.cs" />
     <Compile Include="Forms\Handlers\SendData\FieldMapping.cs" />
     <Compile Include="Forms\Handlers\SendData\IHandleSendDataResult.cs" />
     <Compile Include="Forms\Handlers\SendData\SendDataConfiguration.cs" />

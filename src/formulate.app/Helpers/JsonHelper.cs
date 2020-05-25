@@ -9,7 +9,7 @@ namespace formulate.app.Helpers
     /// <summary>
     /// Helps with JSON operations.
     /// </summary>
-    internal class JsonHelper
+    public class JsonHelper
     {
 
         #region Methods
@@ -70,7 +70,7 @@ namespace formulate.app.Helpers
         /// </returns>
         public static string FormatJsonForLogging(string input)
         {
-            
+
             // Convert JSON string to object.
             var generic = JsonConvert.DeserializeObject<dynamic>(input);
 

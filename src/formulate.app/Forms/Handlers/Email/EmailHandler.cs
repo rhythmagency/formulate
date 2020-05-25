@@ -59,36 +59,46 @@
         #endregion
 
 
-        public EmailHandler(IConfigurationManager configurationManager)
-        {
-            Config = configurationManager;
-        }
-
-
         #region Public Properties
 
         /// <summary>
         /// The Angular directive that renders this handler.
         /// </summary>
-        public string Directive => "formulate-email-handler";
+        public virtual string Directive => "formulate-email-handler";
 
 
         /// <summary>
         /// The icon shown in the picker dialog.
         /// </summary>
-        public string Icon => "icon-formulate-email";
+        public virtual string Icon => "icon-formulate-email";
 
 
         /// <summary>
         /// The ID that uniquely identifies this handler (useful for serialization).
         /// </summary>
-        public Guid TypeId => new Guid("A0C06033CB94424F9C035B10A420DB16");
+        public virtual Guid TypeId => new Guid("A0C06033CB94424F9C035B10A420DB16");
 
 
         /// <summary>
         /// The label that appears when the user is choosing the handler.
         /// </summary>
-        public string TypeLabel => "Email";
+        public virtual string TypeLabel => "Email";
+
+        #endregion
+
+
+        #region Constructors
+
+        /// <summary>
+        /// Primary constructor.
+        /// </summary>
+        /// <param name="configurationManager">
+        /// The configuration manager.
+        /// </param>
+        public EmailHandler(IConfigurationManager configurationManager)
+        {
+            Config = configurationManager;
+        }
 
         #endregion
 
@@ -104,7 +114,7 @@
         /// <returns>
         /// The deserialized configuration.
         /// </returns>
-        public object DeserializeConfiguration(string configuration)
+        public virtual object DeserializeConfiguration(string configuration)
         {
 
             // Variables.
@@ -222,8 +232,15 @@
         /// <param name="configuration">
         /// The handler configuration.
         /// </param>
-        public void HandleForm(FormSubmissionContext context, object configuration)
+        public virtual void HandleForm(FormSubmissionContext context, object configuration)
         {
+
+            // Prepare the message.
+            var message = PrepareEmailMessage(context, configuration as IEmailSenderRecipientConfiguration);
+            if (message == null)
+            {
+                return;
+            }
 
             // Variables.
             var config = configuration as EmailConfiguration;
@@ -234,32 +251,15 @@
             var filesForMessage = files;
             var payload = context.Payload;
             var extraContext = context.ExtraContext;
-            var extraEmails = (AttemptGetValue(extraContext, ExtraRecipientsKey) as List<string>).MakeSafe();
             var extraSubject = AttemptGetValue(extraContext, ExtraSubjectKey) as string ?? string.Empty;
             var extraMessage = AttemptGetValue(extraContext, ExtraMessageKey) as string ?? string.Empty;
             var baseMessage = config.Message + extraMessage;
             var plainTextBody = default(string);
             var htmlBody = default(string);
 
-            // Create message.
-            var message = new MailMessage();
-            message.From = new MailAddress(config.SenderEmail);
+
+            // Set the email subject.
             message.Subject = config.Subject + extraSubject;
-
-
-            // Add headers to message.
-            foreach (var header in Config.EmailHeaders)
-            {
-                message.Headers.Add(header.Name, header.Value);
-            }
-
-
-            // Get recipients from field values.
-            var emailFieldIds = new HashSet<Guid>(config.RecipientFields);
-            var fieldEmails = data
-                .Where(x => emailFieldIds.Contains(x.FieldId)).SelectMany(x => x.FieldValues)
-                .Where(x => !string.IsNullOrWhiteSpace(x))
-                .Where(x => IsEmailInValidFormat(x));
 
 
             // Include only specific fields in the email message?
@@ -292,32 +292,6 @@
                 filesForMessage = files
                     .Where(x => fieldIdsToInclude.Contains(x.FieldId)).ToArray();
 
-            }
-
-
-            // Any allowed recipients (if not, abort early)?
-            var rawRecipients = config.Recipients
-                .Concat(fieldEmails)
-                .Concat(extraEmails);
-            var allowedRecipients = FilterEmails(rawRecipients);
-            if (!allowedRecipients.Any())
-            {
-                return;
-            }
-            foreach (var recipient in allowedRecipients)
-            {
-                if ("to".InvariantEquals(config.DeliveryType))
-                {
-                    message.To.Add(recipient);
-                }
-                else if ("cc".InvariantEquals(config.DeliveryType))
-                {
-                    message.CC.Add(recipient);
-                }
-                else
-                {
-                    message.Bcc.Add(recipient);
-                }
             }
 
 
@@ -361,6 +335,89 @@
             {
                 client.Send(message);
             }
+
+        }
+
+        #endregion
+
+
+        #region Protected Methods
+
+        /// <summary>
+        /// Prepares an mail message (e.g., sets the sender and recipients).
+        /// </summary>
+        /// <param name="context">
+        /// The form submission context.
+        /// </param>
+        /// <param name="config">
+        /// The configuration for preparing the email message.
+        /// </param>
+        /// <returns>
+        /// The prepared mail message.
+        /// </returns>
+        protected MailMessage PrepareEmailMessage(FormSubmissionContext context,
+            IEmailSenderRecipientConfiguration config)
+        {
+
+            // Variables.
+            var form = context.Form;
+            var data = context.Data;
+            var dataForMessage = data;
+            var files = context.Files;
+            var filesForMessage = files;
+            var payload = context.Payload;
+            var extraContext = context.ExtraContext;
+            var extraEmails = (AttemptGetValue(extraContext, ExtraRecipientsKey) as List<string>).MakeSafe();
+
+
+            // Create message.
+            var message = new MailMessage();
+            message.From = new MailAddress(config.SenderEmail);
+
+
+            // Add headers to message.
+            foreach (var header in Config.EmailHeaders)
+            {
+                message.Headers.Add(header.Name, header.Value);
+            }
+
+
+            // Get recipients from field values.
+            var emailFieldIds = new HashSet<Guid>(config.RecipientFields);
+            var fieldEmails = data
+                .Where(x => emailFieldIds.Contains(x.FieldId)).SelectMany(x => x.FieldValues)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Where(x => IsEmailInValidFormat(x));
+
+
+            // Any allowed recipients (if not, abort early)?
+            var rawRecipients = config.Recipients
+                .Concat(fieldEmails)
+                .Concat(extraEmails);
+            var allowedRecipients = FilterEmails(rawRecipients);
+            if (!allowedRecipients.Any())
+            {
+                return null;
+            }
+            foreach (var recipient in allowedRecipients)
+            {
+                if ("to".InvariantEquals(config.DeliveryType as string))
+                {
+                    message.To.Add(recipient);
+                }
+                else if ("cc".InvariantEquals(config.DeliveryType as string))
+                {
+                    message.CC.Add(recipient);
+                }
+                else
+                {
+                    message.Bcc.Add(recipient);
+                }
+            }
+
+
+            // Return the mail message.
+            return message;
 
         }
 

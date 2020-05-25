@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    public class EmailConfiguration
+    public class EmailConfiguration : IEmailSenderRecipientConfiguration
     {
         public string SenderEmail { get; set; }
         public IEnumerable<string> Recipients { get; set; }
