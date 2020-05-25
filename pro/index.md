@@ -64,3 +64,28 @@ Formulate Pro isn't free. You can pay for it below. Licenses are forever (i.e., 
     }).render(selector);
   }
 </script>
+
+<style>
+  .payment-option,
+  .sandbox-notice {
+    background-color: #fdd;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 5px dashed #faa;
+  }
+  .confirmation-message {
+    background-color: #f00;
+    color: #fff;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 24px;
+  }
+  .sandbox-notice h1 {
+    font-size: 50px;
+  }
+  .sandbox-notice p {
+    font-size: 24px;
+    font-weight: bold;
+  }
+</style>
