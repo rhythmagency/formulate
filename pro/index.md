@@ -9,6 +9,8 @@ Formulate Pro is the paid package that adds additional functionality to Formulat
 
 Currently, this includes a form submission handler that facilitates sending designed emails using Razor view files.
 
+You can read more about it here: [github.com/Formulate-Pro/Formulate-Pro](https://github.com/Formulate-Pro/Formulate-Pro)
+
 # Installing Formulate Pro
 
 You can install Formulate Pro using NuGet (search for "Formulate Pro"): [Formulate.Pro](https://www.nuget.org/packages/Formulate.Pro)
