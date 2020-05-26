@@ -21,7 +21,7 @@ Be sure you've already installed the Umbraco 8 and Formulate 3 NuGet packages.
 
 Formulate Pro isn't free. You can pay for it below. Licenses are forever (i.e., they include upgrades to new versions of Formulate Pro).
 
-Note that there are no license files or keys. Once you've paid, all you need to do is install the NuGet package.
+Note that there are no license files or keys. Once you've paid, all you need to do is install the NuGet package. All prices are in USD.
 
 <div class="payment-option">
   <h2>Formulate Pro: One Project License ($20)</h2>
