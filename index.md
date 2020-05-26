@@ -16,6 +16,9 @@ title: Formulate
         box-shadow: 10px 10px 9px #600;
         margin-bottom: 50px;
     }
+    .formulate-pro-banner h2 {
+        background: none;
+    }
 </style>
 
 # Formulate
