@@ -35,7 +35,7 @@ Note that there are no license files or keys. Once you've paid, all you need to 
 </div>
 <div class="payment-option">
   <h2>Formulate Pro: Agency License ($200)</h2>
-  <p>Click the button below to purchase a license for all projects worked on by a single agency (unlimited projects built by any developer of the agency). This is best if your company works on several websites.</p>
+  <p>Click the button below to purchase a license for all projects worked on by a single agency (unlimited projects built by any developer of the agency). This is best if your company works on several websites. You can pay for Formulate Pro once, then never have to think about it again.</p>
   <div id="paypal-button-container-200"></div>
 </div>
 <script src="https://www.paypal.com/sdk/js?client-id=AUlYBvLdzPsUlgJS_A4JV5pOPNqyDKVhyBLKQa6qnU4DGRUixhKIz1I4VuOPBnUkDd5aiC79StB_6pmR&currency=USD"></script>
