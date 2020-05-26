@@ -25,17 +25,17 @@ Note that there are no license files or keys. Once you've paid, all you need to 
 
 <div class="payment-option">
   <h2>Formulate Pro: One Project License ($20)</h2>
-  <p>Click the button below to purchase a license for a single project.</p>
+  <p>Click the button below to purchase a license for a single project (unlimited environments, such as local, dev, stage, UAT, and prod). This is best if you primarily work on one website.</p>
   <div id="paypal-button-container-20"></div>
 </div>
 <div class="payment-option">
   <h2>Formulate Pro: Individual Developer License ($50)</h2>
-  <p>Click the button below to purchase a license for an individual developer.</p>
+  <p>Click the button below to purchase a license for an individual developer (unlimited projects built by that developer). This is best if you personally work on several websites.</p>
   <div id="paypal-button-container-50"></div>
 </div>
 <div class="payment-option">
   <h2>Formulate Pro: Agency License ($200)</h2>
-  <p>Click the button below to purchase a license for all projects worked on by a single agency.</p>
+  <p>Click the button below to purchase a license for all projects worked on by a single agency (unlimited projects built by any developer of the agency). This is best if your company works on several websites.</p>
   <div id="paypal-button-container-200"></div>
 </div>
 <script src="https://www.paypal.com/sdk/js?client-id=AUlYBvLdzPsUlgJS_A4JV5pOPNqyDKVhyBLKQa6qnU4DGRUixhKIz1I4VuOPBnUkDd5aiC79StB_6pmR&currency=USD"></script>
