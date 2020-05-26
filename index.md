@@ -3,6 +3,21 @@ layout: page
 title: Formulate
 ---
 
+<div class="formulate-pro-banner">
+    <h2>Formulate Pro Now Available!</h2>
+    <p>Looking to get even more out of Formulate? Check out <a href="/pro/" title="Learn About Formulate Pro">Formulate Pro</a>!</p>
+</div>
+
+<style>
+    .formulate-pro-banner {
+        padding: 10px;
+        background-color: #fcc;
+        border: 5px dashed #f77;
+        box-shadow: 10px 10px 9px #600;
+        margin-bottom: 50px;
+    }
+</style>
+
 # Formulate
 
 Formulate is a free, open source form builder for Umbraco.
