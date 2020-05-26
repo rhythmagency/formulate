@@ -7,7 +7,7 @@ title: Formulate Pro
 
 Formulate Pro is the paid package that adds additional functionality to Formulate.
 
-Currently, this includes a form submission handler that facilitates sending designed emails using Razor view files.
+Currently, this includes a form submission handler that facilitates sending designed emails using Razor view files, which you can read about here: [Designed Emails](/pro/designed-emails)
 
 You can read more about it here: [github.com/Formulate-Pro/Formulate-Pro](https://github.com/Formulate-Pro/Formulate-Pro)
 
