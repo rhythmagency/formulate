@@ -5,7 +5,7 @@ title: Formulate Pro Designed Emails
 
 # Formulate Pro Designed Emails
 
-Formulate Pro comes with the ability to send designed emails using Razor syntax in a CSHTML view file.
+[Formulate Pro](/pro/) comes with the ability to send designed emails using Razor syntax in a CSHTML view file.
 
 That means that you can add the "Designed Email" handler to your form and configure it to send an email that represents the full professionalism of your business.
 
