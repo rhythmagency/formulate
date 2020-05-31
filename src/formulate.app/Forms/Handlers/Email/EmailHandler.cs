@@ -218,7 +218,7 @@
         /// <remarks>
         /// In this case, no preparation is necessary.
         /// </remarks>
-        public void PrepareHandleForm(FormSubmissionContext context, object configuration)
+        public virtual void PrepareHandleForm(FormSubmissionContext context, object configuration)
         {
         }
 
