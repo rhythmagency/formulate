@@ -175,7 +175,7 @@
         // The initial value comes from the query string based on the field alias.
         initialValue = string.IsNullOrWhiteSpace(x.Alias)
             ? null
-            : Request.QueryString[x.Alias],
+            : Request.QueryString.GetValues(x.Alias),
         // The user selected category of the field
         category = x.Category
     }).ToArray();
