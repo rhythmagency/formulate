@@ -1,13 +1,12 @@
 ---
 layout: page
-title: Creating Custom Formulate Field Types
+title: Creating Custom Formulate Field Types with Plain JavaScript
 ---
 
-# Updated Documentation Notice
+# Plain JavaScript or AngularJS?
 
-This page is the latest version of this documentation. If you are using an older version of Formulate,
-you will want to refer to the previous version of this page, which you can find here:
-[legacy documentation for custom field types](https://github.com/rhythmagency/formulate/blob/192ed5be397fa2a9b50b8a3f64f84429c1ef8cd7/articles/custom-field-types.md).
+You are currently reading the documentation for adding custom fields with AngularJS.
+If you are working with the Plain JavaScript template, you will instead want to read [Custom Field Types (AngularJS)](/articles/custom-field-types-angularjs).
 
 # Custom Formulate Field Types
 
@@ -74,108 +73,291 @@ It has just a few properties and a function. Here is the purpose of each of them
 
 For a more extensive example of a field type class, refer to [DropDownField.cs](https://github.com/rhythmagency/formulate/blob/af76b07d6e31755f32105ff502022060db31ae8e/src/formulate.app/Forms/Fields/DropDown/DropDownField.cs).
 
-# Render Field for Responsive Bootstrap Angular (RBA) Template
+# Render Field for Plain JavaScript Template
 
-While Formulate allows for custom templates to render forms,
-it is likely you will want to render your field with the Responsive Bootstrap Angular (RBA) template.
-When you install Formulate, you will find the JavaScript for this template in `~/App_Plugins/formulate/responsive.bootstrap.angular.js`.
+Once you have created the C# file and back office AngularJS, you will need to render your field on the frontend
+using plain JavaScript. Suppose you want your field to be a simple text field that also displays the field
+data below the text field. Here is what that would look like:
 
-Rather than modify that file directly (it may be overwritten on upgrades), it is recommended that you
-register a field renderer in a separate file. Let's assume you have followed the [render form](/render-form)
-instructions and have this line of JavaScript somewhere in one of your CSHTML files:
+![Formulate](/images/custom-field-plain-js.png)
 
-```javascript
-var app = angular.module("app", ["formulate"]);
-```
-
-That is the line that creates your Angular application and indicates that Formulate
-is a dependency. Shortly after that line, you could include this JavaScript:
+Below is an example of the JavaScript for a field called "CustomField" (you will need to add a script tag in one of
+your Razor views to be sure you include this JavaScript). Note that the name of your C# class must match the value
+of the key you use in the below JavaScript when registering the field on the window object:
 
 ```javascript
-// This function renders the "hello" field.
-function helloFieldRenderer(field, options) {
-    var combinedJson = {
-        field: field,
-        options: options
-    };
-    var fieldData = JSON.stringify(combinedJson, null, 2);
-    var encodedFieldData = document.createElement("span")
-        .appendChild(document.createTextNode(fieldData))
-        .parentNode.innerHTML;
-    return "<div>Hello, here's the field data:</div>" +
-        "<pre>" +
-            encodedFieldData +
-        "</pre>";
+// Class that manages your custom field.
+class CustomField {
+
+    // Renders the field.
+    constructor(fieldData, fieldValidators, cssClasses) {
+
+        // Set instance properties.
+        this.id = fieldData.id;
+        this.alias = fieldData.alias;
+
+        // Generate the markup for the field, including a wrapper element and a label.
+        let autoId = "field_" + Math.random().toString().replace(".", "");
+        let markup = `
+            <div>
+                <input type="text" id="${autoId}" />
+                <label class="formulate__field__label" for="${autoId}"></label>
+                <pre></pre>
+            </div>
+        `.trim();
+        let docFragment = document.createRange().createContextualFragment(markup);
+
+        // Add some debugging information.
+        docFragment.querySelector('pre')
+            .appendChild(document.createTextNode(JSON.stringify(fieldData, null, '  ')));
+
+        // Extract the elements from the document fragment.
+        this.wrapper = docFragment.querySelector("div");
+        this.element = docFragment.querySelector("input");
+
+        // Add CSS classes to the wrapper element.
+        (cssClasses || []).forEach(x => this.wrapper.classList.add(x));
+
+        // Set the field label text.
+        docFragment.querySelector("label").appendChild(document.createTextNode(fieldData.label));
+
+        // Configure the field validators.
+        this.validators = prepareValidators(fieldData.validations, fieldValidators);
+
+    }
+
+    // Returns the DOM element Formulate will inject into the form.
+    getElement() {
+        return this.wrapper;
+    }
+
+    // Adds the data for this field on the specified FormData instance.
+    setData(data, options) {
+        setData(data, this.element.value, options, this.alias, this.id);
+    }
+
+    // Checks the validity of the value in this field (adding inline validation messages if necessary).
+    checkValidity() {
+        return checkValidityCommon(this, this.validators, this.element.value, this.wrapper, "validateText");
+    }
+
 }
-// The options used when rendering the "hello" field.
-var helloFieldOptions = {
-    // If true, a label will be included before the field.
-    optionalLabel: true
+
+// Store the field renderer configuration on the window so Formulate can access it.
+let key = "formulate-plain-js-fields";
+window[key] = window[key] || [];
+window[key] = {
+    key: "CustomField",
+    renderer: CustomField
 };
-// This is what registers the field renderer.
-app.config(function (FormulateFieldTypesProvider) {
-    FormulateFieldTypesProvider.register("text", helloFieldRenderer, helloFieldOptions);
-});
-```
 
-That will override the rendering of the built-in text field. However, if you create a custom filed type,
-you would specify the name of that custom field type rather than specifying "text". If you use the above
-code, you will see something like this rather than a text input field:
 
-![Formulate](/images/formulate-hello-field.png)
 
-That will get you started with a "hello world" field. Once you need to dig in and do something a bit more
-complicated, you can refer to the `createTextField` function in [builtin-types.js](https://github.com/rhythmagency/formulate/blob/6efc0cc3d0cd9ee4795639886898d4222bc359b2/src/formulate.app/JavaScript/FormTemplates/responsive.bootstrap.angular/builtin-types.js#L150):
+/************************************************************************
+ * The below functions are necessary to copy if you are not using modular
+ * JavaScript to import these from Formulate's built-in helper functions.
+ ************************************************************************/
 
-```javascript
-function createTextField(field, options) {
-    var el = angular.element('<input type="text" />');
 
-    if (options.placeholderLabel) {
-        el.attr('placeholder', field.label);
+
+// Copied from responsive.plain-javascript/utils/validation.js.
+let checkValidityCommon = function (fieldRenderer, validators, value, containerElement, validityFnName) {
+
+    // Variables.
+    let i, validator, validationResults;
+
+    // Check each validator for the validity of the value in this field.
+    validationResults = [];
+    for (i = 0; i < validators.length; i++) {
+        validator = validators[i];
+        validationResults.push(checkValidity(validator, value, validityFnName));
     }
 
-    return setGlobalInputAttributes(field, el);
+    // Add inline validation messages.
+    aggregateValidations(validationResults)
+        .then(function (result) {
+
+            // Add inline validation messages.
+            fieldRenderer.validationListElement = addValidationMessages(
+                containerElement, result.messages, fieldRenderer.validationListElement);
+
+            // Add or remove validation error CSS class.
+            if (result.success) {
+                containerElement.classList.remove("formulate__field--validation-error");
+            } else {
+                containerElement.classList.add("formulate__field--validation-error");
+            }
+
+        });
+
+    // Return the validation results.
+    return validationResults;
+
+};
+
+// Copied from responsive.plain-javascript/utils/validation.js.
+function checkValidity(validator, value, validityFnName) {
+    return validator.validator[validityFnName](value)
+        .then(function (result) {
+            if (result) {
+
+                // Success.
+                return {
+                    success: true
+                };
+
+            } else {
+
+                // Failure. Return validation message.
+                return {
+                    success: false,
+                    message: validator.data.configuration.message
+                };
+
+            }
+        });
 }
+
+// Copied from responsive.plain-javascript/utils/validation.js.
+let aggregateValidations = function (validationPromises) {
+
+    // Return a promise that resolves to the result of all of the validations.
+    return Promise.all(validationPromises)
+        .then(function (results) {
+
+            // Variables.
+            let i, result, success, failures;
+
+            // Extract all the failures from the validation results.
+            failures = [];
+            for (i = 0; i < results.length; i++) {
+                result = results[i];
+                if (!result.success) {
+                    failures.push(result);
+                }
+            }
+
+            // Success if there are no failures.
+            success = failures.length === 0;
+            if (success) {
+
+                // Success.
+                return {
+                    success: true
+                };
+
+            } else {
+
+                // Failure. Return validation messages for the failures.
+                return {
+                    success: false,
+                    messages: failures.map(function (x) {
+                        return x.message;
+                    })
+                };
+
+            }
+
+        });
+
+};
+
+// Copied from responsive.plain-javascript/utils/validation.js.
+let addValidationMessages = function (containerElement, messages, priorListElement) {
+
+    // If there are no messages, remove the prior list element and return early.
+    if (!messages || messages.length === 0) {
+        if (priorListElement) {
+            priorListElement.parentNode.removeChild(priorListElement);
+        }
+        return null;
+    }
+
+    // Variables.
+    let i, listElement, message, itemElement;
+
+    // Create the list element that contains the messages.
+    listElement = document.createElement("ul");
+    listElement.classList.add("formulate__inline-validation-summary");
+
+    // Add the messages to the list element.
+    for (i = 0; i < messages.length; i++) {
+        message = messages[i];
+        itemElement = document.createElement("li");
+        itemElement.classList.add("formulate__inline-validation-summary__error");
+        itemElement.appendChild(document.createTextNode(message));
+        listElement.appendChild(itemElement);
+    }
+
+    // Remove the prior list element.
+    if (priorListElement) {
+        priorListElement.parentNode.removeChild(priorListElement);
+    }
+
+    // Add the new list element to the container.
+    containerElement.appendChild(listElement);
+
+    // Return the new list element (expected to be passed in on the subsequent call as the
+    // prior list element).
+    return listElement;
+
+};
+
+// Copied from responsive.plain-javascript/utils/validation.js.
+let prepareValidators = function (validationData, fieldValidators) {
+
+    // Validate input.
+    if (!validationData || !fieldValidators) {
+        return [];
+    }
+
+    // Variables.
+    let i, validationOptions, validator, key, preparedValidators;
+
+    // Process the validation data to prepare the validators.
+    preparedValidators = [];
+    for (i = 0; i < validationData.length; i++) {
+        validationOptions = validationData[i];
+        key = validationOptions.validationType;
+        validator = fieldValidators[key];
+        preparedValidators.push({
+            validator: new validator(validationOptions.configuration),
+            data: validationOptions
+        });
+    }
+
+    // Return the prepared validators.
+    return preparedValidators;
+
+};
+
+// Copied from responsive.plain-javascript/utils/field.js.
+let setData = function (data, value, options, alias, id) {
+
+    // Adjust options.
+    options = options || {};
+    options.rawDataByAlias = options.rawDataByAlias || false;
+
+    // Set data.
+    if (options.rawDataByAlias) {
+        if (alias) {
+            data[alias] = value;
+        }
+    } else {
+        data.append(id, value);
+    }
+
+};
 ```
 
-Note that it's calling the `setGlobalInputAttributes` function, which is part of the core of Formulate,
-and is inaccessible to external code. That means you'll have to create that functionality from
-scratch. If you like, you can just copy that function from that same [builtin-types.js](https://github.com/rhythmagency/formulate/blob/6efc0cc3d0cd9ee4795639886898d4222bc359b2/src/formulate.app/JavaScript/FormTemplates/responsive.bootstrap.angular/builtin-types.js#L11) file:
+Notice the comment near the top that says most of the JavaScript near the bottom is copied from the Formulate
+core JavaScript. If you are familiar with modular JavaScript (the kind with `require` statements) and you would
+like to avoid copying all of that extra JavaScript, you can follow an example from the main Formulate code base.
+For example, you could refer to the JavaScript for the text field: [plain-text.js](https://github.com/rhythmagency/formulate/blob/v3/master/src/formulate.frontend/responsive.plain-javascript/fields/plain-text.js)
 
-```javascript
-function setGlobalInputAttributes(field, el, options) {
-    options = angular.extend({
-        // When set to true, this element will get the "form-control" class.
-        formControl: true,
-        disableAutocomplete: true,
-        bindToFieldModel: true
-    }, options);
-
-    el.attr('id', fieldId(field));
-    el.attr('name', 'field_' + field.id);
-    el.attr('aria-label', field.label);
-    el.addClass('formulate__control');
-
-    if (options.bindToFieldModel) {
-        el.attr('ng-model', 'ctrl.fieldModels[\'' + field.id + '\']');
-        el.attr('formulate-validation', true);
-    }
-
-    if (options.formControl) {
-        el.addClass('form-control');
-    }
-
-    if (options.disableAutocomplete) {
-        el.attr('autocomplete', 'off');
-    }
-
-    return el;
-}
-```
-
-In the future, this function might become public so it can be called outside of the core
-Formulate code base.
+These core JavaScript files are not available on NPM, so if you take the modular approach you will need to either
+[download them from GitHub](https://github.com/rhythmagency/formulate/tree/v3/master/src/formulate.frontend/responsive.plain-javascript)
+or refer to the ones that are installed into your website when Formulate is installed.
 
 # Review
 
@@ -183,7 +365,7 @@ You should now have a working custom field type. Here were the steps you took:
 
 * Create an AngularJS directive (in the Umbraco back office), including the JavaScript that refers to the markup used by the directive.
 * Create a C# class that implements the `IFormFieldType` interface.
-* Render the field renderer used by the Responsive Bootstrap Angular (RBA) template (on the frontend of the website).
+* Render the field renderer used by the plain JavaScript template (on the frontend of the website).
 
 If you have created a custom field type, be sure to [let me know](https://github.com/rhythmagency/formulate/issues) so it can be
 considered for incorporation into the core of Formulate.
