@@ -359,6 +359,11 @@ These core JavaScript files are not available on NPM, so if you take the modular
 [download them from GitHub](https://github.com/rhythmagency/formulate/tree/v3/master/src/formulate.frontend/responsive.plain-javascript)
 or refer to the ones that are installed into your website when Formulate is installed.
 
+If you need to support IE11 and you are using the non-modular approach, be sure to use Babel to transpile to ES5
+and be sure to include a promise polyfill. The Formulate core includes a promise polyfill already, but you will not be
+able to use it unless you use the modular approach. Here is one promise polyfill you might consider using:
+[promise-polyfill](https://cdnjs.com/libraries/promise-polyfill)
+
 # Review
 
 You should now have a working custom field type. Here were the steps you took:
