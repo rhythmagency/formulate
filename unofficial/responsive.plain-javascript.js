@@ -13,9 +13,10 @@ let FieldUtility = require("../utils/field");
 function RenderButton(fieldData, fieldValidators, cssClasses, extraOptions) {
 
     // Initialize field.
+    this.buttonType = this.getTypeValue(fieldData.configuration.buttonKind);
     FieldUtility.initializeField(this, fieldData, fieldValidators, {
         nodeName: "button",
-        type: "submit",
+        type: this.buttonType,
         cssClasses: cssClasses,
         usePlaceholder: false,
         useLabel: false
@@ -24,6 +25,11 @@ function RenderButton(fieldData, fieldValidators, cssClasses, extraOptions) {
     // Add text to button.
     this.element.appendChild(document.createTextNode(fieldData.label));
 
+    // Disable submit button if this is a multi-step form.
+    if (extraOptions.stepIndex > 0) {
+        this.toggleSubmitButton(false);
+    }
+
     // Store instance variables.
     this.formElement = extraOptions.formElement;
     this.buttonKind = fieldData.configuration.buttonKind;
@@ -31,8 +37,55 @@ function RenderButton(fieldData, fieldValidators, cssClasses, extraOptions) {
     // Listen for form events.
     this.listenForSubmit();
     this.listenForFailureEvents();
+    this.listenForButtonClicks();
 
 }
+
+/**
+ * Toggle the disabled attribute on the submit button.
+ * @param enabled Should the button be enabled or disabled?
+ */
+RenderButton.prototype.toggleSubmitButton = function (enabled) {
+
+    // Only toggle the enabled state on the submit button.
+    if (this.buttonType === "submit") {
+        this.element.disabled = !enabled;
+    }
+
+};
+
+/**
+ * Listen for previous/next button clicks.
+ */
+RenderButton.prototype.listenForButtonClicks = function () {
+
+    // Variables.
+    let formElement = this.formElement,
+        buttonKind = this.buttonKind;
+
+    // When a button is clicked, emit an event to advance the form to the previous or next step.
+    this.element.addEventListener("click", function () {
+        if (buttonKind === "Previous") {
+            dispatchEvent("formulate: submit: previous", formElement);
+        } else if (buttonKind === "Next") {
+            dispatchEvent("formulate: submit: next", formElement);
+        }
+    });
+
+};
+
+/**
+ * Get the value to set on the type attribute for the button.
+ * @param buttonKind The kind of button (e.g., "Previous" or "Submit").
+ * @returns {string} The value (e.g., "button" or "submit").
+ */
+RenderButton.prototype.getTypeValue = function (buttonKind) {
+    if (buttonKind === "Previous" || buttonKind === "Next") {
+        return "button";
+    } else {
+        return "submit";
+    }
+};
 
 /**
  * Listens for failure events on the form (in which case the button should be enabled again).
@@ -40,8 +93,13 @@ function RenderButton(fieldData, fieldValidators, cssClasses, extraOptions) {
 RenderButton.prototype.listenForFailureEvents = function () {
     let formElement = this.formElement,
         element = this.element,
-        handleError = function () {
-            element.disabled = false;
+        handleError = function (e) {
+
+            // Enable the button (unless this is a step in a multi-step form rather).
+            if (!e.detail.isStep) {
+                element.disabled = false;
+            }
+
         };
     formElement.addEventListener("formulate: submit: validation errors", handleError, true);
     formElement.addEventListener("formulate form: submit: failure", handleError, true);
@@ -79,12 +137,39 @@ RenderButton.prototype.getButtonKind = function () {
  */
 FieldUtility.initializeFieldPrototype(RenderButton.prototype);
 
+/**
+ * Dispatches the specified event.
+ * @param eventName The event to dispatch.
+ * @param form The form element to dispatch the element on.
+ * @param data The data to send with the event.
+ */
+function dispatchEvent(eventName, form, data) {
+    let event;
+    if (typeof window.CustomEvent === "function") {
+
+        // Typical implementation for CustomEvent.
+        event = new CustomEvent(eventName, {
+            bubbles: true,
+            detail: data
+        });
+        form.dispatchEvent(event);
+
+    } else {
+
+        // IE11 implementation for CustomEvent.
+        event = document.createEvent("CustomEvent");
+        event.initCustomEvent(eventName, true, false, data);
+        form.dispatchEvent(event);
+
+    }
+}
+
 // Export the field renderer configuration.
 module.exports = {
     key: "button",
     renderer: RenderButton
 };
-},{"../utils/field":28}],2:[function(require,module,exports){
+},{"../utils/field":27}],2:[function(require,module,exports){
 // Dependencies.
 let FieldUtility = require("../utils/field");
 
@@ -195,7 +280,7 @@ module.exports = {
     key: "checkbox-list",
     renderer: RenderCheckboxList
 };
-},{"../utils/field":28,"../utils/validation":30}],3:[function(require,module,exports){
+},{"../utils/field":27,"../utils/validation":29}],3:[function(require,module,exports){
 // Dependencies.
 let FieldUtility = require("../utils/field");
 
@@ -250,7 +335,7 @@ module.exports = {
     key: "checkbox",
     renderer: RenderCheckbox
 };
-},{"../utils/field":28,"../utils/validation":30}],4:[function(require,module,exports){
+},{"../utils/field":27,"../utils/validation":29}],4:[function(require,module,exports){
 // Dependencies.
 let FieldUtility = require("../utils/field");
 
@@ -304,7 +389,7 @@ module.exports = {
     key: "date",
     renderer: RenderDate
 };
-},{"../utils/field":28,"../utils/validation":30}],5:[function(require,module,exports){
+},{"../utils/field":27,"../utils/validation":29}],5:[function(require,module,exports){
 // Dependencies.
 let FieldUtility = require("../utils/field");
 
@@ -425,7 +510,7 @@ module.exports = {
     key: "extended-radio-list",
     renderer: RenderRadioList
 };
-},{"../utils/field":28,"../utils/validation":30}],6:[function(require,module,exports){
+},{"../utils/field":27,"../utils/validation":29}],6:[function(require,module,exports){
 // Dependencies.
 let FieldUtility = require("../utils/field");
 
@@ -470,7 +555,7 @@ module.exports = {
     key: "header",
     renderer: RenderHeader
 };
-},{"../utils/field":28}],7:[function(require,module,exports){
+},{"../utils/field":27}],7:[function(require,module,exports){
 // Dependencies.
 let FieldUtility = require("../utils/field");
 
@@ -525,7 +610,7 @@ module.exports = {
     key: "hidden",
     renderer: RenderHidden
 };
-},{"../utils/field":28,"../utils/validation":30}],8:[function(require,module,exports){
+},{"../utils/field":27,"../utils/validation":29}],8:[function(require,module,exports){
 // Dependencies.
 let FieldUtility = require("../utils/field");
 
@@ -645,7 +730,7 @@ module.exports = {
     key: "radio-list",
     renderer: RenderRadioList
 };
-},{"../utils/field":28,"../utils/validation":30}],9:[function(require,module,exports){
+},{"../utils/field":27,"../utils/validation":29}],9:[function(require,module,exports){
 // Dependencies.
 let FieldUtility = require("../utils/field"),
     AddClasses = require("../utils/add-classes"),
@@ -786,7 +871,7 @@ module.exports = {
     key: "recaptcha",
     renderer: RenderRecaptcha
 };
-},{"../utils/add-classes":25,"../utils/field":28,"../utils/validation":30}],10:[function(require,module,exports){
+},{"../utils/add-classes":25,"../utils/field":27,"../utils/validation":29}],10:[function(require,module,exports){
 // Dependencies.
 let FieldUtility = require("../utils/field");
 
@@ -831,10 +916,9 @@ module.exports = {
     key: "rich-text",
     renderer: RichText
 };
-},{"../utils/field":28}],11:[function(require,module,exports){
+},{"../utils/field":27}],11:[function(require,module,exports){
 // Dependencies.
-let FieldUtility = require("../utils/field"),
-    dispatchEvent = require("../utils/events");
+let FieldUtility = require("../utils/field");
 
 /**
  * Renders a drop down field.
@@ -844,41 +928,12 @@ let FieldUtility = require("../utils/field"),
  * @constructor
  */
 function RenderSelect(fieldData, fieldValidators, cssClasses) {
-
-    // Initialize field.
     FieldUtility.initializeField(this, fieldData, fieldValidators, {
         nodeName: "select",
         cssClasses: cssClasses
     });
     this.addOptions(fieldData);
-
-    // Listen for events.
-    this.addChangeEvent(fieldData);
-
 }
-
-/**
- * Add event listener for the change event
- * @param fieldData The field data that should be used to render the drop down field.
- */
-RenderSelect.prototype.addChangeEvent = function(fieldData) {
-
-    // Variables.
-    let category = fieldData.category,
-        element = this.element;
-
-    // Add change event listener.
-    element.addEventListener('change', function() {
-
-        // Dispatch event indicating the drop down value changed.
-        dispatchEvent(element, "formulate form: select changed", {
-            category: category,
-            element: element
-        });
-
-    });
-
-};
 
 /**
  * Adds the options to the select.
@@ -975,7 +1030,7 @@ module.exports = {
     key: "select",
     renderer: RenderSelect
 };
-},{"../utils/events":27,"../utils/field":28,"../utils/validation":30}],12:[function(require,module,exports){
+},{"../utils/field":27,"../utils/validation":29}],12:[function(require,module,exports){
 // Dependencies.
 let FieldUtility = require("../utils/field");
 
@@ -1029,7 +1084,7 @@ module.exports = {
     key: "text",
     renderer: RenderText
 };
-},{"../utils/field":28,"../utils/validation":30}],13:[function(require,module,exports){
+},{"../utils/field":27,"../utils/validation":29}],13:[function(require,module,exports){
 // Dependencies.
 let FieldUtility = require("../utils/field");
 
@@ -1083,7 +1138,7 @@ module.exports = {
     key: "textarea",
     renderer: RenderText
 };
-},{"../utils/field":28,"../utils/validation":30}],14:[function(require,module,exports){
+},{"../utils/field":27,"../utils/validation":29}],14:[function(require,module,exports){
 // Dependencies.
 let FieldUtility = require("../utils/field");
 
@@ -1256,7 +1311,7 @@ module.exports = {
     key: "upload",
     renderer: RenderUpload
 };
-},{"../utils/field":28,"../utils/validation":30}],15:[function(require,module,exports){
+},{"../utils/field":27,"../utils/validation":29}],15:[function(require,module,exports){
 // Variables.
 let forms, renderers, validators;
 
@@ -1284,7 +1339,7 @@ if (typeof Promise === "undefined") {
 
 // Export the promise function (either native or the polyfill).
 module.exports = FormulatePromise;
-},{"promiscuous/dist/promiscuous-browser-shim-full":33}],17:[function(require,module,exports){
+},{"promiscuous/dist/promiscuous-browser-shim-full":32}],17:[function(require,module,exports){
 /**
  * Returns the field renderers in an associative array with the keys being the
  * type of field renderer (e.g., "text" or "button") and the value being the
@@ -1366,7 +1421,7 @@ function getFieldValidators() {
 
 // Export the function that gets the field validators.
 module.exports = getFieldValidators;
-},{"../validators/regex":31,"../validators/required":32}],19:[function(require,module,exports){
+},{"../validators/regex":30,"../validators/required":31}],19:[function(require,module,exports){
 /**
  * Returns the data for all Formulate forms from the window object.
  * @returns {Array} The forms.
@@ -1443,6 +1498,9 @@ function renderField(fieldData, fieldRenderers, fieldValidators, extraOptions) {
     }
     renderResult = new renderer(fieldData, fieldValidators, cssClasses, extraOptions);
 
+    // Set the field step.
+    renderResult.stepIndex = extraOptions.stepIndex;
+
     // Return the rendered field (an object that has information about the rendered field).
     return renderResult;
 
@@ -1464,7 +1522,7 @@ function renderForm(formData, formElement, placeholderElement, fieldRenderers, f
     // Variables.
     let i, j, k, row, rows, rowElement, cells, cell, fields, fieldId,
         columnCount, cellElement, fieldElement, fieldsData, fieldMap,
-        field, renderedFields, renderedField;
+        field, renderedFields, renderedField, stepIndex, isActiveStep;
 
     // Map fields to an associative array for quick lookups.
     fieldsData = formData.data.fields;
@@ -1473,13 +1531,21 @@ function renderForm(formData, formElement, placeholderElement, fieldRenderers, f
     // Process each row in the form.
     rows = formData.data.rows;
     renderedFields = [];
-    for(i = 0; i < rows.length; i++) {
+    isActiveStep = true;
+    stepIndex = 0;
+    for (i = 0; i < rows.length; i++) {
 
         // Create the row.
         row = rows[i];
         cells = row.cells;
-        rowElement = require("./render-row")();
-        formElement.appendChild(rowElement);
+        if (row.isStep) {
+            stepIndex++;
+            isActiveStep = false;
+            continue;
+        } else {
+            rowElement = require("./render-row")(stepIndex, isActiveStep);
+            formElement.appendChild(rowElement);
+        }
 
         // Process each cell in this row.
         for (j = 0; j < cells.length; j++) {
@@ -1499,10 +1565,13 @@ function renderForm(formData, formElement, placeholderElement, fieldRenderers, f
                 field = fieldMap[fieldId];
                 renderedField = require("./render-field")(field, fieldRenderers, fieldValidators, {
                     formElement: formElement,
-                    placeholderElement: placeholderElement
+                    placeholderElement: placeholderElement,
+                    stepIndex
                 });
                 renderedFields.push(renderedField);
                 fieldElement = renderedField.getElement();
+                prepopulateValue(fieldElement, field.initialValue)
+                //TODO: ...
                 cellElement.appendChild(fieldElement);
 
             }
@@ -1516,12 +1585,61 @@ function renderForm(formData, formElement, placeholderElement, fieldRenderers, f
 
 }
 
+/**
+ * Sets the initial values of fields.
+ * @param element The field wrapper element.
+ * @param values The array of values.
+ */
+function prepopulateValue(element, values) {
+
+    // Exit early if the element or values are invalid.
+    if (!element || !values || !values.length) {
+        return;
+    }
+
+    // Variables.
+    let inputs = element.querySelectorAll('input, textarea, select'),
+        input, i;
+
+    // Exit early if there are no inputs.
+    if (!inputs.length) {
+        return;
+    }
+
+    // Is this a single input, or a list of inputs?
+    if (inputs.length === 1) {
+
+        // Is this a checkbox?
+        input = inputs[0];
+        if (input.type === 'checkbox') {
+            input.checked = true;
+        }
+        else if (values.length === 1) {
+
+            // Likely a text field.
+            input.value = values[0];
+
+        }
+
+    } else {
+
+        // Loop over list of inputs (checkboxes or radio buttons).
+        for (i = 0; i < inputs.length; i++) {
+            input = inputs[i];
+            if (['checkbox', 'radio'].indexOf(input.type) >= 0) {
+                if (values.indexOf(input.value) >= 0) {
+                    input.checked = true;
+                }
+            }
+        }
+
+    }
+
+}
+
 // Export the function that renders a form.
 module.exports = renderForm;
-},{"../utils/map-fields-by-id":29,"./render-cell":20,"./render-field":21,"./render-row":24}],23:[function(require,module,exports){
-// Dependencies.
-let dispatchEvent = require("../utils/events");
-
+},{"../utils/map-fields-by-id":28,"./render-cell":20,"./render-field":21,"./render-row":24}],23:[function(require,module,exports){
 /**
  * Renders the Formulate forms, inserting them into the appropriate place
  * in the DOM.
@@ -1532,13 +1650,16 @@ let dispatchEvent = require("../utils/events");
 function renderForms(forms, fieldRenderers, fieldValidators) {
 
     // Variables.
-    let i, form, formId, placeholderElement, formElement, formContainer, fields;
+    let i, form, formId, placeholderElement, formElement, formContainer, fields, formState;
 
     // Process each form.
     for (i = 0; i < forms.length; i++) {
 
         // Variables.
         form = forms[i];
+        formState = {
+            stepIndex: 0
+        };
 
         // Create the form DOM element.
         formElement = document.createElement("form");
@@ -1559,7 +1680,7 @@ function renderForms(forms, fieldRenderers, fieldValidators) {
         formContainer.removeChild(placeholderElement);
 
         // Handle submits.
-        attachSubmitHandler(formElement, fields, form.data.payload, form.data.url);
+        attachSubmitHandler(formState, formElement, fields, form.data.payload, form.data.url);
 
     }
 
@@ -1567,12 +1688,13 @@ function renderForms(forms, fieldRenderers, fieldValidators) {
 
 /**
  * Attaches the function that handles the submit event.
+ * @param formState {Object} Information about the current state of the form.
  * @param form {HTMLFormElement} The HTML form DOM element.
  * @param fields {Array} The fields in this form.
  * @param payload {Object} The additional data to send with the submission.
  * @param url {string} The URL to send the submission to.
  */
-function attachSubmitHandler(form, fields, payload, url) {
+function attachSubmitHandler(formState, form, fields, payload, url) {
 
     // Variables.
     let validationData;
@@ -1584,7 +1706,7 @@ function attachSubmitHandler(form, fields, payload, url) {
         e.preventDefault();
 
         // Dispatch event to indicate the form submission has started.
-        dispatchEvent(form, "formulate: submit: started");
+        dispatchEvent("formulate: submit: started", form);
 
         // First, ensure all fields are valid.
         checkValidity(form, fields)
@@ -1597,11 +1719,11 @@ function attachSubmitHandler(form, fields, payload, url) {
                         fields: fields,
                         payload: payload
                     };
-                    dispatchEvent(form, "formulate: validation: success", validationData);
+                    dispatchEvent("formulate: validation: success", form, validationData);
 
                     // Should the submit be cancelled?
                     if (validationData.cancelSubmit) {
-                        dispatchEvent(form, "formulate: submit: cancelled");
+                        dispatchEvent("formulate: submit: cancelled", form);
                         return;
                     }
 
@@ -1622,16 +1744,93 @@ function attachSubmitHandler(form, fields, payload, url) {
 
     }, true);
 
+    // Listen for the event that occurs when navigating to the previous step in the form.
+    form.addEventListener("formulate: submit: previous", function () {
+        advanceFormStepInDom(form, formState, fields, -1);
+    });
+
+    // Listen for the event that occurs when navigating to the next step in the form.
+    form.addEventListener("formulate: submit: next", function () {
+
+        // Get the fields for the current step (before advancing).
+        let currentFields = fields.filter(function (field) {
+            return field.stepIndex === formState.stepIndex;
+        });
+
+        // Check if the visible fields are valid.
+        checkValidity(form, currentFields)
+            .then(function (validationResult) {
+                if (validationResult.success) {
+
+                    // Dispatch event to indicate the validation succeeded for the current step
+                    validationData = {
+                        fields: currentFields,
+                        payload: payload
+                    };
+                    dispatchEvent("formulate: validation: next: success", form, validationData);
+
+                    // Show the next step in the DOM.
+                    advanceFormStepInDom(form, formState, fields, 1);
+
+                } else {
+
+                    // Validation failed.
+                    handleInvalidFields(validationResult.messages, form, true);
+
+                }
+            });
+    });
+
+}
+
+/**
+ * Update the DOM to reflect the adjacent step.
+ * @param form The form element.
+ * @param formState The form state.
+ * @param allFields All the form fields.
+ * @param direction The direction to advance (1 for forward, -1 for backward).
+ */
+function advanceFormStepInDom(form, formState, allFields, direction) {
+
+    // Variables.
+    let i, field, enabled,
+        oldStepRows = form.querySelectorAll(".formulate__row--step-" + formState.stepIndex.toString()),
+        newStepRows = form.querySelectorAll(".formulate__row--step-" + (formState.stepIndex + direction).toString());
+
+    // Advance to adjacent step.
+    formState.stepIndex += direction;
+
+    // Update CSS classes on the active and inactive rows.
+    for (i = 0; i < oldStepRows.length; i++) {
+        oldStepRows[i].classList.remove("formulate__row--active");
+        oldStepRows[i].classList.add("formulate__row--inactive");
+    }
+    for (i = 0; i < newStepRows.length; i++) {
+        newStepRows[i].classList.remove("formulate__row--inactive");
+        newStepRows[i].classList.add("formulate__row--active");
+    }
+
+    // Enable/disable submit buttons, depending on if they are in the current step.
+    for (i = 0; i < allFields.length; i++) {
+        field = allFields[i];
+        enabled = field.stepIndex === formState.stepIndex;
+        if (field.toggleSubmitButton) {
+            field.toggleSubmitButton(enabled);
+        }
+    }
+
 }
 
 /**
  * Handles invalid fields by dispatching an event with the validation errors.
  * @param messages The messages for the validation errors.
  * @param form The form.
+ * @param isStep Is this a step in a multi-step form (rather than the final submit)?
  */
-function handleInvalidFields(messages, form) {
-    dispatchEvent(form, "formulate: submit: validation errors", {
-        messages: messages
+function handleInvalidFields(messages, form, isStep) {
+    dispatchEvent("formulate: submit: validation errors", form, {
+        messages: messages,
+        isStep: !!isStep
     });
 }
 
@@ -1694,34 +1893,63 @@ function sendPayloadToServer(form, fields, payload, url) {
         if (success) {
 
             // Dispatch success event.
-            dispatchEvent(form, "formulate form: submit: success", {
+            dispatchEvent("formulate form: submit: success", form, {
                 dataByAlias: dataByAlias
             });
 
         } else {
 
             // Dispatch failure event.
-            dispatchEvent(form, "formulate form: submit: failure");
+            dispatchEvent("formulate form: submit: failure", form);
 
         }
 
     }).catch(function() {
 
         // Dispatch failure event.
-        dispatchEvent(form, "formulate form: submit: failure");
+        dispatchEvent("formulate form: submit: failure", form);
 
     });
 
 }
 
+/**
+ * Dispatches the specified event.
+ * @param eventName The event to dispatch.
+ * @param form The form element to dispatch the element on.
+ * @param data The data to send with the event.
+ */
+function dispatchEvent(eventName, form, data) {
+    let event;
+    if (typeof window.CustomEvent === "function") {
+
+        // Typical implementation for CustomEvent.
+        event = new CustomEvent(eventName, {
+            bubbles: true,
+            detail: data
+        });
+        form.dispatchEvent(event);
+
+    } else {
+
+        // IE11 implementation for CustomEvent.
+        event = document.createEvent("CustomEvent");
+        event.initCustomEvent(eventName, true, false, data);
+        form.dispatchEvent(event);
+
+    }
+}
+
 // Export the function that renders forms.
 module.exports = renderForms;
-},{"../utils/ajax":26,"../utils/events":27,"../utils/validation":30,"./render-form":22}],24:[function(require,module,exports){
+},{"../utils/ajax":26,"../utils/validation":29,"./render-form":22}],24:[function(require,module,exports){
 /**
  * Renders a row in a Formulate form.
+ * @param stepIndex {number} The index of the step this row belongs to.
+ * @param isActiveStep {boolean} Is this row in the currently active step?
  * @returns {HTMLDivElement} The DOM element for the row.
  */
-function renderRow() {
+function renderRow(stepIndex, isActiveStep) {
 
     // Variables.
     let rowElement;
@@ -1731,6 +1959,8 @@ function renderRow() {
 
     // Add a CSS class to the DOM element.
     rowElement.classList.add("formulate__row");
+    rowElement.classList.add("formulate__row--step-" + stepIndex.toString());
+    rowElement.classList.add("formulate__row--" + (isActiveStep ? "active" : "inactive"));
 
     // Return the DOM element for the row.
     return rowElement;
@@ -1840,36 +2070,6 @@ SendRequest.prototype.handleStateChange = function () {
 // Export the function that sends an AJAX request.
 module.exports = SendRequest;
 },{"../polyfills/promise":16}],27:[function(require,module,exports){
-/**
- * Dispatches the specified event.
- * @param element The element to dispatch the element on.
- * @param eventName The event to dispatch.
- * @param data The data to send with the event.
- */
-function dispatchEvent(element, eventName, data) {
-    let event;
-    if (typeof window.CustomEvent === "function") {
-
-        // Typical implementation for CustomEvent.
-        event = new CustomEvent(eventName, {
-            bubbles: true,
-            detail: data
-        });
-        element.dispatchEvent(event);
-
-    } else {
-
-        // IE11 implementation for CustomEvent.
-        event = document.createEvent("CustomEvent");
-        event.initCustomEvent(eventName, true, false, data);
-        element.dispatchEvent(event);
-
-    }
-}
-
-// Export the function that dispatches an event.
-module.exports = dispatchEvent;
-},{}],28:[function(require,module,exports){
 // Dependencies.
 let AddClasses = require("./add-classes");
 
@@ -2031,10 +2231,10 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
                 labelElement.appendChild(fieldElement);
             }
         } else {
-            if (options.fieldBeforeLabelText || window.labelAfterTextInput) {
-                wrapperElement.insertBefore(fieldElement, wrapperElement.childNodes[0]);
-            } else {
+            if (options.fieldBeforeLabelText === false || window.labelAfterTextInput === false) {
                 wrapperElement.appendChild(fieldElement);
+            } else {
+                wrapperElement.insertBefore(fieldElement, wrapperElement.childNodes[wrapperElement.childNodes.length - 1]);
             }
         }
     }
@@ -2066,7 +2266,7 @@ Field.generateId = function (prefix) {
 // Export the form field utility functions.
 module.exports = Field;
 
-},{"./add-classes":25,"./validation":30}],29:[function(require,module,exports){
+},{"./add-classes":25,"./validation":29}],28:[function(require,module,exports){
 /**
  * Maps an array of Formulate fields into an associative array, with the field
  * ID as the key and the field as the value.
@@ -2096,7 +2296,7 @@ function mapFields(fields) {
 
 // Export the function that maps fields.
 module.exports = mapFields;
-},{}],30:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 /**
  * A collection of validation utility functions.
  * @constructor
@@ -2371,7 +2571,7 @@ function checkValidity(validator, value, validityFnName) {
 
 // Export the validation utility functions.
 module.exports = ValidationUtilities;
-},{"../polyfills/promise":16}],31:[function(require,module,exports){
+},{"../polyfills/promise":16}],30:[function(require,module,exports){
 /**
  * Validates a field to ensure its value matches a regular expression.
  * @param configuration The configuration for this regex validator.
@@ -2470,7 +2670,7 @@ module.exports = {
     key: "regex",
     validator: RegexValidator
 };
-},{"../polyfills/promise":16,"../utils/validation":30}],32:[function(require,module,exports){
+},{"../polyfills/promise":16,"../utils/validation":29}],31:[function(require,module,exports){
 /**
  * Validates a field to ensure its value is set.
  * @constructor
@@ -2559,7 +2759,7 @@ module.exports = {
     key: "required",
     validator: RequiredValidator
 };
-},{"../polyfills/promise":16,"../utils/validation":30}],33:[function(require,module,exports){
+},{"../polyfills/promise":16,"../utils/validation":29}],32:[function(require,module,exports){
 /**@license MIT-promiscuous-©Ruben Verborgh*/
 (function (func, obj) {
   // Type checking utility function
