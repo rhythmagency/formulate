@@ -390,6 +390,7 @@
     <Compile Include="Models\Requests\DeleteConfiguredFormRequest.cs" />
     <Compile Include="Models\Requests\DeleteDataValueRequest.cs" />
     <Compile Include="Models\Requests\DeleteFolderRequest.cs" />
+    <Compile Include="Models\Requests\DuplicateFormRequest.cs" />
     <Compile Include="Models\Requests\DeleteFormRequest.cs" />
     <Compile Include="Models\Requests\DeleteLayoutRequest.cs" />
     <Compile Include="Models\Requests\DeleteSubmissionRequest.cs" />
@@ -503,6 +504,7 @@
     <Content Include="App_Plugins\formulate\menu-actions\deleteConfiguredForm.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteDataValue.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteFolder.html" />
+    <Content Include="App_Plugins\formulate\menu-actions\duplicateForm.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteForm.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteLayout.html" />
     <Content Include="App_Plugins\formulate\menu-actions\deleteValidation.html" />
@@ -537,6 +539,8 @@
     <Content Include="Directives\deleteDataValueConfirmation\deleteDataValue.js" />
     <Content Include="Directives\deleteFolderConfirmation\deleteFolder.html" />
     <Content Include="Directives\deleteFolderConfirmation\deleteFolder.js" />
+    <Content Include="Directives\duplicateFormConfirmation\duplicateForm.html" />
+    <Content Include="Directives\duplicateFormConfirmation\duplicateForm.js" />
     <Content Include="Directives\deleteFormConfirmation\deleteForm.html" />
     <Content Include="Directives\deleteFormConfirmation\deleteForm.js" />
     <Content Include="Directives\deleteLayoutConfirmation\deleteLayout.html" />

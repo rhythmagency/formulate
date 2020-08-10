@@ -208,6 +208,35 @@
             menu.Items.Add(menuItem);
         }
 
+
+        /// <summary>
+        /// Adds the "Duplicate Form" action if a specified ID is
+        /// passed.
+        /// </summary>
+        /// <param name="menu">
+        /// The menu to add the action to.
+        /// </param>
+        /// <param name="entityId">
+        /// The ID of the entity to duplicate the form.
+        /// If null, this menu is not added.
+        /// </param>
+        public void AddDuplicateFormAction(MenuItemCollection menu,
+            Guid? entityId = null)
+        {
+            if (entityId.HasValue)
+            {
+                var path = "/App_Plugins/formulate/menu-actions/duplicateForm.html";
+                var menuItem = new MenuItem()
+                {
+                    Alias = "duplicateForm",
+                    Icon = "formulate-clipboard", //ToDo Add better icon 
+                    Name = LocalizationHelper.GetMenuItemName("Duplicate Form")
+                };
+                menuItem.LaunchDialogView(path, "Duplicate Form");
+                menu.Items.Add(menuItem);
+            }           
+        }
+
         #endregion
 
     }
