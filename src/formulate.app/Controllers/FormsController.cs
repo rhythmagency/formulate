@@ -40,6 +40,7 @@
         private const string PersistFormError = @"An error occurred while attempting to persist the Formulate form.";
         private const string DeleteFormError = @"An error occurred while attempting to delete the Formulate form.";
         private const string MoveFormError = @"An error occurred while attempting to move a Formulate form.";
+        private const string DuplicateFormError = @"An error occurred while attempting to duplicate a Formulate form.";
 
         #endregion
 
@@ -565,6 +566,63 @@
 
 
             // Return result.
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// Duplicates the form with the specified ID.
+        /// </summary>
+        /// <param name="request">
+        /// The request to duplicate the form.
+        /// </param>
+        /// <returns>
+        /// An object indicating success or failure, along with some
+        /// accompanying data.
+        /// </returns>
+        [HttpPost()]
+        public object DuplicateForm(DuplicateFormRequest request)
+        {
+
+            // Variables.
+            var result = default(object);
+
+
+            // Catch all errors.
+            try
+            {
+
+                // Variables.
+                var formId = GuidHelper.GetGuid(request.FormId);
+                var configs = ConFormPersistence.RetrieveChildren(formId);
+
+
+                // ToDo
+
+
+                // Success.
+                result = new
+                {
+                    Success = true
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                // Error.
+                Logger.Error<FormsController>(ex, DuplicateFormError);
+                result = new
+                {
+                    Success = false,
+                    Reason = UnhandledError
+                };
+
+            }
+
+
+            // Return the result.
             return result;
 
         }
