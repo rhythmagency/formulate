@@ -187,7 +187,10 @@
                 { "Layout.RootId", LayoutConstants.Id },
                 { "Validation.RootId", ValidationConstants.Id },
                 { "DataValue.RootId", DataValueConstants.Id },
-                { "Form.RootId", FormConstants.Id }
+                { "Form.RootId", FormConstants.Id },
+                { "DuplicateForm",
+                    helper.GetUmbracoApiService<FormsController>(x =>
+                        x.DuplicateForm(null)) },
             };
             if (e.ContainsKey(key))
             {

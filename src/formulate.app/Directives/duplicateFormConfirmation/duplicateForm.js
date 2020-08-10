@@ -10,7 +10,7 @@ function directive(formulateDirectives) {
     return {
         restrict: "E",
         template: formulateDirectives.get("duplicateFormConfirmation/duplicateForm.html"),
-        controller: "formulate.pulicateFormConfirmation"
+        controller: "formulate.duplicateFormConfirmation"
     };
 }
 
@@ -58,7 +58,6 @@ function getDuplicateForm(services) {
     return function() {
 
         // Variables.
-        var node = services.$scope.currentNode;
         var formId = services.$scope.formId;
         var formPromise = services.formulateForms.getFormInfo(formId);
 
@@ -71,7 +70,22 @@ function getDuplicateForm(services) {
 
             // Duplicate form.
             //ToDo
+            services.formulateForms.duplicateForm(formId)
+                .then(function () {
 
+                    // Update tree.
+                    var options = {
+                        tree: "formulate",
+                        path: partialPath,
+                        forceReload: true,
+                        activate: false
+                    };
+                    services.navigationService.syncTree(options);
+
+                    // Close dialog.
+                    services.navigationService.hideDialog();
+
+                });
         });
 
     };
