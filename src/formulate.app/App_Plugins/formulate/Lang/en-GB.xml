@@ -36,6 +36,7 @@
     <key alias="Delete Layout">Delete Layout</key>
     <key alias="Delete Validation">Delete Validation</key>
     <key alias="Move">Move</key>
+    <key alias="Duplicate Form">Duplicateg Form</key>
   </area>
   <area alias="formulate-info-pages">
     <key alias="Forms"><![CDATA[
