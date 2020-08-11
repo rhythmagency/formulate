@@ -66,24 +66,34 @@ function getDuplicateForm(services) {
 
             // Variables.
             var path = form.path;
-            var partialPath = path.slice(0, path.length - 1);
+            var parentId = getParentId(path);
 
             // Duplicate form.
             //ToDo
-            services.formulateForms.duplicateForm(formId)
-                .then(function () {
+            services.formulateForms.duplicateForm(formId, parentId)
+                .then(function (responseData) {
 
                     // Update tree.
                     var options = {
                         tree: "formulate",
-                        path: partialPath,
+                        path: responseData.path,
                         forceReload: true,
                         activate: false
                     };
                     services.navigationService.syncTree(options);
 
+
                     // Close dialog.
                     services.navigationService.hideDialog();
+
+
+                    // Redirect and reload
+                    var url = "/formulate/formulate/editForm/"
+                        + responseData.formId;
+                    services.$location.url(url);
+
+                    services.$route.reload();
+                    
 
                 });
         });
@@ -96,4 +106,12 @@ function getCancel(services) {
     return function () {
         services.navigationService.hideDialog();
     };
+}
+
+// Gets the ID of the form's parent.
+function getParentId(path) {
+    var parentId = path.length > 0
+        ? path[path.length - 2]
+        : null;
+    return parentId;
 }

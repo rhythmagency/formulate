@@ -208,19 +208,23 @@ function getMoveForm(services) {
 
 // Returns the function that duplicates a form from the server.
 function getDuplicateForm(services) {
-    return function (formId) {
+    return function (formId, parentId) {
 
         // Variables.
         var url = services.formulateVars.DuplicateForm;
         var data = {
-            FormId: formId
+            FormId: formId,
+            ParentId: parentId
         };
 
         // Send request to delete the form.
-        return services.formulateServer.post(url, data, function () {
+        return services.formulateServer.post(url, data, function (data) {
 
-            // Return empty data.
-            return {};
+            // Return form ID and path.
+            return {
+                formId: data.FormId,
+                path: data.Path
+            };
 
         });
 
