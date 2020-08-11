@@ -131,6 +131,7 @@
                     ConfiguredFormHelper.AddCreateConfiguredFormAction(menu, entityId);
                     FormHelper.AddMoveFormAction(menu, entity as Form);
                     FormHelper.AddDeleteFormAction(menu);
+                    FormHelper.AddDuplicateFormAction(menu, entityId);
                 }
                 else if (entity is ConfiguredForm)
                 {

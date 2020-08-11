@@ -36,6 +36,7 @@
     <key alias="Delete Layout">Delete Layout</key>
     <key alias="Delete Validation">Delete Validation</key>
     <key alias="Move">Move</key>
+    <key alias="Duplicate Form">Duplicate Form</key>
   </area>
   <area alias="formulate-info-pages">
     <key alias="Forms"><![CDATA[
@@ -298,6 +299,7 @@
     <key alias="Create Layout">Create Layout</key>
     <key alias="Create Validation">Create Validation</key>
     <key alias="Add Step">Add Step</key>
+    <key alias="Duplicate Form">Duplicate Form</key>
   </area>
   <area alias="formulate-header-descriptions">
     <key alias="Layout">Organize your fields into rows and columns.</key>
@@ -385,6 +387,13 @@
         Are you sure you want to delete the data value, "{{dataValueName}}"?
       </div>
     ]]></key>
+    <key alias="Duplicate Form">
+      <![CDATA[
+      <div>
+        Are you sure you want to duplicate the form, "{{formName}}"?
+      </div>
+    ]]>
+    </key>
   </area>
   <area alias="formulate-tabs">
     <key alias="Configured Form">Configured Form</key>

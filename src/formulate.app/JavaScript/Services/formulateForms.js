@@ -24,7 +24,10 @@ app.factory("formulateForms", function (formulateVars,
         deleteForm: getDeleteForm(services),
 
         // Moves a form to a new parent on the server.
-        moveForm: getMoveForm(services)
+        moveForm: getMoveForm(services),
+
+        // Duplicates a form.
+        duplicateForm: getDuplicateForm(services)
 
     };
 
@@ -195,6 +198,32 @@ function getMoveForm(services) {
                         path: item.Path
                     };
                 })
+            };
+
+        });
+
+    };
+}
+
+
+// Returns the function that duplicates a form from the server.
+function getDuplicateForm(services) {
+    return function (formId, parentId) {
+
+        // Variables.
+        var url = services.formulateVars.DuplicateForm;
+        var data = {
+            FormId: formId,
+            ParentId: parentId
+        };
+
+        // Send request to delete the form.
+        return services.formulateServer.post(url, data, function (data) {
+
+            // Return form ID and path.
+            return {
+                formId: data.FormId,
+                path: data.Path
             };
 
         });
