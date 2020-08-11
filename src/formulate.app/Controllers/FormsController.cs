@@ -595,16 +595,104 @@
 
                 // Variables.
                 var formId = GuidHelper.GetGuid(request.FormId);
+                var formsRootId = GuidHelper.GetGuid(FormConstants.Id);
+                var parentId = GuidHelper.GetGuid(request.ParentId);
+                var form = Persistence.Retrieve(formId);
                 var configs = ConFormPersistence.RetrieveChildren(formId);
 
+                // New Data
+                var duplicatedFormId = Guid.NewGuid();
+                var duplicatedAlias = string.Format("{0}_duplicated", form.Alias);
+                var duplicatedName = string.Format("{0}_duplicated", form.Name);
 
-                // ToDo
+                // Get fields and Recreate with new Ids.
+                var fields = form.Fields.MakeSafe()
+                    .Select(x =>
+                    {
+                        var fieldType = x.GetFieldType();
+                        var fieldTypeInstance = FormFieldTypeCollection
+                            .FirstOrDefault(y => y.GetType() == fieldType);
 
+                        var field = new FormField(fieldTypeInstance)
+                        {
+                            Id = Guid.NewGuid(),
+                            Alias = x.Alias,
+                            Name = x.Name,
+                            Label = x.Label,
+                            Category = x.Category,
+                            Validations = x.Validations.MakeSafe()
+                                    .Select(y => GuidHelper.GetGuid(y.ToString())).ToArray(),
+                            FieldConfiguration = JsonHelper.Serialize(x.FieldConfiguration)
+                        };
+                        return field;
+                    })
+                    .ToArray();
+
+                // Get the handlers.
+                var handlers = form.Handlers.MakeSafe().Select(x =>
+                {
+                    var handlerType = x.GetHandlerType();
+                    var handlerTypeInstance = FormHandlerTypeCollection
+                        .FirstOrDefault(y => y.GetType() == handlerType);
+
+                    var handler = new FormHandler(handlerTypeInstance)
+                    {
+                        Id = Guid.NewGuid(),
+                        Alias = x.Alias,
+                        Name = x.Name,
+                        Enabled = x.Enabled,
+                        HandlerConfiguration = JsonHelper.Serialize(x.HandlerConfiguration)
+                    };
+
+                    return handler;
+                }).ToArray();
+
+                // Get the ID path.
+                var parent = parentId == Guid.Empty ? null : Entities.Retrieve(parentId);
+                var path = parent == null
+                    ? new[] { formsRootId, duplicatedFormId }
+                    : parent.Path.Concat(new[] { duplicatedFormId }).ToArray();
+
+
+                // Create the form.
+                var duplicatedForm = new Form()
+                {
+                    Id = duplicatedFormId,
+                    Path = path,
+                    Alias = duplicatedAlias,
+                    Name = duplicatedName,
+                    Fields = fields,
+                    Handlers = handlers
+                };
+
+
+                // Persist the form.
+                Persistence.Persist(duplicatedForm);
+
+                foreach (var config in configs)
+                {
+                    var configId = Guid.NewGuid();
+                    var configuredForm = new ConfiguredForm()
+                    {
+                        Id = configId,
+                        Path = path.Concat(new[] { configId }).ToArray(),
+                        Name = config.Name,
+                        TemplateId = config.TemplateId,
+                        LayoutId = config.LayoutId
+                    };
+
+
+                    // Persist form configuration.
+                    ConFormPersistence.Persist(configuredForm);
+
+                }
 
                 // Success.
                 result = new
                 {
-                    Success = true
+                    Success = true,
+                    FormId = GuidHelper.GetString(duplicatedFormId),
+                    Path = path
                 };
 
             }
