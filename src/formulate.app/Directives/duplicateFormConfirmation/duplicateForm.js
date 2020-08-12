@@ -69,7 +69,6 @@ function getDuplicateForm(services) {
             var parentId = getParentId(path);
 
             // Duplicate form.
-            //ToDo
             services.formulateForms.duplicateForm(formId, parentId)
                 .then(function (responseData) {
 
@@ -92,6 +91,8 @@ function getDuplicateForm(services) {
                         + responseData.formId;
                     services.$location.url(url);
 
+
+                    //ToDo: Is this necessary?
                     services.$route.reload();
                     
 
