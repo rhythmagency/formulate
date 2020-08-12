@@ -600,12 +600,15 @@
                 var form = Persistence.Retrieve(formId);
                 var configs = ConFormPersistence.RetrieveChildren(formId);
 
-                // New Data
-                var duplicatedFormId = Guid.NewGuid();
-                var duplicatedAlias = string.Format("{0}_duplicated", form.Alias);
-                var duplicatedName = string.Format("{0}_duplicated", form.Name);
 
-                // Get fields and Recreate with new Ids.
+                // New form ID and names
+                var duplicatedFormId = Guid.NewGuid();
+                var duplicatedFormAlias = string.IsNullOrEmpty(form.Alias) ? "" :
+                    string.Format("{0}_duplicated", form.Alias);
+                var duplicateFormName = string.Format("{0}_duplicated", form.Name);
+
+                // Get original fields and recreate with new Ids.
+                var newFieldIdsDictionary = new Dictionary<Guid, Guid>();
                 var fields = form.Fields.MakeSafe()
                     .Select(x =>
                     {
@@ -624,11 +627,13 @@
                                     .Select(y => GuidHelper.GetGuid(y.ToString())).ToArray(),
                             FieldConfiguration = JsonHelper.Serialize(x.FieldConfiguration)
                         };
+
+                        newFieldIdsDictionary.Add(x.Id, field.Id);
                         return field;
                     })
                     .ToArray();
 
-                // Get the handlers.
+                // Get the handlers and recreate with new Ids.
                 var handlers = form.Handlers.MakeSafe().Select(x =>
                 {
                     var handlerType = x.GetHandlerType();
@@ -647,7 +652,7 @@
                     return handler;
                 }).ToArray();
 
-                // Get the ID path.
+                // Get the new form ID path.
                 var parent = parentId == Guid.Empty ? null : Entities.Retrieve(parentId);
                 var path = parent == null
                     ? new[] { formsRootId, duplicatedFormId }
@@ -659,8 +664,8 @@
                 {
                     Id = duplicatedFormId,
                     Path = path,
-                    Alias = duplicatedAlias,
-                    Name = duplicatedName,
+                    Alias = duplicatedFormAlias,
+                    Name = duplicateFormName,
                     Fields = fields,
                     Handlers = handlers
                 };
@@ -669,16 +674,93 @@
                 // Persist the form.
                 Persistence.Persist(duplicatedForm);
 
+                //ToDo: Get Layouts that are inside a folder too, how to get parentId?
+                // Get existing layouts that are linked to the form.
+                var layouts = GetFormLayouts(null)
+                    .Select(x => new
+                    {
+                        Layout = x,
+                        Configuration = x.DeserializeConfiguration() as LayoutBasicConfiguration
+                    })
+                    .Where(x => x.Configuration != null)
+                    .Where(x => x.Configuration.FormId.HasValue && x.Configuration.FormId.Value == formId);
+
+
+                // Create dictionary with old and new layout Ids
+                var newLayoutsDictionary = new Dictionary<Layout, Layout>();
+                foreach (var existingLayout in layouts)
+                {
+                    // Change FormId
+                    existingLayout.Configuration.FormId = duplicatedFormId;
+
+                    //Todo: FieldIds should be changed too?
+                    foreach (var id in newFieldIdsDictionary)
+                    {
+                        var xxx = existingLayout
+                            .Configuration
+                            .Rows.Any(r =>
+                                r.Cells.Any(c =>
+                                    c.Fields.Any(f => f.FieldId == id.Key)));
+
+                        // ToDo: Change orginal field Id to new duplicated field Id using Dictionary
+                        // and then update existingLayout.Configuration.Rows
+                    }
+
+                    // Duplicate layout.
+                    var duplicatedLayoutId = Guid.NewGuid();
+                    var duplicatedLayout = new Layout()
+                    {
+                        KindId = existingLayout.Layout.KindId,
+                        Id = duplicatedLayoutId,
+                        Path = new[] { GuidHelper.GetGuid(LayoutConstants.Id), duplicatedLayoutId }, // ToDo: Use path when layouts inside folder retrieved
+                        Name = string.Format("{0}_duplicated", existingLayout.Layout.Name),
+                        Alias = string.Format("{0}_duplicated", existingLayout.Layout.Alias),
+                        Data = JsonHelper.Serialize(existingLayout.Configuration)
+                    };
+
+                    // Persist duplicated layout
+                    LayoutPersistence.Persist(duplicatedLayout);
+
+
+                    // Add Ids into dictionary
+                    newLayoutsDictionary.Add(existingLayout.Layout, duplicatedLayout);
+                }
+
+                // Duplicate form configurations
                 foreach (var config in configs)
                 {
+                    // Check if config has layout, if so, get duplicated one
+                    Layout configLayout = new Layout();
+                    if (config.LayoutId != null)
+                    {
+                        // Get duplicated layout from configuration
+                        configLayout = newLayoutsDictionary
+                            .Where(x => x.Key.Id == config.LayoutId)
+                            .Select(x => x.Value)
+                            .FirstOrDefault();
+
+
+                        // If layout is null, is because is inside a folder
+                        if (configLayout == null) continue;
+                    }
+
+                    // Duplicate configuration
                     var configId = Guid.NewGuid();
+
+
+                    // Check if layoutId should be null
+                    Guid? layoutId = configLayout.Id;
+                    if (configLayout.Id == Guid.Empty)
+                    {
+                        layoutId = null;
+                    };
                     var configuredForm = new ConfiguredForm()
                     {
                         Id = configId,
                         Path = path.Concat(new[] { configId }).ToArray(),
-                        Name = config.Name,
+                        Name = config.Name, // ToDo: should the name change to duplicated? string.Format("{0}_duplicated", config.Name)
                         TemplateId = config.TemplateId,
-                        LayoutId = config.LayoutId
+                        LayoutId = layoutId
                     };
 
 
