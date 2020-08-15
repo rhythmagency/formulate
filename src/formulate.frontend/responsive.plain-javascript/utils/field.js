@@ -86,7 +86,14 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
     // Create element.
     fieldElement = document.createElement(options.nodeName || "input");
     if (options.type) {
-        fieldElement.type = options.type;
+        try {
+            fieldElement.type = options.type;
+        } catch (ex) {
+
+            // Fallback for IE11 (throws an error in some cases, such as when type="date").
+            fieldElement.setAttribute("type", options.type);
+
+        }
     }
     if (options.hasOwnProperty("name")) {
         fieldElement.name = options.name;
