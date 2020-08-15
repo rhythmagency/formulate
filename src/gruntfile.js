@@ -559,7 +559,8 @@ module.exports = function(grunt) {
                     options: {
                         projectConfiguration: getConfiguration("Release"),
                         targets: ["Rebuild"],
-                        stdout: true
+                        stdout: true,
+                        msbuildPath: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\bin\\MSBuild.exe"
                     }
                 }
             }
