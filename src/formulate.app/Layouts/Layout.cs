@@ -127,6 +127,31 @@
             return kind;
         }
 
+
+        /// <summary>
+        /// Returns a duplicate of this layout, with the specified form ID.
+        /// </summary>
+        /// <param name="formId">
+        /// The form ID this duplicate layout should point to.
+        /// </param>
+        /// <returns>
+        /// The duplicate layout.
+        /// </returns>
+        public Layout Duplicate(Guid formId)
+        {
+            var kind = GetLayoutKind();
+            var newId = Guid.NewGuid();
+            return new Layout()
+            {
+                Alias = Alias,
+                Data = kind.DuplicateConfigurationForForm(Data, formId),
+                Id = newId,
+                KindId = KindId,
+                Name = $"{Name} (Copy)",
+                Path = Path.Take(Path.Length - 1).Concat(new[] { newId }).ToArray()
+            };
+        }
+
         #endregion
 
     }

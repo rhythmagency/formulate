@@ -205,7 +205,6 @@ function getMoveForm(services) {
     };
 }
 
-
 // Returns the function that duplicates a form from the server.
 function getDuplicateForm(services) {
     return function (formId, parentId) {

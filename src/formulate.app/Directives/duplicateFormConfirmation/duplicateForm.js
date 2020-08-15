@@ -81,20 +81,13 @@ function getDuplicateForm(services) {
                     };
                     services.navigationService.syncTree(options);
 
-
                     // Close dialog.
                     services.navigationService.hideDialog();
 
-
-                    // Redirect and reload
+                    // Redirect.
                     var url = "/formulate/formulate/editForm/"
                         + responseData.formId;
                     services.$location.url(url);
-
-
-                    //ToDo: Is this necessary?
-                    services.$route.reload();
-                    
 
                 });
         });
@@ -102,7 +95,7 @@ function getDuplicateForm(services) {
     };
 }
 
-// Returns the function that cancels the deletion.
+// Returns the function that cancels the duplication.
 function getCancel(services) {
     return function () {
         services.navigationService.hideDialog();

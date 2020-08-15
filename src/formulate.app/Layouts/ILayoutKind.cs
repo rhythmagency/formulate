@@ -15,6 +15,7 @@
         string Name { get; }
         string Directive { get; }
         object DeserializeConfiguration(string configuration);
+        string DuplicateConfigurationForForm(string configuration, Guid formId);
     }
 
 }

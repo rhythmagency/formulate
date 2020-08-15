@@ -157,6 +157,27 @@
 
         }
 
+
+        /// <summary>
+        /// Returns a copy of the specified configuration, with the form ID replaced.
+        /// </summary>
+        /// <param name="configuration">
+        /// The original serialized configuration.
+        /// </param>
+        /// <param name="formId">
+        /// The new form ID to use.
+        /// </param>
+        /// <returns>
+        /// The new configuration, serialized and with the new form ID.
+        /// </returns>
+        public string DuplicateConfigurationForForm(string configuration, Guid formId)
+        {
+            var newConfig = JsonHelper.Deserialize<dynamic>(configuration);
+            newConfig.formId = GuidHelper.GetString(formId);
+            var serialized = JsonHelper.Serialize(newConfig);
+            return serialized;
+        }
+
         #endregion
 
 

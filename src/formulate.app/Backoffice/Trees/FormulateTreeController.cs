@@ -5,8 +5,8 @@
     using DataValues;
     using Folders;
     using Forms;
-    using formulate.app.Helpers;
     using formulate.app.Backoffice.Trees.Helpers;
+    using formulate.app.Helpers;
     using Layouts;
     using Persistence;
     using System;
@@ -15,7 +15,6 @@
     using Umbraco.Core;
     using Umbraco.Web.Models.Trees;
     using Umbraco.Web.Mvc;
-    using Umbraco.Web.PropertyEditors;
     using Umbraco.Web.Trees;
     using Validations;
     using CoreConstants = Umbraco.Core.Constants;
@@ -28,7 +27,6 @@
     using SubmissionConstants = formulate.app.Constants.Trees.Submissions;
     using ValidationConstants = formulate.app.Constants.Trees.Validations;
     using ValidationHelper = Trees.Helpers.ValidationHelper;
-
 
 
     //TODO: Much to do in this file.
@@ -129,9 +127,9 @@
                 if (entity is Form)
                 {
                     ConfiguredFormHelper.AddCreateConfiguredFormAction(menu, entityId);
+                    FormHelper.AddDuplicateFormAction(menu, entityId);
                     FormHelper.AddMoveFormAction(menu, entity as Form);
                     FormHelper.AddDeleteFormAction(menu);
-                    FormHelper.AddDuplicateFormAction(menu, entityId);
                 }
                 else if (entity is ConfiguredForm)
                 {

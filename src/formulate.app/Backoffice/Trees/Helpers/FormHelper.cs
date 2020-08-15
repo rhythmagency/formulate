@@ -229,12 +229,12 @@
                 var menuItem = new MenuItem()
                 {
                     Alias = "duplicateForm",
-                    Icon = "formulate-clipboard", //ToDo Add better icon 
+                    Icon = "documents",
                     Name = LocalizationHelper.GetMenuItemName("Duplicate Form")
                 };
                 menuItem.LaunchDialogView(path, "Duplicate Form");
                 menu.Items.Add(menuItem);
-            }           
+            }
         }
 
         #endregion
