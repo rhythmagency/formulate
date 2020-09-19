@@ -146,7 +146,7 @@
             var id = GuidHelper.GetGuid(request.GeneratedId);
 
             // Delete the submission.
-            using (var scope = ScopeProvider.CreateScope())
+            using (var scope = ScopeProvider.CreateScope(autoComplete: true))
             {
                 scope.Database.Delete("FormulateSubmission", "GeneratedId", null, id);
             }
