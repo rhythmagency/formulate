@@ -47,9 +47,9 @@
         /// <returns>
         /// A JSON object indicating success or failure.
         /// </returns>
-        [HttpPost()]
-        [ValidateAntiForgeryToken()]
         public ActionResult Submit()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         {
 
             // Variables.
