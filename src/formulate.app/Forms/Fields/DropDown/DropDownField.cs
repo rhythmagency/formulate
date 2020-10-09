@@ -18,7 +18,6 @@
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DropDownField"/> class. 
-        /// The drop down field.
         /// </summary>
         /// <param name="getDataValuesHelper">
         /// The get data values helper.
