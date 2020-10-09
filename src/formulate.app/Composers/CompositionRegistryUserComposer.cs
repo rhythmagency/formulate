@@ -74,6 +74,9 @@
 
             // Initialize entity persistence resolver.
             composition.RegisterUnique<IEntityPersistence, DefaultEntityPersistence>();
+
+            // Initialize Get Data Values Utility.
+            composition.RegisterUnique<IGetDataValuesUtility, GetDataValuesUtility>();
         }
 
         #endregion

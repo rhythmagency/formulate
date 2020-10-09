@@ -365,8 +365,10 @@
     <Compile Include="Composers\CompositionRegistryUserComposer.cs" />
     <Compile Include="Helpers\DefinitionHelper.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
+    <Compile Include="Helpers\GetDataValuesUtility.cs" />
     <Compile Include="Helpers\GuidHelper.cs" />
     <Compile Include="Helpers\IEntityHelper.cs" />
+    <Compile Include="Helpers\IGetDataValuesUtility.cs" />
     <Compile Include="Helpers\ILocalizationHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\LayoutHelper.cs" />
