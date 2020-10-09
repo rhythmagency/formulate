@@ -2,15 +2,11 @@
 {
 
     // Namespaces.
-    using DataValues.DataInterfaces;
     using Helpers;
     using Newtonsoft.Json.Linq;
-    using Persistence;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    using formulate.app.CollectionBuilders;
 
     /// <summary>
     /// A drop down form field type.
@@ -24,19 +20,15 @@
         /// Initializes a new instance of the <see cref="DropDownField"/> class. 
         /// The drop down field.
         /// </summary>
-        /// <param name="dataValuePersistence">
-        /// The data Value Persistence.
-        /// </param>
-        /// <param name="dataValueKindCollection">
-        /// The data Value Kind Collection.
+        /// <param name="getDataValuesUtility">
+        /// The get data values utility.
         /// </param>
         /// <remarks>
         /// Default constructor.
         /// </remarks>
-        public DropDownField(IDataValuePersistence dataValuePersistence, DataValueKindCollection dataValueKindCollection)
+        public DropDownField(IGetDataValuesUtility getDataValuesUtility)
         {
-            DataValues = dataValuePersistence;
-            DataValueKindCollection = dataValueKindCollection;
+            this.GetDataValuesUtility = getDataValuesUtility;
         }
 
         #endregion
@@ -60,14 +52,9 @@
         #region Private Properties
 
         /// <summary>
-        /// Gets or sets the data values.
+        /// Gets or sets the get data values utility.
         /// </summary>
-        private IDataValuePersistence DataValues { get; set; }
-
-        /// <summary>
-        /// Gets or sets the data value kind collection.
-        /// </summary>
-        private DataValueKindCollection DataValueKindCollection { get; set; }
+        private IGetDataValuesUtility GetDataValuesUtility { get; set; }
 
         #endregion
 
@@ -84,67 +71,33 @@
         /// </returns>
         public object DeserializeConfiguration(string configuration)
         {
-
             // Variables.
             var items = new List<DropDownItem>();
-            var config = new DropDownConfiguration()
-            {
-                Items = items
-            };
             var configData = JsonHelper.Deserialize<JObject>(configuration);
             var dynamicConfig = configData as dynamic;
             var properties = configData.Properties().Select(x => x.Name);
             var propertySet = new HashSet<string>(properties);
 
-
             // A data value is selected?
             if (propertySet.Contains("dataValue"))
             {
-
                 // Get info about the data value.
                 var dataValueId = GuidHelper.GetGuid(dynamicConfig.dataValue.Value as string);
-                var dataValue = DataValues.Retrieve(dataValueId);
-                if (dataValue != null)
+                var dataValues = this.GetDataValuesUtility.GetById(dataValueId);
+
+                items.AddRange(dataValues.Select(x => new DropDownItem()
                 {
-
-                    // Extract list items from the data value.
-                    var kind = DataValueKindCollection.FirstOrDefault(x => x.Id == dataValue.KindId);
-                    var pairCollection = kind as IGetValueAndLabelCollection;
-                    var stringCollection = kind as IGetStringCollection;
-
-
-                    // Check type of collection returned by the data value kind.
-                    if (pairCollection != null)
-                    {
-
-                        // Create drop down items from values and labels.
-                        var pairs = pairCollection.GetValues(dataValue.Data);
-                        items.AddRange(pairs.Select(x => new DropDownItem()
-                        {
-                            Selected = false,
-                            Value = x.Value,
-                            Label = x.Label
-                        }));
-
-                    }
-                    else if (stringCollection != null)
-                    {
-
-                        // Create drop down items from strings.
-                        var strings = stringCollection.GetValues(dataValue.Data);
-                        items.AddRange(strings.Select(x => new DropDownItem()
-                        {
-                            Selected = false,
-                            Value = x,
-                            Label = x
-                        }));
-
-                    }
-                }
+                    Selected = false,
+                    Value = x.Value,
+                    Label = x.Key
+                }));
             }
 
             // Return the data value configuration.
-            return config;
+            return new DropDownConfiguration()
+            {
+                Items = items
+            };
         }
 
         /// <summary>
