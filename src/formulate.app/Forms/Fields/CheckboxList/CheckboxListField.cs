@@ -3,7 +3,6 @@
 
     // Namespaces.
     using Helpers;
-    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -71,20 +70,15 @@
         /// </returns>
         public object DeserializeConfiguration(string configuration)
         {
-
             // Variables.
             var items = new List<CheckboxListItem>();
-            var configData = JsonHelper.Deserialize<JObject>(configuration);
-            var dynamicConfig = configData as dynamic;
-            var properties = configData.Properties().Select(x => x.Name);
-            var propertySet = new HashSet<string>(properties);
-
-
+            var configPrevalues = JsonHelper.Deserialize<CheckboxListConfigurationPrevalues>(configuration);
+ 
             // A data value is selected?
-            if (propertySet.Contains("dataValue"))
+            if (string.IsNullOrWhiteSpace(configPrevalues.DataValue) == false)
             {
                 // Get info about the data value.
-                var dataValueId = GuidHelper.GetGuid(dynamicConfig.dataValue.Value as string);
+                var dataValueId = GuidHelper.GetGuid(configPrevalues.DataValue);
                 var dataValues = this.GetDataValuesHelper.GetById(dataValueId);
 
                 items.AddRange(dataValues.Select(x => new CheckboxListItem()

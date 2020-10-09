@@ -3,7 +3,6 @@
 
     // Namespaces.
     using Helpers;
-    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -72,16 +71,13 @@
         {
             // Variables.
             var items = new List<DropDownItem>();
-            var configData = JsonHelper.Deserialize<JObject>(configuration);
-            var dynamicConfig = configData as dynamic;
-            var properties = configData.Properties().Select(x => x.Name);
-            var propertySet = new HashSet<string>(properties);
+            var configPrevalues = JsonHelper.Deserialize<DropDownConfigurationPrevalues>(configuration);
 
             // A data value is selected?
-            if (propertySet.Contains("dataValue"))
+            if (string.IsNullOrWhiteSpace(configPrevalues.DataValue) == false)
             {
                 // Get info about the data value.
-                var dataValueId = GuidHelper.GetGuid(dynamicConfig.dataValue.Value as string);
+                var dataValueId = GuidHelper.GetGuid(configPrevalues.DataValue);
                 var dataValues = this.GetDataValuesHelper.GetById(dataValueId);
 
                 items.AddRange(dataValues.Select(x => new DropDownItem()

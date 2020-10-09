@@ -3,7 +3,6 @@
 
     // Namespaces.
     using Helpers;
-    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -72,28 +71,13 @@
             // Variables.
             var defaultOrientation = "Horizontal";
             var items = new List<RadioButtonListItem>();
-            var orientation = defaultOrientation;
-            var configData = JsonHelper.Deserialize<JObject>(configuration);
-            var dynamicConfig = configData as dynamic;
-            var properties = configData.Properties().Select(x => x.Name);
-            var propertySet = new HashSet<string>(properties);
-
-            // An orientation is set?
-            if (propertySet.Contains("orientation"))
-            {
-                var orientationPropertyValue = dynamicConfig.orientation.Value as string;
-
-                if (string.IsNullOrWhiteSpace(orientationPropertyValue) == false)
-                {
-                    orientation = orientationPropertyValue;
-                }
-            }
+            var configPrevalues = JsonHelper.Deserialize<RadioButtonListConfigurationPrevalues>(configuration);
 
             // A data value is selected?
-            if (propertySet.Contains("dataValue"))
+            if (string.IsNullOrWhiteSpace(configPrevalues.DataValue) == false)
             {
                 // Get info about the data value.
-                var dataValueId = GuidHelper.GetGuid(dynamicConfig.dataValue.Value as string);
+                var dataValueId = GuidHelper.GetGuid(configPrevalues.DataValue);
                 var dataValues = this.GetDataValuesHelper.GetById(dataValueId);
 
                 items.AddRange(dataValues.Select(x => new RadioButtonListItem()
@@ -108,7 +92,7 @@
             return new RadioButtonListConfiguration()
             {
                 Items = items,
-                Orientation = orientation
+                Orientation = string.IsNullOrWhiteSpace(configPrevalues.Orientation) ? defaultOrientation : configPrevalues.Orientation
             };
         }
 
