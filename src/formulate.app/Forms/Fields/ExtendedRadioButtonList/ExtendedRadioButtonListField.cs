@@ -88,7 +88,7 @@
                 {
                     Selected = false,
                     Primary = x.Value,
-                    Secondary = x.Key == x.Value ? null : x.Key
+                    Secondary = x.Key == x.Value ? string.Empty : x.Key
                 }));
             }
 
