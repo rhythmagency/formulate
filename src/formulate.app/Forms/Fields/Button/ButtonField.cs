@@ -5,18 +5,36 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
+    /// <summary>
+    /// A button form field type.
+    /// </summary>
     public class ButtonField : IFormFieldType, IFormFieldTypeExtended
     {
-
         #region Properties
 
+        /// <inheritdoc />
         public string Directive => "formulate-button-field";
+
+        /// <inheritdoc />
         public string TypeLabel => "Button";
+        
+        /// <inheritdoc />
         public string Icon => "icon-formulate-button";
+
+        /// <inheritdoc />
         public Guid TypeId => new Guid("CDE8565C5E9241129A1F7FFA1940C53C");
+
+        /// <inheritdoc />
         public bool IsTransitory => true;
+
+        /// <inheritdoc />
         public bool IsServerSideOnly => false;
+
+        /// <inheritdoc />
         public bool IsHidden => false;
+
+        /// <inheritdoc />
         public bool IsStored => true;
 
         #endregion
@@ -59,7 +77,6 @@
 
         }
 
-
         /// <summary>
         /// Formats a value in the specified field presentation format.
         /// </summary>
@@ -75,12 +92,10 @@
         /// <returns>
         /// The formatted value.
         /// </returns>
-        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format,
-            object configuration)
+        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format, object configuration)
         {
             return null;
         }
-
 
         /// <summary>
         /// Is the field value valid?
@@ -94,12 +109,11 @@
             return true;
         }
 
-
         /// <summary>
         /// Returns null (part of the interface, but not required for this field type).
         /// </summary>
         /// <returns>
-        /// Null.
+        /// A null value.
         /// </returns>
         public string GetNativeFieldValidationMessage() => null;
 

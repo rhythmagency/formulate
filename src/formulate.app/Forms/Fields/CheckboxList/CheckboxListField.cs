@@ -13,57 +13,58 @@
     using formulate.app.CollectionBuilders;
 
     /// <summary>
-    /// A checkbox list field type.
+    /// A checkbox list form field type.
     /// </summary>
     public class CheckboxListField : IFormFieldType
     {
+        #region Constructors
 
-        #region Private Properties
-
-        private IDataValuePersistence DataValues { get; set; }
-        private DataValueKindCollection DataValueKindCollection { get; set; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CheckboxListField"/> class.
+        /// </summary>
+        /// <param name="dataValuePersistence">
+        /// The data value persistence.
+        /// </param>
+        /// <param name="dataValueKindCollection">
+        /// The data value kind collection.
+        /// </param>
+        /// <remarks>The default constructor.</remarks>
+        public CheckboxListField(IDataValuePersistence dataValuePersistence, DataValueKindCollection dataValueKindCollection)
+        {
+            DataValues = dataValuePersistence;
+            DataValueKindCollection = dataValueKindCollection;
+        }
 
         #endregion
 
 
         #region Public Properties
 
-        /// <summary>
-        /// The Angular directive for this field type.
-        /// </summary>
+        /// <inheritdoc />
         public string Directive => "formulate-checkbox-list-field";
 
-
-        /// <summary>
-        /// The label to show in the UI for this field type.
-        /// </summary>
+        /// <inheritdoc />
         public string TypeLabel => "Checkbox List";
 
-
-        /// <summary>
-        /// The icon to display in the selection screen for this field type.
-        /// </summary>
+        /// <inheritdoc />
         public string Icon => "icon-formulate-checkbox-list";
 
-
-        /// <summary>
-        /// The GUID that uniquely identifies this field type (useful for serialization).
-        /// </summary>
+        /// <inheritdoc />
         public Guid TypeId => new Guid("02DBA5DA4B93439EB63F43392E443DCF");
 
         #endregion
 
-
-        #region Constructors
+        #region Private Properties
 
         /// <summary>
-        /// Default constructor.
+        /// Gets or sets the data values.
         /// </summary>
-        public CheckboxListField(IDataValuePersistence dataValuePersistence, DataValueKindCollection dataValueKindCollection)
-        {
-            DataValues = dataValuePersistence;
-            DataValueKindCollection = dataValueKindCollection;
-        }
+        private IDataValuePersistence DataValues { get; set; }
+
+        /// <summary>
+        /// Gets or sets the data value kind collection.
+        /// </summary>
+        private DataValueKindCollection DataValueKindCollection { get; set; }
 
         #endregion
 
@@ -134,19 +135,13 @@
                             Value = x,
                             Label = x
                         }));
-
                     }
-
                 }
-
             }
-
 
             // Return the data value configuration.
             return config;
-
         }
-
 
         /// <summary>
         /// Formats a value in the specified field presentation format.
@@ -163,14 +158,11 @@
         /// <returns>
         /// The formatted value.
         /// </returns>
-        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format,
-            object configuration)
+        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format, object configuration)
         {
             return string.Join(", ", values);
         }
 
         #endregion
-
     }
-
 }

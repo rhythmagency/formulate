@@ -13,7 +13,7 @@
     using formulate.app.CollectionBuilders;
 
     /// <summary>
-    /// An extended radio button list field type.
+    /// An extended radio button list form field type.
     /// </summary>
     /// <remarks>
     /// The extended radio button list differs from the plain radio button list in that each item
@@ -22,6 +22,20 @@
     /// </remarks>
     public class ExtendedRadioButtonListField : IFormFieldType
     {
+        #region Constructors
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public ExtendedRadioButtonListField(IDataValuePersistence dataValuePersistence, DataValueKindCollection dataValueKindCollection)
+        {
+            DataValues = dataValuePersistence;
+            DataValueKindCollection = dataValueKindCollection;
+        }
+
+        #endregion
+
+
 
         #region Private Properties
 
@@ -59,18 +73,6 @@
         #endregion
 
 
-        #region Constructors
-
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public ExtendedRadioButtonListField(IDataValuePersistence dataValuePersistence, DataValueKindCollection dataValueKindCollection)
-        {
-            DataValues = dataValuePersistence;
-            DataValueKindCollection = dataValueKindCollection;
-        }
-
-        #endregion
 
 
         #region Public Methods

@@ -8,26 +8,39 @@
     using System.Collections.Generic;
     using System.Linq;
 
-
     /// <summary>
-    /// A field that can be used to display rich text in a form.
+    /// A form field that can be used to display rich text.
     /// </summary>
     public class RichTextField : IFormFieldType, IFormFieldTypeExtended
     {
 
         #region Properties
 
+        /// <inheritdoc />
         public string Directive => "formulate-rich-text-field";
+
+        /// <inheritdoc />
         public string TypeLabel => "Rich Text";
+
+        /// <inheritdoc />
         public string Icon => "icon-formulate-rich-text";
+
+        /// <inheritdoc />
         public Guid TypeId => new Guid("6FCDFDC9293F4913B762F4BA502216EB");
+
+        /// <inheritdoc />
         public bool IsTransitory => true;
+
+        /// <inheritdoc />
         public bool IsServerSideOnly => false;
+
+        /// <inheritdoc />
         public bool IsHidden => false;
+
+        /// <inheritdoc />
         public bool IsStored => false;
 
         #endregion
-
 
         #region Methods
 
@@ -53,7 +66,6 @@
             var properties = configData.Properties().Select(x => x.Name);
             var propertySet = new HashSet<string>(properties);
 
-
             // Text value exists?
             if (propertySet.Contains("text"))
             {
@@ -63,9 +75,7 @@
 
             // Return the configuration.
             return config;
-
         }
-
 
         /// <summary>
         /// Formats a value in the specified field presentation format.
@@ -82,12 +92,10 @@
         /// <returns>
         /// The formatted value.
         /// </returns>
-        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format,
-            object configuration)
+        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format, object configuration)
         {
             return null;
         }
-
 
         /// <summary>
         /// Is the field value valid?
@@ -101,17 +109,14 @@
             return true;
         }
 
-
         /// <summary>
         /// Returns null (part of the interface, but not required for this field type).
         /// </summary>
         /// <returns>
-        /// Null.
+        /// A null value.
         /// </returns>
         public string GetNativeFieldValidationMessage() => null;
 
         #endregion
-
     }
-
 }

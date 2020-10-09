@@ -9,56 +9,28 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
     using formulate.app.CollectionBuilders;
 
     /// <summary>
-    /// A radio button list field type.
+    /// A radio button list form field type.
     /// </summary>
     public class RadioButtonListField : IFormFieldType
     {
-
-        #region Private Properties
-
-        private IDataValuePersistence DataValues { get; set; }
-        private DataValueKindCollection DataValueKindCollection { get; set; }
-
-        #endregion
-
-
-        #region Public Properties
-
-        /// <summary>
-        /// The Angular directive for this field type.
-        /// </summary>
-        public string Directive => "formulate-radio-button-list-field";
-
-
-        /// <summary>
-        /// The label to show in the UI for this field type.
-        /// </summary>
-        public string TypeLabel => "Radio Button List";
-
-
-        /// <summary>
-        /// The icon to display in the selection screen for this field type.
-        /// </summary>
-        public string Icon => "icon-formulate-radio-button-list";
-
-
-        /// <summary>
-        /// The GUID that uniquely identifies this field type (useful for serialization).
-        /// </summary>
-        public Guid TypeId => new Guid("E5F42754D82D468DBCBFCEE115E9563D");
-
-        #endregion
-
-
         #region Constructors
 
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the <see cref="RadioButtonListField"/> class. 
+        /// The radio button list field.
         /// </summary>
+        /// <param name="dataValuePersistence">
+        /// The data Value Persistence.
+        /// </param>
+        /// <param name="dataValueKindCollection">
+        /// The data Value Kind Collection.
+        /// </param>
+        /// <remarks>
+        /// Default constructor.
+        /// </remarks>
         public RadioButtonListField(IDataValuePersistence dataValuePersistence, DataValueKindCollection dataValueKindCollection)
         {
             DataValues = dataValuePersistence;
@@ -67,6 +39,36 @@
 
         #endregion
 
+        #region Public Properties
+
+        /// <inheritdoc />
+        public string Directive => "formulate-radio-button-list-field";
+
+        /// <inheritdoc />
+        public string TypeLabel => "Radio Button List";
+
+        /// <inheritdoc />
+        public string Icon => "icon-formulate-radio-button-list";
+
+        /// <inheritdoc />
+        public Guid TypeId => new Guid("E5F42754D82D468DBCBFCEE115E9563D");
+
+        #endregion
+
+
+        #region Private Properties
+
+        /// <summary>
+        /// Gets or sets the data values.
+        /// </summary>
+        private IDataValuePersistence DataValues { get; set; }
+
+        /// <summary>
+        /// Gets or sets the data value kind collection.
+        /// </summary>
+        private DataValueKindCollection DataValueKindCollection { get; set; }
+
+        #endregion
 
         #region Public Methods
 
@@ -148,17 +150,12 @@
                             Value = x,
                             Label = x
                         }));
-
                     }
-
                 }
-
             }
-
 
             // Return the data value configuration.
             return config;
-
         }
 
 
@@ -177,14 +174,11 @@
         /// <returns>
         /// The formatted value.
         /// </returns>
-        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format,
-            object configuration)
+        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format, object configuration)
         {
             return string.Join(", ", values);
         }
 
         #endregion
-
     }
-
 }

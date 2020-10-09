@@ -8,9 +8,8 @@
     using System.Collections.Generic;
     using System.Linq;
 
-
     /// <summary>
-    /// A field that can be used to store a text constant.
+    /// A form field type that can be used to store a text constant.
     /// </summary>
     /// <remarks>
     /// A text constant field is useful, for example, when you need to store a bit of text
@@ -21,14 +20,29 @@
     {
 
         #region Properties
-
+        
+        /// <inheritdoc />
         public string Directive => "formulate-text-constant-field";
+
+        /// <inheritdoc />
         public string TypeLabel => "Text Constant";
+
+        /// <inheritdoc />
         public string Icon => "icon-formulate-text-constant";
+
+        /// <inheritdoc />
         public Guid TypeId => new Guid("D9B1A60A11864440887B93195C760B5E");
+
+        /// <inheritdoc />
         public bool IsTransitory => true;
+
+        /// <inheritdoc />
         public bool IsServerSideOnly => true;
+
+        /// <inheritdoc />
         public bool IsHidden => false;
+
+        /// <inheritdoc />
         public bool IsStored => true;
 
         #endregion
@@ -65,12 +79,9 @@
                 config.Text = dynamicConfig.text.Value as string;
             }
 
-
             // Return the configuration.
             return config;
-
         }
-
 
         /// <summary>
         /// Formats a value in the specified field presentation format.
@@ -87,13 +98,11 @@
         /// <returns>
         /// The formatted value.
         /// </returns>
-        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format,
-            object configuration)
+        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format, object configuration)
         {
             var castedConfig = configuration as TextConstantConfiguration;
             return castedConfig?.Text;
         }
-
 
         /// <summary>
         /// Is the field value valid?
@@ -107,17 +116,14 @@
             return true;
         }
 
-
         /// <summary>
         /// Returns null (part of the interface, but not required for this field type).
         /// </summary>
         /// <returns>
-        /// Null.
+        /// A null value.
         /// </returns>
         public string GetNativeFieldValidationMessage() => null;
 
         #endregion
-
     }
-
 }

@@ -6,25 +6,49 @@
     using System.Linq;
     using System.Net;
     using System.Web.Configuration;
+
+    /// <summary>
+    /// A Google reCAPTCHA form field type.
+    /// </summary>
     public class RecaptchaField : IFormFieldType, IFormFieldTypeExtended
     {
+        /// <inheritdoc />
         public string Directive => "formulate-recaptcha-field";
+
+        /// <inheritdoc />
         public string TypeLabel => "Recaptcha";
+
+        /// <inheritdoc />
         public string Icon => "icon-formulate-recaptcha";
+
+        /// <inheritdoc />
         public Guid TypeId => new Guid("80C0543D419E4DDFAB052C2D052B97A2");
+
+        /// <inheritdoc />
         public bool IsTransitory => false;
+
+        /// <inheritdoc />
         public bool IsServerSideOnly => false;
+
+        /// <inheritdoc />
         public bool IsHidden => false;
+
+        /// <inheritdoc />
         public bool IsStored => false;
+
+        /// <inheritdoc />
         public object DeserializeConfiguration(string configuration)
         {
             return null;
         }
-        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format,
-            object configuration)
+
+        /// <inheritdoc />
+        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format, object configuration)
         {
             return string.Join(", ", values);
         }
+
+        /// <inheritdoc />
         public bool IsValid(IEnumerable<string> value)
         {
             if (value == null || value.Count() != 1)
@@ -52,6 +76,5 @@
         {
             return "Recaptcha failed.";
         }
-
     }
 }

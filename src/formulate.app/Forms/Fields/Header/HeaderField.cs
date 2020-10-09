@@ -10,20 +10,35 @@
 
 
     /// <summary>
-    /// A field that can be used to display a header in a form.
+    /// A form field that can be used to display a header in a form.
     /// </summary>
     public class HeaderField : IFormFieldType, IFormFieldTypeExtended
     {
 
         #region Properties
 
+        /// <inheritdoc />
         public string Directive => "formulate-header-field";
+
+        /// <inheritdoc />
         public string TypeLabel => "Header";
+
+        /// <inheritdoc />
         public string Icon => "icon-formulate-header";
+
+        /// <inheritdoc />
         public Guid TypeId => new Guid("6383DD2C68BD482B95DB811D09D01BC8");
+
+        /// <inheritdoc />
         public bool IsTransitory => true;
+
+        /// <inheritdoc />
         public bool IsServerSideOnly => false;
+
+        /// <inheritdoc />
         public bool IsHidden => false;
+
+        /// <inheritdoc />
         public bool IsStored => false;
 
         #endregion
@@ -60,10 +75,8 @@
                 config.Text = dynamicConfig.text.Value as string;
             }
 
-
             // Return the configuration.
             return config;
-
         }
 
 
@@ -82,12 +95,10 @@
         /// <returns>
         /// The formatted value.
         /// </returns>
-        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format,
-            object configuration)
+        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format, object configuration)
         {
             return null;
         }
-
 
         /// <summary>
         /// Is the field value valid?
@@ -101,17 +112,14 @@
             return true;
         }
 
-
         /// <summary>
         /// Returns null (part of the interface, but not required for this field type).
         /// </summary>
         /// <returns>
-        /// Null.
+        /// A null value.
         /// </returns>
         public string GetNativeFieldValidationMessage() => null;
 
         #endregion
-
     }
-
 }

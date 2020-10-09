@@ -13,52 +13,26 @@
     using formulate.app.CollectionBuilders;
 
     /// <summary>
-    /// A drop down field type.
+    /// A drop down form field type.
     /// </summary>
     public class DropDownField : IFormFieldType
     {
 
-        #region Private Properties
-
-        private IDataValuePersistence DataValues { get; set; }
-        private DataValueKindCollection DataValueKindCollection { get; set; }
-
-        #endregion
-
-
-        #region Public Properties
-
-        /// <summary>
-        /// The Angular directive for this field type.
-        /// </summary>
-        public string Directive => "formulate-drop-down-field";
-
-
-        /// <summary>
-        /// The label to show in the UI for this field type.
-        /// </summary>
-        public string TypeLabel => "Drop Down";
-
-
-        /// <summary>
-        /// The icon to display in the selection screen for this field type.
-        /// </summary>
-        public string Icon => "icon-formulate-drop-down";
-
-
-        /// <summary>
-        /// The GUID that uniquely identifies this field type (useful for serialization).
-        /// </summary>
-        public Guid TypeId => new Guid("6D3DF1571BC44FCFB2B70A94FE719B47");
-
-        #endregion
-
-
         #region Constructors
 
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the <see cref="DropDownField"/> class. 
+        /// The drop down field.
         /// </summary>
+        /// <param name="dataValuePersistence">
+        /// The data Value Persistence.
+        /// </param>
+        /// <param name="dataValueKindCollection">
+        /// The data Value Kind Collection.
+        /// </param>
+        /// <remarks>
+        /// Default constructor.
+        /// </remarks>
         public DropDownField(IDataValuePersistence dataValuePersistence, DataValueKindCollection dataValueKindCollection)
         {
             DataValues = dataValuePersistence;
@@ -67,6 +41,35 @@
 
         #endregion
 
+        #region Public Properties
+
+        /// <inheritdoc />
+        public string Directive => "formulate-drop-down-field";
+        
+        /// <inheritdoc />
+        public string TypeLabel => "Drop Down";
+
+        /// <inheritdoc />
+        public string Icon => "icon-formulate-drop-down";
+
+        /// <inheritdoc />
+        public Guid TypeId => new Guid("6D3DF1571BC44FCFB2B70A94FE719B47");
+
+        #endregion
+
+        #region Private Properties
+
+        /// <summary>
+        /// Gets or sets the data values.
+        /// </summary>
+        private IDataValuePersistence DataValues { get; set; }
+
+        /// <summary>
+        /// Gets or sets the data value kind collection.
+        /// </summary>
+        private DataValueKindCollection DataValueKindCollection { get; set; }
+
+        #endregion
 
         #region Public Methods
 
@@ -137,17 +140,12 @@
                         }));
 
                     }
-
                 }
-
             }
-
 
             // Return the data value configuration.
             return config;
-
         }
-
 
         /// <summary>
         /// Formats a value in the specified field presentation format.
@@ -164,14 +162,11 @@
         /// <returns>
         /// The formatted value.
         /// </returns>
-        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format,
-            object configuration)
+        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format, object configuration)
         {
             return string.Join(", ", values);
         }
 
         #endregion
-
     }
-
 }
