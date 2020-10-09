@@ -11,22 +11,22 @@
     public interface IFormFieldType : IDiscoverable
     {
         /// <summary>
-        /// Gets the Directive.
+        /// Gets the AngularJS directive for this field type.
         /// </summary>
         string Directive { get; }
-        
+
         /// <summary>
-        /// Gets the Type Label.
+        /// Gets the label to show in the edtior UI.
         /// </summary>
         string TypeLabel { get; }
 
         /// <summary>
-        /// Gets the Icon.
+        /// Gets the icon to show in the editor UI.
         /// </summary>
         string Icon { get; }
 
         /// <summary>
-        /// Gets the Type ID.
+        /// Gets the unique ID (useful for serialization).
         /// </summary>
         Guid TypeId { get; }
 
