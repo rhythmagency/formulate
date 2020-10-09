@@ -4,16 +4,13 @@
     // Namespaces.
     using System.Collections.Generic;
 
-
     /// <summary>
-    /// Interface for form field types that require additional, uncommon functionality.
+    /// A contract for creating a Form field that requires additional, uncommon functionality.
     /// </summary>
     public interface IFormFieldTypeExtended
     {
-
         /// <summary>
-        /// This is set to true on form fields that are transitory (i.e., they aren't
-        /// used for data).
+        /// Gets a value indicating whether this is transitory (i.e., they aren't used for data) 
         /// </summary>
         /// <remarks>
         /// Some examples include buttons and read only text fields.
@@ -21,16 +18,19 @@
         bool IsTransitory { get; }
 
         /// <summary>
-        /// This is set to true on form fields that are server-side only (i.e., they
-        /// aren't rendered on the frontend of the website).
+        /// Gets a value indicating whether this is server-side only (i.e., they aren't rendered on the frontend of the website).
         /// </summary>
         bool IsServerSideOnly { get; }
 
         /// <summary>
-        /// This is true for fields that are hidden during data entry.
+        /// Gets a value indicating whether this is hidden during data entry.
         /// </summary>
         bool IsHidden { get; }
 
+        /// <summary>
+        /// Gets a value indicating whether this is field value is stored (e.g., reCAPTCHA values would not be stored).
+        /// </summary>
+        bool IsStored { get; }
 
         /// <summary>
         /// Is the field value valid?
@@ -41,13 +41,6 @@
         /// </returns>
         bool IsValid(IEnumerable<string> value);
 
-
-        /// <summary>
-        /// Is this field value stored (e.g., reCAPTCHA values would not be stored)?
-        /// </summary>
-        bool IsStored { get; }
-
-
         /// <summary>
         /// Returns a validation message that is shown for fields that have validation
         /// built in (i.e., rather than relying on the messages specific to validations
@@ -57,7 +50,5 @@
         /// The validation error message.
         /// </returns>
         string GetNativeFieldValidationMessage();
-
     }
-
 }
