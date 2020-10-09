@@ -65,7 +65,6 @@
     <Compile Include="Types\ValueAndLabel.cs" />
     <Compile Include="Utilities\DateUtility.cs" />
     <Compile Include="Utilities\FileUtility.cs" />
-    <Compile Include="Utilities\NumberUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\formulate.meta\formulate.meta.csproj">
