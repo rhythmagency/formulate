@@ -55,26 +55,7 @@
         /// </returns>
         public object DeserializeConfiguration(string configuration)
         {
-
-            // Variables.
-            var config = new RichTextConfiguration()
-            {
-                Text = null
-            };
-            var configData = JsonHelper.Deserialize<JObject>(configuration);
-            var dynamicConfig = configData as dynamic;
-            var properties = configData.Properties().Select(x => x.Name);
-            var propertySet = new HashSet<string>(properties);
-
-            // Text value exists?
-            if (propertySet.Contains("text"))
-            {
-                config.Text = dynamicConfig.text.Value as string;
-            }
-
-
-            // Return the configuration.
-            return config;
+            return JsonHelper.Deserialize<RichTextConfiguration>(configuration);
         }
 
         /// <summary>
