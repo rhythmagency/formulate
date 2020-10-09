@@ -190,7 +190,7 @@
             fields = y.Fields.Select(z => new
             {
                 id = z.FieldId.ToString("N")
-            }).ToArray()
+            }).Where(i => fieldsData.Any(f => f.id.Equals(i.id))).ToArray()
         }).ToArray()
     }).ToArray();
 
