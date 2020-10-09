@@ -19,16 +19,18 @@
     [PluginController("formulate")]
     public class SubmissionsController : SurfaceController
     {
-
-        #region Properties
-
         /// <summary>
-        /// Configuration manager.
+        /// Initializes a new instance of the <see cref="SubmissionsController"/> class.
         /// </summary>
-        private IConfigurationManager Config { get; set; }
-
-        #endregion
-
+        /// <param name="configurationManager">
+        /// The configuration manager.
+        /// </param>
+        /// <param name="formPersistence">
+        /// The form persistence.
+        /// </param>
+        /// <param name="validationPersistence">
+        /// The validation persistence.
+        /// </param>
         public SubmissionsController(IConfigurationManager configurationManager, IFormPersistence formPersistence, IValidationPersistence validationPersistence)
         {
             Config = configurationManager;
@@ -36,8 +38,25 @@
             Validations = validationPersistence;
         }
 
-        public IFormPersistence Forms { get; set; }
-        public IValidationPersistence Validations { get; set; }
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the form persistence.
+        /// </summary>
+        private IFormPersistence Forms { get; set; }
+
+        /// <summary>
+        /// Gets or sets the validation persistence.
+        /// </summary>
+        private IValidationPersistence Validations { get; set; }
+
+        /// <summary>
+        /// Gets or sets the configuration manager.
+        /// </summary>
+        private IConfigurationManager Config { get; set; }
+
+        #endregion
+
 
         #region Action Methods
 
