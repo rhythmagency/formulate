@@ -44,21 +44,25 @@
         /// <summary>
         /// Handles form submissions.
         /// </summary>
+        /// <param name="formId">
+        /// The form Id.
+        /// </param>
+        /// <param name="pageId">
+        /// The page Id.
+        /// </param>
         /// <returns>
         /// A JSON object indicating success or failure.
         /// </returns>
-        public ActionResult Submit()
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public ActionResult Submit(Guid formId, int pageId)
         {
 
             // Variables.
             var tempGuid = default(Guid);
             var keys = Request.Form.AllKeys;
             var fileKeys = Request.Files.AllKeys;
-            var formId = Guid.Parse(Request["FormId"]);
-            var pageId = NumberUtility.AttemptParseInt(Request["PageId"]);
-            var pageNode = pageId.HasValue ? Umbraco.Content(pageId.Value) : null;
+            var pageNode = Umbraco.Content(pageId);
             var pageUrl = pageNode?.Url;
             var pageName = pageNode?.Name;
 
