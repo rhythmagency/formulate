@@ -20,15 +20,15 @@
         /// Initializes a new instance of the <see cref="DropDownField"/> class. 
         /// The drop down field.
         /// </summary>
-        /// <param name="getDataValuesUtility">
-        /// The get data values utility.
+        /// <param name="getDataValuesHelper">
+        /// The get data values helper.
         /// </param>
         /// <remarks>
         /// Default constructor.
         /// </remarks>
-        public DropDownField(IGetDataValuesUtility getDataValuesUtility)
+        public DropDownField(IGetDataValuesHelper getDataValuesHelper)
         {
-            this.GetDataValuesUtility = getDataValuesUtility;
+            this.GetDataValuesHelper = getDataValuesHelper;
         }
 
         #endregion
@@ -52,9 +52,9 @@
         #region Private Properties
 
         /// <summary>
-        /// Gets or sets the get data values utility.
+        /// Gets or sets the get data values helper.
         /// </summary>
-        private IGetDataValuesUtility GetDataValuesUtility { get; set; }
+        private IGetDataValuesHelper GetDataValuesHelper { get; set; }
 
         #endregion
 
@@ -83,7 +83,7 @@
             {
                 // Get info about the data value.
                 var dataValueId = GuidHelper.GetGuid(dynamicConfig.dataValue.Value as string);
-                var dataValues = this.GetDataValuesUtility.GetById(dataValueId);
+                var dataValues = this.GetDataValuesHelper.GetById(dataValueId);
 
                 items.AddRange(dataValues.Select(x => new DropDownItem()
                 {

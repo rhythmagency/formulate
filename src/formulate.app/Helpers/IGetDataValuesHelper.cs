@@ -4,9 +4,9 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// A contract for creating a utility for getting data values.
+    /// A contract for creating a helper for getting data values.
     /// </summary>
-    public interface IGetDataValuesUtility
+    public interface IGetDataValuesHelper
     {
         /// <summary>
         /// Gets the Data Values for a given ID.

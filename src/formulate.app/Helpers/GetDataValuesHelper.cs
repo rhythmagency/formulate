@@ -8,12 +8,12 @@
     using System.Linq;
 
     /// <summary>
-    /// The get data values utility.
+    /// The get data values helper.
     /// </summary>
-    internal class GetDataValuesUtility : IGetDataValuesUtility
+    internal class GetDataValuesHelper : IGetDataValuesHelper
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetDataValuesUtility"/> class.
+        /// Initializes a new instance of the <see cref="GetDataValuesHelper"/> class.
         /// </summary>
         /// <param name="dataValuePersistence">
         /// The data value persistence.
@@ -21,7 +21,7 @@
         /// <param name="dataValueKindCollection">
         /// The data value kind collection.
         /// </param>
-        public GetDataValuesUtility(IDataValuePersistence dataValuePersistence, DataValueKindCollection dataValueKindCollection)
+        public GetDataValuesHelper(IDataValuePersistence dataValuePersistence, DataValueKindCollection dataValueKindCollection)
         {
             DataValues = dataValuePersistence;
             DataValueKindCollection = dataValueKindCollection;
