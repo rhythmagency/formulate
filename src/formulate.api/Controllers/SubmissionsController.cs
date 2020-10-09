@@ -5,7 +5,6 @@
     using app.Managers;
     using app.Persistence;
     using core.Types;
-    using core.Utilities;
     using System;
     using System.IO;
     using System.Linq;
@@ -156,7 +155,6 @@
             {
                 Validate = Config.EnableServerSideValidation
             };
-
             var result = new Submissions(Forms, Validations, Logger)
                 .SubmitForm(formId, values, fileValues, payload, options, context);
 
@@ -166,11 +164,9 @@
                 Success = result.Success,
                 ValidationErrors = result.ValidationErrors
             });
-
         }
 
         #endregion
 
     }
-
 }
