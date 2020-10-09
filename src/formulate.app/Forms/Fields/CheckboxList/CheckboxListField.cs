@@ -2,15 +2,11 @@
 {
 
     // Namespaces.
-    using DataValues.DataInterfaces;
     using Helpers;
     using Newtonsoft.Json.Linq;
-    using Persistence;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    using formulate.app.CollectionBuilders;
 
     /// <summary>
     /// A checkbox list form field type.
@@ -22,17 +18,15 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CheckboxListField"/> class.
         /// </summary>
-        /// <param name="dataValuePersistence">
-        /// The data value persistence.
+        /// <param name="getDataValuesHelper">
+        /// The get data values helper.
         /// </param>
-        /// <param name="dataValueKindCollection">
-        /// The data value kind collection.
-        /// </param>
-        /// <remarks>The default constructor.</remarks>
-        public CheckboxListField(IDataValuePersistence dataValuePersistence, DataValueKindCollection dataValueKindCollection)
+        /// <remarks>
+        /// Default constructor.
+        /// </remarks>
+        public CheckboxListField(IGetDataValuesHelper getDataValuesHelper)
         {
-            DataValues = dataValuePersistence;
-            DataValueKindCollection = dataValueKindCollection;
+            this.GetDataValuesHelper = getDataValuesHelper;
         }
 
         #endregion
@@ -57,14 +51,9 @@
         #region Private Properties
 
         /// <summary>
-        /// Gets or sets the data values.
+        /// Gets or sets the get data values helper.
         /// </summary>
-        private IDataValuePersistence DataValues { get; set; }
-
-        /// <summary>
-        /// Gets or sets the data value kind collection.
-        /// </summary>
-        private DataValueKindCollection DataValueKindCollection { get; set; }
+        private IGetDataValuesHelper GetDataValuesHelper { get; set; }
 
         #endregion
 
@@ -85,10 +74,6 @@
 
             // Variables.
             var items = new List<CheckboxListItem>();
-            var config = new CheckboxListConfiguration()
-            {
-                Items = items
-            };
             var configData = JsonHelper.Deserialize<JObject>(configuration);
             var dynamicConfig = configData as dynamic;
             var properties = configData.Properties().Select(x => x.Name);
@@ -98,49 +83,23 @@
             // A data value is selected?
             if (propertySet.Contains("dataValue"))
             {
-
                 // Get info about the data value.
                 var dataValueId = GuidHelper.GetGuid(dynamicConfig.dataValue.Value as string);
-                var dataValue = DataValues.Retrieve(dataValueId);
-                if (dataValue != null)
+                var dataValues = this.GetDataValuesHelper.GetById(dataValueId);
+
+                items.AddRange(dataValues.Select(x => new CheckboxListItem()
                 {
-                    // Extract list items from the data value.
-                    var kind = DataValueKindCollection.FirstOrDefault(x => x.Id == dataValue.KindId);
-                    var pairCollection = kind as IGetValueAndLabelCollection;
-                    var stringCollection = kind as IGetStringCollection;
-
-
-                    // Check type of collection returned by the data value kind.
-                    if (pairCollection != null)
-                    {
-
-                        // Create checkboxes from values and labels.
-                        var pairs = pairCollection.GetValues(dataValue.Data);
-                        items.AddRange(pairs.Select(x => new CheckboxListItem()
-                        {
-                            Selected = false,
-                            Value = x.Value,
-                            Label = x.Label
-                        }));
-
-                    }
-                    else if (stringCollection != null)
-                    {
-
-                        // Create checkboxes from strings.
-                        var strings = stringCollection.GetValues(dataValue.Data);
-                        items.AddRange(strings.Select(x => new CheckboxListItem()
-                        {
-                            Selected = false,
-                            Value = x,
-                            Label = x
-                        }));
-                    }
-                }
+                    Selected = false,
+                    Value = x.Value,
+                    Label = x.Key
+                }));
             }
 
             // Return the data value configuration.
-            return config;
+            return new CheckboxListConfiguration()
+            {
+                Items = items
+            };
         }
 
         /// <summary>

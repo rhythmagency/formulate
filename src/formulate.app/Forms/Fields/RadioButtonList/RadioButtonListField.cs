@@ -2,14 +2,11 @@
 {
 
     // Namespaces.
-    using DataValues.DataInterfaces;
     using Helpers;
     using Newtonsoft.Json.Linq;
-    using Persistence;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using formulate.app.CollectionBuilders;
 
     /// <summary>
     /// A radio button list form field type.
@@ -20,21 +17,16 @@
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RadioButtonListField"/> class. 
-        /// The radio button list field.
         /// </summary>
-        /// <param name="dataValuePersistence">
-        /// The data Value Persistence.
-        /// </param>
-        /// <param name="dataValueKindCollection">
-        /// The data Value Kind Collection.
+        /// <param name="getDataValuesHelper">
+        /// The get data values helper.
         /// </param>
         /// <remarks>
         /// Default constructor.
         /// </remarks>
-        public RadioButtonListField(IDataValuePersistence dataValuePersistence, DataValueKindCollection dataValueKindCollection)
+        public RadioButtonListField(IGetDataValuesHelper getDataValuesHelper)
         {
-            DataValues = dataValuePersistence;
-            DataValueKindCollection = dataValueKindCollection;
+            this.GetDataValuesHelper = getDataValuesHelper;
         }
 
         #endregion
@@ -55,18 +47,12 @@
 
         #endregion
 
-
         #region Private Properties
 
         /// <summary>
-        /// Gets or sets the data values.
+        /// Gets or sets the get data values helper.
         /// </summary>
-        private IDataValuePersistence DataValues { get; set; }
-
-        /// <summary>
-        /// Gets or sets the data value kind collection.
-        /// </summary>
-        private DataValueKindCollection DataValueKindCollection { get; set; }
+        private IGetDataValuesHelper GetDataValuesHelper { get; set; }
 
         #endregion
 
@@ -83,81 +69,48 @@
         /// </returns>
         public object DeserializeConfiguration(string configuration)
         {
-
             // Variables.
             var defaultOrientation = "Horizontal";
             var items = new List<RadioButtonListItem>();
-            var config = new RadioButtonListConfiguration()
-            {
-                Items = items,
-                Orientation = defaultOrientation
-            };
+            var orientation = defaultOrientation;
             var configData = JsonHelper.Deserialize<JObject>(configuration);
             var dynamicConfig = configData as dynamic;
             var properties = configData.Properties().Select(x => x.Name);
             var propertySet = new HashSet<string>(properties);
 
-
             // An orientation is set?
             if (propertySet.Contains("orientation"))
             {
-                config.Orientation = dynamicConfig.orientation.Value as string;
-                if (string.IsNullOrWhiteSpace(config.Orientation))
+                var orientationPropertyValue = dynamicConfig.orientation.Value as string;
+
+                if (string.IsNullOrWhiteSpace(orientationPropertyValue) == false)
                 {
-                    config.Orientation = defaultOrientation;
+                    orientation = orientationPropertyValue;
                 }
             }
-
 
             // A data value is selected?
             if (propertySet.Contains("dataValue"))
             {
-
                 // Get info about the data value.
                 var dataValueId = GuidHelper.GetGuid(dynamicConfig.dataValue.Value as string);
-                var dataValue = DataValues.Retrieve(dataValueId);
-                if (dataValue != null)
+                var dataValues = this.GetDataValuesHelper.GetById(dataValueId);
+
+                items.AddRange(dataValues.Select(x => new RadioButtonListItem()
                 {
-
-                    // Extract list items from the data value.
-                    var kind = DataValueKindCollection.FirstOrDefault(x => x.Id == dataValue.KindId);
-                    var pairCollection = kind as IGetValueAndLabelCollection;
-                    var stringCollection = kind as IGetStringCollection;
-
-
-                    // Check type of collection returned by the data value kind.
-                    if (pairCollection != null)
-                    {
-
-                        // Create radio buttons from values and labels.
-                        var pairs = pairCollection.GetValues(dataValue.Data);
-                        items.AddRange(pairs.Select(x => new RadioButtonListItem()
-                        {
-                            Selected = false,
-                            Value = x.Value,
-                            Label = x.Label
-                        }));
-
-                    }
-                    else if (stringCollection != null)
-                    {
-
-                        // Create radio buttons from strings.
-                        var strings = stringCollection.GetValues(dataValue.Data);
-                        items.AddRange(strings.Select(x => new RadioButtonListItem()
-                        {
-                            Selected = false,
-                            Value = x,
-                            Label = x
-                        }));
-                    }
-                }
+                    Selected = false,
+                    Value = x.Value,
+                    Label = x.Key
+                }));
             }
 
             // Return the data value configuration.
-            return config;
+            return new RadioButtonListConfiguration()
+            {
+                Items = items,
+                Orientation = orientation
+            };
         }
-
 
         /// <summary>
         /// Formats a value in the specified field presentation format.
