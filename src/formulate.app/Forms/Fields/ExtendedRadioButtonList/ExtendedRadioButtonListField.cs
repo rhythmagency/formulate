@@ -2,15 +2,11 @@
 {
 
     // Namespaces.
-    using DataValues.DataInterfaces;
     using Helpers;
     using Newtonsoft.Json.Linq;
-    using Persistence;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    using formulate.app.CollectionBuilders;
 
     /// <summary>
     /// An extended radio button list form field type.
@@ -25,55 +21,45 @@
         #region Constructors
 
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the <see cref="ExtendedRadioButtonListField"/> class. 
         /// </summary>
-        public ExtendedRadioButtonListField(IDataValuePersistence dataValuePersistence, DataValueKindCollection dataValueKindCollection)
+        /// <param name="getDataValuesHelper">
+        /// The get Data Values Helper.
+        /// </param>
+        /// <remarks>
+        /// Default constructor.
+        /// </remarks>
+        public ExtendedRadioButtonListField(IGetDataValuesHelper getDataValuesHelper)
         {
-            DataValues = dataValuePersistence;
-            DataValueKindCollection = dataValueKindCollection;
+            this.GetDataValuesHelper = getDataValuesHelper;
         }
 
         #endregion
 
-
-
-        #region Private Properties
-
-        private IDataValuePersistence DataValues { get; set; }
-        private DataValueKindCollection DataValueKindCollection { get; set; }
-
-        #endregion
-
-
         #region Public Properties
 
-        /// <summary>
-        /// The Angular directive for this field type.
-        /// </summary>
+        /// <inheritdoc />
         public string Directive => "formulate-extended-radio-button-list-field";
 
-
-        /// <summary>
-        /// The label to show in the UI for this field type.
-        /// </summary>
+        /// <inheritdoc />
         public string TypeLabel => "Extended Radio Button List";
 
-
-        /// <summary>
-        /// The icon to display in the selection screen for this field type.
-        /// </summary>
+        /// <inheritdoc />
         public string Icon => "icon-formulate-extended-radio-button-list";
 
-
-        /// <summary>
-        /// The GUID that uniquely identifies this field type (useful for serialization).
-        /// </summary>
+        /// <inheritdoc />
         public Guid TypeId => new Guid("8B277AF31B1F469897D23900C6621C7D");
 
         #endregion
+        
+        #region Private Properties
 
+        /// <summary>
+        /// Gets or sets the get data values helper.
+        /// </summary>
+        private IGetDataValuesHelper GetDataValuesHelper { get; set; }
 
-
+        #endregion
 
         #region Public Methods
 
@@ -88,73 +74,34 @@
         /// </returns>
         public object DeserializeConfiguration(string configuration)
         {
-
             // Variables.
             var items = new List<ExtendedRadioButtonListItem>();
-            var config = new ExtendedRadioButtonListConfiguration()
-            {
-                Items = items
-            };
             var configData = JsonHelper.Deserialize<JObject>(configuration);
             var dynamicConfig = configData as dynamic;
             var properties = configData.Properties().Select(x => x.Name);
             var propertySet = new HashSet<string>(properties);
 
-
             // A data value is selected?
             if (propertySet.Contains("dataValue"))
             {
-
                 // Get info about the data value.
                 var dataValueId = GuidHelper.GetGuid(dynamicConfig.dataValue.Value as string);
-                var dataValue = DataValues.Retrieve(dataValueId);
-                if (dataValue != null)
+                var dataValues = this.GetDataValuesHelper.GetById(dataValueId);
+
+                items.AddRange(dataValues.Select(x => new ExtendedRadioButtonListItem()
                 {
-
-                    // Extract list items from the data value.
-                    var kind = DataValueKindCollection.FirstOrDefault(x => x.Id == dataValue.KindId);
-                    var pairCollection = kind as IGetValueAndLabelCollection;
-                    var stringCollection = kind as IGetStringCollection;
-
-
-                    // Check type of collection returned by the data value kind.
-                    if (pairCollection != null)
-                    {
-
-                        // Create radio buttons from values and labels.
-                        var pairs = pairCollection.GetValues(dataValue.Data);
-                        items.AddRange(pairs.Select(x => new ExtendedRadioButtonListItem()
-                        {
-                            Selected = false,
-                            Primary = x.Value,
-                            Secondary = x.Label
-                        }));
-
-                    }
-                    else if (stringCollection != null)
-                    {
-
-                        // Create radio buttons from strings.
-                        var strings = stringCollection.GetValues(dataValue.Data);
-                        items.AddRange(strings.Select(x => new ExtendedRadioButtonListItem()
-                        {
-                            Selected = false,
-                            Primary = x,
-                            Secondary = null
-                        }));
-
-                    }
-
-                }
-
+                    Selected = false,
+                    Primary = x.Value,
+                    Secondary = x.Key == x.Value ? null : x.Key
+                }));
             }
 
-
             // Return the data value configuration.
-            return config;
-
+            return new ExtendedRadioButtonListConfiguration()
+            {
+                Items = items
+            };
         }
-
 
         /// <summary>
         /// Formats a value in the specified field presentation format.
@@ -171,14 +118,11 @@
         /// <returns>
         /// The formatted value.
         /// </returns>
-        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format,
-            object configuration)
+        public string FormatValue(IEnumerable<string> values, FieldPresentationFormats format, object configuration)
         {
             return string.Join(", ", values);
         }
 
         #endregion
-
     }
-
 }
