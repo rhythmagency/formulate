@@ -1,10 +1,8 @@
 ﻿namespace formulate.app.Forms.Fields.Button
 {
     using Helpers;
-    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     /// <summary>
     /// A button form field type.
