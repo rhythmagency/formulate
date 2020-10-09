@@ -59,7 +59,6 @@
         {
 
             // Variables.
-            var tempGuid = default(Guid);
             var keys = Request.Form.AllKeys;
             var fileKeys = Request.Files.AllKeys;
             var pageNode = Umbraco.Content(pageId);
@@ -69,7 +68,7 @@
 
             // Get values.
             var values = keys
-                .Where(x => Guid.TryParse(x, out tempGuid))
+                .Where(x => Guid.TryParse(x, out var tempGuid))
                 .Select(x =>
                 {
                     var fieldValue = Request.Form.GetValues(x);
@@ -83,7 +82,7 @@
 
             // Get file values.
             var fileValues = fileKeys
-                .Where(x => Guid.TryParse(x, out tempGuid))
+                .Where(x => Guid.TryParse(x, out var tempGuid))
                 .Select(x =>
                 {
 
