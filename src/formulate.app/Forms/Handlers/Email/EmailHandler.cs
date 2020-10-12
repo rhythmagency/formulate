@@ -22,7 +22,6 @@
     /// </summary>
     public class EmailHandler : IFormHandlerType
     {
-
         #region Public Static Properties
 
         /// <summary>
@@ -49,15 +48,21 @@
         #endregion
 
 
-        #region Private Properties
+        #region Constructors
 
         /// <summary>
-        /// Configuration manager.
+        /// Initializes a new instance of the <see cref="EmailHandler"/> class. 
         /// </summary>
-        private IConfigurationManager Config { get; set; }
+        /// <param name="configurationManager">
+        /// The configuration manager.
+        /// </param>
+        /// <remarks>Primary constructor.</remarks>
+        public EmailHandler(IConfigurationManager configurationManager)
+        {
+            Config = configurationManager;
+        }
 
         #endregion
-
 
         #region Public Properties
 
@@ -66,18 +71,15 @@
         /// </summary>
         public virtual string Directive => "formulate-email-handler";
 
-
         /// <summary>
         /// The icon shown in the picker dialog.
         /// </summary>
         public virtual string Icon => "icon-formulate-email";
 
-
         /// <summary>
         /// The ID that uniquely identifies this handler (useful for serialization).
         /// </summary>
         public virtual Guid TypeId => new Guid("A0C06033CB94424F9C035B10A420DB16");
-
 
         /// <summary>
         /// The label that appears when the user is choosing the handler.
@@ -86,19 +88,12 @@
 
         #endregion
 
-
-        #region Constructors
+        #region Private Properties
 
         /// <summary>
-        /// Primary constructor.
+        /// Gets or sets the config.
         /// </summary>
-        /// <param name="configurationManager">
-        /// The configuration manager.
-        /// </param>
-        public EmailHandler(IConfigurationManager configurationManager)
-        {
-            Config = configurationManager;
-        }
+        private IConfigurationManager Config { get; set; }
 
         #endregion
 
@@ -202,9 +197,7 @@
 
             // Return the email configuration.
             return config;
-
         }
-
 
         /// <summary>
         /// Prepares to handle to form submission.
@@ -221,7 +214,6 @@
         public virtual void PrepareHandleForm(FormSubmissionContext context, object configuration)
         {
         }
-
 
         /// <summary>
         /// Handles a form submission (sends an email).
@@ -335,7 +327,6 @@
             {
                 client.Send(message);
             }
-
         }
 
         #endregion
@@ -355,7 +346,8 @@
         /// <returns>
         /// The prepared mail message.
         /// </returns>
-        protected MailMessage PrepareEmailMessage(FormSubmissionContext context,
+        protected MailMessage PrepareEmailMessage(
+            FormSubmissionContext context,
             IEmailSenderRecipientConfiguration config)
         {
 
@@ -371,8 +363,7 @@
 
 
             // Create message.
-            var message = new MailMessage();
-            message.From = new MailAddress(config.SenderEmail);
+            var message = new MailMessage { From = new MailAddress(config.SenderEmail) };
 
 
             // Add headers to message.
@@ -456,11 +447,16 @@
         /// <returns>
         /// The email message.
         /// </returns>
-        private string ConstructMessage(Form form, IEnumerable<FieldSubmission> data,
-            IEnumerable<FileFieldSubmission> files, IEnumerable<PayloadSubmission> payload,
-            string baseMessage, bool includeHiddenFields, bool excludeFieldLabels, bool isHtml = false)
+        private string ConstructMessage(
+            Form form,
+            IEnumerable<FieldSubmission> data,
+            IEnumerable<FileFieldSubmission> files,
+            IEnumerable<PayloadSubmission> payload,
+            string baseMessage,
+            bool includeHiddenFields,
+            bool excludeFieldLabels,
+            bool isHtml = false)
         {
-
             // Variables.
             var nl = isHtml
                 ? Environment.NewLine + "<br>" + Environment.NewLine
@@ -549,12 +545,9 @@
                 lines = lines.Select(x => WebUtility.HtmlEncode(x)).ToList();
             }
 
-
             // Return message.
             return baseMessage + nl + string.Join(nl, lines);
-
         }
-
 
         /// <summary>
         /// Filters the email addresses to only return those allowed by the whitelist.
@@ -643,7 +636,5 @@
         }
 
         #endregion
-
     }
-
 }
