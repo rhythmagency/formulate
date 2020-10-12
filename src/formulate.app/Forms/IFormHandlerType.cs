@@ -6,35 +6,30 @@
 
     using Umbraco.Core.Composing;
 
-
     /// <summary>
-    /// Any classes implementing this interface will be used as form submission handlers.
+    /// A contract for implementing a form submission handler.
     /// </summary>
     public interface IFormHandlerType : IDiscoverable
     {
-
         #region Properties
 
         /// <summary>
-        /// The AngularJS directive to render in the back office (e.g., "formulat-email-handler").
+        /// Gets the AngularJS directive to render in the back office (e.g., "formulate-email-handler").
         /// </summary>
         string Directive { get; }
 
-
         /// <summary>
-        /// The label to display in the back office (e.g., "Email").
+        /// Gets the label to display in the back office (e.g., "Email").
         /// </summary>
         string TypeLabel { get; }
 
-
         /// <summary>
-        /// The icon to display in the back office (e.g., "icon-formulate-email").
+        /// Gets the icon to display in the back office (e.g., "icon-formulate-email").
         /// </summary>
         string Icon { get; }
 
-
         /// <summary>
-        /// The GUID that uniquely identifies the form submission handler.
+        /// Gets the GUID that uniquely identifies the form submission handler.
         /// </summary>
         /// <remarks>
         /// Used for serialization/deserialization.
@@ -42,7 +37,6 @@
         Guid TypeId { get; }
 
         #endregion
-
 
         #region Methods
 
@@ -57,7 +51,6 @@
         /// </returns>
         object DeserializeConfiguration(string configuration);
 
-
         /// <summary>
         /// Preparation to handle the form submission.
         /// </summary>
@@ -71,7 +64,6 @@
         /// This is guaranteed to occur in the same thread as the form submission.
         /// </remarks>
         void PrepareHandleForm(FormSubmissionContext context, object configuration);
-
 
         /// <summary>
         /// Handles the form submission.
@@ -88,7 +80,5 @@
         void HandleForm(FormSubmissionContext context, object configuration);
 
         #endregion
-
     }
-
 }
