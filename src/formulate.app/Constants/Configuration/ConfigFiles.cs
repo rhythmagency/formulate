@@ -3,7 +3,7 @@
     /// <summary>
     /// Constants for config file paths.
     /// </summary>
-    public static class ConfigFilePaths
+    internal static class ConfigFilePaths
     {
         /// <summary>
         /// The formulate config path.

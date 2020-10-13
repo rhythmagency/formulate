@@ -3,7 +3,7 @@
     /// <summary>
     /// Constants related to <see cref="app.DataValues.Kinds.DataValueList"/>.
     /// </summary>
-    public static class DataValueList
+    internal static class DataValueList
     {
         /// <summary>
         /// The id.
