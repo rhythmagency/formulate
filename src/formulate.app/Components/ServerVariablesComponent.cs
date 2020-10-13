@@ -40,6 +40,12 @@
         /// <summary>
         /// Adds server variables for use by the JavaScript.
         /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The event data.
+        /// </param>
         private void AddServerVariables(object sender, Dictionary<string, object> e)
         {
             // Variables.
@@ -48,7 +54,6 @@
             var requestContext = new RequestContext(httpContext, routeData);
             var helper = new UrlHelper(requestContext);
             var key = MetaConstants.PackageNameCamelCase;
-
 
             // Add server variables.
             var newEntries = new Dictionary<string, string>()
@@ -204,8 +209,6 @@
             {
                 e.Add(key, newEntries);
             }
-
         }
-
     }
 }

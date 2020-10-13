@@ -25,26 +25,6 @@
     internal sealed class HandleInstallAndUpgradeComponent : IComponent
     {
         /// <summary>
-        /// Gets or sets the config.
-        /// </summary>
-        private IFormulateConfig Config { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user service.
-        /// </summary>
-        private IUserService UserService { get; set; }
-
-        /// <summary>
-        /// Gets or sets the section service.
-        /// </summary>
-        private ISectionService SectionService { get; set; }
-
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        private ILogger Logger { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="HandleInstallAndUpgradeComponent"/> class.
         /// </summary>
         /// <param name="config">
@@ -66,6 +46,26 @@
             UserService = userService;
             Logger = logger;
         }
+
+        /// <summary>
+        /// Gets or sets the config.
+        /// </summary>
+        private IFormulateConfig Config { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user service.
+        /// </summary>
+        private IUserService UserService { get; set; }
+
+        /// <summary>
+        /// Gets or sets the section service.
+        /// </summary>
+        private ISectionService SectionService { get; set; }
+
+        /// <summary>
+        /// Gets or sets the logger.
+        /// </summary>
+        private ILogger Logger { get; set; }
 
         /// <summary>
         /// Runs upon component initialization.

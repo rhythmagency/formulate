@@ -14,26 +14,6 @@
     internal sealed class InstallDatabaseMigrationComponent : IComponent
     {
         /// <summary>
-        /// Gets or sets the scope provider.
-        /// </summary>
-        private IScopeProvider ScopeProvider { get; set; }
-
-        /// <summary>
-        /// Gets or sets the migration builder.
-        /// </summary>
-        private IMigrationBuilder MigrationBuilder { get; set; }
-
-        /// <summary>
-        /// Gets or sets the key value service.
-        /// </summary>
-        private IKeyValueService KeyValueService { get; set; }
-
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        private ILogger Logger { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="InstallDatabaseMigrationComponent"/> class.
         /// </summary>
         /// <param name="scopeProvider">
@@ -55,6 +35,26 @@
             KeyValueService = keyValueService;
             Logger = logger;
         }
+
+        /// <summary>
+        /// Gets or sets the scope provider.
+        /// </summary>
+        private IScopeProvider ScopeProvider { get; set; }
+
+        /// <summary>
+        /// Gets or sets the migration builder.
+        /// </summary>
+        private IMigrationBuilder MigrationBuilder { get; set; }
+
+        /// <summary>
+        /// Gets or sets the key value service.
+        /// </summary>
+        private IKeyValueService KeyValueService { get; set; }
+
+        /// <summary>
+        /// Gets or sets the logger.
+        /// </summary>
+        private ILogger Logger { get; set; }
 
         /// <summary>
         /// Runs the inital migration.
