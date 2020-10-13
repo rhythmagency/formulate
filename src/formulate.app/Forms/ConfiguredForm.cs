@@ -2,7 +2,6 @@
 {
 
     // Namespaces.
-
     using System;
 
     using Entities;
@@ -14,64 +13,43 @@
     /// </summary>
     public class ConfiguredForm : IEntity
     {
-
         /// <summary>
-        /// The icon for configured forms.
+        /// Gets or sets the icon for configured forms.
         /// </summary>
         [JsonIgnore]
-        public string Icon
-        {
-            get
-            {
-                return Constants.Trees.ConfiguredForms.ItemIcon;
-            }
-        }
-
+        public string Icon => Constants.Trees.ConfiguredForms.ItemIcon;
 
         /// <summary>
-        /// The unique ID of this configured form.
+        /// Gets or sets the unique ID of this configured form.
         /// </summary>
         public Guid Id { get; set; }
 
-
         /// <summary>
-        /// The kind of this entity.
+        /// Gets or sets the kind of this entity.
         /// </summary>
-        public EntityKind Kind
-        {
-            get
-            {
-                return EntityKind.ConfiguredForm;
-            }
-        }
-
+        public EntityKind Kind => EntityKind.ConfiguredForm;
 
         /// <summary>
-        /// The name of this configured form.
+        /// Gets or sets the name of this configured form.
         /// </summary>
         public string Name { get; set; }
 
-
         /// <summary>
-        /// The entity path to this configured form.
+        /// Gets or sets the entity path to this configured form.
         /// </summary>
         /// <remarks>
         /// This path excludes the root, but includes the configured form ID.
         /// </remarks>
         public Guid[] Path { get; set; }
 
-
         /// <summary>
-        /// The ID of the template.
+        /// Gets or sets the ID of the template.
         /// </summary>
         public Guid? TemplateId { get; set; }
 
-
         /// <summary>
-        /// The ID of the layout.
+        /// Gets or sets the ID of the layout.
         /// </summary>
         public Guid? LayoutId { get; set; }
-
     }
-
 }
