@@ -10,76 +10,54 @@
     using System.Collections.Generic;
     using System.Linq;
 
-
     /// <summary>
     /// Validates a form field.
     /// </summary>
     public class Validation : IEntity
     {
-
         #region Properties
 
         /// <summary>
-        /// The ID of the validation kind.
+        /// Gets or sets the ID of the validation kind.
         /// </summary>
         public Guid KindId { get; set; }
 
-
         /// <summary>
-        /// The ID of this validation.
+        /// Gets or sets the ID of this validation.
         /// </summary>
         public Guid Id { get; set; }
 
-
         /// <summary>
-        /// The entity ID path of this validation.
+        /// Gets or sets the entity ID path of this validation.
         /// </summary>
         public Guid[] Path { get; set; }
 
-
         /// <summary>
-        /// The alias of this validation.
+        /// Gets or sets the alias of this validation.
         /// </summary>
         public string Alias { get; set; }
 
-
         /// <summary>
-        /// The name of this validation.
+        /// Gets or sets the name of this validation.
         /// </summary>
         public string Name { get; set; }
 
-
         /// <summary>
-        /// The icon for validations.
+        /// Gets the icon for validations.
         /// </summary>
-        [JsonIgnore()]
-        public string Icon
-        {
-            get
-            {
-                return Constants.Trees.Validations.ItemIcon;
-            }
-        }
-
+        [JsonIgnore]
+        public string Icon => Constants.Trees.Validations.ItemIcon;
 
         /// <summary>
-        /// The kind of this entity.
+        /// Gets the kind of this entity.
         /// </summary>
-        [JsonIgnore()]
-        public EntityKind Kind
-        {
-            get
-            {
-                return EntityKind.Validation;
-            }
-        }
-
+        [JsonIgnore]
+        public EntityKind Kind => EntityKind.Validation;
 
         /// <summary>
-        /// The data stored by this validation.
+        /// Gets or sets the data stored by this validation.
         /// </summary>
         public string Data { get; set; }
-
 
         /// <summary>
         /// Deserializes the configuration data into a C# class instance.
@@ -111,14 +89,15 @@
         /// <returns>
         /// True, if the values are valid; otherwise, false.
         /// </returns>
-        public bool IsValueValid(IEnumerable<string> dataValues,
-            IEnumerable<FileFieldSubmission> fileValues, ValidationContext context)
+        public bool IsValueValid(
+            IEnumerable<string> dataValues,
+            IEnumerable<FileFieldSubmission> fileValues,
+            ValidationContext context)
         {
             var config = DeserializeConfiguration(context);
             var kind = GetValidationKind();
             return kind.IsValueValid(dataValues, fileValues, config);
         }
-
 
         /// <summary>
         /// Returns the validation kind.
@@ -134,7 +113,5 @@
         }
 
         #endregion
-
     }
-
 }
