@@ -8,51 +8,28 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Constants = Constants.Validations.ValidationMandatory;
-
 
     /// <summary>
     /// A validation kind that makes a field mandatory.
     /// </summary>
     public class ValidationMandatory : IValidationKind
     {
-
         #region Properties
 
         /// <summary>
-        /// The kind ID.
+        /// Gets the kind ID.
         /// </summary>
-        public Guid Id
-        {
-            get
-            {
-                return GuidHelper.GetGuid(Constants.Id);
-            }
-        }
-
+        public Guid Id => GuidHelper.GetGuid("93957A02633944A193238E8CD754680B");
 
         /// <summary>
-        /// The kind name.
+        /// Gets the kind name.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return Constants.Name;
-            }
-        }
-
+        public string Name => "Mandatory";
 
         /// <summary>
-        /// The kind directive.
+        /// Gets the kind directive.
         /// </summary>
-        public string Directive
-        {
-            get
-            {
-                return Constants.Directive;
-            }
-        }
+        public string Directive => "formulate-validation-mandatory";
 
         #endregion
 
@@ -106,8 +83,10 @@
         /// <returns>
         /// True, if the data is valid; otherwise, false.
         /// </returns>
-        public bool IsValueValid(IEnumerable<string> dataValues,
-            IEnumerable<FileFieldSubmission> fileValues, object configuration)
+        public bool IsValueValid(
+            IEnumerable<string> dataValues,
+            IEnumerable<FileFieldSubmission> fileValues,
+            object configuration)
         {
 
             // Check configuration.
@@ -137,11 +116,8 @@
 
             // Data is invalid.
             return false;
-
         }
 
         #endregion
-
     }
-
 }

@@ -274,8 +274,6 @@
     <Compile Include="Constants\Trees\Layouts.cs" />
     <Compile Include="Constants\Trees\Submissions.cs" />
     <Compile Include="Constants\Trees\Validations.cs" />
-    <Compile Include="Constants\Validations\ValidationMandatory.cs" />
-    <Compile Include="Constants\Validations\ValidationRegex.cs" />
     <Compile Include="Controllers\ConfiguredFormsContentController.cs" />
     <Compile Include="Controllers\ConfiguredFormsController.cs" />
     <Compile Include="Controllers\ControllerTypes\SubmissionExport.cs" />

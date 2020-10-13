@@ -9,8 +9,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using Constants = Constants.Validations.ValidationRegex;
-
 
     /// <summary>
     /// A validation kind that validates against a regular expression.
@@ -23,37 +21,17 @@
         /// <summary>
         /// The kind ID.
         /// </summary>
-        public Guid Id
-        {
-            get
-            {
-                return GuidHelper.GetGuid(Constants.Id);
-            }
-        }
-
+        public Guid Id => GuidHelper.GetGuid("AC9A464F6F3F4AF9A3B29C85FF0C5580");
 
         /// <summary>
         /// The kind name.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return Constants.Name;
-            }
-        }
-
+        public string Name => "Regular Expression";
 
         /// <summary>
         /// The kind directive.
         /// </summary>
-        public string Directive
-        {
-            get
-            {
-                return Constants.Directive;
-            }
-        }
+        public string Directive => "formulate-validation-regex";
 
         #endregion
 
