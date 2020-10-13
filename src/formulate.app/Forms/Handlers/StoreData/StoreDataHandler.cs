@@ -131,18 +131,7 @@
             var fieldsById = form.Fields.ToDictionary(x => x.Id, x => x);
 
             // This will store the formatted values.
-            var valueList = new[]
-            {
-                new
-                {
-                    FieldId = default(string),
-                    // Field name is stored in case the field is deleted from the form
-                    // and this stored name is all we have to go on.
-                    FieldName = default(string),
-                    Value = default(string)
-                }
-            }.Take(0).ToList();
-
+            var valueList = new List<StoreDataEntry>();
 
             // Group the data values by their field ID.
             var valuesById = data.GroupBy(x => x.FieldId).Select(x => new
@@ -178,7 +167,7 @@
                     formatted = field.FormatValue(values, FieldPresentationFormats.Storage);
                     fieldName = field.Name;
                 }
-                valueList.Add(new
+                valueList.Add(new StoreDataEntry()
                 {
                     FieldId = GuidHelper.GetString(key),
                     FieldName = fieldName,

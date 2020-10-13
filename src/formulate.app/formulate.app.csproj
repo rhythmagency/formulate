@@ -358,6 +358,7 @@
     <Compile Include="Forms\Handlers\SendData\SendDataHandler.cs" />
     <Compile Include="Forms\Handlers\SendData\SendDataResult.cs" />
     <Compile Include="Forms\Handlers\SendData\SendingDataContext.cs" />
+    <Compile Include="Forms\Handlers\StoreData\StoreDataEntry.cs" />
     <Compile Include="Forms\Handlers\StoreData\StoreDataHandler.cs" />
     <Compile Include="Forms\IFormField.cs" />
     <Compile Include="Forms\IFormFieldMetaInfo.cs" />
