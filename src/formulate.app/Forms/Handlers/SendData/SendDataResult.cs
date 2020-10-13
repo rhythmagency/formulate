@@ -15,40 +15,33 @@
     /// </remarks>
     public class SendDataResult
     {
-
         #region Properties
 
         /// <summary>
-        /// The HTTP web response, if applicable to this result.
+        /// Gets or sets the HTTP web response, if applicable to this result.
         /// </summary>
         public HttpWebResponse HttpWebResponse { get; set; }
 
-
         /// <summary>
-        /// The response text, if applicable to this result.
+        /// Gets or sets the response text, if applicable to this result.
         /// </summary>
         public string ResponseText { get; set; }
 
-
         /// <summary>
-        /// The response error, if one occurs.
+        /// Gets or sets the response error, if one occurs.
         /// </summary>
         public Exception ResponseError { get; set; }
 
-
         /// <summary>
-        /// Was the request a success?
+        /// Gets or sets a value indicating whether Was the request a success?
         /// </summary>
         public bool Success { get; set; }
 
-
         /// <summary>
-        /// The form submission context.
+        /// Gets or sets the form submission context.
         /// </summary>
         public FormSubmissionContext Context { get; set; }
 
         #endregion
-
     }
-
 }

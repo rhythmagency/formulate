@@ -18,20 +18,36 @@ namespace formulate.app.Forms.Handlers.SendData
     using Umbraco.Core.Logging;
     using Umbraco.Web;
 
-
     /// <summary>
     /// A handler that sends a data to a web API.
     /// </summary>
     public class SendDataHandler : IFormHandlerType
     {
-
         #region Constants
 
+        /// <summary>
+        /// The User Agent used by web requests.
+        /// </summary>
         private const string WebUserAgent = "Formulate, an Umbraco Form Builder";
+
+        /// <summary>
+        /// The error message when SendData fails.
+        /// </summary>
         private const string SendDataError = "An error occurred during an attempt to send data to an external URL.";
 
-
         #endregion
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SendDataHandler"/> class.
+        /// </summary>
+        /// <param name="logger">
+        /// The logger.
+        /// </param>
+        /// <remarks>The default constructor.</remarks>
+        public SendDataHandler(ILogger logger)
+        {
+            Logger = logger;
+        }
 
         #region Delegates
 
@@ -56,7 +72,6 @@ namespace formulate.app.Forms.Handlers.SendData
 
         #endregion
 
-
         #region Events
 
         /// <summary>
@@ -79,52 +94,41 @@ namespace formulate.app.Forms.Handlers.SendData
 
         #endregion
 
-
-        #region Private Properties
-
-        /// <summary>
-        /// Configuration manager.
-        /// </summary>
-        private IConfigurationManager Config { get; set; }
-
-        private ILogger Logger { get; set; }
-
-        #endregion
-
-        public SendDataHandler(IConfigurationManager configurationManager, ILogger logger)
-        {
-            Config = configurationManager;
-            Logger = logger;
-        }
-
-
         #region Public Properties
 
         /// <summary>
-        /// The Angular directive that renders this handler.
+        /// Gets the Angular directive that renders this handler.
         /// </summary>
         public string Directive => "formulate-send-data-handler";
 
 
         /// <summary>
-        /// The icon shown in the picker dialog.
+        /// Gets the icon shown in the picker dialog.
         /// </summary>
         public string Icon => "icon-formulate-send-data";
 
 
         /// <summary>
-        /// The ID that uniquely identifies this handler (useful for serialization).
+        /// Gets the ID that uniquely identifies this handler (useful for serialization).
         /// </summary>
         public Guid TypeId => new Guid("C76E8D1D5DF244CB8FA285C32312D688");
 
 
         /// <summary>
-        /// The label that appears when the user is choosing the handler.
+        /// Gets the label that appears when the user is choosing the handler.
         /// </summary>
         public string TypeLabel => "Send Data";
 
         #endregion
 
+        #region Private Properties
+
+        /// <summary>
+        /// Gets the logger.
+        /// </summary>
+        private ILogger Logger { get; }
+
+        #endregion
 
         #region Public Methods
 
@@ -188,10 +192,12 @@ namespace formulate.app.Forms.Handlers.SendData
             {
                 config.Url = dynamicConfig.url.Value as string;
             }
+
             if (propertySet.Contains("method"))
             {
                 config.Method = dynamicConfig.method.Value as string;
             }
+
             if (propertySet.Contains("transmissionFormat"))
             {
                 config.TransmissionFormat = dynamicConfig.transmissionFormat.Value as string;
@@ -252,10 +258,8 @@ namespace formulate.app.Forms.Handlers.SendData
             // Attempts to get a field value.
             Func<Guid, string> tryGetValue = fieldId =>
             {
-                var tempValues = default(List<string>);
-                var tempField = default(IFormField);
-                var hasValues = valuesById.TryGetValue(fieldId, out tempValues);
-                var hasField = fieldsById.TryGetValue(fieldId, out tempField);
+                var hasValues = valuesById.TryGetValue(fieldId, out var tempValues);
+                var hasField = fieldsById.TryGetValue(fieldId, out var tempField);
                 if (hasField && (hasValues || tempField.IsServerSideOnly))
                 {
                     tempValues = hasValues
@@ -295,8 +299,8 @@ namespace formulate.app.Forms.Handlers.SendData
             {
                 result.Context = context;
             }
-            config?.ResultHandler?.HandleResult(result);
 
+            config?.ResultHandler?.HandleResult(result);
         }
 
         #endregion
@@ -329,8 +333,12 @@ namespace formulate.app.Forms.Handlers.SendData
         /// Parts of this function are from: http://stackoverflow.com/a/9772003/2052963
         /// and http://stackoverflow.com/questions/14702902
         /// </remarks>
-        private SendDataResult SendData(SendDataConfiguration config, FormSubmissionContext context,
-            IEnumerable<KeyValuePair<string, string>> data, bool sendInBody, bool sendJson)
+        private SendDataResult SendData(
+            SendDataConfiguration config,
+            FormSubmissionContext context,
+            IEnumerable<KeyValuePair<string, string>> data,
+            bool sendInBody,
+            bool sendJson)
         {
 
             // Construct a URL, possibly containing the data as query string parameters.
@@ -492,10 +500,8 @@ namespace formulate.app.Forms.Handlers.SendData
                 sendDataResult.Success = false;
             }
 
-
             // Return the result of the request.
             return sendDataResult;
-
         }
 
 
@@ -523,7 +529,5 @@ namespace formulate.app.Forms.Handlers.SendData
         }
 
         #endregion
-
     }
-
 }

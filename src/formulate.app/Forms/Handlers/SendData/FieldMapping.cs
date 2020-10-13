@@ -15,22 +15,18 @@
     /// </remarks>
     public class FieldMapping
     {
-
         #region Properties
 
         /// <summary>
-        /// Formulate's field ID.
+        /// Gets or sets the formulate's field ID.
         /// </summary>
         public Guid FieldId { get; set; }
 
-
         /// <summary>
-        /// The name to use for the field (typically, the name expected by an external system).
+        /// Gets or sets the name to use for the field (typically, the name expected by an external system).
         /// </summary>
         public string FieldName { get; set; }
 
         #endregion
-
     }
-
 }

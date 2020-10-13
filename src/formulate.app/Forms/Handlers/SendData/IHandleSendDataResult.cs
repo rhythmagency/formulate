@@ -7,11 +7,10 @@
     /// </summary>
     public interface IHandleSendDataResult
     {
-
         #region Properties
 
         /// <summary>
-        /// The name of this handler.
+        /// Gets the name of this handler.
         /// </summary>
         string Name { get; }
 
@@ -29,7 +28,5 @@
         void HandleResult(SendDataResult result);
 
         #endregion
-
     }
-
 }
