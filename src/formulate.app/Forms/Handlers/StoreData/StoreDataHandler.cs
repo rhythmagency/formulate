@@ -127,7 +127,6 @@
             var form = context.Form;
             var data = context.Data;
             var files = context.Files;
-            var payload = context.Payload;
             var fieldsById = form.Fields.ToDictionary(x => x.Id, x => x);
 
             // This will store the formatted values.
@@ -156,9 +155,8 @@
             {
                 var values = valuesById[key];
                 var formatted = string.Join(", ", values);
-                var field = default(IFormField);
                 var fieldName = default(string);
-                if (fieldsById.TryGetValue(key, out field))
+                if (fieldsById.TryGetValue(key, out var field))
                 {
                     if (!field.IsStored)
                     {
@@ -209,9 +207,7 @@
                     Directory.CreateDirectory(pathOnly);
                     File.WriteAllBytes(fullPath, file.FileData);
                 }
-
             }
-
 
             // Store data to database.
             var serializedValues = JsonHelper.Serialize(valueList.ToArray());
