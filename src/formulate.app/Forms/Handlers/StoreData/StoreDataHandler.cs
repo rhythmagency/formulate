@@ -17,35 +17,37 @@
     /// </summary>
     public class StoreDataHandler : IFormHandlerType
     {
-
-        #region Private Properties
-
         /// <summary>
-        /// Configuration manager.
+        /// Initializes a new instance of the <see cref="StoreDataHandler"/> class.
         /// </summary>
-        private IConfigurationManager Config { get; set; }
-
-        private IScopeProvider ScopeProvider { get; set; }
-
-        #endregion
-
+        /// <param name="configurationManager">
+        /// The configuration manager.
+        /// </param>
+        /// <param name="scopeProvider">
+        /// The scope provider.
+        /// </param>
+        public StoreDataHandler(IConfigurationManager configurationManager, IScopeProvider scopeProvider)
+        {
+            Config = configurationManager;
+            ScopeProvider = scopeProvider;
+        }
 
         #region Public Properties
 
         /// <summary>
-        /// The Angular directive that renders this handler.
+        /// Gets the AngularJS directive that renders this handler.
         /// </summary>
         public string Directive => "formulate-store-data-handler";
 
 
         /// <summary>
-        /// The icon shown in the picker dialog.
+        /// Gets the icon shown in the picker dialog.
         /// </summary>
         public string Icon => "icon-formulate-store-data";
 
 
         /// <summary>
-        /// The ID that uniquely identifies this handler (useful for serialization).
+        /// Gets the ID that uniquely identifies this handler (useful for serialization).
         /// </summary>
         public Guid TypeId => new Guid("238EA92071F44D8C9CC433D7181C9C46");
 
@@ -57,6 +59,20 @@
 
         #endregion
 
+
+        #region Private Properties
+
+        /// <summary>
+        /// Gets the config.
+        /// </summary>
+        private IConfigurationManager Config { get; }
+
+        /// <summary>
+        /// Gets the scope provider.
+        /// </summary>
+        private IScopeProvider ScopeProvider { get; }
+
+        #endregion
 
         #region Public Methods
 
@@ -230,7 +246,6 @@
 
         #endregion
 
-
         #region Private Methods
 
         /// <summary>
@@ -247,25 +262,24 @@
         /// </returns>
         private string GetFieldName(Guid fieldId, Dictionary<Guid, IFormField> fieldsById)
         {
-            var field = default(IFormField);
-            if (fieldsById.TryGetValue(fieldId, out field))
+            if (fieldsById.TryGetValue(fieldId, out var field))
             {
                 return field.Name;
             }
+
             return null;
         }
-
 
         /// <summary>
         /// Generates a file path segment.
         /// </summary>
-        /// <returns>
-        /// The file path segment (e.g., "2016-1-1/00000000000000000").
-        /// </returns>
         /// <remarks>
         /// This is used to generate unique paths so lots of files can be stored without
         /// the names colliding.
         /// </remarks>
+        /// <returns>
+        /// A <see cref="string"/> file path segment (e.g., "2016-1-1/00000000000000000").
+        /// </returns>
         private string GenerateFilePathSegment()
         {
             var guid = Guid.NewGuid();
@@ -275,13 +289,5 @@
         }
 
         #endregion
-
-        public StoreDataHandler(IConfigurationManager configurationManager, IScopeProvider scopeProvider)
-        {
-            Config = configurationManager;
-            ScopeProvider = scopeProvider;
-        }
-
     }
-
 }
