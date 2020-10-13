@@ -14,20 +14,21 @@
     public sealed class FormulateRenderingController : SurfaceController
     {
         /// <summary>
-        /// Gets or sets the definition helper.
-        /// </summary>
-        private IDefinitionHelper DefinitionHelper { get; set; }
-
-        /// <summary>
-        /// The main constructor.
+        /// Initializes a new instance of the <see cref="FormulateRenderingController"/> class. 
         /// </summary>
         /// <param name="definitionHelper">
         /// The definition helper.
         /// </param>
+        /// <remarks>The main constructor.</remarks>
         public FormulateRenderingController(IDefinitionHelper definitionHelper)
         {
             DefinitionHelper = definitionHelper;
         }
+
+        /// <summary>
+        /// Gets or sets the definition helper.
+        /// </summary>
+        private IDefinitionHelper DefinitionHelper { get; set; }
 
         /// <summary>
         /// A Child Action which renders a configured Formulate form.
