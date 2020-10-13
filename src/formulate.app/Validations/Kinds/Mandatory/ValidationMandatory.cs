@@ -4,7 +4,6 @@
     // Namespaces.
     using core.Types;
     using Helpers;
-    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -50,21 +49,13 @@
         /// </returns>
         public object DeserializeConfiguration(string configuration, ValidationContext context)
         {
-            var config = new ValidationMandatoryConfiguration();
-            var configData = JsonHelper.Deserialize<JObject>(configuration);
-            var dynamicConfig = configData as dynamic;
-            var properties = configData.Properties().Select(x => x.Name);
-            var propertySet = new HashSet<string>(properties);
-            if (propertySet.Contains("message"))
+            var config = JsonHelper.Deserialize<ValidationMandatoryConfiguration>(configuration);
+
+            if (string.IsNullOrWhiteSpace(config.Message) == false)
             {
-                var message = dynamicConfig.message.Value as string;
-                config.Message = ValidationHelper.ReplaceMessageTokens(message, context);
+                config.Message = ValidationHelper.ReplaceMessageTokens(config.Message, context);
             }
-            if (propertySet.Contains("clientSideOnly"))
-            {
-                var clientSideOnly = dynamicConfig.clientSideOnly.Value as bool?;
-                config.ClientSideOnly = clientSideOnly.GetValueOrDefault();
-            }
+
             return config;
         }
 
