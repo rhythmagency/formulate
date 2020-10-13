@@ -11,6 +11,11 @@
     public sealed class FormField : IFormField
     {
         /// <summary>
+        /// The internal function reference used by <see cref="IsValid"/>.
+        /// </summary>
+        private readonly Func<IEnumerable<string>, bool> isValidInternal;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="FormField"/> class.
         /// </summary>
         /// <param name="formFieldType">
@@ -19,6 +24,19 @@
         public FormField(IFormFieldType formFieldType)
         {
             FormFieldType = formFieldType;
+
+            if (formFieldType is IFormFieldTypeExtended extended)
+            {
+                IsHidden = extended.IsHidden;
+                IsServerSideOnly = extended.IsServerSideOnly;
+                IsStored = extended.IsStored;
+                IsTransitory = extended.IsTransitory;
+                isValidInternal = values => extended.IsValid(values);
+            }
+            else
+            {
+                isValidInternal = values => true;
+            }
         }
 
         #region Properties
@@ -80,58 +98,22 @@
         /// <summary>
         /// Gets a value indicating whether is this type of field persistent or transitory?
         /// </summary>
-        public bool IsTransitory
-        {
-            get
-            {
-                var casted = FormFieldType as IFormFieldTypeExtended;
-                return casted == null
-                    ? false
-                    : casted.IsTransitory;
-            }
-        }
+        public bool IsTransitory { get; }
 
         /// <summary>
         /// Gets a value indicating whether is this type of field server-side only (i.e., not a frontend field)?
         /// </summary>
-        public bool IsServerSideOnly
-        {
-            get
-            {
-                var casted = FormFieldType as IFormFieldTypeExtended;
-                return casted == null
-                    ? false
-                    : casted.IsServerSideOnly;
-            }
-        }
+        public bool IsServerSideOnly { get; }
 
         /// <summary>
         /// Gets a value indicating whether is this type of field hidden?
         /// </summary>
-        public bool IsHidden
-        {
-            get
-            {
-                var casted = FormFieldType as IFormFieldTypeExtended;
-                return casted == null
-                    ? false
-                    : casted.IsHidden;
-            }
-        }
+        public bool IsHidden { get; }
 
         /// <summary>
         /// Gets a value indicating whether is this type of field stored?
         /// </summary>
-        public bool IsStored
-        {
-            get
-            {
-                var casted = FormFieldType as IFormFieldTypeExtended;
-                return casted == null
-                    ? true
-                    : casted.IsStored;
-            }
-        }
+        public bool IsStored { get; }
 
         /// <summary>
         /// Gets or sets the form field type.
@@ -220,15 +202,7 @@
         /// </returns>
         public bool IsValid(IEnumerable<string> value)
         {
-            if (FormFieldType is IFormFieldTypeExtended)
-            {
-                var casted = FormFieldType as IFormFieldTypeExtended;
-                return casted.IsValid(value);
-            }
-            else
-            {
-                return true;
-            }
+            return isValidInternal.Invoke(value);
         }
 
         /// <summary>
