@@ -49,20 +49,13 @@
         /// </returns>
         public object DeserializeConfiguration(string configuration, ValidationContext context)
         {
-            var config = new ValidationRegexConfiguration();
-            var configData = JsonHelper.Deserialize<JObject>(configuration);
-            var dynamicConfig = configData as dynamic;
-            var properties = configData.Properties().Select(x => x.Name);
-            var propertySet = new HashSet<string>(properties);
-            if (propertySet.Contains("regex"))
+            var config = JsonHelper.Deserialize<ValidationRegexConfiguration>(configuration);
+
+            if (string.IsNullOrWhiteSpace(config.Message) == false)
             {
-                config.Pattern = dynamicConfig.regex.Value as string;
+                config.Message = ValidationHelper.ReplaceMessageTokens(config.Message, context);
             }
-            if (propertySet.Contains("message"))
-            {
-                var message = dynamicConfig.message.Value as string;
-                config.Message = ValidationHelper.ReplaceMessageTokens(message, context);
-            }
+
             return config;
         }
 
