@@ -114,7 +114,6 @@
             Helper.Persist(configuredForm.Id, configuredForm);
         }
 
-
         /// <summary>
         /// Deletes the specified configured form.
         /// </summary>
@@ -123,7 +122,6 @@
         {
             Helper.Delete(configuredFormId);
         }
-
 
         /// <summary>
         /// Deletes the configured form with the specified alias.
@@ -134,7 +132,6 @@
             //TODO: ...
             throw new NotImplementedException();
         }
-
 
         /// <summary>
         /// Gets the configured form with the specified ID.
@@ -147,7 +144,6 @@
         {
             return Helper.Retrieve<ConfiguredForm>(configuredFormId);
         }
-
 
         /// <summary>
         /// Gets the configured form with the specified alias.
@@ -162,7 +158,6 @@
             throw new NotImplementedException();
         }
 
-
         /// <summary>
         /// Gets all the configured forms that are the children of the folder with the specified ID.
         /// </summary>
@@ -176,7 +171,5 @@
         }
 
         #endregion
-
     }
-
 }
