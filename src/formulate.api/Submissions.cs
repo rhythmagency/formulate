@@ -20,14 +20,41 @@
     /// </summary>
     public class Submissions
     {
-
         #region Constants
 
+        /// <summary>
+        /// The error message used when a form handler error occurs.
+        /// </summary>
         private const string HandlerError = "An error occurred while executing one of the Formulate form handlers.";
+
+        /// <summary>
+        /// The error message used when a form prehandler error occurs.
+        /// </summary>
         private const string PreHandlerError = "An error occurred while preparing one of the Formulate form handlers.";
 
         #endregion
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Submissions"/> class.
+        /// </summary>
+        /// <param name="formPersistence">
+        /// The form persistence.
+        /// </param>
+        /// <param name="validationPersistence">
+        /// The validation persistence.
+        /// </param>
+        /// <param name="logger">
+        /// The logger.
+        /// </param>
+        public Submissions(
+            IFormPersistence formPersistence,
+            IValidationPersistence validationPersistence,
+            ILogger logger)
+        {
+            Forms = formPersistence;
+            Validations = validationPersistence;
+            Logger = logger;
+        }
 
         #region Delegates
 
@@ -73,14 +100,6 @@
 
         #endregion
 
-        public Submissions(IFormPersistence formPersistence, IValidationPersistence validationPersistence, ILogger logger)
-        {
-            Forms = formPersistence;
-            Validations = validationPersistence;
-            Logger = logger;
-        }
-
-
         #region Methods
 
         /// <summary>
@@ -107,9 +126,12 @@
         /// <returns>
         /// The result of the submission.
         /// </returns>
-        public SubmissionResult SubmitForm(Guid formId,
-            IEnumerable<FieldSubmission> data, IEnumerable<FileFieldSubmission> files,
-            IEnumerable<PayloadSubmission> payload, SubmissionOptions options,
+        public SubmissionResult SubmitForm(
+            Guid formId,
+            IEnumerable<FieldSubmission> data,
+            IEnumerable<FileFieldSubmission> files,
+            IEnumerable<PayloadSubmission> payload,
+            SubmissionOptions options,
             FormRequestContext context)
         {
 
@@ -124,7 +146,6 @@
                     Success = false
                 };
             }
-
 
             // Create submission context.
             var submissionContext = new FormSubmissionContext()
@@ -147,7 +168,6 @@
             // Invoke submitting event (gives listeners a chance to change the submission).
             Submitting?.Invoke(submissionContext);
 
-
             // Fail the form submission if SubmissionCancelled is true.
             if (submissionContext.SubmissionCancelled)
             {
@@ -156,7 +176,6 @@
                     Success = false
                 };
             }
-
 
             // Validate against native field validations.
             foreach (var field in form.Fields)
@@ -296,6 +315,12 @@
             };
         }
 
+        /// <summary>
+        /// The form handlers exception handler.
+        /// </summary>
+        /// <param name="task">
+        /// The task.
+        /// </param>
         private void FormHandlersExceptionHandler(Task task)
         {
             Logger.Error<Submissions_Instance>(task.Exception, HandlerError);
@@ -312,7 +337,5 @@
         private class Submissions_Instance { }
 
         #endregion
-
     }
-
 }

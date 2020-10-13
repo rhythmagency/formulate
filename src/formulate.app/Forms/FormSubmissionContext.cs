@@ -70,7 +70,7 @@
         public Guid SubmissionId { get; set; }
 
         /// <summary>
-        /// Collection of multi-purpose contextual data.
+        /// Gets or sets a collection of multi-purpose contextual data.
         /// </summary>
         public Dictionary<string, object> ExtraContext { get; set; }
 
