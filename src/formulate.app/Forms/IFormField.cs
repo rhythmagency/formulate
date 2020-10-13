@@ -33,5 +33,4 @@
         bool IsValid(IEnumerable<string> value);
         string GetNativeFieldValidationMessage();
     }
-
 }
