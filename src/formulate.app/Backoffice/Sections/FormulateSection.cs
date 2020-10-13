@@ -3,7 +3,7 @@
     using Umbraco.Core.Models.Sections;
 
     /// <summary>
-    /// The Umbraco CMS backoffice Formulate section
+    /// The <see cref="ISection"/> used by Formulate in the Umbraco backoffice.
     /// </summary>
     internal sealed class FormulateSection : ISection
     {
