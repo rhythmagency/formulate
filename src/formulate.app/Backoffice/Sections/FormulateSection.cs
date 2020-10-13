@@ -7,8 +7,10 @@
     /// </summary>
     internal sealed class FormulateSection : ISection
     {
+        /// <inheritdoc />
         public string Alias => "formulate";
 
+        /// <inheritdoc />
         public string Name => "Formulate";
     }
 }

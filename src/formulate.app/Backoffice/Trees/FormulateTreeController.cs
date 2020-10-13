@@ -18,15 +18,15 @@
     using Umbraco.Web.Trees;
     using Validations;
     using CoreConstants = Umbraco.Core.Constants;
-    using DataSourceConstants = formulate.app.Constants.Trees.DataSources;
-    using DataValueConstants = formulate.app.Constants.Trees.DataValues;
-    using DataValueHelper = Trees.Helpers.DataValueHelper;
-    using FormConstants = formulate.app.Constants.Trees.Forms;
-    using LayoutConstants = formulate.app.Constants.Trees.Layouts;
-    using LayoutHelper = Trees.Helpers.LayoutHelper;
-    using SubmissionConstants = formulate.app.Constants.Trees.Submissions;
-    using ValidationConstants = formulate.app.Constants.Trees.Validations;
-    using ValidationHelper = Trees.Helpers.ValidationHelper;
+    using DataSourceConstants = Constants.Trees.DataSources;
+    using DataValueConstants = Constants.Trees.DataValues;
+    using DataValueHelper = Helpers.DataValueHelper;
+    using FormConstants = Constants.Trees.Forms;
+    using LayoutConstants = Constants.Trees.Layouts;
+    using LayoutHelper = Helpers.LayoutHelper;
+    using SubmissionConstants = Constants.Trees.Submissions;
+    using ValidationConstants = Constants.Trees.Validations;
+    using ValidationHelper = Helpers.ValidationHelper;
 
 
     //TODO: Much to do in this file.
@@ -37,16 +37,15 @@
     [PluginController("formulate")]
     public class FormulateTreeController : TreeController
     {
-
-        private IEntityPersistence Persistence { get; set; }
-        private FolderHelper FolderHelper { get; set; }
-        private FormHelper FormHelper { get; set; }
-        private LayoutHelper LayoutHelper { get; set; }
-        private ValidationHelper ValidationHelper { get; set; }
-        private DataValueHelper DataValueHelper { get; set; }
-        private ConfiguredFormHelper ConfiguredFormHelper { get; set; }
-        private ILocalizationHelper LocalizationHelper { get; set; }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormulateTreeController"/> class.
+        /// </summary>
+        /// <param name="entityPersistence">
+        /// The entity persistence.
+        /// </param>
+        /// <param name="localizationHelper">
+        /// The localization helper.
+        /// </param>
         public FormulateTreeController(IEntityPersistence entityPersistence, ILocalizationHelper localizationHelper)
         {
             Persistence = entityPersistence;
@@ -59,8 +58,48 @@
             ConfiguredFormHelper = new ConfiguredFormHelper(this, LocalizationHelper);
         }
 
-        protected override MenuItemCollection GetMenuForNode(string id,
-            FormDataCollection queryStrings)
+        /// <summary>
+        /// Gets or sets the persistence.
+        /// </summary>
+        private IEntityPersistence Persistence { get; set; }
+
+        /// <summary>
+        /// Gets or sets the folder helper.
+        /// </summary>
+        private FolderHelper FolderHelper { get; set; }
+
+        /// <summary>
+        /// Gets or sets the form helper.
+        /// </summary>
+        private FormHelper FormHelper { get; set; }
+
+        /// <summary>
+        /// Gets or sets the layout helper.
+        /// </summary>
+        private LayoutHelper LayoutHelper { get; set; }
+
+        /// <summary>
+        /// Gets or sets the validation helper.
+        /// </summary>
+        private ValidationHelper ValidationHelper { get; set; }
+
+        /// <summary>
+        /// Gets or sets the data value helper.
+        /// </summary>
+        private DataValueHelper DataValueHelper { get; set; }
+
+        /// <summary>
+        /// Gets or sets the configured form helper.
+        /// </summary>
+        private ConfiguredFormHelper ConfiguredFormHelper { get; set; }
+
+        /// <summary>
+        /// Gets or sets the localization helper.
+        /// </summary>
+        private ILocalizationHelper LocalizationHelper { get; set; }
+
+        /// <inheritdoc />
+        protected override MenuItemCollection GetMenuForNode(string id, FormDataCollection queryStrings)
         {
             var menu = new MenuItemCollection();
             var rootId = CoreConstants.System.Root.ToInvariantString();
@@ -68,11 +107,10 @@
             var rootLayoutId = GuidHelper.GetGuid(LayoutConstants.Id);
             var rootValidationId = GuidHelper.GetGuid(ValidationConstants.Id);
             var rootDataValueId = GuidHelper.GetGuid(DataValueConstants.Id);
+
             if (id.InvariantEquals(rootId))
             {
-
                 // Do nothing. The root requires no actions.
-
             }
             else if (id.InvariantEquals(FormConstants.Id))
             {
@@ -108,9 +146,7 @@
             }
             else if (id.InvariantEquals(SubmissionConstants.Id))
             {
-
                 // Do nothing. The submissions node requires no actions.
-
             }
             else
             {
@@ -173,21 +209,20 @@
                     FolderHelper.AddMoveFolderAction(menu, entity as Folder);
                     FolderHelper.AddDeleteFolderAction(menu);
                 }
-
             }
+
             return menu;
         }
 
-        protected override TreeNodeCollection GetTreeNodes(string id,
-            FormDataCollection queryStrings)
+        /// <inheritdoc />
+        protected override TreeNodeCollection GetTreeNodes(string id, FormDataCollection queryStrings)
         {
             var entityId = GuidHelper.GetGuid(id);
             var nodes = new TreeNodeCollection();
             var rootId = CoreConstants.System.Root.ToInvariantString();
             var rootFormsId = GuidHelper.GetGuid(FormConstants.Id);
             var rootLayoutsId = GuidHelper.GetGuid(LayoutConstants.Id);
-            var rootValidationsId = GuidHelper.GetGuid(
-                ValidationConstants.Id);
+            var rootValidationsId = GuidHelper.GetGuid(ValidationConstants.Id);
             var rootDataValueId = GuidHelper.GetGuid(DataValueConstants.Id);
             if (id.InvariantEquals(rootId))
             {
@@ -326,12 +361,9 @@
                     ConfiguredFormHelper.AddConfiguredFormChildrenToTree(nodes,
                         queryStrings, children.OrderBy(x => x.Name));
                 }
-
             }
+
             return nodes;
         }
-
-
     }
-
 }
