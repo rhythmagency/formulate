@@ -1,27 +1,22 @@
 ﻿namespace formulate.app.Validations.Kinds.Regex
 {
-
     /// <summary>
-    /// Configuration for a regex validation.
+    /// Configuration used by <see cref="ValidationRegex"/>.
     /// </summary>
     public class ValidationRegexConfiguration
     {
-
         #region Properties
 
         /// <summary>
-        /// The regular expression pattern.
+        /// Gets or sets the regular expression pattern.
         /// </summary>
         public string Pattern { get; set; }
 
-
         /// <summary>
-        /// The error message to show when the validation fails.
+        /// Gets or sets the error message to show when the validation fails.
         /// </summary>
         public string Message { get; set; }
 
         #endregion
-
     }
-
 }
