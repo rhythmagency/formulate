@@ -389,7 +389,7 @@
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Managers\DefaultConfigurationManager.cs" />
     <Compile Include="Managers\IConfigurationManager.cs" />
-    <Compile Include="Migrations\CreateSubmissionsTable.cs" />
+    <Compile Include="Migrations\CreateSubmissionsTableMigration.cs" />
     <Compile Include="Models\Parameters\FieldInfo.cs" />
     <Compile Include="Models\Parameters\HandlerInfo.cs" />
     <Compile Include="Models\Requests\DeleteConfiguredFormRequest.cs" />

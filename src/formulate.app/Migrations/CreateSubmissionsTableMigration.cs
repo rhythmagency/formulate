@@ -7,16 +7,22 @@
     using Umbraco.Core;
     using Umbraco.Core.Migrations;
 
-    public sealed class CreateSubmissionsTable : MigrationBase
+    /// <summary>
+    /// A database migration for creating the Formulate Submissions table.
+    /// </summary>
+    internal sealed class CreateSubmissionsTableMigration : MigrationBase
     {
-        public CreateSubmissionsTable(IMigrationContext context)
+        /// <inheritdoc />
+        public CreateSubmissionsTableMigration(IMigrationContext context)
             : base(context)
         {
         }
 
+        /// <inheritdoc />
         public override void Migrate()
         {
             var tables = SqlSyntax.GetTablesInSchema(Context.Database).ToArray();
+
             if (tables.InvariantContains(nameof(FormulateSubmission)) == false)
             {
                 Create.Table<FormulateSubmission>().Do();

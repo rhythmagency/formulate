@@ -63,7 +63,7 @@
         {
             var plan = new MigrationPlan("Formulate");
             plan.From(string.Empty)
-                .To<CreateSubmissionsTable>("state-1");
+                .To<CreateSubmissionsTableMigration>("state-1");
 
             var upgrader = new Upgrader(plan);
             upgrader.Execute(ScopeProvider, MigrationBuilder, KeyValueService, Logger);
