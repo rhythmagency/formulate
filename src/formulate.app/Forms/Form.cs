@@ -2,7 +2,6 @@
 {
 
     // Namespaces.
-
     using System;
 
     using Entities;
@@ -16,95 +15,60 @@
     /// </summary>
     public class Form : IEntity
     {
-
         #region Properties
 
         /// <summary>
-        /// The unique ID of this form.
+        /// Gets or sets the unique ID of this form.
         /// </summary>
         public Guid Id { get; set; }
 
-
         /// <summary>
-        /// The entity path to this form.
+        /// Gets or sets the entity path to this form.
         /// </summary>
         /// <remarks>
         /// This path excludes the root, but includes the form ID.
         /// </remarks>
         public Guid[] Path { get; set; }
 
-
         /// <summary>
-        /// The alias of this form.
+        /// Gets or sets the alias of this form.
         /// </summary>
         public string Alias { get; set; }
 
-
         /// <summary>
-        /// The name of this form.
+        /// Gets or sets the name of this form.
         /// </summary>
         public string Name { get; set; }
 
-
         /// <summary>
-        /// The icon for forms.
+        /// Gets or sets the icon for forms.
         /// </summary>
         [JsonIgnore]
-        public string Icon
-        {
-            get
-            {
-                return Constants.Trees.Forms.ItemIcon;
-            }
-        }
-
+        public string Icon => Constants.Trees.Forms.ItemIcon;
 
         /// <summary>
-        /// The kind of this entity.
+        /// Gets or sets the kind of this entity.
         /// </summary>
         [JsonIgnore]
-        public EntityKind Kind
-        {
-            get
-            {
-                return EntityKind.Form;
-            }
-        }
-
+        public EntityKind Kind => EntityKind.Form;
 
         /// <summary>
-        /// The fields on this form.
+        /// Gets or sets the fields on this form.
         /// </summary>
         [JsonConverter(typeof(FieldsJsonConverter))]
         public IFormField[] Fields { get; set; }
 
-
         /// <summary>
-        /// The handlers on this form.
+        /// Gets or sets the handlers on this form.
         /// </summary>
         [JsonConverter(typeof(HandlersJsonConverter))]
         public IFormHandler[] Handlers { get; set; }
 
-
         /// <summary>
-        /// Information about this form.
+        /// Gets or sets meta information about this form.
         /// </summary>
         public IFormMetaInfo[] MetaInfo { get; set; }
 
         #endregion
-
-
-        #region Constructors
-
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public Form()
-        {
-        }
-
-        #endregion
-
     }
-
 }
