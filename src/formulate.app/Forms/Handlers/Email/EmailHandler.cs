@@ -288,7 +288,8 @@
             var fieldEmails = data
                 .Where(x => emailFieldIds.Contains(x.FieldId)).SelectMany(x => x.FieldValues)
                 .Where(x => !string.IsNullOrWhiteSpace(x))
-                .Where(x => IsEmailInValidFormat(x));
+                .Where(x => IsEmailInValidFormat(x))
+                .ToArray();
 
 
             // Any allowed recipients (if not, abort early)?
