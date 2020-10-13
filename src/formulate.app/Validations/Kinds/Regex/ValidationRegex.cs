@@ -4,7 +4,6 @@
     // Namespaces.
     using core.Types;
     using Helpers;
-    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -15,26 +14,24 @@
     /// </summary>
     public class ValidationRegex : IValidationKind
     {
-
         #region Properties
 
         /// <summary>
-        /// The kind ID.
+        /// Gets the kind ID.
         /// </summary>
         public Guid Id => GuidHelper.GetGuid("AC9A464F6F3F4AF9A3B29C85FF0C5580");
 
         /// <summary>
-        /// The kind name.
+        /// Gets the kind name.
         /// </summary>
         public string Name => "Regular Expression";
 
         /// <summary>
-        /// The kind directive.
+        /// Gets the kind directive.
         /// </summary>
         public string Directive => "formulate-validation-regex";
 
         #endregion
-
 
         #region Methods
 
@@ -84,8 +81,10 @@
         /// <returns>
         /// True, if the data is valid; otherwise, false.
         /// </returns>
-        public bool IsValueValid(IEnumerable<string> dataValues,
-            IEnumerable<FileFieldSubmission> fileValues, object configuration)
+        public bool IsValueValid(
+            IEnumerable<string> dataValues,
+            IEnumerable<FileFieldSubmission> fileValues,
+            object configuration)
         {
 
             // Variables.
@@ -113,11 +112,8 @@
 
             // Data is valid.
             return true;
-
         }
 
         #endregion
-
     }
-
 }
