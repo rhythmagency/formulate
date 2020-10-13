@@ -2,10 +2,7 @@ namespace formulate.app.Forms.Handlers.SendData
 {
 
     // Namespaces.
-    using Helpers;
-    using Managers;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
+
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -14,6 +11,14 @@ namespace formulate.app.Forms.Handlers.SendData
     using System.Text;
     using System.Web;
     using System.Web.Configuration;
+
+    using Helpers;
+
+    using Managers;
+
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+
     using Umbraco.Core;
     using Umbraco.Core.Logging;
     using Umbraco.Web;
@@ -183,6 +188,7 @@ namespace formulate.app.Forms.Handlers.SendData
                 {
                     resultHandler = Activator.CreateInstance(handlerType) as IHandleSendDataResult;
                 }
+
                 config.ResultHandler = resultHandler;
             }
 
@@ -267,6 +273,7 @@ namespace formulate.app.Forms.Handlers.SendData
                         : null;
                     return tempField.FormatValue(tempValues, FieldPresentationFormats.Transmission);
                 }
+
                 return null;
             };
 
@@ -284,10 +291,12 @@ namespace formulate.app.Forms.Handlers.SendData
             {
                 result = SendData(config, context, transmissionData, false, false);
             }
+
             if ("Form Body".InvariantEquals(config.TransmissionFormat))
             {
                 result = SendData(config, context, transmissionData, true, false);
             }
+
             if ("JSON".InvariantEquals(config.TransmissionFormat))
             {
                 result = SendData(config, context, transmissionData, true, true);
@@ -524,6 +533,7 @@ namespace formulate.app.Forms.Handlers.SendData
             {
                 queryString.Set(pair.Key, pair.Value);
             }
+
             var strQueryString = queryString.ToString();
             return strQueryString;
         }

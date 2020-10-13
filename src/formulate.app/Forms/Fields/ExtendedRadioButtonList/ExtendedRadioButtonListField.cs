@@ -2,10 +2,12 @@
 {
 
     // Namespaces.
-    using Helpers;
+
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
+    using Helpers;
 
     /// <summary>
     /// An extended radio button list form field type.

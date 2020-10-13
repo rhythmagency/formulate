@@ -1,9 +1,10 @@
 ﻿namespace formulate.app.Forms.Fields.Date
 {
-    using core.Utilities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
+    using core.Utilities;
 
     /// <summary>
     /// A date form field type.

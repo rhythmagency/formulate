@@ -1,11 +1,12 @@
 ﻿namespace formulate.app.Forms.Fields.Recaptcha
 {
-    using Helpers;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Web.Configuration;
+
+    using Helpers;
 
     /// <summary>
     /// A Google reCAPTCHA form field type.
@@ -55,6 +56,7 @@
             {
                 return false;
             }
+
             var key = WebConfigurationManager.AppSettings["Formulate:RecaptchaSecretKey"];
             var client = new WebClient();
             var encodedKey = WebUtility.UrlEncode(key);

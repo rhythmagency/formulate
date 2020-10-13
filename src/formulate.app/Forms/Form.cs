@@ -2,11 +2,14 @@
 {
 
     // Namespaces.
-    using Entities;
-    using Newtonsoft.Json;
-    using Serialization;
+
     using System;
 
+    using Entities;
+
+    using Newtonsoft.Json;
+
+    using Serialization;
 
     /// <summary>
     /// A form.
@@ -46,7 +49,7 @@
         /// <summary>
         /// The icon for forms.
         /// </summary>
-        [JsonIgnore()]
+        [JsonIgnore]
         public string Icon
         {
             get
@@ -59,7 +62,7 @@
         /// <summary>
         /// The kind of this entity.
         /// </summary>
-        [JsonIgnore()]
+        [JsonIgnore]
         public EntityKind Kind
         {
             get

@@ -2,11 +2,7 @@
 {
 
     // Namespaces.
-    using core.Extensions;
-    using core.Types;
-    using Helpers;
-    using Managers;
-    using Newtonsoft.Json.Linq;
+
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -14,8 +10,17 @@
     using System.Net;
     using System.Net.Mail;
     using System.Net.Mime;
-    using Umbraco.Core;
 
+    using core.Extensions;
+    using core.Types;
+
+    using Helpers;
+
+    using Managers;
+
+    using Newtonsoft.Json.Linq;
+
+    using Umbraco.Core;
 
     /// <summary>
     /// A handler that sends an email.
@@ -181,12 +186,13 @@
                     .Where(x => x.IsServerSideOnly)
                     .Where(x => fieldIdsToInclude.Contains(x.Id))
                     .Select(x => new FieldSubmission()
-                    {
-                        FieldId = x.Id,
-                        // The values don't matter here, as the IFormFieldType.FormatValue is how server
-                        // side fields return a field value.
-                        FieldValues = Enumerable.Empty<string>()
-                    });
+                                     {
+                                         FieldId = x.Id,
+
+                                         // The values don't matter here, as the IFormFieldType.FormatValue is how server
+                                         // side fields return a field value.
+                                         FieldValues = Enumerable.Empty<string>()
+                                     });
 
                 // Combine submitted data and server side field data.
                 var dataWithServerSideFields = data.Concat(serverSideFields);
@@ -301,6 +307,7 @@
             {
                 return null;
             }
+
             foreach (var recipient in allowedRecipients)
             {
                 if ("to".InvariantEquals(config.DeliveryType as string))
@@ -413,6 +420,7 @@
                     formatted = field.FormatValue(values, FieldPresentationFormats.Email);
 
                 }
+
                 var line = excludeFieldLabels
                     ? formatted
                     : $"{fieldName}: {formatted}";
@@ -439,6 +447,7 @@
                     fieldName = field.Name;
 
                 }
+
                 var line = excludeFieldLabels
                     ? $@"See attachment, ""{filename}"""
                     : $@"{fieldName}: See attachment, ""{filename}""";

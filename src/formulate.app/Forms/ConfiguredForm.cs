@@ -2,10 +2,12 @@
 {
 
     // Namespaces.
-    using Entities;
-    using Newtonsoft.Json;
+
     using System;
 
+    using Entities;
+
+    using Newtonsoft.Json;
 
     /// <summary>
     /// A configured form (i.e., a form / layout / template).
@@ -16,7 +18,7 @@
         /// <summary>
         /// The icon for configured forms.
         /// </summary>
-        [JsonIgnore()]
+        [JsonIgnore]
         public string Icon
         {
             get

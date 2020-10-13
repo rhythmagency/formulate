@@ -2,9 +2,10 @@
 {
 
     // Namespaces.
-    using Newtonsoft.Json;
+
     using System;
 
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Information attached to a form.

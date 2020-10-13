@@ -1,8 +1,9 @@
 ﻿namespace formulate.app.Forms.Fields.Button
 {
-    using Helpers;
     using System;
     using System.Collections.Generic;
+
+    using Helpers;
 
     /// <summary>
     /// A button form field type.
