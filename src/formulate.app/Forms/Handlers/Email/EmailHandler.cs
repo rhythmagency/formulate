@@ -111,92 +111,7 @@
         /// </returns>
         public virtual object DeserializeConfiguration(string configuration)
         {
-
-            // Variables.
-            var recipients = new List<string>();
-            var recipientFields = new List<Guid>();
-            var fieldsToInclude = new List<Guid>();
-            var config = new EmailConfiguration()
-            {
-                Recipients = recipients,
-                RecipientFields = recipientFields,
-                FieldsToInclude = fieldsToInclude
-            };
-            var configData = JsonHelper.Deserialize<JObject>(configuration);
-            var dynamicConfig = configData as dynamic;
-            var properties = configData.Properties().Select(x => x.Name);
-            var propertySet = new HashSet<string>(properties);
-
-
-            // Get recipients.
-            if (propertySet.Contains("recipients"))
-            {
-                foreach (var recipient in dynamicConfig.recipients)
-                {
-                    recipients.Add(recipient.email.Value as string);
-                }
-            }
-
-
-            // Get email recipient fields.
-            if (propertySet.Contains("recipientFields"))
-            {
-                foreach (var recipient in dynamicConfig.recipientFields)
-                {
-                    recipientFields.Add(GuidHelper.GetGuid(recipient.id.Value as string));
-                }
-            }
-
-
-            // Get fields to include in message.
-            if (propertySet.Contains("fieldsToInclude"))
-            {
-                foreach (var field in dynamicConfig.fieldsToInclude)
-                {
-                    fieldsToInclude.Add(GuidHelper.GetGuid(field.id.Value as string));
-                }
-            }
-
-
-            // Get simple properties.
-            if (propertySet.Contains("deliveryType"))
-            {
-                config.DeliveryType = dynamicConfig.deliveryType.Value as string;
-            }
-            if (propertySet.Contains("senderEmail"))
-            {
-                config.SenderEmail = dynamicConfig.senderEmail.Value as string;
-            }
-            if (propertySet.Contains("appendFields"))
-            {
-                config.AppendFields = (dynamicConfig.appendFields.Value as bool?).GetValueOrDefault();
-            }
-            if (propertySet.Contains("includeHiddenFields"))
-            {
-                config.IncludeHiddenFields = (dynamicConfig.includeHiddenFields.Value as bool?)
-                    .GetValueOrDefault();
-            }
-            if (propertySet.Contains("excludeFieldLabels"))
-            {
-                config.ExcludeFieldLabels = (dynamicConfig.excludeFieldLabels.Value as bool?)
-                    .GetValueOrDefault();
-            }
-            if (propertySet.Contains("appendPayload"))
-            {
-                config.AppendPayload = (dynamicConfig.appendPayload.Value as bool?).GetValueOrDefault();
-            }
-            if (propertySet.Contains("message"))
-            {
-                config.Message = dynamicConfig.message.Value as string;
-            }
-            if (propertySet.Contains("subject"))
-            {
-                config.Subject = dynamicConfig.subject.Value as string;
-            }
-
-
-            // Return the email configuration.
-            return config;
+            return JsonHelper.Deserialize<EmailConfiguration>(configuration);
         }
 
         /// <summary>
@@ -352,12 +267,7 @@
         {
 
             // Variables.
-            var form = context.Form;
             var data = context.Data;
-            var dataForMessage = data;
-            var files = context.Files;
-            var filesForMessage = files;
-            var payload = context.Payload;
             var extraContext = context.ExtraContext;
             var extraEmails = (AttemptGetValue(extraContext, ExtraRecipientsKey) as List<string>).MakeSafe();
 
@@ -406,10 +316,8 @@
                 }
             }
 
-
             // Return the mail message.
             return message;
-
         }
 
         #endregion
@@ -488,9 +396,8 @@
             {
                 var values = valuesById[key];
                 var formatted = string.Join(", ", values);
-                var field = default(IFormField);
                 var fieldName = "Unknown Field";
-                if (fieldsById.TryGetValue(key, out field))
+                if (fieldsById.TryGetValue(key, out var field))
                 {
 
                     // Skip this value?
@@ -516,9 +423,8 @@
             foreach (var key in filesById.Keys.OrderByCollection(fieldIds))
             {
                 var filename = filesById[key];
-                var field = default(IFormField);
                 var fieldName = "Unknown Field";
-                if (fieldsById.TryGetValue(key, out field))
+                if (fieldsById.TryGetValue(key, out var field))
                 {
 
                     // Skip this file?
