@@ -89,6 +89,13 @@
         }
 
         /// <summary>
+        /// Runs upon component terminatation.
+        /// </summary>
+        public void Terminate()
+        {
+        }
+
+        /// <summary>
         /// Permits access to Formulate for administrators.
         /// </summary>
         private void PermitAccessToFormulateForAdministrators()
@@ -205,13 +212,6 @@
                     Logger.Error<Configs>(ex, "Unable to save Formulate Config to file system.");
                 }
             }
-        }
-
-        /// <summary>
-        /// Runs upon component terminatation.
-        /// </summary>
-        public void Terminate()
-        {
         }
     }
 }
