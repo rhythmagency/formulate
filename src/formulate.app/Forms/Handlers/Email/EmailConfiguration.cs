@@ -9,22 +9,22 @@
     public class EmailConfiguration : IEmailSenderRecipientConfiguration
     {
         /// <summary>
-        /// Gets or sets sender email.
+        /// Gets or sets the sender of the email.
         /// </summary>
         public string SenderEmail { get; set; }
 
         /// <summary>
-        /// Gets or sets the recipients.
+        /// Gets or sets the recipients of the email.
         /// </summary>
         public IEnumerable<string> Recipients { get; set; }
 
         /// <summary>
-        /// Gets or sets the recipient fields.
+        /// Gets or sets the fields containing the recipients of the email.
         /// </summary>
         public IEnumerable<Guid> RecipientFields { get; set; }
 
         /// <summary>
-        /// Gets or sets the delivery type.
+        /// Gets or sets the type of delivery for the recipients (e.g., to, cc, bcc).
         /// </summary>
         public string DeliveryType { get; set; }
 

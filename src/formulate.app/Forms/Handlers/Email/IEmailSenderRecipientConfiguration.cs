@@ -11,31 +11,28 @@
     /// </summary>
     public interface IEmailSenderRecipientConfiguration
     {
-
         #region Properties
 
         /// <summary>
-        /// The sender of the email.
+        /// Gets the sender of the email.
         /// </summary>
         string SenderEmail { get; }
 
         /// <summary>
-        /// The recipients of the email.
+        /// Gets the recipients of the email.
         /// </summary>
         IEnumerable<string> Recipients { get; }
 
         /// <summary>
-        /// The fields containing the recipients of the email.
+        /// Gets the fields containing the recipients of the email.
         /// </summary>
         IEnumerable<Guid> RecipientFields { get; }
 
         /// <summary>
-        /// The type of delivery for the recipients (e.g., to, cc, bcc).
+        /// Gets the type of delivery for the recipients (e.g., to, cc, bcc).
         /// </summary>
         string DeliveryType { get; }
 
         #endregion
-
     }
-
 }
