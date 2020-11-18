@@ -11,7 +11,7 @@ let FieldUtility = require("../utils/field");
 function RenderRadioList(fieldData, fieldValidators, cssClasses) {
 
     // Variables.
-    let i, item, primary, secondary, wrapperElement, labelElement,
+    let i, item, primary, secondary, wrapperElement, legendElement,
         elements = [],
         items = fieldData.configuration.items,
         name = FieldUtility.generateId("radio-button-list-");
@@ -30,6 +30,7 @@ function RenderRadioList(fieldData, fieldValidators, cssClasses) {
             cssClasses: cssClasses,
             usePlaceholder: false,
             wrapperElement: wrapperElement,
+            wrapperElementType: 'fieldset',
             nestFieldInLabel: true,
             value: primary,
             label: primary,
@@ -45,13 +46,13 @@ function RenderRadioList(fieldData, fieldValidators, cssClasses) {
         // Remember the radio button input element.
         elements.push(this.element);
 
-        // Add a label if it hasn't been added yet.
-        if (!labelElement) {
-            labelElement = document.createElement("label");
-            labelElement.classList.add("formulate__field__label");
-            labelElement.classList.add("formulate__field__label--group");
-            labelElement.appendChild(document.createTextNode(fieldData.label));
-            wrapperElement.insertBefore(labelElement, this.element.parentNode);
+        // Add a legend if it hasn't been added yet.
+        if (!legendElement) {
+            legendElement = document.createElement("legend");
+            legendElement.classList.add("formulate__field__label");
+            legendElement.classList.add("formulate__field__label--group");
+            legendElement.appendChild(document.createTextNode(fieldData.label));
+            wrapperElement.insertBefore(legendElement, this.element.parentNode);
         }
 
     }
