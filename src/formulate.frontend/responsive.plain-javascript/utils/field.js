@@ -68,7 +68,7 @@ Field.setData = function (data, value, options, alias, id) {
  * @param fieldRenderer The field renderer to initialize.
  * @param fieldData The field data that should be used to render the field.
  * @param fieldValidators The associative array of the field validating functions.
- * @param options {{type: string, usePlaceholder: boolean, useLabel: boolean, useWrapper: boolean, cssClasses: string[], nodeName: string, nestFieldInLabel: boolean, wrapperElement: HTMLElement, wrapLabelText: boolean, fieldBeforeLabelText: boolean, name: string, label: string, label2: string}}
+ * @param options {{type: string, usePlaceholder: boolean, useLabel: boolean, useWrapper: boolean, cssClasses: string[], nodeName: string, nestFieldInLabel: boolean, wrapperElement: HTMLElement, wrapperElementType: string, wrapLabelText: boolean, fieldBeforeLabelText: boolean, name: string, label: string, label2: string}}
  *        The options to use when constructing the field.
  */
 Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, options) {
@@ -77,6 +77,7 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
     let fieldElement, labelElement, fieldId, textNode, labelTextWrapper,
         useWrapper = options.useWrapper !== false,
         wrapperElement = options.wrapperElement,
+        wrapperElementType = options.wrapperElementType || 'div',
         useLabel = options.useLabel !== false,
         labelText = options.hasOwnProperty("label")
             ? options.label
@@ -116,7 +117,7 @@ Field.initializeField = function (fieldRenderer, fieldData, fieldValidators, opt
 
     // Create wrapper element, or just use the field element as the wrapper.
     wrapperElement = useWrapper
-        ? (wrapperElement || document.createElement("div"))
+        ? (wrapperElement || document.createElement(wrapperElementType))
         : fieldElement;
 
     // Attach CSS classes.

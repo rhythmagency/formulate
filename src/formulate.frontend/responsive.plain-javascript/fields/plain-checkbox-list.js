@@ -12,7 +12,7 @@ function RenderCheckboxList(fieldData, fieldValidators, cssClasses) {
 
     // Variables.
     let items = fieldData.configuration.items, i, item, label, value, wrapperElement, elements = [],
-        labelElement;
+        legendElement;
 
     // Add each checkbox.
     for (i = 0; i < items.length; i++) {
@@ -28,6 +28,7 @@ function RenderCheckboxList(fieldData, fieldValidators, cssClasses) {
             cssClasses: cssClasses,
             usePlaceholder: false,
             wrapperElement: wrapperElement,
+            wrapperElementType: 'fieldset',
             nestFieldInLabel: true,
             value: value,
             label: label,
@@ -41,13 +42,13 @@ function RenderCheckboxList(fieldData, fieldValidators, cssClasses) {
         // Remember the checkbox input element.
         elements.push(this.element);
 
-        // Add a label if it hasn't been added yet.
-        if (!labelElement) {
-            labelElement = document.createElement("label");
-            labelElement.classList.add("formulate__field__label");
-            labelElement.classList.add("formulate__field__label--group");
-            labelElement.appendChild(document.createTextNode(fieldData.label));
-            wrapperElement.insertBefore(labelElement, this.element.parentNode);
+        // Add a fieldset if it hasn't been added yet.
+        if (!legendElement) {
+            legendElement = document.createElement("legend");
+            legendElement.classList.add("formulate__field__label");
+            legendElement.classList.add("formulate__field__label--group");
+            legendElement.appendChild(document.createTextNode(fieldData.label));
+            wrapperElement.insertBefore(legendElement, this.element.parentNode);
         }
 
     }
