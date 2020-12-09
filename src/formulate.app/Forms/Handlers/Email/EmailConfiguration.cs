@@ -16,7 +16,7 @@
         /// <summary>
         /// Gets or sets the recipients of the email.
         /// </summary>
-        public IEnumerable<string> Recipients { get; set; }
+        public IEnumerable<Recipient> Recipients { get; set; }
 
         /// <summary>
         /// Gets or sets the fields containing the recipients of the email.
