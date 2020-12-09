@@ -1,14 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace formulate.app.Forms.Handlers.Email
+﻿namespace formulate.app.Forms.Handlers.Email
 {
+
+    /// <summary>
+    /// A recipient of an email message.
+    /// </summary>
     public class Recipient
     {
+
+        #region Properties
+
+        /// <summary>
+        /// The email address of the recipient.
+        /// </summary>
         public string Email { get; set; }
 
+        #endregion
+
     }
+
 }

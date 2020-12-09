@@ -2,7 +2,11 @@
 {
 
     // Namespaces.
-
+    using core.Extensions;
+    using core.Types;
+    using Helpers;
+    using Managers;
+    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -10,16 +14,6 @@
     using System.Net;
     using System.Net.Mail;
     using System.Net.Mime;
-
-    using core.Extensions;
-    using core.Types;
-
-    using Helpers;
-
-    using Managers;
-
-    using Newtonsoft.Json.Linq;
-
     using Umbraco.Core;
 
     /// <summary>
@@ -299,7 +293,8 @@
 
 
             // Any allowed recipients (if not, abort early)?
-            var rawRecipients = config.Recipients.Select(x => x.Email)
+            var rawRecipients = config.Recipients
+                .Select(x => x.Email)
                 .Concat(fieldEmails)
                 .Concat(extraEmails);
             var allowedRecipients = FilterEmails(rawRecipients);
