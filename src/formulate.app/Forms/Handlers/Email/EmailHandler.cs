@@ -294,7 +294,6 @@
 
             // Any allowed recipients (if not, abort early)?
             var rawRecipients = config.Recipients
-                .Select(x => x.Email)
                 .Concat(fieldEmails)
                 .Concat(extraEmails);
             var allowedRecipients = FilterEmails(rawRecipients);

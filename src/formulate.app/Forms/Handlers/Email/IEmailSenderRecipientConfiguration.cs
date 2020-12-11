@@ -21,7 +21,7 @@
         /// <summary>
         /// Gets the recipients of the email.
         /// </summary>
-        IEnumerable<Recipient> Recipients { get; }
+        IEnumerable<string> Recipients { get; }
 
         /// <summary>
         /// Gets the fields containing the recipients of the email.

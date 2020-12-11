@@ -1,7 +1,12 @@
 ﻿namespace formulate.app.Forms.Handlers.Email
 {
+
+    // Namespaces.
+    using formulate.core.Extensions;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Configuration used by <see cref="EmailHandler"/>.
@@ -16,12 +21,32 @@
         /// <summary>
         /// Gets or sets the recipients of the email.
         /// </summary>
-        public IEnumerable<Recipient> Recipients { get; set; }
+        [JsonProperty("recipients")]
+        public IEnumerable<Recipient> RecipientsData { get; set; }
+
+        /// <summary>
+        /// Gets the recipients of the email.
+        /// </summary>
+        /// <remarks>
+        /// This is a duplicate property because this version implements the interface,
+        /// which requires a slightly different data type.
+        /// </remarks>
+        public IEnumerable<string> Recipients => RecipientsData.MakeSafe().Select(x => x.Email).ToArray();
 
         /// <summary>
         /// Gets or sets the fields containing the recipients of the email.
         /// </summary>
-        public IEnumerable<Guid> RecipientFields { get; set; }
+        [JsonProperty("recipientFields")]
+        public IEnumerable<GuidId> RecipientFieldsData { get; set; }
+
+        /// <summary>
+        /// Gets the fields containing the recipients of the email.
+        /// </summary>
+        /// <remarks>
+        /// This is a duplicate property because this version implements the interface,
+        /// which requires a slightly different data type.
+        /// </remarks>
+        public IEnumerable<Guid> RecipientFields => RecipientFieldsData.MakeSafe().Select(x => x.Id).ToArray();
 
         /// <summary>
         /// Gets or sets the type of delivery for the recipients (e.g., to, cc, bcc).
@@ -31,7 +56,17 @@
         /// <summary>
         /// Gets or sets the fields to include.
         /// </summary>
-        public IEnumerable<Guid> FieldsToInclude { get; set; }
+        [JsonProperty("fieldsToInclude")]
+        public IEnumerable<GuidId> FieldsToIncludeData { get; set; }
+
+        /// <summary>
+        /// Gets the fields to include.
+        /// </summary>
+        /// <remarks>
+        /// This is a convenience property that extracts the important data
+        /// from the other version of this property.
+        /// </remarks>
+        public IEnumerable<Guid> FieldsToInclude => FieldsToIncludeData.MakeSafe().Select(x => x.Id).ToArray();
 
         /// <summary>
         /// Gets or sets the message.
