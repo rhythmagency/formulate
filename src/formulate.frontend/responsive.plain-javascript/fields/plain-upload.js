@@ -12,7 +12,9 @@ function RenderUpload(fieldData, fieldValidators, cssClasses) {
     FieldUtility.initializeField(this, fieldData, fieldValidators, {
         type: "file",
         cssClasses: cssClasses,
-        nestFieldInLabel: true
+        nestFieldInLabel: true,
+        wrapLabelText: true,
+        fieldBeforeLabelText: true
     });
     this.listenForChanges();
 }
