@@ -45,8 +45,28 @@ RenderSelect.prototype.addOptions = function (fieldData) {
         fragment.appendChild(option);
     }
 
+    // Add a CSS class to indicate no options have been selected yet.
+    this.wrapper.classList.add("formulate__field--select--initial");
+
+    // Listen for change events.
+    this.element.addEventListener("change", this.handleValueChange.bind(this));
+
     // Append the options to the select.
     this.element.appendChild(fragment);
+
+};
+
+/**
+ * Handles changes to the drop down value.
+ */
+RenderSelect.prototype.handleValueChange = function () {
+
+    // Add (or remove) a CSS class depending on if an option has been selected.
+    if (this.element.value === "") {
+        this.wrapper.classList.add("formulate__field--select--initial");
+    } else {
+        this.wrapper.classList.remove("formulate__field--select--initial");
+    }
 
 };
 
