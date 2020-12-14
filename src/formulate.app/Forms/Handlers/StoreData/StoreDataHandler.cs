@@ -2,19 +2,14 @@
 {
 
     // Namespaces.
-
+    using Helpers;
+    using Managers;
+    using Persistence.Internal.Sql.Models;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web.Hosting;
-
-    using Helpers;
-
-    using Managers;
-
-    using Persistence.Internal.Sql.Models;
-
     using Umbraco.Core.Scoping;
 
     /// <summary>
@@ -171,7 +166,6 @@
                     formatted = field.FormatValue(values, FieldPresentationFormats.Storage);
                     fieldName = field.Name;
                 }
-
                 valueList.Add(new StoreDataEntry()
                 {
                     FieldId = GuidHelper.GetString(key),
@@ -183,15 +177,15 @@
 
             // Store file information for serialization.
             var fileList = filesById.Values.Select(x => new
-                                                            {
-                                                                FieldId = GuidHelper.GetString(x.Id),
+            {
+                FieldId = GuidHelper.GetString(x.Id),
 
-                                                                // Field name is stored in case the field is deleted from the form
-                                                                // and this stored name is all we have to go on.
-                                                                FieldName = GetFieldName(x.Id, fieldsById),
-                                                                PathSegment = x.PathSegment,
-                                                                Filename = x.Filename
-                                                            });
+                // Field name is stored in case the field is deleted from the form
+                // and this stored name is all we have to go on.
+                FieldName = GetFieldName(x.Id, fieldsById),
+                PathSegment = x.PathSegment,
+                Filename = x.Filename
+            });
 
 
             // Store the files.

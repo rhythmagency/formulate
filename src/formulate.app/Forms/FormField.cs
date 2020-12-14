@@ -35,6 +35,7 @@
             }
             else
             {
+                IsStored = true;
                 isValidInternal = values => true;
             }
         }
