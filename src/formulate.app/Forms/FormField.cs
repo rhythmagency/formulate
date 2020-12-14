@@ -10,10 +10,17 @@
     /// </summary>
     public sealed class FormField : IFormField
     {
+
+        #region Variables
+
         /// <summary>
         /// The internal function reference used by <see cref="IsValid"/>.
         /// </summary>
         private readonly Func<IEnumerable<string>, bool> isValidInternal;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormField"/> class.
@@ -39,6 +46,8 @@
                 isValidInternal = values => true;
             }
         }
+
+        #endregion
 
         #region Properties
 
@@ -203,7 +212,7 @@
         /// </returns>
         public bool IsValid(IEnumerable<string> value)
         {
-            return isValidInternal.Invoke(value);
+            return isValidInternal(value);
         }
 
         /// <summary>
