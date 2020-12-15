@@ -1,5 +1,7 @@
 ﻿namespace formulate.app.Validations.Kinds.Regex
 {
+    using Newtonsoft.Json;
+
     /// <summary>
     /// Configuration used by <see cref="ValidationRegex"/>.
     /// </summary>
@@ -10,6 +12,7 @@
         /// <summary>
         /// Gets or sets the regular expression pattern.
         /// </summary>
+        [JsonProperty("regex")]
         public string Pattern { get; set; }
 
         /// <summary>
