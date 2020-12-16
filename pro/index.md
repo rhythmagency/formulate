@@ -7,7 +7,10 @@ title: Formulate Pro
 
 Formulate Pro is the paid package that adds additional functionality to Formulate.
 
-Currently, this includes a form submission handler that facilitates sending designed emails using Razor view files, which you can read about here: [Designed Emails](/pro/designed-emails)
+Currently, this includes the following:
+
+* **Designed Emails** A form submission handler that facilitates sending designed emails using Razor view files, which you can read about here: [Designed Emails](/pro/designed-emails)
+* **Basic Theme** A basic theme to save you the time of styling forms, which you can read about here: [Basic Theme](/pro/basic-theme)
 
 You can read more about Formulate Pro here: [Announcing Formulate Pro](https://code101.net/code-101/announcing-formulate-pro)
 
