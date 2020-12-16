@@ -33,7 +33,7 @@ That's all you need to do to have great-looking forms!
 
 If you are familiar with Sass, you can also copy the Sass files from `/App_Plugins/Formulate.Pro/Themes/Basic/` to another folder and incorporate them into the rest of your Sass project.
 
-This may change over time, but here is a snapshot of what the Sass files that are part of the basic theme:
+This may change over time, but here is a snapshot of the Sass files that are part of the basic theme:
 
 ![Formulate Pro Basic Theme Sass Files](/images/basic-theme/basic-theme-sass-files.png)
 
