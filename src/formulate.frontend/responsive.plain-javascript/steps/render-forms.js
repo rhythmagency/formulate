@@ -161,10 +161,13 @@ function advanceFormStepInDom(form, formState, allFields, direction) {
     // Update CSS classes on the active and inactive rows.
     for (i = 0; i < oldStepRows.length; i++) {
         oldStepRows[i].classList.remove("formulate__row--active");
+        oldStepRows[i].classList.remove("formulate__row--active-initial");
         oldStepRows[i].classList.add("formulate__row--inactive");
+        setDisabledClassAfterDelay(oldStepRows[i]);
     }
     for (i = 0; i < newStepRows.length; i++) {
         newStepRows[i].classList.remove("formulate__row--inactive");
+        newStepRows[i].classList.remove("formulate__row--inactive-and-disabled");
         newStepRows[i].classList.add("formulate__row--active");
     }
 
@@ -177,6 +180,24 @@ function advanceFormStepInDom(form, formState, allFields, direction) {
         }
     }
 
+}
+
+/**
+ * After a short delay (default of half a second), add an additional class that can be
+ * used to completely hide a disabled step (e.g., to improve accessibility by making
+ * the step non-keyboard-navigable).
+ * @param row The DOM element for the row that should have the extra CSS class added.
+ */
+function setDisabledClassAfterDelay(row) {
+    let delay = window.formulateMultiStepHideDelay || 500;
+    setTimeout(function () {
+
+        // If the row is still inactive, add the extra CSS class.
+        if (row.classList.contains("formulate__row--inactive")) {
+            row.classList.add("formulate__row--inactive-and-disabled");
+        }
+
+    }, delay);
 }
 
 /**
