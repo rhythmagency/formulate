@@ -16,13 +16,6 @@ function renderRow(stepIndex, isActiveStep) {
     rowElement.classList.add("formulate__row");
     rowElement.classList.add("formulate__row--step-" + stepIndex.toString());
     rowElement.classList.add("formulate__row--" + (isActiveStep ? "active" : "inactive"));
-    if (isActiveStep) {
-        rowElement.classList.add("formulate__row--active-initial");
-    }
-    else
-    {
-        rowElement.classList.add("formulate__row--inactive-and-disabled");
-    }
 
     // Return the DOM element for the row.
     return rowElement;

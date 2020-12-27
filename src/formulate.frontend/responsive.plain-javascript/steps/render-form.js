@@ -11,7 +11,8 @@ function renderForm(formData, formElement, placeholderElement, fieldRenderers, f
     // Variables.
     let i, j, k, row, rows, rowElement, cells, cell, fields, fieldId,
         columnCount, cellElement, fieldElement, fieldsData, fieldMap,
-        field, renderedFields, renderedField, stepIndex, isActiveStep;
+        field, renderedFields, renderedField, stepIndex, isActiveStep,
+        stepElement;
 
     // Map fields to an associative array for quick lookups.
     fieldsData = formData.data.fields;
@@ -30,10 +31,19 @@ function renderForm(formData, formElement, placeholderElement, fieldRenderers, f
         if (row.isStep) {
             stepIndex++;
             isActiveStep = false;
+            stepElement = null;
             continue;
         } else {
+            if (!stepElement) {
+                stepElement = document.createElement("section");
+                stepElement.classList.add("formulate__step");
+                stepElement.classList.add("formulate__step--" + (isActiveStep ? "active" : "inactive"));
+                stepElement.classList.add("formulate__step-" + stepIndex.toString());
+                stepElement.setAttribute("aria-label", "Form Step #" + (stepIndex + 1).toString());
+                formElement.appendChild(stepElement);
+            }
             rowElement = require("./render-row")(stepIndex, isActiveStep);
-            formElement.appendChild(rowElement);
+            stepElement.appendChild(rowElement);
         }
 
         // Process each cell in this row.
