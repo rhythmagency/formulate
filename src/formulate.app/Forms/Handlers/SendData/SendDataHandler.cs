@@ -2,7 +2,9 @@ namespace formulate.app.Forms.Handlers.SendData
 {
 
     // Namespaces.
-
+    using Helpers;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -11,14 +13,6 @@ namespace formulate.app.Forms.Handlers.SendData
     using System.Text;
     using System.Web;
     using System.Web.Configuration;
-
-    using Helpers;
-
-    using Managers;
-
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
-
     using Umbraco.Core;
     using Umbraco.Core.Logging;
     using Umbraco.Web;
@@ -42,6 +36,8 @@ namespace formulate.app.Forms.Handlers.SendData
 
         #endregion
 
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SendDataHandler"/> class.
         /// </summary>
@@ -53,6 +49,8 @@ namespace formulate.app.Forms.Handlers.SendData
         {
             Logger = logger;
         }
+
+        #endregion
 
         #region Delegates
 
@@ -132,6 +130,33 @@ namespace formulate.app.Forms.Handlers.SendData
         /// Gets the logger.
         /// </summary>
         private ILogger Logger { get; }
+
+
+        /// <summary>
+        /// Gets or sets the cookies for the current request.
+        /// </summary>
+        /// <remarks>
+        /// This is used to avoid accessing the HTTP context in a background thread.
+        /// </remarks>
+        private Dictionary<string, string> Cookies { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets the URL of the current page.
+        /// </summary>
+        /// <remarks>
+        /// This is used to avoid accessing Umbraco page information in a background thread.
+        /// </remarks>
+        private string CurrentPageUrl { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets the name of the current page.
+        /// </summary>
+        /// <remarks>
+        /// This is used to avoid accessing Umbraco page information in a background thread.
+        /// </remarks>
+        private string CurrentPageName { get; set; }
 
         #endregion
 
@@ -225,11 +250,25 @@ namespace formulate.app.Forms.Handlers.SendData
         /// <param name="configuration">
         /// The handler configuration.
         /// </param>
-        /// <remarks>
-        /// In this case, no preparation is necessary.
-        /// </remarks>
         public void PrepareHandleForm(FormSubmissionContext context, object configuration)
         {
+
+            // Store the cookies for later.
+            var cookies = context.HttpContext.Request.Cookies;
+            this.Cookies = cookies.AllKeys
+                .Select(x => new
+                {
+                    Key = x,
+                    Value = cookies[x]?.Value
+                })
+                .GroupBy(x => x.Key)
+                .ToDictionary(x => x.Key, x => x.First().Value);
+
+
+            // Store page information for later.
+            this.CurrentPageUrl = context.CurrentPage.Url();
+            this.CurrentPageName = context.CurrentPage.Name;
+
         }
 
 
@@ -291,15 +330,17 @@ namespace formulate.app.Forms.Handlers.SendData
             {
                 result = SendData(config, context, transmissionData, false, false);
             }
-
-            if ("Form Body".InvariantEquals(config.TransmissionFormat))
+            else if ("Form Body".InvariantEquals(config.TransmissionFormat))
             {
                 result = SendData(config, context, transmissionData, true, false);
             }
-
-            if ("JSON".InvariantEquals(config.TransmissionFormat))
+            else if ("JSON".InvariantEquals(config.TransmissionFormat))
             {
                 result = SendData(config, context, transmissionData, true, true);
+            }
+            else if ("HubSpot JSON".InvariantEquals(config.TransmissionFormat))
+            {
+                result = SendToHubSpot(config, context, transmissionData);
             }
 
 
@@ -314,8 +355,129 @@ namespace formulate.app.Forms.Handlers.SendData
 
         #endregion
 
-
         #region Private Methods
+
+        /// <summary>
+        /// Sends a web request with the data to HubSpot as JSON.
+        /// </summary>
+        /// <param name="config">
+        /// The configuration for the data to be sent (e.g., contains the URL and request method).
+        /// </param>
+        /// <param name="context">
+        /// The context for the current form submission.
+        /// </param>
+        /// <param name="data">
+        /// The data to send.
+        /// </param>
+        /// <returns>
+        /// True, if the request was a success; otherwise, false.
+        /// </returns>
+        /// <remarks>
+        /// Parts of this function are from: http://stackoverflow.com/a/9772003/2052963
+        /// and http://stackoverflow.com/questions/14702902
+        /// </remarks>
+        private SendDataResult SendToHubSpot(
+            SendDataConfiguration config,
+            FormSubmissionContext context,
+            IEnumerable<KeyValuePair<string, string>> data)
+        {
+
+            // Variables.
+            var sendDataResult = new SendDataResult();
+            var keyValuePairs = data as KeyValuePair<string, string>[] ?? data.ToArray();
+            var requestUrl =  config.Url;
+
+
+            // Attempt to send the web request.
+            try
+            {
+
+                // Construct web request.
+                var request = (HttpWebRequest)WebRequest.Create(requestUrl);
+                request.AllowAutoRedirect = false;
+                request.UserAgent = WebUserAgent;
+                request.Method = config.Method;
+
+
+                // Send an event indicating that the data is about to be sent (which allows code
+                // external to Formulate to modify the request).
+                var sendContext = new SendingDataContext()
+                {
+                    Configuration = config,
+                    Data = keyValuePairs,
+                    Request = request,
+                    SubmissionContext = context
+                };
+                SendingData?.Invoke(sendContext);
+
+
+                // Update the key/value pairs in case they got changed in the sending data event.
+                // This only updates the methods that send the data in the body (as the URL has
+                // already been set on the request).
+                keyValuePairs = sendContext.Data as KeyValuePair<string, string>[]
+                    ?? sendContext.Data.ToArray();
+
+
+                // Group duplicate keys/value pairs to avoid exceptions. Also, combine
+                // values into a single string.
+                var grouped = keyValuePairs
+                    .GroupBy(x => x.Key)
+                    .ToDictionary(x => x.Key, x => string.Join(",", x.Select(y => y.Value)));
+
+
+                // Convert data to JSON, structuring it the way HubSpot expects.
+                var json = JsonConvert.SerializeObject(new
+                {
+                    fields = grouped
+                        .Select(x => new
+                        {
+                            name = x.Key,
+                            value = x.Value
+                        }).ToArray(),
+                    context = new
+                    {
+                        hutk = this.Cookies.ContainsKey("hubspotutk")
+                            ? this.Cookies["hubspotutk"]
+                            : null,
+                        pageUri = this.CurrentPageUrl,
+                        pageName = this.CurrentPageName
+                    }
+                });
+
+
+                // Write JSON data to the request request.
+                var postBytes = Encoding.UTF8.GetBytes(json);
+                request.ContentType = "application/json; charset=utf-8";
+                request.ContentLength = postBytes.Length;
+                using (var postStream = request.GetRequestStream())
+                {
+                    postStream.Write(postBytes, 0, postBytes.Length);
+                }
+
+
+                // Get and retain response.
+                var response = (HttpWebResponse)request.GetResponse();
+                sendDataResult.HttpWebResponse = response;
+                var responseStream = response.GetResponseStream();
+                var reader = new StreamReader(responseStream);
+                var resultText = reader.ReadToEnd();
+                sendDataResult.ResponseText = resultText;
+                sendDataResult.Success = true;
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Error<SendDataHandler>(ex, SendDataError);
+                sendDataResult.ResponseError = ex;
+                sendDataResult.Success = false;
+            }
+
+
+            // Return the result of the request.
+            return sendDataResult;
+
+        }
+
 
         /// <summary>
         /// Sends a web request with the data either in the query string or in the body.
