@@ -264,6 +264,9 @@ function initializeForm(options, services) {
         // Get the form info.
         services.formulateForms.getFormInfo(id).then(function(form) {
 
+            // Variables.
+            var i, field, handler;
+
             // Update tree.
             services.formulateTrees.activateEntity(form);
 
@@ -276,12 +279,14 @@ function initializeForm(options, services) {
             $scope.formPath = form.path;
 
             // Collapse fields.
-            for (var field in $scope.fields) {
+            for (i = 0; i < $scope.fields.length; i++) {
+                field = $scope.fields[i];
                 field.expanded = false;
             }
 
             // Collapse handlers.
-            for (var handler in $scope.handlers) {
+            for (i = 0; i < $scope.handlers.length; i++) {
+                handler = $scope.handlers[i];
                 handler.expanded = false;
             }
 
