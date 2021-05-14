@@ -1,110 +1,99 @@
 <form
     novalidate name="submissionsForm"
     val-form-manager>
-    <umb-panel umb-tabs>
-        <umb-header tabs="info.tabs">
+    <umb-editor-view footer="false">
+        <umb-editor-header
+            name="info.header"
+            name-locked="true"
+            hide-alias="true"
+            hide-description="true"
+            hide-icon="true">
+        </umb-editor-header>
+        <umb-editor-container>
+            <button type="button" class="btn btn-default" ng-click="pickForm()">Pick Form</button>
+            <a ng-if="formId" class="btn btn-primary" ng-href="{{getExportUrl(formId)}}">Export to CSV</a>
+            <p ng-if="!submissions.length" class="form-submissions-none">
+                No form submissions to show.
+            </p>
+            <table class="form-submissions-table" ng-if="submissions.length">
+                <thead>
+                <tr>
+                    <th>
 
-            <div class="span7">
-
-                <!-- Submissions Header. -->
-                <umb-content-name
-                    ng-disabled="true"
-                    ng-model="info.header">
-                </umb-content-name>
-
-            </div>
-        </umb-header>
-        <umb-tab-view>
-            <umb-tab id="tab6" rel="{{6}}">
-                <div class="umb-pane">
-
-                    <button type="button" class="btn btn-default" ng-click="pickForm()">Pick Form</button>
-                    <a ng-if="formId" class="btn btn-primary" ng-href="{{getExportUrl(formId)}}">Export to CSV</a>
-                    <p ng-if="!submissions.length" class="form-submissions-none">
-                        No form submissions to show.
-                    </p>
-                    <table class="form-submissions-table" ng-if="submissions.length">
-                        <thead>
-                        <tr>
-                            <th>
-
-                            </th>
-                            <th>
-                                Creation Date
-                            </th>
-                            <th>
-                                Page
-                            </th>
-                            <th>
-                                Field Values
-                            </th>
-                            <th>
-                                File Values
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="submission in submissions" ng-class="getRowClass($index, submission)">
-                            <td colspan="5" ng-if="submission.deleted" class="form-submission-cell">
-                                <div class="formulate-submission__row-deleted-message">
-                                    Submission deleted.
-                                </div>
-                            </td>
-                            <td ng-if="!submission.deleted">
-                                <button ng-click="deleteSubmission(submission)" type="button" class="btn btn-danger formulate__delete-submission">
-                                    Delete
-                                </button>
-                            </td>
-                            <td class="form-submission-cell" ng-if="!submission.deleted">
-                                {{submission.creationDate}}
-                            </td>
-                            <td class="form-submission-cell" ng-if="!submission.deleted">
-                                <a ng-href="{{submission.url}}">{{submission.url}}</a>
-                                <span ng-if="submission.pageId">
-                                (<a ng-href="{{getNodeUrl(submission.pageId)}}">View Content Page</a>)
-                            </span>
-                            </td>
-                            <td class="form-submission-cell" ng-if="!submission.deleted">
-                                <table>
-                                    <tbody>
-                                    <tr ng-repeat="field in submission.fields">
-                                        <th class="form-submission-field-header">
-                                            {{field.name}}
-                                        </th>
-                                        <td class="form-submission-field-cell">
-                                            {{field.value}}
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                            <td class="form-submission-cell" ng-if="!submission.deleted">
-                                <table ng-repeat="file in submission.files">
-                                    <tbody>
-                                    <tr ng-repeat="file in submission.files">
-                                        <th class="form-submission-field-header">
-                                            {{file.name}}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <td class="form-submission-field-cell">
-                                            <a class="btn btn-default" ng-href="{{file.path}}">{{file.filename}}</a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <ul class="formulate-pager">
-                        <li ng-repeat="item in getPagerItems() track by $index">
-                            <button type="button" ng-click="getPage(item.pageNumber)" ng-class="getPagerItemClass(item.active)" class="btn btn-default">{{item.pageNumber}}</button>
-                        </li>
-                    </ul>
-
-                </div>
-            </umb-tab>
-        </umb-tab-view>
-    </umb-panel>
+                    </th>
+                    <th>
+                        Creation Date
+                    </th>
+                    <th>
+                        Page
+                    </th>
+                    <th>
+                        Field Values
+                    </th>
+                    <th>
+                        File Values
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="submission in submissions" ng-class="getRowClass($index, submission)">
+                    <td colspan="5" ng-if="submission.deleted" class="form-submission-cell">
+                        <div class="formulate-submission__row-deleted-message">
+                            Submission deleted.
+                        </div>
+                    </td>
+                    <td ng-if="!submission.deleted">
+                        <button ng-click="deleteSubmission(submission)" type="button" class="btn btn-danger formulate__delete-submission">
+                            Delete
+                        </button>
+                    </td>
+                    <td class="form-submission-cell" ng-if="!submission.deleted">
+                        {{submission.creationDate}}
+                    </td>
+                    <td class="form-submission-cell" ng-if="!submission.deleted">
+                        <a ng-href="{{submission.url}}">{{submission.url}}</a>
+                        <span ng-if="submission.pageId">
+                            (<a ng-href="{{getNodeUrl(submission.pageId)}}">View Content Page</a>)
+                        </span>
+                    </td>
+                    <td class="form-submission-cell" ng-if="!submission.deleted">
+                        <table>
+                            <tbody>
+                            <tr ng-repeat="field in submission.fields">
+                                <th class="form-submission-field-header">
+                                    {{field.name}}
+                                </th>
+                                <td class="form-submission-field-cell">
+                                    {{field.value}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td class="form-submission-cell" ng-if="!submission.deleted">
+                        <table ng-repeat="file in submission.files">
+                            <tbody>
+                            <tr ng-repeat="file in submission.files">
+                                <th class="form-submission-field-header">
+                                    {{file.name}}
+                                </th>
+                            </tr>
+                            <tr>
+                                <td class="form-submission-field-cell">
+                                    <a class="btn btn-default" ng-href="{{file.path}}">{{file.filename}}</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <ul class="formulate-pager">
+                <li ng-repeat="item in getPagerItems() track by $index">
+                    <button type="button" ng-click="getPage(item.pageNumber)" ng-class="getPagerItemClass(item.active)" class="btn btn-default">{{item.pageNumber}}</button>
+                </li>
+            </ul>
+        </umb-editor-container>
+    </umb-editor-view>
 </form>
