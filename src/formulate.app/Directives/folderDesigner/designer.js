@@ -16,19 +16,22 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, $routeParams, $route, formulateTrees,
-    formulateFolders) {
+function controller($scope, $routeParams, $route, localizationService,
+    notificationsService, formulateTrees, formulateFolders) {
 
     // Variables.
     var id = $routeParams.id;
     var services = {
         formulateTrees: formulateTrees,
         formulateFolders: formulateFolders,
+        localizationService: localizationService,
+        notificationsService: notificationsService,
         $scope: $scope,
         $route: $route
     };
 
     // Set scope variables.
+    $scope.buttonState = "init";
     $scope.folderId = id;
     $scope.info = {
         folderName: null
@@ -82,13 +85,20 @@ function getSaveFolder(services) {
             name: $scope.info.folderName
         };
 
+        $scope.buttonState = "busy";
+
         // Persist folder on server.
         services.formulateFolders.persistFolder(folderData)
             .then(function() {
+                $scope.buttonState = "success";
+                
+                services.localizationService.localizeMany(["formulate-speechBubbles_folderSavedHeader", "formulate-speechBubbles_folderSavedMessage"]).then(function(data){
+                    services.notificationsService.success(data[0], data[1]);
+                });
 
-                // Even existing folders reload (e.g., to get new data).
-                services.$route.reload();
-
+                initializeFolder({
+                    id: $scope.folderId
+                }, services);
             });
 
     };

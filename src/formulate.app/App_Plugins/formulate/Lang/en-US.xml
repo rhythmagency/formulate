@@ -414,6 +414,8 @@
   <area alias="formulate-speechBubbles">
     <key alias="configuredFormSavedHeader">Configured Form Saved</key>
     <key alias="configuredFormSavedMessage">changes will now be visible on the website</key>
+    <key alias="folderSavedHeader">Folder Saved</key>
+    <key alias="folderSavedMessage">looking good!</key>
     <key alias="formSavedHeader">Form Saved</key>
     <key alias="formSavedMessage">changes will now be visible on the website</key>
     <key alias="layoutSavedHeader">Layout Saved</key>
