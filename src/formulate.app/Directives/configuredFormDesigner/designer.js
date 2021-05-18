@@ -18,7 +18,7 @@ function directive(formulateDirectives) {
 // Controller.
 function controller($scope, $routeParams, $route, formulateTrees,
     formulateConfiguredForms, $location, formulateTemplates, editorService,
-    formulateLayouts) {
+    localizationService, notificationsService, formulateLayouts) {
 
     // Variables.
     var id = $routeParams.id;
@@ -29,7 +29,9 @@ function controller($scope, $routeParams, $route, formulateTrees,
         formulateTrees: formulateTrees,
         formulateConfiguredForms: formulateConfiguredForms,
         formulateTemplates: formulateTemplates,
-        editorService: editorService,
+        editorService: editorService,        
+        localizationService: localizationService,
+        notificationsService: notificationsService,
         formulateLayouts: formulateLayouts,
         $scope: $scope,
         $route: $route,
@@ -37,6 +39,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
     };
 
     // Set scope variables.
+    $scope.buttonState = "init";
     $scope.isNew = isNew;
     $scope.info = {
         conFormName: null
@@ -119,6 +122,8 @@ function getSaveConfiguredForm(services) {
             templateId: $scope.template.id
         };
 
+        $scope.buttonState = "busy";
+
         // Persist configured form on server.
         services.formulateConfiguredForms.persistConfiguredForm(conFormData)
             .then(function(responseData) {
@@ -126,6 +131,8 @@ function getSaveConfiguredForm(services) {
                 // Configured form is no longer new.
                 var isNew = $scope.isNew;
                 $scope.isNew = false;
+
+                $scope.buttonState = "success";
 
                 // Prevent "discard" notification.
                 $scope.formulateConfiguredFormDesigner.$dirty = false;
@@ -137,8 +144,15 @@ function getSaveConfiguredForm(services) {
                     services.$location.url(url);
                 } else {
 
+                    services.localizationService.localizeMany(["formulate-speechBubbles_configuredFormSavedHeader", "formulate-speechBubbles_configuredFormSavedMessage"]).then(function(data){
+                        services.notificationsService.success(data[0], data[1]);
+                    });
+
                     // Even existing configured forms reload (e.g., to get new data).
-                    services.$route.reload();
+                    initializeConfiguredForm({
+                        id: responseData.id,
+                        isNew: false
+                    }, services);
 
                 }
 
