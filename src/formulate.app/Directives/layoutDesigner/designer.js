@@ -101,7 +101,7 @@ function getSaveLayout(services) {
                 // Redirect or reload page.
                 if (isNew) {
                     var url = "/formulate/formulate/editLayout/"
-                        + responseData.layoutId;
+                        + responseData.id;
                     services.$location.url(url);
                 } else {
 
