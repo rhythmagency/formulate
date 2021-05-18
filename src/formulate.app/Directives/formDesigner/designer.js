@@ -37,6 +37,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
     };
 
     // Set scope variables.
+    $scope.buttonState = "init";
     $scope.isNew = isNew;
     $scope.info = {
         formName: null,
@@ -195,12 +196,16 @@ function getSaveForm(services) {
             handlers: angular.fromJson(angular.toJson(handlers))
         };
 
+        $scope.buttonState = "busy";
+
         // Persist form on server.
         services.formulateForms.persistForm(formData)
             .then(function (responseData) {
 
                 // Variables.
                 var isNew = $scope.isNew;
+
+                $scope.buttonState = "success";
 
                 // Prevent "discard" notification.
                 $scope.formulateFormDesigner.$dirty = false;
