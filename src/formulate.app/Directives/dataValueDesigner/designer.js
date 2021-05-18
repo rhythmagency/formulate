@@ -16,8 +16,8 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, $routeParams, $route, formulateTrees,
-    formulateDataValues) {
+function controller($scope, $routeParams, $route, localizationService, notificationsService,
+    formulateTrees, formulateDataValues) {
 
     // Variables.
     var id = $routeParams.id;
@@ -25,11 +25,14 @@ function controller($scope, $routeParams, $route, formulateTrees,
         $routeParams: $routeParams,
         formulateTrees: formulateTrees,
         formulateDataValues: formulateDataValues,
+        localizationService: localizationService,
+        notificationsService: notificationsService,
         $scope: $scope,
         $route: $route
     };
 
     // Set scope variables.
+    $scope.buttonState = "init";
     $scope.dataValueId = id;
     $scope.info = {
         dataValueName: null,
@@ -91,9 +94,12 @@ function getSaveDataValue(services) {
             data: angular.fromJson(angular.toJson($scope.data))
         };
 
+        $scope.buttonState = "busy";
+
         // Persist data value on server.
         services.formulateDataValues.persistDataValue(dataValueData)
             .then(function(responseData) {
+                $scope.buttonState = "success";
 
                 // Data value is no longer new.
                 var isNew = $scope.isNew;
@@ -102,13 +108,18 @@ function getSaveDataValue(services) {
                 // Redirect or reload page.
                 if (isNew) {
                     var url = "/formulate/formulate/editDataValue/"
-                        + responseData.dataValueId;
+                        + responseData.id;
                     services.$location.url(url);
                 } else {
+                    
+                    services.localizationService.localizeMany(["formulate-speechBubbles_dataValueSavedHeader", "formulate-speechBubbles_dataValueSavedMessage"]).then(function(data){
+                        services.notificationsService.success(data[0], data[1]);
+                    });
 
-                    // Even existing data values reload (e.g., to get new data).
-                    services.$route.reload();
-
+                    initializeDataValue({
+                        id: responseData.id,
+                        isNew: false
+                    }, services);
                 }
 
             });
