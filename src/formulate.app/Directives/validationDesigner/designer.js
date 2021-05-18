@@ -16,19 +16,22 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, $routeParams, $route, formulateValidations,
-    formulateTrees, formulateLocalization) {
+function controller($scope, $routeParams, $route, localizationService, notificationsService,
+    formulateValidations, formulateTrees, formulateLocalization) {
 
     // Variables.
     var id = $routeParams.id;
     var services = {
         formulateValidations: formulateValidations,
+        localizationService: localizationService,
+        notificationsService: notificationsService,
         $scope: $scope,
         $route: $route,
         formulateTrees: formulateTrees
     };
 
     // Set scope variables.
+    $scope.buttonState = "init";
     $scope.validationId = id;
     $scope.info = {
         validationName: null,
@@ -89,9 +92,13 @@ function getSaveValidation(services) {
             data: angular.fromJson(angular.toJson($scope.data))
         };
 
+        $scope.buttonState = "busy";
+
         // Persist validation on server.
         services.formulateValidations.persistValidation(validationData)
             .then(function(responseData) {
+
+                $scope.buttonState = "success";
 
                 // Validation is no longer new.
                 var isNew = $scope.isNew;
@@ -100,13 +107,18 @@ function getSaveValidation(services) {
                 // Redirect or reload page.
                 if (isNew) {
                     var url = "/formulate/formulate/editValidation/"
-                        + responseData.validationId;
+                        + responseData.id;
                     services.$location.url(url);
                 } else {
 
-                    // Even existing validations reload (e.g., to get new data).
-                    services.$route.reload();
+                    services.localizationService.localizeMany(["formulate-speechBubbles_validationSavedHeader", "formulate-speechBubbles_validationSavedMessage"]).then(function(data){
+                        services.notificationsService.success(data[0], data[1]);
+                    });
 
+                    initializeValidation({
+                        id: responseData.id,
+                        isNew: false
+                    }, services);
                 }
 
             });

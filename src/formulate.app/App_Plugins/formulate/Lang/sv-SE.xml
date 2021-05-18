@@ -421,5 +421,7 @@
     <key alias="formSavedMessage">changes will now be visible on the website</key>
     <key alias="layoutSavedHeader">Layout Saved</key>
     <key alias="layoutSavedMessage">changes will now be visible on the website</key>
+    <key alias="validationSavedHeader">Validation Saved</key>
+    <key alias="validationSavedMessage">changes will now be visible on the website</key>
   </area>
 </language>
