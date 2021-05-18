@@ -412,4 +412,8 @@
       You are now allowed to select that kind of node.
     </key>
   </area>
+  <area alias="formulate-speechBubbles">
+    <key alias="formSavedHeader">Form Saved</key>
+    <key alias="formSavedMessage">changes will now be visible on the website</key>
+  </area>
 </language>

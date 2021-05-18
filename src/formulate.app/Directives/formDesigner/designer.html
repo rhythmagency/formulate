@@ -1,12 +1,10 @@
 ﻿<div>
     <umb-load-indicator ng-if="!initialized"></umb-load-indicator>
-
     <form novalidate name="formulateFormDesigner"
           ng-submit="save()"
           val-form-manager>
 
         <umb-editor-view ng-if="initialized">
-
             <umb-editor-header name="info.formName"
                                hide-icon="true"
                                hide-description="true"
@@ -14,9 +12,7 @@
                                navigation="apps"
                                on-select-navigation-item="appChanged(item)">
             </umb-editor-header>
-
             <umb-editor-container>
-
                 <div class="form-horizontal" ng-if="app.alias == 'Form'">
                     <div class="umb-group-panel">
                         <div class="umb-group-panel__header">
@@ -179,8 +175,6 @@
                                     </div>
                                 </fieldset>
 
-
-
                                 <!-- Buttons. -->
                                 <div class="btn-group">
                                     <button type="button" class="btn" ng-click="addHandler()" ng-disabled="!canAddHandler()" prevent-default>
@@ -188,7 +182,6 @@
                                             Add Handler
                                         </localize>
                                     </button>
-
                                 </div>
 
                                 <!-- Handler chooser dialog. -->
@@ -199,38 +192,10 @@
                         </div>
                     </div>
                 </div>
-
             </umb-editor-container>
 
-
             <umb-editor-footer>
-
-                <!--<umb-editor-footer-content-left>
-
-                    <umb-breadcrumbs ng-if="ancestors && ancestors.length > 0"
-                                     ancestors="ancestors"
-                                     entity-type="media">
-                    </umb-breadcrumbs>
-
-                </umb-editor-footer-content-left>-->
-
-
                 <umb-editor-footer-content-right>
-
-                    <!--<umb-button ng-if="model.infiniteMode"
-                                type="button"
-                                button-style="link"
-                                label-key="general_close"
-                                shortcut="esc"
-                                action="close()">
-                    </umb-button>-->
-                    <!--<umb-button alias="returnToList"
-                                ng-if="page.listViewPath && !model.infiniteMode"
-                                type="link"
-                                href="#{{page.listViewPath}}"
-                                label-key="buttons_returnToList">
-                    </umb-button>-->
-                    <!-- label-key="buttons_save" -->
                     <umb-button alias="save"
                                 type="submit"
                                 button-style="success"
@@ -238,18 +203,8 @@
                                 state="buttonState"
                                 label-key="formulate-buttons_Save">
                     </umb-button>
-
-
-
-                    <!--state="page.saveButtonState"
-                    label-key="{{page.submitButtonLabelKey}}"-->
-
                 </umb-editor-footer-content-right>
-
             </umb-editor-footer>
-
         </umb-editor-view>
-
-
     </form>
 </div>

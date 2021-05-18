@@ -17,7 +17,7 @@ function directive(formulateDirectives) {
 
 // Controller.
 function controller($scope, $routeParams, $route, formulateTrees,
-    formulateForms, $location, editorService, formulateValidations, formulateLocalization, formulateFields) {
+    formulateForms, $location, editorService, localizationService, notificationsService, formulateValidations, formulateLocalization, formulateFields) {
 
     // Variables.
     var id = $routeParams.id;
@@ -31,6 +31,8 @@ function controller($scope, $routeParams, $route, formulateTrees,
         $location: $location,
         $route: $route,
         editorService: editorService,
+        localizationService: localizationService,
+        notificationsService: notificationsService,
         formulateValidations: formulateValidations,
         formulateFields: formulateFields,
         formulateLocalization: formulateLocalization
@@ -217,9 +219,15 @@ function getSaveForm(services) {
                     services.$location.url(url);
                 } else {
 
-                    // Even existing forms reload (e.g., to get new field ID's).
-                    services.$route.reload();
+                    services.localizationService.localizeMany(["formulate-speechBubbles_formSavedHeader", "formulate-speechBubbles_formSavedMessage"]).then(function(data){
+                        services.notificationsService.success(data[0], data[1]);
+                    });
 
+                    // Re-init existing forms (e.g., to get new field ID's).
+                    initializeForm({
+                        id: responseData.formId,
+                        isNew: false
+                    }, services);
                 }
 
             });
@@ -287,7 +295,7 @@ function initializeForm(options, services) {
 
     }
 
-    // if we still dont have a app, lets show the first one:
+    // if we still don't have a app, lets show the first one:
     if (isAppPresent === false) {
         $scope.apps[0].active = true;
         $scope.appChanged($scope.apps[0]);
