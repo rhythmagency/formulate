@@ -206,11 +206,17 @@ function getSaveForm(services) {
 
                 // Variables.
                 var isNew = $scope.isNew;
+                var localizationKeys = isNew ? ["formulate-speechBubbles_formCreatedHeader", "formulate-speechBubbles_formCreatedMessage"]
+                                             : ["formulate-speechBubbles_formSavedHeader", "formulate-speechBubbles_formSavedMessage"];
 
                 $scope.buttonState = "success";
 
                 // Prevent "discard" notification.
                 $scope.formulateFormDesigner.$dirty = false;
+
+                services.localizationService.localizeMany(localizationKeys).then(function(data){
+                    services.notificationsService.success(data[0], data[1]);
+                });
 
                 // Redirect or reload page.
                 if (isNew) {
@@ -218,11 +224,6 @@ function getSaveForm(services) {
                         + responseData.formId;
                     services.$location.url(url);
                 } else {
-
-                    services.localizationService.localizeMany(["formulate-speechBubbles_formSavedHeader", "formulate-speechBubbles_formSavedMessage"]).then(function(data){
-                        services.notificationsService.success(data[0], data[1]);
-                    });
-
                     // Re-init existing forms (e.g., to get new field ID's).
                     initializeForm({
                         id: responseData.formId,

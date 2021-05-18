@@ -418,6 +418,8 @@
     <key alias="dataValueSavedMessage">changes will now be visible on the website</key>
     <key alias="folderSavedHeader">Folder Saved</key>
     <key alias="folderSavedMessage">looking good!</key>
+    <key alias="formCreatedHeader">Form Created</key>
+    <key alias="formCreatedMessage">ready for use within the website</key>
     <key alias="formSavedHeader">Form Saved</key>
     <key alias="formSavedMessage">changes will now be visible on the website</key>
     <key alias="layoutSavedHeader">Layout Saved</key>
