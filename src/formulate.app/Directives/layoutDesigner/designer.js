@@ -16,7 +16,7 @@ function directive(formulateDirectives) {
 }
 
 // Controller.
-function controller($scope, $routeParams, $route, formulateTrees,
+function controller($scope, $routeParams, $route, localizationService, notificationsService, formulateTrees,
     formulateLayouts) {
 
     // Variables.
@@ -24,11 +24,14 @@ function controller($scope, $routeParams, $route, formulateTrees,
     var services = {
         formulateTrees: formulateTrees,
         formulateLayouts: formulateLayouts,
+        localizationService: localizationService,
+        notificationsService: notificationsService,
         $scope: $scope,
         $route: $route
     };
 
     // Set scope variables.
+    $scope.buttonState = "init";
     $scope.layoutId = id;
     $scope.info = {
         layoutName: null,
@@ -90,9 +93,13 @@ function getSaveLayout(services) {
             data: $scope.data
         };
 
+        $scope.buttonState = "busy";
+
         // Persist layout on server.
         services.formulateLayouts.persistLayout(layoutData)
             .then(function(responseData) {
+                
+                $scope.buttonState = "success";
 
                 // Layout is no longer new.
                 var isNew = $scope.isNew;
@@ -105,11 +112,15 @@ function getSaveLayout(services) {
                     services.$location.url(url);
                 } else {
 
-                    // Even existing layouts reload (e.g., to get new data).
-                    services.$route.reload();
+                    services.localizationService.localizeMany(["formulate-speechBubbles_layoutSavedHeader", "formulate-speechBubbles_layoutSavedMessage"]).then(function(data){
+                        services.notificationsService.success(data[0], data[1]);
+                    });
 
+                    initializeLayout({
+                        id: responseData.id,
+                        isNew: false
+                    }, services);
                 }
-
             });
 
     };
