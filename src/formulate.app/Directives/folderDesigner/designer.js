@@ -29,6 +29,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
     };
 
     // Set scope variables.
+    $scope.saveButtonState = "init";
     $scope.folderId = id;
     $scope.info = {
         folderName: null
@@ -75,6 +76,9 @@ function getSaveFolder(services) {
         var $scope = services.$scope;
         var parentId = getParentId($scope);
 
+        // Update button state.
+        $scope.saveButtonState = "busy";
+
         // Get folder data.
         var folderData = {
             parentId: parentId,
@@ -84,7 +88,10 @@ function getSaveFolder(services) {
 
         // Persist folder on server.
         services.formulateFolders.persistFolder(folderData)
-            .then(function() {
+            .then(function () {
+
+                // Update button state.
+                $scope.saveButtonState = "success";
 
                 // Even existing folders reload (e.g., to get new data).
                 services.$route.reload();

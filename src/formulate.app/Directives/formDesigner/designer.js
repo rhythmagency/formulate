@@ -37,6 +37,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
     };
 
     // Set scope variables.
+    $scope.saveButtonState = "init";
     $scope.isNew = isNew;
     $scope.info = {
         formName: null,
@@ -185,6 +186,9 @@ function getSaveForm(services) {
         var handlers = $scope.handlers;
         var parentId = getParentId($scope);
 
+        // Update button state.
+        $scope.saveButtonState = "busy";
+
         // Get form data.
         var formData = {
             parentId: parentId,
@@ -201,6 +205,9 @@ function getSaveForm(services) {
 
                 // Variables.
                 var isNew = $scope.isNew;
+
+                // Update button state.
+                $scope.saveButtonState = "success";
 
                 // Prevent "discard" notification.
                 $scope.formulateFormDesigner.$dirty = false;

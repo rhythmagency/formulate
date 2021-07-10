@@ -29,6 +29,7 @@ function controller($scope, $routeParams, $route, formulateTrees,
     };
 
     // Set scope variables.
+    $scope.saveButtonState = "init";
     $scope.layoutId = id;
     $scope.info = {
         layoutName: null,
@@ -80,6 +81,9 @@ function getSaveLayout(services) {
         var $scope = services.$scope;
         var parentId = getParentId($scope);
 
+        // Update button state.
+        $scope.saveButtonState = "busy";
+
         // Get layout data.
         var layoutData = {
             parentId: parentId,
@@ -97,6 +101,9 @@ function getSaveLayout(services) {
                 // Layout is no longer new.
                 var isNew = $scope.isNew;
                 $scope.isNew = false;
+
+                // Update button state.
+                $scope.saveButtonState = "success";
 
                 // Redirect or reload page.
                 if (isNew) {
