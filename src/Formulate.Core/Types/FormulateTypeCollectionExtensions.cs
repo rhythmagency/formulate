@@ -20,5 +20,17 @@ namespace Formulate.Core.Types
         {
             return collection is null ? default : collection.FirstOrDefault(x => x.TypeId == id);
         }
+
+        /// <summary>
+        /// Gets the first or default <see cref="IFormulateType"/> which matches the provided <see cref="Guid"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the collection.</typeparam>
+        /// <param name="collection">The collection</param>
+        /// <param name="id">The id.</param>
+        /// <returns>A <typeparamref name="T"/> or default.</returns>
+        public static T FirstOrDefault<T>(this IEnumerable<T> collection, Guid? id) where T : IFormulateType
+        {
+            return id is null ? default : collection.FirstOrDefault(id.Value);
+        }
     }
 }
