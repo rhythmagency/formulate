@@ -2,10 +2,12 @@
 {
     using System;
 
+    using Umbraco.Cms.Core.Composing;
+
     /// <summary>
-    /// The underlying type for other types identified by a Type ID.
+    /// The underlying discoverable type for other types identified by a Type ID.
     /// </summary>
-    public interface IFormulateType
+    public interface IFormulateType : IDiscoverable
     {
         /// <summary>
         /// Gets the Type ID.
