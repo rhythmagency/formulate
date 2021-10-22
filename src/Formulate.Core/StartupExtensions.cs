@@ -29,7 +29,10 @@ namespace Formulate.Core
         {
             builder.DataValuesTypes();
             builder.FormFieldTypes();
-            builder.FormHandlerTypes();
+
+            builder.FormHandlerTypes().Add(() => builder.TypeLoader.GetTypes<AsyncFormHandlerType>());
+            builder.FormHandlerTypes().Add(() => builder.TypeLoader.GetTypes<FormHandlerType>());
+
             builder.LayoutTypes();
             builder.ValidationTypes();
 
