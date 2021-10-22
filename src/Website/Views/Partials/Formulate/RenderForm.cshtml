@@ -1,7 +1,0 @@
-﻿@using formulate.core.Utilities
-@model formulate.core.Models.FormViewModel
-@{
-    var viewPath = Model.TemplatePath;
-    FileUtility.ValidateView(viewPath);
-}
-@Html.Partial(viewPath, Model)
