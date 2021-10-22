@@ -5,7 +5,7 @@ using System.Linq;
 namespace Formulate.Core.Types
 {
     /// <summary>
-    /// Extension methods that augments collections of <see cref="IFormulateType"/>,
+    /// Extension methods that augments collections of <see cref="IFormulateType"/>.
     /// </summary>
     public static class FormulateTypeCollectionExtensions
     {
