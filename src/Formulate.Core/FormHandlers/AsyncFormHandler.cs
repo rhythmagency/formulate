@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Formulate.Core.FormHandlers
 {
@@ -11,7 +12,8 @@ namespace Formulate.Core.FormHandlers
         /// Handle the incoming form submission asynchronously.
         /// </summary>
         /// <param name="submission">The form submission.</param>
+        /// <param name="cancellationToken">The optional cancellation token to cancel the operation.</param>
         /// <returns>A <see cref="Task"/>.</returns>
-        public abstract Task HandleAsync(object submission);
+        public abstract Task HandleAsync(object submission, CancellationToken cancellationToken = default);
     }
 }
