@@ -46,5 +46,15 @@ namespace Formulate.Core.Types
         {
             return builder.WithCollectionBuilder<LayoutTypeCollectionBuilder>();
         }
+
+        /// <summary>
+        /// Gets the builder collection for adding <see cref="IValidationType"/> implementations.
+        /// </summary>
+        /// <param name="builder">The Umbraco builder.</param>
+        /// <returns>A <see cref="ValidationTypeCollectionBuilder"/>.</returns>
+        public static ValidationTypeCollectionBuilder ValidationTypes(this IUmbracoBuilder builder)
+        {
+            return builder.WithCollectionBuilder<ValidationTypeCollectionBuilder>();
+        }
     }
 }
