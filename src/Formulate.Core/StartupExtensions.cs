@@ -31,6 +31,7 @@ namespace Formulate.Core
             builder.FormFieldTypes();
             builder.FormHandlerTypes();
             builder.LayoutTypes();
+            builder.ValidationTypes();
 
             return builder;
         }
