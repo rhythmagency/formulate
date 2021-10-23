@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Formulate.Core.Types;
+using Formulate.Core.Validations;
 
 namespace Formulate.Core.FormFields
 {
@@ -32,5 +34,10 @@ namespace Formulate.Core.FormFields
         /// Gets the category.
         /// </summary>
         string Category { get; }
+
+        /// <summary>
+        /// Gets the validations.
+        /// </summary>
+        IReadOnlyCollection<IValidation> Validations { get; }
     }
 }
