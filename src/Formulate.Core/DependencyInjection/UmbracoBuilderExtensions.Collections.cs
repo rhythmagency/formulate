@@ -2,15 +2,16 @@
 using Formulate.Core.FormFields;
 using Formulate.Core.FormHandlers;
 using Formulate.Core.Layouts;
+using Formulate.Core.Types;
 using Formulate.Core.Validations;
 using Umbraco.Cms.Core.DependencyInjection;
 
-namespace Formulate.Core.Types
+namespace Formulate.Core.DependencyInjection
 {
     /// <summary>
     /// Extension methods that augments <see cref="IUmbracoBuilder"/> to add <see cref="IFormulateType"/> collection builders.
     /// </summary>
-    public static class UmbracoBuilderExtensions
+    public static partial class UmbracoBuilderExtensions
     {
         /// <summary>
         /// Gets the builder collection for adding <see cref="IDataValuesType"/> implementations.

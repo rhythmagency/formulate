@@ -1,13 +1,12 @@
 ﻿using Formulate.Core.FormHandlers;
-using Formulate.Core.Types;
 using Umbraco.Cms.Core.DependencyInjection;
 
-namespace Formulate.Core
+namespace Formulate.Core.DependencyInjection
 {
     /// <summary>
     /// Extension methods that augment startup.
     /// </summary>
-    public static class StartupExtensions
+    public static partial class UmbracoBuilderExtensions
     {
         /// <summary>
         /// Adds Formulate core logic to Umbraco.
