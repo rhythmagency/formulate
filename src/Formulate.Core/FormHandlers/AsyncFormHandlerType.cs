@@ -8,7 +8,8 @@
         /// <summary>
         /// Creates an Async Form Handler.
         /// </summary>
+        /// <param name="settings">The form handler settings.</param>
         /// <returns>A <see cref="AsyncFormHandler"/>.</returns>
-        public abstract AsyncFormHandler CreateAsyncHandler();
+        public abstract AsyncFormHandler CreateAsyncHandler(IFormHandlerSettings settings);
     }
 }

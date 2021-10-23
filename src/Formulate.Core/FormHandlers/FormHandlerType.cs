@@ -8,7 +8,8 @@
         /// <summary>
         /// Creates a Form Handler.
         /// </summary>
+        /// <param name="settings">The form handler settings.</param>
         /// <returns>A <see cref="FormHandler"/>.</returns>
-        public abstract FormHandler CreateHandler();
+        public abstract FormHandler CreateHandler(IFormHandlerSettings settings);
     }
 }
