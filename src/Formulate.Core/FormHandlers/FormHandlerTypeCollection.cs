@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Umbraco.Cms.Core.Composing;
 
-namespace Formulate.Core.Types
+namespace Formulate.Core.FormHandlers
 {
     /// <inheritdoc />
     public sealed class FormHandlerTypeCollection : BuilderCollectionBase<IFormHandlerType>

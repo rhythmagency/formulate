@@ -1,6 +1,6 @@
 ﻿using Umbraco.Cms.Core.Composing;
 
-namespace Formulate.Core.Types
+namespace Formulate.Core.Layouts
 {
     /// <inheritdoc />
     public sealed class LayoutTypeCollectionBuilder : LazyCollectionBuilderBase<LayoutTypeCollectionBuilder, LayoutTypeCollection, ILayoutType>

@@ -1,6 +1,6 @@
 ﻿using Umbraco.Cms.Core.Composing;
 
-namespace Formulate.Core.Types
+namespace Formulate.Core.FormHandlers
 {
     /// <inheritdoc />
     public sealed class FormHandlerTypeCollectionBuilder : LazyCollectionBuilderBase<FormHandlerTypeCollectionBuilder, FormHandlerTypeCollection, IFormHandlerType>

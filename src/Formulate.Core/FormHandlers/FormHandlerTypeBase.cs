@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Formulate.Core.Types
+namespace Formulate.Core.FormHandlers
 {
     /// <summary>
     /// The base class for all form handler types.

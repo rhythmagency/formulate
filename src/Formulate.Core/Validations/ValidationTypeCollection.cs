@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Umbraco.Cms.Core.Composing;
 
-namespace Formulate.Core.Types
+namespace Formulate.Core.Validations
 {
     /// <inheritdoc />
     public sealed class ValidationTypeCollection : BuilderCollectionBase<IValidationType>

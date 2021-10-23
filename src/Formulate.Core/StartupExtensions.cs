@@ -1,4 +1,5 @@
-﻿using Formulate.Core.Types;
+﻿using Formulate.Core.FormHandlers;
+using Formulate.Core.Types;
 using Umbraco.Cms.Core.DependencyInjection;
 
 namespace Formulate.Core

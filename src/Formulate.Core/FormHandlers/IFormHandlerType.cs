@@ -1,4 +1,6 @@
-﻿namespace Formulate.Core.Types
+﻿using Formulate.Core.Types;
+
+namespace Formulate.Core.FormHandlers
 {
     /// <summary>
     /// A contract for implementing form handler type.

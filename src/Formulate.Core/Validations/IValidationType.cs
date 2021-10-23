@@ -1,4 +1,6 @@
-﻿namespace Formulate.Core.Types
+﻿using Formulate.Core.Types;
+
+namespace Formulate.Core.Validations
 {
     /// <summary>
     /// A contract for creating a validation type.

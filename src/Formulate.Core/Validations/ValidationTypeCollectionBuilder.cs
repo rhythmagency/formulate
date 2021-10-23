@@ -1,6 +1,6 @@
 ﻿using Umbraco.Cms.Core.Composing;
 
-namespace Formulate.Core.Types
+namespace Formulate.Core.Validations
 {
     /// <inheritdoc />
     public sealed class ValidationTypeCollectionBuilder : LazyCollectionBuilderBase<ValidationTypeCollectionBuilder, ValidationTypeCollection, IValidationType>

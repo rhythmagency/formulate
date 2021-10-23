@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Umbraco.Cms.Core.Composing;
 
-namespace Formulate.Core.Types
+namespace Formulate.Core.Layouts
 {
     /// <inheritdoc />
     public sealed class LayoutTypeCollection : BuilderCollectionBase<ILayoutType>

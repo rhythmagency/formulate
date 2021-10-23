@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Umbraco.Cms.Core.Composing;
 
-namespace Formulate.Core.Types
+namespace Formulate.Core.FormFields
 {
     /// <inheritdoc />
     public sealed class FormFieldTypeCollection : BuilderCollectionBase<IFormFieldType>

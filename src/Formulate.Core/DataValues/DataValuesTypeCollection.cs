@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Umbraco.Cms.Core.Composing;
 
-namespace Formulate.Core.Types
+namespace Formulate.Core.DataValues
 {
     /// <inheritdoc />
     public sealed class DataValuesTypeCollection : BuilderCollectionBase<IDataValuesType>

@@ -1,6 +1,4 @@
-﻿using Formulate.Core.FormHandlers;
-
-namespace Formulate.Core.Types
+﻿namespace Formulate.Core.FormHandlers
 {
     /// <summary>
     /// An abstract class for creating a form handler type.
