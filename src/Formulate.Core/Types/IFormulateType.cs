@@ -1,13 +1,11 @@
 ﻿namespace Formulate.Core.Types
 {
     using System;
-
-    using Umbraco.Cms.Core.Composing;
-
+    
     /// <summary>
-    /// The underlying discoverable type for other types identified by a Type ID.
+    /// The underlying type for other types identified by a Type ID.
     /// </summary>
-    public interface IFormulateType : IDiscoverable
+    public interface IFormulateType
     {
         /// <summary>
         /// Gets the Type ID.
