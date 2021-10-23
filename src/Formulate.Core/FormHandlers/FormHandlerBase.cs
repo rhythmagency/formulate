@@ -9,29 +9,29 @@ namespace Formulate.Core.FormHandlers
     public abstract class FormHandlerBase : IFormHandler
     {
         /// <summary>
-        /// Gets or sets the type ID.
+        /// Gets the type ID.
         /// </summary>
-        public Guid TypeId { get; set; }
+        public Guid TypeId { get; }
 
         /// <summary>
-        /// Gets or sets the ID.
+        /// Gets the ID.
         /// </summary>
-        public Guid Id { get; set; }
+        public Guid Id { get; }
         
         /// <summary>
-        /// Gets or sets the alias.
+        /// Gets the alias.
         /// </summary>
-        public string Alias { get; set; }
+        public string Alias { get; }
         
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets the name.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; }
         
         /// <summary>
-        /// Gets or sets a value indicating whether this handler is enabled.
+        /// Gets a value indicating whether this handler is enabled.
         /// </summary>
-        public bool Enabled { get; set; }
+        public bool Enabled { get; }
 
         /// <summary>
         /// The raw configuration.
