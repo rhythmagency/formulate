@@ -8,7 +8,7 @@
     public interface IFormulateType
     {
         /// <summary>
-        /// Gets the Type ID.
+        /// Gets the type ID.
         /// </summary>
         Guid TypeId { get; }
     }
