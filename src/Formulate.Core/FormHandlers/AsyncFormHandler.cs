@@ -15,5 +15,13 @@ namespace Formulate.Core.FormHandlers
         /// <param name="cancellationToken">The optional cancellation token to cancel the operation.</param>
         /// <returns>A <see cref="Task"/>.</returns>
         public abstract Task HandleAsync(object submission, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AsyncFormHandler"/> class.
+        /// </summary>
+        /// <param name="settings">The form handler settings.</param>
+        protected AsyncFormHandler(IFormHandlerSettings settings) : base(settings)
+        {
+        }
     }
 }

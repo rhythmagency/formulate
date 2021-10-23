@@ -32,5 +32,38 @@ namespace Formulate.Core.FormHandlers
         /// Gets or sets a value indicating whether this handler is enabled.
         /// </summary>
         public bool Enabled { get; set; }
+
+        /// <summary>
+        /// The raw configuration.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This is for reference only.
+        /// </para>
+        /// <para>
+        /// Deserialization should typically happen in the overriden <see cref="FormHandlerType"/> CreateHandler or the <see cref="AsyncFormHandler"/> CreateAsyncHandler methods.
+        /// </para>
+        /// </remarks>
+        protected readonly string RawConfiguration;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormHandlerBase"/> class.
+        /// </summary>
+        /// <param name="settings">The form handler settings.</param>
+        /// <exception cref="ArgumentNullException">The settings parameter is null.</exception>
+        protected FormHandlerBase(IFormHandlerSettings settings)
+        {
+            if (settings is null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+
+            Id = settings.Id;
+            TypeId = settings.Id;
+            Alias = settings.Alias;
+            Name = settings.Name;
+            Enabled = settings.Enabled;
+            RawConfiguration = settings.Configuration;
+        }
     }
 }
