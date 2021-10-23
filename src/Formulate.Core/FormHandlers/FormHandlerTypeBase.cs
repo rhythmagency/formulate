@@ -8,9 +8,7 @@ namespace Formulate.Core.FormHandlers
     /// <remarks>Do not implement this type directly. Instead implement <see cref="FormHandlerType"/> or <see cref="AsyncFormHandlerType"/>.</remarks>
     public abstract class FormHandlerTypeBase : IFormHandlerType
     {
-        /// <summary>
-        /// Gets the type ID.
-        /// </summary>
+        /// <inheritdoc />
         public abstract Guid TypeId { get; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Formulate.Core.Types;
 
 namespace Formulate.Core.FormHandlers
 {
@@ -6,13 +7,8 @@ namespace Formulate.Core.FormHandlers
     /// A base contract for creating a Form Handler.
     /// </summary>
     /// <remarks>Do not implement this type directly. Instead implement <see cref="FormHandler"/> or <see cref="AsyncFormHandler"/>.</remarks>
-    public interface IFormHandler
+    public interface IFormHandler : IFormulateType
     {
-        /// <summary>
-        /// Gets the type id.
-        /// </summary>
-        Guid TypeId { get; }
-
         /// <summary>
         /// Gets the id.
         /// </summary>
