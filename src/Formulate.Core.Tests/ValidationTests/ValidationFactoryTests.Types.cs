@@ -24,13 +24,11 @@ namespace Formulate.Core.Tests.ValidationTests
 
         private sealed class TestValidationType : IValidationType
         {
-            public Guid TypeId => new Guid(Constants.TestValidationTypeId);
+            public Guid TypeId => Guid.Parse(Constants.TestValidationTypeId);
             
-            public string Icon => "icon-test-field";
-
-            public string TypeLabel => "Test";
+            public string TypeLabel => "Test Validation";
             
-            public string Directive => "formulate-test-field";
+            public string Directive => "formulate-test-validation";
             
             public IValidation CreateValidation(IValidationSettings settings)
             {
