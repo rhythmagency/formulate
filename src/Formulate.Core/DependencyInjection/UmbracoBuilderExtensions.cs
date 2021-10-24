@@ -1,4 +1,5 @@
-﻿using Formulate.Core.FormHandlers;
+﻿using Formulate.Core.FormFields;
+using Formulate.Core.FormHandlers;
 using Umbraco.Cms.Core.DependencyInjection;
 
 namespace Formulate.Core.DependencyInjection
@@ -28,8 +29,8 @@ namespace Formulate.Core.DependencyInjection
         private static IUmbracoBuilder AddFormulateCollections(this IUmbracoBuilder builder)
         {
             builder.DataValuesTypes();
-            builder.FormFieldTypes();
 
+            builder.FormFieldTypes().Add(() => builder.TypeLoader.GetTypes<FormFieldType>());
             builder.FormHandlerTypes().Add(() => builder.TypeLoader.GetTypes<AsyncFormHandlerType>());
             builder.FormHandlerTypes().Add(() => builder.TypeLoader.GetTypes<FormHandlerType>());
 
