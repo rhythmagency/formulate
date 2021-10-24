@@ -79,9 +79,16 @@ namespace Formulate.Core.FormFields
         public IReadOnlyCollection<IValidation> Validations { get; }
 
         /// <summary>
-        /// Gets the category.
+        /// The raw configuration.
         /// </summary>
-
+        /// <remarks>
+        /// <para>
+        /// This is for reference only.
+        /// </para>
+        /// <para>
+        /// Deserialization should typically happen in the overridden <see cref="IFormFieldType"/> CreateField method.
+        /// </para>
+        /// </remarks>
         protected readonly string RawConfiguration;
 
         /// <summary>

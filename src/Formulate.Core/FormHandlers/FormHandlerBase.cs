@@ -39,7 +39,7 @@ namespace Formulate.Core.FormHandlers
         /// This is for reference only.
         /// </para>
         /// <para>
-        /// Deserialization should typically happen in the overriden <see cref="FormHandlerType"/> CreateHandler or the <see cref="AsyncFormHandler"/> CreateAsyncHandler methods.
+        /// Deserialization should typically happen in the overridden <see cref="FormHandlerType"/> CreateHandler or the <see cref="AsyncFormHandler"/> CreateAsyncHandler methods.
         /// </para>
         /// </remarks>
         protected readonly string RawConfiguration;
