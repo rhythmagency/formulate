@@ -43,7 +43,7 @@ namespace Formulate.Core.FormFields.Text
         public override string Icon => Constants.Icon;
 
         /// <inheritdoc />
-        public override Guid TypeId => new Guid(Constants.TypeId);
+        public override Guid TypeId => Guid.Parse(Constants.TypeId);
 
         /// <inheritdoc />
         public override IFormField CreateField(IFormFieldSettings settings)

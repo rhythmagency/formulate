@@ -28,7 +28,7 @@ namespace Formulate.Core.Tests.FormFieldTests
 
         private sealed class TestFormFieldType : FormFieldType
         {
-            public override Guid TypeId => new Guid(Constants.TestFormFieldTypeId);
+            public override Guid TypeId => Guid.Parse(Constants.TestFormFieldTypeId);
 
             public override string TypeLabel => "Text Form Field";
 
