@@ -4,13 +4,18 @@ using Formulate.Core.Types;
 namespace Formulate.Core.Validations
 {
     /// <summary>
-    /// A contract for creating a validation.
+    /// Settings for creating a validation.
     /// </summary>
-    public interface IValidation : IFormulateType
+    public interface IValidationSettings : IFormulateType
     {
         /// <summary>
         /// Gets the ID.
         /// </summary>
         Guid Id { get; }
+
+        /// <summary>
+        /// Gets the configuration.
+        /// </summary>
+        string Configuration { get; }
     }
 }
