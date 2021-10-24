@@ -14,7 +14,7 @@ namespace Formulate.Core.FormHandlers
         private readonly FormHandlerTypeCollection formHandlerTypes;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="FormHandlerFactory"/> class.
         /// </summary>
         /// <param name="formHandlerTypes">The form handler types.</param>
         public FormHandlerFactory(FormHandlerTypeCollection formHandlerTypes)
