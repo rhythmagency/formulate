@@ -11,7 +11,7 @@ namespace Formulate.Core.Validations
         /// <summary>
         /// Gets the name.
         /// </summary>
-        string Name { get; }
+        string TypeLabel { get; }
 
         /// <summary>
         /// Gets the Angular JS directive.

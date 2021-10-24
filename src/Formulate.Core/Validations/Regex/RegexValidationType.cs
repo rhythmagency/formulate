@@ -13,14 +13,14 @@ namespace Formulate.Core.Validations.Regex
         public static class Constants
         {
             /// <summary>
-            /// The Type ID.
+            /// The type ID.
             /// </summary>
             public const string TypeId = "AC9A464F6F3F4AF9A3B29C85FF0C5580";
 
             /// <summary>
-            /// The name.
+            /// The type label.
             /// </summary>
-            public const string Name = "Regular Expression";
+            public const string TypeLabel = "Regular Expression";
 
             /// <summary>
             /// The Angular JS directive.
@@ -32,7 +32,7 @@ namespace Formulate.Core.Validations.Regex
         public Guid TypeId => Guid.Parse(Constants.TypeId);
 
         /// <inheritdoc />
-        public string Name => Constants.Name;
+        public string TypeLabel => Constants.TypeLabel;
 
         /// <inheritdoc />
         public string Directive => Constants.Directive;

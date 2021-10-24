@@ -13,17 +13,17 @@ namespace Formulate.Core.Validations.Mandatory
         public static class Constants
         {
             /// <summary>
-            /// Gets the type ID.
+            /// The type ID.
             /// </summary>
             public const string TypeId = "93957A02633944A193238E8CD754680B";
 
             /// <summary>
-            /// Gets the name.
+            /// The type label.
             /// </summary>
-            public const string Name = "Mandatory";
+            public const string TypeLabel = "Mandatory";
 
             /// <summary>
-            /// Gets the Angular JS directive.
+            /// The Angular JS directive.
             /// </summary>
             public const string Directive = "formulate-validation-mandatory";
         }
@@ -32,7 +32,7 @@ namespace Formulate.Core.Validations.Mandatory
         public Guid TypeId => Guid.Parse(Constants.TypeId);
 
         /// <inheritdoc />
-        public string Name => Constants.Name;
+        public string TypeLabel => Constants.TypeLabel;
 
         /// <inheritdoc />
         public string Directive => Constants.Directive;
