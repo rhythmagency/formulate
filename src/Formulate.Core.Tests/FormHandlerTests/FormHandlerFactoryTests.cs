@@ -64,6 +64,7 @@ namespace Formulate.Core.Tests.FormHandlerTests
 
             // assert
             Assert.IsAssignableFrom<AsyncFormHandler>(handler);
+            Assert.NotEqual(default, handler);
         }
 
         [Fact(DisplayName = "When TypeId matches a Form Handler Type should return a Form Handler")]
@@ -81,8 +82,9 @@ namespace Formulate.Core.Tests.FormHandlerTests
 
             // assert
             Assert.IsAssignableFrom<FormHandler>(handler);
+            Assert.NotEqual(default, handler);
         }
-        
+
         private static IFormHandlerFactory CreateFactory()
         {
             var items = new List<IFormHandlerType>
