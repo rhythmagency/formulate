@@ -3,9 +3,9 @@
 namespace Formulate.Core.Types
 {
     /// <summary>
-    /// The underlying type for entities created by a <see cref="IFormulateType"/>.
+    /// The underlying type for entities created by a <see cref="IType"/>.
     /// </summary>
-    public interface IFormulateTypeEntity
+    public interface ITypeEntity
     {
         /// <summary>
         /// Gets the ID.

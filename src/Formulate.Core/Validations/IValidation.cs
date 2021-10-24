@@ -5,7 +5,7 @@ namespace Formulate.Core.Validations
     /// <summary>
     /// A contract for creating a validation.
     /// </summary>
-    public interface IValidation : IFormulateTypeEntity
+    public interface IValidation : ITypeEntity
     {
     }
 }

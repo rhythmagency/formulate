@@ -6,7 +6,7 @@ namespace Formulate.Core.DataValues
     /// <summary>
     /// A contract for implementing a data values type.
     /// </summary>
-    public interface IDataValuesType : IFormulateType, IDiscoverable
+    public interface IDataValuesType : IType, IDiscoverable
     {
     }
 }

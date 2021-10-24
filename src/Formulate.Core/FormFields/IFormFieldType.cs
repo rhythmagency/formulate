@@ -6,7 +6,7 @@ namespace Formulate.Core.FormFields
     /// <summary>
     /// A contract for implementing a form field type.
     /// </summary>
-    public interface IFormFieldType : IFormulateType, IDiscoverable
+    public interface IFormFieldType : IType, IDiscoverable
     {
         /// <summary>
         /// Gets the type label.

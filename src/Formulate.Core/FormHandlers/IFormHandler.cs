@@ -6,7 +6,7 @@ namespace Formulate.Core.FormHandlers
     /// A base contract for creating a Form Handler.
     /// </summary>
     /// <remarks>Do not implement this type directly. Instead implement <see cref="FormHandler"/> or <see cref="AsyncFormHandler"/>.</remarks>
-    public interface IFormHandler : IFormulateTypeEntity
+    public interface IFormHandler : ITypeEntity
     {
         /// <summary>
         /// Gets the alias.

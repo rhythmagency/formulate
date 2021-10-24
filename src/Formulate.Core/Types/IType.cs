@@ -5,7 +5,7 @@
     /// <summary>
     /// The underlying type for other types identified by a Type ID.
     /// </summary>
-    public interface IFormulateType
+    public interface IType
     {
         /// <summary>
         /// Gets the type ID.

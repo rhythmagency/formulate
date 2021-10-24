@@ -6,7 +6,7 @@ namespace Formulate.Core.Validations
     /// <summary>
     /// A contract for creating a validation type.
     /// </summary>
-    public interface IValidationType : IFormulateType, IDiscoverable
+    public interface IValidationType : IType, IDiscoverable
     {
         /// <summary>
         /// Gets the name.
