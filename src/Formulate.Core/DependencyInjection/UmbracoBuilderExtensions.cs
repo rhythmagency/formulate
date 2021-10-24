@@ -1,11 +1,12 @@
 ﻿using Formulate.Core.FormFields;
 using Formulate.Core.FormHandlers;
+using Formulate.Core.Validations;
 using Umbraco.Cms.Core.DependencyInjection;
 
 namespace Formulate.Core.DependencyInjection
 {
     /// <summary>
-    /// Extension methods that augment startup.
+    /// Extension methods that augment <see cref="IUmbracoBuilder"/>.
     /// </summary>
     public static partial class UmbracoBuilderExtensions
     {
@@ -16,7 +17,9 @@ namespace Formulate.Core.DependencyInjection
         /// <returns>The current <see cref="IUmbracoBuilder"/>.</returns>
         public static IUmbracoBuilder AddFormulateCore(this IUmbracoBuilder builder)
         {
-            builder.AddFormulateCollections();
+            builder.AddFormulateCollections()
+                   .AddFormulateUtilities()
+                   .AddFormulateFactories();
 
             return builder;
         }
@@ -31,11 +34,14 @@ namespace Formulate.Core.DependencyInjection
             builder.DataValuesTypes();
 
             builder.FormFieldTypes().Add(() => builder.TypeLoader.GetTypes<FormFieldType>());
+            
             builder.FormHandlerTypes().Add(() => builder.TypeLoader.GetTypes<AsyncFormHandlerType>());
+            
             builder.FormHandlerTypes().Add(() => builder.TypeLoader.GetTypes<FormHandlerType>());
 
             builder.LayoutTypes();
-            builder.ValidationTypes();
+
+            builder.ValidationTypes().Add(() => builder.TypeLoader.GetTypes<IValidationType>()); ;
 
             return builder;
         }
