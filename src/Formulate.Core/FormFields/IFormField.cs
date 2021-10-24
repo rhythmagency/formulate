@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Formulate.Core.Types;
 using Formulate.Core.Validations;
 
@@ -8,13 +7,8 @@ namespace Formulate.Core.FormFields
     /// <summary>
     /// A contract for creating a form field.
     /// </summary>
-    public interface IFormField : IFormulateType
+    public interface IFormField : IFormulateTypeEntity
     {
-        /// <summary>
-        /// Gets the id.
-        /// </summary>
-        Guid Id { get; }
-
         /// <summary>
         /// Gets the alias.
         /// </summary>

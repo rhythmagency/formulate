@@ -1,16 +1,11 @@
-﻿using System;
-using Formulate.Core.Types;
+﻿using Formulate.Core.Types;
 
 namespace Formulate.Core.Validations
 {
     /// <summary>
     /// A contract for creating a validation.
     /// </summary>
-    public interface IValidation : IFormulateType
+    public interface IValidation : IFormulateTypeEntity
     {
-        /// <summary>
-        /// Gets the ID.
-        /// </summary>
-        Guid Id { get; }
     }
 }
