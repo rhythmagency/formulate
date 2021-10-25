@@ -3,9 +3,9 @@
 namespace Formulate.Core.DataValues.List
 {
     /// <summary>
-    /// An item used by the <see cref="ListConfiguration"/>.
+    /// An item used by the <see cref="ListDataValuesPreValues"/>.
     /// </summary>
-    internal sealed class ListConfigurationItem
+    internal sealed class ListDataValuesPreValuesItem
     {
         /// <summary>
         /// Gets or sets the value.

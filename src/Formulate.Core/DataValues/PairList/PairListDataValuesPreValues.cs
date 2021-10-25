@@ -3,14 +3,14 @@
 namespace Formulate.Core.DataValues.PairList
 {
     /// <summary>
-    /// The configuration used by a <see cref="PairListDataValuesDefinition" />.
+    /// The configuration pre-values used by a <see cref="PairListDataValuesDefinition" />.
     /// </summary>
-    internal sealed class PairListConfiguration
+    internal sealed class PairListDataValuesPreValues
     {
         /// <summary>
         /// Gets or sets the items.
         /// </summary>
         [JsonPropertyName("items")]
-        public PairListConfigurationItem[] Items { get; set; }
+        public PairListDataValuesPreValuesItem[] Items { get; set; }
     }
 }

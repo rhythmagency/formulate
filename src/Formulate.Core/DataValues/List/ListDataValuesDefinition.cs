@@ -6,7 +6,7 @@ using Formulate.Core.Utilities;
 namespace Formulate.Core.DataValues.List
 {
     /// <summary>
-    /// A data values definition for providing US states and territories.
+    /// A data values definition for providing a simple list of values.
     /// </summary>
     public sealed class ListDataValuesDefinition : DataValuesDefinition
     {
@@ -58,11 +58,11 @@ namespace Formulate.Core.DataValues.List
         protected override IDataValues CreateDataValues(IDataValuesSettings settings)
         {
             var items = new List<KeyValuePair<string, string>>();
-            var config = _jsonUtility.Deserialize<ListConfiguration>(settings.Configuration);
+            var preValues = _jsonUtility.Deserialize<ListDataValuesPreValues>(settings.Configuration);
 
-            if (config is not null)
+            if (preValues is not null)
             {
-                items.AddRange(config.Items.Select(x => new KeyValuePair<string, string>(x.Value, x.Value)).ToArray());
+                items.AddRange(preValues.Items.Select(x => new KeyValuePair<string, string>(x.Value, x.Value)).ToArray());
             }
 
             return new DataValues(settings, items);

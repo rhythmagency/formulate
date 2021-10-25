@@ -6,7 +6,7 @@ using Formulate.Core.Utilities;
 namespace Formulate.Core.DataValues.PairList
 {
     /// <summary>
-    /// A data values definition for providing US states and territories.
+    /// A data values definition for providing list of key value pairs.
     /// </summary>
     public sealed class PairListDataValuesDefinition : DataValuesDefinition
     {
@@ -58,11 +58,11 @@ namespace Formulate.Core.DataValues.PairList
         protected override IDataValues CreateDataValues(IDataValuesSettings settings)
         {
             var items = new List<KeyValuePair<string, string>>();
-            var config = _jsonUtility.Deserialize<PairListConfiguration>(settings.Configuration);
+            var preValues = _jsonUtility.Deserialize<PairListDataValuesPreValues>(settings.Configuration);
 
-            if (config is not null)
+            if (preValues is not null)
             {
-                items.AddRange(config.Items.Select(x => new KeyValuePair<string, string>(x.Label, x.Value)).ToArray());
+                items.AddRange(preValues.Items.Select(x => new KeyValuePair<string, string>(x.Label, x.Value)).ToArray());
             }
 
             return new DataValues(settings, items);

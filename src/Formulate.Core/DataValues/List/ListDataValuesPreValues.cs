@@ -3,14 +3,14 @@
 namespace Formulate.Core.DataValues.List
 {
     /// <summary>
-    /// The configuration used by a <see cref="ListDataValuesDefinition" />.
+    /// The configuration pre-values used by a <see cref="ListDataValuesDefinition" />.
     /// </summary>
-    internal sealed class ListConfiguration
+    internal sealed class ListDataValuesPreValues
     {
         /// <summary>
         /// Gets or sets the items.
         /// </summary>
         [JsonPropertyName("items")]
-        public ListConfigurationItem[] Items { get; set; }
+        public ListDataValuesPreValuesItem[] Items { get; set; }
     }
 }
