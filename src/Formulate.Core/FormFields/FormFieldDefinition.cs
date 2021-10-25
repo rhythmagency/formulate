@@ -1,42 +1,24 @@
-﻿using System;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Formulate.Core.DataValues;
 
 namespace Formulate.Core.FormFields
 {
     /// <summary>
-    /// An abstract class for creating a new <see cref="IFormFieldDefinition"/>.
+    /// The abstract class for creating synchronous data values definitions.
     /// </summary>
-    /// <remarks>It is not necessary to implement from this class but it does provide some helpful defaults for certain optional fields.</remarks>
-    public abstract class FormFieldDefinition : IFormFieldDefinition
+    /// <remarks>
+    /// <para>Acts as wrapper for synchronous data value creation.</para>
+    /// <para>All calls are made asynchronously to maintain consistency with asynchronous definitions.</para>
+    /// <para>If your form field intends to make use of <see cref="IDataValues"/> you should use <see cref="IFormFieldDefinition"/> or <see cref="FormFieldDefinitionBase"/> to make an asynchronous call instead.</para>
+    /// </remarks>
+    public abstract class FormFieldDefinition : FormFieldDefinitionBase
     {
-        /// <inheritdoc />
-        public abstract Guid DefinitionId { get; }
-        
-        /// <inheritdoc />
-        public abstract string DefinitionLabel { get; }
+        protected abstract IFormField CreateField(IFormFieldSettings settings);
 
-        /// <inheritdoc />
-        public abstract string Icon { get; }
-
-        /// <inheritdoc />
-        public abstract string Directive { get; }
-
-        /// <inheritdoc />
-        /// <remarks>Defaults to false.</remarks>
-        public virtual bool IsTransitory => false;
-
-        /// <inheritdoc />
-        /// <remarks>Defaults to false.</remarks>
-        public virtual bool IsServerSideOnly => false;
-
-        /// <inheritdoc />
-        /// <remarks>Defaults to false.</remarks>
-        public virtual bool IsHidden => false;
-
-        /// <inheritdoc />
-        /// <remarks>Defaults to true.</remarks>
-        public virtual bool IsStored => true;
-
-        /// <inheritdoc />
-        public abstract IFormField CreateField(IFormFieldSettings settings);
+        public override async Task<IFormField> CreateFieldAsync(IFormFieldSettings settings, CancellationToken cancellationToken = default)
+        {
+            return await Task.Run(() => CreateField(settings), cancellationToken);
+        }
     }
 }

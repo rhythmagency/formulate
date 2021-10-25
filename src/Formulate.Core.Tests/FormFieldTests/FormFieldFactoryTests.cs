@@ -11,18 +11,18 @@ namespace Formulate.Core.Tests.FormFieldTests
     public partial class FormFieldFactoryTests
     {
         [Fact(DisplayName = "When no settings provided should throw an Argument Null Exception")]
-        public void WhenNoSettingsProvidedShouldThrowArgumentNullException()
+        public async Task WhenNoSettingsProvidedShouldThrowArgumentNullException()
         {
             // arrange
             var factory = CreateFactory();
             TestFormFieldSettings settings = default;
 
             // act / asset
-            Assert.Throws<ArgumentNullException>(() => factory.Create(settings));
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await factory.CreateAsync(settings));
         }
 
         [Fact(DisplayName = "When no DefinitionId matches should return Default")]
-        public void WhenNoDefinitionIdMatchesShouldReturnDefault()
+        public async Task WhenNoDefinitionIdMatchesShouldReturnDefault()
         {
             // arrange
             var factory = CreateFactory();
@@ -32,14 +32,14 @@ namespace Formulate.Core.Tests.FormFieldTests
             };
 
             // act
-            var formField = factory.Create(settings);
+            var formField = await factory.CreateAsync(settings);
 
             // assert
             Assert.Equal(default, formField);
         }
 
         [Fact(DisplayName = "When DefinitionId matches a Form Field Definition should return an expected Form Field")]
-        public void WhenDefinitionIdMatchesAFormFieldDefinitionShouldReturnAnExpectedFormField()
+        public async Task WhenDefinitionIdMatchesAFormFieldDefinitionShouldReturnAnExpectedFormField()
         {
             // arrange
             var factory = CreateFactory();
@@ -49,7 +49,7 @@ namespace Formulate.Core.Tests.FormFieldTests
             };
 
             // act
-            var formField = factory.Create(settings);
+            var formField = await factory.CreateAsync(settings);
 
             // assert
             Assert.IsType<TestFormField>(formField);

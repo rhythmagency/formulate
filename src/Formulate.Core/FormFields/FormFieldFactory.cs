@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Formulate.Core.Types;
 
 namespace Formulate.Core.FormFields
@@ -24,7 +26,7 @@ namespace Formulate.Core.FormFields
 
         /// <inheritdoc />
         /// <exception cref="ArgumentNullException">The provided settings are null.</exception>
-        public IFormField Create(IFormFieldSettings settings)
+        public async Task<IFormField> CreateAsync(IFormFieldSettings settings, CancellationToken cancellationToken = default)
         {
             if (settings is null)
             {
@@ -33,7 +35,12 @@ namespace Formulate.Core.FormFields
 
             var foundFormFieldDefinition = _formFieldDefinitions.FirstOrDefault(settings.DefinitionId);
 
-            return foundFormFieldDefinition?.CreateField(settings);
+            if (foundFormFieldDefinition is null)
+            {
+                return default;
+            }
+
+            return await foundFormFieldDefinition.CreateFieldAsync(settings, cancellationToken);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Formulate.Core.FormFields.Button
         public override string Directive => Constants.Directive;
 
         /// <inheritdoc />
-        public override IFormField CreateField(IFormFieldSettings settings)
+        protected override IFormField CreateField(IFormFieldSettings settings)
         {
             var configuration = new ButtonFieldConfiguration()
             {

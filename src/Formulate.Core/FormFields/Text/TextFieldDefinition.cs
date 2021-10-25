@@ -46,7 +46,7 @@ namespace Formulate.Core.FormFields.Text
         public override Guid DefinitionId => Guid.Parse(Constants.DefinitionId);
 
         /// <inheritdoc />
-        public override IFormField CreateField(IFormFieldSettings settings)
+        protected override IFormField CreateField(IFormFieldSettings settings)
         {
             return new TextField(settings);
         }

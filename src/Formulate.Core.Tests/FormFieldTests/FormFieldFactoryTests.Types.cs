@@ -36,7 +36,7 @@ namespace Formulate.Core.Tests.FormFieldTests
 
             public override string Directive => "formulate-test-field";
             
-            public override IFormField CreateField(IFormFieldSettings settings)
+            protected override IFormField CreateField(IFormFieldSettings settings)
             {
                 return new TestFormField(settings);
             }

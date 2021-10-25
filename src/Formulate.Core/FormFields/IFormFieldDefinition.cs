@@ -1,4 +1,6 @@
-﻿using Formulate.Core.Types;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Formulate.Core.Types;
 
 namespace Formulate.Core.FormFields
 {
@@ -33,10 +35,11 @@ namespace Formulate.Core.FormFields
         bool IsStored { get; }
 
         /// <summary>
-        /// Creates a new instance of a <see cref="IFormField"/>.
+        /// Asynchronously creates a new instance of a <see cref="IFormField"/>.
         /// </summary>
         /// <param name="settings">The current form field settings.</param>
+        /// <param name="cancellationToken">The optional cancellation token to cancel the operation.</param>
         /// <returns>A <see cref="IFormField"/>.</returns>
-        IFormField CreateField(IFormFieldSettings settings);
+        Task<IFormField> CreateFieldAsync(IFormFieldSettings settings, CancellationToken cancellationToken = default);
     }
 }

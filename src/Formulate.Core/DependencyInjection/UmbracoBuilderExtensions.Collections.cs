@@ -68,7 +68,7 @@ namespace Formulate.Core.DependencyInjection
         {
             builder.DataValuesDefinitions().Add(() => builder.TypeLoader.GetTypes<IDataValuesDefinition>());
 
-            builder.FormFieldDefinitions().Add(() => builder.TypeLoader.GetTypes<FormFieldDefinition>());
+            builder.FormFieldDefinitions().Add(() => builder.TypeLoader.GetTypes<FormFieldDefinitionBase>());
 
             builder.FormHandlerDefinitions().Add(() => builder.TypeLoader.GetTypes<AsyncFormHandlerDefinition>());
 
