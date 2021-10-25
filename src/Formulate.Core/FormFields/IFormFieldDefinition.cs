@@ -35,7 +35,7 @@ namespace Formulate.Core.FormFields
         /// <summary>
         /// Creates a new instance of a <see cref="IFormField"/>.
         /// </summary>
-        /// <param name="settings">The current form settings.</param>
+        /// <param name="settings">The current form field settings.</param>
         /// <returns>A <see cref="IFormField"/>.</returns>
         IFormField CreateField(IFormFieldSettings settings);
     }

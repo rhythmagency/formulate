@@ -7,6 +7,11 @@ namespace Formulate.Core.Layouts
     /// </summary>
     public interface ILayoutDefinition : IDefinition
     {
+        /// <summary>
+        /// Creates a new instance of a <see cref="ILayout"/>.
+        /// </summary>
+        /// <param name="settings">The current layout settings.</param>
+        /// <returns>A <see cref="ILayout"/>.</returns>
         ILayout CreateLayout(ILayoutSettings settings);
     }
 }
