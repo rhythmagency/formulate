@@ -35,6 +35,7 @@ namespace Formulate.Core.DataValues.UsStates
         /// <inheritdoc />
         public override string DefinitionLabel => Constants.DefinitionLabel;
 
+        /// <inheritdoc />
         public override string Directive => Constants.Directive;
 
         /// <inheritdoc />
