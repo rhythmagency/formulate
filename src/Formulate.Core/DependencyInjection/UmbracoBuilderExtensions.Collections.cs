@@ -74,7 +74,7 @@ namespace Formulate.Core.DependencyInjection
 
             builder.FormHandlerDefinitions().Add(() => builder.TypeLoader.GetTypes<FormHandlerDefinition>());
 
-            builder.LayoutDefinitions();
+            builder.LayoutDefinitions().Add(() => builder.TypeLoader.GetTypes<ILayoutDefinition>());
 
             builder.ValidationDefinitions().Add(() => builder.TypeLoader.GetTypes<IValidationDefinition>()); ;
 
