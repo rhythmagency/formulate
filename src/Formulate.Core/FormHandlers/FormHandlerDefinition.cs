@@ -1,9 +1,9 @@
 ﻿namespace Formulate.Core.FormHandlers
 {
     /// <summary>
-    /// An abstract class for creating a form handler type.
+    /// An abstract class for creating a form handler definition.
     /// </summary>
-    public abstract class FormHandlerType : FormHandlerTypeBase
+    public abstract class FormHandlerDefinition : FormHandlerDefinitionBase
     {
         /// <summary>
         /// Creates a Form Handler.

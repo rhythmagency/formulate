@@ -21,14 +21,14 @@ namespace Formulate.Core.Tests.FormFieldTests
             Assert.Throws<ArgumentNullException>(() => factory.CreateField(settings));
         }
 
-        [Fact(DisplayName = "When no TypeId matches should return Default")]
-        public void WhenNoTypeIdMatchesShouldReturnDefault()
+        [Fact(DisplayName = "When no DefinitionId matches should return Default")]
+        public void WhenNoDefinitionIdMatchesShouldReturnDefault()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestFormFieldSettings()
             {
-                TypeId = Guid.Parse(Constants.MissingFormFieldTypeId)
+                DefinitionId = Guid.Parse(Constants.MissingFormFieldDefinitionId)
             };
 
             // act
@@ -38,14 +38,14 @@ namespace Formulate.Core.Tests.FormFieldTests
             Assert.Equal(default, formField);
         }
 
-        [Fact(DisplayName = "When TypeId matches a Form Field Type should return an expected Form Field")]
-        public void WhenTypeIdMatchesAFormFieldTypeShouldReturnAnExpectedFormField()
+        [Fact(DisplayName = "When DefinitionId matches a Form Field Definition should return an expected Form Field")]
+        public void WhenDefinitionIdMatchesAFormFieldDefinitionShouldReturnAnExpectedFormField()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestFormFieldSettings()
             {
-                TypeId = Guid.Parse(Constants.TestFormFieldTypeId)
+                DefinitionId = Guid.Parse(Constants.TestFormFieldDefinitionId)
             };
 
             // act
@@ -58,12 +58,12 @@ namespace Formulate.Core.Tests.FormFieldTests
 
         private static IFormFieldFactory CreateFactory()
         {
-            var items = new List<IFormFieldType>()
+            var items = new List<IFormFieldDefinition>()
             {
-                new TestFormFieldType()
+                new TestFormFieldDefinition()
             };
 
-            var collection = new FormFieldTypeCollection(() => items);
+            var collection = new FormFieldDefinitionCollection(() => items);
             
             return new FormFieldFactory(collection);
         }

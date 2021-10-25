@@ -1,9 +1,9 @@
 ﻿namespace Formulate.Core.FormHandlers
 {
     /// <summary>
-    /// An abstract class for creating an async form handler type.
+    /// An abstract class for creating an async form handler definition.
     /// </summary>
-    public abstract class AsyncFormHandlerType : FormHandlerTypeBase
+    public abstract class AsyncFormHandlerDefinition : FormHandlerDefinitionBase
     {
         /// <summary>
         /// Creates an Async Form Handler.

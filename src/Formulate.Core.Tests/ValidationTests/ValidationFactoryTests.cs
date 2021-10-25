@@ -18,14 +18,14 @@ namespace Formulate.Core.Tests.ValidationTests
             Assert.Throws<ArgumentNullException>(() => factory.CreateValidation(settings));
         }
 
-        [Fact(DisplayName = "When no TypeId matches should return Default")]
-        public void WhenNoTypeIdMatchesShouldReturnDefault()
+        [Fact(DisplayName = "When no DefinitionId matches should return Default")]
+        public void WhenNoDefinitionIdMatchesShouldReturnDefault()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestValidationSettings()
             {
-                TypeId = Guid.Parse(Constants.MissingValidationTypeId)
+                DefinitionId = Guid.Parse(Constants.MissingValidationDefinitionId)
             };
 
             // act
@@ -35,14 +35,14 @@ namespace Formulate.Core.Tests.ValidationTests
             Assert.Equal(default, validation);
         }
 
-        [Fact(DisplayName = "When TypeId matches a Validation Type should return an expected Validation")]
-        public void WhenTypeIdMatchesAValidationTypeShouldReturnAnExpectedValidation()
+        [Fact(DisplayName = "When DefinitionId matches a Validation Definition should return an expected Validation")]
+        public void WhenDefinitionIdMatchesAValidationDefinitionShouldReturnAnExpectedValidation()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestValidationSettings()
             {
-                TypeId = Guid.Parse(Constants.TestValidationTypeId)
+                DefinitionId = Guid.Parse(Constants.TestValidationDefinitionId)
             };
 
             // act
@@ -55,12 +55,12 @@ namespace Formulate.Core.Tests.ValidationTests
 
         private static IValidationFactory CreateFactory()
         {
-            var items = new List<IValidationType>()
+            var items = new List<IValidationDefinition>()
             {
-                new TestValidationType()
+                new TestValidationDefinition()
             };
 
-            var collection = new ValidationTypeCollection(() => items);
+            var collection = new ValidationDefinitionCollection(() => items);
             
             return new ValidationFactory(collection);
         }

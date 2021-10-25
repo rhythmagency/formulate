@@ -9,14 +9,14 @@ namespace Formulate.Core.Tests.FormFieldTests
     {
         private static class Constants
         {
-            public const string MissingFormFieldTypeId = "8D72D9E68AF44348A2F1FEE138902BA5";
+            public const string MissingFormFieldDefinitionId = "8D72D9E68AF44348A2F1FEE138902BA5";
 
-            public const string TestFormFieldTypeId = "B5BDFE470A07446CACA733EA99B902F4";
+            public const string TestFormFieldDefinitionId = "B5BDFE470A07446CACA733EA99B902F4";
         }
 
         private sealed class TestFormFieldSettings : IFormFieldSettings
         {
-            public Guid TypeId { get; set; }
+            public Guid DefinitionId { get; set; }
             public Guid Id { get; set; }
             public string Alias { get; set; }
             public string Name { get; set; }
@@ -26,11 +26,11 @@ namespace Formulate.Core.Tests.FormFieldTests
             public Guid[] Validations { get; set; }
         }
 
-        private sealed class TestFormFieldType : FormFieldType
+        private sealed class TestFormFieldDefinition : FormFieldDefinition
         {
-            public override Guid TypeId => Guid.Parse(Constants.TestFormFieldTypeId);
+            public override Guid DefinitionId => Guid.Parse(Constants.TestFormFieldDefinitionId);
 
-            public override string TypeLabel => "Text Form Field";
+            public override string DefinitionLabel => "Text Form Field";
 
             public override string Icon => "icon-test-field";
 

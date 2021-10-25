@@ -3,24 +3,24 @@
 namespace Formulate.Core.FormFields.Button
 {
     /// <summary>
-    /// The form field type used to create <see cref="ButtonField"/>.
+    /// The form field definition used to create <see cref="ButtonField"/>.
     /// </summary>
-    public sealed class ButtonFieldType : FormFieldType
+    public sealed class ButtonFieldDefinition : FormFieldDefinition
     {
         /// <summary>
-        /// Constants related to <see cref="ButtonFieldType"/>.
+        /// Constants related to <see cref="ButtonFieldDefinition"/>.
         /// </summary>
         public static class Constants
         {
             /// <summary>
-            /// The type id.
+            /// The definition id.
             /// </summary>
-            public const string TypeId = "CDE8565C5E9241129A1F7FFA1940C53C";
+            public const string DefinitionId = "CDE8565C5E9241129A1F7FFA1940C53C";
 
             /// <summary>
-            /// The type label.
+            /// The definition label.
             /// </summary>
-            public const string TypeLabel = "Button";
+            public const string DefinitionLabel = "Button";
 
             /// <summary>
             /// The icon.
@@ -34,13 +34,13 @@ namespace Formulate.Core.FormFields.Button
         }
 
         /// <inheritdoc />
-        public override Guid TypeId => Guid.Parse(Constants.TypeId);
+        public override Guid DefinitionId => Guid.Parse(Constants.DefinitionId);
 
         /// <inheritdoc />
         public override string Icon => Constants.Icon;
 
         /// <inheritdoc />
-        public override string TypeLabel => Constants.TypeLabel;
+        public override string DefinitionLabel => Constants.DefinitionLabel;
 
         /// <inheritdoc />
         public override string Directive => Constants.Directive;

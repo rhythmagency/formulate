@@ -18,14 +18,14 @@ namespace Formulate.Core.Tests.FormHandlerTests
             Assert.Throws<ArgumentNullException>(() => factory.CreateHandler(settings));
         }
 
-        [Fact(DisplayName = "When no TypeId matches should return Default")]
-        public void WhenNoTypeIdMatchesShouldReturnDefault()
+        [Fact(DisplayName = "When no DefinitionId matches should return Default")]
+        public void WhenNoDefinitionIdMatchesShouldReturnDefault()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestFormHandlerSettings()
             {
-                TypeId = Guid.Parse(Constants.MissingFormHandlerTypeId)
+                DefinitionId = Guid.Parse(Constants.MissingFormHandlerDefinitionId)
             };
 
             // act
@@ -35,28 +35,28 @@ namespace Formulate.Core.Tests.FormHandlerTests
             Assert.Equal(default, handler);
         }
 
-        [Fact(DisplayName = "When TypeId matches an unsupported Form Handler Type should throw a Not Supported Exception")]
-        public void WhenTypeIdMatchesAnUnsupportedFormHandlerTypeShouldThrowException()
+        [Fact(DisplayName = "When DefinitionId matches an unsupported Form Handler Definition should throw a Not Supported Exception")]
+        public void WhenDefinitionIdMatchesAnUnsupportedFormHandlerDefinitionShouldThrowException()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestFormHandlerSettings()
             {
-                TypeId = Guid.Parse(Constants.TestUnsupportedFormHandlerTypeId)
+                DefinitionId = Guid.Parse(Constants.TestUnsupportedFormHandlerDefinitionId)
             };
 
             // act / assert
             Assert.Throws<NotSupportedException>(() => factory.CreateHandler(settings));
         }
 
-        [Fact(DisplayName = "When TypeId matches an Async Form Handler Type should return an Async Form Handler")]
-        public void WhenTypeIdMatchesAnAsyncFormHandlerTypeShouldReturnAnAsyncFormHandler()
+        [Fact(DisplayName = "When DefinitionId matches an Async Form Handler Definition should return an Async Form Handler")]
+        public void WhenDefinitionIdMatchesAnAsyncFormHandlerDefinitionShouldReturnAnAsyncFormHandler()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestFormHandlerSettings()
             {
-                TypeId = Guid.Parse(Constants.TestAsyncFormHandlerTypeId)
+                DefinitionId = Guid.Parse(Constants.TestAsyncFormHandlerDefinitionId)
             };
             
             // act
@@ -67,14 +67,14 @@ namespace Formulate.Core.Tests.FormHandlerTests
             Assert.NotEqual(default, handler);
         }
 
-        [Fact(DisplayName = "When TypeId matches a Form Handler Type should return a Form Handler")]
-        public void WhenTypeIdMatchesAFormHandlerTypeShouldReturnAFormHandler()
+        [Fact(DisplayName = "When DefinitionId matches a Form Handler Definition should return a Form Handler")]
+        public void WhenDefinitionIdMatchesAFormHandlerDefinitionShouldReturnAFormHandler()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestFormHandlerSettings()
             {
-                TypeId = Guid.Parse(Constants.TestFormHandlerTypeId)
+                DefinitionId = Guid.Parse(Constants.TestFormHandlerDefinitionId)
             };
 
             // act
@@ -87,14 +87,14 @@ namespace Formulate.Core.Tests.FormHandlerTests
 
         private static IFormHandlerFactory CreateFactory()
         {
-            var items = new List<IFormHandlerType>
+            var items = new List<IFormHandlerDefinition>
             {
-                new TestAsyncFormHandlerType(), 
-                new TestFormHandlerType(), 
-                new TestUnsupportedFormHandlerType()
+                new TestAsyncFormHandlerDefinition(), 
+                new TestFormHandlerDefinition(), 
+                new TestUnsupportedFormHandlerDefinition()
             };
 
-            var collection = new FormHandlerTypeCollection(() => items);
+            var collection = new FormHandlerDefinitionCollection(() => items);
 
             return new FormHandlerFactory(collection);
         }

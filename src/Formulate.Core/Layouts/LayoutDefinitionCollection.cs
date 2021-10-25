@@ -5,15 +5,15 @@ using Umbraco.Cms.Core.Composing;
 namespace Formulate.Core.Layouts
 {
     /// <inheritdoc />
-    public sealed class LayoutTypeCollection : BuilderCollectionBase<ILayoutType>
+    public sealed class LayoutDefinitionCollection : BuilderCollectionBase<ILayoutDefinition>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="LayoutTypeCollection"/> class.
+        /// Initializes a new instance of the <see cref="LayoutDefinitionCollection"/> class.
         /// </summary>
         /// <param name="items">
         /// The items.
         /// </param>
-        public LayoutTypeCollection(Func<IEnumerable<ILayoutType>> items)
+        public LayoutDefinitionCollection(Func<IEnumerable<ILayoutDefinition>> items)
             : base(items)
         {
         }

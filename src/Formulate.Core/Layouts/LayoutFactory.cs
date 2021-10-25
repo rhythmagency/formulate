@@ -4,22 +4,22 @@ using Formulate.Core.Types;
 namespace Formulate.Core.Layouts
 {
     /// <summary>
-    /// The default implementation of <see cref="ILayoutFactory"/> using the <see cref="LayoutTypeCollection"/>.
+    /// The default implementation of <see cref="ILayoutFactory"/> using the <see cref="LayoutDefinitionCollection"/>.
     /// </summary>
     public sealed class LayoutFactory : ILayoutFactory
     {
         /// <summary>
-        /// The layout types.
+        /// The layout definitions.
         /// </summary>
-        private readonly LayoutTypeCollection layoutTypes;
+        private readonly LayoutDefinitionCollection _layoutDefinitions;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LayoutFactory"/> class.
         /// </summary>
-        /// <param name="layoutTypes">The layout types.</param>
-        public LayoutFactory(LayoutTypeCollection layoutTypes)
+        /// <param name="layoutDefinitions">The layout definitions.</param>
+        public LayoutFactory(LayoutDefinitionCollection layoutDefinitions)
         {
-            this.layoutTypes = layoutTypes;
+            _layoutDefinitions = layoutDefinitions;
         }
 
         /// <inheritdoc />
@@ -31,9 +31,9 @@ namespace Formulate.Core.Layouts
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            var foundLayoutType = layoutTypes.FirstOrDefault(settings.TypeId);
+            var foundLayoutDefinition = _layoutDefinitions.FirstOrDefault(settings.DefinitionId);
 
-            return foundLayoutType?.CreateLayout(settings);
+            return foundLayoutDefinition?.CreateLayout(settings);
         }
     }
 }

@@ -4,14 +4,14 @@ using Umbraco.Cms.Core.Composing;
 namespace Formulate.Core.FormFields
 {
     /// <summary>
-    /// A contract for implementing a form field type.
+    /// A contract for implementing a form field definition.
     /// </summary>
-    public interface IFormFieldType : IType, IDiscoverable
+    public interface IFormFieldDefinition : IDefinition, IDiscoverable
     {
         /// <summary>
-        /// Gets the type label.
+        /// Gets the definition label.
         /// </summary>
-        string TypeLabel { get; }
+        string DefinitionLabel { get; }
 
         /// <summary>
         /// Gets the icon.
@@ -24,22 +24,22 @@ namespace Formulate.Core.FormFields
         string Directive { get; }
 
         /// <summary>
-        /// Gets a value indicating whether this field type is transitory.
+        /// Gets a value indicating whether this field definition is transitory.
         /// </summary>
         bool IsTransitory { get; }
 
         /// <summary>
-        /// Gets a value indicating whether this field type is server side only.
+        /// Gets a value indicating whether this field definition is server side only.
         /// </summary>
         bool IsServerSideOnly { get; }
 
         /// <summary>
-        /// Gets a value indicating whether this field type is hidden.
+        /// Gets a value indicating whether this field definition is hidden.
         /// </summary>
         bool IsHidden { get; }
 
         /// <summary>
-        /// Gets a value indicating whether this field type is stored.
+        /// Gets a value indicating whether this field definition is stored.
         /// </summary>
         bool IsStored { get; }
 

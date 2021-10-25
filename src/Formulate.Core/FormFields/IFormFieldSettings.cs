@@ -6,7 +6,7 @@ namespace Formulate.Core.FormFields
     /// <summary>
     /// Settings for creating a form field.
     /// </summary>
-    public interface IFormFieldSettings : ITypeEntitySettings
+    public interface IFormFieldSettings : IEntitySettings
     {
         /// <summary>
         /// Gets the alias.

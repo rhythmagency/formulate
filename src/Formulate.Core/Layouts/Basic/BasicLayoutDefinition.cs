@@ -3,24 +3,24 @@
 namespace Formulate.Core.Layouts.Basic
 {
     /// <summary>
-    /// A layout type for creating <see cref="BasicLayout"/>.
+    /// A layout definition for creating <see cref="BasicLayout"/>.
     /// </summary>
-    public sealed class BasicLayoutType : ILayoutType
+    public sealed class BasicLayoutDefinition : ILayoutDefinition
     {
         /// <summary>
-        /// Constants related to <see cref="BasicLayoutType"/>.
+        /// Constants related to <see cref="BasicLayoutDefinition"/>.
         /// </summary>
         public static class Constants
         {
             /// <summary>
-            /// The type ID.
+            /// The definition ID.
             /// </summary>
-            public const string TypeId = "B03310E9320744DCBE96BE0CF4F26C59";
+            public const string DefinitionId = "B03310E9320744DCBE96BE0CF4F26C59";
 
             /// <summary>
-            /// The type label.
+            /// The definition label.
             /// </summary>
-            public const string TypeLabel = "Basic Layout";
+            public const string DefinitionLabel = "Basic Layout";
 
             /// <summary>
             /// The Angular JS directive.
@@ -29,10 +29,10 @@ namespace Formulate.Core.Layouts.Basic
         }
 
         /// <inheritdoc />
-        public Guid TypeId => Guid.Parse(Constants.TypeId);
+        public Guid DefinitionId => Guid.Parse(Constants.DefinitionId);
 
         /// <inheritdoc />
-        public string TypeLabel => Constants.TypeLabel;
+        public string DefinitionLabel => Constants.DefinitionLabel;
 
         /// <inheritdoc />
         public string Directive => Constants.Directive;

@@ -3,24 +3,24 @@
 namespace Formulate.Core.Validations.Regex
 {
     /// <summary>
-    /// The validation type used to create <see cref="RegexValidation"/>.
+    /// The validation definition used to create <see cref="RegexValidation"/>.
     /// </summary>
-    public sealed class RegexValidationType : IValidationType
+    public sealed class RegexValidationDefinition : IValidationDefinition
     {
         /// <summary>
-        /// Constants related to <see cref="RegexValidationType"/>.
+        /// Constants related to <see cref="RegexValidationDefinition"/>.
         /// </summary>
         public static class Constants
         {
             /// <summary>
-            /// The type ID.
+            /// The definition ID.
             /// </summary>
-            public const string TypeId = "AC9A464F6F3F4AF9A3B29C85FF0C5580";
+            public const string DefinitionId = "AC9A464F6F3F4AF9A3B29C85FF0C5580";
 
             /// <summary>
-            /// The type label.
+            /// The definition label.
             /// </summary>
-            public const string TypeLabel = "Regular Expression";
+            public const string DefinitionLabel = "Regular Expression";
 
             /// <summary>
             /// The Angular JS directive.
@@ -29,10 +29,10 @@ namespace Formulate.Core.Validations.Regex
         }
 
         /// <inheritdoc />
-        public Guid TypeId => Guid.Parse(Constants.TypeId);
+        public Guid DefinitionId => Guid.Parse(Constants.DefinitionId);
 
         /// <inheritdoc />
-        public string TypeLabel => Constants.TypeLabel;
+        public string DefinitionLabel => Constants.DefinitionLabel;
 
         /// <inheritdoc />
         public string Directive => Constants.Directive;

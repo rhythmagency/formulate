@@ -4,11 +4,11 @@ using Umbraco.Cms.Core.Composing;
 namespace Formulate.Core.Layouts
 {
     /// <summary>
-    /// A contract for creating a layout type.
+    /// A contract for creating a layout definition.
     /// </summary>
-    public interface ILayoutType : IType, IDiscoverable
+    public interface ILayoutDefinition : IDefinition, IDiscoverable
     {
-        string TypeLabel { get; }
+        string DefinitionLabel { get; }
 
         string Directive { get; }
 

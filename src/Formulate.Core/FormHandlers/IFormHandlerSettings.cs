@@ -6,7 +6,7 @@ namespace Formulate.Core.FormHandlers
     /// <summary>
     /// Settings for creating a form handler.
     /// </summary>
-    public interface IFormHandlerSettings : ITypeEntitySettings
+    public interface IFormHandlerSettings : IEntitySettings
     {
         /// <summary>
         /// Gets the alias.

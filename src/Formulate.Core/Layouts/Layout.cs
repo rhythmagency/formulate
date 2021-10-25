@@ -5,7 +5,7 @@ namespace Formulate.Core.Layouts
     /// <summary>
     /// The extended base class for a layout with a configuration.
     /// </summary>
-    /// <typeparam name="TConfig">The type of the layout configuration.</typeparam>
+    /// <definitionparam name="TConfig">The definition of the layout configuration.</definitionparam>
     public abstract class Layout<TConfig> : Layout
     {
         /// <summary>
@@ -31,7 +31,7 @@ namespace Formulate.Core.Layouts
     public abstract class Layout : ILayout
     {
         /// <inheritdoc />
-        public Guid TypeId { get; }
+        public Guid DefinitionId { get; }
 
         /// <inheritdoc />
         public Guid Id { get; }
@@ -54,7 +54,7 @@ namespace Formulate.Core.Layouts
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            TypeId = settings.TypeId;
+            DefinitionId = settings.DefinitionId;
             Id = settings.Id;
             Directive = settings.Directive;
             Name = settings.Name;

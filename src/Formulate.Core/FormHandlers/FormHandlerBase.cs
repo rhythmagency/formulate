@@ -5,11 +5,11 @@ namespace Formulate.Core.FormHandlers
     /// <summary>
     /// The base class for all form handlers.
     /// </summary>
-    /// <remarks>Do not implement this type directly. Instead implement <see cref="FormHandler"/> or <see cref="AsyncFormHandler"/>.</remarks>
+    /// <remarks>Do not implement this definition directly. Instead implement <see cref="FormHandler"/> or <see cref="AsyncFormHandler"/>.</remarks>
     public abstract class FormHandlerBase : IFormHandler
     {
         /// <inheritdoc />
-        public Guid TypeId { get; }
+        public Guid DefinitionId { get; }
 
         /// <summary>
         /// Gets the ID.
@@ -39,7 +39,7 @@ namespace Formulate.Core.FormHandlers
         /// This is for reference only.
         /// </para>
         /// <para>
-        /// Deserialization should typically happen in the overridden <see cref="FormHandlerType"/> CreateHandler or the <see cref="AsyncFormHandler"/> CreateAsyncHandler methods.
+        /// Deserialization should typically happen in the overridden <see cref="FormHandlerDefinition"/> CreateHandler or the <see cref="AsyncFormHandler"/> CreateAsyncHandler methods.
         /// </para>
         /// </remarks>
         protected readonly string RawConfiguration;
@@ -57,7 +57,7 @@ namespace Formulate.Core.FormHandlers
             }
 
             Id = settings.Id;
-            TypeId = settings.Id;
+            DefinitionId = settings.Id;
             Alias = settings.Alias;
             Name = settings.Name;
             Enabled = settings.Enabled;

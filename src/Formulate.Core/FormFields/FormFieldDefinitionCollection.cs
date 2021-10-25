@@ -5,15 +5,15 @@ using Umbraco.Cms.Core.Composing;
 namespace Formulate.Core.FormFields
 {
     /// <inheritdoc />
-    public sealed class FormFieldTypeCollection : BuilderCollectionBase<IFormFieldType>
+    public sealed class FormFieldDefinitionCollection : BuilderCollectionBase<IFormFieldDefinition>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FormFieldTypeCollection"/> class.
+        /// Initializes a new instance of the <see cref="FormFieldDefinitionCollection"/> class.
         /// </summary>
         /// <param name="items">
         /// The items.
         /// </param>
-        public FormFieldTypeCollection(Func<IEnumerable<IFormFieldType>> items)
+        public FormFieldDefinitionCollection(Func<IEnumerable<IFormFieldDefinition>> items)
             : base(items)
         {
         }

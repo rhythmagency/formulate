@@ -5,15 +5,15 @@ using Umbraco.Cms.Core.Composing;
 namespace Formulate.Core.FormHandlers
 {
     /// <inheritdoc />
-    public sealed class FormHandlerTypeCollection : BuilderCollectionBase<IFormHandlerType>
+    public sealed class FormHandlerDefinitionCollection : BuilderCollectionBase<IFormHandlerDefinition>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FormHandlerTypeCollection"/> class.
+        /// Initializes a new instance of the <see cref="FormHandlerDefinitionCollection"/> class.
         /// </summary>
         /// <param name="items">
         /// The items.
         /// </param>
-        public FormHandlerTypeCollection(Func<IEnumerable<IFormHandlerType>> items)
+        public FormHandlerDefinitionCollection(Func<IEnumerable<IFormHandlerDefinition>> items)
             : base(items)
         {
         }

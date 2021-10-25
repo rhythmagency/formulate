@@ -5,15 +5,15 @@ using Umbraco.Cms.Core.Composing;
 namespace Formulate.Core.DataValues
 {
     /// <inheritdoc />
-    public sealed class DataValuesTypeCollection : BuilderCollectionBase<IDataValuesType>
+    public sealed class DataValuesDefinitionCollection : BuilderCollectionBase<IDataValuesDefinition>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataValuesTypeCollection"/> class.
+        /// Initializes a new instance of the <see cref="DataValuesDefinitionCollection"/> class.
         /// </summary>
         /// <param name="items">
         /// The items.
         /// </param>
-        public DataValuesTypeCollection(Func<IEnumerable<IDataValuesType>> items)
+        public DataValuesDefinitionCollection(Func<IEnumerable<IDataValuesDefinition>> items)
             : base(items)
         {
         }

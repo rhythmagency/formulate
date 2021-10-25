@@ -7,7 +7,7 @@ namespace Formulate.Core.FormFields
     /// <summary>
     /// The extended base class for form fields with a configuration.
     /// </summary>
-    /// <typeparam name="TConfig">The type of the form field configuration.</typeparam>
+    /// <definitionparam name="TConfig">The definition of the form field configuration.</definitionparam>
     public abstract class FormField<TConfig> : FormField
     {
         /// <summary>
@@ -32,7 +32,7 @@ namespace Formulate.Core.FormFields
         /// <param name="settings">The form field settings.</param>
         /// <param name="validations">The validations.</param>
         /// <param name="configuration">The form field configuration.</param>
-        /// <typeparam name="TConfig">The type of the form field configuration.</typeparam>
+        /// <definitionparam name="TConfig">The definition of the form field configuration.</definitionparam>
         /// <exception cref="ArgumentNullException">The settings parameter is null.</exception>
         protected FormField(IFormFieldSettings settings, IReadOnlyCollection<IValidation> validations, TConfig configuration) : base(settings, validations)
         {
@@ -46,7 +46,7 @@ namespace Formulate.Core.FormFields
     public abstract class FormField : IFormField
     {
         /// <inheritdoc />
-        public Guid TypeId { get; }
+        public Guid DefinitionId { get; }
 
         /// <summary>
         /// Gets the id.
@@ -86,7 +86,7 @@ namespace Formulate.Core.FormFields
         /// This is for reference only.
         /// </para>
         /// <para>
-        /// Deserialization should typically happen in the overridden <see cref="IFormFieldType"/> CreateField method.
+        /// Deserialization should typically happen in the overridden <see cref="IFormFieldDefinition"/> CreateField method.
         /// </para>
         /// </remarks>
         protected readonly string RawConfiguration;
@@ -113,7 +113,7 @@ namespace Formulate.Core.FormFields
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            TypeId = settings.TypeId;
+            DefinitionId = settings.DefinitionId;
             Id = settings.Id;
             Alias = settings.Alias;
             Name = settings.Name;

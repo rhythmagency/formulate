@@ -5,7 +5,7 @@ namespace Formulate.Core.Layouts
     /// <summary>
     /// A contract for creating a layout.
     /// </summary>
-    public interface ILayout : ITypeEntity
+    public interface ILayout : IEntity
     {
         /// <summary>
         /// Gets the name.

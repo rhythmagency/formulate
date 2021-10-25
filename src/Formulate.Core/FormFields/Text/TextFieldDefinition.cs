@@ -3,24 +3,24 @@
 namespace Formulate.Core.FormFields.Text
 {
     /// <summary>
-    /// A text form field type.
+    /// A text form field definition.
     /// </summary>
-    public sealed class TextFieldType : FormFieldType
+    public sealed class TextFieldDefinition : FormFieldDefinition
     {
         /// <summary>
-        /// Constants related to <see cref="TextFieldType"/>.
+        /// Constants related to <see cref="TextFieldDefinition"/>.
         /// </summary>
         public static class Constants
         {
             /// <summary>
-            /// The type id.
+            /// The definition id.
             /// </summary>
-            public const string TypeId = "1790658086EA440BBC309E1B099F803B";
+            public const string DefinitionId = "1790658086EA440BBC309E1B099F803B";
 
             /// <summary>
-            /// The type label.
+            /// The definition label.
             /// </summary>
-            public const string TypeLabel = "Text";
+            public const string DefinitionLabel = "Text";
 
             /// <summary>
             /// The icon.
@@ -37,13 +37,13 @@ namespace Formulate.Core.FormFields.Text
         public override string Directive => Constants.Directive;
 
         /// <inheritdoc />
-        public override string TypeLabel => Constants.TypeLabel;
+        public override string DefinitionLabel => Constants.DefinitionLabel;
 
         /// <inheritdoc />
         public override string Icon => Constants.Icon;
 
         /// <inheritdoc />
-        public override Guid TypeId => Guid.Parse(Constants.TypeId);
+        public override Guid DefinitionId => Guid.Parse(Constants.DefinitionId);
 
         /// <inheritdoc />
         public override IFormField CreateField(IFormFieldSettings settings)

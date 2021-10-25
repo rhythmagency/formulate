@@ -4,14 +4,14 @@ using Umbraco.Cms.Core.Composing;
 namespace Formulate.Core.Validations
 {
     /// <summary>
-    /// A contract for creating a validation type.
+    /// A contract for creating a validation definition.
     /// </summary>
-    public interface IValidationType : IType, IDiscoverable
+    public interface IValidationDefinition : IDefinition, IDiscoverable
     {
         /// <summary>
         /// Gets the name.
         /// </summary>
-        string TypeLabel { get; }
+        string DefinitionLabel { get; }
 
         /// <summary>
         /// Gets the Angular JS directive.

@@ -18,14 +18,14 @@ namespace Formulate.Core.Tests.LayoutTests
             Assert.Throws<ArgumentNullException>(() => factory.CreateLayout(settings));
         }
 
-        [Fact(DisplayName = "When no TypeId matches should return Default")]
-        public void WhenNoTypeIdMatchesShouldReturnDefault()
+        [Fact(DisplayName = "When no DefinitionId matches should return Default")]
+        public void WhenNoDefinitionIdMatchesShouldReturnDefault()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestLayoutSettings()
             {
-                TypeId = Guid.Parse(Constants.MissingLayoutTypeId)
+                DefinitionId = Guid.Parse(Constants.MissingLayoutDefinitionId)
             };
 
             // act
@@ -35,14 +35,14 @@ namespace Formulate.Core.Tests.LayoutTests
             Assert.Equal(default, layout);
         }
 
-        [Fact(DisplayName = "When TypeId matches a Layout Type should return an expected Layout")]
-        public void WhenTypeIdMatchesALayoutTypeShouldReturnAnExpectedLayout()
+        [Fact(DisplayName = "When DefinitionId matches a Layout Definition should return an expected Layout")]
+        public void WhenDefinitionIdMatchesALayoutDefinitionShouldReturnAnExpectedLayout()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestLayoutSettings()
             {
-                TypeId = Guid.Parse(Constants.TestLayoutTypeId)
+                DefinitionId = Guid.Parse(Constants.TestLayoutDefinitionId)
             };
 
             // act
@@ -55,12 +55,12 @@ namespace Formulate.Core.Tests.LayoutTests
 
         private static ILayoutFactory CreateFactory()
         {
-            var items = new List<ILayoutType>()
+            var items = new List<ILayoutDefinition>()
             {
-                new TestLayoutType()
+                new TestLayoutDefinition()
             };
 
-            var collection = new LayoutTypeCollection(() => items);
+            var collection = new LayoutDefinitionCollection(() => items);
             
             return new LayoutFactory(collection);
         }

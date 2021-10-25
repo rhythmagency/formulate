@@ -5,15 +5,15 @@ using Umbraco.Cms.Core.Composing;
 namespace Formulate.Core.Validations
 {
     /// <inheritdoc />
-    public sealed class ValidationTypeCollection : BuilderCollectionBase<IValidationType>
+    public sealed class ValidationDefinitionCollection : BuilderCollectionBase<IValidationDefinition>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValidationTypeCollection"/> class.
+        /// Initializes a new instance of the <see cref="ValidationDefinitionCollection"/> class.
         /// </summary>
         /// <param name="items">
         /// The items.
         /// </param>
-        public ValidationTypeCollection(Func<IEnumerable<IValidationType>> items)
+        public ValidationDefinitionCollection(Func<IEnumerable<IValidationDefinition>> items)
             : base(items)
         {
         }

@@ -4,27 +4,27 @@ using Formulate.Core.Types;
 namespace Formulate.Core.FormHandlers
 {
     /// <summary>
-    /// The default implementation of <see cref="IFormHandlerFactory"/> using the <see cref="FormHandlerTypeCollection"/>.
+    /// The default implementation of <see cref="IFormHandlerFactory"/> using the <see cref="FormHandlerDefinitionCollection"/>.
     /// </summary>
     internal sealed class FormHandlerFactory : IFormHandlerFactory
     {
         /// <summary>
-        /// The form handler types.
+        /// The form handler definitions.
         /// </summary>
-        private readonly FormHandlerTypeCollection formHandlerTypes;
+        private readonly FormHandlerDefinitionCollection _formHandlerDefinitions;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormHandlerFactory"/> class.
         /// </summary>
-        /// <param name="formHandlerTypes">The form handler types.</param>
-        public FormHandlerFactory(FormHandlerTypeCollection formHandlerTypes)
+        /// <param name="formHandlerDefinitions">The form handler definitions.</param>
+        public FormHandlerFactory(FormHandlerDefinitionCollection formHandlerDefinitions)
         {
-            this.formHandlerTypes = formHandlerTypes;
+            _formHandlerDefinitions = formHandlerDefinitions;
         }
 
         /// <inheritdoc />
         /// <exception cref="ArgumentNullException">The provided settings are null.</exception>
-        /// <exception cref="NotSupportedException">The matched form type handler is not supported.</exception>
+        /// <exception cref="NotSupportedException">The matched form definition handler is not supported.</exception>
         public IFormHandler CreateHandler(IFormHandlerSettings settings)
         {
             if (settings is null)
@@ -32,24 +32,24 @@ namespace Formulate.Core.FormHandlers
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            var foundFormHandlerType = formHandlerTypes.FirstOrDefault(settings.TypeId);
+            var foundFormHandlerDefinition = _formHandlerDefinitions.FirstOrDefault(settings.DefinitionId);
 
-            if (foundFormHandlerType is null)
+            if (foundFormHandlerDefinition is null)
             {
                 return default;
             }
 
-            if (foundFormHandlerType is AsyncFormHandlerType asyncFormHandlerType)
+            if (foundFormHandlerDefinition is AsyncFormHandlerDefinition asyncFormHandlerDefinition)
             {
-                return asyncFormHandlerType.CreateAsyncHandler(settings);
+                return asyncFormHandlerDefinition.CreateAsyncHandler(settings);
             }
 
-            if (foundFormHandlerType is FormHandlerType formHandlerType)
+            if (foundFormHandlerDefinition is FormHandlerDefinition formHandlerDefinition)
             {
-                return formHandlerType.CreateHandler(settings);
+                return formHandlerDefinition.CreateHandler(settings);
             }
 
-            throw new NotSupportedException($"{foundFormHandlerType} does not match a valid form handler type.");
+            throw new NotSupportedException($"{foundFormHandlerDefinition} does not match a valid form handler definition.");
         }
     }
 }

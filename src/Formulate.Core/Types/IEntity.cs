@@ -3,19 +3,18 @@
 namespace Formulate.Core.Types
 {
     /// <summary>
-    /// The underlying type for entities created by a <see cref="IType"/>.
+    /// The underlying definition for entities created by a <see cref="IDefinition"/>.
     /// </summary>
-    public interface ITypeEntity
+    public interface IEntity
     {
         /// <summary>
         /// Gets the ID.
         /// </summary>
         Guid Id { get; }
 
-
         /// <summary>
-        /// Gets the type ID.
+        /// Gets the definition ID.
         /// </summary>
-        Guid TypeId { get; }
+        Guid DefinitionId { get; }
     }
 }

@@ -7,7 +7,7 @@ namespace Formulate.Core.FormFields
     /// <summary>
     /// A contract for creating a form field.
     /// </summary>
-    public interface IFormField : ITypeEntity
+    public interface IFormField : IEntity
     {
         /// <summary>
         /// Gets the alias.

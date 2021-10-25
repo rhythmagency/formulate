@@ -4,22 +4,22 @@ using Formulate.Core.Types;
 namespace Formulate.Core.Validations
 {
     /// <summary>
-    /// The default implementation of <see cref="IValidationFactory"/> using the <see cref="ValidationTypeCollection"/>.
+    /// The default implementation of <see cref="IValidationFactory"/> using the <see cref="ValidationDefinitionCollection"/>.
     /// </summary>
     public sealed class ValidationFactory : IValidationFactory
     {
         /// <summary>
-        /// The validation types.
+        /// The validation definitions.
         /// </summary>
-        private readonly ValidationTypeCollection validationTypes;
+        private readonly ValidationDefinitionCollection _validationDefinitions;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidationFactory"/> class.
         /// </summary>
-        /// <param name="validationTypes">The validation types.</param>
-        public ValidationFactory(ValidationTypeCollection validationTypes)
+        /// <param name="validationDefinitions">The validation definitions.</param>
+        public ValidationFactory(ValidationDefinitionCollection validationDefinitions)
         {
-            this.validationTypes = validationTypes;
+            _validationDefinitions = validationDefinitions;
         }
 
         /// <inheritdoc />
@@ -31,9 +31,9 @@ namespace Formulate.Core.Validations
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            var foundValidationType = validationTypes.FirstOrDefault(settings.TypeId);
+            var foundValidationDefinition = _validationDefinitions.FirstOrDefault(settings.DefinitionId);
 
-            return foundValidationType?.CreateValidation(settings);
+            return foundValidationDefinition?.CreateValidation(settings);
         }
     }
 }

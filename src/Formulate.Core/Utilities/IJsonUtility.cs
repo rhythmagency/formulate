@@ -6,11 +6,11 @@
     public interface IJsonUtility
     {
         /// <summary>
-        /// Deserialize a string to a given type.
+        /// Deserialize a string to a given definition.
         /// </summary>
-        /// <typeparam name="T">The type to deserialize to.</typeparam>
+        /// <definitionparam name="T">The definition to deserialize to.</definitionparam>
         /// <param name="value">The value.</param>
-        /// <returns>A <typeparamref name="T"/>.</returns>
+        /// <returns>A <definitionparamref name="T"/>.</returns>
         T Deserialize<T>(string value);
 
         /// <summary>

@@ -8,14 +8,14 @@ namespace Formulate.Core.Tests.ValidationTests
     {
         private static class Constants
         {
-            public const string MissingValidationTypeId = "5F05924C14BD450B8C30F9A97EEEB1FC";
+            public const string MissingValidationDefinitionId = "5F05924C14BD450B8C30F9A97EEEB1FC";
 
-            public const string TestValidationTypeId = "D3CE69AC280C408A91207DA3F3123E2F";
+            public const string TestValidationDefinitionId = "D3CE69AC280C408A91207DA3F3123E2F";
         }
 
         private sealed class TestValidationSettings : IValidationSettings
         {
-            public Guid TypeId { get; set; }
+            public Guid DefinitionId { get; set; }
 
             public string Name { get; set; }
 
@@ -24,11 +24,11 @@ namespace Formulate.Core.Tests.ValidationTests
             public string Configuration { get; set; }
         }
 
-        private sealed class TestValidationType : IValidationType
+        private sealed class TestValidationDefinition : IValidationDefinition
         {
-            public Guid TypeId => Guid.Parse(Constants.TestValidationTypeId);
+            public Guid DefinitionId => Guid.Parse(Constants.TestValidationDefinitionId);
             
-            public string TypeLabel => "Test Validation";
+            public string DefinitionLabel => "Test Validation";
             
             public string Directive => "formulate-test-validation";
             

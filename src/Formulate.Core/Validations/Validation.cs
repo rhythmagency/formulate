@@ -5,7 +5,7 @@ namespace Formulate.Core.Validations
     /// <summary>
     /// The extended base class for validations with a configuration.
     /// </summary>
-    /// <typeparam name="TConfig">The type of the validation configuration.</typeparam>
+    /// <definitionparam name="TConfig">The definition of the validation configuration.</definitionparam>
     public abstract class Validation<TConfig> : Validation
     {
         /// <summary>
@@ -34,7 +34,7 @@ namespace Formulate.Core.Validations
         public Guid Id { get; }
 
         /// <inheritdoc />
-        public Guid TypeId { get; }
+        public Guid DefinitionId { get; }
 
         /// <summary>
         /// The raw configuration.
@@ -44,7 +44,7 @@ namespace Formulate.Core.Validations
         /// This is for reference only.
         /// </para>
         /// <para>
-        /// Deserialization should typically happen in the overridden <see cref="IValidationType"/> CreateValidation method.
+        /// Deserialization should typically happen in the overridden <see cref="IValidationDefinition"/> CreateValidation method.
         /// </para>
         /// </remarks>
         protected readonly string RawConfiguration;
@@ -62,7 +62,7 @@ namespace Formulate.Core.Validations
             }
 
             Id = settings.Id;
-            TypeId = settings.TypeId;
+            DefinitionId = settings.DefinitionId;
             RawConfiguration = settings.Configuration;
         }
     }

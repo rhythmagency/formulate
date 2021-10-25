@@ -4,22 +4,22 @@ using Formulate.Core.Types;
 namespace Formulate.Core.FormFields
 {
     /// <summary>
-    /// The default implementation of <see cref="IFormFieldFactory"/> using the <see cref="FormFieldTypeCollection"/>.
+    /// The default implementation of <see cref="IFormFieldFactory"/> using the <see cref="FormFieldDefinitionCollection"/>.
     /// </summary>
     public sealed class FormFieldFactory : IFormFieldFactory
     {
         /// <summary>
-        /// The form field types.
+        /// The form field definitions.
         /// </summary>
-        private readonly FormFieldTypeCollection formFieldTypes;
+        private readonly FormFieldDefinitionCollection _formFieldDefinitions;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormFieldFactory"/> class.
         /// </summary>
-        /// <param name="formFieldTypes">The form field types.</param>
-        public FormFieldFactory(FormFieldTypeCollection formFieldTypes)
+        /// <param name="formFieldDefinitions">The form field definitions.</param>
+        public FormFieldFactory(FormFieldDefinitionCollection formFieldDefinitions)
         {
-            this.formFieldTypes = formFieldTypes;
+            _formFieldDefinitions = formFieldDefinitions;
         }
 
         /// <inheritdoc />
@@ -31,9 +31,9 @@ namespace Formulate.Core.FormFields
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            var foundFormFieldType = formFieldTypes.FirstOrDefault(settings.TypeId);
+            var foundFormFieldDefinition = _formFieldDefinitions.FirstOrDefault(settings.DefinitionId);
 
-            return foundFormFieldType?.CreateField(settings);
+            return foundFormFieldDefinition?.CreateField(settings);
         }
     }
 }

@@ -9,18 +9,18 @@ namespace Formulate.Core.Tests.FormHandlerTests
     {
         private static class Constants
         {
-            public const string MissingFormHandlerTypeId = "6EB639979DA349198EB29ED35547F740";
+            public const string MissingFormHandlerDefinitionId = "6EB639979DA349198EB29ED35547F740";
             
-            public const string TestFormHandlerTypeId = "91FF00DAE0F444B2AEF85A948C5E6074";
+            public const string TestFormHandlerDefinitionId = "91FF00DAE0F444B2AEF85A948C5E6074";
 
-            public const string TestAsyncFormHandlerTypeId = "2E3ADACB99394555900F4AC4F9DAA6EE";
+            public const string TestAsyncFormHandlerDefinitionId = "2E3ADACB99394555900F4AC4F9DAA6EE";
 
-            public const string TestUnsupportedFormHandlerTypeId = "85918528E44944E692FFD7ABB71D0093";
+            public const string TestUnsupportedFormHandlerDefinitionId = "85918528E44944E692FFD7ABB71D0093";
         }
 
         private class TestFormHandlerSettings : IFormHandlerSettings
         {
-            public Guid TypeId { get; set; }
+            public Guid DefinitionId { get; set; }
             public Guid Id { get; set; }
             public string Name { get; set; }
             public string Alias { get; set; }
@@ -28,9 +28,9 @@ namespace Formulate.Core.Tests.FormHandlerTests
             public string Configuration { get; set; }
         }
 
-        private sealed class TestFormHandlerType : FormHandlerType
+        private sealed class TestFormHandlerDefinition : FormHandlerDefinition
         {
-            public override Guid TypeId => Guid.Parse(Constants.TestFormHandlerTypeId);
+            public override Guid DefinitionId => Guid.Parse(Constants.TestFormHandlerDefinitionId);
             
             public override FormHandler CreateHandler(IFormHandlerSettings settings)
             {
@@ -38,9 +38,9 @@ namespace Formulate.Core.Tests.FormHandlerTests
             }
         }
 
-        private sealed class TestAsyncFormHandlerType : AsyncFormHandlerType
+        private sealed class TestAsyncFormHandlerDefinition : AsyncFormHandlerDefinition
         {
-            public override Guid TypeId => Guid.Parse(Constants.TestAsyncFormHandlerTypeId);
+            public override Guid DefinitionId => Guid.Parse(Constants.TestAsyncFormHandlerDefinitionId);
 
             public override AsyncFormHandler CreateAsyncHandler(IFormHandlerSettings settings)
             {
@@ -48,9 +48,9 @@ namespace Formulate.Core.Tests.FormHandlerTests
             }
         }
 
-        private sealed class TestUnsupportedFormHandlerType : IFormHandlerType
+        private sealed class TestUnsupportedFormHandlerDefinition : IFormHandlerDefinition
         {
-            public Guid TypeId => Guid.Parse(Constants.TestUnsupportedFormHandlerTypeId);
+            public Guid DefinitionId => Guid.Parse(Constants.TestUnsupportedFormHandlerDefinitionId);
         }
 
         private sealed class TestFormHandler : FormHandler

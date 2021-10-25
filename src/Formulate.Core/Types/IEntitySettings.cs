@@ -3,9 +3,9 @@
 namespace Formulate.Core.Types
 {
     /// <summary>
-    /// A contract for the settings needed to create a <see cref="ITypeEntity"/>.
+    /// A contract for the settings needed to create a <see cref="IEntity"/>.
     /// </summary>
-    public interface ITypeEntitySettings
+    public interface IEntitySettings
     {
         /// <summary>
         /// Gets the ID.
@@ -13,9 +13,9 @@ namespace Formulate.Core.Types
         Guid Id { get; }
 
         /// <summary>
-        /// Gets the type ID.
+        /// Gets the definition ID.
         /// </summary>
-        Guid TypeId { get; }
+        Guid DefinitionId { get; }
 
         /// <summary>
         /// Gets the name.

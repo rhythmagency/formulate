@@ -3,24 +3,24 @@
 namespace Formulate.Core.Validations.Mandatory
 {
     /// <summary>
-    /// The validation type used to create <see cref="MandatoryValidation"/>.
+    /// The validation definition used to create <see cref="MandatoryValidation"/>.
     /// </summary>
-    public sealed class MandatoryValidationType : IValidationType
+    public sealed class MandatoryValidationDefinition : IValidationDefinition
     {
         /// <summary>
-        /// Constants related to <see cref="MandatoryValidationType"/>.
+        /// Constants related to <see cref="MandatoryValidationDefinition"/>.
         /// </summary>
         public static class Constants
         {
             /// <summary>
-            /// The type ID.
+            /// The definition ID.
             /// </summary>
-            public const string TypeId = "93957A02633944A193238E8CD754680B";
+            public const string DefinitionId = "93957A02633944A193238E8CD754680B";
 
             /// <summary>
-            /// The type label.
+            /// The definition label.
             /// </summary>
-            public const string TypeLabel = "Mandatory";
+            public const string DefinitionLabel = "Mandatory";
 
             /// <summary>
             /// The Angular JS directive.
@@ -29,10 +29,10 @@ namespace Formulate.Core.Validations.Mandatory
         }
 
         /// <inheritdoc />
-        public Guid TypeId => Guid.Parse(Constants.TypeId);
+        public Guid DefinitionId => Guid.Parse(Constants.DefinitionId);
 
         /// <inheritdoc />
-        public string TypeLabel => Constants.TypeLabel;
+        public string DefinitionLabel => Constants.DefinitionLabel;
 
         /// <inheritdoc />
         public string Directive => Constants.Directive;

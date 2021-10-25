@@ -10,53 +10,53 @@ namespace Formulate.Core.DependencyInjection
     public static partial class UmbracoBuilderExtensions
     {
         /// <summary>
-        /// Gets the builder collection for adding <see cref="IDataValuesType"/> implementations.
+        /// Gets the builder collection for adding <see cref="IDataValuesDefinition"/> implementations.
         /// </summary>
         /// <param name="builder">The Umbraco builder.</param>
-        /// <returns>A <see cref="DataValuesTypeCollectionBuilder"/>.</returns>
-        public static DataValuesTypeCollectionBuilder DataValuesTypes(this IUmbracoBuilder builder)
+        /// <returns>A <see cref="DataValuesDefinitionCollectionBuilder"/>.</returns>
+        public static DataValuesDefinitionCollectionBuilder DataValuesDefinitions(this IUmbracoBuilder builder)
         {
-            return builder.WithCollectionBuilder<DataValuesTypeCollectionBuilder>();
+            return builder.WithCollectionBuilder<DataValuesDefinitionCollectionBuilder>();
         }
 
         /// <summary>
-        /// Gets the builder collection for adding <see cref="IFormFieldType"/> implementations.
+        /// Gets the builder collection for adding <see cref="IFormFieldDefinition"/> implementations.
         /// </summary>
         /// <param name="builder">The Umbraco builder.</param>
-        /// <returns>A <see cref="FormFieldTypeCollectionBuilder"/>.</returns>
-        public static FormFieldTypeCollectionBuilder FormFieldTypes(this IUmbracoBuilder builder)
+        /// <returns>A <see cref="FormFieldDefinitionCollectionBuilder"/>.</returns>
+        public static FormFieldDefinitionCollectionBuilder FormFieldDefinitions(this IUmbracoBuilder builder)
         {
-            return builder.WithCollectionBuilder<FormFieldTypeCollectionBuilder>();
+            return builder.WithCollectionBuilder<FormFieldDefinitionCollectionBuilder>();
         }
 
         /// <summary>
-        /// Gets the builder collection for adding <see cref="IFormHandlerType"/> implementations.
+        /// Gets the builder collection for adding <see cref="IFormHandlerDefinition"/> implementations.
         /// </summary>
         /// <param name="builder">The Umbraco builder.</param>
-        /// <returns>A <see cref="LayoutTypeCollectionBuilder"/>.</returns>
-        public static FormHandlerTypeCollectionBuilder FormHandlerTypes(this IUmbracoBuilder builder)
+        /// <returns>A <see cref="LayoutDefinitionCollectionBuilder"/>.</returns>
+        public static FormHandlerDefinitionCollectionBuilder FormHandlerDefinitions(this IUmbracoBuilder builder)
         {
-            return builder.WithCollectionBuilder<FormHandlerTypeCollectionBuilder>();
+            return builder.WithCollectionBuilder<FormHandlerDefinitionCollectionBuilder>();
         }
 
         /// <summary>
-        /// Gets the builder collection for adding <see cref="ILayoutType"/> implementations.
+        /// Gets the builder collection for adding <see cref="ILayoutDefinition"/> implementations.
         /// </summary>
         /// <param name="builder">The Umbraco builder.</param>
-        /// <returns>A <see cref="LayoutTypeCollectionBuilder"/>.</returns>
-        public static LayoutTypeCollectionBuilder LayoutTypes(this IUmbracoBuilder builder)
+        /// <returns>A <see cref="LayoutDefinitionCollectionBuilder"/>.</returns>
+        public static LayoutDefinitionCollectionBuilder LayoutDefinitions(this IUmbracoBuilder builder)
         {
-            return builder.WithCollectionBuilder<LayoutTypeCollectionBuilder>();
+            return builder.WithCollectionBuilder<LayoutDefinitionCollectionBuilder>();
         }
 
         /// <summary>
-        /// Gets the builder collection for adding <see cref="IValidationType"/> implementations.
+        /// Gets the builder collection for adding <see cref="IValidationDefinition"/> implementations.
         /// </summary>
         /// <param name="builder">The Umbraco builder.</param>
-        /// <returns>A <see cref="ValidationTypeCollectionBuilder"/>.</returns>
-        public static ValidationTypeCollectionBuilder ValidationTypes(this IUmbracoBuilder builder)
+        /// <returns>A <see cref="ValidationDefinitionCollectionBuilder"/>.</returns>
+        public static ValidationDefinitionCollectionBuilder ValidationDefinitions(this IUmbracoBuilder builder)
         {
-            return builder.WithCollectionBuilder<ValidationTypeCollectionBuilder>();
+            return builder.WithCollectionBuilder<ValidationDefinitionCollectionBuilder>();
         }
 
         /// <summary>
@@ -66,17 +66,17 @@ namespace Formulate.Core.DependencyInjection
         /// <returns>The current <see cref="IUmbracoBuilder"/>.</returns>
         private static IUmbracoBuilder AddFormulateCollections(this IUmbracoBuilder builder)
         {
-            builder.DataValuesTypes();
+            builder.DataValuesDefinitions();
 
-            builder.FormFieldTypes().Add(() => builder.TypeLoader.GetTypes<FormFieldType>());
+            builder.FormFieldDefinitions().Add(() => builder.TypeLoader.GetTypes<FormFieldDefinition>());
 
-            builder.FormHandlerTypes().Add(() => builder.TypeLoader.GetTypes<AsyncFormHandlerType>());
+            builder.FormHandlerDefinitions().Add(() => builder.TypeLoader.GetTypes<AsyncFormHandlerDefinition>());
 
-            builder.FormHandlerTypes().Add(() => builder.TypeLoader.GetTypes<FormHandlerType>());
+            builder.FormHandlerDefinitions().Add(() => builder.TypeLoader.GetTypes<FormHandlerDefinition>());
 
-            builder.LayoutTypes();
+            builder.LayoutDefinitions();
 
-            builder.ValidationTypes().Add(() => builder.TypeLoader.GetTypes<IValidationType>()); ;
+            builder.ValidationDefinitions().Add(() => builder.TypeLoader.GetTypes<IValidationDefinition>()); ;
 
             return builder;
         }

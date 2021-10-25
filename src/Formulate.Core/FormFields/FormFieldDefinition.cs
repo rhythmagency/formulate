@@ -3,16 +3,16 @@
 namespace Formulate.Core.FormFields
 {
     /// <summary>
-    /// An abstract class for creating a new <see cref="IFormFieldType"/>.
+    /// An abstract class for creating a new <see cref="IFormFieldDefinition"/>.
     /// </summary>
     /// <remarks>It is not necessary to implement from this class but it does provide some helpful defaults for certain optional fields.</remarks>
-    public abstract class FormFieldType : IFormFieldType
+    public abstract class FormFieldDefinition : IFormFieldDefinition
     {
         /// <inheritdoc />
-        public abstract Guid TypeId { get; }
+        public abstract Guid DefinitionId { get; }
         
         /// <inheritdoc />
-        public abstract string TypeLabel { get; }
+        public abstract string DefinitionLabel { get; }
 
         /// <inheritdoc />
         public abstract string Icon { get; }
