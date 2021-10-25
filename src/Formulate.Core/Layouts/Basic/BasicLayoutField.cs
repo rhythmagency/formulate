@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Formulate.Core.Layouts.Basic
 {
@@ -10,6 +11,7 @@ namespace Formulate.Core.Layouts.Basic
         /// <summary>
         /// Gets the field ID.
         /// </summary>
+        [JsonPropertyName("fieldId")]
         public Guid FieldId { get; set; }
     }
 }

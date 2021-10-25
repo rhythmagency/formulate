@@ -1,4 +1,5 @@
 ﻿using System;
+using Formulate.Core.Utilities;
 
 namespace Formulate.Core.Layouts.Basic
 {
@@ -7,6 +8,8 @@ namespace Formulate.Core.Layouts.Basic
     /// </summary>
     public sealed class BasicLayoutDefinition : ILayoutDefinition
     {
+        private readonly IJsonUtility _jsonUtility;
+
         /// <summary>
         /// Constants related to <see cref="BasicLayoutDefinition"/>.
         /// </summary>
@@ -36,11 +39,20 @@ namespace Formulate.Core.Layouts.Basic
 
         /// <inheritdoc />
         public string Directive => Constants.Directive;
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jsonUtility"></param>
+        public BasicLayoutDefinition(IJsonUtility jsonUtility)
+        {
+            _jsonUtility = jsonUtility;
+        }
 
         /// <inheritdoc />
         public ILayout CreateLayout(ILayoutSettings settings)
         {
-            var config = new BasicLayoutConfiguration();
+            var config = _jsonUtility.Deserialize<BasicLayoutConfiguration>(settings.Configuration);
 
             return new BasicLayout(settings, config);
         }
