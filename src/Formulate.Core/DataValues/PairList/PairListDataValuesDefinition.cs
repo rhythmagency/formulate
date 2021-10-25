@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using Formulate.Core.Utilities;
 
 namespace Formulate.Core.DataValues.PairList
@@ -11,6 +10,9 @@ namespace Formulate.Core.DataValues.PairList
     /// </summary>
     public sealed class PairListDataValuesDefinition : DataValuesDefinition
     {
+        /// <summary>
+        /// The json utility.
+        /// </summary>
         private readonly IJsonUtility _jsonUtility;
 
         /// <summary>
@@ -44,9 +46,9 @@ namespace Formulate.Core.DataValues.PairList
         public override string Directive => Constants.Directive;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PairListDataValuesDefinition"/> class.
         /// </summary>
-        /// <param name="jsonUtility"></param>
+        /// <param name="jsonUtility">The json utility.</param>
         public PairListDataValuesDefinition(IJsonUtility jsonUtility)
         {
             _jsonUtility = jsonUtility;
