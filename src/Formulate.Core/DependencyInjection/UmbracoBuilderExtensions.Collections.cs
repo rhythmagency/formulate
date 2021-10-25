@@ -66,7 +66,7 @@ namespace Formulate.Core.DependencyInjection
         /// <returns>The current <see cref="IUmbracoBuilder"/>.</returns>
         private static IUmbracoBuilder AddFormulateCollections(this IUmbracoBuilder builder)
         {
-            builder.DataValuesDefinitions();
+            builder.DataValuesDefinitions().Add(() => builder.TypeLoader.GetTypes<IDataValuesDefinition>());
 
             builder.FormFieldDefinitions().Add(() => builder.TypeLoader.GetTypes<FormFieldDefinition>());
 
