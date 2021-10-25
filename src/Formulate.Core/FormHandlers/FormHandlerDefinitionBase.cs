@@ -10,5 +10,8 @@ namespace Formulate.Core.FormHandlers
     {
         /// <inheritdoc />
         public abstract Guid DefinitionId { get; }
+
+        /// <inheritdoc />
+        public abstract string DefinitionLabel { get; }
     }
 }

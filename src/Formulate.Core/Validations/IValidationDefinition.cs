@@ -8,11 +8,6 @@ namespace Formulate.Core.Validations
     public interface IValidationDefinition : IDefinition
     {
         /// <summary>
-        /// Gets the name.
-        /// </summary>
-        string DefinitionLabel { get; }
-
-        /// <summary>
         /// Gets the Angular JS directive.
         /// </summary>
         string Directive { get; }

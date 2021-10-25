@@ -8,11 +8,6 @@ namespace Formulate.Core.FormFields
     public interface IFormFieldDefinition : IDefinition
     {
         /// <summary>
-        /// Gets the definition label.
-        /// </summary>
-        string DefinitionLabel { get; }
-
-        /// <summary>
         /// Gets the icon.
         /// </summary>
         string Icon { get; }

@@ -7,8 +7,6 @@ namespace Formulate.Core.Layouts
     /// </summary>
     public interface ILayoutDefinition : IDefinition
     {
-        string DefinitionLabel { get; }
-
         string Directive { get; }
 
         ILayout CreateLayout(ILayoutSettings settings);

@@ -13,5 +13,10 @@ namespace Formulate.Core.Types
         /// Gets the definition ID.
         /// </summary>
         Guid DefinitionId { get; }
+
+        /// <summary>
+        /// Gets the definition label.
+        /// </summary>
+        string DefinitionLabel { get; }
     }
 }

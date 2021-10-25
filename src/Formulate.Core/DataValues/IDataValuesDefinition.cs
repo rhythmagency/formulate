@@ -10,11 +10,6 @@ namespace Formulate.Core.DataValues
     public interface IDataValuesDefinition : IDefinition
     {
         /// <summary>
-        /// Gets the definition label.
-        /// </summary>
-        string DefinitionLabel { get; }
-
-        /// <summary>
         /// Asynchronously creates a <see cref="IDataValues"/>.
         /// </summary>
         /// <param name="settings">The current settings.</param>
