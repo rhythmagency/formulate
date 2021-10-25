@@ -11,12 +11,7 @@ namespace Formulate.Core.FormFields
         /// Gets the icon.
         /// </summary>
         string Icon { get; }
-
-        /// <summary>
-        /// Gets the directive.
-        /// </summary>
-        string Directive { get; }
-
+        
         /// <summary>
         /// Gets a value indicating whether this field definition is transitory.
         /// </summary>

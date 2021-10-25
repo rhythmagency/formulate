@@ -22,6 +22,11 @@ namespace Formulate.Core.DataValues.UsStates
             /// The definition label.
             /// </summary>
             public const string DefinitionLabel = "List of States and Territories in the United States";
+
+            /// <summary>
+            /// The Angular JS directive.
+            /// </summary>
+            public const string Directive = "formulate-data-values-dynamic";
         }
 
         /// <inheritdoc />
@@ -29,6 +34,8 @@ namespace Formulate.Core.DataValues.UsStates
 
         /// <inheritdoc />
         public override string DefinitionLabel => Constants.DefinitionLabel;
+
+        public override string Directive => Constants.Directive;
 
         /// <inheritdoc />
         protected override IDataValues CreateDataValues(IDataValuesSettings settings)

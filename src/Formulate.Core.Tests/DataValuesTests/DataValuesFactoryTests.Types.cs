@@ -28,7 +28,9 @@ namespace Formulate.Core.Tests.DataValuesTests
             public override Guid DefinitionId => Guid.Parse(Constants.TestDataValuesDefinitionId);
 
             public override string DefinitionLabel => "Test Data Values";
-            
+
+            public override string Directive => "test-data-values";
+
             public override async Task<IDataValues> CreateDataValuesAsync(IDataValuesSettings settings, CancellationToken cancellationToken = default)
             {
                 return await Task.Run(() => new TestDataValues(settings, new List<KeyValuePair<string, string>>()), cancellationToken);

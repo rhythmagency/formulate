@@ -18,5 +18,10 @@ namespace Formulate.Core.Types
         /// Gets the definition label.
         /// </summary>
         string DefinitionLabel { get; }
+
+        /// <summary>
+        /// Gets the directive.
+        /// </summary>
+        string Directive { get; }
     }
 }

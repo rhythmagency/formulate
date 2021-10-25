@@ -57,6 +57,8 @@ namespace Formulate.Core.Tests.FormHandlerTests
             public Guid DefinitionId => Guid.Parse(Constants.TestUnsupportedFormHandlerDefinitionId);
             
             public string DefinitionLabel => "Test Unsupported Form Handler";
+            
+            public string Directive => "test-form-handler";
         }
 
         private sealed class TestFormHandler : FormHandler

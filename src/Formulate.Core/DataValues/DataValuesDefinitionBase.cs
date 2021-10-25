@@ -16,6 +16,9 @@ namespace Formulate.Core.DataValues
         public abstract string DefinitionLabel { get; }
 
         /// <inheritdoc />
+        public abstract string Directive { get; }
+
+        /// <inheritdoc />
         public abstract Task<IDataValues> CreateDataValuesAsync(IDataValuesSettings settings, CancellationToken cancellationToken = default);
     }
 }

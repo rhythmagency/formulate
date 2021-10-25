@@ -13,5 +13,8 @@ namespace Formulate.Core.FormHandlers
 
         /// <inheritdoc />
         public abstract string DefinitionLabel { get; }
+
+        /// <inheritdoc />
+        public string Directive { get; set; }
     }
 }
