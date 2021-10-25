@@ -54,7 +54,7 @@ namespace Formulate.Core.Tests.DataValuesTests
             Assert.NotEqual(default, formField);
         }
 
-        private static IAsyncDataValuesFactory CreateFactory()
+        private static IDataValuesFactory CreateFactory()
         {
             var items = new List<IDataValuesDefinition>()
             {
@@ -63,7 +63,7 @@ namespace Formulate.Core.Tests.DataValuesTests
 
             var collection = new DataValuesDefinitionCollection(() => items);
             
-            return new AsyncDataValuesFactory(collection);
+            return new DataValuesFactory(collection);
         }
     }
 }

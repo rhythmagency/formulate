@@ -8,7 +8,7 @@ namespace Formulate.Core.DataValues
     /// </summary>
     /// <remarks>
     /// <para>Acts as wrapper for synchronous data value creation.</para>
-    /// <para>All calls are made asynchronously to maintain consistency with asynchronous definition.</para>
+    /// <para>All calls are made asynchronously to maintain consistency with asynchronous definitions.</para>
     /// </remarks>
     public abstract class DataValuesDefinition : DataValuesDefinitionBase
     {

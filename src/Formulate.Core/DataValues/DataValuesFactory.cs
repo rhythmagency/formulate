@@ -6,9 +6,9 @@ using Formulate.Core.Types;
 namespace Formulate.Core.DataValues
 {
     /// <summary>
-    /// The default implementation of <see cref="IAsyncDataValuesFactory"/> using the <see cref="DataValuesDefinitionCollection"/>.
+    /// The default implementation of <see cref="IDataValuesFactory"/> using the <see cref="DataValuesDefinitionCollection"/>.
     /// </summary>
-    internal sealed class AsyncDataValuesFactory : IAsyncDataValuesFactory
+    internal sealed class DataValuesFactory : IDataValuesFactory
     {
         /// <summary>
         /// The data values.
@@ -19,7 +19,7 @@ namespace Formulate.Core.DataValues
         /// 
         /// </summary>
         /// <param name="dataValuesDefinitions">The data values.</param>
-        public AsyncDataValuesFactory(DataValuesDefinitionCollection dataValuesDefinitions)
+        public DataValuesFactory(DataValuesDefinitionCollection dataValuesDefinitions)
         {
             _dataValuesDefinitions = dataValuesDefinitions;
         }
