@@ -1,7 +1,7 @@
 ﻿namespace Formulate.Core.Types
 {
     /// <summary>
-    /// A contract for creating a factory which converts <typeparamref name="TSettings"/> into a <typeparamref name="TEntity"/>.
+    /// A contract for creating a factory which creates a <typeparamref name="TEntity"/> from a <typeparamref name="TSettings"/>.
     /// </summary>
     /// <typeparam name="TSettings">The type of the settings.</typeparam>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
