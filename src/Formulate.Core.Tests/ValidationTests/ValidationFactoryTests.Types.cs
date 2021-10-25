@@ -17,6 +17,8 @@ namespace Formulate.Core.Tests.ValidationTests
         {
             public Guid TypeId { get; set; }
 
+            public string Name { get; set; }
+
             public Guid Id { get; set; }
             
             public string Configuration { get; set; }
