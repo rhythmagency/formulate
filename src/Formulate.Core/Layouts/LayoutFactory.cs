@@ -6,7 +6,7 @@ namespace Formulate.Core.Layouts
     /// <summary>
     /// The default implementation of <see cref="ILayoutFactory"/> using the <see cref="LayoutDefinitionCollection"/>.
     /// </summary>
-    public sealed class LayoutFactory : ILayoutFactory
+    internal sealed class LayoutFactory : ILayoutFactory
     {
         /// <summary>
         /// The layout definitions.

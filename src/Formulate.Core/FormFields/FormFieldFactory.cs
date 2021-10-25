@@ -6,7 +6,7 @@ namespace Formulate.Core.FormFields
     /// <summary>
     /// The default implementation of <see cref="IFormFieldFactory"/> using the <see cref="FormFieldDefinitionCollection"/>.
     /// </summary>
-    public sealed class FormFieldFactory : IFormFieldFactory
+    internal sealed class FormFieldFactory : IFormFieldFactory
     {
         /// <summary>
         /// The form field definitions.

@@ -6,7 +6,7 @@ namespace Formulate.Core.Validations
     /// <summary>
     /// The default implementation of <see cref="IValidationFactory"/> using the <see cref="ValidationDefinitionCollection"/>.
     /// </summary>
-    public sealed class ValidationFactory : IValidationFactory
+    internal sealed class ValidationFactory : IValidationFactory
     {
         /// <summary>
         /// The validation definitions.
