@@ -15,6 +15,7 @@ namespace Formulate.Core.Types
         /// Asynchronously creates a new instance which implements <typeparamref name="TEntity"/>.
         /// </summary>
         /// <param name="settings">The current settings.</param>
+        /// <param name="cancellationToken">The optional cancellation token to cancel the operation.</param>
         /// <returns>A <typeparamref name="TEntity"/>.</returns>
         Task<TEntity> CreateAsync(TSettings settings, CancellationToken cancellationToken = default);
     }
