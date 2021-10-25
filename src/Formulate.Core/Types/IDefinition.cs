@@ -1,11 +1,13 @@
-﻿namespace Formulate.Core.Types
+﻿using Umbraco.Cms.Core.Composing;
+
+namespace Formulate.Core.Types
 {
     using System;
     
     /// <summary>
     /// The underlying definition for other definitions identified by a definition ID.
     /// </summary>
-    public interface IDefinition
+    public interface IDefinition : IDiscoverable
     {
         /// <summary>
         /// Gets the definition ID.

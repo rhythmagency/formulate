@@ -1,12 +1,11 @@
 ﻿using Formulate.Core.Types;
-using Umbraco.Cms.Core.Composing;
 
 namespace Formulate.Core.FormFields
 {
     /// <summary>
     /// A contract for implementing a form field definition.
     /// </summary>
-    public interface IFormFieldDefinition : IDefinition, IDiscoverable
+    public interface IFormFieldDefinition : IDefinition
     {
         /// <summary>
         /// Gets the definition label.

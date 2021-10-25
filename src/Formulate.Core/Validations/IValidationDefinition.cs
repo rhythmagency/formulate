@@ -1,12 +1,11 @@
 ﻿using Formulate.Core.Types;
-using Umbraco.Cms.Core.Composing;
 
 namespace Formulate.Core.Validations
 {
     /// <summary>
     /// A contract for creating a validation definition.
     /// </summary>
-    public interface IValidationDefinition : IDefinition, IDiscoverable
+    public interface IValidationDefinition : IDefinition
     {
         /// <summary>
         /// Gets the name.
