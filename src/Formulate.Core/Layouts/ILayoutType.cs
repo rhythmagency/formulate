@@ -8,5 +8,10 @@ namespace Formulate.Core.Layouts
     /// </summary>
     public interface ILayoutType : IType, IDiscoverable
     {
+        string TypeLabel { get; }
+
+        string Directive { get; }
+
+        ILayout CreateLayout(ILayoutSettings settings);
     }
 }
