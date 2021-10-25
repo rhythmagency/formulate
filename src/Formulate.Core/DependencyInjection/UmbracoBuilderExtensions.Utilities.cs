@@ -14,6 +14,7 @@ namespace Formulate.Core.DependencyInjection
         /// <returns>The current <see cref="IUmbracoBuilder"/>.</returns>
         private static IUmbracoBuilder AddFormulateUtilities(this IUmbracoBuilder builder)
         {
+            builder.Services.AddSingleton<IGetDataValuesItemsUtility, GetDataValuesItemsUtility>();
             builder.Services.AddSingleton<IJsonUtility, SystemTextJsonUtility>();
 
             return builder;
