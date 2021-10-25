@@ -1,15 +1,11 @@
-﻿namespace Formulate.Core.Layouts
+﻿using Formulate.Core.Types;
+
+namespace Formulate.Core.Layouts
 {
     /// <summary>
     /// Creates a <see cref="ILayout"/>.
     /// </summary>
-    public interface ILayoutFactory
+    public interface ILayoutFactory : IEntityFactory<ILayoutSettings, ILayout>
     {
-        /// <summary>
-        /// Creates a layout for the given settings.
-        /// </summary>
-        /// <param name="settings">The current settings.</param>
-        /// <returns>A <see cref="ILayout"/>.</returns>
-        ILayout CreateLayout(ILayoutSettings settings);
     }
 }

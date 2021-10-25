@@ -15,7 +15,7 @@ namespace Formulate.Core.Tests.LayoutTests
             TestLayoutSettings settings = default;
 
             // act / asset
-            Assert.Throws<ArgumentNullException>(() => factory.CreateLayout(settings));
+            Assert.Throws<ArgumentNullException>(() => factory.Create(settings));
         }
 
         [Fact(DisplayName = "When no DefinitionId matches should return Default")]
@@ -29,7 +29,7 @@ namespace Formulate.Core.Tests.LayoutTests
             };
 
             // act
-            var layout = factory.CreateLayout(settings);
+            var layout = factory.Create(settings);
 
             // assert
             Assert.Equal(default, layout);
@@ -46,7 +46,7 @@ namespace Formulate.Core.Tests.LayoutTests
             };
 
             // act
-            var layout = factory.CreateLayout(settings);
+            var layout = factory.Create(settings);
 
             // assert
             Assert.IsType<TestLayout>(layout);

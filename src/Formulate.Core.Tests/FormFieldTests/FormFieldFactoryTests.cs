@@ -18,7 +18,7 @@ namespace Formulate.Core.Tests.FormFieldTests
             TestFormFieldSettings settings = default;
 
             // act / asset
-            Assert.Throws<ArgumentNullException>(() => factory.CreateField(settings));
+            Assert.Throws<ArgumentNullException>(() => factory.Create(settings));
         }
 
         [Fact(DisplayName = "When no DefinitionId matches should return Default")]
@@ -32,7 +32,7 @@ namespace Formulate.Core.Tests.FormFieldTests
             };
 
             // act
-            var formField = factory.CreateField(settings);
+            var formField = factory.Create(settings);
 
             // assert
             Assert.Equal(default, formField);
@@ -49,7 +49,7 @@ namespace Formulate.Core.Tests.FormFieldTests
             };
 
             // act
-            var formField = factory.CreateField(settings);
+            var formField = factory.Create(settings);
 
             // assert
             Assert.IsType<TestFormField>(formField);

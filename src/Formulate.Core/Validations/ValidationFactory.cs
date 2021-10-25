@@ -24,7 +24,7 @@ namespace Formulate.Core.Validations
 
         /// <inheritdoc />
         /// <exception cref="ArgumentNullException">The provided settings are null.</exception>
-        public IValidation CreateValidation(IValidationSettings settings)
+        public IValidation Create(IValidationSettings settings)
         {
             if (settings is null)
             {

@@ -15,7 +15,7 @@ namespace Formulate.Core.Tests.ValidationTests
             TestValidationSettings settings = default;
 
             // act / asset
-            Assert.Throws<ArgumentNullException>(() => factory.CreateValidation(settings));
+            Assert.Throws<ArgumentNullException>(() => factory.Create(settings));
         }
 
         [Fact(DisplayName = "When no DefinitionId matches should return Default")]
@@ -29,7 +29,7 @@ namespace Formulate.Core.Tests.ValidationTests
             };
 
             // act
-            var validation = factory.CreateValidation(settings);
+            var validation = factory.Create(settings);
 
             // assert
             Assert.Equal(default, validation);
@@ -46,7 +46,7 @@ namespace Formulate.Core.Tests.ValidationTests
             };
 
             // act
-            var validation = factory.CreateValidation(settings);
+            var validation = factory.Create(settings);
 
             // assert
             Assert.IsType<TestValidation>(validation);

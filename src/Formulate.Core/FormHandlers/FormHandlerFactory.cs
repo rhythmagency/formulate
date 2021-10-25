@@ -25,7 +25,7 @@ namespace Formulate.Core.FormHandlers
         /// <inheritdoc />
         /// <exception cref="ArgumentNullException">The provided settings are null.</exception>
         /// <exception cref="NotSupportedException">The matched form definition handler is not supported.</exception>
-        public IFormHandler CreateHandler(IFormHandlerSettings settings)
+        public IFormHandler Create(IFormHandlerSettings settings)
         {
             if (settings is null)
             {

@@ -15,7 +15,7 @@ namespace Formulate.Core.Tests.FormHandlerTests
             TestFormHandlerSettings settings = default;
 
             // act / asset
-            Assert.Throws<ArgumentNullException>(() => factory.CreateHandler(settings));
+            Assert.Throws<ArgumentNullException>(() => factory.Create(settings));
         }
 
         [Fact(DisplayName = "When no DefinitionId matches should return Default")]
@@ -29,7 +29,7 @@ namespace Formulate.Core.Tests.FormHandlerTests
             };
 
             // act
-            var handler = factory.CreateHandler(settings);
+            var handler = factory.Create(settings);
 
             // assert
             Assert.Equal(default, handler);
@@ -46,7 +46,7 @@ namespace Formulate.Core.Tests.FormHandlerTests
             };
 
             // act / assert
-            Assert.Throws<NotSupportedException>(() => factory.CreateHandler(settings));
+            Assert.Throws<NotSupportedException>(() => factory.Create(settings));
         }
 
         [Fact(DisplayName = "When DefinitionId matches an Async Form Handler Definition should return an Async Form Handler")]
@@ -60,7 +60,7 @@ namespace Formulate.Core.Tests.FormHandlerTests
             };
             
             // act
-            var handler = factory.CreateHandler(settings);
+            var handler = factory.Create(settings);
 
             // assert
             Assert.IsAssignableFrom<AsyncFormHandler>(handler);
@@ -78,7 +78,7 @@ namespace Formulate.Core.Tests.FormHandlerTests
             };
 
             // act
-            var handler = factory.CreateHandler(settings);
+            var handler = factory.Create(settings);
 
             // assert
             Assert.IsAssignableFrom<FormHandler>(handler);

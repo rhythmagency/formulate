@@ -24,7 +24,7 @@ namespace Formulate.Core.FormFields
 
         /// <inheritdoc />
         /// <exception cref="ArgumentNullException">The provided settings are null.</exception>
-        public IFormField CreateField(IFormFieldSettings settings)
+        public IFormField Create(IFormFieldSettings settings)
         {
             if (settings is null)
             {

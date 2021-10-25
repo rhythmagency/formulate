@@ -24,7 +24,7 @@ namespace Formulate.Core.Layouts
 
         /// <inheritdoc />
         /// <exception cref="ArgumentNullException">The provided settings are null.</exception>
-        public ILayout CreateLayout(ILayoutSettings settings)
+        public ILayout Create(ILayoutSettings settings)
         {
             if (settings is null)
             {
