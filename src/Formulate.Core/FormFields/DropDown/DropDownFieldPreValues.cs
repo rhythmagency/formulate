@@ -6,7 +6,7 @@ namespace Formulate.Core.FormFields.DropDown
     /// <summary>
     /// Configuration pre-values used by <see cref="DropDownFieldDefinition"/> for creating <see cref="DropDownField"/>.
     /// </summary>
-    public sealed class DropDownFieldPreValues
+    internal sealed class DropDownFieldPreValues
     {
         /// <summary>
         /// Gets or sets the data value.
