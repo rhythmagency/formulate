@@ -17,11 +17,11 @@ namespace Formulate.Core.DependencyInjection
         /// <returns>The current <see cref="IUmbracoBuilder"/>.</returns>
         private static IUmbracoBuilder AddFormulateFactories(this IUmbracoBuilder builder)
         {
-            builder.Services.AddScoped<IDataValuesFactory, DataValuesFactory>();
-            builder.Services.AddScoped<IFormHandlerFactory, FormHandlerFactory>();
-            builder.Services.AddScoped<IFormFieldFactory, FormFieldFactory>();
-            builder.Services.AddScoped<ILayoutFactory, LayoutFactory>();
-            builder.Services.AddScoped<IValidationFactory, ValidationFactory>();
+            builder.Services.AddSingleton<IDataValuesFactory, DataValuesFactory>();
+            builder.Services.AddSingleton<IFormHandlerFactory, FormHandlerFactory>();
+            builder.Services.AddSingleton<IFormFieldFactory, FormFieldFactory>();
+            builder.Services.AddSingleton<ILayoutFactory, LayoutFactory>();
+            builder.Services.AddSingleton<IValidationFactory, ValidationFactory>();
 
             return builder;
         }
