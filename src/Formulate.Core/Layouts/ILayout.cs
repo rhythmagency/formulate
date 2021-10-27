@@ -11,10 +11,5 @@ namespace Formulate.Core.Layouts
         /// Gets the name.
         /// </summary>
         string Name { get; }
-
-        /// <summary>
-        /// Gets the Angular JS directive.
-        /// </summary>
-        string Directive { get; }
     }
 }

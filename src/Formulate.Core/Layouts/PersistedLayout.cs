@@ -32,7 +32,5 @@ namespace Formulate.Core.Layouts
         /// Gets or sets the configuration.
         /// </summary>
         public string Configuration { get; set; }
-
-        public string Directive { get; set; }
     }
 }

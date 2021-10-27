@@ -4,6 +4,5 @@ namespace Formulate.Core.Layouts
 {
     public interface ILayoutSettings : IEntitySettings
     {
-        string Directive { get; }
     }
 }

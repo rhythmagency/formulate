@@ -39,9 +39,6 @@ namespace Formulate.Core.Layouts
         /// <inheritdoc />
         public string Name { get; }
 
-        /// <inheritdoc />
-        public string Directive { get; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Layout"/> class.
         /// </summary>
@@ -56,7 +53,6 @@ namespace Formulate.Core.Layouts
 
             DefinitionId = settings.DefinitionId;
             Id = settings.Id;
-            Directive = settings.Directive;
             Name = settings.Name;
         }
     }
