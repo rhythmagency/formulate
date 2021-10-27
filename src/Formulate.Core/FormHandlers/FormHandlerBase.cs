@@ -27,7 +27,7 @@ namespace Formulate.Core.FormHandlers
         public string Name { get; }
         
         /// <summary>
-        /// Gets a value indicating whether this handler is enabled.
+        /// Gets a value indicating whether this is enabled.
         /// </summary>
         public bool Enabled { get; }
 

@@ -2,6 +2,9 @@
 
 namespace Formulate.Core.Folders
 {
+    /// <summary>
+    /// The default implementation of <see cref="IFolderEntityPersistence"/>.
+    /// </summary>
     internal sealed class FolderEntityPersistence : EntityPersistence<PersistedFolder>, IFolderEntityPersistence
     {
         /// <summary>
