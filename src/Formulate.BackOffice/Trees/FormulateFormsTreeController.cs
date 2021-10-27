@@ -1,5 +1,6 @@
 ﻿using Formulate.BackOffice.Attributes;
 using Formulate.BackOffice.Persistence;
+using Formulate.Core.ConfiguredForms;
 using Formulate.Core.Persistence;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Events;
@@ -15,6 +16,26 @@ namespace Formulate.BackOffice.Trees
     {
         public FormulateFormsTreeController(ITreeEntityPersistence treeEntityPersistence, IMenuItemCollectionFactory menuItemCollectionFactory, ILocalizedTextService localizedTextService, UmbracoApiControllerTypeCollection umbracoApiControllerTypeCollection, IEventAggregator eventAggregator) : base(treeEntityPersistence, menuItemCollectionFactory, localizedTextService, umbracoApiControllerTypeCollection, eventAggregator)
         {
+        }
+
+        protected override string GetAction(IPersistedEntity entity)
+        {
+            if (entity is PersistedConfiguredForm)
+            {
+                return "editConfiguredForm";
+            }
+
+            return base.GetAction(entity);
+        }
+
+        protected override string GetIcon(IPersistedEntity entity)
+        {
+            if (entity is PersistedConfiguredForm)
+            {
+                return "icon-formulate-conform";
+            }
+
+            return base.GetIcon(entity);
         }
 
         protected override FormulateEntityTypes EntityType => FormulateEntityTypes.Forms;
