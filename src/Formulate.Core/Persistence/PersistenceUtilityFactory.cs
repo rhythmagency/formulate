@@ -1,4 +1,5 @@
 ﻿using System;
+using Formulate.Core.ConfiguredForms;
 using Formulate.Core.DataValues;
 using Formulate.Core.Folders;
 using Formulate.Core.Forms;
@@ -93,15 +94,20 @@ namespace Formulate.Core.Persistence
         private static IPersistenceUtilitySettings GetSettings<TEntity>()
         {
             var type = typeof(TEntity);
-
-            if (type == typeof(PersistedForm))
+            
+            if (type == typeof(PersistedConfiguredForm))
             {
-                return PersistenceUtilitySettings.Forms;
+                return PersistenceUtilitySettings.ConfiguredForms;
             }
 
             if (type == typeof(PersistedDataValues))
             {
                 return PersistenceUtilitySettings.DataValues;
+            }
+
+            if (type == typeof(PersistedForm))
+            {
+                return PersistenceUtilitySettings.Forms;
             }
 
             if (type == typeof(PersistedFolder))

@@ -1,4 +1,5 @@
-﻿using Formulate.Core.DataValues;
+﻿using Formulate.Core.ConfiguredForms;
+using Formulate.Core.DataValues;
 using Formulate.Core.Folders;
 using Formulate.Core.Forms;
 using Formulate.Core.Layouts;
@@ -19,9 +20,10 @@ namespace Formulate.Core.DependencyInjection
         private static IUmbracoBuilder AddFormulatePersistence(this IUmbracoBuilder builder)
         {
             builder.Services.AddSingleton<IPersistedEntityCache, FileSystemPersistedEntityCache>();
+            builder.Services.AddScoped<IDataValuesEntityPersistence, DataValuesEntityPersistence>();
+            builder.Services.AddScoped<IConfiguredFormEntityPersistence, ConfiguredFormEntityPersistence>();
             builder.Services.AddScoped<IFormEntityPersistence, FormEntityPersistence>();
             builder.Services.AddScoped<IFolderEntityPersistence, FolderEntityPersistence>();
-            builder.Services.AddScoped<IDataValuesEntityPersistence, DataValuesEntityPersistence>();
             builder.Services.AddScoped<ILayoutEntityPersistence, LayoutEntityPersistence>();
             builder.Services.AddScoped<IValidationEntityPersistence, ValidationEntityPersistence>();
 
