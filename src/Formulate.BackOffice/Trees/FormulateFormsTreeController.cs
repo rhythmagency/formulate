@@ -10,14 +10,37 @@ using Umbraco.Cms.Web.BackOffice.Trees;
 
 namespace Formulate.BackOffice.Trees
 {
+    /// <summary>
+    /// The Formulate forms tree controller.
+    /// </summary>
     [Tree(FormulateSection.Constants.Alias, "forms", TreeTitle = "Forms", SortOrder = 0)]
     [FormulatePluginController]
     public sealed class FormulateFormsTreeController : FormulateTreeController
     {
+        /// <inheritdoc />
+        protected override FormulateEntityTypes EntityType => FormulateEntityTypes.Forms;
+
+        /// <inheritdoc />
+        protected override string RootNodeIcon => "icon-formulate-forms";
+
+        /// <inheritdoc />
+        protected override string FolderNodeIcon => "icon-formulate-form-group";
+
+        /// <inheritdoc />
+        protected override string ItemNodeIcon => "icon-formulate-form";
+
+        /// <inheritdoc />
+        protected override string ItemNodeAction => "editForm";
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormulateFormsTreeController"/> class.
+        /// </summary>
+        /// <inheritdoc />
         public FormulateFormsTreeController(ITreeEntityPersistence treeEntityPersistence, IMenuItemCollectionFactory menuItemCollectionFactory, ILocalizedTextService localizedTextService, UmbracoApiControllerTypeCollection umbracoApiControllerTypeCollection, IEventAggregator eventAggregator) : base(treeEntityPersistence, menuItemCollectionFactory, localizedTextService, umbracoApiControllerTypeCollection, eventAggregator)
         {
         }
 
+        /// <inheritdoc />
         protected override string GetNodeAction(IPersistedEntity entity)
         {
             if (entity is PersistedConfiguredForm)
@@ -28,6 +51,7 @@ namespace Formulate.BackOffice.Trees
             return base.GetNodeAction(entity);
         }
 
+        /// <inheritdoc />
         protected override string GetNodeIcon(IPersistedEntity entity)
         {
             if (entity is PersistedConfiguredForm)
@@ -37,13 +61,5 @@ namespace Formulate.BackOffice.Trees
 
             return base.GetNodeIcon(entity);
         }
-
-        protected override FormulateEntityTypes EntityType => FormulateEntityTypes.Forms;
-
-        protected override string RootNodeIcon => "icon-formulate-forms";
-        protected override string FolderNodeIcon => "icon-formulate-form-group";
-        protected override string ItemNodeIcon => "icon-formulate-form";
-
-        protected override string ItemNodeAction => "editForm";
     }
 }

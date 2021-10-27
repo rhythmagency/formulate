@@ -11,17 +11,48 @@ using Umbraco.Cms.Web.BackOffice.Trees;
 
 namespace Formulate.BackOffice.Trees
 {
+    /// <summary>
+    /// The Formulate data values tree controller.
+    /// </summary>
     [Tree(FormulateSection.Constants.Alias, "datavalues", TreeTitle = "Data Values", SortOrder = 2)]
     [FormulatePluginController]
-    public sealed class FormulateValidationsTreeController : FormulateTreeController
+    public sealed class FormulateDataValuesTreeController : FormulateTreeController
     {
+        /// <summary>
+        /// The data values definitions.
+        /// </summary>
         private readonly DataValuesDefinitionCollection _dataValuesDefinitions;
 
-        public FormulateValidationsTreeController(DataValuesDefinitionCollection dataValuesDefinitions, ITreeEntityPersistence treeEntityPersistence, IMenuItemCollectionFactory menuItemCollectionFactory, ILocalizedTextService localizedTextService, UmbracoApiControllerTypeCollection umbracoApiControllerTypeCollection, IEventAggregator eventAggregator) : base(treeEntityPersistence, menuItemCollectionFactory, localizedTextService, umbracoApiControllerTypeCollection, eventAggregator)
+        /// <inheritdoc />
+        protected override FormulateEntityTypes EntityType => FormulateEntityTypes.DataValues;
+
+        /// <inheritdoc />
+        protected override string RootNodeIcon => "icon-formulate-values";
+
+        /// <inheritdoc />
+        protected override string FolderNodeIcon => "icon-formulate-value-group";
+
+        /// <inheritdoc />
+        protected override string ItemNodeIcon => "icon-formulate-value";
+
+        /// <inheritdoc />
+        protected override string ItemNodeAction => "editDataValue";
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormulateDataValuesTreeController"/> class.
+        /// </summary>
+        /// <param name="dataValuesDefinitions">The data values definitions.</param>
+        /// <param name="treeEntityPersistence">The tree entity persistence.</param>
+        /// <param name="menuItemCollectionFactory">The menu item collection factory.</param>
+        /// <param name="localizedTextService">The localized text service.</param>
+        /// <param name="umbracoApiControllerTypeCollection">The umbraco api controller type collection.</param>
+        /// <param name="eventAggregator">The event aggregator.</param>
+        public FormulateDataValuesTreeController(DataValuesDefinitionCollection dataValuesDefinitions, ITreeEntityPersistence treeEntityPersistence, IMenuItemCollectionFactory menuItemCollectionFactory, ILocalizedTextService localizedTextService, UmbracoApiControllerTypeCollection umbracoApiControllerTypeCollection, IEventAggregator eventAggregator) : base(treeEntityPersistence, menuItemCollectionFactory, localizedTextService, umbracoApiControllerTypeCollection, eventAggregator)
         {
             _dataValuesDefinitions = dataValuesDefinitions;
         }
 
+        /// <inheritdoc />
         protected override string GetNodeIcon(IPersistedEntity entity)
         {
             if (entity is PersistedDataValues dataValuesEntity)
@@ -41,16 +72,5 @@ namespace Formulate.BackOffice.Trees
 
             return base.GetNodeIcon(entity);
         }
-
-
-        protected override FormulateEntityTypes EntityType => FormulateEntityTypes.Validations;
-
-        protected override string RootNodeIcon => "icon-formulate-values";
-
-        protected override string FolderNodeIcon => "icon-formulate-value-group";
-
-        protected override string ItemNodeIcon => "icon-formulate-value";
-
-        protected override string ItemNodeAction => "editDataValue";
     }
 }
