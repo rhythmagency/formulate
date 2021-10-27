@@ -27,6 +27,11 @@ namespace Formulate.Core.DataValues.UsStates
             /// The Angular JS directive.
             /// </summary>
             public const string Directive = "formulate-data-values-dynamic";
+
+            /// <summary>
+            /// The icon.
+            /// </summary>
+            public const string Icon = "icon-globe-inverted-america";
         }
 
         /// <inheritdoc />
@@ -37,6 +42,9 @@ namespace Formulate.Core.DataValues.UsStates
 
         /// <inheritdoc />
         public override string Directive => Constants.Directive;
+
+        /// <inheritdoc />
+        public override string Icon => Constants.Icon;
 
         /// <inheritdoc />
         protected override IDataValues CreateDataValues(IDataValuesSettings settings)

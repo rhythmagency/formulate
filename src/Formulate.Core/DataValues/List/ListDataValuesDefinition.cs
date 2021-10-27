@@ -34,6 +34,11 @@ namespace Formulate.Core.DataValues.List
             /// The Angular JS directive.
             /// </summary>
             public const string Directive = "formulate-data-values-list";
+
+            /// <summary>
+            /// The icon.
+            /// </summary>
+            public const string Icon = "icon-list";
         }
 
         /// <inheritdoc />
@@ -44,6 +49,9 @@ namespace Formulate.Core.DataValues.List
 
         /// <inheritdoc />
         public override string Directive => Constants.Directive;
+
+        /// <inheritdoc />
+        public override string Icon => Constants.Icon;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ListDataValuesDefinition"/> class.

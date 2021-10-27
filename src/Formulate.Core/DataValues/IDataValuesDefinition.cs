@@ -10,6 +10,11 @@ namespace Formulate.Core.DataValues
     public interface IDataValuesDefinition : IDefinition
     {
         /// <summary>
+        /// Gets the icon.
+        /// </summary>
+        string Icon { get; }
+
+        /// <summary>
         /// Asynchronously creates a <see cref="IDataValues"/>.
         /// </summary>
         /// <param name="settings">The current settings.</param>

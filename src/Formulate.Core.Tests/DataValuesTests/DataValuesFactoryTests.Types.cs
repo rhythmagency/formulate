@@ -31,6 +31,8 @@ namespace Formulate.Core.Tests.DataValuesTests
 
             public override string Directive => "test-data-values";
 
+            public override string Icon => "icon-test";
+
             public override async Task<IDataValues> CreateDataValuesAsync(IDataValuesSettings settings, CancellationToken cancellationToken = default)
             {
                 return await Task.Run(() => new TestDataValues(settings, new List<KeyValuePair<string, string>>()), cancellationToken);

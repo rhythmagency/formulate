@@ -1,5 +1,4 @@
-﻿using System;
-using Formulate.Core.Types;
+﻿using Formulate.Core.Types;
 
 namespace Formulate.Core.Layouts
 {

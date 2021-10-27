@@ -2,6 +2,7 @@
 using Formulate.Core.FormFields;
 using Formulate.Core.FormHandlers;
 using Formulate.Core.Layouts;
+using Formulate.Core.Persistence;
 using Formulate.Core.Validations;
 using Microsoft.Extensions.DependencyInjection;
 using Umbraco.Cms.Core.DependencyInjection;
@@ -22,6 +23,7 @@ namespace Formulate.Core.DependencyInjection
             builder.Services.AddSingleton<IFormFieldFactory, FormFieldFactory>();
             builder.Services.AddSingleton<ILayoutFactory, LayoutFactory>();
             builder.Services.AddSingleton<IValidationFactory, ValidationFactory>();
+            builder.Services.AddSingleton<IPersistenceUtilityFactory, PersistenceUtilityFactory>();
 
             return builder;
         }
