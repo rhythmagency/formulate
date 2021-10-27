@@ -22,7 +22,7 @@ namespace Formulate.BackOffice.Trees
             _dataValuesDefinitions = dataValuesDefinitions;
         }
 
-        protected override string GetIcon(IPersistedEntity entity)
+        protected override string GetNodeIcon(IPersistedEntity entity)
         {
             if (entity is PersistedDataValues dataValuesEntity)
             {
@@ -39,17 +39,17 @@ namespace Formulate.BackOffice.Trees
                 }
             }
 
-            return base.GetIcon(entity);
+            return base.GetNodeIcon(entity);
         }
 
 
         protected override FormulateEntityTypes EntityType => FormulateEntityTypes.Validations;
 
-        protected override string RootIcon => "icon-formulate-values";
+        protected override string RootNodeIcon => "icon-formulate-values";
 
-        protected override string FolderIcon => "icon-formulate-value-group";
+        protected override string FolderNodeIcon => "icon-formulate-value-group";
 
-        protected override string ItemIcon => "icon-formulate-value";
+        protected override string ItemNodeIcon => "icon-formulate-value";
 
         public override string ItemAction => "editDataValue";
     }

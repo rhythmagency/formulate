@@ -19,11 +19,11 @@ namespace Formulate.BackOffice.Trees
 
         protected override FormulateEntityTypes EntityType => FormulateEntityTypes.Validations;
 
-        protected override string RootIcon => "icon-formulate-validations";
+        protected override string RootNodeIcon => "icon-formulate-validations";
 
-        protected override string FolderIcon => "icon-formulate-validation-group";
+        protected override string FolderNodeIcon => "icon-formulate-validation-group";
 
-        protected override string ItemIcon => "icon-formulate-validation";
+        protected override string ItemNodeIcon => "icon-formulate-validation";
 
         public override string ItemAction => "editValidation";
     }

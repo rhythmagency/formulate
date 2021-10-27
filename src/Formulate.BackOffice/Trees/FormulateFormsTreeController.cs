@@ -18,31 +18,31 @@ namespace Formulate.BackOffice.Trees
         {
         }
 
-        protected override string GetAction(IPersistedEntity entity)
+        protected override string GetNodeAction(IPersistedEntity entity)
         {
             if (entity is PersistedConfiguredForm)
             {
                 return "editConfiguredForm";
             }
 
-            return base.GetAction(entity);
+            return base.GetNodeAction(entity);
         }
 
-        protected override string GetIcon(IPersistedEntity entity)
+        protected override string GetNodeIcon(IPersistedEntity entity)
         {
             if (entity is PersistedConfiguredForm)
             {
                 return "icon-formulate-conform";
             }
 
-            return base.GetIcon(entity);
+            return base.GetNodeIcon(entity);
         }
 
         protected override FormulateEntityTypes EntityType => FormulateEntityTypes.Forms;
 
-        protected override string RootIcon => "icon-formulate-forms";
-        protected override string FolderIcon => "icon-formulate-form-group";
-        protected override string ItemIcon => "icon-formulate-form";
+        protected override string RootNodeIcon => "icon-formulate-forms";
+        protected override string FolderNodeIcon => "icon-formulate-form-group";
+        protected override string ItemNodeIcon => "icon-formulate-form";
 
         public override string ItemAction => "editForm";
     }

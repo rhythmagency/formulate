@@ -20,11 +20,11 @@ namespace Formulate.BackOffice.Trees
         protected override FormulateEntityTypes EntityType => FormulateEntityTypes.Layouts;
 
 
-        protected override string RootIcon => "icon-formulate-layouts";
+        protected override string RootNodeIcon => "icon-formulate-layouts";
 
-        protected override string FolderIcon => "icon-formulate-layout-group";
+        protected override string FolderNodeIcon => "icon-formulate-layout-group";
 
-        protected override string ItemIcon => "icon-formulate-layout";
+        protected override string ItemNodeIcon => "icon-formulate-layout";
 
         public override string ItemAction => "editLayout";
     }
