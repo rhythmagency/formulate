@@ -25,6 +25,6 @@ namespace Formulate.BackOffice.Trees
 
         protected override string ItemNodeIcon => "icon-formulate-validation";
 
-        public override string ItemAction => "editValidation";
+        protected override string ItemNodeAction => "editValidation";
     }
 }

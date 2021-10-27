@@ -51,6 +51,6 @@ namespace Formulate.BackOffice.Trees
 
         protected override string ItemNodeIcon => "icon-formulate-value";
 
-        public override string ItemAction => "editDataValue";
+        protected override string ItemNodeAction => "editDataValue";
     }
 }

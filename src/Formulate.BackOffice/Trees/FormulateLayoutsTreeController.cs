@@ -26,6 +26,6 @@ namespace Formulate.BackOffice.Trees
 
         protected override string ItemNodeIcon => "icon-formulate-layout";
 
-        public override string ItemAction => "editLayout";
+        protected override string ItemNodeAction => "editLayout";
     }
 }

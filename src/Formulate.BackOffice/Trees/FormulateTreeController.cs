@@ -66,9 +66,9 @@ namespace Formulate.BackOffice.Trees
         protected abstract string ItemNodeIcon { get; }
 
         /// <summary>
-        /// Gets the item action.
+        /// Gets the item node action.
         /// </summary>
-        protected abstract string ItemAction { get; }
+        protected abstract string ItemNodeAction { get; }
 
         /// <inheritdoc />
         protected override ActionResult<TreeNode> CreateRootNode(FormCollection queryStrings)
@@ -111,7 +111,7 @@ namespace Formulate.BackOffice.Trees
         /// <returns>A <see cref="string"/>.</returns>
         protected virtual string GetNodeAction(IPersistedEntity entity)
         {
-            return entity.IsFolder() ? "editFolder" : ItemAction;
+            return entity.IsFolder() ? "editFolder" : ItemNodeAction;
         }
 
         /// <summary>

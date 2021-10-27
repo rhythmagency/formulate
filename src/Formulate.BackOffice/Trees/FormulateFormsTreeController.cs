@@ -44,6 +44,6 @@ namespace Formulate.BackOffice.Trees
         protected override string FolderNodeIcon => "icon-formulate-form-group";
         protected override string ItemNodeIcon => "icon-formulate-form";
 
-        public override string ItemAction => "editForm";
+        protected override string ItemNodeAction => "editForm";
     }
 }
