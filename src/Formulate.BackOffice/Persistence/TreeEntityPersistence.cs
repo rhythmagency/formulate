@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Formulate.Core.ConfiguredForms;
 using Formulate.Core.DataValues;
 using Formulate.Core.Folders;
 using Formulate.Core.Forms;
@@ -12,14 +13,16 @@ namespace Formulate.BackOffice.Persistence
 {
     internal sealed class TreeEntityPersistence : ITreeEntityPersistence
     {
+        private readonly IConfiguredFormEntityPersistence _configuredFormEntityPersistence;
         private readonly IFormEntityPersistence _formEntityPersistence;
         private readonly ILayoutEntityPersistence _layoutEntityPersistence;
         private readonly IFolderEntityPersistence _folderEntityPersistence;
         private readonly IDataValuesEntityPersistence _dataValuesEntityPersistence;
         private readonly IValidationEntityPersistence _validationEntityPersistence;
 
-        public TreeEntityPersistence(IFormEntityPersistence formEntityPersistence, ILayoutEntityPersistence layoutEntityPersistence, IFolderEntityPersistence folderEntityPersistence, IDataValuesEntityPersistence dataValuesEntityPersistence, IValidationEntityPersistence validationEntityPersistence)
+        public TreeEntityPersistence(IConfiguredFormEntityPersistence configuredFormEntityPersistence, IFormEntityPersistence formEntityPersistence, ILayoutEntityPersistence layoutEntityPersistence, IFolderEntityPersistence folderEntityPersistence, IDataValuesEntityPersistence dataValuesEntityPersistence, IValidationEntityPersistence validationEntityPersistence)
         {
+            _configuredFormEntityPersistence = configuredFormEntityPersistence;
             _formEntityPersistence = formEntityPersistence;
             _layoutEntityPersistence = layoutEntityPersistence;
             _folderEntityPersistence = folderEntityPersistence;
@@ -31,6 +34,7 @@ namespace Formulate.BackOffice.Persistence
         {
             var children = new List<IPersistedEntity>();
 
+            children.AddRange(_configuredFormEntityPersistence.GetChildren(parentId));
             children.AddRange(_dataValuesEntityPersistence.GetChildren(parentId));
             children.AddRange(_folderEntityPersistence.GetChildren(parentId));
             children.AddRange(_formEntityPersistence.GetChildren(parentId));
