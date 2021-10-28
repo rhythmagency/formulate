@@ -1,9 +1,9 @@
 ﻿namespace Formulate.Core.Persistence
 {
     /// <summary>
-    /// A settings class required to create a <see cref="PersistenceUtility{TPersistedEntity}"/>.
+    /// A settings class required to create a <see cref="RepositoryUtility{TPersistedEntity}"/>.
     /// </summary>
-    internal sealed class PersistenceUtilitySettings : IPersistenceUtilitySettings
+    internal sealed class RepositoryUtilitySettings : IRepositoryUtilitySettings
     {
         /// <summary>
         /// Gets or sets the base path to JSON files.
@@ -23,7 +23,7 @@
         /// <summary>
         /// Settings used for configured forms entities.
         /// </summary>
-        public static readonly IPersistenceUtilitySettings ConfiguredForms = new PersistenceUtilitySettings()
+        public static readonly IRepositoryUtilitySettings ConfiguredForms = new RepositoryUtilitySettings()
         {
             BasePath = "ConfiguredForms",
             Extension = ".conform",
@@ -33,7 +33,7 @@
         /// <summary>
         /// Settings used for data values entities.
         /// </summary>
-        public static readonly IPersistenceUtilitySettings DataValues = new PersistenceUtilitySettings()
+        public static readonly IRepositoryUtilitySettings DataValues = new RepositoryUtilitySettings()
         {
             BasePath = "DataValues",
             Extension = ".json",
@@ -43,7 +43,7 @@
         /// <summary>
         /// Settings used for form entities.
         /// </summary>
-        public static readonly IPersistenceUtilitySettings Forms = new PersistenceUtilitySettings()
+        public static readonly IRepositoryUtilitySettings Forms = new RepositoryUtilitySettings()
         {
             BasePath = "forms",
             Extension = ".form",
@@ -53,7 +53,7 @@
         /// <summary>
         /// Settings used for folder entities.
         /// </summary>
-        public static readonly IPersistenceUtilitySettings Folders = new PersistenceUtilitySettings()
+        public static readonly IRepositoryUtilitySettings Folders = new RepositoryUtilitySettings()
         {
             BasePath = "folders",
             Extension = ".folder",
@@ -63,7 +63,7 @@
         /// <summary>
         /// Settings used for layout entities.
         /// </summary>
-        public static readonly IPersistenceUtilitySettings Layouts = new PersistenceUtilitySettings()
+        public static readonly IRepositoryUtilitySettings Layouts = new RepositoryUtilitySettings()
         {
             BasePath = "layouts",
             Extension = ".json",
@@ -73,7 +73,7 @@
         /// <summary>
         /// Settings used for validation entities.
         /// </summary>
-        public static IPersistenceUtilitySettings Validations = new PersistenceUtilitySettings()
+        public static IRepositoryUtilitySettings Validations = new RepositoryUtilitySettings()
         {
             BasePath = "validations",
             Extension = ".validation",

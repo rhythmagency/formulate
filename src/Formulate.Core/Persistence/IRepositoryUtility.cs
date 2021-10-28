@@ -7,7 +7,7 @@ namespace Formulate.Core.Persistence
     /// A utility for managing Formulate entities.
     /// </summary>
     /// <typeparam name="TPersistedEntity">The type of entities to manage.</typeparam>
-    public interface IPersistenceUtility<TPersistedEntity> where TPersistedEntity : class, IPersistedEntity
+    public interface IRepositoryUtility<TPersistedEntity> where TPersistedEntity : class, IPersistedEntity
     {
         /// <summary>
         /// Saves or creates an entity.

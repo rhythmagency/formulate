@@ -1,9 +1,9 @@
 ﻿namespace Formulate.Core.Persistence
 {
     /// <summary>
-    /// A contract for creating settings required to create a <see cref="PersistenceUtility{TPersistedEntity}"/>.
+    /// A contract for creating settings required to create a <see cref="RepositoryUtility{TPersistedEntity}"/>.
     /// </summary>
-    internal interface IPersistenceUtilitySettings
+    internal interface IRepositoryUtilitySettings
     {
         /// <summary>
         /// Gets the base path to JSON files.

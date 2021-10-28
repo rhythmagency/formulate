@@ -45,12 +45,12 @@ namespace Formulate.BackOffice.Trees
         /// Initializes a new instance of the <see cref="FormulateDataValuesTreeController"/> class.
         /// </summary>
         /// <param name="dataValuesDefinitions">The data values definitions.</param>
-        /// <param name="treeEntityPersistence">The tree entity persistence.</param>
+        /// <param name="treeEntityRepository">The tree entity repository.</param>
         /// <param name="menuItemCollectionFactory">The menu item collection factory.</param>
         /// <param name="localizedTextService">The localized text service.</param>
         /// <param name="umbracoApiControllerTypeCollection">The umbraco api controller type collection.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        public FormulateDataValuesTreeController(DataValuesDefinitionCollection dataValuesDefinitions, ITreeEntityPersistence treeEntityPersistence, IMenuItemCollectionFactory menuItemCollectionFactory, ILocalizedTextService localizedTextService, UmbracoApiControllerTypeCollection umbracoApiControllerTypeCollection, IEventAggregator eventAggregator) : base(treeEntityPersistence, menuItemCollectionFactory, localizedTextService, umbracoApiControllerTypeCollection, eventAggregator)
+        public FormulateDataValuesTreeController(DataValuesDefinitionCollection dataValuesDefinitions, ITreeEntityRepository treeEntityRepository, IMenuItemCollectionFactory menuItemCollectionFactory, ILocalizedTextService localizedTextService, UmbracoApiControllerTypeCollection umbracoApiControllerTypeCollection, IEventAggregator eventAggregator) : base(treeEntityRepository, menuItemCollectionFactory, localizedTextService, umbracoApiControllerTypeCollection, eventAggregator)
         {
             _dataValuesDefinitions = dataValuesDefinitions;
         }

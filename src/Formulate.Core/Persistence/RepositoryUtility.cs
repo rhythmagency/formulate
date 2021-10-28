@@ -8,9 +8,9 @@ using Microsoft.Extensions.Logging;
 namespace Formulate.Core.Persistence
 {
     /// <summary>
-    /// A utility to help with persistence for a given type.
+    /// A utility to help with repository for a given type.
     /// </summary>
-    internal sealed class PersistenceUtility<TPersistedEntity> : IPersistenceUtility<TPersistedEntity> where TPersistedEntity : class, IPersistedEntity
+    internal sealed class RepositoryUtility<TPersistedEntity> : IRepositoryUtility<TPersistedEntity> where TPersistedEntity : class, IPersistedEntity
     {
         /// <summary>
         /// The base folder path to store files in.
@@ -45,11 +45,11 @@ namespace Formulate.Core.Persistence
         /// <summary>
         /// Full constructor.
         /// </summary>
-        /// <param name="settings">The persistence helper settings.</param>
+        /// <param name="settings">The repository helper settings.</param>
         /// <param name="jsonUtility">The json utility.</param>
         /// <param name="entityCache">The entity cache.</param>
         /// <param name="logger"></param>
-        public PersistenceUtility(IPersistenceUtilitySettings settings, IJsonUtility jsonUtility,
+        public RepositoryUtility(IRepositoryUtilitySettings settings, IJsonUtility jsonUtility,
             IPersistedEntityCache entityCache, ILogger logger)
         {
             _basePath = settings.BasePath;

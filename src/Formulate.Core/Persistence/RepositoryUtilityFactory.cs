@@ -12,9 +12,9 @@ using Umbraco.Cms.Core.Hosting;
 namespace Formulate.Core.Persistence
 {
     /// <summary>
-    /// The default implementation of <see cref="IPersistenceUtilityFactory"/>.
+    /// The default implementation of <see cref="IRepositoryUtilityFactory"/>.
     /// </summary>
-    internal sealed class PersistenceUtilityFactory : IPersistenceUtilityFactory
+    internal sealed class RepositoryUtilityFactory : IRepositoryUtilityFactory
     {
         /// <summary>
         /// The hosting environment.
@@ -42,13 +42,13 @@ namespace Formulate.Core.Persistence
         private readonly string _jsonRootPath;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PersistenceUtilityFactory"/> class.
+        /// Initializes a new instance of the <see cref="RepositoryUtilityFactory"/> class.
         /// </summary>
         /// <param name="hostingEnvironment">The hosting environment.</param>
         /// <param name="jsonUtility">The json utility.</param>
         /// <param name="entityCache">The entity cache.</param>
         /// <param name="logger">The logger.</param>
-        public PersistenceUtilityFactory(IHostingEnvironment hostingEnvironment, IJsonUtility jsonUtility, IPersistedEntityCache entityCache, ILogger<PersistenceUtilityFactory> logger)
+        public RepositoryUtilityFactory(IHostingEnvironment hostingEnvironment, IJsonUtility jsonUtility, IPersistedEntityCache entityCache, ILogger<RepositoryUtilityFactory> logger)
         {
             _hostingEnvironment = hostingEnvironment;
             _jsonUtility = jsonUtility;
@@ -61,24 +61,24 @@ namespace Formulate.Core.Persistence
 
         /// <inheritdoc />
         /// <exception cref="NotSupportedException">If the type provided is not supported.</exception>
-        public IPersistenceUtility<TEntity> Create<TEntity>() where TEntity : class, IPersistedEntity
+        public IRepositoryUtility<TEntity> Create<TEntity>() where TEntity : class, IPersistedEntity
         {
             var settings = GetSettings<TEntity>();
             var updatedSettings = UpdateSettings(settings);
 
-            return new PersistenceUtility<TEntity>(updatedSettings, _jsonUtility, _entityCache, _logger);
+            return new RepositoryUtility<TEntity>(updatedSettings, _jsonUtility, _entityCache, _logger);
         }
 
         /// <summary>
         /// Updates the settings to be rooted in the application.
         /// </summary>
         /// <param name="settings">The current settings.</param>
-        /// <returns>A <see cref="IPersistenceUtilitySettings"/>.</returns>
-        private IPersistenceUtilitySettings UpdateSettings(IPersistenceUtilitySettings settings)
+        /// <returns>A <see cref="IRepositoryUtilitySettings"/>.</returns>
+        private IRepositoryUtilitySettings UpdateSettings(IRepositoryUtilitySettings settings)
         {
             var baseVirtualPath = $"{_jsonRootPath.TrimEnd('/')}/{settings.BasePath}";
 
-            return new PersistenceUtilitySettings()
+            return new RepositoryUtilitySettings()
             {
                 BasePath = _hostingEnvironment.MapPathWebRoot(baseVirtualPath),
                 Extension = settings.Extension,
@@ -89,43 +89,43 @@ namespace Formulate.Core.Persistence
         /// <summary>
         /// Gets the settings for the incoming type.
         /// </summary>
-        /// <returns>A <see cref="IPersistenceUtilitySettings"/>.</returns>
+        /// <returns>A <see cref="IRepositoryUtilitySettings"/>.</returns>
         /// <exception cref="NotSupportedException">If the type provided is not supported.</exception>
-        private static IPersistenceUtilitySettings GetSettings<TEntity>()
+        private static IRepositoryUtilitySettings GetSettings<TEntity>()
         {
             var type = typeof(TEntity);
             
             if (type == typeof(PersistedConfiguredForm))
             {
-                return PersistenceUtilitySettings.ConfiguredForms;
+                return RepositoryUtilitySettings.ConfiguredForms;
             }
 
             if (type == typeof(PersistedDataValues))
             {
-                return PersistenceUtilitySettings.DataValues;
+                return RepositoryUtilitySettings.DataValues;
             }
 
             if (type == typeof(PersistedForm))
             {
-                return PersistenceUtilitySettings.Forms;
+                return RepositoryUtilitySettings.Forms;
             }
 
             if (type == typeof(PersistedFolder))
             {
-                return PersistenceUtilitySettings.Folders;
+                return RepositoryUtilitySettings.Folders;
             }
 
             if (type == typeof(PersistedLayout))
             {
-                return PersistenceUtilitySettings.Layouts;
+                return RepositoryUtilitySettings.Layouts;
             }
 
             if (type == typeof(PersistedValidation))
             {
-                return PersistenceUtilitySettings.Validations;
+                return RepositoryUtilitySettings.Validations;
             }
 
-            throw new NotSupportedException($"Entity type {type} has no matching {typeof(IPersistenceUtilitySettings)} settings.");
+            throw new NotSupportedException($"Entity type {type} has no matching {typeof(IRepositoryUtilitySettings)} settings.");
         }
     }
 }

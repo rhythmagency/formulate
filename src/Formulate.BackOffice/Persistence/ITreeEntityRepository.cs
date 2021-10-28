@@ -4,7 +4,7 @@ using Formulate.Core.Persistence;
 
 namespace Formulate.BackOffice.Persistence
 {
-    public interface ITreeEntityPersistence
+    public interface ITreeEntityRepository
     {
         IPersistedEntity Get(Guid id);
 

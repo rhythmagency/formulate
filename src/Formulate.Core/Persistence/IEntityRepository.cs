@@ -4,10 +4,10 @@ using System.Collections.Generic;
 namespace Formulate.Core.Persistence
 {
     /// <summary>
-    /// The underlying contract for creating an entity persistence class.
+    /// The underlying contract for creating an entity repository class.
     /// </summary>
     /// <typeparam name="TPersistedEntity">The type of entity to manage.</typeparam>
-    public interface IEntityPersistence<TPersistedEntity> where TPersistedEntity : class, IPersistedEntity
+    public interface IEntityRepository<TPersistedEntity> where TPersistedEntity : class, IPersistedEntity
     {
         /// <summary>
         /// Saves or creates an entity.

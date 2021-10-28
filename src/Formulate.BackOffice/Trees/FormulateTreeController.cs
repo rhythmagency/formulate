@@ -19,9 +19,9 @@ namespace Formulate.BackOffice.Trees
     public abstract class FormulateTreeController : TreeController
     {
         /// <summary>
-        /// The tree entity persistence.
+        /// The tree entity repository.
         /// </summary>
-        private readonly ITreeEntityPersistence _treeEntityPersistence;
+        private readonly ITreeEntityRepository _treeEntityRepository;
 
         /// <summary>
         /// The menu item collection factory.
@@ -31,17 +31,17 @@ namespace Formulate.BackOffice.Trees
         /// <summary>
         /// Initializes a new instance of the <see cref="FormulateTreeController"/> class.
         /// </summary>
-        /// <param name="treeEntityPersistence">The tree entity persistence.</param>
+        /// <param name="treeEntityRepository">The tree entity repository.</param>
         /// <param name="menuItemCollectionFactory">The menu item collection factory.</param>
         /// <param name="localizedTextService">The localized text service.</param>
         /// <param name="umbracoApiControllerTypeCollection">The umbraco api controller type collection.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        protected FormulateTreeController(ITreeEntityPersistence treeEntityPersistence,
+        protected FormulateTreeController(ITreeEntityRepository treeEntityRepository,
             IMenuItemCollectionFactory menuItemCollectionFactory, ILocalizedTextService localizedTextService,
             UmbracoApiControllerTypeCollection umbracoApiControllerTypeCollection, IEventAggregator eventAggregator) :
             base(localizedTextService, umbracoApiControllerTypeCollection, eventAggregator)
         {
-            _treeEntityPersistence = treeEntityPersistence;
+            _treeEntityRepository = treeEntityRepository;
             MenuItemCollectionFactory = menuItemCollectionFactory ?? throw new ArgumentNullException(nameof(menuItemCollectionFactory));
         }
 
@@ -87,7 +87,7 @@ namespace Formulate.BackOffice.Trees
 
             foreach (var entity in entities)
             {
-                var hasChildren = _treeEntityPersistence.HasChildren(entity.Id);
+                var hasChildren = _treeEntityRepository.HasChildren(entity.Id);
                 var icon = GetNodeIcon(entity);
                 var routePath = $"/formulate/formulate/{GetNodeAction(entity)}/{entity.Id:N}";
                 var node = CreateTreeNode(entity.Id.ToString(), id, queryStrings, entity.Name, icon, hasChildren, routePath);
@@ -108,7 +108,7 @@ namespace Formulate.BackOffice.Trees
 
             if (Guid.TryParse(id, out var entityId))
             {
-                var entity = _treeEntityPersistence.Get(entityId);
+                var entity = _treeEntityRepository.Get(entityId);
                 if (entity is not null)
                 {
                     return GetMenuForEntity(entity, queryStrings);
@@ -168,12 +168,12 @@ namespace Formulate.BackOffice.Trees
         {
             if (id.Equals(Constants.System.Root.ToInvariantString()))
             {
-                return _treeEntityPersistence.GetRootItems(EntityType);
+                return _treeEntityRepository.GetRootItems(EntityType);
             }
 
             if (Guid.TryParse(id, out var parentId))
             {
-                return _treeEntityPersistence.GetChildren(parentId);
+                return _treeEntityRepository.GetChildren(parentId);
             }
 
             return Array.Empty<IPersistedEntity>();
