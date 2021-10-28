@@ -30,6 +30,31 @@ namespace Formulate.BackOffice.Persistence
             _validationEntityPersistence = validationEntityPersistence;
         }
 
+        public IPersistedEntity Get(Guid id)
+        {
+            var actions = new Func<Guid, IPersistedEntity>[]
+            {
+                _configuredFormEntityPersistence.Get,
+                _dataValuesEntityPersistence.Get,
+                _folderEntityPersistence.Get,
+                _formEntityPersistence.Get,
+                _layoutEntityPersistence.Get,
+                _validationEntityPersistence.Get,
+            };
+
+            foreach (var action in actions)
+            {
+                var entity = action.Invoke(id);
+
+                if (entity is not null)
+                {
+                    return entity;
+                }
+            }
+
+            return default;
+        }
+
         public IReadOnlyCollection<IPersistedEntity> GetChildren(Guid parentId)
         {
             var children = new List<IPersistedEntity>();

@@ -6,6 +6,8 @@ namespace Formulate.BackOffice.Persistence
 {
     public interface ITreeEntityPersistence
     {
+        IPersistedEntity Get(Guid id);
+
         IReadOnlyCollection<IPersistedEntity> GetChildren(Guid parentId);
 
         bool HasChildren(Guid parentId);
