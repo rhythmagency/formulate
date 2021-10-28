@@ -26,7 +26,7 @@ namespace Formulate.BackOffice.Trees
         /// <summary>
         /// The menu item collection factory.
         /// </summary>
-        private readonly IMenuItemCollectionFactory _menuItemCollectionFactory;
+        protected readonly IMenuItemCollectionFactory MenuItemCollectionFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormulateTreeController"/> class.
@@ -42,7 +42,7 @@ namespace Formulate.BackOffice.Trees
             base(localizedTextService, umbracoApiControllerTypeCollection, eventAggregator)
         {
             _treeEntityPersistence = treeEntityPersistence;
-            _menuItemCollectionFactory = menuItemCollectionFactory;
+            MenuItemCollectionFactory = menuItemCollectionFactory ?? throw new ArgumentNullException(nameof(menuItemCollectionFactory));
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Formulate.BackOffice.Trees
         /// Gets the root node icon.
         /// </summary>
         protected abstract string RootNodeIcon { get; }
-
+        
         /// <summary>
         /// Gets the folder node icon.
         /// </summary>
@@ -99,9 +99,44 @@ namespace Formulate.BackOffice.Trees
         }
         
         /// <inheritdoc />
-        protected override ActionResult<MenuItemCollection> GetMenuForNode(string id, FormCollection queryStrings)
+        protected sealed override ActionResult<MenuItemCollection> GetMenuForNode(string id, FormCollection queryStrings)
         {
-            return _menuItemCollectionFactory.Create();
+            if (id.Equals(Constants.System.Root.ToInvariantString()))
+            {
+                return GetMenuForRoot(queryStrings);
+            }
+
+            if (Guid.TryParse(id, out var entityId))
+            {
+                var entity = _treeEntityPersistence.Get(entityId);
+                if (entity is not null)
+                {
+                    return GetMenuForEntity(entity, queryStrings);
+                }
+            }
+
+            return MenuItemCollectionFactory.Create();
+        }
+
+        /// <summary>
+        /// Creates a menu for a given entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="queryStrings">The query strings for the current request.</param>
+        /// <returns>A <see cref="ActionResult{MenuItemCollection}"/>.</returns>
+        protected virtual ActionResult<MenuItemCollection> GetMenuForEntity(IPersistedEntity entity, FormCollection queryStrings)
+        {
+            return MenuItemCollectionFactory.Create();
+        }
+        
+        /// <summary>
+        /// Creates a menu for the root node.
+        /// </summary>
+        /// <param name="queryStrings">The query strings for the current request.</param>
+        /// <returns>A <see cref="ActionResult{MenuItemCollection}"/>.</returns>
+        protected virtual ActionResult<MenuItemCollection> GetMenuForRoot(FormCollection queryStrings)
+        {
+            return MenuItemCollectionFactory.Create();
         }
 
         /// <summary>

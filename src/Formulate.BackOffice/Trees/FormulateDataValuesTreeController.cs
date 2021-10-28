@@ -1,8 +1,11 @@
 ﻿using Formulate.BackOffice.Attributes;
 using Formulate.BackOffice.Persistence;
 using Formulate.Core.DataValues;
+using Formulate.Core.Folders;
 using Formulate.Core.Persistence;
 using Formulate.Core.Types;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Services;
@@ -71,6 +74,43 @@ namespace Formulate.BackOffice.Trees
             }
 
             return base.GetNodeIcon(entity);
+        }
+
+        /// <inheritdoc />
+        protected override ActionResult<MenuItemCollection> GetMenuForRoot(FormCollection queryStrings)
+        {
+            var menuItemCollection = MenuItemCollectionFactory.Create();
+
+            menuItemCollection.AddCreateDataValuesMenuItem(default, LocalizedTextService);
+            menuItemCollection.AddCreateFolderMenuItem(LocalizedTextService);
+
+            menuItemCollection.AddRefreshMenuItem(LocalizedTextService);
+
+            return menuItemCollection;
+        }
+
+        /// <inheritdoc />
+        protected override ActionResult<MenuItemCollection> GetMenuForEntity(IPersistedEntity entity, FormCollection queryStrings)
+        {
+            var menuItemCollection = MenuItemCollectionFactory.Create();
+
+            if (entity is PersistedFolder folder)
+            {
+                menuItemCollection.AddCreateDataValuesMenuItem(entity.Id, LocalizedTextService);
+                menuItemCollection.AddCreateFolderMenuItem(LocalizedTextService);
+                menuItemCollection.AddMoveFolderMenuItem(folder, LocalizedTextService);
+                menuItemCollection.AddDeleteFolderMenuItem(LocalizedTextService);
+
+                menuItemCollection.AddRefreshMenuItem(LocalizedTextService);
+            }
+
+            if (entity is PersistedDataValues dataValues)
+            {
+                menuItemCollection.AddMoveDataValuesMenuItem(dataValues, LocalizedTextService);
+                menuItemCollection.AddDeleteDataValuesMenuItem(LocalizedTextService);
+            }
+
+            return menuItemCollection;
         }
     }
 }

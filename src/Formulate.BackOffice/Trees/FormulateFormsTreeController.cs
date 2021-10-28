@@ -1,7 +1,11 @@
 ﻿using Formulate.BackOffice.Attributes;
 using Formulate.BackOffice.Persistence;
 using Formulate.Core.ConfiguredForms;
+using Formulate.Core.Folders;
+using Formulate.Core.Forms;
 using Formulate.Core.Persistence;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Services;
@@ -60,6 +64,51 @@ namespace Formulate.BackOffice.Trees
             }
 
             return base.GetNodeIcon(entity);
+        }
+
+        /// <inheritdoc />
+        protected override ActionResult<MenuItemCollection> GetMenuForRoot(FormCollection queryStrings)
+        {
+            var menuItemCollection = MenuItemCollectionFactory.Create();
+
+            menuItemCollection.AddCreateFormMenuItem(default, LocalizedTextService);
+            menuItemCollection.AddCreateFolderMenuItem(LocalizedTextService);
+
+            menuItemCollection.AddRefreshMenuItem(LocalizedTextService);
+
+            return menuItemCollection;
+        }
+
+        /// <inheritdoc />
+        protected override ActionResult<MenuItemCollection> GetMenuForEntity(IPersistedEntity entity, FormCollection queryStrings)
+        {
+            var menuItemCollection = MenuItemCollectionFactory.Create();
+
+            if (entity is PersistedFolder folder)
+            {
+                menuItemCollection.AddCreateFormMenuItem(entity.Id, LocalizedTextService);
+                menuItemCollection.AddCreateFolderMenuItem(LocalizedTextService);
+                menuItemCollection.AddMoveFolderMenuItem(folder, LocalizedTextService);
+                menuItemCollection.AddDeleteFolderMenuItem(LocalizedTextService);
+            }
+
+            if (entity is PersistedForm form)
+            {
+                menuItemCollection.AddMoveFormMenuItem(form, LocalizedTextService);
+                menuItemCollection.AddDeleteFormMenuItem(LocalizedTextService);
+                menuItemCollection.AddCreateConfiguredFormMenuItem(form.Id, LocalizedTextService);
+            }
+
+            if (entity is PersistedConfiguredForm)
+            {
+                menuItemCollection.AddDeleteConfiguredFormMenuItem(LocalizedTextService);
+            }
+            else
+            {
+                menuItemCollection.AddRefreshMenuItem(LocalizedTextService);
+            }
+
+            return menuItemCollection;
         }
     }
 }
