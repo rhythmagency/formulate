@@ -11,15 +11,50 @@ using Formulate.Core.Validations;
 
 namespace Formulate.BackOffice.Persistence
 {
+    /// <summary>
+    /// The default implementation of <see cref="ITreeEntityRepository"/>.
+    /// </summary>
     internal sealed class TreeEntityRepository : ITreeEntityRepository
     {
+        /// <summary>
+        /// The configured form entity repository.
+        /// </summary>
         private readonly IConfiguredFormEntityRepository _configuredFormEntityRepository;
+
+        /// <summary>
+        /// The form entity repository.
+        /// </summary>
         private readonly IFormEntityRepository _formEntityRepository;
+
+        /// <summary>
+        /// The layout entity repository.
+        /// </summary>
         private readonly ILayoutEntityRepository _layoutEntityRepository;
+
+        /// <summary>
+        /// The folder entity repository.
+        /// </summary>
         private readonly IFolderEntityRepository _folderEntityRepository;
+
+        /// <summary>
+        /// The data values entity repository.
+        /// </summary>
         private readonly IDataValuesEntityRepository _dataValuesEntityRepository;
+
+        /// <summary>
+        /// The validation entity repository.
+        /// </summary>
         private readonly IValidationEntityRepository _validationEntityRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TreeEntityRepository"/> class.
+        /// </summary>
+        /// <param name="configuredFormEntityRepository">The configured form entity repository.</param>
+        /// <param name="formEntityRepository">The form entity repository.</param>
+        /// <param name="layoutEntityRepository">The layout entity repository.</param>
+        /// <param name="folderEntityRepository">The folder entity repository.</param>
+        /// <param name="dataValuesEntityRepository">The data values entity repository.</param>
+        /// <param name="validationEntityRepository">The validation entity repository.</param>
         public TreeEntityRepository(IConfiguredFormEntityRepository configuredFormEntityRepository, IFormEntityRepository formEntityRepository, ILayoutEntityRepository layoutEntityRepository, IFolderEntityRepository folderEntityRepository, IDataValuesEntityRepository dataValuesEntityRepository, IValidationEntityRepository validationEntityRepository)
         {
             _configuredFormEntityRepository = configuredFormEntityRepository;
@@ -30,6 +65,7 @@ namespace Formulate.BackOffice.Persistence
             _validationEntityRepository = validationEntityRepository;
         }
 
+        /// <inheritdoc />
         public IPersistedEntity Get(Guid id)
         {
             var actions = new Func<Guid, IPersistedEntity>[]
@@ -55,6 +91,7 @@ namespace Formulate.BackOffice.Persistence
             return default;
         }
 
+        /// <inheritdoc />
         public IReadOnlyCollection<IPersistedEntity> GetChildren(Guid parentId)
         {
             var children = new List<IPersistedEntity>();
@@ -69,11 +106,13 @@ namespace Formulate.BackOffice.Persistence
             return children.ToArray();
         }
 
+        /// <inheritdoc />
         public bool HasChildren(Guid parentId)
         {
             return GetChildren(parentId).Any();
         }
 
+        /// <inheritdoc />
         public IReadOnlyCollection<IPersistedEntity> GetRootItems(FormulateEntityTypes type)
         {
             var rootId = GetRootId(type);
@@ -103,6 +142,11 @@ namespace Formulate.BackOffice.Persistence
             return entities.ToArray();
         }
 
+        /// <summary>
+        /// Gets the Root ID for the current entity type/
+        /// </summary>
+        /// <param name="type">The entity type.</param>
+        /// <returns>A <see cref="string"/>.</returns>
         private static string GetRootId(FormulateEntityTypes type)
         {
             return type switch
