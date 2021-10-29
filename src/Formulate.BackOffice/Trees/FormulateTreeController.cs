@@ -46,9 +46,9 @@ namespace Formulate.BackOffice.Trees
         }
 
         /// <summary>
-        /// Gets the entity type.
+        /// Gets the tree root type.
         /// </summary>
-        protected abstract FormulateEntityTypes EntityType { get; }
+        protected abstract TreeRootTypes TreeRootType { get; }
 
         /// <summary>
         /// Gets the root node icon.
@@ -168,7 +168,7 @@ namespace Formulate.BackOffice.Trees
         {
             if (id.Equals(Constants.System.Root.ToInvariantString()))
             {
-                return _treeEntityRepository.GetRootItems(EntityType);
+                return _treeEntityRepository.GetRootItems(TreeRootType);
             }
 
             if (Guid.TryParse(id, out var parentId))

@@ -113,9 +113,9 @@ namespace Formulate.BackOffice.Persistence
         }
 
         /// <inheritdoc />
-        public IReadOnlyCollection<IPersistedEntity> GetRootItems(FormulateEntityTypes type)
+        public IReadOnlyCollection<IPersistedEntity> GetRootItems(TreeRootTypes treeRootType)
         {
-            var rootId = GetRootId(type);
+            var rootId = GetRootId(treeRootType);
             var entities = new List<IPersistedEntity>();
 
             if (Guid.TryParse(rootId, out var parentId))
@@ -123,18 +123,18 @@ namespace Formulate.BackOffice.Persistence
                 entities.AddRange(_folderEntityRepository.GetChildren(parentId));
             }
 
-            switch (type)
+            switch (treeRootType)
             {
-                case FormulateEntityTypes.DataValues:
+                case TreeRootTypes.DataValues:
                     entities.AddRange(_dataValuesEntityRepository.GetRootItems());
                     break;
-                case FormulateEntityTypes.Forms:
+                case TreeRootTypes.Forms:
                     entities.AddRange(_formEntityRepository.GetRootItems());
                     break;
-                case FormulateEntityTypes.Layouts:
+                case TreeRootTypes.Layouts:
                     entities.AddRange(_layoutEntityRepository.GetRootItems());
                     break;
-                case FormulateEntityTypes.Validations:
+                case TreeRootTypes.Validations:
                     entities.AddRange(_validationEntityRepository.GetRootItems());
                     break;
             }
@@ -145,16 +145,16 @@ namespace Formulate.BackOffice.Persistence
         /// <summary>
         /// Gets the Root ID for the current entity type/
         /// </summary>
-        /// <param name="type">The entity type.</param>
+        /// <param name="treeRootType">The tree root type.</param>
         /// <returns>A <see cref="string"/>.</returns>
-        private static string GetRootId(FormulateEntityTypes type)
+        private static string GetRootId(TreeRootTypes treeRootType)
         {
-            return type switch
+            return treeRootType switch
             {
-                FormulateEntityTypes.Forms => FormConstants.RootId,
-                FormulateEntityTypes.DataValues => DataValuesConstants.RootId,
-                FormulateEntityTypes.Layouts => LayoutConstants.RootId,
-                FormulateEntityTypes.Validations => ValidationsConstants.RootId,
+                TreeRootTypes.Forms => FormConstants.RootId,
+                TreeRootTypes.DataValues => DataValuesConstants.RootId,
+                TreeRootTypes.Layouts => LayoutConstants.RootId,
+                TreeRootTypes.Validations => ValidationsConstants.RootId,
                 _ => default
             };
         }

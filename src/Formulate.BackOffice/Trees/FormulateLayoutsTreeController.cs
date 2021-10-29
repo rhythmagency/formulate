@@ -29,7 +29,7 @@ namespace Formulate.BackOffice.Trees
         }
 
         /// <inheritdoc />
-        protected override FormulateEntityTypes EntityType => FormulateEntityTypes.Layouts;
+        protected override TreeRootTypes TreeRootType => TreeRootTypes.Layouts;
 
         /// <inheritdoc />
         protected override string RootNodeIcon => "icon-formulate-layouts";

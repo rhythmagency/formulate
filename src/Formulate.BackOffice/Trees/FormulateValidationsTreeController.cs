@@ -29,7 +29,7 @@ namespace Formulate.BackOffice.Trees
         }
 
         /// <inheritdoc />
-        protected override FormulateEntityTypes EntityType => FormulateEntityTypes.Validations;
+        protected override TreeRootTypes TreeRootType => TreeRootTypes.Validations;
 
         /// <inheritdoc />
         protected override string RootNodeIcon => "icon-formulate-validations";

@@ -22,7 +22,7 @@ namespace Formulate.BackOffice.Trees
     public sealed class FormulateFormsTreeController : FormulateTreeController
     {
         /// <inheritdoc />
-        protected override FormulateEntityTypes EntityType => FormulateEntityTypes.Forms;
+        protected override TreeRootTypes TreeRootType => TreeRootTypes.Forms;
 
         /// <inheritdoc />
         protected override string RootNodeIcon => "icon-formulate-forms";

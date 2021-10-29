@@ -32,10 +32,10 @@ namespace Formulate.BackOffice.Persistence
         bool HasChildren(Guid parentId);
 
         /// <summary>
-        /// Gets the root items for a given entity type.
+        /// Gets the root items for a given tree root type.
         /// </summary>
-        /// <param name="type">The entity type.</param>
+        /// <param name="treeRootType">The tree root type.</param>
         /// <returns>A read only collection of <see cref="IPersistedEntity"/> items.</returns>
-        IReadOnlyCollection<IPersistedEntity> GetRootItems(FormulateEntityTypes type);
+        IReadOnlyCollection<IPersistedEntity> GetRootItems(TreeRootTypes treeRootType);
     }
 }

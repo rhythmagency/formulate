@@ -27,7 +27,7 @@ namespace Formulate.BackOffice.Trees
         private readonly DataValuesDefinitionCollection _dataValuesDefinitions;
 
         /// <inheritdoc />
-        protected override FormulateEntityTypes EntityType => FormulateEntityTypes.DataValues;
+        protected override TreeRootTypes TreeRootType => TreeRootTypes.DataValues;
 
         /// <inheritdoc />
         protected override string RootNodeIcon => "icon-formulate-values";
