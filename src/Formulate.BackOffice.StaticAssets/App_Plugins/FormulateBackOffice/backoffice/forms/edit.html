@@ -1,0 +1,9 @@
+﻿<div ng-controller="FormulateBackOffice.Forms.EditController">
+    <umb-load-indicator ng-if="loading"></umb-load-indicator>
+    <div ng-if="!loading">
+        <formulate-designer-router entity="entity"
+                                   entity-type="entityType"
+                                   tree-type="treeType">
+        </formulate-designer-router>
+    </div>
+</div>

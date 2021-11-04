@@ -60,6 +60,8 @@ dotnet pack ..\src\Formulate.Core\Formulate.Core.csproj --no-restore -c $env -o 
 dotnet pack ..\src\Formulate.BackOffice\Formulate.BackOffice.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion  
 dotnet pack ..\src\Formulate.Website\Formulate.Website.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion  
 
+.\nuget pack "..\src\Formulate.BackOffice.StaticAssets\Formulate.BackOffice.StaticAssets.nuspec" -version $fullVersion -OutputDirectory $outFolder
+
 dotnet pack ..\src\Formulate\Formulate.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullVersion 
 
 ##### Copying to Local Deploy

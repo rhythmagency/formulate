@@ -6,7 +6,9 @@ using Formulate.Core.Persistence;
 using Formulate.Core.Types;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Actions;
 using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Trees;
@@ -18,9 +20,18 @@ namespace Formulate.BackOffice.Trees
     /// The Formulate data values tree controller.
     /// </summary>
     [Tree(FormulateSection.Constants.Alias, "datavalues", TreeTitle = "Data Values", SortOrder = 2)]
-    [FormulatePluginController]
+    [FormulateBackOfficePluginController]
     public sealed class FormulateDataValuesTreeController : FormulateTreeController
     {
+        public static class Constants
+        {
+            public const string RootNodeIcon = "icon-formulate-values";
+
+            public const string FolderNodeIcon = "icon-formulate-value-group";
+
+            public const string ItemNodeIcon = "icon-formulate-value";
+        }
+
         /// <summary>
         /// The data values definitions.
         /// </summary>
@@ -30,16 +41,13 @@ namespace Formulate.BackOffice.Trees
         protected override TreeRootTypes TreeRootType => TreeRootTypes.DataValues;
 
         /// <inheritdoc />
-        protected override string RootNodeIcon => "icon-formulate-values";
+        protected override string RootNodeIcon => Constants.RootNodeIcon;
 
         /// <inheritdoc />
-        protected override string FolderNodeIcon => "icon-formulate-value-group";
+        protected override string FolderNodeIcon => Constants.FolderNodeIcon;
 
         /// <inheritdoc />
-        protected override string ItemNodeIcon => "icon-formulate-value";
-
-        /// <inheritdoc />
-        protected override string ItemNodeAction => "editDataValue";
+        protected override string ItemNodeIcon => Constants.ItemNodeIcon;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormulateDataValuesTreeController"/> class.
@@ -81,9 +89,9 @@ namespace Formulate.BackOffice.Trees
         {
             var menuItemCollection = MenuItemCollectionFactory.Create();
 
-            menuItemCollection.AddCreateDataValuesMenuItem(default, LocalizedTextService);
-            menuItemCollection.AddCreateFolderMenuItem(LocalizedTextService);
+            menuItemCollection.DefaultMenuAlias = ActionNew.ActionAlias;
 
+            menuItemCollection.AddCreateDialogMenuItem(LocalizedTextService);
             menuItemCollection.AddRefreshMenuItem(LocalizedTextService);
 
             return menuItemCollection;
@@ -96,10 +104,10 @@ namespace Formulate.BackOffice.Trees
 
             if (entity is PersistedFolder folder)
             {
-                menuItemCollection.AddCreateDataValuesMenuItem(entity.Id, LocalizedTextService);
-                menuItemCollection.AddCreateFolderMenuItem(LocalizedTextService);
-                menuItemCollection.AddMoveFolderMenuItem(folder, LocalizedTextService);
-                menuItemCollection.AddDeleteFolderMenuItem(LocalizedTextService);
+                menuItemCollection.DefaultMenuAlias = ActionNew.ActionAlias;
+                menuItemCollection.AddCreateDialogMenuItem(LocalizedTextService);
+                //menuItemCollection.AddMoveFolderMenuItem(folder, LocalizedTextService);
+                //menuItemCollection.AddDeleteFolderMenuItem(LocalizedTextService);
 
                 menuItemCollection.AddRefreshMenuItem(LocalizedTextService);
             }

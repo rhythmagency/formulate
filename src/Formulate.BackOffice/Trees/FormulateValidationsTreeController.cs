@@ -1,15 +1,18 @@
 ﻿using Formulate.BackOffice.Attributes;
 using Formulate.BackOffice.Persistence;
 using Formulate.Core.Folders;
+using Formulate.Core.Forms;
 using Formulate.Core.Persistence;
 using Formulate.Core.Validations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Trees;
 using Umbraco.Cms.Web.BackOffice.Trees;
+using Umbraco.Cms.Web.Common.Attributes;
 
 namespace Formulate.BackOffice.Trees
 {
@@ -17,7 +20,7 @@ namespace Formulate.BackOffice.Trees
     /// The Formulate validations tree controller.
     /// </summary>
     [Tree(FormulateSection.Constants.Alias, "validations", TreeTitle = "Validation Library", SortOrder = 3)]
-    [FormulatePluginController]
+    [FormulateBackOfficePluginController]
     public sealed class FormulateValidationsTreeController : FormulateTreeController
     {
         /// <summary>
@@ -39,9 +42,6 @@ namespace Formulate.BackOffice.Trees
 
         /// <inheritdoc />
         protected override string ItemNodeIcon => "icon-formulate-validation";
-
-        /// <inheritdoc />
-        protected override string ItemNodeAction => "editValidation";
 
         /// <inheritdoc />
         protected override ActionResult<MenuItemCollection> GetMenuForRoot(FormCollection queryStrings)

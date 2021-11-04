@@ -6,6 +6,11 @@
     public enum TreeRootTypes
     {
         /// <summary>
+        /// An unknown tree root type.
+        /// </summary>
+        Unknown,
+
+        /// <summary>
         /// The form tree root type.
         /// </summary>
         Forms,

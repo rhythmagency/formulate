@@ -65,11 +65,6 @@ namespace Formulate.BackOffice.Trees
         /// </summary>
         protected abstract string ItemNodeIcon { get; }
 
-        /// <summary>
-        /// Gets the item node action.
-        /// </summary>
-        protected abstract string ItemNodeAction { get; }
-
         /// <inheritdoc />
         protected override ActionResult<TreeNode> CreateRootNode(FormCollection queryStrings)
         {
@@ -84,13 +79,13 @@ namespace Formulate.BackOffice.Trees
         {
             var nodes = new TreeNodeCollection();
             var entities = GetEntities(id);
-
+            
             foreach (var entity in entities)
             {
                 var hasChildren = _treeEntityRepository.HasChildren(entity.Id);
                 var icon = GetNodeIcon(entity);
-                var routePath = $"/formulate/formulate/{GetNodeAction(entity)}/{entity.Id:N}";
-                var node = CreateTreeNode(entity.Id.ToString(), id, queryStrings, entity.Name, icon, hasChildren, routePath);
+                var node = CreateTreeNode(entity.BackOfficeSafeId(), id, queryStrings, entity.Name, icon, hasChildren);
+                node.Path = entity.TreeSafePathString();
 
                 nodes.Add(node);
             }
@@ -138,17 +133,7 @@ namespace Formulate.BackOffice.Trees
         {
             return MenuItemCollectionFactory.Create();
         }
-
-        /// <summary>
-        /// Gets the action used when a user clicks on this node in the tree.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <returns>A <see cref="string"/>.</returns>
-        protected virtual string GetNodeAction(IPersistedEntity entity)
-        {
-            return entity.IsFolder() ? "editFolder" : ItemNodeAction;
-        }
-
+        
         /// <summary>
         /// Gets the icon used for the current entity node.
         /// </summary>

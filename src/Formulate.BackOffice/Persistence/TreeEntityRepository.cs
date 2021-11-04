@@ -116,13 +116,8 @@ namespace Formulate.BackOffice.Persistence
         public IReadOnlyCollection<IPersistedEntity> GetRootItems(TreeRootTypes treeRootType)
         {
             var rootId = GetRootId(treeRootType);
-            var entities = new List<IPersistedEntity>();
-
-            if (Guid.TryParse(rootId, out var parentId))
-            {
-                entities.AddRange(_folderEntityRepository.GetChildren(parentId));
-            }
-
+            var entities = new List<IPersistedEntity>(_folderEntityRepository.GetChildren(rootId));
+            
             switch (treeRootType)
             {
                 case TreeRootTypes.DataValues:
@@ -142,20 +137,32 @@ namespace Formulate.BackOffice.Persistence
             return entities.ToArray();
         }
 
+        public Guid GetRootId(TreeRootTypes treeRootType)
+        {
+            var rootId = GetRootIdString(treeRootType);
+
+            if (Guid.TryParse(rootId, out var parentId))
+            {
+                return parentId;
+            }
+
+            return default;
+        }
+
         /// <summary>
         /// Gets the Root ID for the current entity type/
         /// </summary>
         /// <param name="treeRootType">The tree root type.</param>
         /// <returns>A <see cref="string"/>.</returns>
-        private static string GetRootId(TreeRootTypes treeRootType)
+        private static string GetRootIdString(TreeRootTypes treeRootType)
         {
             return treeRootType switch
             {
                 TreeRootTypes.Forms => FormConstants.RootId,
                 TreeRootTypes.DataValues => DataValuesConstants.RootId,
                 TreeRootTypes.Layouts => LayoutConstants.RootId,
-                TreeRootTypes.Validations => ValidationsConstants.RootId,
-                _ => default
+                TreeRootTypes.Validations => ValidationConstant.RootId,
+                _ => throw new NotSupportedException($"{treeRootType} is not a supported root type.")
             };
         }
     }

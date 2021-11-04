@@ -126,6 +126,11 @@ namespace Formulate.Core.Persistence
         {
             var entities = RetrieveAll();
 
+            if (entities is null)
+            {
+                return Array.Empty<TPersistedEntity>();
+            }
+
             // Return entities under folder.
             return entities.Where(x => x.Path[^2] == parentId).ToArray();
         }
@@ -191,7 +196,12 @@ namespace Formulate.Core.Persistence
             
             foreach (var file in files)
             {
-                entities.Add(_entityCache.Get<TPersistedEntity>(file));
+                var entity = _entityCache.Get<TPersistedEntity>(file);
+
+                if (entity is not null)
+                {
+                    entities.Add(entity);
+                }
             }
 
             return entities;

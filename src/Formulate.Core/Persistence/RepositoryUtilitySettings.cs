@@ -36,8 +36,8 @@
         public static readonly IRepositoryUtilitySettings DataValues = new RepositoryUtilitySettings()
         {
             BasePath = "DataValues",
-            Extension = ".json",
-            Wildcard = "*.json"
+            Extension = ".dataValues",
+            Wildcard = "*.dataValues"
         };
 
         /// <summary>
@@ -66,8 +66,8 @@
         public static readonly IRepositoryUtilitySettings Layouts = new RepositoryUtilitySettings()
         {
             BasePath = "layouts",
-            Extension = ".json",
-            Wildcard = "*.json"
+            Extension = ".layout",
+            Wildcard = "*.layout"
         };
 
         /// <summary>

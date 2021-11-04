@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+    <metadata>
+        <id>Formulate</id>
+        <version>4.0.0</version>
+        <title>Formulate</title>
+        <authors>Nicholas Westby, Jamie Pollock</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <license type="expression">MIT</license>
+        <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+        <projectUrl>https://www.formulate.rocks/</projectUrl>
+        <description>An advanced form builder for Umbraco.</description>
+        <releaseNotes>4.0.0 - .net core version</releaseNotes>
+        <copyright>Copyright 2021</copyright>
+        <tags>Umbraco forms</tags>
+        <dependencies>
+            <group targetFramework="net5.0">
+                <dependency id="Formulate.BackOffice.StaticAssets" version="$version$" />
+                <dependency id="Formulate.BackOffice" version="$version$"/>
+            </group>
+        </dependencies>
+    </metadata>
+</package>

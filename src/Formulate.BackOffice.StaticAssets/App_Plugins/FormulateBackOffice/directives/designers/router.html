@@ -1,0 +1,10 @@
+﻿<div ng-if="entity">
+    <div ng-switch="entityType">
+        <formulate-form-designer-v2 ng-switch-when="Form" entity="entity"></formulate-form-designer-v2>
+        <formulate-folder-designer-v2 ng-switch-when="Folder" entity="entity" tree-type="treeType"></formulate-folder-designer-v2>
+        <p ng-switch-when="dataValues">Data Values</p>
+        <div ng-switch-default>
+            <p>Unknown!</p>
+        </div>
+    </div>
+</div>

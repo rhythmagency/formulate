@@ -37,5 +37,12 @@ namespace Formulate.BackOffice.Persistence
         /// <param name="treeRootType">The tree root type.</param>
         /// <returns>A read only collection of <see cref="IPersistedEntity"/> items.</returns>
         IReadOnlyCollection<IPersistedEntity> GetRootItems(TreeRootTypes treeRootType);
+
+        /// <summary>
+        /// Gets the root id for a given tree root type.
+        /// </summary>
+        /// <param name="treeRootType">The tree root type.</param>
+        /// <returns>A <see cref="Guid"/>.</returns>
+        Guid GetRootId(TreeRootTypes treeRootType);
     }
 }

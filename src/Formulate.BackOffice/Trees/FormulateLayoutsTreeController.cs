@@ -17,7 +17,7 @@ namespace Formulate.BackOffice.Trees
     /// The Formulate layouts tree controller.
     /// </summary>
     [Tree(FormulateSection.Constants.Alias, "layouts", TreeTitle = "Layouts", SortOrder = 1)]
-    [FormulatePluginController]
+    [FormulateBackOfficePluginController]
     public sealed class FormulateLayoutsTreeController : FormulateTreeController
     {
         /// <summary>
@@ -39,9 +39,6 @@ namespace Formulate.BackOffice.Trees
 
         /// <inheritdoc />
         protected override string ItemNodeIcon => "icon-formulate-layout";
-
-        /// <inheritdoc />
-        protected override string ItemNodeAction => "editLayout";
         
         /// <inheritdoc />
         protected override ActionResult<MenuItemCollection> GetMenuForRoot(FormCollection queryStrings)
