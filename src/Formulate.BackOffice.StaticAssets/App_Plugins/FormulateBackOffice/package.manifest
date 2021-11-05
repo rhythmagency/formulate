@@ -1,6 +1,7 @@
 {
   "javascript": [
     "/App_Plugins/FormulateBackOffice/backoffice/datavalues/datavalues.createcontroller.js",
+    "/App_Plugins/FormulateBackOffice/backoffice/datavalues/datavalues.deletecontroller.js",
     "/App_Plugins/FormulateBackOffice/backoffice/datavalues/datavalues.editcontroller.js",
     "/App_Plugins/FormulateBackOffice/backoffice/forms/forms.createcontroller.js",
     "/App_Plugins/FormulateBackOffice/backoffice/forms/forms.deletecontroller.js",

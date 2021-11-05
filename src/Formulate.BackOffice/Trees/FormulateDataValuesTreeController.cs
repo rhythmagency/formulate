@@ -102,20 +102,20 @@ namespace Formulate.BackOffice.Trees
         {
             var menuItemCollection = MenuItemCollectionFactory.Create();
 
-            if (entity is PersistedFolder folder)
+            if (entity is PersistedFolder)
             {
                 menuItemCollection.DefaultMenuAlias = ActionNew.ActionAlias;
                 menuItemCollection.AddCreateDialogMenuItem(LocalizedTextService);
+                menuItemCollection.AddDeleteDialogMenuItem(LocalizedTextService);
                 //menuItemCollection.AddMoveFolderMenuItem(folder, LocalizedTextService);
                 //menuItemCollection.AddDeleteFolderMenuItem(LocalizedTextService);
 
                 menuItemCollection.AddRefreshMenuItem(LocalizedTextService);
             }
 
-            if (entity is PersistedDataValues dataValues)
+            if (entity is PersistedDataValues)
             {
-                menuItemCollection.AddMoveDataValuesMenuItem(dataValues, LocalizedTextService);
-                menuItemCollection.AddDeleteDataValuesMenuItem(LocalizedTextService);
+                menuItemCollection.AddDeleteDialogMenuItem(LocalizedTextService);
             }
 
             return menuItemCollection;
