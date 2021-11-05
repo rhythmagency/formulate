@@ -44,5 +44,11 @@ namespace Formulate.BackOffice.Persistence
         /// <param name="treeRootType">The tree root type.</param>
         /// <returns>A <see cref="Guid"/>.</returns>
         Guid GetRootId(TreeRootTypes treeRootType);
+
+        /// <summary>
+        /// Deletes an entity.
+        /// </summary>
+        /// <param name="entity">The entity to delete.</param>
+        IReadOnlyCollection<Guid> Delete(IPersistedEntity entity);
     }
 }

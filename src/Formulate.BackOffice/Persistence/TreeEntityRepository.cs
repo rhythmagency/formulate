@@ -117,7 +117,7 @@ namespace Formulate.BackOffice.Persistence
         {
             var rootId = GetRootId(treeRootType);
             var entities = new List<IPersistedEntity>(_folderEntityRepository.GetChildren(rootId));
-            
+
             switch (treeRootType)
             {
                 case TreeRootTypes.DataValues:
@@ -147,6 +147,48 @@ namespace Formulate.BackOffice.Persistence
             }
 
             return default;
+        }
+
+        public IReadOnlyCollection<Guid> Delete(IPersistedEntity entity)
+        {
+            var children = GetChildren(entity.Id);
+            var deleteIds = new List<Guid>();
+
+            foreach (var child in children)
+            {
+                deleteIds.AddRange(Delete(child));
+            }
+
+            switch (entity)
+            {
+                case PersistedConfiguredForm:
+                    _configuredFormEntityRepository.Delete(entity.Id);
+                    break;
+
+                case PersistedDataValues:
+                    _dataValuesEntityRepository.Delete(entity.Id);
+                    break;
+
+                case PersistedFolder:
+                    _folderEntityRepository.Delete(entity.Id);
+                    break;
+
+                case PersistedForm:
+                    _folderEntityRepository.Delete(entity.Id);
+                    break;
+
+                case PersistedLayout:
+                    _layoutEntityRepository.Delete(entity.Id);
+                    break;
+
+                case PersistedValidation:
+                    _layoutEntityRepository.Delete(entity.Id);
+                    break;
+            }
+
+            deleteIds.Add(entity.Id);
+
+            return deleteIds;
         }
 
         /// <summary>

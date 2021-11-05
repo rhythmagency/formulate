@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Formulate.BackOffice.Attributes;
 using Formulate.BackOffice.Persistence;
 using Formulate.BackOffice.Trees;
@@ -37,6 +38,28 @@ namespace Formulate.BackOffice.Controllers
             };
 
             return this.Ok(response);
+        }
+
+        [HttpGet]
+        public virtual IActionResult Delete(Guid id)
+        {
+            var entity = TreeEntityRepository.Get(id);
+
+            if (entity is null)
+            {
+                return this.NotFound();
+            }
+
+            var deletedEntityIds = TreeEntityRepository.Delete(entity);
+            
+            var response = new DeleteEntityResponse()
+            {
+                DeletedEntityIds = deletedEntityIds.Select(x=>x.ToString("N")).ToArray(),
+                ParentPath = entity.TreeSafeParentPath()
+            };
+
+            return this.Ok(response);
+
         }
     }
 }

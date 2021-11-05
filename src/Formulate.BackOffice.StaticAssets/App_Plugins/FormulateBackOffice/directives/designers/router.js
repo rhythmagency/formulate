@@ -9,7 +9,6 @@
                 treeType: "="
             },
             link: function (scope, element, attrs) {
-                console.log(scope.treeType);
             }
         };
 

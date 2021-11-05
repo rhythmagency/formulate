@@ -86,26 +86,25 @@ namespace Formulate.BackOffice.Trees
 
             if (entity is PersistedConfiguredForm)
             {
-                menuItemCollection.AddDeleteConfiguredFormMenuItem(LocalizedTextService);
+                menuItemCollection.AddDeleteDialogMenuItem(LocalizedTextService);
             }
             else
             {
                 menuItemCollection.DefaultMenuAlias = ActionNew.ActionAlias;
 
                 menuItemCollection.AddCreateDialogMenuItem(LocalizedTextService);
+                menuItemCollection.AddDeleteDialogMenuItem(LocalizedTextService);
                 menuItemCollection.AddRefreshMenuItem(LocalizedTextService);
             }
 
             if (entity is PersistedFolder folder)
             {
                 menuItemCollection.AddMoveFolderMenuItem(folder, LocalizedTextService);
-                menuItemCollection.AddDeleteFolderMenuItem(LocalizedTextService);
             }
 
             if (entity is PersistedForm form)
             {
                 menuItemCollection.AddMoveFormMenuItem(form, LocalizedTextService);
-                menuItemCollection.AddDeleteFormMenuItem(LocalizedTextService);
             }
 
             return menuItemCollection;

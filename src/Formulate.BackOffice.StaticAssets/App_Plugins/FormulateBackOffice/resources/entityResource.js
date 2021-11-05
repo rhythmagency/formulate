@@ -1,10 +1,11 @@
-﻿(function() {
-    var resource = function($http) {
+﻿(function () {
+    var resource = function ($http) {
+        var serverVars = Umbraco.Sys.ServerVariables.formulate;
+
         function getOrScaffold(options) {
             var isNew = options.create === "true" && options.entityType;
             var hasId = options.id && options.id !== "-1";
             var hasDefinitionId = options.definitionId && options.definitionId.length > 0;
-            var serverVars = Umbraco.Sys.ServerVariables.formulate;
             var url;
 
             // replace with resource calls
@@ -29,8 +30,15 @@
             return $http.get(url);
         }
 
+        function performDelete(options) {
+            var url = serverVars[`${options.treeType}.Delete`] + "?id=" + options.id;
+
+            return $http.get(url);
+        }
+
         return {
-            getOrScaffold: getOrScaffold
+            getOrScaffold: getOrScaffold,
+            delete: performDelete
         };
     };
 

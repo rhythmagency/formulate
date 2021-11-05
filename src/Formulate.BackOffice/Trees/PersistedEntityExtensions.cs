@@ -10,6 +10,7 @@ using Formulate.Core.Forms;
 using Formulate.Core.Layouts;
 using Formulate.Core.Validations;
 using Microsoft.AspNetCore.Http.Features;
+using Serilog.Enrichers;
 
 namespace Formulate.BackOffice.Trees
 {
@@ -32,6 +33,20 @@ namespace Formulate.BackOffice.Trees
             ids.AddRange(entity.Path.Skip(1).Select(x => x.ToString("N")).ToArray());
 
             return ids.ToArray();
+        }
+
+        public static string[] TreeSafeParentPath(this IPersistedEntity entity)
+        {
+            var entityPath = entity.TreeSafePath();
+
+            if (entityPath.Length <= 1)
+            {
+                return entityPath;
+            }
+
+            var safeId = entity.BackOfficeSafeId();
+
+            return entityPath.TakeWhile(x => x.Equals(safeId) == false).ToArray();
         }
 
         public static string BackOfficeSafeId(this IPersistedEntity entity)

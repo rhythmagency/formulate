@@ -39,7 +39,6 @@
 
                 if (window.Utilities) {
 
-                    console.log("HEY!");
                     window.Utilities.copy(scope.entity.fields, scope.fields);
                     window.Utilities.copy(scope.entity.handlers, scope.handlers);
                 }
