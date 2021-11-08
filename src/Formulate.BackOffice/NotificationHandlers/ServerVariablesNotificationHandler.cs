@@ -5,6 +5,7 @@ using Formulate.BackOffice.Controllers.DataValues;
 using Formulate.BackOffice.Controllers.Folders;
 using Formulate.BackOffice.Controllers.Forms;
 using Formulate.BackOffice.Controllers.Validations;
+using Formulate.BackOffice.Trees;
 using Formulate.Core.DataValues;
 using Formulate.Core.Forms;
 using Formulate.Core.Layouts;
@@ -179,14 +180,17 @@ namespace Formulate.BackOffice.NotificationHandlers
                 { "forms.GetScaffolding", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.GetScaffolding()) },
                 { "forms.Move", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.Move()) },
 
-                { "DataValues.Delete", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.Delete()) },
-                { "DataValues.Get", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.Get()) },
-                { "DataValues.GetCreateOptions", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.GetCreateOptions()) },
-                { "DataValues.GetScaffolding", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.GetScaffolding()) },
+                { $"{FormulateDataValuesTreeController.Constants.Alias}.Delete", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.Delete()) },
+                { $"{FormulateDataValuesTreeController.Constants.Alias}.Get", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.Get()) },
+                { $"{FormulateDataValuesTreeController.Constants.Alias}.GetCreateOptions", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.GetCreateOptions()) },
+                { $"{FormulateDataValuesTreeController.Constants.Alias}.GetScaffolding", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.GetScaffolding()) },
+                { $"{FormulateDataValuesTreeController.Constants.Alias}.Move", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.Move()) },
 
                 //{ "DuplicateForm",
                 //    LinkGenerator.GetUmbracoApiService<FormsController>(x => x.DuplicateForm(null)) },
             };
+
+
             if (notification.ServerVariables.ContainsKey(key))
             {
                 var existing = notification.ServerVariables[key] as Dictionary<string, object>;

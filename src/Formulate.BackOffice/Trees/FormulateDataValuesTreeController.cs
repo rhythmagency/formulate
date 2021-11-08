@@ -19,12 +19,14 @@ namespace Formulate.BackOffice.Trees
     /// <summary>
     /// The Formulate data values tree controller.
     /// </summary>
-    [Tree(FormulateSection.Constants.Alias, "datavalues", TreeTitle = "Data Values", SortOrder = 2)]
+    [Tree(FormulateSection.Constants.Alias, Constants.Alias, TreeTitle = "Data Values", SortOrder = 2)]
     [FormulateBackOfficePluginController]
     public sealed class FormulateDataValuesTreeController : FormulateTreeController
     {
         public static class Constants
         {
+            public const string Alias = "datavalues";
+
             public const string RootNodeIcon = "icon-formulate-values";
 
             public const string FolderNodeIcon = "icon-formulate-value-group";
@@ -107,15 +109,14 @@ namespace Formulate.BackOffice.Trees
                 menuItemCollection.DefaultMenuAlias = ActionNew.ActionAlias;
                 menuItemCollection.AddCreateDialogMenuItem(LocalizedTextService);
                 menuItemCollection.AddDeleteDialogMenuItem(LocalizedTextService);
-                //menuItemCollection.AddMoveFolderMenuItem(folder, LocalizedTextService);
-                //menuItemCollection.AddDeleteFolderMenuItem(LocalizedTextService);
-
+                menuItemCollection.AddMoveDialogMenuItem(LocalizedTextService);
                 menuItemCollection.AddRefreshMenuItem(LocalizedTextService);
             }
 
             if (entity is PersistedDataValues)
             {
                 menuItemCollection.AddDeleteDialogMenuItem(LocalizedTextService);
+                menuItemCollection.AddMoveDialogMenuItem(LocalizedTextService);
             }
 
             return menuItemCollection;

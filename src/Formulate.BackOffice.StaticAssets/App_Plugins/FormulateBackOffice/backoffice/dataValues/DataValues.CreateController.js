@@ -2,7 +2,7 @@
     var controller = function ($location) {
         var vm = this;
 
-        vm.treeType = "DataValues";
+        vm.treeType = "datavalues";
 
         vm.create = function (option, parentId) {
             var path = "/formulate/dataValues/edit/" + parentId;

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Filters;
 
 namespace Formulate.BackOffice.Controllers.DataValues
@@ -18,7 +19,7 @@ namespace Formulate.BackOffice.Controllers.DataValues
     {
         private readonly DataValuesDefinitionCollection _dataValuesDefinitions;
 
-        public DataValuesController(ITreeEntityRepository treeEntityRepository, DataValuesDefinitionCollection dataValuesDefinitions) : base(treeEntityRepository)
+        public DataValuesController(ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService, DataValuesDefinitionCollection dataValuesDefinitions) : base(treeEntityRepository, localizedTextService)
         {
             _dataValuesDefinitions = dataValuesDefinitions;
         }

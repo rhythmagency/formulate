@@ -5,8 +5,11 @@ using Formulate.BackOffice.Attributes;
 using Formulate.BackOffice.Persistence;
 using Formulate.BackOffice.Trees;
 using Microsoft.AspNetCore.Mvc;
+using Umbraco.Cms.Core.Models.ContentEditing;
+using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.BackOffice.Filters;
+using Umbraco.Extensions;
 
 namespace Formulate.BackOffice.Controllers
 {
@@ -15,10 +18,13 @@ namespace Formulate.BackOffice.Controllers
     public abstract partial class FormulateBackOfficeEntityApiController : UmbracoAuthorizedApiController
     {
         protected readonly ITreeEntityRepository TreeEntityRepository;
-        
-        protected FormulateBackOfficeEntityApiController(ITreeEntityRepository treeEntityRepository)
+
+        private readonly ILocalizedTextService _localizedTextService;
+
+        protected FormulateBackOfficeEntityApiController(ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService)
         {
             TreeEntityRepository = treeEntityRepository;
+            _localizedTextService = localizedTextService;
         }
 
         [HttpGet]
@@ -75,6 +81,16 @@ namespace Formulate.BackOffice.Controllers
 
                 if (parent is not null)
                 {
+                    var isParentADescendant = parent.Path.Contains(entity.Id);
+
+                    if (isParentADescendant)
+                    {
+                        var notificationModel = new SimpleNotificationModel();
+                        notificationModel.AddErrorNotification(_localizedTextService.Localize("moveOrCopy", "notAllowedByPath"), "");
+
+                        return ValidationProblem(notificationModel);
+                    }
+
                     parentPath.AddRange(parent.Path);
                 }
             }

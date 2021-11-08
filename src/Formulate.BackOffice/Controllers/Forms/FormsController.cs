@@ -11,6 +11,7 @@ using Formulate.Core.FormHandlers;
 using Formulate.Core.Forms;
 using Formulate.Core.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Filters;
 
 namespace Formulate.BackOffice.Controllers.Forms
@@ -21,7 +22,7 @@ namespace Formulate.BackOffice.Controllers.Forms
     {
         private readonly IFormEntityRepository _formEntityRepository;
 
-        public FormsController(ITreeEntityRepository treeEntityRepository, IFormEntityRepository formEntityRepository) : base(treeEntityRepository)
+        public FormsController(ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService, IFormEntityRepository formEntityRepository) : base(treeEntityRepository, localizedTextService)
         {
             _formEntityRepository = formEntityRepository;
         }

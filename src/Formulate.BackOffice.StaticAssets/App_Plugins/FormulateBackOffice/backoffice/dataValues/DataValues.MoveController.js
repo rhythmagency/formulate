@@ -5,6 +5,6 @@
         vm.treeType = "datavalues";
     };
 
-    angular.module("umbraco").controller("FormulateBackOffice.DataValues.DeleteController", controller);
+    angular.module("umbraco").controller("FormulateBackOffice.DataValues.MoveController", controller);
 })();
 

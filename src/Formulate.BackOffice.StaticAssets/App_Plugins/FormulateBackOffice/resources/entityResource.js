@@ -48,8 +48,29 @@
 
             var url = serverVars[`${options.treeType}.Move`];
 
-            return umbRequestHelper.resourcePromise($http.post(url, request), "Unable to move item.");
-        }
+            return umbRequestHelper.resourcePromise($http.post(url, request),
+                {
+                    error: function(data) {
+                        var errorMsg = "Failed to move item.";
+
+                        if (typeof (data.notifications) !== "undefined") {
+                            if (data.notifications.length > 0) {
+                                if (data.notifications[0].header.length > 0) {
+                                    errorMsg = data.notifications[0].header;
+                                }
+                                if (data.notifications[0].message.length > 0) {
+                                    errorMsg = errorMsg + ": " + data.notifications[0].message;
+                                }
+                            }
+                        }
+
+                        return {
+                            errorMsg: errorMsg
+                        };
+                    }
+                }
+            );
+        };
 
         return {
             getOrScaffold: performGetOrScaffold,
