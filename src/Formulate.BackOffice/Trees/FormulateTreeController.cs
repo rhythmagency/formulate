@@ -83,10 +83,11 @@ namespace Formulate.BackOffice.Trees
             var entities = GetEntities(id);
             var isFolderOnly = queryStrings["foldersonly"].ToString().IsNullOrWhiteSpace() == false && queryStrings["foldersonly"].ToString() == "1";
             var filteredEntities = isFolderOnly ? entities.OfType<PersistedFolder>().ToArray() : entities;
-            
+            Func<IPersistedEntity, bool> hasChildrenFilter = isFolderOnly ? (entity) => entity is PersistedFolder : default;
+
             foreach (var entity in filteredEntities)
             {
-                var hasChildren = _treeEntityRepository.HasChildren(entity.Id);
+                var hasChildren = _treeEntityRepository.HasChildren(entity.Id, hasChildrenFilter);
                 var icon = GetNodeIcon(entity);
                 var node = CreateTreeNode(entity.BackOfficeSafeId(), id, queryStrings, entity.Name, icon, hasChildren);
                 node.Path = entity.TreeSafePathString();

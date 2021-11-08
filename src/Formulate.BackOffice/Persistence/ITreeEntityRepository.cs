@@ -29,7 +29,7 @@ namespace Formulate.BackOffice.Persistence
         /// </summary>
         /// <param name="parentId">The parent ID.</param>
         /// <returns>A <see cref="bool"/>.</returns>
-        bool HasChildren(Guid parentId);
+        bool HasChildren(Guid parentId, Func<IPersistedEntity, bool> filter = null);
 
         /// <summary>
         /// Gets the root items for a given tree root type.

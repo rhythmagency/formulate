@@ -107,9 +107,11 @@ namespace Formulate.BackOffice.Persistence
         }
 
         /// <inheritdoc />
-        public bool HasChildren(Guid parentId)
+        public bool HasChildren(Guid parentId, Func<IPersistedEntity, bool> filter = default)
         {
-            return GetChildren(parentId).Any();
+            var children = GetChildren(parentId);
+
+            return filter == default ? children.Any() : children.Any(filter);
         }
 
         /// <inheritdoc />
