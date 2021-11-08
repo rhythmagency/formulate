@@ -11,8 +11,10 @@ using Formulate.Core.FormHandlers;
 using Formulate.Core.Forms;
 using Formulate.Core.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using Umbraco.Cms.Core.Models.ContentEditing;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Filters;
+using Umbraco.Extensions;
 
 namespace Formulate.BackOffice.Controllers.Forms
 {
@@ -36,7 +38,10 @@ namespace Formulate.BackOffice.Controllers.Forms
 
             if (isValidOption == false)
             {
-                return this.BadRequest();
+                var errorModel = new SimpleNotificationModel();
+                errorModel.AddErrorNotification("Invalid requested item type.", "");
+
+                return ValidationProblem(errorModel);
             }
 
             var parent = parentId.HasValue ? TreeEntityRepository.Get(parentId.Value) : default;
@@ -61,7 +66,10 @@ namespace Formulate.BackOffice.Controllers.Forms
 
             if (entity is null)
             {
-                return this.BadRequest();
+                var errorModel = new SimpleNotificationModel();
+                errorModel.AddErrorNotification("Unable to get a valid item type.", "");
+
+                return ValidationProblem(errorModel);
             }
 
             var response = new GetEntityResponse()
@@ -71,7 +79,7 @@ namespace Formulate.BackOffice.Controllers.Forms
                 TreePath = parent.TreeSafePath(),
             };
 
-            return this.Ok(response);
+            return Ok(response);
         }
 
         [HttpGet]

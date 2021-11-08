@@ -27,13 +27,13 @@
                 }
             }
 
-            return $http.get(url);
+            return umbRequestHelper.resourcePromise($http.get(url), handleError("Unable to get content."));
         }
 
         function performDelete(options) {
             var url = serverVars[`${options.treeType}.Delete`] + "?id=" + options.id;
 
-            return umbRequestHelper.resourcePromise($http.get(url), "Unable to delete item.");
+            return umbRequestHelper.resourcePromise($http.get(url), handleError("Unable to delete item."));
         }
 
         function performMove(options) {
@@ -48,29 +48,32 @@
 
             var url = serverVars[`${options.treeType}.Move`];
 
-            return umbRequestHelper.resourcePromise($http.post(url, request),
-                {
-                    error: function(data) {
-                        var errorMsg = "Failed to move item.";
+            return umbRequestHelper.resourcePromise($http.post(url, request), handleError("Failed to move item."));
+        };
 
-                        if (typeof (data.notifications) !== "undefined") {
-                            if (data.notifications.length > 0) {
-                                if (data.notifications[0].header.length > 0) {
-                                    errorMsg = data.notifications[0].header;
-                                }
-                                if (data.notifications[0].message.length > 0) {
-                                    errorMsg = errorMsg + ": " + data.notifications[0].message;
-                                }
+
+        function handleError(errorMessage) {
+            return {
+                error: function(data) {
+                    var errorMsg = errorMessage;
+
+                    if (typeof (data.notifications) !== "undefined") {
+                        if (data.notifications.length > 0) {
+                            if (data.notifications[0].header.length > 0) {
+                                errorMsg = data.notifications[0].header;
+                            }
+                            if (data.notifications[0].message.length > 0) {
+                                errorMsg = errorMsg + ": " + data.notifications[0].message;
                             }
                         }
-
-                        return {
-                            errorMsg: errorMsg
-                        };
                     }
+
+                    return {
+                        errorMsg: errorMsg
+                    };
                 }
-            );
-        };
+            };
+        }
 
         return {
             getOrScaffold: performGetOrScaffold,

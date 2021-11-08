@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Umbraco.Cms.Core.Models.ContentEditing;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Filters;
+using Umbraco.Extensions;
 
 namespace Formulate.BackOffice.Controllers.DataValues
 {
@@ -33,7 +35,10 @@ namespace Formulate.BackOffice.Controllers.DataValues
 
             if (isValidOption == false)
             {
-                return this.BadRequest();
+                var errorModel = new SimpleNotificationModel();
+                errorModel.AddErrorNotification("Invalid requested item type.", "");
+
+                return ValidationProblem(errorModel);
             }
 
             var parent = parentId.HasValue ? TreeEntityRepository.Get(parentId.Value) : default;
@@ -53,7 +58,10 @@ namespace Formulate.BackOffice.Controllers.DataValues
 
             if (entity is null)
             {
-                return this.BadRequest();
+                var errorModel = new SimpleNotificationModel();
+                errorModel.AddErrorNotification("Unable to get a valid item type.", "");
+
+                return ValidationProblem(errorModel);
             }
 
             var response = new GetEntityResponse()
@@ -63,7 +71,7 @@ namespace Formulate.BackOffice.Controllers.DataValues
                 TreePath = parent.TreeSafePath(),
             };
 
-            return this.Ok(response);
+            return Ok(response);
         }
 
         [HttpGet]

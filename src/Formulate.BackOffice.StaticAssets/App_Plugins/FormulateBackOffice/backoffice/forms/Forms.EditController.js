@@ -9,16 +9,16 @@
 
         $scope.loading = true;
         formulateEntityResource.getOrScaffold(options).then(
-            function (response) {
-                $scope.entity = response.data.entity;
-                $scope.entityType = response.data.entityType;
+            function (data) {
+                $scope.entity = data.entity;
+                $scope.entityType = data.entityType;
                 $scope.treeType = options.treeType;
 
-                navigationService.syncTree({ tree: options.treeType, path: response.data.treePath, forceReload: true });
+                navigationService.syncTree({ tree: options.treeType, path: data.treePath, forceReload: true });
 
                 $scope.loading = false;
-            }, function () {
-                notificationsService.error("Unable to get content");
+            }, function (err) {
+                notificationsService.error(err.errorMsg);
             });
     };
 
