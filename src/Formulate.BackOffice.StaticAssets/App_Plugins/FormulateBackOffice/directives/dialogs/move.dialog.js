@@ -36,9 +36,6 @@
                         //get the currently edited node (if any)
                         var activeNode = appState.getTreeState("selectedNode");
 
-                        console.log(activeNode);
-                        console.log($scope.treeType);
-
                         //we need to do a double sync here: first sync to the moved content - but don't activate the node,
                         //then sync to the currently edited content (note: this might not be the content that was moved!!)
 
@@ -46,14 +43,11 @@
                             if (activeNode) {
                                 var activeNodePath = treeService.getPath(activeNode).join();
 
-                                console.log("sync");
                                 //sync to this node now - depending on what was copied this might already be synced but might not be
                                 navigationService.syncTree({ tree: $scope.treeType, path: activeNodePath, forceReload: false, activate: true });
                             }
                         });
-
-                        console.log("emit");
-
+                        
                         eventsService.emit("app.refreshEditor");
 
                     }, function (err) {
