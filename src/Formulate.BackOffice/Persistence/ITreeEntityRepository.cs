@@ -28,6 +28,7 @@ namespace Formulate.BackOffice.Persistence
         /// Checks if a the entity ID has an children.
         /// </summary>
         /// <param name="parentId">The parent ID.</param>
+        /// <param name="filter">Optional filter to use when finding child nodes.</param>
         /// <returns>A <see cref="bool"/>.</returns>
         bool HasChildren(Guid parentId, Func<IPersistedEntity, bool> filter = null);
 
