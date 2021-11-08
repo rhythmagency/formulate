@@ -9,9 +9,9 @@
                     treeType: $scope.treeType
                 };
 
-                formulateEntityResource.delete(options).then(function (response) {
+                formulateEntityResource.delete(options).then(function (data) {
                     var parent = $scope.currentNode.parent();
-                    var isCurrentEditorDeleted = response.data.deletedEntityIds.indexOf($routeParams.id) > -1;
+                    var isCurrentEditorDeleted = data.deletedEntityIds.indexOf($routeParams.id) > -1;
 
                     navigationService.reloadNode(parent);
 

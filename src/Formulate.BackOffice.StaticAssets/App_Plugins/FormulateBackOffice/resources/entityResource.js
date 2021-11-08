@@ -33,7 +33,7 @@
         function performDelete(options) {
             var url = serverVars[`${options.treeType}.Delete`] + "?id=" + options.id;
 
-            return $http.get(url);
+            return umbRequestHelper.resourcePromise($http.get(url), "Unable to delete item.");
         }
 
         function performMove(options) {
