@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Formulate.BackOffice.Attributes;
 using Formulate.BackOffice.Persistence;
@@ -27,7 +28,7 @@ namespace Formulate.BackOffice.Controllers
 
             if (entity is null)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
             var response = new GetEntityResponse()
@@ -37,7 +38,7 @@ namespace Formulate.BackOffice.Controllers
                 TreePath = entity.TreeSafePath()
             };
 
-            return this.Ok(response);
+            return Ok(response);
         }
 
         [HttpGet]
@@ -47,7 +48,7 @@ namespace Formulate.BackOffice.Controllers
 
             if (entity is null)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
             var deletedEntityIds = TreeEntityRepository.Delete(entity);
@@ -58,8 +59,36 @@ namespace Formulate.BackOffice.Controllers
                 ParentPath = entity.TreeSafeParentPath()
             };
 
-            return this.Ok(response);
+            return Ok(response);
+        }
 
+        [HttpPost]
+        public virtual IActionResult Move(MoveEntityRequest request)
+        {
+            var rootId = TreeEntityRepository.GetRootId(request.TreeType);
+            var entity = TreeEntityRepository.Get(request.EntityId);
+            var parentPath = new List<Guid>();
+
+            if (request.ParentId.HasValue)
+            {
+                var parent = TreeEntityRepository.Get(request.ParentId.Value);
+
+                if (parent is not null)
+                {
+                    parentPath.AddRange(parent.Path);
+                }
+            }
+
+            if (parentPath.Any() == false)
+            {
+                parentPath.Add(rootId);
+            }
+
+            var newEntityPath = TreeEntityRepository.Move(entity, parentPath.ToArray());
+
+            var treeSafePath = string.Join(",", newEntityPath.Select(x => x == rootId ? "-1" : x.ToString("N")));
+
+            return Ok(treeSafePath);
         }
     }
 }

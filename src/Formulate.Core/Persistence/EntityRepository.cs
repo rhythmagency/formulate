@@ -47,6 +47,11 @@ namespace Formulate.Core.Persistence
             return _repositoryUtility.GetChildren(parentId);
         }
 
+        public Guid[] Move(TPersistedEntity entity, Guid[] newPath)
+        {
+            return _repositoryUtility.Move(entity, newPath);
+        }
+
         /// <inheritdoc />
         public virtual IReadOnlyCollection<TPersistedEntity> GetRootItems()
         {

@@ -190,9 +190,49 @@ namespace Formulate.BackOffice.Persistence
 
             return deleteIds;
         }
+        public Guid[] Move(IPersistedEntity entity, Guid[] parentPath)
+        {
+            var updatedPath = new List<Guid>(parentPath).Append(entity.Id).ToArray();
+
+            foreach (var child in GetChildren(entity.Id))
+            {
+                Move(child, updatedPath);
+            }
+
+            if (entity is not PersistedEntity persistedEntity)
+            {
+                throw new NotSupportedException($"{entity.GetType()} does not support being moved.");
+            }
+
+            persistedEntity.Path = updatedPath;
+
+            switch (persistedEntity)
+            {
+                case PersistedConfiguredForm configuredForm:
+                    return _configuredFormEntityRepository.Move(configuredForm, updatedPath);
+
+                case PersistedDataValues dataValues:
+                    return _dataValuesEntityRepository.Move(dataValues, updatedPath);
+
+                case PersistedFolder folder:
+                    return _folderEntityRepository.Move(folder, updatedPath);
+
+                case PersistedForm form:
+                    return _formEntityRepository.Move(form, updatedPath);
+
+                case PersistedLayout layout:
+                    return _layoutEntityRepository.Move(layout, updatedPath);
+
+                case PersistedValidation validation:
+                    return _validationEntityRepository.Move(validation, updatedPath);
+            }
+
+            throw new NotSupportedException($"{entity.GetType()} does not support being moved.");
+        }
 
         /// <summary>
-        /// Gets the Root ID for the current entity type/
+        /// Gets the Root ID for the current ent
+        /// ity type/
         /// </summary>
         /// <param name="treeRootType">The tree root type.</param>
         /// <returns>A <see cref="string"/>.</returns>

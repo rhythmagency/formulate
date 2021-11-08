@@ -1,8 +1,8 @@
 ﻿(function () {
-    var resource = function ($http) {
+    var resource = function ($http, umbRequestHelper) {
         var serverVars = Umbraco.Sys.ServerVariables.formulate;
 
-        function getOrScaffold(options) {
+        function performGetOrScaffold(options) {
             var isNew = options.create === "true" && options.entityType;
             var hasId = options.id && options.id !== "-1";
             var hasDefinitionId = options.definitionId && options.definitionId.length > 0;
@@ -36,9 +36,25 @@
             return $http.get(url);
         }
 
+        function performMove(options) {
+            var request = {
+                entityId: options.entityId,
+                treeType: options.treeType
+            }
+
+            if (options.parentId && options.parentId !== "-1") {
+                request.parentId = options.parentId;
+            }
+
+            var url = serverVars[`${options.treeType}.Move`];
+
+            return umbRequestHelper.resourcePromise($http.post(url, request), "Unable to move item.");
+        }
+
         return {
-            getOrScaffold: getOrScaffold,
-            delete: performDelete
+            getOrScaffold: performGetOrScaffold,
+            delete: performDelete,
+            move: performMove
         };
     };
 

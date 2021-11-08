@@ -5,6 +5,6 @@
         vm.treeType = "forms";
     };
 
-    angular.module("umbraco").controller("FormulateBackOffice.Forms.DeleteController", controller);
+    angular.module("umbraco").controller("FormulateBackOffice.Forms.MoveController", controller);
 })();
 

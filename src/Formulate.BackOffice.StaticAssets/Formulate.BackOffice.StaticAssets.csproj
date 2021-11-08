@@ -33,8 +33,12 @@
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\dataValues\delete.html" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\forms\delete.html" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\forms\Forms.DeleteController.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\forms\Forms.MoveController.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\forms\move.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\delete.dialog.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\delete.dialog.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\move.dialog.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\move.dialog.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\entityResource.js" />
     </ItemGroup>
 </Project>

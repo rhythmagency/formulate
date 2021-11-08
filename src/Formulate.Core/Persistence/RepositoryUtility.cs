@@ -115,6 +115,13 @@ namespace Formulate.Core.Persistence
             return entities.Where(x => x.Path.Length == 2).ToArray();
         }
 
+        public Guid[] Move(TPersistedEntity entity, Guid[] newPath)
+        {
+            Save(entity);
+
+            return entity.Path;
+        }
+
         /// <summary>
         /// Gets all the entities that are the children of the folder with the specified ID.
         /// </summary>

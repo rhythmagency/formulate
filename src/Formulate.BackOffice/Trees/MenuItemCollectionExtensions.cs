@@ -36,6 +36,18 @@ namespace Formulate.BackOffice.Trees
         }
 
         /// <summary>
+        /// Add delete entity dialog menu item to the menu.
+        /// </summary>
+        /// <param name="menuItemCollection">The current menu item collection.</param>
+        /// <param name="localizedTextService">The localized text service.</param>
+        /// <param name="separatorBefore">Determines if we add a separator before this menu item.</param>
+        public static void AddMoveDialogMenuItem(this MenuItemCollection menuItemCollection,
+            ILocalizedTextService localizedTextService, bool separatorBefore = false)
+        {
+            menuItemCollection.Items.Add<ActionMove>(localizedTextService, opensDialog: true);
+        }
+
+        /// <summary>
         /// Add a refresh menu item to the menu.
         /// </summary>
         /// <param name="menuItemCollection">The current menu item collection.</param>

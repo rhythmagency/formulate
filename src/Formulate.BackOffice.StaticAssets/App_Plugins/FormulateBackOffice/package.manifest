@@ -6,11 +6,13 @@
     "/App_Plugins/FormulateBackOffice/backoffice/forms/forms.createcontroller.js",
     "/App_Plugins/FormulateBackOffice/backoffice/forms/forms.deletecontroller.js",
     "/App_Plugins/FormulateBackOffice/backoffice/forms/forms.editcontroller.js",
+    "/App_Plugins/FormulateBackOffice/backoffice/forms/forms.movecontroller.js",
     "/App_Plugins/FormulateBackOffice/directives/designers/folder.designer.js",
     "/App_Plugins/FormulateBackOffice/directives/designers/form.designer.js",
     "/App_Plugins/FormulateBackOffice/directives/designers/router.js",
     "/App_Plugins/FormulateBackOffice/directives/dialogs/create.dialog.js",
     "/App_Plugins/FormulateBackOffice/directives/dialogs/delete.dialog.js",
+    "/App_Plugins/FormulateBackOffice/directives/dialogs/move.dialog.js",
     "/App_Plugins/FormulateBackOffice/resources/entityResource.js"
   ]
 }

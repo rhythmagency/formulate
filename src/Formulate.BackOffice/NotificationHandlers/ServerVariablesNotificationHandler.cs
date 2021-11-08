@@ -169,14 +169,15 @@ namespace Formulate.BackOffice.NotificationHandlers
                 { "Layout.RootId", LayoutConstants.RootId },
                 { "Validation.RootId", ValidationConstant.RootId },
                 { "DataValues.RootId", DataValuesConstants.RootId },
-                { "Forms.RootId", FormConstants.RootId },
+                { "forms.RootId", FormConstants.RootId },
 
                 { "Folders.Save", LinkGenerator.GetUmbracoApiService<FoldersController>(x => x.Save()) },
 
-                { "Forms.Delete", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.Delete()) },
-                { "Forms.Get", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.Get()) },
-                { "Forms.GetCreateOptions", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.GetCreateOptions()) },
-                { "Forms.GetScaffolding", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.GetScaffolding()) },
+                { "forms.Delete", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.Delete()) },
+                { "forms.Get", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.Get()) },
+                { "forms.GetCreateOptions", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.GetCreateOptions()) },
+                { "forms.GetScaffolding", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.GetScaffolding()) },
+                { "forms.Move", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.Move()) },
 
                 { "DataValues.Delete", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.Delete()) },
                 { "DataValues.Get", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.Get()) },

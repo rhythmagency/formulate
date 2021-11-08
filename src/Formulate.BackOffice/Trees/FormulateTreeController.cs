@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Formulate.BackOffice.Persistence;
+using Formulate.Core.Folders;
 using Formulate.Core.Persistence;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -79,13 +81,16 @@ namespace Formulate.BackOffice.Trees
         {
             var nodes = new TreeNodeCollection();
             var entities = GetEntities(id);
+            var isFolderOnly = queryStrings["foldersonly"].ToString().IsNullOrWhiteSpace() == false && queryStrings["foldersonly"].ToString() == "1";
+            var filteredEntities = isFolderOnly ? entities.OfType<PersistedFolder>().ToArray() : entities;
             
-            foreach (var entity in entities)
+            foreach (var entity in filteredEntities)
             {
                 var hasChildren = _treeEntityRepository.HasChildren(entity.Id);
                 var icon = GetNodeIcon(entity);
                 var node = CreateTreeNode(entity.BackOfficeSafeId(), id, queryStrings, entity.Name, icon, hasChildren);
                 node.Path = entity.TreeSafePathString();
+                node.NodeType = entity.EntityType().ToString();
 
                 nodes.Add(node);
             }

@@ -49,5 +49,7 @@ namespace Formulate.Core.Persistence
         /// A read only collection of <typeparamref name="TPersistedEntity"/>.
         /// </returns>
         IReadOnlyCollection<TPersistedEntity> GetRootItems();
+
+        Guid[] Move(TPersistedEntity entity, Guid[] newPath);
     }
 }

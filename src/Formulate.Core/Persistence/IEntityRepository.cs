@@ -43,6 +43,14 @@ namespace Formulate.Core.Persistence
         IReadOnlyCollection<TPersistedEntity> GetChildren(Guid parentId);
 
         /// <summary>
+        /// Moves the entity to a new location and returns its path.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="newPath">The new location.</param>
+        /// <returns></returns>
+        Guid[] Move(TPersistedEntity entity, Guid[] newPath);
+
+        /// <summary>
         /// Gets any root level items.
         /// </summary>
         /// <returns>

@@ -29,6 +29,12 @@ namespace Formulate.BackOffice.Controllers
         }
 
         [NonAction]
+        public IActionResult Move()
+        {
+            return new EmptyResult();
+        }
+
+        [NonAction]
         public IActionResult Save()
         {
             return new EmptyResult();

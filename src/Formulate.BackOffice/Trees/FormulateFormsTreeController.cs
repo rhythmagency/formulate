@@ -94,17 +94,9 @@ namespace Formulate.BackOffice.Trees
 
                 menuItemCollection.AddCreateDialogMenuItem(LocalizedTextService);
                 menuItemCollection.AddDeleteDialogMenuItem(LocalizedTextService);
+                menuItemCollection.AddMoveDialogMenuItem(LocalizedTextService);
+
                 menuItemCollection.AddRefreshMenuItem(LocalizedTextService);
-            }
-
-            if (entity is PersistedFolder folder)
-            {
-                menuItemCollection.AddMoveFolderMenuItem(folder, LocalizedTextService);
-            }
-
-            if (entity is PersistedForm form)
-            {
-                menuItemCollection.AddMoveFormMenuItem(form, LocalizedTextService);
             }
 
             return menuItemCollection;

@@ -50,5 +50,7 @@ namespace Formulate.BackOffice.Persistence
         /// </summary>
         /// <param name="entity">The entity to delete.</param>
         IReadOnlyCollection<Guid> Delete(IPersistedEntity entity);
+
+        Guid[] Move(IPersistedEntity entity, Guid[] parentPath);
     }
 }
