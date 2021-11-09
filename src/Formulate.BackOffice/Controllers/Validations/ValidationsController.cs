@@ -87,7 +87,7 @@ namespace Formulate.BackOffice.Controllers.Validations
                 {
                     Name = x.DefinitionLabel,
                     DefinitionId = x.DefinitionId,
-                    EntityType = EntityTypes.DataValues,
+                    EntityType = EntityTypes.Validation,
                     Icon = FormulateValidationsTreeController.Constants.ItemNodeIcon
                 }).OrderBy(x => x.Name)
                 .ToArray();
