@@ -16,10 +16,21 @@ namespace Formulate.BackOffice.Trees
     /// <summary>
     /// The Formulate layouts tree controller.
     /// </summary>
-    [Tree(FormulateSection.Constants.Alias, "layouts", TreeTitle = "Layouts", SortOrder = 1)]
+    [Tree(FormulateSection.Constants.Alias, Constants.Alias, TreeTitle = "Layouts", SortOrder = 1)]
     [FormulateBackOfficePluginController]
     public sealed class FormulateLayoutsTreeController : FormulateTreeController
     {
+        public static class Constants
+        {
+            public const string Alias = "layouts";
+
+            public const string RootNodeIcon = "icon-formulate-layouts";
+
+            public const string FolderNodeIcon = "icon-formulate-layout-group";
+
+            public const string ItemNodeIcon = "icon-formulate-layout";
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FormulateLayoutsTreeController"/> class.
         /// </summary>
@@ -32,22 +43,20 @@ namespace Formulate.BackOffice.Trees
         protected override TreeRootTypes TreeRootType => TreeRootTypes.Layouts;
 
         /// <inheritdoc />
-        protected override string RootNodeIcon => "icon-formulate-layouts";
+        protected override string RootNodeIcon => Constants.RootNodeIcon;
 
         /// <inheritdoc />
-        protected override string FolderNodeIcon => "icon-formulate-layout-group";
+        protected override string FolderNodeIcon => Constants.FolderNodeIcon;
 
         /// <inheritdoc />
-        protected override string ItemNodeIcon => "icon-formulate-layout";
+        protected override string ItemNodeIcon => Constants.ItemNodeIcon;
         
         /// <inheritdoc />
         protected override ActionResult<MenuItemCollection> GetMenuForRoot(FormCollection queryStrings)
         {
             var menuItemCollection = MenuItemCollectionFactory.Create();
 
-            menuItemCollection.AddCreateDataValuesMenuItem(default, LocalizedTextService);
-            menuItemCollection.AddCreateFolderMenuItem(LocalizedTextService);
-
+            menuItemCollection.AddCreateDialogMenuItem(LocalizedTextService);
             menuItemCollection.AddRefreshMenuItem(LocalizedTextService);
 
             return menuItemCollection;
@@ -58,20 +67,18 @@ namespace Formulate.BackOffice.Trees
         {
             var menuItemCollection = MenuItemCollectionFactory.Create();
 
-            if (entity is PersistedFolder folder)
+            if (entity is PersistedFolder)
             {
-                menuItemCollection.AddCreateLayoutMenuItem(entity.Id, LocalizedTextService);
-                menuItemCollection.AddCreateFolderMenuItem(LocalizedTextService);
-                menuItemCollection.AddMoveFolderMenuItem(folder, LocalizedTextService);
-                menuItemCollection.AddDeleteFolderMenuItem(LocalizedTextService);
-
+                menuItemCollection.AddCreateDialogMenuItem(LocalizedTextService);
+                menuItemCollection.AddDeleteDialogMenuItem(LocalizedTextService);
+                menuItemCollection.AddMoveDialogMenuItem(LocalizedTextService);
                 menuItemCollection.AddRefreshMenuItem(LocalizedTextService);
             }
 
-            if (entity is PersistedLayout layout)
+            if (entity is PersistedLayout)
             {
-                menuItemCollection.AddMoveLayoutMenuItem(layout, LocalizedTextService);
-                menuItemCollection.AddDeleteLayoutMenuItem(LocalizedTextService);
+                menuItemCollection.AddDeleteDialogMenuItem(LocalizedTextService);
+                menuItemCollection.AddMoveDialogMenuItem(LocalizedTextService);
             }
 
             return menuItemCollection;

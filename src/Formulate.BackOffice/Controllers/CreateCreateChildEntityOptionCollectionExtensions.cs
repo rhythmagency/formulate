@@ -27,15 +27,20 @@ namespace Formulate.BackOffice.Controllers
                     Icon = FormulateFormsTreeController.Constants.ConfiguredFormNodeIcon,
                 });
         }
+        
+        public static void AddDataValuesFolderOption(this List<CreateChildEntityOption> items)
+        {
+            items.AddFolderOption(FormulateDataValuesTreeController.Constants.FolderNodeIcon);
+        }
 
         public static void AddFormFolderOption(this List<CreateChildEntityOption> items)
         {
             items.AddFolderOption(FormulateFormsTreeController.Constants.FolderNodeIcon);
         }
-        
-        public static void AddDataValuesFolderOption(this List<CreateChildEntityOption> items)
+
+        public static void AddLayoutsFolderOption(this List<CreateChildEntityOption> items)
         {
-            items.AddFolderOption(FormulateDataValuesTreeController.Constants.FolderNodeIcon);
+            items.AddFolderOption(FormulateLayoutsTreeController.Constants.FolderNodeIcon);
         }
 
         public static void AddValidationsFolderOption(this List<CreateChildEntityOption> items)

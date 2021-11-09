@@ -29,6 +29,14 @@
         </None>
     </ItemGroup>
     <ItemGroup>
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\layouts\create.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\layouts\delete.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\layouts\edit.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\layouts\Layouts.CreateController.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\layouts\Layouts.DeleteController.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\layouts\Layouts.EditController.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\layouts\Layouts.MoveController.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\layouts\move.html" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\create.html" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\delete.html" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\edit.html" />

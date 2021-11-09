@@ -4,6 +4,7 @@ using Formulate.BackOffice.Controllers;
 using Formulate.BackOffice.Controllers.DataValues;
 using Formulate.BackOffice.Controllers.Folders;
 using Formulate.BackOffice.Controllers.Forms;
+using Formulate.BackOffice.Controllers.Layouts;
 using Formulate.BackOffice.Controllers.Validations;
 using Formulate.BackOffice.Trees;
 using Formulate.Core.DataValues;
@@ -177,9 +178,10 @@ namespace Formulate.BackOffice.NotificationHandlers
                 //    LinkGenerator.GetUmbracoApiService<FormsController>(x => x.DuplicateForm(null)) },
             };
 
-            AddVariables<FormsController>(FormulateFormsTreeController.Constants.Alias, newEntries);
-            AddVariables<ValidationsController>(FormulateValidationsTreeController.Constants.Alias, newEntries);
             AddVariables<DataValuesController>(FormulateDataValuesTreeController.Constants.Alias, newEntries);
+            AddVariables<FormsController>(FormulateFormsTreeController.Constants.Alias, newEntries);
+            AddVariables<LayoutsController>(FormulateLayoutsTreeController.Constants.Alias, newEntries);
+            AddVariables<ValidationsController>(FormulateValidationsTreeController.Constants.Alias, newEntries);
 
             if (notification.ServerVariables.ContainsKey(key))
             {
