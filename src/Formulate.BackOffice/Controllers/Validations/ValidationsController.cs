@@ -83,7 +83,7 @@ namespace Formulate.BackOffice.Controllers.Validations
         {
             var options = new List<CreateChildEntityOption>();
 
-            var dataValueOptions = _validationDefinitions.Select(x => new CreateChildEntityOption()
+            var validationOptions = _validationDefinitions.Select(x => new CreateChildEntityOption()
                 {
                     Name = x.DefinitionLabel,
                     DefinitionId = x.DefinitionId,
@@ -96,7 +96,7 @@ namespace Formulate.BackOffice.Controllers.Validations
             if (id is null)
             {
                 options.AddValidationsFolderOption();
-                options.AddRange(dataValueOptions);
+                options.AddRange(validationOptions);
 
                 return options;
             }
@@ -109,7 +109,7 @@ namespace Formulate.BackOffice.Controllers.Validations
             }
 
             options.AddValidationsFolderOption();
-            options.AddRange(dataValueOptions);
+            options.AddRange(validationOptions);
 
             return options;
         }
