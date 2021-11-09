@@ -38,6 +38,11 @@ namespace Formulate.BackOffice.Controllers
             items.AddFolderOption(FormulateDataValuesTreeController.Constants.FolderNodeIcon);
         }
 
+        public static void AddValidationsFolderOption(this List<CreateChildEntityOption> items)
+        {
+            items.AddFolderOption(FormulateValidationsTreeController.Constants.FolderNodeIcon);
+        }
+
         public static void AddFolderOption(this List<CreateChildEntityOption> items, string icon = Constants.Icons.Folder)
         {
             items.Add(new CreateChildEntityOption()

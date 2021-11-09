@@ -172,24 +172,14 @@ namespace Formulate.BackOffice.NotificationHandlers
                 { "DataValues.RootId", DataValuesConstants.RootId },
                 { "forms.RootId", FormConstants.RootId },
 
-                { "Folders.Save", LinkGenerator.GetUmbracoApiService<FoldersController>(x => x.Save()) },
-
-                { "forms.Delete", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.Delete()) },
-                { "forms.Get", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.Get()) },
-                { "forms.GetCreateOptions", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.GetCreateOptions()) },
-                { "forms.GetScaffolding", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.GetScaffolding()) },
-                { "forms.Move", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.Move()) },
-
-                { $"{FormulateDataValuesTreeController.Constants.Alias}.Delete", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.Delete()) },
-                { $"{FormulateDataValuesTreeController.Constants.Alias}.Get", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.Get()) },
-                { $"{FormulateDataValuesTreeController.Constants.Alias}.GetCreateOptions", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.GetCreateOptions()) },
-                { $"{FormulateDataValuesTreeController.Constants.Alias}.GetScaffolding", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.GetScaffolding()) },
-                { $"{FormulateDataValuesTreeController.Constants.Alias}.Move", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.Move()) },
-
+                { "Folders.Save", LinkGenerator.GetUmbracoApiService<FoldersController>(x => x.Save()) }, 
                 //{ "DuplicateForm",
                 //    LinkGenerator.GetUmbracoApiService<FormsController>(x => x.DuplicateForm(null)) },
             };
 
+            AddVariables<FormsController>(FormulateFormsTreeController.Constants.Alias, newEntries);
+            AddVariables<ValidationsController>(FormulateValidationsTreeController.Constants.Alias, newEntries);
+            AddVariables<DataValuesController>(FormulateDataValuesTreeController.Constants.Alias, newEntries);
 
             if (notification.ServerVariables.ContainsKey(key))
             {
@@ -203,6 +193,15 @@ namespace Formulate.BackOffice.NotificationHandlers
             {
                 notification.ServerVariables.Add(key, newEntries);
             }
+        }
+
+        private void AddVariables<TApiController>(string sectionAlias, IDictionary<string, object> newEntries) where TApiController : FormulateBackOfficeEntityApiController 
+        {
+            newEntries.Add($"{sectionAlias}.Delete", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.Delete()));
+            newEntries.Add($"{sectionAlias}.Get", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.Get()));
+            newEntries.Add($"{sectionAlias}.GetCreateOptions", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.GetCreateOptions()));
+            newEntries.Add($"{sectionAlias}.GetScaffolding", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.GetScaffolding()));
+            newEntries.Add($"{sectionAlias}.Move", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.Move()));
         }
     }
 }

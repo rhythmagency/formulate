@@ -18,12 +18,14 @@ namespace Formulate.BackOffice.Trees
     /// <summary>
     /// The Formulate forms tree controller.
     /// </summary>
-    [Tree(FormulateSection.Constants.Alias, "forms", TreeTitle = "Forms", SortOrder = 0)]
+    [Tree(FormulateSection.Constants.Alias, Constants.Alias, TreeTitle = "Forms", SortOrder = 0)]
     [FormulateBackOfficePluginController]
     public sealed class FormulateFormsTreeController : FormulateTreeController
     {
         public static class Constants
         {
+            public const string Alias = "forms";
+
             public const string RootNodeIcon = "icon-formulate-forms";
 
             public const string FolderNodeIcon = "icon-formulate-form-group";

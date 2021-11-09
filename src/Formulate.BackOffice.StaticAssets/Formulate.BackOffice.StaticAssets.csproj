@@ -29,6 +29,10 @@
         </None>
     </ItemGroup>
     <ItemGroup>
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\create.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\delete.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\edit.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\move.html" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\dataValues\DataValues.DeleteController.js" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\dataValues\DataValues.MoveController.js" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\dataValues\delete.html" />
@@ -37,6 +41,10 @@
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\forms\Forms.DeleteController.js" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\forms\Forms.MoveController.js" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\forms\move.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\Validations.CreateController.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\Validations.DeleteController.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\Validations.EditController.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\Validations.MoveController.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\delete.dialog.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\delete.dialog.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\move.dialog.html" />
