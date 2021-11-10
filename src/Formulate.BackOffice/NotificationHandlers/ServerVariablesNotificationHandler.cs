@@ -38,7 +38,6 @@ namespace Formulate.BackOffice.NotificationHandlers
             // Add server variables.
             var newEntries = new Dictionary<string, object>()
             {
-                //{ "DeleteForm", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.DeleteForm(null)) },
                 //{ "PersistForm",
                 //    LinkGenerator.GetUmbracoApiService<FormsController>(x =>
                 //        x.PersistForm(null)) },
@@ -84,9 +83,6 @@ namespace Formulate.BackOffice.NotificationHandlers
                 //{ "GetValidationsInfo",
                 //    LinkGenerator.GetUmbracoApiService<ValidationsController>(x =>
                 //        x.GetValidationsInfo(null)) },
-                { "GetValidationKinds",
-                    LinkGenerator.GetUmbracoApiService<ValidationDefinitionsController>(x =>
-                        x.GetAll()) },
                 //{ "MoveValidation",
                 //    LinkGenerator.GetUmbracoApiService<ValidationsController>(x =>
                 //        x.MoveValidation(null)) },
@@ -173,7 +169,9 @@ namespace Formulate.BackOffice.NotificationHandlers
                 { "DataValues.RootId", DataValuesConstants.RootId },
                 { "forms.RootId", FormConstants.RootId },
 
-                { "Folders.Save", LinkGenerator.GetUmbracoApiService<FoldersController>(x => x.Save()) }, 
+                { "Folders.Save", LinkGenerator.GetUmbracoApiService<FoldersController>(x => x.Save()) },
+
+                { "validations.GetDirective", LinkGenerator.GetUmbracoApiService<ValidationsController>(x => x.GetDefinitionDirective()) }
                 //{ "DuplicateForm",
                 //    LinkGenerator.GetUmbracoApiService<FormsController>(x => x.DuplicateForm(null)) },
             };
@@ -185,10 +183,12 @@ namespace Formulate.BackOffice.NotificationHandlers
 
             if (notification.ServerVariables.ContainsKey(key))
             {
-                var existing = notification.ServerVariables[key] as Dictionary<string, object>;
-                foreach (var item in newEntries)
+                if (notification.ServerVariables[key] is IDictionary<string, object> existing)
                 {
-                    existing[item.Key] = item.Value;
+                    foreach (var item in newEntries)
+                    {
+                        existing[item.Key] = item.Value;
+                    }
                 }
             }
             else
@@ -204,6 +204,7 @@ namespace Formulate.BackOffice.NotificationHandlers
             newEntries.Add($"{sectionAlias}.GetCreateOptions", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.GetCreateOptions()));
             newEntries.Add($"{sectionAlias}.GetScaffolding", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.GetScaffolding()));
             newEntries.Add($"{sectionAlias}.Move", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.Move()));
+            newEntries.Add($"{sectionAlias}.Save", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.Save()));
         }
     }
 }

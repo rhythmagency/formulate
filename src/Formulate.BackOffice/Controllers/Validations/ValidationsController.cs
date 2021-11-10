@@ -6,6 +6,7 @@ using Formulate.BackOffice.Persistence;
 using Formulate.BackOffice.Trees;
 using Formulate.Core.Folders;
 using Formulate.Core.Persistence;
+using Formulate.Core.Types;
 using Formulate.Core.Validations;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Core.Models.ContentEditing;
@@ -22,13 +23,15 @@ namespace Formulate.BackOffice.Controllers.Validations
     [FormulateBackOfficePluginController]
     public sealed class ValidationsController : FormulateBackOfficeEntityApiController
     {
+        private readonly IValidationEntityRepository _validationEntityRepository;
         private readonly ValidationDefinitionCollection _validationDefinitions;
 
-        public ValidationsController(ValidationDefinitionCollection validationDefinitions, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService) : base(treeEntityRepository, localizedTextService)
+        public ValidationsController(IValidationEntityRepository validationEntityRepository, ValidationDefinitionCollection validationDefinitions, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService) : base(treeEntityRepository, localizedTextService)
         {
+            _validationEntityRepository = validationEntityRepository;
             _validationDefinitions = validationDefinitions;
         }
-        
+
         [HttpGet]
         public IActionResult GetScaffolding(EntityTypes entityType, Guid? definitionId, Guid? parentId)
         {
@@ -47,7 +50,7 @@ namespace Formulate.BackOffice.Controllers.Validations
             var parent = parentId.HasValue ? TreeEntityRepository.Get(parentId.Value) : default;
             IPersistedEntity entity = null;
 
-            if (entityType == EntityTypes.DataValues && definitionId.HasValue)
+            if (entityType == EntityTypes.Validation && definitionId.HasValue)
             {
                 entity = new PersistedValidation()
                 {
@@ -77,19 +80,18 @@ namespace Formulate.BackOffice.Controllers.Validations
             return Ok(response);
         }
 
-
         [HttpGet]
         public IEnumerable<CreateChildEntityOption> GetCreateOptions(Guid? id)
         {
             var options = new List<CreateChildEntityOption>();
 
             var validationOptions = _validationDefinitions.Select(x => new CreateChildEntityOption()
-                {
-                    Name = x.DefinitionLabel,
-                    DefinitionId = x.DefinitionId,
-                    EntityType = EntityTypes.Validation,
-                    Icon = FormulateValidationsTreeController.Constants.ItemNodeIcon
-                }).OrderBy(x => x.Name)
+            {
+                Name = x.DefinitionLabel,
+                DefinitionId = x.DefinitionId,
+                EntityType = EntityTypes.Validation,
+                Icon = FormulateValidationsTreeController.Constants.ItemNodeIcon
+            }).OrderBy(x => x.Name)
                 .ToArray();
 
 
@@ -112,6 +114,67 @@ namespace Formulate.BackOffice.Controllers.Validations
             options.AddRange(validationOptions);
 
             return options;
+        }
+
+
+        [NonAction]
+        public IActionResult GetDefinitionDirective()
+        {
+            return new EmptyResult();
+        }
+
+        [HttpGet]
+        public IActionResult GetDefinitionDirective(Guid id)
+        {
+            var definition = _validationDefinitions.FirstOrDefault(id);
+
+            if (definition is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(definition.Directive);
+        }
+
+        [HttpPost]
+        public ActionResult Save(SavePersistedValidationRequest request)
+        {
+            PersistedValidation savedEntity;
+
+            if (request.Entity.Id == Guid.Empty)
+            {
+                var entityToSave = request.Entity;
+                var entityToSavePath = new List<Guid>();
+                var parent = request.ParentId.HasValue ? TreeEntityRepository.Get(request.ParentId.Value) : default;
+
+                entityToSave.Id = Guid.NewGuid();
+
+                if (parent is not null)
+                {
+                    entityToSavePath.AddRange(parent.Path);
+                }
+                else
+                {
+                    var rootId = TreeEntityRepository.GetRootId(TreeRootTypes.Validations);
+
+                    entityToSavePath.Add(rootId);
+                }
+
+                entityToSavePath.Add(entityToSave.Id);
+                entityToSave.Path = entityToSavePath.ToArray();
+
+                savedEntity = _validationEntityRepository.Save(entityToSave);
+            }
+            else
+            {
+                savedEntity = _validationEntityRepository.Save(request.Entity);
+            }
+
+            return Ok(new SavePersistedValidationResponse()
+            {
+                EntityId = savedEntity.BackOfficeSafeId(),
+                EntityPath = savedEntity.TreeSafePath()
+            });
         }
     }
 }
