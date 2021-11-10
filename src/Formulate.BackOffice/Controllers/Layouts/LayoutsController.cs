@@ -45,9 +45,9 @@ namespace Formulate.BackOffice.Controllers.Layouts
             var parent = parentId.HasValue ? TreeEntityRepository.Get(parentId.Value) : default;
             IPersistedEntity entity = null;
 
-            if (entityType == EntityTypes.DataValues && definitionId.HasValue)
+            if (entityType == EntityTypes.Layout && definitionId.HasValue)
             {
-                entity = new PersistedDataValues()
+                entity = new PersistedLayout()
                 {
                     DefinitionId = definitionId.Value,
                 };
