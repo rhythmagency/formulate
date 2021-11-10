@@ -184,7 +184,7 @@ namespace Formulate.BackOffice.Persistence
                     break;
 
                 case PersistedValidation:
-                    _layoutEntityRepository.Delete(entity.Id);
+                    _validationEntityRepository.Delete(entity.Id);
                     break;
             }
 
