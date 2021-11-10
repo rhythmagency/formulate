@@ -1,7 +1,7 @@
 ﻿(function () {
     function formulateConfigurationEditorDirective($compile) {
         var directive = {
-            templateUrl: "/app_plugins/formulatebackoffice/directives/editors/configuration.editor.html",
+            template: "<div></div>",
             replace: true,
             scope: {
                 directive: "=",
@@ -19,7 +19,7 @@
                 }
 
                 // Create directive.
-                var markup = "<" + scope.directive + " data=\"config\"></" + scope.directive + ">";
+                var markup = "<" + scope.directive + " config=\"config\"></" + scope.directive + ">";
                 var directive = $compile(markup)(scope);
                 element.replaceWith(directive);
             }

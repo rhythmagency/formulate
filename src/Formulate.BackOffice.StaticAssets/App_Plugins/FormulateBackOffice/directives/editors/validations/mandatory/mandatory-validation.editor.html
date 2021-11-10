@@ -1,0 +1,33 @@
+﻿<div class="control-group umb-control-group">
+    <div class="umb-el-wrap">
+        <label class="control-label">
+            <localize key="formulate-labels_Error Message">
+                Error Message
+            </localize>
+        </label>
+        <div class="controls controls-row">
+            <input
+                ng-model="config.message"
+                formulate-localize-attribute="placeholder"
+                placeholder="formulate-placeholders_Error Message"
+                class="form-control input-block-level" />
+        </div>
+    </div>
+    <div class="umb-el-wrap">
+        <label class="control-label">
+            <localize key="formulate-labels_Client Side Only">
+                Client Side Only?
+            </localize>
+            <small>
+                <localize key="formulate-label-descriptions_Client Side Only">
+                    Should this validation only applied in the browser (and not on the web server)? This is uncommon,
+                    but is useful for more advanced situations (e.g., when displaying only some of the fields in the
+                    form).
+                </localize>
+            </small>
+        </label>
+        <div class="controls controls-row">
+            <input type="checkbox" ng-model="config.clientSideOnly" />
+        </div>
+    </div>
+</div>

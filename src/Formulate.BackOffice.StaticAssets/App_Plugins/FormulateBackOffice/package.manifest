@@ -24,6 +24,8 @@
     "/App_Plugins/FormulateBackOffice/directives/dialogs/delete.dialog.js",
     "/App_Plugins/FormulateBackOffice/directives/dialogs/move.dialog.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/configuration.editor.js",
+    "/App_Plugins/FormulateBackOffice/directives/editors/validations/mandatory/mandatory-validation.editor.js",
+    "/App_Plugins/FormulateBackOffice/directives/editors/validations/regex/regex-validation.editor.js",
     "/App_Plugins/FormulateBackOffice/resources/entityResource.js",
     "/App_Plugins/FormulateBackOffice/resources/definitionDirectiveResource.js"
   ]

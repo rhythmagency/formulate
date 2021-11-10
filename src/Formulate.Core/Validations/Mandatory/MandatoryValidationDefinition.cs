@@ -25,7 +25,7 @@ namespace Formulate.Core.Validations.Mandatory
             /// <summary>
             /// The Angular JS directive.
             /// </summary>
-            public const string Directive = "formulate-validation-mandatory";
+            public const string Directive = "formulate-mandatory-validation";
         }
 
         /// <inheritdoc />

@@ -10,9 +10,9 @@
                 scope.saveButtonState = "init";
 
                 if (scope.entity.configuration !== null) {
-                    scope.deserializedConfig = JSON.parse(scope.entity.configuration);
+                    scope.deserializedConfiguration = JSON.parse(scope.entity.configuration);
                 } else {
-                    scope.deserializedConfig = {};
+                    scope.deserializedConfiguration = {};
                 }
 
                 formulateDefinitionDirectiveResource.getValidationDirective(scope.entity.definitionId).then(
@@ -24,7 +24,7 @@
                 scope.save = function () {
                     scope.saveButtonState = "busy";
 
-                    if (typeof (scope.deserializedConfig) !== "undefined") {
+                    if (typeof (scope.deserializedConfiguration) !== "undefined") {
                         scope.entity.configuration = JSON.stringify(scope.deserializedConfig);
                     }
 

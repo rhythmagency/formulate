@@ -25,7 +25,7 @@ namespace Formulate.Core.Validations.Regex
             /// <summary>
             /// The Angular JS directive.
             /// </summary>
-            public const string Directive = "formulate-validation-regex";
+            public const string Directive = "formulate-regex-validation";
         }
 
         /// <inheritdoc />
