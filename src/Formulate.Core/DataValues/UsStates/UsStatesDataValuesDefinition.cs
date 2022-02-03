@@ -26,7 +26,7 @@ namespace Formulate.Core.DataValues.UsStates
             /// <summary>
             /// The Angular JS directive.
             /// </summary>
-            public const string Directive = "formulate-data-values-dynamic";
+            public const string Directive = "formulate-dynamic-data-values";
 
             /// <summary>
             /// The icon.

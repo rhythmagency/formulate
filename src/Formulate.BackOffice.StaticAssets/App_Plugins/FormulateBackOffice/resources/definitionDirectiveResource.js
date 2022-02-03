@@ -2,6 +2,15 @@
     var resource = function ($http, umbRequestHelper) {
         var serverVars = Umbraco.Sys.ServerVariables.formulate;
 
+        function performGetDataValuesDirective(definitionId) {
+            var options = {
+                id: definitionId,
+                type: "datavalues"
+            };
+
+            return performGet(options);
+        }
+
         function performGetValidationDirective(definitionId) {
             var options = {
                 id: definitionId,
@@ -41,6 +50,7 @@
         }
 
         return {
+            getDataValuesDirective: performGetDataValuesDirective,
             getValidationDirective: performGetValidationDirective
         };
     };

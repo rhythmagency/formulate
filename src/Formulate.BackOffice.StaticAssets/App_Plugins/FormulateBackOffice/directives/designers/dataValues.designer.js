@@ -2,7 +2,7 @@
     function formulateValidationDesignerDirective($http, $location, $routeParams, formulateDefinitionDirectiveResource, navigationService, notificationsService, formHelper) {
         var directive = {
             replace: true,
-            templateUrl: "/app_plugins/formulatebackoffice/directives/designers/validation.designer.html",
+            templateUrl: "/app_plugins/formulatebackoffice/directives/designers/dataValues.designer.html",
             scope: {
                 entity: "="
             },
@@ -15,7 +15,7 @@
                     scope.deserializedConfiguration = {};
                 }
 
-                formulateDefinitionDirectiveResource.getValidationDirective(scope.entity.definitionId).then(
+                formulateDefinitionDirectiveResource.getDataValuesDirective(scope.entity.definitionId).then(
                     function (directive) {
                         scope.directive = directive;
                     });
@@ -30,12 +30,11 @@
 
                     var payload = {
                         entity: scope.entity,
-                        parentId: !$routeParams.isNew && $routeParams.id && $routeParams.id !== "-1" ? $routeParams.id : "",
-                        treeType: scope.treeType
+                        parentId: !$routeParams.isNew && $routeParams.id && $routeParams.id !== "-1" ? $routeParams.id : ""
                     };
 
                     if (formHelper.submitForm({ scope: scope, formCtrl: scope.formCtrl })) {
-                        $http.post(Umbraco.Sys.ServerVariables.formulate["validations.Save"], payload).then(
+                        $http.post(Umbraco.Sys.ServerVariables.formulate["datavalues.Save"], payload).then(
                             function (response) {
                                 var entityId = response.data.entityId;
                                 scope.saveButtonState = "success";
@@ -43,14 +42,14 @@
                                 formHelper.resetForm({ scope: scope, formCtrl: scope.formCtrl });
 
                                 if (entityId !== $routeParams.id) {
-                                    notificationsService.success("Validation created.");
+                                    notificationsService.success("Data Values created.");
 
-                                    $location.path("/formulate/validation/edit/" + entityId).search({});
+                                    $location.path("/formulate/datavalues/edit/" + entityId).search({});
                                 } else {
-                                    notificationsService.success("Validation saved.");
+                                    notificationsService.success("Data Values saved.");
 
                                     var options = {
-                                        tree: "validations",
+                                        tree: "datavalues",
                                         path: response.data.entityPath,
                                         forceReload: true,
                                         activate: false
@@ -75,5 +74,5 @@
         return directive;
     }
 
-    angular.module("umbraco.directives").directive("formulateValidationDesignerV2", formulateValidationDesignerDirective);
+    angular.module("umbraco.directives").directive("formulateDataValuesDesignerV2", formulateValidationDesignerDirective);
 })();

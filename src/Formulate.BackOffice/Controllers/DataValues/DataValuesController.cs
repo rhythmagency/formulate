@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Formulate.Core.Types;
 using Umbraco.Cms.Core.Models.ContentEditing;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Filters;
@@ -19,11 +20,32 @@ namespace Formulate.BackOffice.Controllers.DataValues
     [FormulateBackOfficePluginController]
     public sealed class DataValuesController : FormulateBackOfficeEntityApiController
     {
+        private readonly IDataValuesEntityRepository _dataValuesEntityRepository;
         private readonly DataValuesDefinitionCollection _dataValuesDefinitions;
 
-        public DataValuesController(ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService, DataValuesDefinitionCollection dataValuesDefinitions) : base(treeEntityRepository, localizedTextService)
+        public DataValuesController(IDataValuesEntityRepository dataValuesEntityRepository, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService, DataValuesDefinitionCollection dataValuesDefinitions) : base(treeEntityRepository, localizedTextService)
         {
+            _dataValuesEntityRepository = dataValuesEntityRepository;
             _dataValuesDefinitions = dataValuesDefinitions;
+        }
+        
+        [NonAction]
+        public IActionResult GetDefinitionDirective()
+        {
+            return new EmptyResult();
+        }
+
+        [HttpGet]
+        public IActionResult GetDefinitionDirective(Guid id)
+        {
+            var definition = _dataValuesDefinitions.FirstOrDefault(id);
+
+            if (definition is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(definition.Directive);
         }
 
         [HttpGet]
@@ -108,6 +130,47 @@ namespace Formulate.BackOffice.Controllers.DataValues
             options.AddRange(dataValueOptions);
 
             return options;
+        }
+
+        [HttpPost]
+        public ActionResult Save(SavePersistedDataValuesRequest request)
+        {
+            PersistedDataValues savedEntity;
+
+            if (request.Entity.Id == Guid.Empty)
+            {
+                var entityToSave = request.Entity;
+                var entityToSavePath = new List<Guid>();
+                var parent = request.ParentId.HasValue ? TreeEntityRepository.Get(request.ParentId.Value) : default;
+
+                entityToSave.Id = Guid.NewGuid();
+
+                if (parent is not null)
+                {
+                    entityToSavePath.AddRange(parent.Path);
+                }
+                else
+                {
+                    var rootId = TreeEntityRepository.GetRootId(TreeRootTypes.DataValues);
+
+                    entityToSavePath.Add(rootId);
+                }
+
+                entityToSavePath.Add(entityToSave.Id);
+                entityToSave.Path = entityToSavePath.ToArray();
+
+                savedEntity = _dataValuesEntityRepository.Save(entityToSave);
+            }
+            else
+            {
+                savedEntity = _dataValuesEntityRepository.Save(request.Entity);
+            }
+
+            return Ok(new SavePersistedDataValuesResponse()
+            {
+                EntityId = savedEntity.BackOfficeSafeId(),
+                EntityPath = savedEntity.TreeSafePath()
+            });
         }
     }
 }

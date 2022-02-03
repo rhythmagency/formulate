@@ -33,7 +33,7 @@ namespace Formulate.Core.DataValues.PairList
             /// <summary>
             /// The Angular JS directive.
             /// </summary>
-            public const string Directive = "formulate-data-values-pair-list";
+            public const string Directive = "formulate-pair-list-data-values";
 
             /// <summary>
             /// The icon.

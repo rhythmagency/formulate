@@ -33,7 +33,7 @@ namespace Formulate.Core.DataValues.List
             /// <summary>
             /// The Angular JS directive.
             /// </summary>
-            public const string Directive = "formulate-data-values-list";
+            public const string Directive = "formulate-list-data-values";
 
             /// <summary>
             /// The icon.
