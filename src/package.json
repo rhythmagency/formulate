@@ -25,7 +25,7 @@
     "grunt-umbraco-package": "^1.0.0",
     "hoek": "^5.0.3",
     "node-gyp": "^7.1.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "promiscuous": "^0.7.2",
     "require-globify": "^1.4.1"
   },
