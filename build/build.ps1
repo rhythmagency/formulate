@@ -1,3 +1,9 @@
+<# Build from a PowerShell command line with a command like the following (make sure the folder "c:\nuget\local" exists):
+
+./build.ps1 -v "2.1.1" -s "beta"
+
+#>
+
 <#
 SYNOPSIS
     Builds Formulate packages.

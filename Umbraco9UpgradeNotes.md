@@ -3,7 +3,7 @@
 To build, open a PowerShell command prompt and enter a command like this:
 
 ```
-build.ps1 -v "2.1.1" -s "beta"
+./build.ps1 -v "2.1.1" -s "beta"
 ```
 
 Be sure you've created the folder "c:\nuget\local".
