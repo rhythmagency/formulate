@@ -25,7 +25,7 @@ param (
 
     [Parameter()]
     [string]
-    [Alias("l")]  
+    [Alias("l")]
     $localNuGetPath = 'C:\nuget\local' #local nuget feed location
 )
 
@@ -62,13 +62,13 @@ dotnet restore ..\src
 
 ##### Packaging
 
-dotnet pack ..\src\Formulate.Core\Formulate.Core.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullVersion 
-dotnet pack ..\src\Formulate.BackOffice\Formulate.BackOffice.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion  
-dotnet pack ..\src\Formulate.Website\Formulate.Website.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion  
+dotnet pack ..\src\Formulate.Core\Formulate.Core.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullVersion
+dotnet pack ..\src\Formulate.BackOffice\Formulate.BackOffice.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion
+dotnet pack ..\src\Formulate.Website\Formulate.Website.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion
 
 .\nuget pack "..\src\Formulate.BackOffice.StaticAssets\Formulate.BackOffice.StaticAssets.nuspec" -version $fullVersion -OutputDirectory $outFolder
 
-dotnet pack ..\src\Formulate\Formulate.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullVersion 
+dotnet pack ..\src\Formulate\Formulate.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullVersion
 
 ##### Copying to Local Deploy
 XCOPY "$outFolder\*.nupkg" $localNuGetPath /Q /Y 
