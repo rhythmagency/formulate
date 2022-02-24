@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formulate", "Formulate\Formulate.csproj", "{3CDF6690-944D-4CE2-972B-9C15069CFE0A}"
 EndProject
@@ -19,10 +19,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formulate.Core.Tests", "Formulate.Core.Tests\Formulate.Core.Tests.csproj", "{C618DF7A-B506-484C-9E5E-E2BE24875BFF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formulate.BackOffice.StaticAssets", "Formulate.BackOffice.StaticAssets\Formulate.BackOffice.StaticAssets.csproj", "{51F865B7-28E7-4FD1-AB15-39D81D6419D4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{329781CD-8683-40BB-AFF6-30E2D63FEC42} = {329781CD-8683-40BB-AFF6-30E2D63FEC42}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formulate.BackOffice.Tests", "Formulate.BackOffice.Tests\Formulate.BackOffice.Tests.csproj", "{C2CB4909-CB39-4149-A019-8F96DB698535}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formulate.BackOffice.Tests", "Formulate.BackOffice.Tests\Formulate.BackOffice.Tests.csproj", "{C2CB4909-CB39-4149-A019-8F96DB698535}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8C7E4833-E8B4-40BC-B8C3-575CFABB4219}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomBuildActions", "CustomBuildActions\CustomBuildActions.csproj", "{329781CD-8683-40BB-AFF6-30E2D63FEC42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +63,10 @@ Global
 		{C2CB4909-CB39-4149-A019-8F96DB698535}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2CB4909-CB39-4149-A019-8F96DB698535}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2CB4909-CB39-4149-A019-8F96DB698535}.Release|Any CPU.Build.0 = Release|Any CPU
+		{329781CD-8683-40BB-AFF6-30E2D63FEC42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{329781CD-8683-40BB-AFF6-30E2D63FEC42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{329781CD-8683-40BB-AFF6-30E2D63FEC42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{329781CD-8683-40BB-AFF6-30E2D63FEC42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

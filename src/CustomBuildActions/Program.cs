@@ -1,0 +1,1 @@
+﻿CustomBuildActions.GeneratePackageManifest.Generate();
