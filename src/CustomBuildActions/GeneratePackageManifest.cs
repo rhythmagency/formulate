@@ -2,13 +2,11 @@
 
 namespace CustomBuildActions
 {
-
     /// <summary>
     /// Generates the package.manifest.
     /// </summary>
     internal class GeneratePackageManifest
     {
-
         /// <summary>
         /// Generates the package.manifest that contains the frontend resources used
         /// by Formulate in the Umbraco back office.
@@ -40,7 +38,5 @@ namespace CustomBuildActions
             // Store the JSON to the package.manifest file.
             File.WriteAllText(manifestPath, serialized);
         }
-
     }
-
 }
