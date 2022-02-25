@@ -27,7 +27,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8C7E4833
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomBuildActions", "CustomBuildActions\CustomBuildActions.csproj", "{329781CD-8683-40BB-AFF6-30E2D63FEC42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{D4D29325-F2D3-4086-A26A-11376B66FA43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Website", "Website\Website.csproj", "{D4D29325-F2D3-4086-A26A-11376B66FA43}"
+	ProjectSection(ProjectDependencies) = postProject
+		{329781CD-8683-40BB-AFF6-30E2D63FEC42} = {329781CD-8683-40BB-AFF6-30E2D63FEC42}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

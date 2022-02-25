@@ -488,3 +488,6 @@ $RECYCLE.BIN/
 
 # Copied Formulate plugin files.
 /App_Plugins/
+
+# Files generated from sample files.
+/appsettings.json

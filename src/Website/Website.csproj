@@ -27,5 +27,8 @@
         <RazorCompileOnBuild>false</RazorCompileOnBuild>
         <RazorCompileOnPublish>false</RazorCompileOnPublish>
     </PropertyGroup>
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="$(SolutionDir)/CustomBuildActions/bin/$(ConfigurationName)/net6.0/CustomBuildActions.exe -create-app-settings-json" />
+    </Target>
 
 </Project>
