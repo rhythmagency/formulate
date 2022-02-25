@@ -11,9 +11,9 @@ namespace Formulate.BackOffice.DependencyInjection
         public static IUmbracoBuilder AddFormulateBackOffice(this IUmbracoBuilder builder)
         {
             builder.Sections().Append<FormulateSection>();
-            
+
             builder.Services.AddScoped<ITreeEntityRepository, TreeEntityRepository>();
-            
+
             builder.AddNotificationHandler<ServerVariablesParsingNotification, ServerVariablesNotificationHandler>();
 
             return builder;
