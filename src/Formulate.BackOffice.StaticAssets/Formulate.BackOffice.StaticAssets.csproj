@@ -65,6 +65,6 @@
       <None Remove="App_Plugins\FormulateBackOffice\resources\entityResource.js" />
     </ItemGroup>
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="$(SolutionDir)/CustomBuildActions/bin/$(ConfigurationName)/net6.0/CustomBuildActions.exe -generate-package-manifest" />
+      <Exec Command="$(SolutionDir)/CustomBuildActions/bin/$(ConfigurationName)/net6.0/CustomBuildActions.exe -generate-package-manifest -copy-static-assets-to-website" />
     </Target>
 </Project>

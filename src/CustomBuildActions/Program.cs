@@ -1,9 +1,14 @@
-﻿foreach(var task in args)
+﻿using CustomBuildActions;
+
+foreach(var task in args)
 {
     switch (task)
     {
         case "-generate-package-manifest":
-            CustomBuildActions.GeneratePackageManifest.Generate();
+            GeneratePackageManifest.Generate();
+            break;
+        case "-copy-static-assets-to-website":
+            CopyStaticAssetsToWebsite.Copy();
             break;
     }
 }
