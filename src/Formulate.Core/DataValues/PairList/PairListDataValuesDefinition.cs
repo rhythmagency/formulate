@@ -38,7 +38,7 @@ namespace Formulate.Core.DataValues.PairList
             /// <summary>
             /// The icon.
             /// </summary>
-            public const string Icon = "icon-thumbnail-list";
+            public const string Icon = "icon-formulate-pair-list";
         }
 
         /// <inheritdoc />

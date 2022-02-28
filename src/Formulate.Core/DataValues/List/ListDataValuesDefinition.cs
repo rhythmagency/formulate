@@ -38,7 +38,7 @@ namespace Formulate.Core.DataValues.List
             /// <summary>
             /// The icon.
             /// </summary>
-            public const string Icon = "icon-list";
+            public const string Icon = "icon-formulate-list";
         }
 
         /// <inheritdoc />

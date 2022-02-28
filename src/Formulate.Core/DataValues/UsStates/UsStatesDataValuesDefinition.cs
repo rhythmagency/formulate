@@ -31,7 +31,7 @@ namespace Formulate.Core.DataValues.UsStates
             /// <summary>
             /// The icon.
             /// </summary>
-            public const string Icon = "icon-globe-inverted-america";
+            public const string Icon = "icon-formulate-globe";
         }
 
         /// <inheritdoc />
