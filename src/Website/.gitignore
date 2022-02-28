@@ -491,3 +491,6 @@ $RECYCLE.BIN/
 
 # Files generated from sample files.
 /appsettings.json
+
+# App data.
+/wwwroot/App_Data/
