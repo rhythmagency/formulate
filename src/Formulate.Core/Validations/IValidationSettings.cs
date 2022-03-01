@@ -7,5 +7,9 @@ namespace Formulate.Core.Validations
     /// </summary>
     public interface IValidationSettings : IEntitySettings
     {
+        /// <summary>
+        /// The alias for this validation.
+        /// </summary>
+        public string Alias { get; set; }
     }
 }

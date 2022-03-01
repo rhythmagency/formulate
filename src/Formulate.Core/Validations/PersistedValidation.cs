@@ -14,5 +14,10 @@ namespace Formulate.Core.Validations
         /// Gets or sets the configuration.
         /// </summary>
         public string Data { get; set; }
+
+        /// <summary>
+        /// The alias for this validation.
+        /// </summary>
+        public string Alias { get; set; }
     }
 }

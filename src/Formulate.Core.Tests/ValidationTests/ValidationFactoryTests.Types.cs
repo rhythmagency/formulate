@@ -20,8 +20,10 @@ namespace Formulate.Core.Tests.ValidationTests
             public string Name { get; set; }
 
             public Guid Id { get; set; }
-            
+
             public string Data { get; set; }
+
+            public string Alias { get; set; }
         }
 
         private sealed class TestValidationDefinition : IValidationDefinition

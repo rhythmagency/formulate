@@ -5,7 +5,8 @@
             replace: true,
             scope: {
                 directive: "=",
-                config: "="
+                config: "=",
+                alias: "=",
             },
             link: function(scope, element) {
                 if (typeof (scope.directive) === "undefined" || scope.directive.length === 0) {
@@ -19,7 +20,7 @@
                 }
 
                 // Create directive.
-                var markup = "<" + scope.directive + " config=\"config\"></" + scope.directive + ">";
+                var markup = "<" + scope.directive + " config=\"config\" alias=\"alias\"></" + scope.directive + ">";
                 var directive = $compile(markup)(scope);
                 element.replaceWith(directive);
             }
