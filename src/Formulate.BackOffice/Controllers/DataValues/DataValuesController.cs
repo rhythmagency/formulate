@@ -49,11 +49,11 @@ namespace Formulate.BackOffice.Controllers.DataValues
         }
 
         [HttpGet]
-        public IActionResult GetScaffolding(EntityTypes entityType, Guid? definitionId, Guid? parentId)
+        public IActionResult GetScaffolding(EntityTypes entityType, Guid? kindId, Guid? parentId)
         {
             var options = this.GetCreateOptions(parentId);
 
-            var isValidOption = definitionId.HasValue ? options.Any(x => x.EntityType == entityType && x.DefinitionId == definitionId) : options.Any(x => x.EntityType == entityType);
+            var isValidOption = kindId.HasValue ? options.Any(x => x.EntityType == entityType && x.KindId == kindId) : options.Any(x => x.EntityType == entityType);
 
             if (isValidOption == false)
             {
@@ -66,11 +66,11 @@ namespace Formulate.BackOffice.Controllers.DataValues
             var parent = parentId.HasValue ? TreeEntityRepository.Get(parentId.Value) : default;
             IPersistedEntity entity = null;
 
-            if (entityType == EntityTypes.DataValues && definitionId.HasValue)
+            if (entityType == EntityTypes.DataValues && kindId.HasValue)
             {
                 entity = new PersistedDataValues()
                 {
-                    DefinitionId = definitionId.Value,
+                    KindId = kindId.Value,
                 };
             }
             else if (entityType == EntityTypes.Folder)
@@ -104,7 +104,7 @@ namespace Formulate.BackOffice.Controllers.DataValues
             var dataValueOptions = _dataValuesDefinitions.Select(x => new CreateChildEntityOption()
             {
                 Name = x.DefinitionLabel,
-                DefinitionId = x.DefinitionId,
+                KindId = x.KindId,
                 EntityType = EntityTypes.DataValues,
                 Icon = x.Icon
             }).OrderBy(x => x.Name)

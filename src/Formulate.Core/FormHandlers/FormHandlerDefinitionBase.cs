@@ -9,7 +9,7 @@ namespace Formulate.Core.FormHandlers
     public abstract class FormHandlerDefinitionBase : IFormHandlerDefinition
     {
         /// <inheritdoc />
-        public abstract Guid DefinitionId { get; }
+        public abstract Guid KindId { get; }
 
         /// <inheritdoc />
         public abstract string DefinitionLabel { get; }

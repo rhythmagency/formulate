@@ -31,7 +31,7 @@ namespace Formulate.Core.Validations
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            var foundValidationDefinition = _validationDefinitions.FirstOrDefault(settings.DefinitionId);
+            var foundValidationDefinition = _validationDefinitions.FirstOrDefault(settings.KindId);
 
             return foundValidationDefinition?.CreateValidation(settings);
         }

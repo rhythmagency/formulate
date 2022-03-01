@@ -13,9 +13,9 @@ namespace Formulate.Core.FormFields.Button
         public static class Constants
         {
             /// <summary>
-            /// The definition id.
+            /// The kind id.
             /// </summary>
-            public const string DefinitionId = "CDE8565C5E9241129A1F7FFA1940C53C";
+            public const string KindId = "CDE8565C5E9241129A1F7FFA1940C53C";
 
             /// <summary>
             /// The definition label.
@@ -34,7 +34,7 @@ namespace Formulate.Core.FormFields.Button
         }
 
         /// <inheritdoc />
-        public override Guid DefinitionId => Guid.Parse(Constants.DefinitionId);
+        public override Guid KindId => Guid.Parse(Constants.KindId);
 
         /// <inheritdoc />
         public override string Icon => Constants.Icon;

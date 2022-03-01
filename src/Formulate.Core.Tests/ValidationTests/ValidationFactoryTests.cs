@@ -18,14 +18,14 @@ namespace Formulate.Core.Tests.ValidationTests
             Assert.Throws<ArgumentNullException>(() => factory.Create(settings));
         }
 
-        [Fact(DisplayName = "When no DefinitionId matches should return Default")]
-        public void WhenNoDefinitionIdMatchesShouldReturnDefault()
+        [Fact(DisplayName = "When no KindId matches should return Default")]
+        public void WhenNoKindIdMatchesShouldReturnDefault()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestValidationSettings()
             {
-                DefinitionId = Guid.Parse(Constants.MissingValidationDefinitionId)
+                KindId = Guid.Parse(Constants.MissingValidationKindId)
             };
 
             // act
@@ -35,14 +35,14 @@ namespace Formulate.Core.Tests.ValidationTests
             Assert.Equal(default, validation);
         }
 
-        [Fact(DisplayName = "When DefinitionId matches a Validation Definition should return an expected Validation")]
-        public void WhenDefinitionIdMatchesAValidationDefinitionShouldReturnAnExpectedValidation()
+        [Fact(DisplayName = "When KindId matches a Validation Definition should return an expected Validation")]
+        public void WhenKindIdMatchesAValidationDefinitionShouldReturnAnExpectedValidation()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestValidationSettings()
             {
-                DefinitionId = Guid.Parse(Constants.TestValidationDefinitionId)
+                KindId = Guid.Parse(Constants.TestValidationKindId)
             };
 
             // act

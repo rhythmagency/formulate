@@ -12,7 +12,7 @@ namespace Formulate.Core.DataValues
         public Guid Id { get; }
 
         /// <inheritdoc />
-        public Guid DefinitionId { get; }
+        public Guid KindId { get; }
 
         /// <inheritdoc />
         public IReadOnlyCollection<KeyValuePair<string, string>> Items { get; }
@@ -44,7 +44,7 @@ namespace Formulate.Core.DataValues
             }
 
             Id = settings.Id;
-            DefinitionId = settings.DefinitionId;
+            KindId = settings.KindId;
             RawConfiguration = settings.Configuration;
             Items = items ?? Array.Empty<KeyValuePair<string, string>>();
         }

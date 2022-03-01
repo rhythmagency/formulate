@@ -13,8 +13,8 @@ namespace Formulate.Core.Types
         Guid Id { get; }
 
         /// <summary>
-        /// Gets the definition ID.
+        /// Gets the kind ID.
         /// </summary>
-        Guid DefinitionId { get; }
+        Guid KindId { get; }
     }
 }

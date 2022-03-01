@@ -8,14 +8,14 @@ namespace Formulate.Core.Tests.LayoutTests
     {
         private static class Constants
         {
-            public const string MissingLayoutDefinitionId = "EE529CCB5777482899875AA37A4036E3";
+            public const string MissingLayoutKindId = "EE529CCB5777482899875AA37A4036E3";
 
-            public const string TestLayoutDefinitionId = "A00C4BE8788B4DC1AC488E6CAAA82F3C";
+            public const string TestLayoutKindId = "A00C4BE8788B4DC1AC488E6CAAA82F3C";
         }
 
         private sealed class TestLayoutSettings : ILayoutSettings
         {
-            public Guid DefinitionId { get; set; }
+            public Guid KindId { get; set; }
 
             public string Name { get; set; }
 
@@ -26,7 +26,7 @@ namespace Formulate.Core.Tests.LayoutTests
 
         private sealed class TestLayoutDefinition : ILayoutDefinition
         {
-            public Guid DefinitionId => Guid.Parse(Constants.TestLayoutDefinitionId);
+            public Guid KindId => Guid.Parse(Constants.TestLayoutKindId);
             
             public string DefinitionLabel => "Test Layout";
             

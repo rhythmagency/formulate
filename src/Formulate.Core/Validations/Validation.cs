@@ -34,7 +34,7 @@ namespace Formulate.Core.Validations
         public Guid Id { get; }
 
         /// <inheritdoc />
-        public Guid DefinitionId { get; }
+        public Guid KindId { get; }
 
         /// <summary>
         /// The raw configuration.
@@ -62,7 +62,7 @@ namespace Formulate.Core.Validations
             }
 
             Id = settings.Id;
-            DefinitionId = settings.DefinitionId;
+            KindId = settings.KindId;
             RawConfiguration = settings.Configuration;
         }
     }

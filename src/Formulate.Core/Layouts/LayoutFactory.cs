@@ -31,7 +31,7 @@ namespace Formulate.Core.Layouts
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            var foundLayoutDefinition = _layoutDefinitions.FirstOrDefault(settings.DefinitionId);
+            var foundLayoutDefinition = _layoutDefinitions.FirstOrDefault(settings.KindId);
 
             return foundLayoutDefinition?.CreateLayout(settings);
         }

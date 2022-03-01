@@ -33,7 +33,7 @@ namespace Formulate.Core.FormFields
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            var foundFormFieldDefinition = _formFieldDefinitions.FirstOrDefault(settings.DefinitionId);
+            var foundFormFieldDefinition = _formFieldDefinitions.FirstOrDefault(settings.KindId);
 
             if (foundFormFieldDefinition is null)
             {

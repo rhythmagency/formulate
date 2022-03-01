@@ -10,7 +10,7 @@ namespace Formulate.Core.DataValues
     public abstract class DataValuesDefinitionBase : IDataValuesDefinition
     {
         /// <inheritdoc />
-        public abstract Guid DefinitionId { get; }
+        public abstract Guid KindId { get; }
 
         /// <inheritdoc />
         public abstract string DefinitionLabel { get; }

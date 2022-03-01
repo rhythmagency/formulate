@@ -18,14 +18,14 @@ namespace Formulate.Core.Tests.LayoutTests
             Assert.Throws<ArgumentNullException>(() => factory.Create(settings));
         }
 
-        [Fact(DisplayName = "When no DefinitionId matches should return Default")]
-        public void WhenNoDefinitionIdMatchesShouldReturnDefault()
+        [Fact(DisplayName = "When no KindId matches should return Default")]
+        public void WhenNoKindIdMatchesShouldReturnDefault()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestLayoutSettings()
             {
-                DefinitionId = Guid.Parse(Constants.MissingLayoutDefinitionId)
+                KindId = Guid.Parse(Constants.MissingLayoutKindId)
             };
 
             // act
@@ -35,14 +35,14 @@ namespace Formulate.Core.Tests.LayoutTests
             Assert.Equal(default, layout);
         }
 
-        [Fact(DisplayName = "When DefinitionId matches a Layout Definition should return an expected Layout")]
-        public void WhenDefinitionIdMatchesALayoutDefinitionShouldReturnAnExpectedLayout()
+        [Fact(DisplayName = "When KindId matches a Layout Definition should return an expected Layout")]
+        public void WhenKindIdMatchesALayoutDefinitionShouldReturnAnExpectedLayout()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestLayoutSettings()
             {
-                DefinitionId = Guid.Parse(Constants.TestLayoutDefinitionId)
+                KindId = Guid.Parse(Constants.TestLayoutKindId)
             };
 
             // act

@@ -46,7 +46,7 @@ namespace Formulate.Core.FormFields
     public abstract class FormField : IFormField
     {
         /// <inheritdoc />
-        public Guid DefinitionId { get; }
+        public Guid KindId { get; }
 
         /// <summary>
         /// Gets the id.
@@ -113,7 +113,7 @@ namespace Formulate.Core.FormFields
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            DefinitionId = settings.DefinitionId;
+            KindId = settings.KindId;
             Id = settings.Id;
             Alias = settings.Alias;
             Name = settings.Name;

@@ -9,18 +9,18 @@ namespace Formulate.Core.Tests.FormHandlerTests
     {
         private static class Constants
         {
-            public const string MissingFormHandlerDefinitionId = "6EB639979DA349198EB29ED35547F740";
+            public const string MissingFormHandlerKindId = "6EB639979DA349198EB29ED35547F740";
             
-            public const string TestFormHandlerDefinitionId = "91FF00DAE0F444B2AEF85A948C5E6074";
+            public const string TestFormHandlerKindId = "91FF00DAE0F444B2AEF85A948C5E6074";
 
-            public const string TestAsyncFormHandlerDefinitionId = "2E3ADACB99394555900F4AC4F9DAA6EE";
+            public const string TestAsyncFormHandlerKindId = "2E3ADACB99394555900F4AC4F9DAA6EE";
 
-            public const string TestUnsupportedFormHandlerDefinitionId = "85918528E44944E692FFD7ABB71D0093";
+            public const string TestUnsupportedFormHandlerKindId = "85918528E44944E692FFD7ABB71D0093";
         }
 
         private class TestFormHandlerSettings : IFormHandlerSettings
         {
-            public Guid DefinitionId { get; set; }
+            public Guid KindId { get; set; }
             public Guid Id { get; set; }
             public string Name { get; set; }
             public string Alias { get; set; }
@@ -30,7 +30,7 @@ namespace Formulate.Core.Tests.FormHandlerTests
 
         private sealed class TestFormHandlerDefinition : FormHandlerDefinition
         {
-            public override Guid DefinitionId => Guid.Parse(Constants.TestFormHandlerDefinitionId);
+            public override Guid KindId => Guid.Parse(Constants.TestFormHandlerKindId);
             
             public override string DefinitionLabel => "Test Form Handler";
 
@@ -42,7 +42,7 @@ namespace Formulate.Core.Tests.FormHandlerTests
 
         private sealed class TestAsyncFormHandlerDefinition : AsyncFormHandlerDefinition
         {
-            public override Guid DefinitionId => Guid.Parse(Constants.TestAsyncFormHandlerDefinitionId);
+            public override Guid KindId => Guid.Parse(Constants.TestAsyncFormHandlerKindId);
             
             public override string DefinitionLabel => "Test Async Form Handler";
 
@@ -54,7 +54,7 @@ namespace Formulate.Core.Tests.FormHandlerTests
 
         private sealed class TestUnsupportedFormHandlerDefinition : IFormHandlerDefinition
         {
-            public Guid DefinitionId => Guid.Parse(Constants.TestUnsupportedFormHandlerDefinitionId);
+            public Guid KindId => Guid.Parse(Constants.TestUnsupportedFormHandlerKindId);
             
             public string DefinitionLabel => "Test Unsupported Form Handler";
             

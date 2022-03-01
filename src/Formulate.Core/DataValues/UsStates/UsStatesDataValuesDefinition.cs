@@ -14,9 +14,9 @@ namespace Formulate.Core.DataValues.UsStates
         public static class Constants
         {
             /// <summary>
-            /// The definition ID.
+            /// The kind ID.
             /// </summary>
-            public const string DefinitionId = "6CFFC488670E4CC7B965A5F3676BA333";
+            public const string KindId = "6CFFC488670E4CC7B965A5F3676BA333";
 
             /// <summary>
             /// The definition label.
@@ -35,7 +35,7 @@ namespace Formulate.Core.DataValues.UsStates
         }
 
         /// <inheritdoc />
-        public override Guid DefinitionId => Guid.Parse(Constants.DefinitionId);
+        public override Guid KindId => Guid.Parse(Constants.KindId);
 
         /// <inheritdoc />
         public override string DefinitionLabel => Constants.DefinitionLabel;

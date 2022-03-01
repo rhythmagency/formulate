@@ -5,7 +5,7 @@
         function performGetOrScaffold(options) {
             var isNew = options.create === "true" && options.entityType;
             var hasId = options.id && options.id !== "-1";
-            var hasDefinitionId = options.definitionId && options.definitionId.length > 0;
+            var hasKindId = options.kindId && options.kindId.length > 0;
             var url;
 
             // replace with resource calls
@@ -16,8 +16,8 @@
                     url += `&parentId=${options.id}`;
                 }
 
-                if (hasDefinitionId) {
-                    url += `&definitionId=${options.definitionId}`;
+                if (hasKindId) {
+                    url += `&kindId=${options.kindId}`;
                 }
             } else {
                 url = serverVars[`${options.treeType}.Get`];

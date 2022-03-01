@@ -5,14 +5,14 @@ namespace Formulate.Core.Types
     using System;
     
     /// <summary>
-    /// The underlying definition for other definitions identified by a definition ID.
+    /// The underlying definition for other definitions identified by a kind ID.
     /// </summary>
     public interface IDefinition : IDiscoverable
     {
         /// <summary>
-        /// Gets the definition ID.
+        /// Gets the kind ID.
         /// </summary>
-        Guid DefinitionId { get; }
+        Guid KindId { get; }
 
         /// <summary>
         /// Gets the definition label.

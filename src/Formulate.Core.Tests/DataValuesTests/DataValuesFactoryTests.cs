@@ -19,14 +19,14 @@ namespace Formulate.Core.Tests.DataValuesTests
             await Assert.ThrowsAsync<ArgumentNullException>(async () => await factory.CreateAsync(settings));
         }
 
-        [Fact(DisplayName = "When no DefinitionId matches should return Default")]
-        public async Task WhenNoDefinitionIdMatchesShouldReturnDefault()
+        [Fact(DisplayName = "When no KindId matches should return Default")]
+        public async Task WhenNoKindIdMatchesShouldReturnDefault()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestDataValuesSettings()
             {
-                DefinitionId = Guid.Parse(Constants.MissingDataValuesDefinitionId)
+                KindId = Guid.Parse(Constants.MissingDataValuesKindId)
             };
 
             // act
@@ -36,14 +36,14 @@ namespace Formulate.Core.Tests.DataValuesTests
             Assert.Equal(default, formField);
         }
 
-        [Fact(DisplayName = "When DefinitionId matches a Data Values Definition should return an expected Data Values")]
-        public async Task WhenDefinitionIdMatchesADataValuesDefinitionShouldReturnAnExpectedDataValues()
+        [Fact(DisplayName = "When KindId matches a Data Values Definition should return an expected Data Values")]
+        public async Task WhenKindIdMatchesADataValuesDefinitionShouldReturnAnExpectedDataValues()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestDataValuesSettings()
             {
-                DefinitionId = Guid.Parse(Constants.TestDataValuesDefinitionId)
+                KindId = Guid.Parse(Constants.TestDataValuesKindId)
             };
 
             // act

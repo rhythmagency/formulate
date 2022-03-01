@@ -13,9 +13,9 @@ namespace Formulate.Core.Validations.Mandatory
         public static class Constants
         {
             /// <summary>
-            /// The definition ID.
+            /// The kind ID.
             /// </summary>
-            public const string DefinitionId = "93957A02633944A193238E8CD754680B";
+            public const string KindId = "93957A02633944A193238E8CD754680B";
 
             /// <summary>
             /// The definition label.
@@ -29,7 +29,7 @@ namespace Formulate.Core.Validations.Mandatory
         }
 
         /// <inheritdoc />
-        public Guid DefinitionId => Guid.Parse(Constants.DefinitionId);
+        public Guid KindId => Guid.Parse(Constants.KindId);
 
         /// <inheritdoc />
         public string DefinitionLabel => Constants.DefinitionLabel;

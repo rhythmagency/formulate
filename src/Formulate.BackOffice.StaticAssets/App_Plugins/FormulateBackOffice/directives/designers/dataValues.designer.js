@@ -15,7 +15,7 @@
                     scope.deserializedConfiguration = {};
                 }
 
-                formulateDefinitionDirectiveResource.getDataValuesDirective(scope.entity.definitionId).then(
+                formulateDefinitionDirectiveResource.getDataValuesDirective(scope.entity.kindId).then(
                     function (directive) {
                         scope.directive = directive;
                     });

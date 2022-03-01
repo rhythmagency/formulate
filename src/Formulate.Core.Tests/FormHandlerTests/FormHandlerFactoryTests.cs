@@ -18,14 +18,14 @@ namespace Formulate.Core.Tests.FormHandlerTests
             Assert.Throws<ArgumentNullException>(() => factory.Create(settings));
         }
 
-        [Fact(DisplayName = "When no DefinitionId matches should return Default")]
-        public void WhenNoDefinitionIdMatchesShouldReturnDefault()
+        [Fact(DisplayName = "When no KindId matches should return Default")]
+        public void WhenNoKindIdMatchesShouldReturnDefault()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestFormHandlerSettings()
             {
-                DefinitionId = Guid.Parse(Constants.MissingFormHandlerDefinitionId)
+                KindId = Guid.Parse(Constants.MissingFormHandlerKindId)
             };
 
             // act
@@ -35,28 +35,28 @@ namespace Formulate.Core.Tests.FormHandlerTests
             Assert.Equal(default, handler);
         }
 
-        [Fact(DisplayName = "When DefinitionId matches an unsupported Form Handler Definition should throw a Not Supported Exception")]
-        public void WhenDefinitionIdMatchesAnUnsupportedFormHandlerDefinitionShouldThrowException()
+        [Fact(DisplayName = "When KindId matches an unsupported Form Handler Definition should throw a Not Supported Exception")]
+        public void WhenKindIdMatchesAnUnsupportedFormHandlerDefinitionShouldThrowException()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestFormHandlerSettings()
             {
-                DefinitionId = Guid.Parse(Constants.TestUnsupportedFormHandlerDefinitionId)
+                KindId = Guid.Parse(Constants.TestUnsupportedFormHandlerKindId)
             };
 
             // act / assert
             Assert.Throws<NotSupportedException>(() => factory.Create(settings));
         }
 
-        [Fact(DisplayName = "When DefinitionId matches an Async Form Handler Definition should return an Async Form Handler")]
-        public void WhenDefinitionIdMatchesAnAsyncFormHandlerDefinitionShouldReturnAnAsyncFormHandler()
+        [Fact(DisplayName = "When KindId matches an Async Form Handler Definition should return an Async Form Handler")]
+        public void WhenKindIdMatchesAnAsyncFormHandlerDefinitionShouldReturnAnAsyncFormHandler()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestFormHandlerSettings()
             {
-                DefinitionId = Guid.Parse(Constants.TestAsyncFormHandlerDefinitionId)
+                KindId = Guid.Parse(Constants.TestAsyncFormHandlerKindId)
             };
             
             // act
@@ -67,14 +67,14 @@ namespace Formulate.Core.Tests.FormHandlerTests
             Assert.NotEqual(default, handler);
         }
 
-        [Fact(DisplayName = "When DefinitionId matches a Form Handler Definition should return a Form Handler")]
-        public void WhenDefinitionIdMatchesAFormHandlerDefinitionShouldReturnAFormHandler()
+        [Fact(DisplayName = "When KindId matches a Form Handler Definition should return a Form Handler")]
+        public void WhenKindIdMatchesAFormHandlerDefinitionShouldReturnAFormHandler()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestFormHandlerSettings()
             {
-                DefinitionId = Guid.Parse(Constants.TestFormHandlerDefinitionId)
+                KindId = Guid.Parse(Constants.TestFormHandlerKindId)
             };
 
             // act

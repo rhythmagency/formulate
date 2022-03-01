@@ -18,7 +18,7 @@ namespace Formulate.Core.Types
         /// <returns>A <definitionparamref name="T"/> or default.</returns>
         public static T FirstOrDefault<T>(this IEnumerable<T> collection, Guid id) where T : IDefinition
         {
-            return collection is null ? default : collection.FirstOrDefault(x => x.DefinitionId == id);
+            return collection is null ? default : collection.FirstOrDefault(x => x.KindId == id);
         }
 
         /// <summary>

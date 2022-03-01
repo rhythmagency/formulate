@@ -7,17 +7,17 @@
         vm.create = function (option, parentId) {
             var path = "/formulate/validations/edit/" + parentId;
 
-            if (option.definitionId) {
+            if (option.kindId) {
                 $location
                     .path(path)
                     .search("entityType", option.entityType)
-                    .search("definitionId", option.definitionId)
+                    .search("kindId", option.kindId)
                     .search("create", "true");
             } else {
                 $location
                     .path(path)
                     .search("entityType", option.entityType)
-                    .search("definitionId", null)
+                    .search("kindId", null)
                     .search("create", "true");
             }
 

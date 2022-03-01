@@ -32,7 +32,7 @@ namespace Formulate.Core.DataValues
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            var foundDataValuesDefinition = _dataValuesDefinitions.FirstOrDefault(settings.DefinitionId);
+            var foundDataValuesDefinition = _dataValuesDefinitions.FirstOrDefault(settings.KindId);
 
             if (foundDataValuesDefinition is null)
             {

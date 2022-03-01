@@ -13,9 +13,9 @@ namespace Formulate.Core.FormFields
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the definition ID.
+        /// Gets or sets the kind ID.
         /// </summary>
-        public Guid DefinitionId { get; set; }
+        public Guid KindId { get; set; }
 
         /// <summary>
         /// Gets or sets the name.

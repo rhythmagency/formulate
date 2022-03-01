@@ -9,7 +9,7 @@ namespace Formulate.Core.FormHandlers
     public abstract class FormHandlerBase : IFormHandler
     {
         /// <inheritdoc />
-        public Guid DefinitionId { get; }
+        public Guid KindId { get; }
 
         /// <summary>
         /// Gets the ID.
@@ -57,7 +57,7 @@ namespace Formulate.Core.FormHandlers
             }
 
             Id = settings.Id;
-            DefinitionId = settings.Id;
+            KindId = settings.Id;
             Alias = settings.Alias;
             Name = settings.Name;
             Enabled = settings.Enabled;

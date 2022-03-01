@@ -70,7 +70,7 @@ namespace Formulate.BackOffice.Trees
         {
             if (entity is PersistedDataValues dataValuesEntity)
             {
-                var definition = _dataValuesDefinitions.FirstOrDefault(dataValuesEntity.DefinitionId);
+                var definition = _dataValuesDefinitions.FirstOrDefault(dataValuesEntity.KindId);
 
                 if (definition is not null)
                 {

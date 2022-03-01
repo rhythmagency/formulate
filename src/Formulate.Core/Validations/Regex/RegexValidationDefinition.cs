@@ -13,9 +13,9 @@ namespace Formulate.Core.Validations.Regex
         public static class Constants
         {
             /// <summary>
-            /// The definition ID.
+            /// The kind ID.
             /// </summary>
-            public const string DefinitionId = "AC9A464F6F3F4AF9A3B29C85FF0C5580";
+            public const string KindId = "AC9A464F6F3F4AF9A3B29C85FF0C5580";
 
             /// <summary>
             /// The definition label.
@@ -29,7 +29,7 @@ namespace Formulate.Core.Validations.Regex
         }
 
         /// <inheritdoc />
-        public Guid DefinitionId => Guid.Parse(Constants.DefinitionId);
+        public Guid KindId => Guid.Parse(Constants.KindId);
 
         /// <inheritdoc />
         public string DefinitionLabel => Constants.DefinitionLabel;

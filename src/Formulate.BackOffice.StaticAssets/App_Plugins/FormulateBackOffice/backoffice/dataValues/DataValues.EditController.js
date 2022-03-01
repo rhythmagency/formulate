@@ -5,7 +5,7 @@
             entityType: $routeParams.entityType,
             treeType: "datavalues",
             id: $routeParams.id,
-            definitionId: $routeParams.definitionId
+            kindId: $routeParams.kindId
         };
 
         $scope.loading = true;
@@ -13,7 +13,7 @@
             function (data) {
                 $scope.entity = data.entity;
                 $scope.entityType = data.entityType;
-                $scope.definitionId = data.definitionId;
+                $scope.kindId = data.kindId;
                 $scope.treeType = options.treeType;
 
                 navigationService.syncTree({ tree: options.treeType, path: data.treePath, forceReload: true });

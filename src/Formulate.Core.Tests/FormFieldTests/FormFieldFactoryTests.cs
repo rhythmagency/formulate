@@ -21,14 +21,14 @@ namespace Formulate.Core.Tests.FormFieldTests
             await Assert.ThrowsAsync<ArgumentNullException>(async () => await factory.CreateAsync(settings));
         }
 
-        [Fact(DisplayName = "When no DefinitionId matches should return Default")]
-        public async Task WhenNoDefinitionIdMatchesShouldReturnDefault()
+        [Fact(DisplayName = "When no KindId matches should return Default")]
+        public async Task WhenNoKindIdMatchesShouldReturnDefault()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestFormFieldSettings()
             {
-                DefinitionId = Guid.Parse(Constants.MissingFormFieldDefinitionId)
+                KindId = Guid.Parse(Constants.MissingFormFieldKindId)
             };
 
             // act
@@ -38,14 +38,14 @@ namespace Formulate.Core.Tests.FormFieldTests
             Assert.Equal(default, formField);
         }
 
-        [Fact(DisplayName = "When DefinitionId matches a Form Field Definition should return an expected Form Field")]
-        public async Task WhenDefinitionIdMatchesAFormFieldDefinitionShouldReturnAnExpectedFormField()
+        [Fact(DisplayName = "When KindId matches a Form Field Definition should return an expected Form Field")]
+        public async Task WhenKindIdMatchesAFormFieldDefinitionShouldReturnAnExpectedFormField()
         {
             // arrange
             var factory = CreateFactory();
             var settings = new TestFormFieldSettings()
             {
-                DefinitionId = Guid.Parse(Constants.TestFormFieldDefinitionId)
+                KindId = Guid.Parse(Constants.TestFormFieldKindId)
             };
 
             // act

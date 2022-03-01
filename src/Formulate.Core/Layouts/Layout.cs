@@ -31,7 +31,7 @@ namespace Formulate.Core.Layouts
     public abstract class Layout : ILayout
     {
         /// <inheritdoc />
-        public Guid DefinitionId { get; }
+        public Guid KindId { get; }
 
         /// <inheritdoc />
         public Guid Id { get; }
@@ -51,7 +51,7 @@ namespace Formulate.Core.Layouts
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            DefinitionId = settings.DefinitionId;
+            KindId = settings.KindId;
             Id = settings.Id;
             Name = settings.Name;
         }

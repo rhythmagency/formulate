@@ -8,14 +8,14 @@ namespace Formulate.Core.Tests.ValidationTests
     {
         private static class Constants
         {
-            public const string MissingValidationDefinitionId = "5F05924C14BD450B8C30F9A97EEEB1FC";
+            public const string MissingValidationKindId = "5F05924C14BD450B8C30F9A97EEEB1FC";
 
-            public const string TestValidationDefinitionId = "D3CE69AC280C408A91207DA3F3123E2F";
+            public const string TestValidationKindId = "D3CE69AC280C408A91207DA3F3123E2F";
         }
 
         private sealed class TestValidationSettings : IValidationSettings
         {
-            public Guid DefinitionId { get; set; }
+            public Guid KindId { get; set; }
 
             public string Name { get; set; }
 
@@ -26,7 +26,7 @@ namespace Formulate.Core.Tests.ValidationTests
 
         private sealed class TestValidationDefinition : IValidationDefinition
         {
-            public Guid DefinitionId => Guid.Parse(Constants.TestValidationDefinitionId);
+            public Guid KindId => Guid.Parse(Constants.TestValidationKindId);
             
             public string DefinitionLabel => "Test Validation";
             

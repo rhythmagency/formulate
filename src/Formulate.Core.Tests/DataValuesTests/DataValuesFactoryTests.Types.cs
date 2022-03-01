@@ -10,14 +10,14 @@ namespace Formulate.Core.Tests.DataValuesTests
     {
         private static class Constants
         {
-            public const string MissingDataValuesDefinitionId = "8D72D9E68AF44348A2F1FEE138902BA5";
+            public const string MissingDataValuesKindId = "8D72D9E68AF44348A2F1FEE138902BA5";
 
-            public const string TestDataValuesDefinitionId = "B5BDFE470A07446CACA733EA99B902F4";
+            public const string TestDataValuesKindId = "B5BDFE470A07446CACA733EA99B902F4";
         }
 
         private sealed class TestDataValuesSettings : IDataValuesSettings
         {
-            public Guid DefinitionId { get; set; }
+            public Guid KindId { get; set; }
             public Guid Id { get; set; }
             public string Name { get; set; }
             public string Configuration { get; set; }
@@ -25,7 +25,7 @@ namespace Formulate.Core.Tests.DataValuesTests
 
         private sealed class TestDataValuesDefinition : DataValuesDefinitionBase
         {
-            public override Guid DefinitionId => Guid.Parse(Constants.TestDataValuesDefinitionId);
+            public override Guid KindId => Guid.Parse(Constants.TestDataValuesKindId);
 
             public override string DefinitionLabel => "Test Data Values";
 

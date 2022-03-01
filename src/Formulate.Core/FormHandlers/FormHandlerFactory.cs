@@ -32,7 +32,7 @@ namespace Formulate.Core.FormHandlers
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            var foundFormHandlerDefinition = _formHandlerDefinitions.FirstOrDefault(settings.DefinitionId);
+            var foundFormHandlerDefinition = _formHandlerDefinitions.FirstOrDefault(settings.KindId);
 
             if (foundFormHandlerDefinition is null)
             {

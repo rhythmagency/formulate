@@ -15,7 +15,7 @@
                     scope.deserializedConfiguration = {};
                 }
 
-                var chosenId = scope.entity.definitionId || scope.entity.id;
+                var chosenId = scope.entity.kindId || scope.entity.id;
                 formulateDefinitionDirectiveResource.getValidationDirective(chosenId).then(
                     function (directive) {
                         scope.directive = directive;

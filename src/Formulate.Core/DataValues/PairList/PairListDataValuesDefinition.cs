@@ -21,9 +21,9 @@ namespace Formulate.Core.DataValues.PairList
         public static class Constants
         {
             /// <summary>
-            /// The definition ID.
+            /// The kind ID.
             /// </summary>
-            public const string DefinitionId = "753A9598804448E39BC6200AC39E1D27";
+            public const string KindId = "753A9598804448E39BC6200AC39E1D27";
 
             /// <summary>
             /// The definition label.
@@ -42,7 +42,7 @@ namespace Formulate.Core.DataValues.PairList
         }
 
         /// <inheritdoc />
-        public override Guid DefinitionId => Guid.Parse(Constants.DefinitionId);
+        public override Guid KindId => Guid.Parse(Constants.KindId);
 
         /// <inheritdoc />
         public override string DefinitionLabel => Constants.DefinitionLabel;

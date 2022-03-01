@@ -12,7 +12,7 @@ namespace Formulate.BackOffice.Controllers
 
         public string Icon { get; set; }
 
-        public Guid? DefinitionId { get; set; }
+        public Guid? KindId { get; set; }
 
         public string Description { get; set; }
 

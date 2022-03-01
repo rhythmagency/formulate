@@ -28,9 +28,9 @@ namespace Formulate.Core.FormFields.DropDown
         public static class Constants
         {
             /// <summary>
-            /// The definition ID.
+            /// The kind ID.
             /// </summary>
-            public const string DefinitionId = "6D3DF1571BC44FCFB2B70A94FE719B47";
+            public const string KindId = "6D3DF1571BC44FCFB2B70A94FE719B47";
 
             /// <summary>
             /// The definition label.
@@ -49,7 +49,7 @@ namespace Formulate.Core.FormFields.DropDown
         }
 
         /// <inheritdoc />
-        public override Guid DefinitionId => Guid.Parse(Constants.DefinitionId);
+        public override Guid KindId => Guid.Parse(Constants.KindId);
 
         /// <inheritdoc />
         public override string DefinitionLabel => Constants.DefinitionLabel;
