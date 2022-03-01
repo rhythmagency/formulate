@@ -20,7 +20,7 @@ namespace Formulate.Core.Tests.DataValuesTests
             public Guid KindId { get; set; }
             public Guid Id { get; set; }
             public string Name { get; set; }
-            public string Configuration { get; set; }
+            public string Data { get; set; }
         }
 
         private sealed class TestDataValuesDefinition : DataValuesDefinitionBase

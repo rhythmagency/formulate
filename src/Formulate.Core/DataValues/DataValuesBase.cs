@@ -45,7 +45,7 @@ namespace Formulate.Core.DataValues
 
             Id = settings.Id;
             KindId = settings.KindId;
-            RawConfiguration = settings.Configuration;
+            RawConfiguration = settings.Data;
             Items = items ?? Array.Empty<KeyValuePair<string, string>>();
         }
     }

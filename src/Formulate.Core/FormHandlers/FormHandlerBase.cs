@@ -61,7 +61,7 @@ namespace Formulate.Core.FormHandlers
             Alias = settings.Alias;
             Name = settings.Name;
             Enabled = settings.Enabled;
-            RawConfiguration = settings.Configuration;
+            RawConfiguration = settings.Data;
         }
     }
 }

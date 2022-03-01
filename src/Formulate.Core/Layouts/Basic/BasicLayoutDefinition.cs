@@ -52,7 +52,7 @@ namespace Formulate.Core.Layouts.Basic
         /// <inheritdoc />
         public ILayout CreateLayout(ILayoutSettings settings)
         {
-            var config = _jsonUtility.Deserialize<BasicLayoutConfiguration>(settings.Configuration);
+            var config = _jsonUtility.Deserialize<BasicLayoutConfiguration>(settings.Data);
 
             return new BasicLayout(settings, config);
         }

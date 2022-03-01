@@ -25,7 +25,7 @@ namespace Formulate.Core.Tests.FormHandlerTests
             public string Name { get; set; }
             public string Alias { get; set; }
             public bool Enabled { get; set; }
-            public string Configuration { get; set; }
+            public string Data { get; set; }
         }
 
         private sealed class TestFormHandlerDefinition : FormHandlerDefinition

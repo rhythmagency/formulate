@@ -25,6 +25,6 @@ namespace Formulate.Core.Types
         /// <summary>
         /// Gets the configuration.
         /// </summary>
-        string Configuration { get; }
+        string Data { get; }
     }
 }

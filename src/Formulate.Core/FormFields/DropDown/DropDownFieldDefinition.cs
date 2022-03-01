@@ -82,7 +82,7 @@ namespace Formulate.Core.FormFields.DropDown
         public override async Task<IFormField> CreateFieldAsync(IFormFieldSettings settings, CancellationToken cancellationToken = default)
         {
             var items = new List<DropDownFieldItem>();
-            var preValues = _jsonUtility.Deserialize<DropDownFieldPreValues>(settings.Configuration);
+            var preValues = _jsonUtility.Deserialize<DropDownFieldPreValues>(settings.Data);
 
             if (preValues is not null)
             {

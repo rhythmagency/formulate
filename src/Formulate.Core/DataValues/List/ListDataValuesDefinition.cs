@@ -66,7 +66,7 @@ namespace Formulate.Core.DataValues.List
         protected override IDataValues CreateDataValues(IDataValuesSettings settings)
         {
             var items = new List<KeyValuePair<string, string>>();
-            var preValues = _jsonUtility.Deserialize<ListDataValuesPreValues>(settings.Configuration);
+            var preValues = _jsonUtility.Deserialize<ListDataValuesPreValues>(settings.Data);
 
             if (preValues is not null)
             {

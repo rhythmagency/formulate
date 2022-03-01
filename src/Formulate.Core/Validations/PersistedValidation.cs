@@ -13,6 +13,6 @@ namespace Formulate.Core.Validations
         /// <summary>
         /// Gets or sets the configuration.
         /// </summary>
-        public string Configuration { get; set; }
+        public string Data { get; set; }
     }
 }

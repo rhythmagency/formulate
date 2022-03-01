@@ -21,7 +21,7 @@ namespace Formulate.Core.Tests.LayoutTests
 
             public Guid Id { get; set; }
             
-            public string Configuration { get; set; }
+            public string Data { get; set; }
         }
 
         private sealed class TestLayoutDefinition : ILayoutDefinition

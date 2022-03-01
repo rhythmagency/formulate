@@ -63,7 +63,7 @@ namespace Formulate.Core.Validations
 
             Id = settings.Id;
             KindId = settings.KindId;
-            RawConfiguration = settings.Configuration;
+            RawConfiguration = settings.Data;
         }
     }
 }

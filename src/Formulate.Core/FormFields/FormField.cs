@@ -120,7 +120,7 @@ namespace Formulate.Core.FormFields
             Label = settings.Label;
             Category = settings.Category;
             Validations = validations ?? Array.Empty<IValidation>();
-            RawConfiguration = settings.Configuration;
+            RawConfiguration = settings.Data;
         }
     }
 }

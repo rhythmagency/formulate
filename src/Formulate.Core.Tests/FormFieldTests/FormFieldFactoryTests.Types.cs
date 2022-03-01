@@ -21,7 +21,7 @@ namespace Formulate.Core.Tests.FormFieldTests
             public string Alias { get; set; }
             public string Name { get; set; }
             public string Label { get; set; }
-            public string Configuration { get; set; }
+            public string Data { get; set; }
             public string Category { get; set; }
             public Guid[] Validations { get; set; }
         }
