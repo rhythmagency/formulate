@@ -6,4 +6,14 @@
   <area alias="formulate-buttons">
     <key alias="Save">Save</key>
   </area>
+  <area alias="formulate-placeholders">
+    <key alias="Regular Expression">Regular Expression</key>
+    <key alias="Error Message">Error Message</key>
+    <key alias="Alias">Alias</key>
+  </area>
+  <area alias="formulate-labels">
+    <key alias="Regular Expression">Regular Expression</key>
+    <key alias="Error Message">Error Message</key>
+    <key alias="Alias">Alias</key>
+  </area>
 </language>
