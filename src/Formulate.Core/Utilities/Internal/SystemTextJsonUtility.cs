@@ -16,7 +16,10 @@ namespace Formulate.Core.Utilities.Internal
         /// <inheritdoc />
         public string Serialize(object value)
         {
-            return JsonSerializer.Serialize(value);
+            return JsonSerializer.Serialize(value, new JsonSerializerOptions()
+            {
+                WriteIndented = true,
+            });
         }
     }
 }
