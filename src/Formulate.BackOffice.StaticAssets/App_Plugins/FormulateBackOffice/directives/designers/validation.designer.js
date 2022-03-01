@@ -4,7 +4,7 @@
             replace: true,
             templateUrl: "/app_plugins/formulatebackoffice/directives/designers/validation.designer.html",
             scope: {
-                entity: "="
+                entity: "=",
             },
             link: function (scope, element, attrs) {
                 scope.saveButtonState = "init";
@@ -15,7 +15,8 @@
                     scope.deserializedConfiguration = {};
                 }
 
-                formulateDefinitionDirectiveResource.getValidationDirective(scope.entity.definitionId).then(
+                var chosenId = scope.entity.definitionId || scope.entity.id;
+                formulateDefinitionDirectiveResource.getValidationDirective(chosenId).then(
                     function (directive) {
                         scope.directive = directive;
                     });

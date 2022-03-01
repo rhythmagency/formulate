@@ -6,7 +6,7 @@
             scope: {
                 entity: "=",
                 entityType: "=",
-                treeType: "="
+                treeType: "=",
             },
             link: function (scope, element, attrs) {
             }
