@@ -15,13 +15,13 @@ namespace CustomBuildActions
         {
             // Variables.
             var searchPattern = "*.js";
-            var rootFolder = "./App_Plugins/FormulateBackOffice/";
+            var rootFolder = "../Formulate.BackOffice.StaticAssets/App_Plugins/FormulateBackOffice/";
             var allFolders = SearchOption.AllDirectories;
-            var manifestPath = "./App_Plugins/FormulateBackOffice/package.manifest";
+            var manifestPath = "../Formulate.BackOffice.StaticAssets/App_Plugins/FormulateBackOffice/package.manifest";
 
             // Get all the files, then format their paths.
             var files = Directory.GetFiles(rootFolder, searchPattern, allFolders)
-                .Select(x => x.Substring(1))
+                .Select(x => x.Substring(36))
                 .Select(x => x.Replace(@"\", @"/"));
 
             // Serialize the JSON stores in the package.manifest file.

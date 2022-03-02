@@ -11,7 +11,7 @@
         public static void Copy()
         {
             // Variables.
-            var source = NormalizePath("./App_Plugins/FormulateBackOffice");
+            var source = NormalizePath("../Formulate.BackOffice.StaticAssets/App_Plugins/FormulateBackOffice");
             var destination = NormalizePath("../Website/App_Plugins/FormulateBackOffice");
 
             // Clear out the old directory first.
