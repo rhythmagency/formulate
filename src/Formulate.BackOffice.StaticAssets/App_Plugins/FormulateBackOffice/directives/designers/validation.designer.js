@@ -46,7 +46,7 @@
                                 if (entityId !== $routeParams.id) {
                                     notificationsService.success("Validation created.");
 
-                                    $location.path("/formulate/validation/edit/" + entityId).search({});
+                                    $location.path("/formulate/validations/edit/" + entityId).search({});
                                 } else {
                                     notificationsService.success("Validation saved.");
 
