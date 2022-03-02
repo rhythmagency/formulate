@@ -36,8 +36,8 @@
         public static readonly IRepositoryUtilitySettings DataValues = new RepositoryUtilitySettings()
         {
             BasePath = "DataValues",
-            Extension = ".dataValues",
-            Wildcard = "*.dataValues"
+            Extension = ".dataValue",
+            Wildcard = "*.dataValue"
         };
 
         /// <summary>
