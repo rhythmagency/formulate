@@ -11,8 +11,8 @@ internal class CopyStaticAssetsToWebsite
     public static void Copy()
     {
         // Variables.
-        var source = NormalizePath("../Formulate.BackOffice.StaticAssets/App_Plugins/FormulateBackOffice");
-        var destination = NormalizePath("../Website/App_Plugins/FormulateBackOffice");
+        var source = PathUtils.NormalizePath("../Formulate.BackOffice.StaticAssets/App_Plugins/FormulateBackOffice");
+        var destination = PathUtils.NormalizePath("../Website/App_Plugins/FormulateBackOffice");
 
         // Clear out the old directory first.
         if (Directory.Exists(destination))
@@ -36,8 +36,8 @@ internal class CopyStaticAssetsToWebsite
     private static void CopyDirectory(string source, string destination)
     {
         // Normalize paths.
-        source = NormalizePath(source);
-        destination = NormalizePath(destination);
+        source = PathUtils.NormalizePath(source);
+        destination = PathUtils.NormalizePath(destination);
 
         // Ensure the destination directories exist.
         foreach(var path in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))
@@ -46,26 +46,16 @@ internal class CopyStaticAssetsToWebsite
         }
 
         // Copy all the files.
+        var allFilenames = new List<string>();
         foreach(var path in Directory.GetFiles(source, "*", SearchOption.AllDirectories))
         {
-            File.Copy(path, path.Replace(source, destination), true);
+            var destinationPath = path.Replace(source, destination);
+            allFilenames.Add(Path.GetFileName(destinationPath));
+            File.Copy(path, destinationPath, true);
         }
-    }
 
-    /// <summary>
-    /// Normalizes the path to ensure it uses a standard format (backslash
-    /// separator, no trailing slash, no dot directories).
-    /// </summary>
-    /// <param name="path">
-    /// The unnormalized path.
-    /// </param>
-    /// <returns>
-    /// The normalized path.
-    /// </returns>
-    private static string NormalizePath(string path)
-    {
-        return Path.GetFullPath(path)
-            .Replace(@"/", @"\")
-            .TrimEnd(@"\".ToCharArray());
+        // Inform user of success.
+        var count = allFilenames.Count;
+        Console.WriteLine($@"Copied {count} files to ""{destination}"".");
     }
 }
