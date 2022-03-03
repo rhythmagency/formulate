@@ -17,5 +17,10 @@ namespace Formulate.Core.DataValues
         /// Gets or sets the configuration.
         /// </summary>
         public string Data { get; set; }
+
+        /// <summary>
+        /// Gets or sets the alias of this data value.
+        /// </summary>
+        public string Alias { get; set; }
     }
 }
