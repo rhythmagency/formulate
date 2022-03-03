@@ -6,14 +6,13 @@ app.directive("formulateDataValuePairList", directive);
 app.controller("formulate.dataValuePairList", controller);
 
 // Directive.
-function directive(formulateDirectives) {
+function directive() {
     return {
         restrict: "E",
         replace: true,
-        template: formulateDirectives.get(
-            "dataValueKinds/dataValuePairList/dataValuePairList.html"),
+        templateUrl: "/App_Plugins/FormulateBackOffice/directives/editors/dataValues/pairList/pair-list-datavalues.editor.html",
         scope: {
-            data: "="
+            config: "="
         },
         controller: "formulate.dataValuePairList"
     };
@@ -21,17 +20,17 @@ function directive(formulateDirectives) {
 
 // Controller.
 function controller($scope) {
-    if (!$scope.data.items) {
-        $scope.data.items = [];
+    if (!$scope.config.items) {
+        $scope.config.items = [];
     }
     $scope.addItem = function () {
-        $scope.data.items.push({
+        $scope.config.items.push({
             primary: null,
             secondary: null
         });
     };
     $scope.deleteItem = function (index) {
-        $scope.data.items.splice(index, 1);
+        $scope.config.items.splice(index, 1);
     };
     $scope.sortableOptions = {
         axis: "y",

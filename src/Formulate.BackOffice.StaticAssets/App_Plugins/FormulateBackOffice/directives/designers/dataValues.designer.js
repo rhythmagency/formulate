@@ -9,8 +9,8 @@
             link: function (scope, element, attrs) {
                 scope.saveButtonState = "init";
 
-                if (scope.entity.configuration !== null) {
-                    scope.deserializedConfiguration = JSON.parse(scope.entity.configuration);
+                if (scope.entity.data !== null) {
+                    scope.deserializedConfiguration = JSON.parse(scope.entity.data);
                 } else {
                     scope.deserializedConfiguration = {};
                 }
@@ -25,7 +25,7 @@
                     scope.saveButtonState = "busy";
 
                     if (typeof (scope.deserializedConfiguration) !== "undefined") {
-                        scope.entity.configuration = JSON.stringify(scope.deserializedConfiguration);
+                        scope.entity.data = JSON.stringify(scope.deserializedConfiguration);
                     }
 
                     var payload = {

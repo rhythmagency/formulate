@@ -42,6 +42,11 @@ namespace Formulate.BackOffice.Controllers.DataValues
 
             if (definition is null)
             {
+                var legacyId = Guid.Parse("bbf66f6a-8f7d-4aba-9d5b-194a46084ec2");
+                if (id == legacyId)
+                {
+                    return Ok("formulate-legacy-data-value");
+                }
                 return NotFound();
             }
 
