@@ -9,9 +9,15 @@
   <area alias="formulate-placeholders">
     <key alias="Regular Expression">Regular Expression</key>
     <key alias="Error Message">Error Message</key>
+    <key alias="Field Name">Field Name</key>
+    <key alias="Field Alias">Field Alias</key>
+    <key alias="Field Label">Field Label</key>
   </area>
   <area alias="formulate-labels">
     <key alias="Regular Expression">Regular Expression</key>
     <key alias="Error Message">Error Message</key>
+  </area>
+  <area alias="formulate-general">
+    <key alias="Unnamed">Unnamed</key>
   </area>
 </language>
