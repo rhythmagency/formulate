@@ -19,6 +19,11 @@ internal class CopyStaticAssetsToWebsite
     private static bool ShouldCopy { get; set; }
 
     /// <summary>
+    /// The number of times a copy has occurred.
+    /// </summary>
+    private static long CopiesCount { get; set; }
+
+    /// <summary>
     /// Copies the static assets to the website.
     /// </summary>
     /// <param name="watch">
@@ -53,14 +58,16 @@ internal class CopyStaticAssetsToWebsite
     private static void AddWatcher(string source, string destination)
     {
         Console.WriteLine($"Adding watcher for: {source}");
-        Watcher = new FileSystemWatcher();
-        Watcher.Path = source;
-        Watcher.NotifyFilter = NotifyFilters.LastWrite
-            | NotifyFilters.FileName
-            | NotifyFilters.DirectoryName
-            | NotifyFilters.Attributes;
-        Watcher.Filter = "*.*";
-        Watcher.IncludeSubdirectories = true;
+        Watcher = new FileSystemWatcher
+        {
+            Path = source,
+            NotifyFilter = NotifyFilters.LastWrite
+                | NotifyFilters.FileName
+                | NotifyFilters.DirectoryName
+                | NotifyFilters.Attributes,
+            Filter = "*.*",
+            IncludeSubdirectories = true,
+        };
         Watcher.Changed += new FileSystemEventHandler((_, _) =>
         {
             ScheduleClearAndCopy(source, destination);
@@ -103,14 +110,21 @@ internal class CopyStaticAssetsToWebsite
     /// </param>
     private static void ClearAndCopy(string source, string destination)
     {
-        // Clear out the old directory first.
-        if (Directory.Exists(destination))
+        try
         {
-            Directory.Delete(destination, true);
-        }
+            // Clear out the old directory first.
+            if (Directory.Exists(destination))
+            {
+                Directory.Delete(destination, true);
+            }
 
-        /// Copy the files.
-        CopyDirectory(source, destination);
+            /// Copy the files.
+            CopyDirectory(source, destination);
+        }
+        catch
+        {
+            Console.WriteLine($"{CopiesCount}: Encountered an error when attempting to copy the files.");
+        }
     }
 
     /// <summary>
@@ -145,6 +159,7 @@ internal class CopyStaticAssetsToWebsite
 
         // Inform user of success.
         var count = allFilenames.Count;
-        Console.WriteLine($@"Copied {count} files to ""{destination}"".");
+        CopiesCount++;
+        Console.WriteLine($@"#{CopiesCount}: Copied {count} files to ""{destination}"".");
     }
 }
