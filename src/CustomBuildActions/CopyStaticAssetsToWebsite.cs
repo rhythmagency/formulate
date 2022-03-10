@@ -14,6 +14,11 @@ internal class CopyStaticAssetsToWebsite
     private static FileSystemWatcher? Watcher { get; set; }
 
     /// <summary>
+    /// A lock object to avoid collisions between parallel watch events.
+    /// </summary>
+    private static object WatchLock { get; set; } = new object();
+
+    /// <summary>
     /// Should the copy occur?
     /// </summary>
     private static bool ShouldCopy { get; set; }
@@ -61,10 +66,7 @@ internal class CopyStaticAssetsToWebsite
         Watcher = new FileSystemWatcher
         {
             Path = source,
-            NotifyFilter = NotifyFilters.LastWrite
-                | NotifyFilters.FileName
-                | NotifyFilters.DirectoryName
-                | NotifyFilters.Attributes,
+            NotifyFilter = NotifyFilters.LastWrite,
             Filter = "*.*",
             IncludeSubdirectories = true,
         };
@@ -86,16 +88,24 @@ internal class CopyStaticAssetsToWebsite
     /// <param name="destination">
     /// The destination directory.
     /// </param>
-    private static async void ScheduleClearAndCopy(string source, string destination)
+    private static void ScheduleClearAndCopy(string source, string destination)
     {
-        ShouldCopy = true;
-        await Task.Delay(TimeSpan.FromSeconds(1));
-        if (ShouldCopy)
+        Task.Factory.StartNew(() =>
         {
-            ShouldCopy = false;
-            ClearAndCopy(source, destination);
-            Console.WriteLine(Constants.PressEnterToStop);
-        }
+            ShouldCopy = true;
+            lock (WatchLock)
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(.25));
+                if (ShouldCopy)
+                {
+                    ShouldCopy = false;
+                    ClearAndCopy(source, destination);
+                    Console.WriteLine(Constants.PressEnterToStop);
+                    Thread.Sleep(TimeSpan.FromSeconds(.25));
+                    ShouldCopy = false;
+                }
+            }
+        });
     }
 
     /// <summary>
@@ -108,14 +118,23 @@ internal class CopyStaticAssetsToWebsite
     /// <param name="destination">
     /// The destination directory.
     /// </param>
-    private static void ClearAndCopy(string source, string destination)
+    private static async void ClearAndCopy(string source, string destination)
     {
         try
         {
             // Clear out the old directory first.
             if (Directory.Exists(destination))
             {
-                Directory.Delete(destination, true);
+                try
+                {
+                    Directory.Delete(destination, true);
+                }
+                catch
+                {
+                    // If an error happens, wait a moment and try again.
+                    await Task.Delay(TimeSpan.FromSeconds(.5));
+                    Directory.Delete(destination, true);
+                }
             }
 
             /// Copy the files.
