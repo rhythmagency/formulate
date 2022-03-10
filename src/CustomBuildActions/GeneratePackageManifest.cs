@@ -14,7 +14,8 @@ internal class GeneratePackageManifest
     public static void Generate()
     {
         // Variables.
-        var searchPattern = "*.js";
+        var jsPattern = "*.js";
+        var cssPattern = "*.css";
         var basePath = "../Formulate.BackOffice.StaticAssets";
         var basePathLength = PathUtils.NormalizePath(basePath).Length;
         var rootFolder = PathUtils
@@ -24,14 +25,18 @@ internal class GeneratePackageManifest
             .NormalizePath($"{basePath}/App_Plugins/FormulateBackOffice/package.manifest");
 
         // Get all the files, then format their paths.
-        var files = Directory.GetFiles(rootFolder, searchPattern, allFolders)
+        var jsFiles = Directory.GetFiles(rootFolder, jsPattern, allFolders)
+            .Select(x => x.Substring(basePathLength))
+            .Select(x => x.Replace(@"\", @"/"));
+        var cssFiles = Directory.GetFiles(rootFolder, cssPattern, allFolders)
             .Select(x => x.Substring(basePathLength))
             .Select(x => x.Replace(@"\", @"/"));
 
         // Serialize the JSON stores in the package.manifest file.
         var contents = new
         {
-            javascript = files,
+            javascript = jsFiles,
+            css = cssFiles,
         };
         var options = new JsonSerializerOptions()
         {
