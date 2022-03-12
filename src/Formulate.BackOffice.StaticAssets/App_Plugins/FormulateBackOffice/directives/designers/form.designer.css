@@ -1,13 +1,16 @@
-.formulate-handler-details {
+.formulate-handler-details,
+.formulate-field-details {
     overflow: hidden;
     transition: max-height 0.2s linear;
 }
 
-.formulate-handler.quick-expand .formulate-handler-details {
+.formulate-handler.quick-expand .formulate-handler-details,
+.formulate-field.quick-expand .formulate-field-details {
     /* When in "quick expand" mode, do not perform animations. */
     transition-delay: 0s;
 }
 
-.formulate-handler.collapsed .formulate-handler-details {
+.formulate-handler.collapsed .formulate-handler-details,
+.formulate-field.collapsed .formulate-field-details {
     max-height: 0;
 }

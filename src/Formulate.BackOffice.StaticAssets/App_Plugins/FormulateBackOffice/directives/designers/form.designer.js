@@ -121,15 +121,17 @@ class FormDesignerEventHandlers {
      */
     constructor(services) {
         Object.keys(services).forEach((x) => this[x] = services[x]);
-        this.accordion = new window.FormulateAccordion(services);
+        this.handlerAccordion = new window.FormulateAccordion(services);
     }
 
     /**
      * Toggles the field to either show or hide it.
      * @param field The field to show or hide.
+     * @param target The clicked element.
      */
-    toggleField = (field) => {
-        field.expanded = !field.expanded;
+    toggleField = (field, target) => {
+        let fieldsetEl = target.closest('fieldset');
+        this.handlerAccordion.handleClick(field, fieldsetEl, '.formulate-field-details');
     };
 
     /**
@@ -160,7 +162,7 @@ class FormDesignerEventHandlers {
      */
     toggleHandler = (handler, target) => {
         let fieldsetEl = target.closest('fieldset');
-        this.accordion.handleClick(handler, fieldsetEl, '.formulate-handler-details');
+        this.handlerAccordion.handleClick(handler, fieldsetEl, '.formulate-handler-details');
     };
 
     /**

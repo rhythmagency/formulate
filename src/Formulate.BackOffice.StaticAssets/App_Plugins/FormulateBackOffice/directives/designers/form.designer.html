@@ -27,8 +27,8 @@
                             <!-- Render all fields. -->
                             <div ui-sortable="sortableOptions" ng-model="fields">
                                 <fieldset ng-repeat="field in fields" class="formulate-field {{field.expanded ? 'expanded' : 'collapsed'}}">
-                                    <legend><i class="icon-navigation drag-handle"></i><i ng-click="events.toggleField(field)" class="collapser icon icon-add"></i><i class="type-identifier icon {{field.icon}}"></i>{{field.name || "formulate-general_Unnamed" | formulatelocalize:!field.name}}<div class="right-buttons"><i ng-click="events.deleteField(field)" class="icon-delete deleter"></i></div></legend>
-                                    <div class="formulate-field-details" ng-if="field.expanded">
+                                    <legend><i class="icon-navigation drag-handle"></i><i ng-click="events.toggleField(field, $event.currentTarget)" class="collapser icon icon-add"></i><i class="type-identifier icon {{field.icon}}"></i>{{field.name || "formulate-general_Unnamed" | formulatelocalize:!field.name}}<div class="right-buttons"><i ng-click="events.deleteField(field)" class="icon-delete deleter"></i></div></legend>
+                                    <div class="formulate-field-details" ng-style="field.detailsStyle">
                                         <div class="control-group umb-control-group">
                                             <div class="umb-el-wrap">
                                                 <label class="control-label">
