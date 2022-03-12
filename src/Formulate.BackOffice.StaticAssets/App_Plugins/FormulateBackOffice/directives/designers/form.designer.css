@@ -1,0 +1,13 @@
+.formulate-handler-details {
+    overflow: hidden;
+    transition: max-height 0.2s linear;
+}
+
+.formulate-handler.quick-expand .formulate-handler-details {
+    /* When in "quick expand" mode, do not perform animations. */
+    transition-delay: 0s;
+}
+
+.formulate-handler.collapsed .formulate-handler-details {
+    max-height: 0;
+}

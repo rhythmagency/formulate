@@ -3,6 +3,7 @@
     "/App_Plugins/FormulateBackOffice/filters/formulate-localize-filter.js",
     "/App_Plugins/FormulateBackOffice/resources/definitionDirectiveResource.js",
     "/App_Plugins/FormulateBackOffice/resources/entityResource.js",
+    "/App_Plugins/FormulateBackOffice/utilities/accordion.js",
     "/App_Plugins/FormulateBackOffice/backoffice/dataValues/DataValues.CreateController.js",
     "/App_Plugins/FormulateBackOffice/backoffice/dataValues/DataValues.DeleteController.js",
     "/App_Plugins/FormulateBackOffice/backoffice/dataValues/DataValues.EditController.js",
@@ -35,5 +36,8 @@
     "/App_Plugins/FormulateBackOffice/directives/editors/dataValues/pairList/pair-list-datavalues.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/validations/mandatory/mandatory-validation.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/validations/regex/regex-validation.editor.js"
+  ],
+  "css": [
+    "/App_Plugins/FormulateBackOffice/directives/designers/form.designer.css"
   ]
 }

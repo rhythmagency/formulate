@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-function formulateFormDesignerDirective() {
+function formulateFormDesignerDirective($timeout) {
     var directive = {
         replace: true,
         templateUrl: "/app_plugins/formulatebackoffice/directives/designers/form.designer.html",
@@ -99,6 +99,7 @@ function formulateFormDesignerDirective() {
 
             scope.events = new FormDesignerEventHandlers({
                 $scope: scope,
+                $timeout: $timeout,
             });
         }
     };
@@ -120,6 +121,7 @@ class FormDesignerEventHandlers {
      */
     constructor(services) {
         Object.keys(services).forEach((x) => this[x] = services[x]);
+        this.accordion = new window.FormulateAccordion(services);
     }
 
     /**
@@ -154,10 +156,11 @@ class FormDesignerEventHandlers {
     /**
      * Toggles the handler to either show or hide it.
      * @param handler The handler to toggle.
+     * @param target The clicked element.
      */
-    toggleHandler = (handler) => {
-        handler.expanded = !handler.expanded;
-        //TODO: I think we need a corresponding CSS rule for this to work fully.
+    toggleHandler = (handler, target) => {
+        let fieldsetEl = target.closest('fieldset');
+        this.accordion.handleClick(handler, fieldsetEl, '.formulate-handler-details');
     };
 
     /**

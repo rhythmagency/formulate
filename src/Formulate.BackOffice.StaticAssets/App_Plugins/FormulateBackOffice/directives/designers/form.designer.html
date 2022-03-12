@@ -139,9 +139,9 @@
 
                         <div class="umb-group-panel__content">
                             <div ui-sortable="sortableHandlerOptions" ng-model="handlers">
-                                <fieldset ng-repeat="handler in handlers" class="formulate-handler {{handler.expanded ? 'expanded' : 'collapsed'}} {{handler.enabled ? 'enabled' : 'disabled'}}">
-                                    <legend><i class="icon-navigation drag-handle"></i><i ng-click="events.toggleHandler(handler)" class="collapser icon icon-add"></i><i class="type-identifier icon {{handler.icon}}"></i>{{handler.name || "formulate-general_Unnamed" | formulatelocalize:!handler.name}}<div class="right-buttons"><i ng-click="toggleHandlerEnabled(handler)" class="icon-eye enabler"></i><i ng-click="events.deleteHandler(handler)" class="icon-delete deleter"></i></div></legend>
-                                    <div class="formulate-handler-details">
+                                <fieldset ng-repeat="handler in handlers" class="formulate-handler {{handler.expanded ? 'expanded' : 'collapsed'}} {{handler.enabled ? 'enabled' : 'disabled'}} {{handler.quickExpand ? 'quick-expand' : ''}}">
+                                    <legend><i class="icon-navigation drag-handle"></i><i ng-click="events.toggleHandler(handler, $event.currentTarget)" class="collapser icon icon-add"></i><i class="type-identifier icon {{handler.icon}}"></i>{{handler.name || "formulate-general_Unnamed" | formulatelocalize:!handler.name}}<div class="right-buttons"><i ng-click="toggleHandlerEnabled(handler)" class="icon-eye enabler"></i><i ng-click="events.deleteHandler(handler)" class="icon-delete deleter"></i></div></legend>
+                                    <div class="formulate-handler-details" ng-style="handler.detailsStyle">
                                         <div class="control-group umb-control-group">
                                             <div class="umb-el-wrap">
                                                 <label class="control-label">
