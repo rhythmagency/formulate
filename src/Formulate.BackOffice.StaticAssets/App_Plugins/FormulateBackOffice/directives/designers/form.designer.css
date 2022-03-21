@@ -14,3 +14,29 @@
 .formulate-field.collapsed .formulate-field-details {
     max-height: 0;
 }
+
+.formulate-handler__header-title {
+    position: relative;
+    height: 50px;
+    border: none;
+}
+
+.formulate-handler__header-title .umb-editor-header__name-and-description {
+    margin-right: 0;
+}
+
+.formulate-handler__header {
+    display: flex;
+    padding-bottom: 5px;
+}
+
+.formulate-handler__header-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 5px;
+    column-gap: 5px;
+}
+
+.formulate-handler__icon {
+    height: 22px;
+}

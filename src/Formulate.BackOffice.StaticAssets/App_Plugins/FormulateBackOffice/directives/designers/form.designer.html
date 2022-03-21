@@ -140,37 +140,25 @@
                         <div class="umb-group-panel__content">
                             <div ui-sortable="sortableHandlerOptions" ng-model="handlers">
                                 <fieldset ng-repeat="handler in handlers" class="formulate-handler {{handler.expanded ? 'expanded' : 'collapsed'}} {{handler.enabled ? 'enabled' : 'disabled'}} {{handler.quickExpand ? 'quick-expand' : ''}}">
-                                    <legend><i class="icon-navigation drag-handle"></i><i ng-click="events.toggleHandler(handler, $event.currentTarget)" class="collapser icon icon-add"></i><i class="type-identifier icon {{handler.icon}}"></i>{{handler.name || "formulate-general_Unnamed" | formulatelocalize:!handler.name}}<div class="right-buttons"><i ng-click="toggleHandlerEnabled(handler)" class="icon-eye enabler"></i><i ng-click="events.deleteHandler(handler)" class="icon-delete deleter"></i></div></legend>
+                                    <legend class="formulate-handler__header">
+                                        <div class="formulate-handler__header-buttons">
+                                            <i class="formulate-handler__icon icon-navigation drag-handle"></i>
+                                            <i class="formulate-handler__icon collapser icon icon-add" ng-click="events.toggleHandler(handler, $event.currentTarget)"></i>
+                                            <i class="formulate-handler__icon icon-eye enabler" ng-click="toggleHandlerEnabled(handler)"></i>
+                                            <i class="formulate-handler__icon icon-delete deleter" ng-click="events.deleteHandler(handler)"></i>
+                                        </div>
+                                        <i class="type-identifier icon {{handler.icon}}"></i>
+                                        <umb-editor-header
+                                                class="formulate-handler__header-title"
+                                                name="handler.name"
+                                                alias="handler.alias"
+                                                hide-icon="true"
+                                                hide-description="true">
+                                        </umb-editor-header>
+                                    </legend>
                                     <div class="formulate-handler-details" ng-style="handler.detailsStyle">
                                         <div class="control-group umb-control-group">
-                                            <div class="umb-el-wrap">
-                                                <label class="control-label">
-                                                    <localize key="formulate-labels_Handler Name">
-                                                        Handler Name
-                                                    </localize>
-                                                </label>
-                                                <div class="controls controls-row">
-                                                    <input class="formulate__text--wide"
-                                                           type="text"
-                                                           ng-model="handler.name"
-                                                           formulate-localize-attribute="placeholder"
-                                                           placeholder="formulate-placeholders_Handler Name" />
-                                                </div>
-                                            </div>
-                                            <div class="umb-el-wrap">
-                                                <label class="control-label">
-                                                    <localize key="formulate-labels_Handler Alias">
-                                                        Handler Alias
-                                                    </localize>
-                                                </label>
-                                                <div class="controls controls-row">
-                                                    <input class="formulate__text--wide"
-                                                           type="text"
-                                                           ng-model="handler.alias"
-                                                           formulate-localize-attribute="placeholder"
-                                                           placeholder="formulate-placeholders_Handler Alias" />
-                                                </div>
-                                            </div>
+                                            {{handler | json}}
                                             <formulate-handler-editor directive="handler.directive" configuration="handler.configuration" fields="fields">
                                             </formulate-handler-editor>
                                         </div>
