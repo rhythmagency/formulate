@@ -1,23 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Formulate.BackOffice.Attributes;
-using Formulate.BackOffice.Persistence;
-using Formulate.BackOffice.Trees;
-using Formulate.Core.ConfiguredForms;
-using Formulate.Core.Folders;
-using Formulate.Core.FormFields;
-using Formulate.Core.FormHandlers;
-using Formulate.Core.Forms;
-using Formulate.Core.Persistence;
-using Microsoft.AspNetCore.Mvc;
-using Umbraco.Cms.Core.Models.ContentEditing;
-using Umbraco.Cms.Core.Services;
-using Umbraco.Cms.Web.BackOffice.Filters;
-using Umbraco.Extensions;
-
-namespace Formulate.BackOffice.Controllers.Forms
+﻿namespace Formulate.BackOffice.Controllers.Forms
 {
+    // Namespaces.
+    using Attributes;
+    using Core.ConfiguredForms;
+    using Core.Folders;
+    using Core.FormFields;
+    using Core.FormHandlers;
+    using Core.Forms;
+    using Core.Persistence;
+    using Microsoft.AspNetCore.Mvc;
+    using Persistence;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Trees;
+    using Umbraco.Cms.Core.Models.ContentEditing;
+    using Umbraco.Cms.Core.Services;
+    using Umbraco.Cms.Web.BackOffice.Filters;
+    using Umbraco.Extensions;
+    using ViewModels.Forms;
+
+    /// <summary>
+    /// Manages back office API operations for Formulate forms.
+    /// </summary>
     [JsonCamelCaseFormatter]
     [FormulateBackOfficePluginController]
     public sealed class FormsController : FormulateBackOfficeEntityApiController 
@@ -113,6 +118,30 @@ namespace Formulate.BackOffice.Controllers.Forms
             options.AddFormOption();
 
             return options;
+        }
+
+        /// <inheritdoc cref="FormulateBackOfficeEntityApiController.Get(Guid)"/>
+        public override IActionResult Get(Guid id)
+        {
+            // Get the base data.
+            var baseResult = base.GetEntity(id);
+
+            // Data not found?
+            if (baseResult == null)
+            {
+                return NotFound();
+            }
+
+            // Supplement the base response with additional data.
+            var formResponse = new GetFormResponse()
+            {
+                Entity = new FormViewModel(baseResult.Entity as PersistedForm),
+                EntityType = baseResult.EntityType,
+                TreePath = baseResult.TreePath,
+            };
+
+            // Return the response with the data.
+            return Ok(formResponse);
         }
     }
 }

@@ -7,19 +7,13 @@ namespace Formulate.Core.Persistence
     /// </summary>
     public abstract class PersistedEntity : IPersistedEntity
     {
-        /// <summary>
-        /// Gets or sets the ID.
-        /// </summary>
+        /// <inheritdoc cref="IPersistedEntity.Id"/>
         public Guid Id { get; set; }
 
-        /// <summary>
-        /// Gets or sets the path.
-        /// </summary>
+        /// <inheritdoc cref="IPersistedEntity.Path"/>
         public Guid[] Path { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
+        /// <inheritdoc cref="IPersistedEntity.Name"/>
         public string Name { get; set; }
     }
 }

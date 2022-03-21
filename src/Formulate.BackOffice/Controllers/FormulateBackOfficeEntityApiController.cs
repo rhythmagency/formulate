@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Formulate.BackOffice.Attributes;
+﻿using Formulate.BackOffice.Attributes;
 using Formulate.BackOffice.Persistence;
 using Formulate.BackOffice.Trees;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Umbraco.Cms.Core.Models.ContentEditing;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Controllers;
@@ -27,22 +27,26 @@ namespace Formulate.BackOffice.Controllers
             _localizedTextService = localizedTextService;
         }
 
+        /// <summary>
+        /// Returns the response containing the data for the entity
+        /// with the specified ID.
+        /// </summary>
+        /// <param name="id">
+        /// The ID of the entity.
+        /// </param>
+        /// <returns>
+        /// The response contining the data for the entity, or a response
+        /// indicating the entity could not be found.
+        /// </returns>
         [HttpGet]
         public virtual IActionResult Get(Guid id)
         {
-            var entity = TreeEntityRepository.Get(id);
+            var response = GetEntity(id);
 
-            if (entity is null)
+            if (response == null)
             {
                 return NotFound();
             }
-
-            var response = new GetEntityResponse()
-            {
-                Entity = entity,
-                EntityType = entity.EntityType(),
-                TreePath = entity.TreeSafePath()
-            };
 
             return Ok(response);
         }
@@ -105,6 +109,34 @@ namespace Formulate.BackOffice.Controllers
             var treeSafePath = string.Join(",", newEntityPath.Select(x => x == rootId ? "-1" : x.ToString("N")));
 
             return Ok(treeSafePath);
+        }
+
+        /// <summary>
+        /// Returns the data for the entity with the specified ID.
+        /// </summary>
+        /// <param name="id">
+        /// The ID of the entity.
+        /// </param>
+        /// <returns>
+        /// The data for the entity, or null.
+        /// </returns>
+        protected virtual GetEntityResponse GetEntity(Guid id)
+        {
+            var entity = TreeEntityRepository.Get(id);
+
+            if (entity is null)
+            {
+                return null;
+            }
+
+            var response = new GetEntityResponse()
+            {
+                Entity = entity,
+                EntityType = entity.EntityType(),
+                TreePath = entity.TreeSafePath()
+            };
+
+            return response;
         }
     }
 }
