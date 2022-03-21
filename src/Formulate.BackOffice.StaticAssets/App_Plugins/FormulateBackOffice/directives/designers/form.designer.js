@@ -29,6 +29,7 @@ function formulateFormDesignerDirective($timeout) {
                 }
             ];
 
+            //TODO: Delete this (also from view)? Not sure if it actually gets used for anything.
             scope.appChanged = function (app) {
                 scope.app = app;
 
