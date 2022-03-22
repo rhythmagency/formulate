@@ -8,6 +8,9 @@ foreach(var task in args)
 {
     switch (task)
     {
+        case "-generate-css-for-svg-icons":
+            GenerateCssForSvgIcons.Generate();
+            break;
         case "-generate-package-manifest":
             GeneratePackageManifest.Generate();
             break;

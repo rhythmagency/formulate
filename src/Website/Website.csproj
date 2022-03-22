@@ -28,7 +28,7 @@
         <RazorCompileOnPublish>false</RazorCompileOnPublish>
     </PropertyGroup>
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="$(SolutionDir)/CustomBuildActions/bin/$(ConfigurationName)/net6.0/CustomBuildActions.exe -create-app-settings-json -generate-package-manifest -copy-static-assets-to-website" />
+      <Exec Command="$(SolutionDir)/CustomBuildActions/bin/$(ConfigurationName)/net6.0/CustomBuildActions.exe -create-app-settings-json -generate-css-for-svg-icons -generate-package-manifest -copy-static-assets-to-website" />
     </Target>
 
 </Project>
