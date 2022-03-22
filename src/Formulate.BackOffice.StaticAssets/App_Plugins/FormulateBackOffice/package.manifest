@@ -38,6 +38,8 @@
     "/App_Plugins/FormulateBackOffice/directives/editors/validations/regex/regex-validation.editor.js"
   ],
   "css": [
+    "/App_Plugins/FormulateBackOffice/styles/generated-svg-icons.css",
+    "/App_Plugins/FormulateBackOffice/styles/icons.css",
     "/App_Plugins/FormulateBackOffice/directives/designers/form.designer.css"
   ]
 }
