@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Formulate.Core.FormHandlers.StoreData
+﻿namespace Formulate.Core.FormHandlers.StoreData
 {
+    // Namespaces.
+    using System;
+
+    /// <summary>
+    /// Stores form submission data to the database.
+    /// </summary>
     internal class StoreDataHandler : FormHandler
     {
         public StoreDataHandler(IFormHandlerSettings settings) : base(settings)
         {
             Icon = StoreDataDefinition.Constants.Icon;
+            Directive = StoreDataDefinition.Constants.Directive;
         }
-
-        override public string Icon { get; set; }
 
         public override void Handle(object submission)
         {

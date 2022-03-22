@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace Formulate.Core.FormHandlers
+﻿namespace Formulate.Core.FormHandlers
 {
+    // Namespaces.
+    using System;
+
     /// <summary>
     /// The base class for all form handlers.
     /// </summary>
@@ -37,7 +38,12 @@ namespace Formulate.Core.FormHandlers
         /// <summary>
         /// Gets or sets the icon for this form handler.
         /// </summary>
-        public virtual string Icon { get; set; }
+        public string Icon { get; set; }
+
+        /// <summary>
+        /// Gets or sets the AngularJS directive for this form handler.
+        /// </summary>
+        public string Directive { get; set; }
 
         /// <summary>
         /// The raw configuration.
