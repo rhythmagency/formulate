@@ -17,6 +17,11 @@
         /// <param name="settings">The form handler settings.</param>
         protected FormHandler(IFormHandlerSettings settings) : base(settings)
         {
+            Enabled = settings.Enabled;
+            KindId = settings.KindId;
+            Name = settings.Name;
+            Alias = settings.Alias;
+            Id = settings.Id;
         }
     }
 }

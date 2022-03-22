@@ -2,6 +2,7 @@
 {
     // Namespaces.
     using Core.FormFields;
+    using Core.FormHandlers;
     using Core.Forms;
     using Core.Persistence;
     using System;
@@ -29,7 +30,7 @@
         public PersistedFormField[] Fields { get; set; }
 
         /// <inheritdoc cref="PersistedForm.Handlers"/>
-        public FormHandlerViewModel[] Handlers { get; set; }
+        public IFormHandler[] Handlers { get; set; }
 
         /// <summary>
         /// Copy constructor.
@@ -37,7 +38,7 @@
         /// <param name="source">
         /// The persisted form to copy.
         /// </param>
-        public FormViewModel(PersistedForm source)
+        public FormViewModel(PersistedForm source, IFormHandlerFactory formHandlerFactory)
         {
             Id = source.Id;
             Path = source.Path;
@@ -45,7 +46,7 @@
             Alias = source.Alias;
             Fields = source.Fields;
             Handlers = source.Handlers
-                ?.Select(x => new FormHandlerViewModel(x))
+                ?.Select(x => formHandlerFactory.Create(x))
                 ?.ToArray();
         }
     }

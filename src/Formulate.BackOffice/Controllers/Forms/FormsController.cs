@@ -27,11 +27,17 @@
     [FormulateBackOfficePluginController]
     public sealed class FormsController : FormulateBackOfficeEntityApiController 
     {
-        private readonly IFormEntityRepository _formEntityRepository;
+        private readonly IFormEntityRepository formEntityRepository;
+        private readonly IFormHandlerFactory formHandlerFactory;
 
-        public FormsController(ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService, IFormEntityRepository formEntityRepository) : base(treeEntityRepository, localizedTextService)
+        public FormsController(ITreeEntityRepository treeEntityRepository,
+            ILocalizedTextService localizedTextService,
+            IFormEntityRepository formEntityRepository,
+            IFormHandlerFactory formHandlerFactory)
+            : base(treeEntityRepository, localizedTextService)
         {
-            _formEntityRepository = formEntityRepository;
+            this.formEntityRepository = formEntityRepository;
+            this.formHandlerFactory = formHandlerFactory;
         }
 
         [HttpGet]
@@ -133,9 +139,10 @@
             }
 
             // Supplement the base response with additional data.
+            var form = baseResult.Entity as PersistedForm;
             var formResponse = new GetFormResponse()
             {
-                Entity = new FormViewModel(baseResult.Entity as PersistedForm),
+                Entity = new FormViewModel(form, formHandlerFactory),
                 EntityType = baseResult.EntityType,
                 TreePath = baseResult.TreePath,
             };

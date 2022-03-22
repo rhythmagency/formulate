@@ -1,11 +1,16 @@
-﻿using System;
-
-namespace Formulate.Core.FormHandlers
+﻿namespace Formulate.Core.FormHandlers
 {
+    // Namespaces.
+    using System;
+
     /// <summary>
     /// The base class for all form handler definitions.
     /// </summary>
-    /// <remarks>Do not implement this definition directly. Instead implement <see cref="FormHandlerDefinition"/> or <see cref="AsyncFormHandlerDefinition"/>.</remarks>
+    /// <remarks>
+    /// Do not implement this definition directly.
+    /// Instead implement <see cref="FormHandlerDefinition"/> or
+    /// <see cref="AsyncFormHandlerDefinition"/>.
+    /// </remarks>
     public abstract class FormHandlerDefinitionBase : IFormHandlerDefinition
     {
         /// <inheritdoc />
@@ -15,6 +20,6 @@ namespace Formulate.Core.FormHandlers
         public abstract string DefinitionLabel { get; }
 
         /// <inheritdoc />
-        public string Directive { get; set; }
+        public abstract string Directive { get; }
     }
 }

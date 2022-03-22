@@ -22,5 +22,10 @@ namespace Formulate.Core.FormHandlers
         /// Gets a value indicating whether this is enabled.
         /// </summary>
         bool Enabled { get; }
+
+        /// <summary>
+        /// Gets the icon for the form handler.
+        /// </summary>
+        string Icon { get; }
     }
 }

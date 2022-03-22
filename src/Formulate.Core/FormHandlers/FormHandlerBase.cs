@@ -8,28 +8,36 @@ namespace Formulate.Core.FormHandlers
     /// <remarks>Do not implement this definition directly. Instead implement <see cref="FormHandler"/> or <see cref="AsyncFormHandler"/>.</remarks>
     public abstract class FormHandlerBase : IFormHandler
     {
-        /// <inheritdoc />
-        public Guid KindId { get; }
+        /// <summary>
+        /// Gets or sets the ID of the type of form handler this is.
+        /// </summary>
+        public Guid KindId { get; set; }
 
         /// <summary>
-        /// Gets the ID.
+        /// Gets or sets the ID for this form handler.
         /// </summary>
-        public Guid Id { get; }
-        
+        public Guid Id { get; set; }
+
         /// <summary>
-        /// Gets the alias.
+        /// Gets or sets the alias for this form handler.
         /// </summary>
-        public string Alias { get; }
-        
+        public string Alias { get; set; }
+
         /// <summary>
-        /// Gets the name.
+        /// Gets or sets the name for this form handler.
         /// </summary>
-        public string Name { get; }
-        
+        public string Name { get; set; }
+
         /// <summary>
-        /// Gets a value indicating whether this is enabled.
+        /// Gets or sets a value indicating whether or not this
+        /// form handler is enabled.
         /// </summary>
-        public bool Enabled { get; }
+        public bool Enabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets the icon for this form handler.
+        /// </summary>
+        public virtual string Icon { get; set; }
 
         /// <summary>
         /// The raw configuration.
