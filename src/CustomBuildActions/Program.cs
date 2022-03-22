@@ -8,6 +8,14 @@ foreach(var task in args)
 {
     switch (task)
     {
+        case "-everything":
+            // Shorthand flag that does everything to avoid needing to
+            // specify every other flag.
+            CreateAppSettingsJson.Create();
+            GenerateCssForSvgIcons.Generate();
+            GeneratePackageManifest.Generate();
+            CopyStaticAssetsToWebsite.Copy(shouldWatch);
+            break;
         case "-generate-css-for-svg-icons":
             GenerateCssForSvgIcons.Generate();
             break;

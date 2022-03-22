@@ -4,4 +4,4 @@ REM This file allows you to update the frontend assets without interrupting the 
 
 cd ../src/Website/
 
-START /WAIT /B ../CustomBuildActions/bin/debug/net6.0/CustomBuildActions.exe -generate-css-for-svg-icons -generate-package-manifest -copy-static-assets-to-website
+START /WAIT /B ../CustomBuildActions/bin/debug/net6.0/CustomBuildActions.exe -everything
