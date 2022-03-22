@@ -3,39 +3,52 @@
 // Variables.
 var shouldWatch = args.Contains("-watch");
 
-// Process each task specified by the command line arguments.
-foreach(var task in args)
+// Processes each task specified by the command line arguments.
+var executeTasks = new Action<long>(count =>
 {
-    switch (task)
+    foreach (var task in args)
     {
-        case "-everything":
-            // Shorthand flag that does everything to avoid needing to
-            // specify every other flag.
-            CreateAppSettingsJson.Create();
-            GenerateCssForSvgIcons.Generate();
-            GeneratePackageManifest.Generate();
-            CopyStaticAssetsToWebsite.Copy(shouldWatch);
-            break;
-        case "-generate-css-for-svg-icons":
-            GenerateCssForSvgIcons.Generate();
-            break;
-        case "-generate-package-manifest":
-            GeneratePackageManifest.Generate();
-            break;
-        case "-copy-static-assets-to-website":
-            CopyStaticAssetsToWebsite.Copy(shouldWatch);
-            break;
-        case "-create-app-settings-json":
-            CreateAppSettingsJson.Create();
-            break;
-        case "-watch":
-            break;
+        switch (task)
+        {
+            case "-everything":
+                // Shorthand flag that does everything to avoid needing to
+                // specify every other flag.
+                CreateAppSettingsJson.Create(count);
+                GenerateCssForSvgIcons.Generate(count);
+                GeneratePackageManifest.Generate(count);
+                CopyStaticAssetsToWebsite.Copy(count);
+                break;
+            case "-generate-css-for-svg-icons":
+                GenerateCssForSvgIcons.Generate(count);
+                break;
+            case "-generate-package-manifest":
+                GeneratePackageManifest.Generate(count);
+                break;
+            case "-copy-static-assets-to-website":
+                CopyStaticAssetsToWebsite.Copy(count);
+                break;
+            case "-create-app-settings-json":
+                CreateAppSettingsJson.Create(count);
+                break;
+            case "-watch":
+                break;
+        }
     }
-}
+});
 
-// If we're watching for file system changes, don't quit.
+// Execute the tasks.
+executeTasks(1);
+
+// Should we watch for changes and execute the tasks when they occur?
 if (shouldWatch)
 {
+
+    // Start watching.
+    FrontendChangesWatcher.ExecutionCount = 1;
+    FrontendChangesWatcher.AddWatcher(executeTasks);
+
+    // Don't quit while watching for changes.
     Console.WriteLine(Constants.PressEnterToStop);
     Console.ReadLine();
+
 }

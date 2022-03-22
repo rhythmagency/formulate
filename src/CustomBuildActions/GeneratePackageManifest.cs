@@ -11,7 +11,10 @@ internal class GeneratePackageManifest
     /// Generates the package.manifest that contains the frontend resources used
     /// by Formulate in the Umbraco back office.
     /// </summary>
-    public static void Generate()
+    /// <param name="executionCount">
+    /// The number of times the tasks have been executed (starts at 1).
+    /// </param>
+    public static void Generate(long executionCount)
     {
         // Variables.
         var jsPattern = "*.js";
@@ -48,6 +51,6 @@ internal class GeneratePackageManifest
         File.WriteAllText(manifestPath, serialized);
 
         // Inform user of success.
-        Console.WriteLine($@"Generated package manifest at ""{manifestPath}"".");
+        Console.WriteLine($@"#{executionCount}: Generated package manifest at ""{manifestPath}"".");
     }
 }

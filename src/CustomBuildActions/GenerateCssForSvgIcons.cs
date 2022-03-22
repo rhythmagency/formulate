@@ -9,7 +9,10 @@ internal class GenerateCssForSvgIcons
     /// Generates the CSS that contains the styles that load SVGs based on
     /// class names that match the SVG's filename.
     /// </summary>
-    public static void Generate()
+    /// <param name="executionCount">
+    /// The number of times the tasks have been executed (starts at 1).
+    /// </param>
+    public static void Generate(long executionCount)
     {
         // Variables.
         var svgPattern = "*.svg";
@@ -50,6 +53,6 @@ internal class GenerateCssForSvgIcons
         File.WriteAllText(cssOutputPath, contents);
 
         // Inform user of success.
-        Console.WriteLine($@"Generated SVG CSS file at ""{cssOutputPath}"".");
+        Console.WriteLine($@"#{executionCount}: Generated SVG CSS file at ""{cssOutputPath}"".");
     }
 }

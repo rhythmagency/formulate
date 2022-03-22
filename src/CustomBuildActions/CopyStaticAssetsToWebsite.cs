@@ -6,106 +6,19 @@
 internal class CopyStaticAssetsToWebsite
 {
     /// <summary>
-    /// Watches for file system changes.
-    /// </summary>
-    /// <remarks>
-    /// This is static so it doesn't get garbage collected.
-    /// </remarks>
-    private static FileSystemWatcher? Watcher { get; set; }
-
-    /// <summary>
-    /// A lock object to avoid collisions between parallel watch events.
-    /// </summary>
-    private static object WatchLock { get; set; } = new object();
-
-    /// <summary>
-    /// Should the copy occur?
-    /// </summary>
-    private static bool ShouldCopy { get; set; }
-
-    /// <summary>
-    /// The number of times a copy has occurred.
-    /// </summary>
-    private static long CopiesCount { get; set; }
-
-    /// <summary>
     /// Copies the static assets to the website.
     /// </summary>
-    /// <param name="watch">
-    /// Should the source directory be monitored for changes?
+    /// <param name="executionCount">
+    /// The number of times the tasks have been executed (starts at 1).
     /// </param>
-    public static void Copy(bool watch)
+    public static void Copy(long executionCount)
     {
         // Variables.
         var source = PathUtils.NormalizePath("../Formulate.BackOffice.StaticAssets/App_Plugins/FormulateBackOffice");
         var destination = PathUtils.NormalizePath("../Website/App_Plugins/FormulateBackOffice");
 
         // Clear the old folder and copy the new files.
-        ClearAndCopy(source, destination);
-
-        // Watch for changes?
-        if (watch)
-        {
-            AddWatcher(source, destination);
-        }
-    }
-
-    /// <summary>
-    /// Adds a file system watcher to copy the files any time the source
-    /// files change.
-    /// </summary>
-    /// <param name="source">
-    /// The source directory.
-    /// </param>
-    /// <param name="destination">
-    /// The destination directory.
-    /// </param>
-    private static void AddWatcher(string source, string destination)
-    {
-        Console.WriteLine($"Adding watcher for: {source}");
-        Watcher = new FileSystemWatcher
-        {
-            Path = source,
-            NotifyFilter = NotifyFilters.LastWrite,
-            Filter = "*.*",
-            IncludeSubdirectories = true,
-        };
-        Watcher.Changed += new FileSystemEventHandler((_, _) =>
-        {
-            ScheduleClearAndCopy(source, destination);
-        });
-        Watcher.EnableRaisingEvents = true;
-    }
-
-    /// <summary>
-    /// Waits a second and then performs a copy (if another hasn't already
-    /// been performed in that time). This acts as a way of
-    /// debouncing/throttling.
-    /// </summary>
-    /// <param name="source">
-    /// The source directory.
-    /// </param>
-    /// <param name="destination">
-    /// The destination directory.
-    /// </param>
-    private static void ScheduleClearAndCopy(string source, string destination)
-    {
-        Task.Factory.StartNew(() =>
-        {
-            ShouldCopy = true;
-            lock (WatchLock)
-            {
-                Thread.Sleep(TimeSpan.FromSeconds(.25));
-                if (ShouldCopy)
-                {
-                    ShouldCopy = false;
-                    ClearAndCopy(source, destination);
-                    Console.WriteLine(Constants.PressEnterToStop);
-                    Thread.Sleep(TimeSpan.FromSeconds(.25));
-                    ShouldCopy = false;
-                }
-            }
-        });
+        ClearAndCopy(source, destination, executionCount);
     }
 
     /// <summary>
@@ -118,7 +31,11 @@ internal class CopyStaticAssetsToWebsite
     /// <param name="destination">
     /// The destination directory.
     /// </param>
-    private static async void ClearAndCopy(string source, string destination)
+    /// <param name="executionCount">
+    /// The number of times the tasks have been executed (starts at 1).
+    /// </param>
+    private static async void ClearAndCopy(string source, string destination,
+        long executionCount)
     {
         try
         {
@@ -138,11 +55,11 @@ internal class CopyStaticAssetsToWebsite
             }
 
             /// Copy the files.
-            CopyDirectory(source, destination);
+            CopyDirectory(source, destination, executionCount);
         }
         catch
         {
-            Console.WriteLine($"{CopiesCount}: Encountered an error when attempting to copy the files.");
+            Console.WriteLine($"{executionCount}: Encountered an error when attempting to copy the files.");
         }
     }
 
@@ -155,7 +72,11 @@ internal class CopyStaticAssetsToWebsite
     /// <param name="destination">
     /// The destination directory.
     /// </param>
-    private static void CopyDirectory(string source, string destination)
+    /// <param name="executionCount">
+    /// The number of times the tasks have been executed (starts at 1).
+    /// </param>
+    private static void CopyDirectory(string source, string destination,
+        long executionCount)
     {
         // Normalize paths.
         source = PathUtils.NormalizePath(source);
@@ -178,7 +99,6 @@ internal class CopyStaticAssetsToWebsite
 
         // Inform user of success.
         var count = allFilenames.Count;
-        CopiesCount++;
-        Console.WriteLine($@"#{CopiesCount}: Copied {count} files to ""{destination}"".");
+        Console.WriteLine($@"#{executionCount}: Copied {count} files to ""{destination}"".");
     }
 }
