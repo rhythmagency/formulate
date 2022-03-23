@@ -187,6 +187,14 @@ class FormDesignerEventHandlers {
 
     };
 
+    /**
+     * Toggles the enabled state of the handler.
+     * @param handler The handler to toggle.
+     */
+    toggleHandlerEnabled = (handler) => {
+        handler.enabled = !handler.enabled;
+    };
+
 }
 
 

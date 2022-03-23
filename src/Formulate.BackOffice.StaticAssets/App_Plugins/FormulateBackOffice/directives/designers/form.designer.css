@@ -62,3 +62,11 @@
 .formulate-handler.expanded .formulate-handler__expand {
     transform: scaleY(-1);
 }
+
+.formulate-handler {
+    transition: 0.25s opacity;
+}
+
+.formulate-handler.disabled {
+    opacity: .3;
+}
