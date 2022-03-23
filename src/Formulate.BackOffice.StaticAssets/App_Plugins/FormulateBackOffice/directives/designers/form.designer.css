@@ -53,3 +53,12 @@
     height: 50px;
     margin-left: 10px;
 }
+
+.formulate-handler .formulate-handler__expand {
+    transform: scaleY(1);
+    transition: 0.25s transform;
+}
+
+.formulate-handler.expanded .formulate-handler__expand {
+    transform: scaleY(-1);
+}
