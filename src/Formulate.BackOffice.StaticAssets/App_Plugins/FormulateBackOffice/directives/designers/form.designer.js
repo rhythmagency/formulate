@@ -219,7 +219,6 @@ class FormDesignerEventHandlers {
                 name: null,
                 alias: null,
             });
-            console.log(item.handler, this.$scope.handlers);
         };
 
         // The data sent to the form handler.
