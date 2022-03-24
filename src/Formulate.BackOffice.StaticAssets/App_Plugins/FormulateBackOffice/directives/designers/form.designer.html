@@ -147,7 +147,7 @@
                                             <i class="formulate-handler__icon formulate-icon icon-formulate-hide formulate-handler__enable" ng-click="events.toggleHandlerEnabled(handler)"></i>
                                             <i class="formulate-handler__icon formulate-icon icon-formulate-delete formulate-handler__delete" ng-click="events.deleteHandler(handler)"></i>
                                         </div>
-                                        <i class="type-identifier formulate-icon {{handler.icon}}"></i>
+                                        <i class="formulate-handler__type-identifier formulate-icon {{handler.icon}}"></i>
                                         <umb-editor-header
                                                 class="formulate-handler__header-title"
                                                 name="handler.name"
@@ -166,18 +166,13 @@
 
                                 <!-- Buttons. -->
                                 <div class="btn-group">
-                                    <button type="button" class="btn" ng-click="addHandler()" ng-disabled="!canAddHandler()" prevent-default>
+                                    <button type="button" class="btn" ng-click="events.addHandler()" ng-disabled="!events.canAddHandler()" prevent-default>
                                         <localize key="formulate-buttons_Add Handler">
                                             Add Handler
                                         </localize>
                                     </button>
 
                                 </div>
-
-                                <!-- Handler chooser dialog. -->
-                                <formulate-handler-chooser show="handlerChooser.show"
-                                                           chosen="handlerChosen(handler)">
-                                </formulate-handler-chooser>
                             </div>
                         </div>
                     </div>

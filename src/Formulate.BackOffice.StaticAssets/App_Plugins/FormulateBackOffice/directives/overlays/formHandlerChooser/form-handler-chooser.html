@@ -1,0 +1,10 @@
+<ul class="formulate-handler-chooser__item-list">
+    <li ng-repeat="item in items" class="formulate-handler-chooser__item">
+        <button type="button" ng-click="choseItem(item)" class="formulate-handler-chooser__type-button">
+            <umb-icon icon="{{item.icon}}" class="formulate-handler-chooser__icon"></umb-icon>
+            <span class="formulate-handler-chooser__type-label-text">
+                {{item.typeLabel}}
+            </span>
+        </button>
+    </li>
+</ul>

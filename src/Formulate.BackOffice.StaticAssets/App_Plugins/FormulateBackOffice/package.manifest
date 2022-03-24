@@ -31,6 +31,7 @@
     "/App_Plugins/FormulateBackOffice/directives/editors/configuration.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/form-handler.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/localizeAttribute/localizeAttribute.js",
+    "/App_Plugins/FormulateBackOffice/directives/overlays/formHandlerChooser/form-handler-chooser.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/dataValues/dynamic/dynamic-datavalues.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/dataValues/legacy/legacy-datavalues.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/dataValues/list/list-datavalues.editor.js",
@@ -42,6 +43,7 @@
   "css": [
     "/App_Plugins/FormulateBackOffice/styles/generated-svg-icons.css",
     "/App_Plugins/FormulateBackOffice/styles/icons.css",
-    "/App_Plugins/FormulateBackOffice/directives/designers/form.designer.css"
+    "/App_Plugins/FormulateBackOffice/directives/designers/form.designer.css",
+    "/App_Plugins/FormulateBackOffice/directives/overlays/formHandlerChooser/form-handler-chooser.css"
   ]
 }
