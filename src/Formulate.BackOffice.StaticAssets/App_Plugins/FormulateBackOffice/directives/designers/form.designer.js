@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-function formulateFormDesignerDirective(overlayService) {
+function formulateFormDesignerDirective(overlayService, $timeout) {
     var directive = {
         replace: true,
         templateUrl: "/app_plugins/formulatebackoffice/directives/designers/form.designer.html",
@@ -101,6 +101,7 @@ function formulateFormDesignerDirective(overlayService) {
             scope.events = new FormDesignerEventHandlers({
                 $scope: scope,
                 overlayService: overlayService,
+                $timeout: $timeout,
             });
         }
     };
@@ -214,7 +215,7 @@ class FormDesignerEventHandlers {
                 directive: handler.directive,
                 enabled: true,
                 icon: handler.icon,
-                id: null,
+                id: crypto.randomUUID(),
                 kindId: handler.kindId,
                 name: null,
                 alias: null,

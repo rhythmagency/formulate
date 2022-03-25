@@ -21,5 +21,8 @@
 
         /// <inheritdoc />
         public abstract string Directive { get; }
+
+        /// <inheritdoc />
+        public abstract string Icon { get; }
     }
 }

@@ -3,7 +3,7 @@
 (function () {
 
     // Variables.
-    let app = angular.module("umbraco");
+    const app = angular.module("umbraco");
 
     // Associate directive/controller.
     app.directive("formulateHandlerChooser", directive);
@@ -22,33 +22,7 @@
     }
 
     // Controller.
-    function controller($scope) {//, formulateHandlers) {
-
-        // Set scope variables.
-        /*formulateHandlers.getHandlerTypes().then(function(handlerTypes) {
-            $scope.items = handlerTypes;
-        });*/
-
-        //TODO: Temp. Get from server.
-        $scope.items = [
-            {
-                "icon": "icon-formulate-store-data",
-                "typeLabel": "Store Data",
-                "directive": "formulate-store-data-handler",
-            },
-            {
-                "icon": "icon-formulate-email",
-                "typeLabel": "Email",
-                "directive": "formulate-email-handler",
-            },
-            {
-                "icon": "icon-formulate-send-data",
-                "typeLabel": "Send Data",
-                "directive": "formulate-send-data-handler",
-            },
-        ];
-
-        $scope.dialogStyles = {};
+    function controller($scope, formulateTypeDefinitionResource) {
 
         // Handle chosen item.
         $scope.choseItem = function(item) {
@@ -56,6 +30,12 @@
                 handler: item
             });
         };
+
+        // Get the form handler definitions.
+        formulateTypeDefinitionResource.getHandlerDefinitions()
+            .then((response) => {
+                $scope.items = response;
+            });
 
     }
 

@@ -128,9 +128,6 @@ namespace Formulate.BackOffice.NotificationHandlers
                 //{ "GetFieldCategories",
                 //    LinkGenerator.GetUmbracoApiService<FieldsController>(x =>
                 //        x.GetFieldCategories()) },
-                //{ "GetHandlerTypes",
-                //    LinkGenerator.GetUmbracoApiService<HandlersController>(x =>
-                //        x.GetHandlerTypes()) },
                 //{ "GetResultHandlers",
                 //    LinkGenerator.GetUmbracoApiService<HandlersController>(x =>
                 //        x.GetResultHandlers()) },
@@ -172,7 +169,8 @@ namespace Formulate.BackOffice.NotificationHandlers
                 { "Folders.Save", LinkGenerator.GetUmbracoApiService<FoldersController>(x => x.Save()) },
 
                 { "datavalues.GetDirective", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.GetDefinitionDirective()) },
-                { "validations.GetDirective", LinkGenerator.GetUmbracoApiService<ValidationsController>(x => x.GetDefinitionDirective()) }
+                { "validations.GetDirective", LinkGenerator.GetUmbracoApiService<ValidationsController>(x => x.GetDefinitionDirective()) },
+                { "GetHandlerDefinitions", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.GetHandlerDefinitions()) }
                 //{ "DuplicateForm",
                 //    LinkGenerator.GetUmbracoApiService<FormsController>(x => x.DuplicateForm(null)) },
             };

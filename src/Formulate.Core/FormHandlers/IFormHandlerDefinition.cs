@@ -13,5 +13,9 @@
     /// </remarks>
     public interface IFormHandlerDefinition : IDefinition
     {
+        /// <summary>
+        /// Gets the icon for this form handle definition.
+        /// </summary>
+        string Icon { get; }
     }
 }

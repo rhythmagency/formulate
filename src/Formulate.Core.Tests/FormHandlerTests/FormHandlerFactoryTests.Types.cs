@@ -36,6 +36,8 @@ namespace Formulate.Core.Tests.FormHandlerTests
 
             public override string Directive => throw new NotImplementedException();
 
+            public override string Icon => throw new NotImplementedException();
+
             public override FormHandler CreateHandler(IFormHandlerSettings settings)
             {
                 return new TestFormHandler(settings);
@@ -49,6 +51,8 @@ namespace Formulate.Core.Tests.FormHandlerTests
             public override string DefinitionLabel => "Test Async Form Handler";
 
             public override string Directive => throw new NotImplementedException();
+
+            public override string Icon => throw new NotImplementedException();
 
             public override AsyncFormHandler CreateAsyncHandler(IFormHandlerSettings settings)
             {

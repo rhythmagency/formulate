@@ -3,6 +3,7 @@
     "/App_Plugins/FormulateBackOffice/filters/formulate-localize-filter.js",
     "/App_Plugins/FormulateBackOffice/resources/definitionDirectiveResource.js",
     "/App_Plugins/FormulateBackOffice/resources/entityResource.js",
+    "/App_Plugins/FormulateBackOffice/resources/typeDefinitionResource.js",
     "/App_Plugins/FormulateBackOffice/utilities/accordion.js",
     "/App_Plugins/FormulateBackOffice/backoffice/dataValues/DataValues.CreateController.js",
     "/App_Plugins/FormulateBackOffice/backoffice/dataValues/DataValues.DeleteController.js",

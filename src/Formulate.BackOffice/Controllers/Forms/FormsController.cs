@@ -29,15 +29,18 @@
     {
         private readonly IFormEntityRepository formEntityRepository;
         private readonly IFormHandlerFactory formHandlerFactory;
+        private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
             IFormEntityRepository formEntityRepository,
-            IFormHandlerFactory formHandlerFactory)
+            IFormHandlerFactory formHandlerFactory,
+            FormHandlerDefinitionCollection formHandlerDefinitions)
             : base(treeEntityRepository, localizedTextService)
         {
             this.formEntityRepository = formEntityRepository;
             this.formHandlerFactory = formHandlerFactory;
+            this.formHandlerDefinitions = formHandlerDefinitions;
         }
 
         [HttpGet]
@@ -155,9 +158,20 @@
         public ActionResult Save(SavePersistedFormRequest request)
         {
             //TDOO: Implement. Refer to ValidationsController.Save for a good example.
-            //TODO: Set field IDs.
-            //TODO: Set handler IDs.
             return null;
+        }
+
+        /// <summary>
+        /// Returns the form handler definitions.
+        /// </summary>
+        /// <returns>
+        /// The array of form handler definitions.
+        /// </returns>
+        [HttpGet]
+        public IActionResult GetHandlerDefinitions()
+        {
+            var definitions = formHandlerDefinitions.ToArray();
+            return Ok(definitions);
         }
     }
 }
