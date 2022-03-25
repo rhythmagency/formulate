@@ -49,24 +49,6 @@ namespace Formulate.Core.Tests.FormHandlerTests
             Assert.Throws<NotSupportedException>(() => factory.Create(settings));
         }
 
-        [Fact(DisplayName = "When KindId matches an Async Form Handler Definition should return an Async Form Handler")]
-        public void WhenKindIdMatchesAnAsyncFormHandlerDefinitionShouldReturnAnAsyncFormHandler()
-        {
-            // arrange
-            var factory = CreateFactory();
-            var settings = new TestFormHandlerSettings()
-            {
-                KindId = Guid.Parse(Constants.TestAsyncFormHandlerKindId)
-            };
-            
-            // act
-            var handler = factory.Create(settings);
-
-            // assert
-            Assert.IsAssignableFrom<AsyncFormHandler>(handler);
-            Assert.NotEqual(default, handler);
-        }
-
         [Fact(DisplayName = "When KindId matches a Form Handler Definition should return a Form Handler")]
         public void WhenKindIdMatchesAFormHandlerDefinitionShouldReturnAFormHandler()
         {
@@ -89,7 +71,6 @@ namespace Formulate.Core.Tests.FormHandlerTests
         {
             var items = new List<IFormHandlerDefinition>
             {
-                new TestAsyncFormHandlerDefinition(), 
                 new TestFormHandlerDefinition(), 
                 new TestUnsupportedFormHandlerDefinition()
             };

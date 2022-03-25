@@ -2,6 +2,8 @@
 {
     // Namespaces.
     using System;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Sends an email for a Formulate submission.
@@ -15,6 +17,13 @@
         }
 
         public override void Handle(object submission)
+        {
+            //TODO: Implement.
+            throw new NotImplementedException();
+        }
+
+        public override Task HandleAsync(object submission,
+            CancellationToken cancellationToken = default)
         {
             //TODO: Implement.
             throw new NotImplementedException();

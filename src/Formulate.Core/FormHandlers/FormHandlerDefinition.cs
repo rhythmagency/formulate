@@ -1,15 +1,26 @@
 ﻿namespace Formulate.Core.FormHandlers
 {
+    // Namespaces.
+    using System;
+
     /// <summary>
     /// An abstract class for creating a form handler definition.
     /// </summary>
-    public abstract class FormHandlerDefinition : FormHandlerDefinitionBase
+    public abstract class FormHandlerDefinition : IFormHandlerDefinition
     {
-        /// <summary>
-        /// Creates a Form Handler.
-        /// </summary>
-        /// <param name="settings">The form handler settings.</param>
-        /// <returns>A <see cref="FormHandler"/>.</returns>
+        /// <inheritdoc />
+        public abstract string Icon { get; }
+
+        /// <inheritdoc />
+        public abstract Guid KindId { get; }
+
+        /// <inheritdoc />
+        public abstract string DefinitionLabel { get; }
+
+        /// <inheritdoc />
+        public abstract string Directive { get; }
+
+        /// <inheritdoc />
         public abstract FormHandler CreateHandler(IFormHandlerSettings settings);
     }
 }

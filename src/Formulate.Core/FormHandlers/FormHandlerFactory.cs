@@ -39,17 +39,7 @@ namespace Formulate.Core.FormHandlers
                 return default;
             }
 
-            if (foundFormHandlerDefinition is AsyncFormHandlerDefinition asyncFormHandlerDefinition)
-            {
-                return asyncFormHandlerDefinition.CreateAsyncHandler(settings);
-            }
-
-            if (foundFormHandlerDefinition is FormHandlerDefinition formHandlerDefinition)
-            {
-                return formHandlerDefinition.CreateHandler(settings);
-            }
-
-            throw new NotSupportedException($"{foundFormHandlerDefinition} does not match a valid form handler definition.");
+            return foundFormHandlerDefinition.CreateHandler(settings);
         }
     }
 }

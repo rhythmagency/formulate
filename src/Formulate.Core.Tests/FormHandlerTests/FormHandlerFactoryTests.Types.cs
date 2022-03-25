@@ -44,22 +44,6 @@ namespace Formulate.Core.Tests.FormHandlerTests
             }
         }
 
-        private sealed class TestAsyncFormHandlerDefinition : AsyncFormHandlerDefinition
-        {
-            public override Guid KindId => Guid.Parse(Constants.TestAsyncFormHandlerKindId);
-            
-            public override string DefinitionLabel => "Test Async Form Handler";
-
-            public override string Directive => throw new NotImplementedException();
-
-            public override string Icon => throw new NotImplementedException();
-
-            public override AsyncFormHandler CreateAsyncHandler(IFormHandlerSettings settings)
-            {
-                return new TestAsyncFormHandler(settings);
-            }
-        }
-
         private sealed class TestUnsupportedFormHandlerDefinition : IFormHandlerDefinition
         {
             public Guid KindId => Guid.Parse(Constants.TestUnsupportedFormHandlerKindId);
@@ -69,6 +53,11 @@ namespace Formulate.Core.Tests.FormHandlerTests
             public string Directive => "test-form-handler";
 
             public string Icon => throw new NotImplementedException();
+
+            public FormHandler CreateHandler(IFormHandlerSettings settings)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private sealed class TestFormHandler : FormHandler
@@ -78,13 +67,6 @@ namespace Formulate.Core.Tests.FormHandlerTests
             }
 
             public override void Handle(object submission)
-            {
-            }
-        }
-
-        private sealed class TestAsyncFormHandler : AsyncFormHandler
-        {
-            public TestAsyncFormHandler(IFormHandlerSettings settings) : base(settings)
             {
             }
 
