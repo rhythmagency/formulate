@@ -16,13 +16,7 @@
             Directive = SendDataDefinition.Constants.Directive;
         }
 
-        public override void Handle(object submission)
-        {
-            //TODO: Implement.
-            throw new NotImplementedException();
-        }
-
-        public override Task HandleAsync(object submission,
+        public override Task Handle(object submission,
             CancellationToken cancellationToken = default)
         {
             //TODO: Implement.

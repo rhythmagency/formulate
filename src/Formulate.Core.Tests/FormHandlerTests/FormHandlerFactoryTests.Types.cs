@@ -66,11 +66,7 @@ namespace Formulate.Core.Tests.FormHandlerTests
             {
             }
 
-            public override void Handle(object submission)
-            {
-            }
-
-            public override Task HandleAsync(object submission, CancellationToken cancellationToken = default)
+            public override Task Handle(object submission, CancellationToken cancellationToken = default)
             {
                 return Task.CompletedTask;
             }

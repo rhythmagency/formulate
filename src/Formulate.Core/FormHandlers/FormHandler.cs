@@ -10,13 +10,8 @@
     public abstract class FormHandler : FormHandlerBase
     {
         /// <summary>
-        /// Handle the incoming form submission.
-        /// </summary>
-        /// <param name="submission">The form submission.</param>
-        public abstract void Handle(object submission);
-
-        /// <summary>
-        /// Handle the incoming form submission on another thread.
+        /// Handle the incoming form submission on another thread (though it
+        /// can handle a portion of the work on the main thread).
         /// </summary>
         /// <param name="submission">
         /// The form submission.
@@ -27,7 +22,7 @@
         /// <returns>
         /// The async task.
         /// </returns>
-        public abstract Task HandleAsync(object submission,
+        public abstract Task Handle(object submission,
             CancellationToken cancellationToken = default);
 
         /// <summary>
