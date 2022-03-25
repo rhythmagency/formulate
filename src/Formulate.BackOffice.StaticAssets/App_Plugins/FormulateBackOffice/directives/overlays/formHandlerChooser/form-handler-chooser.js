@@ -22,7 +22,7 @@
     }
 
     // Controller.
-    function controller($scope, $element) {//, formulateHandlers) {
+    function controller($scope) {//, formulateHandlers) {
 
         // Set scope variables.
         /*formulateHandlers.getHandlerTypes().then(function(handlerTypes) {
