@@ -1,13 +1,21 @@
 .formulate-handler-details,
 .formulate-field-details {
     overflow: hidden;
-    transition: max-height 0.2s linear;
+    transition: max-height 0.2s;
 }
 
-.formulate-handler.quick-expand .formulate-handler-details,
-.formulate-field.quick-expand .formulate-field-details {
-    /* When in "quick expand" mode, do not perform animations. */
-    transition-delay: 0s;
+.formulate-handler.expanded .formulate-handler-details,
+.formulate-field.expanded .formulate-field-details {
+    /* Ease in when expanding to make it less apparent that we don't know the height
+       of the details when expanding them for the first time. */
+    transition-timing-function: ease-in;
+}
+
+.formulate-handler.collapsed .formulate-handler-details,
+.formulate-field.collapsed .formulate-field-details {
+    /* Ease out when collapsing to mirror the inverse of the animation that happened
+       when expanding the accordion item. */
+    transition-timing-function: ease-out;
 }
 
 .formulate-handler.collapsed .formulate-handler-details,

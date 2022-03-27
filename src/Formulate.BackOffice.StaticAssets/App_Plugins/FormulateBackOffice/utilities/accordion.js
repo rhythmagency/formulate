@@ -60,44 +60,18 @@ class FormulateAccordion {
      */
     handleExpand(item, detailsEl) {
 
-        // We'll momentarily expand the item, so we can figure out its height.
-        item.quickExpand = true;
+        // Get the height of the element now that it should be at its max height.
+        const assumedHeight = 100;
+        const height = detailsEl.dataset.latestExpandedHeight || assumedHeight;
+
+        // Increase the size of the contents by setting the max height
+        // (the CSS will then animate the height).
         item.detailsStyle = {
-            maxHeight: null,
-            visibility: 'hidden',
+            maxHeight: height + 'px',
         };
 
-        // Use timeout to allow a digest cycle to run so the changes will be reflected
-        // in the DOM.
-        this.timeoutAnimateEval(() => {
-
-            // Get the height of the element now that it's been increased to its
-            // max height.
-            const height = detailsEl.offsetHeight;
-
-            // Shrink the element back to no height.
-            item.detailsStyle = {
-                maxHeight: '0',
-                visibility: null,
-            };
-
-            // Run in a timeout to give the above changes time to take effect in the DOM,
-            // then wait for the height to be reset to zero before the next step.
-            this.timeoutAnimateEval(() => {
-
-                // Increase the size of the contents by setting the max height
-                // (the CSS will then animate the height).
-                item.quickExpand = false;
-                item.detailsStyle = {
-                    maxHeight: height + 'px',
-                };
-
-                // Do some cleanup once the contents finish expanding.
-                this.handleFullyExpanded(item, detailsEl);
-
-            });
-
-        });
+        // Do some cleanup once the contents finish expanding.
+        this.handleFullyExpanded(item, detailsEl);
 
     }
 
@@ -127,8 +101,12 @@ class FormulateAccordion {
      */
     handleCollapse(item, detailsEl) {
 
-        // Set the max height based on the current expanded height of the element.
+        // Remember the height before collapsing as the latest expanded height,
+        // so we can smoothly animate once expanding next time.
         const height = detailsEl.offsetHeight;
+        detailsEl.dataset.latestExpandedHeight = height;
+
+        // Set the max height based on the current expanded height of the element.
         item.detailsStyle = {
             maxHeight: height + 'px',
         };
