@@ -37,6 +37,8 @@
     "/App_Plugins/FormulateBackOffice/directives/editors/dataValues/legacy/legacy-datavalues.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/dataValues/list/list-datavalues.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/dataValues/pairList/pair-list-datavalues.editor.js",
+    "/App_Plugins/FormulateBackOffice/directives/editors/formHandlers/email/formulate-email-handler.js",
+    "/App_Plugins/FormulateBackOffice/directives/editors/formHandlers/send-data/formulate-send-data-handler.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/formHandlers/store-data/formulate-store-data-handler.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/validations/mandatory/mandatory-validation.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/validations/regex/regex-validation.editor.js"
