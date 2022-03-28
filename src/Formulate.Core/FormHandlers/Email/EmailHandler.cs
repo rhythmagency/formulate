@@ -12,8 +12,6 @@
     {
         public EmailHandler(IFormHandlerSettings settings) : base(settings)
         {
-            Icon = EmailDefinition.Constants.Icon;
-            Directive = EmailDefinition.Constants.Directive;
         }
 
         public override Task Handle(object submission,

@@ -12,8 +12,6 @@
     {
         public SendDataHandler(IFormHandlerSettings settings) : base(settings)
         {
-            Icon = SendDataDefinition.Constants.Icon;
-            Directive = SendDataDefinition.Constants.Directive;
         }
 
         public override Task Handle(object submission,

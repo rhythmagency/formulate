@@ -51,6 +51,7 @@
         {
             var handler = new StoreDataHandler(settings);
             handler.Icon = Constants.Icon;
+            handler.Directive = Constants.Directive;
             return handler;
         }
     }

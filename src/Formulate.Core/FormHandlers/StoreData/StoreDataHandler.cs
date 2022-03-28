@@ -12,8 +12,6 @@
     {
         public StoreDataHandler(IFormHandlerSettings settings) : base(settings)
         {
-            Icon = StoreDataDefinition.Constants.Icon;
-            Directive = StoreDataDefinition.Constants.Directive;
         }
 
         public override Task Handle(object submission,
