@@ -43,7 +43,7 @@ namespace Formulate.Core.FormHandlers
             var handler = foundFormHandlerDefinition.CreateHandler(settings);
 
             // Set the attributes on the form handler that can be obtained from
-            // the form handler definition (namely, icon and directive.
+            // the form handler definition (namely, icon and directive).
             handler.Icon = foundFormHandlerDefinition.Icon;
             handler.Directive = foundFormHandlerDefinition.Directive;
 
