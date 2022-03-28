@@ -39,7 +39,16 @@ namespace Formulate.Core.FormHandlers
                 return default;
             }
 
-            return foundFormHandlerDefinition.CreateHandler(settings);
+            // Create an instance of the form handler.
+            var handler = foundFormHandlerDefinition.CreateHandler(settings);
+
+            // Set the attributes on the form handler that can be obtained from
+            // the form handler definition (namely, icon and directive.
+            handler.Icon = foundFormHandlerDefinition.Icon;
+            handler.Directive = foundFormHandlerDefinition.Directive;
+
+            // Return the form handler instance.
+            return handler;
         }
     }
 }

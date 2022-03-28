@@ -50,8 +50,6 @@
         public override FormHandler CreateHandler(IFormHandlerSettings settings)
         {
             var handler = new StoreDataHandler(settings);
-            handler.Icon = Constants.Icon;
-            handler.Directive = Constants.Directive;
             return handler;
         }
     }
