@@ -6,13 +6,13 @@
     const app = angular.module("umbraco");
 
     // Associate directive.
-    app.directive("formulateHandlerChooser", directive);
+    app.directive("formulateFieldChooser", directive);
 
     // Directive.
     function directive() {
         return {
             restrict: "E",
-            templateUrl: "/app_plugins/formulatebackoffice/directives/overlays/formhandlerchooser/form-handler-chooser.html",
+            templateUrl: "/app_plugins/formulatebackoffice/directives/overlays/formfieldchooser/form-field-chooser.html",
             controller: controller,
             scope: {
                 model: "=",
@@ -26,12 +26,12 @@
         // Handle chosen item.
         $scope.choseItem = function(item) {
             $scope.model.chosen({
-                handler: item
+                field: item
             });
         };
 
         // Get the form handler definitions.
-        formulateTypeDefinitionResource.getHandlerDefinitions()
+        formulateTypeDefinitionResource.getFieldDefinitions()
             .then((response) => {
                 $scope.items = response;
             });

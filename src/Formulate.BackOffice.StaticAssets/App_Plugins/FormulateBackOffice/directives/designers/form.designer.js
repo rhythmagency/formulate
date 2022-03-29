@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 function formulateFormDesignerDirective(overlayService, $timeout) {
-    var directive = {
+    const directive = {
         replace: true,
         templateUrl: "/app_plugins/formulatebackoffice/directives/designers/form.designer.html",
         scope: {
@@ -225,7 +225,7 @@ class FormDesignerEventHandlers {
             });
         };
 
-        // The data sent to the form handler.
+        // The data sent to the form handler chooser.
         let data = {
             title: "Add Handler",
             subtitle: "Choose one of the following form handlers to add to your form.",
@@ -245,6 +245,53 @@ class FormDesignerEventHandlers {
      * @returns {boolean} True, if the user can add a handler; otherwise, false.
      */
     canAddHandler = () => {
+        return this.$scope.initialized;
+    }
+
+    /**
+     * Shows the dialog that allows the user to choose a form field to add.
+     */
+    addField = () => {
+
+        // This is called when the dialog is closed.
+        let closer = () => {
+            this.overlayService.close();
+        };
+
+        // This is called when a field is chosen.
+        let chosen = (item) => {
+            this.overlayService.close();
+            let field = item.field;
+            this.$scope.fields.push({
+                directive: field.directive,
+                icon: field.icon,
+                id: crypto.randomUUID(),
+                kindId: field.kindId,
+                name: null,
+                alias: null,
+            });
+        };
+
+        // The data sent to the form field chooser.
+        let data = {
+            title: "Add Handler",
+            subtitle: "Choose one of the following form fields to add to your form.",
+            view: "/app_plugins/formulatebackoffice/directives/overlays/formfieldchooser/form-field-chooser-overlay.html",
+            hideSubmitButton: true,
+            close: closer,
+            chosen: chosen,
+        };
+
+        // Open the overlay that displays the fields.
+        this.overlayService.open(data);
+
+    };
+
+    /**
+     * Can the user add a field to the page yet?
+     * @returns {boolean} True, if the user can add a field; otherwise, false.
+     */
+    canAddField = () => {
         return this.$scope.initialized;
     }
 

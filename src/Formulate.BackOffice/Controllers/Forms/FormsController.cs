@@ -31,19 +31,22 @@
         private readonly IFormHandlerFactory formHandlerFactory;
         private readonly IFormFieldFactory formFieldFactory;
         private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
+        private readonly FormFieldDefinitionCollection formFieldDefinitions;
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
             IFormEntityRepository formEntityRepository,
             IFormHandlerFactory formHandlerFactory,
             IFormFieldFactory formFieldFactory,
-            FormHandlerDefinitionCollection formHandlerDefinitions)
+            FormHandlerDefinitionCollection formHandlerDefinitions,
+            FormFieldDefinitionCollection formFieldDefinitions)
             : base(treeEntityRepository, localizedTextService)
         {
             this.formEntityRepository = formEntityRepository;
             this.formHandlerFactory = formHandlerFactory;
             this.formFieldFactory = formFieldFactory;
             this.formHandlerDefinitions = formHandlerDefinitions;
+            this.formFieldDefinitions = formFieldDefinitions;
         }
 
         [HttpGet]
@@ -175,6 +178,19 @@
         public IActionResult GetHandlerDefinitions()
         {
             var definitions = formHandlerDefinitions.ToArray();
+            return Ok(definitions);
+        }
+
+        /// <summary>
+        /// Returns the form field definitions.
+        /// </summary>
+        /// <returns>
+        /// The array of form field definitions.
+        /// </returns>
+        [HttpGet]
+        public IActionResult GetFieldDefinitions()
+        {
+            var definitions = formFieldDefinitions.ToArray();
             return Ok(definitions);
         }
     }

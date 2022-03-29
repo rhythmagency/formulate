@@ -119,9 +119,6 @@ namespace Formulate.BackOffice.NotificationHandlers
                 //{ "DeleteFolder",
                 //    LinkGenerator.GetUmbracoApiService<FoldersController>(x =>
                 //        x.DeleteFolder(null)) },
-                //{ "GetFieldTypes",
-                //    LinkGenerator.GetUmbracoApiService<FieldsController>(x =>
-                //        x.GetFieldTypes()) },
                 //{ "GetButtonKinds",
                 //    LinkGenerator.GetUmbracoApiService<FieldsController>(x =>
                 //        x.GetButtonKinds()) },
@@ -166,11 +163,21 @@ namespace Formulate.BackOffice.NotificationHandlers
                 { "DataValues.RootId", DataValuesConstants.RootId },
                 { "forms.RootId", FormConstants.RootId },
 
-                { "Folders.Save", LinkGenerator.GetUmbracoApiService<FoldersController>(x => x.Save()) },
+                { "Folders.Save", LinkGenerator
+                    .GetUmbracoApiService<FoldersController>(x => x.Save()) },
 
-                { "datavalues.GetDirective", LinkGenerator.GetUmbracoApiService<DataValuesController>(x => x.GetDefinitionDirective()) },
-                { "validations.GetDirective", LinkGenerator.GetUmbracoApiService<ValidationsController>(x => x.GetDefinitionDirective()) },
-                { "GetHandlerDefinitions", LinkGenerator.GetUmbracoApiService<FormsController>(x => x.GetHandlerDefinitions()) }
+                { "datavalues.GetDirective", LinkGenerator
+                    .GetUmbracoApiService<DataValuesController>(x =>
+                        x.GetDefinitionDirective()) },
+                { "validations.GetDirective", LinkGenerator
+                    .GetUmbracoApiService<ValidationsController>(x =>
+                        x.GetDefinitionDirective()) },
+                { "GetHandlerDefinitions", LinkGenerator
+                    .GetUmbracoApiService<FormsController>(x =>
+                        x.GetHandlerDefinitions()) },
+                { "GetFieldDefinitions", LinkGenerator
+                    .GetUmbracoApiService<FormsController>(x =>
+                        x.GetFieldDefinitions()) },
                 //{ "DuplicateForm",
                 //    LinkGenerator.GetUmbracoApiService<FormsController>(x => x.DuplicateForm(null)) },
             };
