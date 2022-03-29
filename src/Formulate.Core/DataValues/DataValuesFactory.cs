@@ -1,10 +1,9 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Formulate.Core.Types;
-
-namespace Formulate.Core.DataValues
+﻿namespace Formulate.Core.DataValues
 {
+    // Namespaces.
+    using System;
+    using Types;
+
     /// <summary>
     /// The default implementation of <see cref="IDataValuesFactory"/> using the <see cref="DataValuesDefinitionCollection"/>.
     /// </summary>
@@ -25,7 +24,7 @@ namespace Formulate.Core.DataValues
         }
 
         /// <inheritdoc />
-        public async Task<IDataValues> CreateAsync(IDataValuesSettings settings, CancellationToken cancellationToken = default)
+        public IDataValues Create(IDataValuesSettings settings)
         {
             if (settings is null)
             {
@@ -39,7 +38,7 @@ namespace Formulate.Core.DataValues
                 return default;
             }
 
-            return await foundDataValuesDefinition.CreateDataValuesAsync(settings, cancellationToken);
+            return foundDataValuesDefinition.CreateDataValues(settings);
         }
     }
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Formulate.Core.FormFields
+﻿namespace Formulate.Core.FormFields
 {
+    // Namespaces.
+    using System;
+
     /// <summary>
     /// An abstract class for creating a new <see cref="IFormFieldDefinition"/>.
     /// </summary>
@@ -39,6 +38,6 @@ namespace Formulate.Core.FormFields
         public virtual bool IsStored => true;
 
         /// <inheritdoc />
-        public abstract Task<IFormField> CreateFieldAsync(IFormFieldSettings settings, CancellationToken cancellationToken = default);
+        public abstract FormField CreateField(IFormFieldSettings settings);
     }
 }

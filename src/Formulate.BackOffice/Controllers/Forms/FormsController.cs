@@ -29,17 +29,20 @@
     {
         private readonly IFormEntityRepository formEntityRepository;
         private readonly IFormHandlerFactory formHandlerFactory;
+        private readonly IFormFieldFactory formFieldFactory;
         private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
             IFormEntityRepository formEntityRepository,
             IFormHandlerFactory formHandlerFactory,
+            IFormFieldFactory formFieldFactory,
             FormHandlerDefinitionCollection formHandlerDefinitions)
             : base(treeEntityRepository, localizedTextService)
         {
             this.formEntityRepository = formEntityRepository;
             this.formHandlerFactory = formHandlerFactory;
+            this.formFieldFactory = formFieldFactory;
             this.formHandlerDefinitions = formHandlerDefinitions;
         }
 
@@ -143,9 +146,10 @@
 
             // Supplement the base response with additional data.
             var form = baseResult.Entity as PersistedForm;
+            var entity = new FormViewModel(form, formHandlerFactory, formFieldFactory);
             var formResponse = new GetFormResponse()
             {
-                Entity = new FormViewModel(form, formHandlerFactory),
+                Entity = entity,
                 EntityType = baseResult.EntityType,
                 TreePath = baseResult.TreePath,
             };

@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Formulate.Core.Utilities;
-
-namespace Formulate.Core.DataValues.PairList
+﻿namespace Formulate.Core.DataValues.PairList
 {
+    // Namespaces.
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Utilities;
+
     /// <summary>
     /// A data values definition for providing list of key value pairs.
     /// </summary>
@@ -63,7 +64,7 @@ namespace Formulate.Core.DataValues.PairList
         }
 
         /// <inheritdoc />
-        protected override IDataValues CreateDataValues(IDataValuesSettings settings)
+        public override IDataValues CreateDataValues(IDataValuesSettings settings)
         {
             var items = new List<KeyValuePair<string, string>>();
             var preValues = _jsonUtility.Deserialize<PairListDataValuesPreValues>(settings.Data);

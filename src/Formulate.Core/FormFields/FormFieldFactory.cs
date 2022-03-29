@@ -1,10 +1,9 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Formulate.Core.Types;
-
-namespace Formulate.Core.FormFields
+﻿namespace Formulate.Core.FormFields
 {
+    // Namespaces.
+    using Types;
+    using System;
+
     /// <summary>
     /// The default implementation of <see cref="IFormFieldFactory"/> using the <see cref="FormFieldDefinitionCollection"/>.
     /// </summary>
@@ -25,8 +24,10 @@ namespace Formulate.Core.FormFields
         }
 
         /// <inheritdoc />
-        /// <exception cref="ArgumentNullException">The provided settings are null.</exception>
-        public async Task<IFormField> CreateAsync(IFormFieldSettings settings, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException">
+        /// The provided settings are null.
+        /// </exception>
+        public IFormField Create(IFormFieldSettings settings)
         {
             if (settings is null)
             {
@@ -40,7 +41,16 @@ namespace Formulate.Core.FormFields
                 return default;
             }
 
-            return await foundFormFieldDefinition.CreateFieldAsync(settings, cancellationToken);
+            // Create an instance of the form field.
+            var field = foundFormFieldDefinition.CreateField(settings);
+
+            // Set the attributes on the form field that can be obtained from
+            // the form field definition (namely, icon and directive).
+            field.Icon = foundFormFieldDefinition.Icon;
+            field.Directive = foundFormFieldDefinition.Directive;
+
+            // Return the form field.
+            return field;
         }
     }
 }

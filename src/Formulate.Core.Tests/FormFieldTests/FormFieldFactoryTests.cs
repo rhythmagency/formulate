@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Formulate.Core.FormFields;
-using Xunit;
-
-namespace Formulate.Core.Tests.FormFieldTests
+﻿namespace Formulate.Core.Tests.FormFieldTests
 {
+    // Namespaces.
+    using FormFields;
+    using System;
+    using System.Collections.Generic;
+    using Xunit;
+
     public partial class FormFieldFactoryTests
     {
         [Fact(DisplayName = "When no settings provided should throw an Argument Null Exception")]
-        public async Task WhenNoSettingsProvidedShouldThrowArgumentNullException()
+        public void WhenNoSettingsProvidedShouldThrowArgumentNullException()
         {
             // arrange
             var factory = CreateFactory();
             TestFormFieldSettings settings = default;
 
             // act / asset
-            await Assert.ThrowsAsync<ArgumentNullException>(async () => await factory.CreateAsync(settings));
+            Assert.Throws<ArgumentNullException>(() => factory.Create(settings));
         }
 
         [Fact(DisplayName = "When no KindId matches should return Default")]
-        public async Task WhenNoKindIdMatchesShouldReturnDefault()
+        public void WhenNoKindIdMatchesShouldReturnDefault()
         {
             // arrange
             var factory = CreateFactory();
@@ -32,14 +30,14 @@ namespace Formulate.Core.Tests.FormFieldTests
             };
 
             // act
-            var formField = await factory.CreateAsync(settings);
+            var formField = factory.Create(settings);
 
             // assert
             Assert.Equal(default, formField);
         }
 
         [Fact(DisplayName = "When KindId matches a Form Field Definition should return an expected Form Field")]
-        public async Task WhenKindIdMatchesAFormFieldDefinitionShouldReturnAnExpectedFormField()
+        public void WhenKindIdMatchesAFormFieldDefinitionShouldReturnAnExpectedFormField()
         {
             // arrange
             var factory = CreateFactory();
@@ -49,7 +47,7 @@ namespace Formulate.Core.Tests.FormFieldTests
             };
 
             // act
-            var formField = await factory.CreateAsync(settings);
+            var formField = factory.Create(settings);
 
             // assert
             Assert.IsType<TestFormField>(formField);

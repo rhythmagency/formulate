@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace Formulate.Core.FormFields.Button
+﻿namespace Formulate.Core.FormFields.Button
 {
+    // Namespaces.
+    using System;
+
     /// <summary>
     /// The form field definition used to create <see cref="ButtonField"/>.
     /// </summary>
@@ -46,7 +47,7 @@ namespace Formulate.Core.FormFields.Button
         public override string Directive => Constants.Directive;
 
         /// <inheritdoc />
-        protected override IFormField CreateField(IFormFieldSettings settings)
+        public override FormField CreateField(IFormFieldSettings settings)
         {
             var configuration = new ButtonFieldConfiguration()
             {

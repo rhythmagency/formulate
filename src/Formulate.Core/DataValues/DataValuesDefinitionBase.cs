@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Formulate.Core.DataValues
+﻿namespace Formulate.Core.DataValues
 {
+    // Namespaces.
+    using System;
+
     /// <summary>
     /// The base class for creating data values definitions.
     /// </summary>
@@ -22,6 +21,6 @@ namespace Formulate.Core.DataValues
         public abstract string Icon { get; }
 
         /// <inheritdoc />
-        public abstract Task<IDataValues> CreateDataValuesAsync(IDataValuesSettings settings, CancellationToken cancellationToken = default);
+        public abstract IDataValues CreateDataValues(IDataValuesSettings settings);
     }
 }

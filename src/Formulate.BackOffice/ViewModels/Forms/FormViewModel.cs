@@ -27,7 +27,7 @@
         public string Alias { get; set; }
 
         /// <inheritdoc cref="PersistedForm.Fields"/>
-        public PersistedFormField[] Fields { get; set; }
+        public IFormField[] Fields { get; set; }
 
         /// <inheritdoc cref="PersistedForm.Handlers"/>
         public IFormHandler[] Handlers { get; set; }
@@ -38,13 +38,18 @@
         /// <param name="source">
         /// The persisted form to copy.
         /// </param>
-        public FormViewModel(PersistedForm source, IFormHandlerFactory formHandlerFactory)
+        public FormViewModel(PersistedForm source,
+            IFormHandlerFactory formHandlerFactory,
+            IFormFieldFactory formFieldFactory)
         {
             Id = source.Id;
             Path = source.Path;
             Name = source.Name;
             Alias = source.Alias;
-            Fields = source.Fields;
+            Fields = source.Fields
+                ?.Select(x => formFieldFactory.Create(x))
+                ?.Where(x => x != null)
+                ?.ToArray();
             Handlers = source.Handlers
                 ?.Select(x => formHandlerFactory.Create(x))
                 ?.ToArray();

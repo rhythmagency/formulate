@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Formulate.Core.FormFields;
-using Formulate.Core.Validations;
-
-namespace Formulate.Core.Tests.FormFieldTests
+﻿namespace Formulate.Core.Tests.FormFieldTests
 {
+    // Namespaces.
+    using FormFields;
+    using System;
+    using System.Collections.Generic;
+    using Validations;
+
     public partial class FormFieldFactoryTests
     {
         private static class Constants
@@ -36,7 +37,7 @@ namespace Formulate.Core.Tests.FormFieldTests
 
             public override string Directive => "formulate-test-field";
             
-            protected override IFormField CreateField(IFormFieldSettings settings)
+            public override FormField CreateField(IFormFieldSettings settings)
             {
                 return new TestFormField(settings);
             }

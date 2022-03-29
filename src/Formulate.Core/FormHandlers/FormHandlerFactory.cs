@@ -1,8 +1,9 @@
-﻿using System;
-using Formulate.Core.Types;
-
-namespace Formulate.Core.FormHandlers
+﻿namespace Formulate.Core.FormHandlers
 {
+    // Namespaces.
+    using System;
+    using Types;
+
     /// <summary>
     /// The default implementation of <see cref="IFormHandlerFactory"/> using the <see cref="FormHandlerDefinitionCollection"/>.
     /// </summary>

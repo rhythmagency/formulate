@@ -1,26 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Formulate.Core.DataValues;
-using Xunit;
-
-namespace Formulate.Core.Tests.DataValuesTests
+﻿namespace Formulate.Core.Tests.DataValuesTests
 {
+    // Namespaces.
+    using DataValues;
+    using System;
+    using System.Collections.Generic;
+    using Xunit;
+
     public partial class DataValuesFactoryTests
     {
         [Fact(DisplayName = "When no settings provided should throw an Argument Null Exception")]
-        public async Task WhenNoSettingsProvidedShouldThrowArgumentNullException()
+        public void WhenNoSettingsProvidedShouldThrowArgumentNullException()
         {
             // arrange
             var factory = CreateFactory();
             TestDataValuesSettings settings = default;
 
             // act / asset
-            await Assert.ThrowsAsync<ArgumentNullException>(async () => await factory.CreateAsync(settings));
+            Assert.Throws<ArgumentNullException>(() =>  factory.Create(settings));
         }
 
         [Fact(DisplayName = "When no KindId matches should return Default")]
-        public async Task WhenNoKindIdMatchesShouldReturnDefault()
+        public void WhenNoKindIdMatchesShouldReturnDefault()
         {
             // arrange
             var factory = CreateFactory();
@@ -30,14 +30,14 @@ namespace Formulate.Core.Tests.DataValuesTests
             };
 
             // act
-            var formField = await factory.CreateAsync(settings);
+            var formField = factory.Create(settings);
 
             // assert
             Assert.Equal(default, formField);
         }
 
         [Fact(DisplayName = "When KindId matches a Data Values Definition should return an expected Data Values")]
-        public async Task WhenKindIdMatchesADataValuesDefinitionShouldReturnAnExpectedDataValues()
+        public void WhenKindIdMatchesADataValuesDefinitionShouldReturnAnExpectedDataValues()
         {
             // arrange
             var factory = CreateFactory();
@@ -47,7 +47,7 @@ namespace Formulate.Core.Tests.DataValuesTests
             };
 
             // act
-            var formField = await factory.CreateAsync(settings);
+            var formField = factory.Create(settings);
 
             // assert
             Assert.IsType<TestDataValues>(formField);

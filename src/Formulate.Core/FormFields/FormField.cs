@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Formulate.Core.Validations;
-
-namespace Formulate.Core.FormFields
+﻿namespace Formulate.Core.FormFields
 {
+    // Namespaces.
+    using System;
+    using System.Collections.Generic;
+    using Validations;
+
     /// <summary>
     /// The extended base class for form fields with a configuration.
     /// </summary>
@@ -48,35 +49,33 @@ namespace Formulate.Core.FormFields
         /// <inheritdoc />
         public Guid KindId { get; }
 
-        /// <summary>
-        /// Gets the id.
-        /// </summary>
+        /// <inheritdoc />
         public Guid Id { get; }
 
-        /// <summary>
-        /// Gets the alias.
-        /// </summary>
+        /// <inheritdoc />
         public string Alias { get; }
 
-        /// <summary>
-        /// Gets the name.
-        /// </summary>
+        /// <inheritdoc />
         public string Name { get; }
 
-        /// <summary>
-        /// Gets the label.
-        /// </summary>
+        /// <inheritdoc />
         public string Label { get; }
 
-        /// <summary>
-        /// Gets the category.
-        /// </summary>
+        /// <inheritdoc />
         public string Category { get; }
 
-        /// <summary>
-        /// Gets the validations.
-        /// </summary>
+        /// <inheritdoc />
         public IReadOnlyCollection<IValidation> Validations { get; }
+
+        /// <summary>
+        /// Gets or sets the icon for this form field.
+        /// </summary>
+        public string Icon { get; set; }
+
+        /// <summary>
+        /// Gets or sets the AngularJS directive for this form field.
+        /// </summary>
+        public string Directive { get; set; }
 
         /// <summary>
         /// The raw configuration.

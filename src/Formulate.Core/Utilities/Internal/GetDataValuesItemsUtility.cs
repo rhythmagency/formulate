@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Formulate.Core.DataValues;
-
-namespace Formulate.Core.Utilities.Internal
+﻿namespace Formulate.Core.Utilities.Internal
 {
+    // Namespaces.
+    using DataValues;
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
     /// The default implementation of <see cref="IGetDataValuesItemsUtility"/>/
     /// </summary>
@@ -26,12 +25,12 @@ namespace Formulate.Core.Utilities.Internal
         }
 
         /// <inheritdoc />
-        public async Task<IReadOnlyCollection<KeyValuePair<string, string>>> GetValuesAsync(Guid id, CancellationToken cancellationToken = default)
+        public IReadOnlyCollection<KeyValuePair<string, string>> GetValues(Guid id)
         {
             // TODO: get data value settings for entity id.
             var settings = default(IDataValuesSettings);
 
-            var definition = await _dataValuesFactory.CreateAsync(settings, cancellationToken);
+            var definition = _dataValuesFactory.Create(settings);
 
             if (definition is null)
             {

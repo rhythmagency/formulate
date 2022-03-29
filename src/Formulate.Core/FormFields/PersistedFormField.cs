@@ -1,7 +1,9 @@
-﻿using System;
-
-namespace Formulate.Core.FormFields
+﻿namespace Formulate.Core.FormFields
 {
+    // Namespaces.
+    using System;
+    using System.Text.Json.Serialization;
+
     /// <summary>
     /// A persisted form field.
     /// </summary>
@@ -15,6 +17,7 @@ namespace Formulate.Core.FormFields
         /// <summary>
         /// Gets or sets the kind ID.
         /// </summary>
+        [JsonPropertyName("TypeId")]
         public Guid KindId { get; set; }
 
         /// <summary>

@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Formulate.Core.DataValues.UsStates
+﻿namespace Formulate.Core.DataValues.UsStates
 {
+    // Namespaces.
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
     /// A data values definition for providing US states and territories.
     /// </summary>
@@ -47,7 +48,7 @@ namespace Formulate.Core.DataValues.UsStates
         public override string Icon => Constants.Icon;
 
         /// <inheritdoc />
-        protected override IDataValues CreateDataValues(IDataValuesSettings settings)
+        public override IDataValues CreateDataValues(IDataValuesSettings settings)
         {
             var items = new KeyValuePair<string, string>[]
             {

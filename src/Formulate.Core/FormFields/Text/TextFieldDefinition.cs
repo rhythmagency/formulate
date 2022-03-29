@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace Formulate.Core.FormFields.Text
+﻿namespace Formulate.Core.FormFields.Text
 {
+    // Namespaces.
+    using System;
+
     /// <summary>
     /// A text form field definition.
     /// </summary>
@@ -46,7 +47,7 @@ namespace Formulate.Core.FormFields.Text
         public override Guid KindId => Guid.Parse(Constants.KindId);
 
         /// <inheritdoc />
-        protected override IFormField CreateField(IFormFieldSettings settings)
+        public override FormField CreateField(IFormFieldSettings settings)
         {
             return new TextField(settings);
         }

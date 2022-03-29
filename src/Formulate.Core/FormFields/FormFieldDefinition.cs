@@ -1,9 +1,8 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Formulate.Core.DataValues;
-
-namespace Formulate.Core.FormFields
+﻿namespace Formulate.Core.FormFields
 {
+    // Namespaces.
+    using DataValues;
+
     /// <summary>
     /// The abstract class for creating synchronous data values definitions.
     /// </summary>
@@ -14,11 +13,5 @@ namespace Formulate.Core.FormFields
     /// </remarks>
     public abstract class FormFieldDefinition : FormFieldDefinitionBase
     {
-        protected abstract IFormField CreateField(IFormFieldSettings settings);
-
-        public override async Task<IFormField> CreateFieldAsync(IFormFieldSettings settings, CancellationToken cancellationToken = default)
-        {
-            return await Task.Run(() => CreateField(settings), cancellationToken);
-        }
     }
 }

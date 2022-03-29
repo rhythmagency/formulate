@@ -1,11 +1,13 @@
-﻿using Formulate.Core.Types;
-
-namespace Formulate.Core.DataValues
+﻿namespace Formulate.Core.DataValues
 {
+    // Namespaces.
+    using Types;
+
     /// <summary>
     /// Creates a <see cref="IDataValues"/>.
     /// </summary>
-    public interface IDataValuesFactory : IAsyncEntityFactory<IDataValuesSettings, IDataValues>
+    public interface IDataValuesFactory
+        : IEntityFactory<IDataValuesSettings, IDataValues>
     {
     }
 }

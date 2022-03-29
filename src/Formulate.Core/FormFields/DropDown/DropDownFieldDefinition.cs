@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Formulate.Core.Utilities;
-
-namespace Formulate.Core.FormFields.DropDown
+﻿namespace Formulate.Core.FormFields.DropDown
 {
+    // Namesapces.
+    using Utilities;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// A drop down form field definition.
     /// </summary>
@@ -79,14 +78,14 @@ namespace Formulate.Core.FormFields.DropDown
         }
 
         /// <inheritdoc />
-        public override async Task<IFormField> CreateFieldAsync(IFormFieldSettings settings, CancellationToken cancellationToken = default)
+        public override FormField CreateField(IFormFieldSettings settings)
         {
             var items = new List<DropDownFieldItem>();
             var preValues = _jsonUtility.Deserialize<DropDownFieldPreValues>(settings.Data);
 
             if (preValues is not null)
             {
-                var values = await _getDataValuesItemsUtility.GetValuesAsync(preValues.DataValue, cancellationToken);
+                var values = _getDataValuesItemsUtility.GetValues(preValues.DataValue);
 
                 if (values is not null)
                 {

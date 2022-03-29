@@ -1,8 +1,8 @@
-﻿using System;
-using Formulate.Core.Types;
-
-namespace Formulate.Core.FormHandlers
+﻿namespace Formulate.Core.FormHandlers
 {
+    // Namespaces.
+    using Types;
+
     /// <summary>
     /// Settings for creating a form handler.
     /// </summary>

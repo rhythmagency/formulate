@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Formulate.Core.DataValues;
-
-namespace Formulate.Core.Tests.DataValuesTests
+﻿namespace Formulate.Core.Tests.DataValuesTests
 {
+    // Namespaces.
+    using DataValues;
+    using System;
+    using System.Collections.Generic;
+
     public partial class DataValuesFactoryTests
     {
         private static class Constants
@@ -33,9 +32,9 @@ namespace Formulate.Core.Tests.DataValuesTests
 
             public override string Icon => "icon-test";
 
-            public override async Task<IDataValues> CreateDataValuesAsync(IDataValuesSettings settings, CancellationToken cancellationToken = default)
+            public override IDataValues CreateDataValues(IDataValuesSettings settings)
             {
-                return await Task.Run(() => new TestDataValues(settings, new List<KeyValuePair<string, string>>()), cancellationToken);
+                return new TestDataValues(settings, new List<KeyValuePair<string, string>>());
             }
         }
 

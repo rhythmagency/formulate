@@ -1,9 +1,8 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Formulate.Core.Types;
-
-namespace Formulate.Core.FormFields
+﻿namespace Formulate.Core.FormFields
 {
+    // Namespaces.
+    using Types;
+
     /// <summary>
     /// A contract for implementing a form field definition.
     /// </summary>
@@ -35,11 +34,14 @@ namespace Formulate.Core.FormFields
         bool IsStored { get; }
 
         /// <summary>
-        /// Asynchronously creates a new instance of a <see cref="IFormField"/>.
+        /// Creates a new instance of a <see cref="FormField"/>.
         /// </summary>
-        /// <param name="settings">The current form field settings.</param>
-        /// <param name="cancellationToken">The optional cancellation token to cancel the operation.</param>
-        /// <returns>A <see cref="IFormField"/>.</returns>
-        Task<IFormField> CreateFieldAsync(IFormFieldSettings settings, CancellationToken cancellationToken = default);
+        /// <param name="settings">
+        /// The current form field settings.
+        /// </param>
+        /// <returns>
+        /// A <see cref="FormField"/>.
+        /// </returns>
+        FormField CreateField(IFormFieldSettings settings);
     }
 }

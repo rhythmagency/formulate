@@ -117,6 +117,8 @@ class FormDesignerEventHandlers {
     // Properties.
     $scope;
     overlayService;
+    handlerAccordion;
+    fieldAccordion;
 
     /**
      * Constructor.
@@ -125,6 +127,7 @@ class FormDesignerEventHandlers {
     constructor(services) {
         Object.keys(services).forEach((x) => this[x] = services[x]);
         this.handlerAccordion = new window.FormulateAccordion(services);
+        this.fieldAccordion = new window.FormulateAccordion(services);
     }
 
     /**
@@ -134,7 +137,7 @@ class FormDesignerEventHandlers {
      */
     toggleField = (field, target) => {
         let fieldsetEl = target.closest('fieldset');
-        this.handlerAccordion.handleClick(field, fieldsetEl, '.formulate-field-details');
+        this.fieldAccordion.handleClick(field, fieldsetEl, '.formulate-field-details');
     };
 
     /**
