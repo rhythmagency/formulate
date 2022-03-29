@@ -274,7 +274,7 @@ class FormDesignerEventHandlers {
 
         // The data sent to the form field chooser.
         let data = {
-            title: "Add Handler",
+            title: "Add Field",
             subtitle: "Choose one of the following form fields to add to your form.",
             view: "/app_plugins/formulatebackoffice/directives/overlays/formfieldchooser/form-field-chooser-overlay.html",
             hideSubmitButton: true,
