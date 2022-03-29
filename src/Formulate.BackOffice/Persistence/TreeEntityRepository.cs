@@ -233,11 +233,14 @@ namespace Formulate.BackOffice.Persistence
         }
 
         /// <summary>
-        /// Gets the Root ID for the current ent
-        /// ity type/
+        /// Gets the root ID for the specified entity type.
         /// </summary>
-        /// <param name="treeRootType">The tree root type.</param>
-        /// <returns>A <see cref="string"/>.</returns>
+        /// <param name="treeRootType">
+        /// The tree root type.
+        /// </param>
+        /// <returns>
+        /// A <see cref="string"/>. representaiton of the root ID.
+        /// </returns>
         private static string GetRootIdString(TreeRootTypes treeRootType)
         {
             return treeRootType switch

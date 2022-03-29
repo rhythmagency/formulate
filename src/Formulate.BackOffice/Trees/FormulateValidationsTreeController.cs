@@ -1,21 +1,19 @@
-﻿using Formulate.BackOffice.Attributes;
-using Formulate.BackOffice.Persistence;
-using Formulate.Core.Folders;
-using Formulate.Core.Forms;
-using Formulate.Core.Persistence;
-using Formulate.Core.Validations;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Umbraco.Cms.Core;
-using Umbraco.Cms.Core.Events;
-using Umbraco.Cms.Core.Services;
-using Umbraco.Cms.Core.Trees;
-using Umbraco.Cms.Web.BackOffice.Trees;
-using Umbraco.Cms.Web.Common.Attributes;
-
-namespace Formulate.BackOffice.Trees
+﻿namespace Formulate.BackOffice.Trees
 {
+    // Namespaces.
+    using Attributes;
+    using Core.Folders;
+    using Core.Persistence;
+    using Core.Validations;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Persistence;
+    using Umbraco.Cms.Core;
+    using Umbraco.Cms.Core.Events;
+    using Umbraco.Cms.Core.Services;
+    using Umbraco.Cms.Core.Trees;
+    using Umbraco.Cms.Web.BackOffice.Trees;
+
     /// <summary>
     /// The Formulate validations tree controller.
     /// </summary>

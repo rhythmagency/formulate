@@ -295,7 +295,32 @@ class FormDesignerEventHandlers {
         return this.$scope.initialized;
     }
 
-}
+    /**
+     * Opens the validation chooser dialog.
+     * @param field The field to choose validations for.
+     */
+    pickValidations = (field) => {
 
+        // This is called when the dialog is closed.
+        let closer = () => {
+            this.overlayService.close();
+        };
+
+        // The data sent to the validation chooser.
+        let data = {
+            title: "Choose Validations",
+            subtitle: "Choose any of these validations to add to your field. They will be evaluated in the order you choose them.",
+            view: "/app_plugins/formulatebackoffice/directives/overlays/validationchooser/validation-chooser-overlay.html",
+            hideSubmitButton: true,
+            close: closer,
+            validations: field.validations,
+        };
+
+        // Open the overlay that displays the validations.
+        this.overlayService.open(data);
+
+    };
+
+}
 
 angular.module("umbraco.directives").directive("formulateFormDesignerV2", formulateFormDesignerDirective);
