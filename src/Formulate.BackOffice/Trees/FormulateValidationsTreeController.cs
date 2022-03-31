@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Persistence;
+    using System.Collections.Generic;
     using Umbraco.Cms.Core;
     using Umbraco.Cms.Core.Events;
     using Umbraco.Cms.Core.Services;
@@ -83,6 +84,14 @@
             }
 
             return menuItemCollection;
+        }
+
+        /// <inheritdoc />
+        protected override void SetAdditionalNodeData(IPersistedEntity entity,
+            IDictionary<string, object> data)
+        {
+            var validation = entity as PersistedValidation;
+            data["NodeKindId"] = validation.KindId;
         }
     }
 }

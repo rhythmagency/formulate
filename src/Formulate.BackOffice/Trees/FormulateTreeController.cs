@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Formulate.BackOffice.Persistence;
-using Formulate.Core.Folders;
-using Formulate.Core.Persistence;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Umbraco.Cms.Core;
-using Umbraco.Cms.Core.Events;
-using Umbraco.Cms.Core.Services;
-using Umbraco.Cms.Core.Trees;
-using Umbraco.Cms.Web.BackOffice.Trees;
-using Umbraco.Extensions;
-
-namespace Formulate.BackOffice.Trees
+﻿namespace Formulate.BackOffice.Trees
 {
+    // Namespaces.
+    using Core.Folders;
+    using Core.Persistence;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Persistence;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Umbraco.Cms.Core;
+    using Umbraco.Cms.Core.Events;
+    using Umbraco.Cms.Core.Services;
+    using Umbraco.Cms.Core.Trees;
+    using Umbraco.Cms.Web.BackOffice.Trees;
+    using Umbraco.Extensions;
+
     /// <summary>
     /// A base tree controller class for handling Formulate entity trees.
     /// </summary>
@@ -93,6 +94,11 @@ namespace Formulate.BackOffice.Trees
                 node.Path = entity.TreeSafePathString();
                 node.NodeType = entity.EntityType().ToString();
 
+                // Set additional data so it is readily available to the frontend.
+                node.AdditionalData["NodeId"] = entity.Id;
+                node.AdditionalData["NodeName"] = entity.Name;
+                SetAdditionalNodeData(entity, node.AdditionalData);
+
                 nodes.Add(node);
             }
 
@@ -148,6 +154,22 @@ namespace Formulate.BackOffice.Trees
         protected virtual string GetNodeIcon(IPersistedEntity entity)
         {
             return entity.IsFolder() ? FolderNodeIcon : ItemNodeIcon;
+        }
+
+        /// <summary>
+        /// Sets additional data to be passed to the frontend for the given
+        /// entity.
+        /// </summary>
+        /// <param name="entity">
+        /// The entity being returned to the frontend as a node.
+        /// </param>
+        /// <param name="data">
+        /// The object to set the additional data on.
+        /// </param>
+        protected virtual void SetAdditionalNodeData(IPersistedEntity entity,
+            IDictionary<string, object> data)
+        {
+            // Does nothing here. Derived classes may set additional data.
         }
 
         /// <summary>

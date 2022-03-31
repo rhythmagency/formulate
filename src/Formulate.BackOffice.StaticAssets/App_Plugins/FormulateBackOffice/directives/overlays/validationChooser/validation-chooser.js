@@ -70,10 +70,11 @@
          * @param node The node to potentially select.
          */
         selectValidationNodeIfSelected = (node) => {
+            const meta = node.metaData;
             if (node.id === '-1') {
                 return;
             }
-            if (this.$scope.model.validations.some(x => x === node.id)) {
+            if (this.$scope.model.validations.some(x => x.id === meta.NodeId)) {
                 node.selected = true;
             }
         }
@@ -88,20 +89,28 @@
             args.event.preventDefault();
             args.event.stopPropagation();
 
+            // Variables.
+            const node = args.node;
+            const meta = node.metaData;
+
             // If this is not a validation node (e.g., if it's a folder), exit early.
-            if (args.node.nodeType !== 'Validation') {
+            if (node.nodeType !== 'Validation') {
                 return;
             }
 
             // Toggle the node.
-            args.node.selected = !args.node.selected;
+            node.selected = !node.selected;
 
             // Either add or remove the selected/deselected validation.
             const validations = this.$scope.model.validations;
-            if (args.node.selected) {
-                validations.push(args.node.id);
+            if (node.selected) {
+                validations.push({
+                    id: meta.NodeId,
+                    kindId: meta.NodeKindId,
+                    name: meta.NodeName,
+                });
             } else {
-                const existingIndex = validations.indexOf(args.node.id);
+                const existingIndex = validations.findIndex(x => x.id === meta.NodeId);
                 if (existingIndex >= 0) {
                     validations.splice(existingIndex, 1);
                 }
