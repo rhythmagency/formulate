@@ -36,6 +36,9 @@ namespace Formulate.Core.Validations
         /// <inheritdoc />
         public Guid KindId { get; }
 
+        /// <inheritdoc />
+        public string Name { get; set; }
+
         /// <summary>
         /// The raw configuration.
         /// </summary>

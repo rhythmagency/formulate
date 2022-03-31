@@ -1,8 +1,10 @@
 ﻿namespace Formulate.Core.FormFields
 {
     // Namespaces.
-    using Types;
     using System;
+    using System.Linq;
+    using Types;
+    using Validations;
 
     /// <summary>
     /// The default implementation of <see cref="IFormFieldFactory"/> using the <see cref="FormFieldDefinitionCollection"/>.
@@ -14,13 +16,31 @@
         /// </summary>
         private readonly FormFieldDefinitionCollection _formFieldDefinitions;
 
+        /// <inheritdoc cref="IValidationFactory" />
+        private readonly IValidationFactory _validationFactory;
+
+        /// <inheritdoc cref="IValidationEntityRepository" />
+        private readonly IValidationEntityRepository _validationEntityRepository;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FormFieldFactory"/> class.
         /// </summary>
-        /// <param name="formFieldDefinitions">The form field definitions.</param>
-        public FormFieldFactory(FormFieldDefinitionCollection formFieldDefinitions)
+        /// <param name="formFieldDefinitions">
+        /// The form field definitions.
+        /// </param>
+        /// <param name="validationFactory">
+        /// Factory for creating validations.
+        /// </param>
+        /// <param name="validationEntityRepository">
+        /// The repository of validations.
+        /// </param>
+        public FormFieldFactory(FormFieldDefinitionCollection formFieldDefinitions,
+            IValidationFactory validationFactory,
+            IValidationEntityRepository validationEntityRepository)
         {
             _formFieldDefinitions = formFieldDefinitions;
+            _validationFactory = validationFactory;
+            _validationEntityRepository = validationEntityRepository;
         }
 
         /// <inheritdoc />
@@ -48,6 +68,12 @@
             // the form field definition (namely, icon and directive).
             field.Icon = foundFormFieldDefinition.Icon;
             field.Directive = foundFormFieldDefinition.Directive;
+
+            // Set the validations.
+            field.Validations = settings.Validations
+                .Select(x => _validationEntityRepository.Get(x))
+                .Select(x => _validationFactory.Create(x))
+                .ToArray();
 
             // Return the form field.
             return field;

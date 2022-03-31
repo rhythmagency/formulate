@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace Formulate.Core.Types
+﻿namespace Formulate.Core.Types
 {
+    // Namespaces.
+    using System;
+
     /// <summary>
     /// The underlying definition for entities created by a <see cref="IDefinition"/>.
     /// </summary>

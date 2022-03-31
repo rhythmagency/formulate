@@ -1,8 +1,9 @@
-﻿using System;
-using Formulate.Core.Types;
-
-namespace Formulate.Core.Validations
+﻿namespace Formulate.Core.Validations
 {
+    // Namespaces.
+    using System;
+    using Types;
+
     /// <summary>
     /// The default implementation of <see cref="IValidationFactory"/> using the <see cref="ValidationDefinitionCollection"/>.
     /// </summary>
@@ -33,7 +34,13 @@ namespace Formulate.Core.Validations
 
             var foundValidationDefinition = _validationDefinitions.FirstOrDefault(settings.KindId);
 
-            return foundValidationDefinition?.CreateValidation(settings);
+            var validation = foundValidationDefinition?.CreateValidation(settings);
+
+            // Set the attributes on the validation that can be obtained from
+            // the validation definition (namely, name).
+            validation.Name = settings.Name;
+
+            return validation;
         }
     }
 }
