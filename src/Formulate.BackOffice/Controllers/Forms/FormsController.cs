@@ -147,8 +147,8 @@
                 return NotFound();
             }
 
-            // If this is a folder, return immediately.
-            if (baseResult.Entity is PersistedFolder)
+            // If this is a folder or configured form, return immediately.
+            if (baseResult.Entity is not PersistedForm)
             {
                 return Ok(baseResult);
             }
