@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 function formulateFormDesignerDirective(
-        overlayService, $timeout, formHelper, $http, $routeParams) {
+        overlayService, $timeout, formHelper, $http, $routeParams, notificationsService) {
     const directive = {
         replace: true,
         templateUrl: "/app_plugins/formulatebackoffice/directives/designers/form.designer.html",
@@ -109,6 +109,7 @@ function formulateFormDesignerDirective(
                 $routeParams,
                 overlayService,
                 formHelper,
+                notificationsService,
             });
         }
     };
@@ -159,6 +160,7 @@ class FormDesignerEventHandlers {
     $routeParams;
     overlayService;
     formHelper;
+    notificationsService;
 
     // Data properties.
     handlerAccordion;
@@ -445,7 +447,7 @@ class FormDesignerEventHandlers {
             // Save the data to the server.
             this.$http.post(url, payload).then(() => {
                 this.$scope.saveButtonState = 'init';
-                notificationsService.success("Form saved.");
+                this.notificationsService.success("Form saved.");
             });
 
         }
