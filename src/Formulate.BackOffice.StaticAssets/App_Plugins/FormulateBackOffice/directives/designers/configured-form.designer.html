@@ -1,0 +1,43 @@
+﻿<div>
+    <form novalidate name="formulateConfiguredFormDesigner"
+          ng-submit="save()"
+          val-form-manager>
+        <umb-editor-view>
+
+            <!-- Header. -->
+            <umb-editor-header name="entity.name"
+                               alias="entity.alias"
+                               hide-icon="true"
+                               hide-description="true">
+            </umb-editor-header>
+
+            <!-- Primary content. -->
+            <umb-editor-container>
+                <div class="form-horizontal">
+                    <div class="umb-group-panel">
+                        <div class="umb-group-panel__content">
+                            <p>
+                                TODO: Implement configured form designer here.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </umb-editor-container>
+
+            <!-- Footer with save button. -->
+            <umb-editor-footer>
+                <umb-editor-footer-content-right>
+                    <umb-button alias="save"
+                                type="submit"
+                                button-style="success"
+                                state="saveButtonState"
+                                shortcut="ctrl+s"
+                                label-key="formulate-buttons_Save"
+                                disabled="!canSave()">
+                    </umb-button>
+                </umb-editor-footer-content-right>
+            </umb-editor-footer>
+
+        </umb-editor-view>
+    </form>
+</div>
