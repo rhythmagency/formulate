@@ -137,7 +137,7 @@ function formulateFormDesignerDirective(
         const payload = {
             parentId,
         };
-        $http.post(url, payload).then((response) => {
+        $http.post(url, payload).then(({data: response}) => {
             entity.id = response.id;
             entity.path = response.path;
             $scope.initialized = true;
@@ -410,48 +410,50 @@ class FormDesignerEventHandlers {
             const url = Umbraco.Sys.ServerVariables.formulate["forms.Save"];
             const entity = this.$scope.entity;
             const payload = {
-                entity: {
-                    alias: entity.alias,
-                    id: entity.id,
-                    name: entity.name,
-                    path: entity.path,
-                    fields: entity.fields.map(x => {
-                        return {
-                            alias: x.alias,
-                            category: x.category,
-                            id: x.id,
-                            kindId: x.kindId,
-                            name: x.name,
-                            label: x.label,
-                            data: JSON.stringify(x.configuration),
-                            validations: x.validations.map(y => {
-                                return y.id;
-                            }),
-                        };
-                    }),
-                    handlers: entity.handlers.map(x => {
-                        return {
-                            alias: x.alias,
-                            enabled: x.enabled,
-                            id: x.id,
-                            kindId: x.kindId,
-                            name: x.name,
-                            //TODO: Double check naming (not sure if configuration is correct).
-                            data: JSON.stringify(x.configuration),
-                        };
-                    }),
-                },
+                alias: entity.alias,
+                id: entity.id,
+                name: entity.name,
+                path: entity.path,
+                fields: entity.fields.map(x => {
+                    return {
+                        alias: x.alias,
+                        category: x.category,
+                        id: x.id,
+                        kindId: x.kindId,
+                        name: x.name,
+                        label: x.label,
+                        data: JSON.stringify(x.configuration),
+                        validations: x.validations.map(y => {
+                            return y.id;
+                        }),
+                    };
+                }),
+                handlers: entity.handlers.map(x => {
+                    return {
+                        alias: x.alias,
+                        enabled: x.enabled,
+                        id: x.id,
+                        kindId: x.kindId,
+                        name: x.name,
+                        //TODO: Double check naming (not sure if configuration is correct).
+                        data: JSON.stringify(x.configuration),
+                    };
+                }),
             };
 
             // Save the data to the server.
-            this.$http.post(url, payload).then(() => {
+            this.$http.post(url, payload).then(({data: {success}}) => {
                 this.$scope.saveButtonState = 'init';
                 const resetData = {
                     scope: this.$scope,
                     formCtrl: this.$scope.createFolderForm,
                 };
                 this.formHelper.resetForm(resetData);
-                this.notificationsService.success("Form saved.");
+                if (success) {
+                    this.notificationsService.success("Form saved.");
+                } else {
+                    this.notificationsService.error("Unknown error while saving form.");
+                }
             });
 
         } else {

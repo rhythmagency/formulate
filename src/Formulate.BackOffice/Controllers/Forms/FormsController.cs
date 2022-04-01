@@ -8,7 +8,6 @@
     using Core.FormHandlers;
     using Core.Forms;
     using Core.Persistence;
-    using Core.Validations;
     using Microsoft.AspNetCore.Mvc;
     using Persistence;
     using System;
@@ -28,6 +27,7 @@
     [FormulateBackOfficePluginController]
     public sealed class FormsController : FormulateBackOfficeEntityApiController
     {
+        private readonly IFormEntityRepository formEntityRepository;
         private readonly IFormHandlerFactory formHandlerFactory;
         private readonly IFormFieldFactory formFieldFactory;
         private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
@@ -35,12 +35,14 @@
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
+            IFormEntityRepository formEntityRepository,
             IFormHandlerFactory formHandlerFactory,
             IFormFieldFactory formFieldFactory,
             FormHandlerDefinitionCollection formHandlerDefinitions,
             FormFieldDefinitionCollection formFieldDefinitions)
             : base(treeEntityRepository, localizedTextService)
         {
+            this.formEntityRepository = formEntityRepository;
             this.formHandlerFactory = formHandlerFactory;
             this.formFieldFactory = formFieldFactory;
             this.formHandlerDefinitions = formHandlerDefinitions;
@@ -159,11 +161,23 @@
             return Ok(formResponse);
         }
 
-        //TODO: Implement.
+        /// <summary>
+        /// Saves the form.
+        /// </summary>
+        /// <param name="request">
+        /// The request to save the form.
+        /// </param>
+        /// <returns>
+        /// An indicator of success.
+        /// </returns>
         [HttpPost]
-        public ActionResult Save(SavePersistedFormRequest request)
+        public ActionResult Save(PersistedForm entity)
         {
-            return new EmptyResult();
+            formEntityRepository.Save(entity);
+            return Ok(new
+            {
+                Success = true,
+            });
         }
 
         /// <summary>
@@ -233,7 +247,7 @@
                 // Create new path.
                 newPath = new Guid[]
                 {
-                    Guid.Parse(ValidationConstants.RootId),
+                    Guid.Parse(FormConstants.RootId),
                     newId,
                 };
             }
