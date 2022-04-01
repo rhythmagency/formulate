@@ -66,8 +66,6 @@ function formulateFormDesignerDirective(
                 opacity: 0.5
             };
 
-            scope.initialized = true;
-
             // we need to check whether an app is present in the current data, if not we will present the default app.
             var isAppPresent = false;
 
@@ -131,6 +129,7 @@ function formulateFormDesignerDirective(
 
         // Return early if the path and ID are already set.
         if (path && path.length && id) {
+            $scope.initialized = true;
             return;
         }
 
@@ -141,7 +140,7 @@ function formulateFormDesignerDirective(
         $http.post(url, payload).then((response) => {
             entity.id = response.id;
             entity.path = response.path;
-            //TODO: Set save button state (initially set it to busy or something)?
+            $scope.initialized = true;
         });
 
     }
@@ -372,7 +371,7 @@ class FormDesignerEventHandlers {
      * @returns {boolean} True, if the form can be saved; otherwise, false.
      */
     canSave = () => {
-        return this.isReadyToSave() && this.hasValidName();
+        return this.$scope.initialized && this.isReadyToSave() && this.hasValidName();
     };
 
     /**
