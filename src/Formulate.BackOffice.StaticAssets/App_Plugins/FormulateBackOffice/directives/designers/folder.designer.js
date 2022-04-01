@@ -61,5 +61,5 @@
         return directive;
     }
 
-    angular.module("umbraco.directives").directive("formulateFolderDesignerV2", formulateFolderDesignerDirective);
+    angular.module("umbraco.directives").directive("formulateFolderDesigner", formulateFolderDesignerDirective);
 })();

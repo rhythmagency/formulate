@@ -1,11 +1,11 @@
 ﻿<div ng-if="entity">
     <div ng-switch="entityType">
         <p ng-switch-when="ConfiguredForm">Configured Form stub</p>
-        <formulate-folder-designer-v2 ng-switch-when="Folder" entity="entity" tree-type="treeType"></formulate-folder-designer-v2>
-        <formulate-form-designer-v2 ng-switch-when="Form" entity="entity"></formulate-form-designer-v2>
-        <formulate-data-values-designer-v2 ng-switch-when="DataValues" entity="entity"></formulate-data-values-designer-v2>
+        <formulate-folder-designer ng-switch-when="Folder" entity="entity" tree-type="treeType"></formulate-folder-designer>
+        <formulate-form-designer ng-switch-when="Form" entity="entity"></formulate-form-designer>
+        <formulate-data-values-designer ng-switch-when="DataValues" entity="entity"></formulate-data-values-designer>
         <p ng-switch-when="Layout">Layout stub</p>
-        <formulate-validation-designer-v2 ng-switch-when="Validation" entity="entity"></formulate-validation-designer-v2>
+        <formulate-validation-designer ng-switch-when="Validation" entity="entity"></formulate-validation-designer>
         <div ng-switch-default>
             <p>Unknown!</p>
         </div>

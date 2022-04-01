@@ -472,4 +472,4 @@ class FormDesignerEventHandlers {
 
 }
 
-angular.module("umbraco.directives").directive("formulateFormDesignerV2", formulateFormDesignerDirective);
+angular.module("umbraco.directives").directive("formulateFormDesigner", formulateFormDesignerDirective);

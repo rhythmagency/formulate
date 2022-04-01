@@ -74,5 +74,5 @@
         return directive;
     }
 
-    angular.module("umbraco.directives").directive("formulateDataValuesDesignerV2", formulateValidationDesignerDirective);
+    angular.module("umbraco.directives").directive("formulateDataValuesDesigner", formulateValidationDesignerDirective);
 })();
