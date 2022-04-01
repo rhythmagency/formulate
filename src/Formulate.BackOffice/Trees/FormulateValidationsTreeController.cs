@@ -91,7 +91,10 @@
             IDictionary<string, object> data)
         {
             var validation = entity as PersistedValidation;
-            data["NodeKindId"] = validation.KindId;
+            if (validation != null)
+            {
+                data["NodeKindId"] = validation.KindId;
+            }
         }
     }
 }
