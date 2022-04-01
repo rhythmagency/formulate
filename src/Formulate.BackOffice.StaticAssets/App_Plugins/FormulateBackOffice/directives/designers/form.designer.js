@@ -1,6 +1,7 @@
 ﻿"use strict";
 
-function formulateFormDesignerDirective(overlayService, $timeout) {
+function formulateFormDesignerDirective(
+        overlayService, $timeout, formHelper, $http, $routeParams) {
     const directive = {
         replace: true,
         templateUrl: "/app_plugins/formulatebackoffice/directives/designers/form.designer.html",
@@ -8,6 +9,7 @@ function formulateFormDesignerDirective(overlayService, $timeout) {
             entity: "<"
         },
         link: function (scope, element, attrs) {
+            scope.saveButtonState = 'init';
             scope.initialized = false;
             // TODO: Replace placeholder value for apps view to use separate subviews
             // For now a placeholder value is set for view to ensure
@@ -98,13 +100,50 @@ function formulateFormDesignerDirective(overlayService, $timeout) {
                 scope.appChanged(scope.apps[0]);
             }
 
+            initializeIdAndPath(scope);
+
             scope.events = new FormDesignerEventHandlers({
                 $scope: scope,
-                overlayService: overlayService,
-                $timeout: $timeout,
+                $timeout,
+                $http,
+                $routeParams,
+                overlayService,
+                formHelper,
             });
         }
     };
+
+    /**
+     * Initializes the ID and path of the entity if it is new.
+     * @param $scope The current AngularJS scope.
+     */
+    function initializeIdAndPath($scope) {
+
+        // Variables.
+        const entity = $scope.entity;
+        const path = entity.path;
+        const id = entity.id;
+        const url = Umbraco.Sys.ServerVariables.formulate["Validations.GenerateNewPathAndId"];
+        const parentId = !$routeParams.isNew && $routeParams.id && $routeParams.id !== "-1"
+            ? $routeParams.id
+            : null;
+
+        // Return early if the path and ID are already set.
+        if (path && path.length && id) {
+            return;
+        }
+
+        // Get the path and ID from the server.
+        const payload = {
+            parentId,
+        };
+        $http.post(url, payload).then((response) => {
+            entity.id = response.id;
+            entity.path = response.path;
+            //TODO: Set save button state (initially set it to busy or something)?
+        });
+
+    }
 
     return directive;
 }
@@ -114,9 +153,14 @@ function formulateFormDesignerDirective(overlayService, $timeout) {
  */
 class FormDesignerEventHandlers {
 
-    // Properties.
+    // Service properties.
     $scope;
+    $http;
+    $routeParams;
     overlayService;
+    formHelper;
+
+    // Data properties.
     handlerAccordion;
     fieldAccordion;
 
@@ -319,6 +363,92 @@ class FormDesignerEventHandlers {
         // Open the overlay that displays the validations.
         this.overlayService.open(data);
 
+    };
+
+    /**
+     * Can the form be saved currently?
+     * @returns {boolean} True, if the form can be saved; otherwise, false.
+     */
+    canSave = () => {
+        return this.isReadyToSave() && this.hasValidName();
+    };
+
+    /**
+     * Is the form currently in a state which is not busy?
+     * @returns {boolean} True, if the form is in a state that is ready to save;
+     *      otherwise, false.
+     */
+    isReadyToSave = () => {
+        return this.$scope.saveButtonState !== 'busy';
+    };
+
+    /**
+     * Does the form have a valid name?
+     * @returns {boolean} True, if the form has a valid name; otherwise, false.
+     */
+    hasValidName = () => {
+        return this.$scope.entity.name && this.$scope.entity.name.length > 0;
+    };
+
+    /**
+     * Saves the form to the server.
+     */
+    save = () => {
+
+        // Mark the save button as busy, so it can't double submit.
+        this.$scope.saveButtonState = 'busy';
+
+        // Indicate that the form is submitting (e.g., performs field validation).
+        const submitFormData = {
+            scope: this.$scope,
+            formCtrl: this.$scope.formCtrl,
+        };
+        if (this.formHelper.submitForm(submitFormData)) {
+
+            // Prepare the data to save.
+            const url = Umbraco.Sys.ServerVariables.formulate["forms.Save"];
+            const entity = this.$scope.entity;
+            const payload = {
+                entity: {
+                    alias: entity.alias,
+                    id: entity.id,
+                    name: entity.name,
+                    path: entity.path,
+                    fields: entity.fields.map(x => {
+                        return {
+                            alias: x.alias,
+                            category: x.category,
+                            id: x.id,
+                            kindId: x.kindId,
+                            name: x.name,
+                            label: x.label,
+                            data: JSON.stringify(x.configuration),
+                            validations: x.validations.map(y => {
+                                return y.id;
+                            }),
+                        };
+                    }),
+                    handlers: entity.handlers.map(x => {
+                        return {
+                            alias: x.alias,
+                            enabled: x.enabled,
+                            id: x.id,
+                            kindId: x.kindId,
+                            name: x.name,
+                            //TODO: Double check naming (not sure if configuration is correct).
+                            data: JSON.stringify(x.configuration),
+                        };
+                    }),
+                },
+            };
+
+            // Save the data to the server.
+            this.$http.post(url, payload).then(() => {
+                this.$scope.saveButtonState = 'init';
+                notificationsService.success("Form saved.");
+            });
+
+        }
     };
 
 }

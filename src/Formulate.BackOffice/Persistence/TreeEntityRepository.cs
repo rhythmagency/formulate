@@ -248,7 +248,7 @@ namespace Formulate.BackOffice.Persistence
                 TreeRootTypes.Forms => FormConstants.RootId,
                 TreeRootTypes.DataValues => DataValuesConstants.RootId,
                 TreeRootTypes.Layouts => LayoutConstants.RootId,
-                TreeRootTypes.Validations => ValidationConstant.RootId,
+                TreeRootTypes.Validations => ValidationConstants.RootId,
                 _ => throw new NotSupportedException($"{treeRootType} is not a supported root type.")
             };
         }

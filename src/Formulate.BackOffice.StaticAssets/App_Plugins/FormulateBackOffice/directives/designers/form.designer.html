@@ -1,6 +1,6 @@
 ﻿<div>
     <form novalidate name="formulateFormDesigner"
-          ng-submit="save()"
+          ng-submit="events.save()"
           val-form-manager>
 
         <umb-editor-view>
@@ -206,6 +206,8 @@
                     <!-- label-key="buttons_save" -->
                     <umb-button alias="save"
                                 type="submit"
+                                state="saveButtonState"
+                                disabled="!events.canSave()"
                                 button-style="success"
                                 shortcut="ctrl+s"
                                 label-key="formulate-buttons_Save">

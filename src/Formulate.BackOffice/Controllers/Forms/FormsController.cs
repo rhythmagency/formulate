@@ -8,6 +8,7 @@
     using Core.FormHandlers;
     using Core.Forms;
     using Core.Persistence;
+    using Core.Validations;
     using Microsoft.AspNetCore.Mvc;
     using Persistence;
     using System;
@@ -25,9 +26,8 @@
     /// </summary>
     [JsonCamelCaseFormatter]
     [FormulateBackOfficePluginController]
-    public sealed class FormsController : FormulateBackOfficeEntityApiController 
+    public sealed class FormsController : FormulateBackOfficeEntityApiController
     {
-        private readonly IFormEntityRepository formEntityRepository;
         private readonly IFormHandlerFactory formHandlerFactory;
         private readonly IFormFieldFactory formFieldFactory;
         private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
@@ -35,14 +35,12 @@
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
-            IFormEntityRepository formEntityRepository,
             IFormHandlerFactory formHandlerFactory,
             IFormFieldFactory formFieldFactory,
             FormHandlerDefinitionCollection formHandlerDefinitions,
             FormFieldDefinitionCollection formFieldDefinitions)
             : base(treeEntityRepository, localizedTextService)
         {
-            this.formEntityRepository = formEntityRepository;
             this.formHandlerFactory = formHandlerFactory;
             this.formFieldFactory = formFieldFactory;
             this.formHandlerDefinitions = formHandlerDefinitions;
@@ -161,11 +159,11 @@
             return Ok(formResponse);
         }
 
+        //TODO: Implement.
         [HttpPost]
         public ActionResult Save(SavePersistedFormRequest request)
         {
-            //TDOO: Implement. Refer to ValidationsController.Save for a good example.
-            return null;
+            return new EmptyResult();
         }
 
         /// <summary>
@@ -192,6 +190,60 @@
         {
             var definitions = formFieldDefinitions.ToArray();
             return Ok(definitions);
+        }
+
+        /// <inheritdoc cref="GenerateNewPathAndId(GenerateNewPathAndIdRequest)" />
+        /// <remarks>
+        /// This is never called, but it is used to generate a URL that
+        /// is passed to the frontend.
+        /// </remarks>
+        [NonAction]
+        public IActionResult GenerateNewPathAndId() => new EmptyResult();
+
+        /// <summary>
+        /// Generates a new path and ID for a new entity.
+        /// </summary>
+        /// <param name="request">
+        /// The request to generate a new path.
+        /// </param>
+        /// <returns>
+        /// The path and ID.
+        /// </returns>
+        /// <remarks>
+        /// This method is necessary because the frontend doesn't know the
+        /// path for the parent of a new entity.
+        /// </remarks>
+        public IActionResult GenerateNewPathAndId(GenerateNewPathAndIdRequest request)
+        {
+            // Variables.
+            var newPath = default(Guid[]);
+            var newId = Guid.NewGuid();
+
+            // Does this new entity have a parent?
+            if (request.ParentId.HasValue)
+            {
+                // Append new ID to path from parent entity.
+                var parentEntity = base.GetEntity(request.ParentId.Value);
+                newPath = parentEntity.Entity.Path
+                    .Concat(new[] { newId })
+                    .ToArray();
+            }
+            else
+            {
+                // Create new path.
+                newPath = new Guid[]
+                {
+                    Guid.Parse(ValidationConstants.RootId),
+                    newId,
+                };
+            }
+
+            // Return the path and ID.
+            return Ok(new
+            {
+                Path = newPath,
+                Id = newId,
+            });
         }
     }
 }

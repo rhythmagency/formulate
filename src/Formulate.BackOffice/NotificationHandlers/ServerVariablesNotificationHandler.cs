@@ -159,7 +159,7 @@ namespace Formulate.BackOffice.NotificationHandlers
                 //    "/formulate/formulate/editDataValue/" },
 
                 { "Layout.RootId", LayoutConstants.RootId },
-                { "Validation.RootId", ValidationConstant.RootId },
+                { "Validation.RootId", ValidationConstants.RootId },
                 { "DataValues.RootId", DataValuesConstants.RootId },
                 { "forms.RootId", FormConstants.RootId },
 
@@ -178,6 +178,9 @@ namespace Formulate.BackOffice.NotificationHandlers
                 { "GetFieldDefinitions", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GetFieldDefinitions()) },
+                { "Validations.GenerateNewPathAndId", LinkGenerator
+                    .GetUmbracoApiService<FormsController>(x =>
+                        x.GenerateNewPathAndId()) },
                 //{ "DuplicateForm",
                 //    LinkGenerator.GetUmbracoApiService<FormsController>(x => x.DuplicateForm(null)) },
             };
