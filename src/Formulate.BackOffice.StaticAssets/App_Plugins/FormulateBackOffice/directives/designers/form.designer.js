@@ -446,8 +446,24 @@ class FormDesignerEventHandlers {
             // Save the data to the server.
             this.$http.post(url, payload).then(() => {
                 this.$scope.saveButtonState = 'init';
+                const resetData = {
+                    scope: this.$scope,
+                    formCtrl: this.$scope.createFolderForm,
+                };
+                this.formHelper.resetForm(resetData);
                 this.notificationsService.success("Form saved.");
             });
+
+        } else {
+
+            // Form couldn't be saved (probably a validation issue). Reset the button/form.
+            this.$scope.saveButtonState = 'init';
+            const resetData = {
+                scope: this.$scope,
+                formCtrl: this.$scope.createFolderForm,
+                hasErrors: true,
+            };
+            this.formHelper.resetForm(resetData);
 
         }
     };
