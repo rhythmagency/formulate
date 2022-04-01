@@ -147,6 +147,12 @@
                 return NotFound();
             }
 
+            // If this is a folder, return immediately.
+            if (baseResult.Entity is PersistedFolder)
+            {
+                return Ok(baseResult);
+            }
+
             // Supplement the base response with additional data.
             var form = baseResult.Entity as PersistedForm;
             var entity = new FormViewModel(form, formHandlerFactory, formFieldFactory);
