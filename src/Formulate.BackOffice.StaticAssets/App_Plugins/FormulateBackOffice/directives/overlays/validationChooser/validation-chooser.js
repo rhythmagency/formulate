@@ -80,7 +80,7 @@
         }
 
         /**
-         * Hands a click of a validation node.
+         * Handles a click of a validation node.
          * @param args The validation node details.
          */
         handleValidationClickedInTree = (args) => {

@@ -22,4 +22,7 @@
   <area alias="formulate-general">
     <key alias="Unnamed">Unnamed</key>
   </area>
+  <area alias="formulate-options">
+    <key alias="Select a Template">Select a Template</key>
+  </area>
 </language>

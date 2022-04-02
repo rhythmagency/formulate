@@ -16,9 +16,43 @@
                 <div class="form-horizontal">
                     <div class="umb-group-panel">
                         <div class="umb-group-panel__content">
+
+                            <!-- Introduction. -->
                             <p>
-                                TODO: Implement configured form designer here.
+                                <localize key="formulate-introductions_Configured Form">
+                                    A configured form is just a form with a layout and template selected.
+                                    To configure this form, select a template and layout below.
+                                </localize>
                             </p>
+
+                            <!-- Template. -->
+                            <select ng-options="option.id as option.name for option in template.templates" ng-model="template.id">
+                                <option value="" formulate-inject-localization="formulate-options_Select a Template"></option>
+                            </select>
+
+                            <!-- Show picked layout. -->
+                            <div ng-if="layoutId">
+                                <strong>
+                                    <localize key="formulate-labels_Layout:">
+                                        Layout:
+                                    </localize>
+                                </strong> {{layoutName}}
+                            </div>
+
+                            <!-- Show message indicating no layout has been picked. -->
+                            <div ng-if="!layoutId">
+                                <localize key="formulate-labels_Layout not chosen">
+                                    Layout not yet chosen.
+                                </localize>
+                            </div>
+
+                            <!-- Show button to pick the layout. -->
+                            <button type="button" class="btn btn-default" ng-click="events.pickLayout()">
+                                <localize key="formulate-buttons_Pick Layout">
+                                    Pick Layout
+                                </localize>
+                            </button>
+
                         </div>
                     </div>
                 </div>
