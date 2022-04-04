@@ -16,6 +16,6 @@
         /// <summary>
         /// The template items.
         /// </summary>
-        public List<TemplateItem> Items { get; set; }
+        public List<TemplateItem> Items { get; set; } = new List<TemplateItem>();
     }
 }
