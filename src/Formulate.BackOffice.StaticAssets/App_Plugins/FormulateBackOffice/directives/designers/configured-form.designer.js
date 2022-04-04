@@ -29,13 +29,10 @@
      * @param scope The scope to set the templates on.
      */
     function initializeTemplates(formulateTypeDefinitionResource, scope) {
-        scope.template = {
-            id: scope.entity.templateId,
-            templates: [],
-        };
+        scope.templates = [];
         formulateTypeDefinitionResource.getTemplateDefinitions()
             .then((data) => {
-                scope.template.templates = data;
+                scope.templates = data;
             });
     }
 
