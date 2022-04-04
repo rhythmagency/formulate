@@ -1,23 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using Formulate.BackOffice.Controllers;
-using Formulate.BackOffice.Controllers.DataValues;
-using Formulate.BackOffice.Controllers.Folders;
-using Formulate.BackOffice.Controllers.Forms;
-using Formulate.BackOffice.Controllers.Layouts;
-using Formulate.BackOffice.Controllers.Validations;
-using Formulate.BackOffice.Trees;
-using Formulate.Core.DataValues;
-using Formulate.Core.Forms;
-using Formulate.Core.Layouts;
-using Formulate.Core.Validations;
-using Microsoft.AspNetCore.Routing;
-using Umbraco.Cms.Core.Events;
-using Umbraco.Cms.Core.Notifications;
-using Umbraco.Extensions;
-
-namespace Formulate.BackOffice.NotificationHandlers
+﻿namespace Formulate.BackOffice.NotificationHandlers
 {
+    // Namespaces.
+    using Controllers;
+    using Controllers.DataValues;
+    using Controllers.Folders;
+    using Controllers.Forms;
+    using Controllers.Layouts;
+    using Controllers.Validations;
+    using Core.DataValues;
+    using Core.Forms;
+    using Core.Layouts;
+    using Core.Validations;
+    using Microsoft.AspNetCore.Routing;
+    using System.Collections.Generic;
+    using Trees;
+    using Umbraco.Cms.Core.Events;
+    using Umbraco.Cms.Core.Notifications;
+    using Umbraco.Extensions;
+
     /// <summary>
     /// The server variables notification handler.
     /// </summary>
@@ -178,6 +178,9 @@ namespace Formulate.BackOffice.NotificationHandlers
                 { "GetFieldDefinitions", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GetFieldDefinitions()) },
+                { "GetTemplateDefinitions", LinkGenerator
+                    .GetUmbracoApiService<FormsController>(x =>
+                        x.GetTemplateDefinitions()) },
                 { "Validations.GenerateNewPathAndId", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GenerateNewPathAndId()) },

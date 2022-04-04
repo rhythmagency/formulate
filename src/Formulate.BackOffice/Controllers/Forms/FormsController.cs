@@ -2,6 +2,7 @@
 {
     // Namespaces.
     using Attributes;
+    using Core.Configuration;
     using Core.ConfiguredForms;
     using Core.Folders;
     using Core.FormFields;
@@ -9,6 +10,7 @@
     using Core.Forms;
     using Core.Persistence;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Options;
     using Persistence;
     using System;
     using System.Collections.Generic;
@@ -32,6 +34,7 @@
         private readonly IFormFieldFactory formFieldFactory;
         private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
         private readonly FormFieldDefinitionCollection formFieldDefinitions;
+        private readonly IOptions<TemplatesOptions> templatesConfig;
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
@@ -39,7 +42,8 @@
             IFormHandlerFactory formHandlerFactory,
             IFormFieldFactory formFieldFactory,
             FormHandlerDefinitionCollection formHandlerDefinitions,
-            FormFieldDefinitionCollection formFieldDefinitions)
+            FormFieldDefinitionCollection formFieldDefinitions,
+            IOptions<TemplatesOptions> templatesConfig)
             : base(treeEntityRepository, localizedTextService)
         {
             this.formEntityRepository = formEntityRepository;
@@ -47,6 +51,7 @@
             this.formFieldFactory = formFieldFactory;
             this.formHandlerDefinitions = formHandlerDefinitions;
             this.formFieldDefinitions = formFieldDefinitions;
+            this.templatesConfig = templatesConfig;
         }
 
         [HttpGet]
@@ -210,6 +215,22 @@
         {
             var definitions = formFieldDefinitions.ToArray();
             return Ok(definitions);
+        }
+
+        /// <summary>
+        /// Returns the form template definitions.
+        /// </summary>
+        /// <returns>
+        /// The array of form template definitions.
+        /// </returns>
+        [HttpGet]
+        public IActionResult GetTemplateDefinitions()
+        {
+            return Ok(templatesConfig.Value.Items.Select(x => new
+            {
+                x.Id,
+                x.Name,
+            }));
         }
 
         /// <inheritdoc cref="GenerateNewPathAndId(GenerateNewPathAndIdRequest)" />

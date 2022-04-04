@@ -17,7 +17,8 @@ namespace Formulate.Core.DependencyInjection
             builder.AddFormulateCollections()
                    .AddFormulateUtilities()
                    .AddFormulatePersistence()
-                   .AddFormulateFactories();
+                   .AddFormulateFactories()
+                   .AddFormulateConfiguration();
 
             return builder;
         }

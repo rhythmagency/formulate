@@ -39,6 +39,16 @@ class FormulateTypeDefinitionResource {
             .resourcePromise(this.$http.get(url));
     }
 
+    /**
+     * Returns the form template definitions.
+     * @returns {*} The promise that resolves to the array of definitions.
+     */
+    getTemplateDefinitions() {
+        const url = this.serverVars['GetTemplateDefinitions'];
+        return this.umbRequestHelper
+            .resourcePromise(this.$http.get(url));
+    }
+
 }
 
 // Register the resource service.

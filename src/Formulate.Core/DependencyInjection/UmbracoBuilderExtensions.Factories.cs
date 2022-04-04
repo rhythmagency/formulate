@@ -12,7 +12,7 @@ namespace Formulate.Core.DependencyInjection
     public partial class UmbracoBuilderExtensions
     {
         /// <summary>
-        /// Adds Formulates factories.
+        /// Adds Formulate factories.
         /// </summary>
         /// <param name="builder">The Umbraco builder.</param>
         /// <returns>The current <see cref="IUmbracoBuilder"/>.</returns>

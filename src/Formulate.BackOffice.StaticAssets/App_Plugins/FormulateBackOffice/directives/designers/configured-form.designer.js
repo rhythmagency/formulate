@@ -1,7 +1,7 @@
 ﻿(function () {
     function formulateConfiguredFormDesignerDirective(
-            $http, $location, $routeParams, formulateDefinitionDirectiveResource,
-            navigationService, notificationsService, formHelper, overlayService) {
+            notificationsService, formHelper, overlayService,
+            formulateTypeDefinitionResource) {
         const directive = {
             replace: true,
             templateUrl: "/app_plugins/formulatebackoffice/directives/designers/configured-form.designer.html",
@@ -9,25 +9,34 @@
                 entity: "=",
             },
             link: function (scope, element, attrs) {
-
-                //TODO: Temp data. Get from server.
-                scope.template = {
-                    id: null,
-                    templates: [
-                        {"id":"f3fb1485c1d14806b4190d7abde39530","name":"Responsive (Plain JavaScript)"}
-                    ],
-                };
-
                 const services = {
                     $scope: scope,
                     overlayService,
                 };
                 scope.events = new ConfiguredFormEvents(services);
 
+                initializeTemplates(formulateTypeDefinitionResource, scope);
             },
         };
 
         return directive;
+    }
+
+    /**
+     * Initializes the templates on the scope.
+     * @param formulateTypeDefinitionResource The resource that can be used to
+     *  fetch templates.
+     * @param scope The scope to set the templates on.
+     */
+    function initializeTemplates(formulateTypeDefinitionResource, scope) {
+        scope.template = {
+            id: null,
+            templates: [],
+        };
+        formulateTypeDefinitionResource.getTemplateDefinitions()
+            .then((data) => {
+                scope.template.templates = data;
+            });
     }
 
     /**
