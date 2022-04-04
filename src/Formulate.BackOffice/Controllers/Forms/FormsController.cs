@@ -8,6 +8,7 @@
     using Core.FormFields;
     using Core.FormHandlers;
     using Core.Forms;
+    using Core.Layouts;
     using Core.Persistence;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
@@ -35,6 +36,7 @@
         private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
         private readonly FormFieldDefinitionCollection formFieldDefinitions;
         private readonly IOptions<TemplatesOptions> templatesConfig;
+        private readonly ILayoutEntityRepository layoutEntities;
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
@@ -43,7 +45,8 @@
             IFormFieldFactory formFieldFactory,
             FormHandlerDefinitionCollection formHandlerDefinitions,
             FormFieldDefinitionCollection formFieldDefinitions,
-            IOptions<TemplatesOptions> templatesConfig)
+            IOptions<TemplatesOptions> templatesConfig,
+            ILayoutEntityRepository layoutEntities)
             : base(treeEntityRepository, localizedTextService)
         {
             this.formEntityRepository = formEntityRepository;
@@ -52,6 +55,7 @@
             this.formHandlerDefinitions = formHandlerDefinitions;
             this.formFieldDefinitions = formFieldDefinitions;
             this.templatesConfig = templatesConfig;
+            this.layoutEntities = layoutEntities;
         }
 
         [HttpGet]
@@ -152,10 +156,16 @@
                 return NotFound();
             }
 
-            // If this is a folder or configured form, return immediately.
-            if (baseResult.Entity is not PersistedForm)
+            // If this is a folder, return immediately.
+            if (baseResult.Entity is PersistedFolder)
             {
                 return Ok(baseResult);
+            }
+
+            // If this is a configured form, return details for the configured form.
+            if (baseResult.Entity is PersistedConfiguredForm)
+            {
+                return GetConfiguredForm(baseResult);
             }
 
             // Supplement the base response with additional data.
@@ -284,6 +294,41 @@
             {
                 Path = newPath,
                 Id = newId,
+            });
+        }
+
+        /// <summary>
+        /// Returns the data that should be sent to the browser for a configured form.
+        /// </summary>
+        /// <param name="baseResult">
+        /// The generic result for the entity that needs to be converted into the
+        /// more specialized result for the configured form.
+        /// </param>
+        /// <returns>
+        /// The response containing the configured form data.
+        /// </returns>
+        private IActionResult GetConfiguredForm(GetEntityResponse baseResult)
+        {
+            var configuredForm = baseResult.Entity as PersistedConfiguredForm;
+            var layout = configuredForm.LayoutId.HasValue
+                ? layoutEntities.Get(configuredForm.LayoutId.Value)
+                : null;
+            var template = configuredForm.TemplateId.HasValue
+                ? templatesConfig.Value.Items
+                    .FirstOrDefault(x => x.Id == configuredForm.TemplateId.Value)
+                : null;
+            return Ok(new
+            {
+                Entity = new
+                {
+                    configuredForm.Id,
+                    configuredForm.LayoutId,
+                    LayoutName = layout?.Name,
+                    configuredForm.TemplateId,
+                    TemplateName = template?.Name,
+                },
+                EntityType = baseResult.EntityType,
+                TreePath = baseResult.TreePath,
             });
         }
     }

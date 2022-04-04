@@ -31,16 +31,16 @@
                             </select>
 
                             <!-- Show picked layout. -->
-                            <div ng-if="layoutId">
+                            <div ng-if="entity.layoutId">
                                 <strong>
                                     <localize key="formulate-labels_Layout:">
                                         Layout:
                                     </localize>
-                                </strong> {{layoutName}}
+                                </strong> {{entity.layoutName}}
                             </div>
 
                             <!-- Show message indicating no layout has been picked. -->
-                            <div ng-if="!layoutId">
+                            <div ng-if="!entity.layoutId">
                                 <localize key="formulate-labels_Layout not chosen">
                                     Layout not yet chosen.
                                 </localize>

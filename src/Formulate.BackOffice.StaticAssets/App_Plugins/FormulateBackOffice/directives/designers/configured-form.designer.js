@@ -30,7 +30,7 @@
      */
     function initializeTemplates(formulateTypeDefinitionResource, scope) {
         scope.template = {
-            id: null,
+            id: scope.entity.templateId,
             templates: [],
         };
         formulateTypeDefinitionResource.getTemplateDefinitions()
@@ -69,8 +69,8 @@
             // This is called when a layout is chosen.
             let chosen = ({id, name}) => {
                 this.overlayService.close();
-                this.$scope.layoutId = id;
-                this.$scope.layoutName = name;
+                this.$scope.entity.layoutId = id;
+                this.$scope.entity.layoutName = name;
             };
 
             // The data sent to the layout chooser.
