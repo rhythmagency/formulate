@@ -1,10 +1,11 @@
-﻿using Formulate.Core.Utilities;
-using Formulate.Core.Utilities.Internal;
-using Microsoft.Extensions.DependencyInjection;
-using Umbraco.Cms.Core.DependencyInjection;
-
-namespace Formulate.Core.DependencyInjection
+﻿namespace Formulate.Core.DependencyInjection
 {
+    // Namespaces.
+    using Microsoft.Extensions.DependencyInjection;
+    using Umbraco.Cms.Core.DependencyInjection;
+    using Utilities;
+    using Utilities.Internal;
+
     public partial class UmbracoBuilderExtensions
     {
         /// <summary>

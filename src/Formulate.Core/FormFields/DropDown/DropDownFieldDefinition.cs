@@ -1,10 +1,10 @@
 ﻿namespace Formulate.Core.FormFields.DropDown
 {
     // Namesapces.
-    using Utilities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Utilities;
 
     /// <summary>
     /// A drop down form field definition.

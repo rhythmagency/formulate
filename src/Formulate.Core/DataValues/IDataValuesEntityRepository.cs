@@ -1,7 +1,8 @@
-﻿using Formulate.Core.Persistence;
-
-namespace Formulate.Core.DataValues
+﻿namespace Formulate.Core.DataValues
 {
+    // Namespaces.
+    using Persistence;
+
     /// <summary>
     /// A contract for managing <see cref="PersistedDataValues"/> entities.
     /// </summary>

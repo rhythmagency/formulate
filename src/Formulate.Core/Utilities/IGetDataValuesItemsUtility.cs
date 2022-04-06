@@ -12,10 +12,10 @@
     public interface IGetDataValuesItemsUtility
     {
         /// <summary>
-        /// Gets the values from a <see cref="IDataValues"/> for a given id.
+        /// Gets the values from a <see cref="IDataValues"/> for a given ID.
         /// </summary>
         /// <param name="id">
-        /// The data values id.
+        /// The data values ID.
         /// </param>
         /// <returns>
         /// The data values.

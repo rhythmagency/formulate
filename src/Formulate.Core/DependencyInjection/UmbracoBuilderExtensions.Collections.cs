@@ -66,15 +66,20 @@ namespace Formulate.Core.DependencyInjection
         /// <returns>The current <see cref="IUmbracoBuilder"/>.</returns>
         private static IUmbracoBuilder AddFormulateCollections(this IUmbracoBuilder builder)
         {
-            builder.DataValuesDefinitions().Add(() => builder.TypeLoader.GetTypes<IDataValuesDefinition>());
+            builder.DataValuesDefinitions().Add(() =>
+                builder.TypeLoader.GetTypes<IDataValuesDefinition>());
 
-            builder.FormFieldDefinitions().Add(() => builder.TypeLoader.GetTypes<FormFieldDefinitionBase>());
+            builder.FormFieldDefinitions().Add(() =>
+                builder.TypeLoader.GetTypes<FormFieldDefinitionBase>());
 
-            builder.FormHandlerDefinitions().Add(() => builder.TypeLoader.GetTypes<FormHandlerDefinition>());
+            builder.FormHandlerDefinitions().Add(() =>
+                builder.TypeLoader.GetTypes<FormHandlerDefinition>());
 
-            builder.LayoutDefinitions().Add(() => builder.TypeLoader.GetTypes<ILayoutDefinition>());
+            builder.LayoutDefinitions().Add(() =>
+                builder.TypeLoader.GetTypes<ILayoutDefinition>());
 
-            builder.ValidationDefinitions().Add(() => builder.TypeLoader.GetTypes<IValidationDefinition>()); ;
+            builder.ValidationDefinitions().Add(() =>
+                builder.TypeLoader.GetTypes<IValidationDefinition>()); ;
 
             return builder;
         }

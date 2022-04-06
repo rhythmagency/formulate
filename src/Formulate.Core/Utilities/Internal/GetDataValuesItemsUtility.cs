@@ -16,21 +16,35 @@
         private readonly IDataValuesFactory _dataValuesFactory;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetDataValuesItemsUtility"/> class.
+        /// The data values entity repository.
         /// </summary>
-        /// <param name="dataValuesFactory">The data values factory.</param>
-        public GetDataValuesItemsUtility(IDataValuesFactory dataValuesFactory)
+        private readonly IDataValuesEntityRepository _dataValuesRepository;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetDataValuesItemsUtility"/>
+        /// class.
+        /// </summary>
+        /// <param name="dataValuesFactory">
+        /// The data values factory.
+        /// </param>
+        /// <param name="dataValuesRepository">
+        /// The data values entity repo.
+        /// </param>
+        public GetDataValuesItemsUtility(IDataValuesFactory dataValuesFactory,
+            IDataValuesEntityRepository dataValuesRepository)
         {
             _dataValuesFactory = dataValuesFactory;
+            _dataValuesRepository = dataValuesRepository;
         }
 
         /// <inheritdoc />
         public IReadOnlyCollection<KeyValuePair<string, string>> GetValues(Guid id)
         {
-            // TODO: get data value settings for entity id.
-            var settings = default(IDataValuesSettings);
+            var settings = _dataValuesRepository.Get(id);
 
-            var definition = _dataValuesFactory.Create(settings);
+            var definition = settings == null
+                ? null 
+                : _dataValuesFactory.Create(settings);
 
             if (definition is null)
             {

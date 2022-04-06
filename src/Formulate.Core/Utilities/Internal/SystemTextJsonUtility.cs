@@ -10,7 +10,10 @@ namespace Formulate.Core.Utilities.Internal
         /// <inheritdoc />
         public T Deserialize<T>(string value)
         {
-            return string.IsNullOrWhiteSpace(value) ? default : JsonSerializer.Deserialize<T>(value);
+            var options = new JsonSerializerOptions();
+            return string.IsNullOrWhiteSpace(value)
+                ? default
+                : JsonSerializer.Deserialize<T>(value);
         }
 
         /// <inheritdoc />

@@ -28,6 +28,7 @@
         /// <summary>
         /// Gets or sets the configuration.
         /// </summary>
+        [JsonPropertyName("FieldConfiguration")]
         public string Data { get; set; }
 
         /// <summary>
