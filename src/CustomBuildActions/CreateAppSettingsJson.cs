@@ -32,8 +32,8 @@ internal class CreateAppSettingsJson
         // Create the file if it doesn't exist.
         if (!File.Exists(destination))
         {
-            Console.WriteLine("Created appsettings.json file.");
             File.Copy(source, destination, false);
+            Console.WriteLine("Created appsettings.json file.");
         }
     }
 }

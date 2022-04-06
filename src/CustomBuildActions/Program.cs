@@ -17,6 +17,7 @@ var executeTasks = new Action<long>(count =>
                 GenerateCssForSvgIcons.Generate(count);
                 GeneratePackageManifest.Generate(count);
                 CopyStaticAssetsToWebsite.Copy(count);
+                RefreshSampleFormulateJson.Refresh(count);
                 break;
             case "-generate-css-for-svg-icons":
                 GenerateCssForSvgIcons.Generate(count);
@@ -29,6 +30,9 @@ var executeTasks = new Action<long>(count =>
                 break;
             case "-create-app-settings-json":
                 CreateAppSettingsJson.Create(count);
+                break;
+            case "-refresh-sample-formulate-data":
+                RefreshSampleFormulateJson.Refresh(count);
                 break;
             case "-watch":
                 break;
