@@ -181,9 +181,12 @@
                 { "GetTemplateDefinitions", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GetTemplateDefinitions()) },
-                { "Validations.GenerateNewPathAndId", LinkGenerator
+                { "Forms.GenerateNewPathAndId", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GenerateNewPathAndId()) },
+                { "configuredForms.Save", LinkGenerator
+                    .GetUmbracoApiService<FormsController>(x =>
+                        x.SaveConfiguredForm()) },
                 //{ "DuplicateForm",
                 //    LinkGenerator.GetUmbracoApiService<FormsController>(x => x.DuplicateForm(null)) },
             };

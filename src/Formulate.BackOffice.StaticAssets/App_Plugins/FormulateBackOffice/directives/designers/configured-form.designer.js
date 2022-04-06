@@ -1,17 +1,29 @@
 ﻿(function () {
     function formulateConfiguredFormDesignerDirective(
-            notificationsService, formHelper, overlayService,
+            notificationsService, formHelper, overlayService, $http, $routeParams,
             formulateTypeDefinitionResource) {
 
         const link = (scope) => {
             scope.saveButtonState = 'init';
             const services = {
                 $scope: scope,
+                $http,
                 overlayService,
+                formHelper,
+                notificationsService,
             };
             scope.events = new ConfiguredFormEvents(services);
 
-            initializeTemplates(formulateTypeDefinitionResource, scope);
+            // Initialize the templates and ID/path.
+            const promise1 = initializeTemplates(formulateTypeDefinitionResource, scope);
+            const promise2 = initializeIdAndPath(scope, $routeParams);
+
+            // Store initialization state once complete.
+            Promise.all([promise1, promise2])
+                .then(() => {
+                    scope.initialied = true;
+                });
+
         };
 
         const directive = {
@@ -24,6 +36,39 @@
         };
 
         return (directive);
+
+        /**
+         * Initializes the ID and path of the entity if it is new.
+         * @param $scope The current AngularJS scope.
+         * @param $routeParams The parameters from the route.
+         */
+        function initializeIdAndPath($scope, $routeParams) {
+
+            // Variables.
+            const entity = $scope.entity;
+            const path = entity.path;
+            const id = entity.id;
+            const url = Umbraco.Sys.ServerVariables.formulate["Forms.GenerateNewPathAndId"];
+            const parentId = !$routeParams.isNew && $routeParams.id && $routeParams.id !== "-1"
+                ? $routeParams.id
+                : null;
+
+            // Return early if the path and ID are already set.
+            if (path && path.length && id) {
+                $scope.initialized = true;
+                return new Promise(resolve => resolve());
+            }
+
+            // Get the path and ID from the server.
+            const payload = {
+                parentId,
+            };
+            return $http.post(url, payload).then(({data: response}) => {
+                entity.id = response.id;
+                entity.path = response.path;
+            });
+
+        }
     }
 
     /**
@@ -34,10 +79,9 @@
      */
     function initializeTemplates(formulateTypeDefinitionResource, scope) {
         scope.templates = [];
-        formulateTypeDefinitionResource.getTemplateDefinitions()
+        return formulateTypeDefinitionResource.getTemplateDefinitions()
             .then((data) => {
                 scope.templates = data;
-                scope.initialized = true;
             });
     }
 
@@ -48,7 +92,10 @@
 
         // Service properties.
         $scope;
+        $http;
         overlayService;
+        formHelper;
+        notificationsService;
 
         /**
          * Constructor.
@@ -113,6 +160,63 @@
          */
         hasValidName = () => {
             return this.$scope.entity.name && this.$scope.entity.name.length > 0;
+        };
+
+        /**
+         * Saves the configured form to the server.
+         */
+        save = () => {
+
+            // Mark the save button as busy, so it can't double submit.
+            this.$scope.saveButtonState = 'busy';
+
+            // Indicate that the form is submitting (e.g., performs field validation).
+            const submitFormData = {
+                scope: this.$scope,
+                formCtrl: this.$scope.formulateConfiguredFormDesigner,
+            };
+            if (this.formHelper.submitForm(submitFormData)) {
+
+                // Prepare the data to save.
+                const url = Umbraco.Sys.ServerVariables.formulate["configuredForms.Save"];
+                const entity = this.$scope.entity;
+                const payload = {
+                    alias: entity.alias,
+                    id: entity.id,
+                    name: entity.name,
+                    path: entity.path,
+                    templateId: entity.templateId,
+                    layoutId: entity.layoutId,
+                };
+
+                // Save the data to the server.
+                this.$http.post(url, payload).then(({data: {success}}) => {
+                    this.$scope.saveButtonState = 'init';
+                    const resetData = {
+                        scope: this.$scope,
+                        formCtrl: this.$scope.formulateConfiguredFormDesigner,
+                    };
+                    this.formHelper.resetForm(resetData);
+                    if (success) {
+                        this.notificationsService.success("Configured form saved.");
+                    } else {
+                        this.notificationsService.error("Unknown error while saving configured form.");
+                    }
+                });
+
+            } else {
+
+                // Configured form couldn't be saved (probably a validation issue).
+                // Reset the button/form.
+                this.$scope.saveButtonState = 'init';
+                const resetData = {
+                    scope: this.$scope,
+                    formCtrl: this.$scope.formulateFormDesigner,
+                    hasErrors: true,
+                };
+                this.formHelper.resetForm(resetData);
+
+            }
         };
 
     }

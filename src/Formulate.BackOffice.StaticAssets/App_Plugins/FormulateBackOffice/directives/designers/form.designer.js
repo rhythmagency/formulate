@@ -122,7 +122,7 @@ function formulateFormDesignerDirective(
         const entity = $scope.entity;
         const path = entity.path;
         const id = entity.id;
-        const url = Umbraco.Sys.ServerVariables.formulate["Validations.GenerateNewPathAndId"];
+        const url = Umbraco.Sys.ServerVariables.formulate["Forms.GenerateNewPathAndId"];
         const parentId = !$routeParams.isNew && $routeParams.id && $routeParams.id !== "-1"
             ? $routeParams.id
             : null;
@@ -402,7 +402,7 @@ class FormDesignerEventHandlers {
         // Indicate that the form is submitting (e.g., performs field validation).
         const submitFormData = {
             scope: this.$scope,
-            formCtrl: this.$scope.formCtrl,
+            formCtrl: this.$scope.formulateFormDesigner,
         };
         if (this.formHelper.submitForm(submitFormData)) {
 
@@ -446,7 +446,7 @@ class FormDesignerEventHandlers {
                 this.$scope.saveButtonState = 'init';
                 const resetData = {
                     scope: this.$scope,
-                    formCtrl: this.$scope.createFolderForm,
+                    formCtrl: this.$scope.formulateFormDesigner,
                 };
                 this.formHelper.resetForm(resetData);
                 if (success) {
@@ -462,7 +462,7 @@ class FormDesignerEventHandlers {
             this.$scope.saveButtonState = 'init';
             const resetData = {
                 scope: this.$scope,
-                formCtrl: this.$scope.createFolderForm,
+                formCtrl: this.$scope.formulateFormDesigner,
                 hasErrors: true,
             };
             this.formHelper.resetForm(resetData);

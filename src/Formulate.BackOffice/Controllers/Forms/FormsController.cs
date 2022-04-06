@@ -31,6 +31,7 @@
     public sealed class FormsController : FormulateBackOfficeEntityApiController
     {
         private readonly IFormEntityRepository formEntityRepository;
+        private readonly IConfiguredFormEntityRepository configuredFormRepository;
         private readonly IFormHandlerFactory formHandlerFactory;
         private readonly IFormFieldFactory formFieldFactory;
         private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
@@ -46,7 +47,8 @@
             FormHandlerDefinitionCollection formHandlerDefinitions,
             FormFieldDefinitionCollection formFieldDefinitions,
             IOptions<TemplatesOptions> templatesConfig,
-            ILayoutEntityRepository layoutEntities)
+            ILayoutEntityRepository layoutEntities,
+            IConfiguredFormEntityRepository configuredFormRepository)
             : base(treeEntityRepository, localizedTextService)
         {
             this.formEntityRepository = formEntityRepository;
@@ -56,6 +58,7 @@
             this.formFieldDefinitions = formFieldDefinitions;
             this.templatesConfig = templatesConfig;
             this.layoutEntities = layoutEntities;
+            this.configuredFormRepository = configuredFormRepository;
         }
 
         [HttpGet]
@@ -321,7 +324,10 @@
             {
                 Entity = new
                 {
+                    configuredForm.Name,
+                    configuredForm.Alias,
                     configuredForm.Id,
+                    configuredForm.Path,
                     configuredForm.LayoutId,
                     LayoutName = layout?.Name,
                     configuredForm.TemplateId,
@@ -329,6 +335,36 @@
                 },
                 EntityType = baseResult.EntityType,
                 TreePath = baseResult.TreePath,
+            });
+        }
+
+        /// <inheritdoc cref="Save(PersistedForm)"/>
+        /// <remarks>
+        /// This exists purely so the "SaveConfiguredForm" method can be referenced
+        /// without parameters so reflection can be used to generate a URL for it.
+        /// </remarks>
+        [NonAction]
+        public IActionResult SaveConfiguredForm()
+        {
+            return new EmptyResult();
+        }
+
+        /// <summary>
+        /// Saves the configured form to the file system.
+        /// </summary>
+        /// <param name="entity">
+        /// The configured form to save.
+        /// </param>
+        /// <returns>
+        /// An indicator of success.
+        /// </returns>
+        [HttpPost]
+        public IActionResult SaveConfiguredForm(PersistedConfiguredForm entity)
+        {
+            configuredFormRepository.Save(entity);
+            return Ok(new
+            {
+                Success = true,
             });
         }
     }
