@@ -1,4 +1,4 @@
-﻿namespace formulate.app.Forms.Handlers.Email
+namespace formulate.app.Forms.Handlers.Email
 {
 
     // Namespaces.
@@ -452,7 +452,10 @@
             if (isHtml)
             {
                 baseMessage = WebUtility.HtmlEncode(baseMessage);
-                lines = lines.Select(x => WebUtility.HtmlEncode(x)).ToList();
+
+                //Add line breaks in after encoding.
+                lines = lines.Select(x => WebUtility.HtmlEncode(x)
+                .Replace(Environment.NewLine, Environment.NewLine + "<br>" + Environment.NewLine)).ToList();
             }
 
             // Return message.
