@@ -60,9 +60,12 @@ namespace formulate.app.Forms.Handlers.Email
         public EmailHandler(IConfigurationManager configurationManager)
         {
             Config = configurationManager;
+            var options = RegexOptions.Compiled;
+            LineBreakRegex = new Regex(@"\r\n|\r(?!\n)|(?<!\r)\n", options);
         }
 
         #endregion
+
 
         #region Public Properties
 
@@ -88,6 +91,7 @@ namespace formulate.app.Forms.Handlers.Email
 
         #endregion
 
+
         #region Private Properties
 
         /// <summary>
@@ -96,9 +100,9 @@ namespace formulate.app.Forms.Handlers.Email
         private IConfigurationManager Config { get; set; }
 
         /// <summary>
-        /// Precompiled regex for finding line breaks.
+        /// Matches line breaks.
         /// </summary>
-        private static Regex LineBreakRegex = new Regex(@"(\r\n|\r(?!\n)|(?<!\r)\n)", RegexOptions.Compiled);
+        private static Regex LineBreakRegex { get; set; }
 
         #endregion
 
@@ -458,9 +462,10 @@ namespace formulate.app.Forms.Handlers.Email
             if (isHtml)
             {
                 baseMessage = WebUtility.HtmlEncode(baseMessage);
-
-                lines = lines.Select(x => LineBreakRegex.Replace(WebUtility.HtmlEncode(x),
-                  Environment.NewLine + "<br>" + Environment.NewLine)).ToList();
+                lines = lines
+                    .Select(x => WebUtility.HtmlEncode(x))
+                    .Select(x => LineBreakRegex.Replace(x, nl))
+                    .ToList();
             }
 
             // Return message.
