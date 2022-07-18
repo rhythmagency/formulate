@@ -1,4 +1,4 @@
-﻿namespace formulate.app.Forms.Handlers.Email
+namespace formulate.app.Forms.Handlers.Email
 {
 
     // Namespaces.
@@ -14,6 +14,7 @@
     using System.Net;
     using System.Net.Mail;
     using System.Net.Mime;
+    using System.Text.RegularExpressions;
     using Umbraco.Core;
 
     /// <summary>
@@ -93,6 +94,11 @@
         /// Gets or sets the config.
         /// </summary>
         private IConfigurationManager Config { get; set; }
+
+        /// <summary>
+        /// Precompiled regex for finding line breaks.
+        /// </summary>
+        private static Regex LineBreakRegex = new Regex(@"(\r\n|\r(?!\n)|(?<!\r)\n)", RegexOptions.Compiled);
 
         #endregion
 
@@ -452,7 +458,9 @@
             if (isHtml)
             {
                 baseMessage = WebUtility.HtmlEncode(baseMessage);
-                lines = lines.Select(x => WebUtility.HtmlEncode(x)).ToList();
+
+                lines = lines.Select(x => LineBreakRegex.Replace(WebUtility.HtmlEncode(x),
+                  Environment.NewLine + "<br>" + Environment.NewLine)).ToList();
             }
 
             // Return message.
