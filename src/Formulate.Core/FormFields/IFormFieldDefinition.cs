@@ -43,5 +43,17 @@
         /// A <see cref="FormField"/>.
         /// </returns>
         FormField CreateField(IFormFieldSettings settings);
+
+        /// <summary>
+        /// Creates an instance of the configuration needed by the back
+        /// office.
+        /// </summary>
+        /// <param name="settings">
+        /// The current form field settings.
+        /// </param>
+        /// <returns>
+        /// The configuration.
+        /// </returns>
+        object GetBackOfficeConfiguration(IFormFieldSettings settings);
     }
 }

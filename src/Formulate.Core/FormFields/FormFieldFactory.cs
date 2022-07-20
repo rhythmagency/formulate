@@ -65,9 +65,11 @@
             var field = foundFormFieldDefinition.CreateField(settings);
 
             // Set the attributes on the form field that can be obtained from
-            // the form field definition (namely, icon and directive).
+            // the form field definition.
             field.Icon = foundFormFieldDefinition.Icon;
             field.Directive = foundFormFieldDefinition.Directive;
+            field.BackOfficeConfiguration = foundFormFieldDefinition
+                .GetBackOfficeConfiguration(settings);
 
             // Set the validations.
             field.Validations = settings.Validations

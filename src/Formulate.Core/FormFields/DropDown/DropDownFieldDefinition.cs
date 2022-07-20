@@ -1,5 +1,6 @@
 ﻿namespace Formulate.Core.FormFields.DropDown
 {
+    using Formulate.Core.DataValues;
     // Namesapces.
     using System;
     using System.Collections.Generic;
@@ -9,7 +10,7 @@
     /// <summary>
     /// A drop down form field definition.
     /// </summary>
-    public sealed class DropDownFieldDefinition : FormFieldDefinitionBase
+    public sealed class DropDownFieldDefinition : FormFieldDefinitionBase<DropDownField>
     {
         /// <summary>
         /// The json utility.
@@ -20,6 +21,16 @@
         /// The get data values items utility.
         /// </summary>
         private readonly IGetDataValuesItemsUtility _getDataValuesItemsUtility;
+
+        /// <summary>
+        /// The factory to create data value instances.
+        /// </summary>
+        private readonly IDataValuesFactory _dataValuesFactory;
+
+        /// <summary>
+        /// The repo to fetch data values.
+        /// </summary>
+        private readonly IDataValuesEntityRepository _dataValuesRepository;
 
         /// <summary>
         /// Constants related to <see cref="DropDownFieldDefinition"/>.
@@ -71,10 +82,16 @@
         /// <remarks>
         /// Default constructor.
         /// </remarks>
-        public DropDownFieldDefinition(IJsonUtility jsonUtility, IGetDataValuesItemsUtility getDataValuesItemsUtility)
+        public DropDownFieldDefinition(
+            IJsonUtility jsonUtility,
+            IGetDataValuesItemsUtility getDataValuesItemsUtility,
+            IDataValuesFactory dataValuesFactory,
+            IDataValuesEntityRepository dataValuesRepository)
         {
             _jsonUtility = jsonUtility;
             _getDataValuesItemsUtility = getDataValuesItemsUtility;
+            _dataValuesFactory = dataValuesFactory;
+            _dataValuesRepository = dataValuesRepository;
         }
 
         /// <inheritdoc />
@@ -104,6 +121,33 @@
             };
 
             return new DropDownField(settings, config);
+        }
+
+        /// <inheritdoc />
+        public override object GetBackOfficeConfiguration(IFormFieldSettings settings)
+        {
+            var preValues = settings.Data == null
+                ? null
+                : _jsonUtility.Deserialize<DropDownFieldPreValues>(settings.Data);
+            var guid = preValues?.DataValue;
+            if (guid.HasValue)
+            {
+                var valueSettings = _dataValuesRepository.Get(guid.Value);
+                var definition = valueSettings == null
+                    ? null
+                    : _dataValuesFactory.Create(valueSettings);
+                return definition == null
+                    ? null
+                    : new
+                    {
+                        definition.Id,
+                        definition.Name,
+                    };
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

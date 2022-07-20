@@ -6,7 +6,7 @@
     /// <summary>
     /// A text form field definition.
     /// </summary>
-    public sealed class TextFieldDefinition : FormFieldDefinition
+    public sealed class TextFieldDefinition : FormFieldDefinition<TextField>
     {
         /// <summary>
         /// Constants related to <see cref="TextFieldDefinition"/>.

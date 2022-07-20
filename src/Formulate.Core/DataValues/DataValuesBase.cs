@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Formulate.Core.DataValues
+﻿namespace Formulate.Core.DataValues
 {
+    // Namespaces.
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
     /// The base class for all data values.
     /// </summary>
@@ -13,6 +14,9 @@ namespace Formulate.Core.DataValues
 
         /// <inheritdoc />
         public Guid KindId { get; }
+
+        /// <inheritdoc />
+        public string Name { get; }
 
         /// <inheritdoc />
         public IReadOnlyCollection<KeyValuePair<string, string>> Items { get; }
@@ -36,7 +40,9 @@ namespace Formulate.Core.DataValues
         /// <param name="settings">The data values settings.</param>
         /// <param name="items">The items.</param>
         /// <exception cref="ArgumentNullException">The settings parameter is null.</exception>
-        protected DataValuesBase(IDataValuesSettings settings, IReadOnlyCollection<KeyValuePair<string, string>> items)
+        protected DataValuesBase(
+            IDataValuesSettings settings,
+            IReadOnlyCollection<KeyValuePair<string, string>> items)
         {
             if (settings is null)
             {
@@ -47,6 +53,7 @@ namespace Formulate.Core.DataValues
             KindId = settings.KindId;
             RawConfiguration = settings.Data;
             Items = items ?? Array.Empty<KeyValuePair<string, string>>();
+            Name = settings.Name;
         }
     }
 }

@@ -6,7 +6,7 @@
     /// <summary>
     /// The form field definition used to create <see cref="ButtonField"/>.
     /// </summary>
-    public sealed class ButtonFieldDefinition : FormFieldDefinition
+    public sealed class ButtonFieldDefinition : FormFieldDefinition<ButtonField>
     {
         /// <summary>
         /// Constants related to <see cref="ButtonFieldDefinition"/>.

@@ -34,9 +34,14 @@ namespace Formulate.Core.Tests.ValidationTests
             
             public string Directive => "formulate-test-validation";
             
-            public IValidation CreateValidation(IValidationSettings settings)
+            public Validation CreateValidation(IValidationSettings settings)
             {
                 return new TestValidation(settings);
+            }
+
+            public object GetBackOfficeConfiguration(IValidationSettings settings)
+            {
+                return null;
             }
         }
 

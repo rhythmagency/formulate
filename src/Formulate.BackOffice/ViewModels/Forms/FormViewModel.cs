@@ -5,6 +5,7 @@
     using Core.FormHandlers;
     using Core.Forms;
     using Core.Persistence;
+    using Core.Validations;
     using System;
     using System.Linq;
 
@@ -27,10 +28,10 @@
         public string Alias { get; set; }
 
         /// <inheritdoc cref="PersistedForm.Fields"/>
-        public IFormField[] Fields { get; set; }
+        public FieldViewModel[] Fields { get; set; }
 
         /// <inheritdoc cref="PersistedForm.Handlers"/>
-        public IFormHandler[] Handlers { get; set; }
+        public HandlerViewModel[] Handlers { get; set; }
 
         /// <summary>
         /// Copy constructor.
@@ -47,11 +48,51 @@
             Name = source.Name;
             Alias = source.Alias;
             Fields = source.Fields
-                ?.Select(x => formFieldFactory.Create(x))
-                ?.Where(x => x != null)
+                ?.Select(x => new
+                {
+                    Original = x,
+                    Mapped = formFieldFactory.Create(x) as FormField,
+                })
+                ?.Where(x => x.Mapped != null)
+                ?.Select(x => new FieldViewModel()
+                {
+                    Alias = x.Original.Alias,
+                    Category = x.Original.Category,
+                    Configuration = x.Mapped.BackOfficeConfiguration,
+                    Icon = x.Mapped.Icon,
+                    Id = x.Original.Id,
+                    Name = x.Original.Name,
+                    KindId = x.Original.KindId,
+                    Label = x.Original.Label,
+                    Validations = x.Mapped.Validations
+                        .Select(y =>
+                        {
+                            return new ValidationViewModel()
+                            {
+                                Configuration = (y as Validation).BackOfficeConfiguration,
+                                Id = y.Id,
+                                Name = y.Name,
+                            };
+                        })
+                        .ToArray(),
+                })
                 ?.ToArray();
             Handlers = source.Handlers
-                ?.Select(x => formHandlerFactory.Create(x))
+                ?.Select(x => new
+                {
+                    Original = x,
+                    Mapped = formHandlerFactory.Create(x) as FormHandler,
+                })
+                .Select(x => new HandlerViewModel
+                {
+                    Alias = x.Original.Alias,
+                    Enabled = x.Original.Enabled,
+                    Icon = x.Mapped.Icon,
+                    Id = x.Original.Id,
+                    Name = x.Original.Name,
+                    Configuration = x.Mapped.BackOfficeConfiguration,
+                    Directive = x.Mapped.Directive,
+                })
                 ?.ToArray();
         }
     }

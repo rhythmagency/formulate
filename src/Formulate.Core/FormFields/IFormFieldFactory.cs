@@ -1,11 +1,13 @@
-﻿using Formulate.Core.Types;
-
-namespace Formulate.Core.FormFields
+﻿namespace Formulate.Core.FormFields
 {
+    // Namespaces.
+    using Formulate.Core.Types;
+
     /// <summary>
     /// Creates a <see cref="IFormField"/>.
     /// </summary>
-    public interface IFormFieldFactory : IEntityFactory<IFormFieldSettings, IFormField>
+    public interface IFormFieldFactory
+        : IEntityFactory<IFormFieldSettings, IFormField>
     {
     }
 }

@@ -37,8 +37,10 @@
             var validation = foundValidationDefinition?.CreateValidation(settings);
 
             // Set the attributes on the validation that can be obtained from
-            // the validation definition (namely, name).
+            // the validation definition.
             validation.Name = settings.Name;
+            validation.BackOfficeConfiguration = foundValidationDefinition
+                .GetBackOfficeConfiguration(settings);
 
             return validation;
         }

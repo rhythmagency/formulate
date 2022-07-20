@@ -46,6 +46,11 @@
         public string Directive { get; set; }
 
         /// <summary>
+        /// The configuration used by the back office.
+        /// </summary>
+        public object BackOfficeConfiguration { get; set; }
+
+        /// <summary>
         /// The raw configuration.
         /// </summary>
         /// <remarks>

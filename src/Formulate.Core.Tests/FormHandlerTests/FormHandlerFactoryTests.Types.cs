@@ -42,6 +42,11 @@ namespace Formulate.Core.Tests.FormHandlerTests
             {
                 return new TestFormHandler(settings);
             }
+
+            public override object GetBackOfficeConfiguration(IFormHandlerSettings settings)
+            {
+                return null;
+            }
         }
 
         private sealed class TestUnsupportedFormHandlerDefinition : IFormHandlerDefinition
@@ -57,6 +62,11 @@ namespace Formulate.Core.Tests.FormHandlerTests
             public FormHandler CreateHandler(IFormHandlerSettings settings)
             {
                 throw new NotImplementedException();
+            }
+
+            public object GetBackOfficeConfiguration(IFormHandlerSettings settings)
+            {
+                return null;
             }
         }
 

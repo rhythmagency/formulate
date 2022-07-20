@@ -27,7 +27,7 @@
             public Guid[] Validations { get; set; }
         }
 
-        private sealed class TestFormFieldDefinition : FormFieldDefinition
+        private sealed class TestFormFieldDefinition : FormFieldDefinition<TestFormField>
         {
             public override Guid KindId => Guid.Parse(Constants.TestFormFieldKindId);
 

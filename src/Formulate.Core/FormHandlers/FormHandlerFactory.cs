@@ -44,9 +44,11 @@
             var handler = foundFormHandlerDefinition.CreateHandler(settings);
 
             // Set the attributes on the form handler that can be obtained from
-            // the form handler definition (namely, icon and directive).
+            // the form handler definition.
             handler.Icon = foundFormHandlerDefinition.Icon;
             handler.Directive = foundFormHandlerDefinition.Directive;
+            handler.BackOfficeConfiguration = foundFormHandlerDefinition
+                .GetBackOfficeConfiguration(settings);
 
             // Return the form handler instance.
             return handler;

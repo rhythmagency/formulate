@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using Formulate.Core.Types;
-
-namespace Formulate.Core.DataValues
+﻿namespace Formulate.Core.DataValues
 {
+    // Namespaces.
+    using System.Collections.Generic;
+    using Types;
+
     /// <summary>
     /// A contract for creating a data values.
     /// </summary>
@@ -12,5 +13,10 @@ namespace Formulate.Core.DataValues
         /// Gets the items.
         /// </summary>
         IReadOnlyCollection<KeyValuePair<string, string>> Items { get; }
+
+        /// <summary>
+        /// The name of this data value.
+        /// </summary>
+        string Name { get; }
     }
 }

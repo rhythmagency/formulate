@@ -1,7 +1,8 @@
-﻿using Formulate.Core.Types;
-
-namespace Formulate.Core.Validations
+﻿namespace Formulate.Core.Validations
 {
+    // Namespaces.
+    using Types;
+
     /// <summary>
     /// A contract for creating a validation definition.
     /// </summary>
@@ -12,6 +13,18 @@ namespace Formulate.Core.Validations
         /// </summary>
         /// <param name="settings">The current validation settings.</param>
         /// <returns>A <see cref="IValidation"/>.</returns>
-        IValidation CreateValidation(IValidationSettings settings);
+        Validation CreateValidation(IValidationSettings settings);
+
+        /// <summary>
+        /// Creates an instance of the configuration needed by the back
+        /// office.
+        /// </summary>
+        /// <param name="settings">
+        /// The current validation settings.
+        /// </param>
+        /// <returns>
+        /// The configuration.
+        /// </returns>
+        object GetBackOfficeConfiguration(IValidationSettings settings);
     }
 }

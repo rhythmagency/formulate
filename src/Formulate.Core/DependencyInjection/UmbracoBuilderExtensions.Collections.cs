@@ -1,12 +1,15 @@
-﻿using Formulate.Core.DataValues;
-using Formulate.Core.FormFields;
-using Formulate.Core.FormHandlers;
-using Formulate.Core.Layouts;
-using Formulate.Core.Validations;
-using Umbraco.Cms.Core.DependencyInjection;
-
-namespace Formulate.Core.DependencyInjection
+﻿namespace Formulate.Core.DependencyInjection
 {
+    // Namespaces.
+    using DataValues;
+    using Extensions;
+    using FormFields;
+    using FormHandlers;
+    using Layouts;
+    using System.Linq;
+    using Umbraco.Cms.Core.DependencyInjection;
+    using Validations;
+
     public static partial class UmbracoBuilderExtensions
     {
         /// <summary>
@@ -24,9 +27,11 @@ namespace Formulate.Core.DependencyInjection
         /// </summary>
         /// <param name="builder">The Umbraco builder.</param>
         /// <returns>A <see cref="FormFieldDefinitionCollectionBuilder"/>.</returns>
-        public static FormFieldDefinitionCollectionBuilder FormFieldDefinitions(this IUmbracoBuilder builder)
+        public static FormFieldDefinitionCollectionBuilder
+            FormFieldDefinitions(this IUmbracoBuilder builder)
         {
-            return builder.WithCollectionBuilder<FormFieldDefinitionCollectionBuilder>();
+            return builder
+                .WithCollectionBuilder<FormFieldDefinitionCollectionBuilder>();
         }
 
         /// <summary>
@@ -69,8 +74,11 @@ namespace Formulate.Core.DependencyInjection
             builder.DataValuesDefinitions().Add(() =>
                 builder.TypeLoader.GetTypes<IDataValuesDefinition>());
 
+            var fieldDefinitionType = typeof(FormFieldDefinitionBase<>);
             builder.FormFieldDefinitions().Add(() =>
-                builder.TypeLoader.GetTypes<FormFieldDefinitionBase>());
+                builder.TypeLoader
+                    .GetTypes<IFormFieldDefinition>()
+                    .Where(x => x.IsTypeDerivedFromGenericType(fieldDefinitionType)));
 
             builder.FormHandlerDefinitions().Add(() =>
                 builder.TypeLoader.GetTypes<FormHandlerDefinition>());
@@ -79,7 +87,7 @@ namespace Formulate.Core.DependencyInjection
                 builder.TypeLoader.GetTypes<ILayoutDefinition>());
 
             builder.ValidationDefinitions().Add(() =>
-                builder.TypeLoader.GetTypes<IValidationDefinition>()); ;
+                builder.TypeLoader.GetTypes<IValidationDefinition>());
 
             return builder;
         }

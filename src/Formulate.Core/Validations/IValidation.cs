@@ -12,5 +12,10 @@
         /// Gets or sets the name for this validation.
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets the raw configuration for this validation.
+        /// </summary>
+        public string RawConfiguration { get; }
     }
 }

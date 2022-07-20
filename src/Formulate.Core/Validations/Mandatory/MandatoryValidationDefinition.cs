@@ -38,11 +38,17 @@ namespace Formulate.Core.Validations.Mandatory
         public string Directive => Constants.Directive;
 
         /// <inheritdoc />
-        public IValidation CreateValidation(IValidationSettings settings)
+        public Validation CreateValidation(IValidationSettings settings)
         {
             var config = new MandatoryValidationConfiguration();
 
             return new MandatoryValidation(settings, config);
+        }
+
+        /// <inheritdoc />
+        public object GetBackOfficeConfiguration(IValidationSettings settings)
+        {
+            return null;
         }
     }
 }

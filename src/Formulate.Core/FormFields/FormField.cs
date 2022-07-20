@@ -78,6 +78,11 @@
         public string Directive { get; set; }
 
         /// <summary>
+        /// The configuration passed to the back office.
+        /// </summary>
+        public object BackOfficeConfiguration { get; set; }
+
+        /// <summary>
         /// The raw configuration.
         /// </summary>
         /// <remarks>

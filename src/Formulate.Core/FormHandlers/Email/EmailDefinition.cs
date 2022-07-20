@@ -52,5 +52,12 @@
             var handler = new EmailHandler(settings);
             return handler;
         }
+
+        /// <inheritdoc />
+        public override object GetBackOfficeConfiguration(IFormHandlerSettings settings)
+        {
+            //TODO: Implement.
+            return null;
+        }
     }
 }

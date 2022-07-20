@@ -2,12 +2,14 @@
 {
     // Namespaces.
     using System;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// An abstract class for creating a new <see cref="IFormFieldDefinition"/>.
     /// </summary>
     /// <remarks>It is not necessary to implement from this class but it does provide some helpful defaults for certain optional fields.</remarks>
-    public abstract class FormFieldDefinitionBase : IFormFieldDefinition
+    public abstract class FormFieldDefinitionBase<TField> : IFormFieldDefinition
+        where TField : IFormField
     {
         /// <inheritdoc />
         public abstract Guid KindId { get; }
@@ -39,5 +41,13 @@
 
         /// <inheritdoc />
         public abstract FormField CreateField(IFormFieldSettings settings);
+
+        /// <inheritdoc />
+        public virtual object GetBackOfficeConfiguration(IFormFieldSettings settings)
+        {
+            return settings.Data == null
+                ? null
+                : JsonConvert.DeserializeObject<object>(settings.Data);
+        }
     }
 }

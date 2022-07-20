@@ -1,7 +1,8 @@
-﻿using Umbraco.Cms.Core.Composing;
-
-namespace Formulate.Core.FormFields
+﻿namespace Formulate.Core.FormFields
 {
+    // Namespaces.
+    using Umbraco.Cms.Core.Composing;
+
     /// <inheritdoc />
     public sealed class FormFieldDefinitionCollectionBuilder
         : LazyCollectionBuilderBase<

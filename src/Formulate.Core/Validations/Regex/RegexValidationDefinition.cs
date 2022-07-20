@@ -38,9 +38,15 @@ namespace Formulate.Core.Validations.Regex
         public string Directive => Constants.Directive;
 
         /// <inheritdoc />
-        public IValidation CreateValidation(IValidationSettings settings)
+        public Validation CreateValidation(IValidationSettings settings)
         {
             return new RegexValidation(settings, new RegexValidationConfiguration());
+        }
+
+        /// <inheritdoc />
+        public object GetBackOfficeConfiguration(IValidationSettings settings)
+        {
+            return null;
         }
     }
 }

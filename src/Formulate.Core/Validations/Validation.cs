@@ -50,7 +50,12 @@ namespace Formulate.Core.Validations
         /// Deserialization should typically happen in the overridden <see cref="IValidationDefinition"/> CreateValidation method.
         /// </para>
         /// </remarks>
-        protected readonly string RawConfiguration;
+        public string RawConfiguration { get; set; }
+
+        /// <summary>
+        /// The configuration used by the back office for this validation.
+        /// </summary>
+        public object BackOfficeConfiguration { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Validation"/> class.

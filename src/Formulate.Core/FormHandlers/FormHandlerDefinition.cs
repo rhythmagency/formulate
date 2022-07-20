@@ -22,5 +22,8 @@
 
         /// <inheritdoc />
         public abstract FormHandler CreateHandler(IFormHandlerSettings settings);
+
+        /// <inheritdoc />
+        public abstract object GetBackOfficeConfiguration(IFormHandlerSettings settings);
     }
 }
