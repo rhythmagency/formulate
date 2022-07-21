@@ -89,6 +89,7 @@
                     Enabled = x.Original.Enabled,
                     Icon = x.Mapped.Icon,
                     Id = x.Original.Id,
+                    KindId = x.Original.KindId,
                     Name = x.Original.Name,
                     Configuration = x.Mapped.BackOfficeConfiguration,
                     Directive = x.Mapped.Directive,

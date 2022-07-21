@@ -19,6 +19,11 @@
         public Guid Id { get; set; }
 
         /// <summary>
+        /// The ID for the type of this handler.
+        /// </summary>
+        public Guid KindId { get; set; }
+
+        /// <summary>
         /// The name of this handler.
         /// </summary>
         public string Name { get; set; }
