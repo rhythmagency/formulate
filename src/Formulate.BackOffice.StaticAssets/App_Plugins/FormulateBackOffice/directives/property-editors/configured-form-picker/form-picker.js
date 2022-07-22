@@ -5,11 +5,19 @@ class ConfiguredFormPicker {
     constructor() {
     }
 
-    controller = ($scope, overlayService) => {
+    controller = ($scope, overlayService, editorService) => {
+        $scope.events = this;
         this.retainProperties({
             $scope,
             overlayService,
+            editorService,
         });
+        this.getFormName();
+    };
+
+    getFormName = () => {
+        //TODO: Get name of configured form.
+        this.$scope.formName = null;
     };
 
     retainProperties = (properties) => {
@@ -47,7 +55,6 @@ class ConfiguredFormPicker {
         const data = {
             title: "Choose Form",
             subtitle: "Choose a form.",
-            //TODO: Need to implement this view. Refer to the layout chooser.
             view: "/app_plugins/formulatebackoffice/directives/overlays/configured-form-chooser/form-chooser-overlay.html",
             hideSubmitButton: true,
             close: closer,
@@ -58,7 +65,9 @@ class ConfiguredFormPicker {
         this.overlayService.open(data);
 
     };
+
 }
 
+// Initialize.
 const picker = new ConfiguredFormPicker();
 picker.registerController();

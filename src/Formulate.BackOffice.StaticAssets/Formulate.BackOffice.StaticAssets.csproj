@@ -62,6 +62,9 @@
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\move.dialog.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\move.dialog.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\form-field.editor.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\overlays\configured-form-chooser\form-chooser-overlay.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\overlays\configured-form-chooser\form-chooser.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\overlays\configured-form-chooser\form-chooser.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\configured-form-picker\form-picker.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\configured-form-picker\form-picker.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\definitionDirectiveResource.js" />

@@ -3,9 +3,9 @@
         <div>
             {{formName}}
         </div>
-        <button type="button" class="btn btn-default" ng-click="pickForm()">Change</button>
+        <button type="button" class="btn btn-default" ng-click="events.pickConfiguredForm()">Change</button>
     </div>
     <div ng-if="!model.value.id">
-        <button type="button" class="btn btn-default" ng-click="pickForm()">Choose</button>
+        <button type="button" class="btn btn-default" ng-click="events.pickConfiguredForm()">Choose</button>
     </div>
 </div>

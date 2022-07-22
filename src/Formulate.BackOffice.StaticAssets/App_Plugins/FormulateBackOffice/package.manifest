@@ -35,6 +35,7 @@
     "/App_Plugins/FormulateBackOffice/directives/editors/form-handler.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/localizeAttribute/injectLocalization.js",
     "/App_Plugins/FormulateBackOffice/directives/localizeAttribute/localizeAttribute.js",
+    "/App_Plugins/FormulateBackOffice/directives/overlays/configured-form-chooser/form-chooser.js",
     "/App_Plugins/FormulateBackOffice/directives/overlays/formFieldChooser/form-field-chooser.js",
     "/App_Plugins/FormulateBackOffice/directives/overlays/formHandlerChooser/form-handler-chooser.js",
     "/App_Plugins/FormulateBackOffice/directives/overlays/layoutChooser/layout-chooser.js",
