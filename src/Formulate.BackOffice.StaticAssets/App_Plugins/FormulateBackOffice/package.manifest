@@ -31,6 +31,7 @@
     "/App_Plugins/FormulateBackOffice/directives/dialogs/delete.dialog.js",
     "/App_Plugins/FormulateBackOffice/directives/dialogs/move.dialog.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/configuration.editor.js",
+    "/App_Plugins/FormulateBackOffice/directives/editors/form-field.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/form-handler.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/localizeAttribute/injectLocalization.js",
     "/App_Plugins/FormulateBackOffice/directives/localizeAttribute/localizeAttribute.js",
