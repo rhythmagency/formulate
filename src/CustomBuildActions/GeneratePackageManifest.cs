@@ -40,6 +40,19 @@ internal class GeneratePackageManifest
         {
             javascript = jsFiles,
             css = cssFiles,
+            propertyEditors = new[]
+            {
+                new
+                {
+                    alias = "Formulate.ConfiguredFormPicker",
+                    name = "Formulate Form Picker",
+                    editor = new
+                    {
+                        view = "/App_Plugins/FormulateBackOffice/directives/property-editors/form-picker/form-picker.html",
+                        valueType = "JSON",
+                    },
+                },
+            }
         };
         var options = new JsonSerializerOptions()
         {

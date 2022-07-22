@@ -61,6 +61,8 @@
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\delete.dialog.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\move.dialog.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\move.dialog.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\form-picker\form-picker.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\form-picker\form-picker.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\definitionDirectiveResource.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\entityResource.js" />
     </ItemGroup>
