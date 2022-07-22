@@ -39,7 +39,7 @@
     "/App_Plugins/FormulateBackOffice/directives/overlays/formHandlerChooser/form-handler-chooser.js",
     "/App_Plugins/FormulateBackOffice/directives/overlays/layoutChooser/layout-chooser.js",
     "/App_Plugins/FormulateBackOffice/directives/overlays/validationChooser/validation-chooser.js",
-    "/App_Plugins/FormulateBackOffice/directives/property-editors/form-picker/form-picker.js",
+    "/App_Plugins/FormulateBackOffice/directives/property-editors/configured-form-picker/form-picker.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/dataValues/dynamic/dynamic-datavalues.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/dataValues/legacy/legacy-datavalues.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/dataValues/list/list-datavalues.editor.js",
@@ -62,7 +62,7 @@
       "alias": "Formulate.ConfiguredFormPicker",
       "name": "Formulate Form Picker",
       "editor": {
-        "view": "/App_Plugins/FormulateBackOffice/directives/property-editors/form-picker/form-picker.html",
+        "view": "/App_Plugins/FormulateBackOffice/directives/property-editors/configured-form-picker/form-picker.html",
         "valueType": "JSON"
       }
     }
