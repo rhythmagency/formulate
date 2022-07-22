@@ -48,7 +48,7 @@ internal class GeneratePackageManifest
                     name = "Formulate Form Picker",
                     editor = new
                     {
-                        view = "/App_Plugins/FormulateBackOffice/directives/property-editors/form-picker/form-picker.html",
+                        view = "/App_Plugins/FormulateBackOffice/directives/property-editors/configured-form-picker/form-picker.html",
                         valueType = "JSON",
                     },
                 },
