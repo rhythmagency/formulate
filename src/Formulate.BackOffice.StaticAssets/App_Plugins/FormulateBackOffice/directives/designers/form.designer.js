@@ -411,6 +411,7 @@ class FormDesignerEventHandlers {
             const url = Umbraco.Sys.ServerVariables.formulate["forms.Save"];
             const entity = this.$scope.entity;
             const fields = this.$scope.fields;
+            const handlers = this.$scope.handlers;
 
             const payload = {
                 alias: entity.alias,
