@@ -314,6 +314,7 @@ class FormDesignerEventHandlers {
                 kindId: field.kindId,
                 name: null,
                 alias: null,
+                validations: []
             });
         };
 
@@ -409,12 +410,14 @@ class FormDesignerEventHandlers {
             // Prepare the data to save.
             const url = Umbraco.Sys.ServerVariables.formulate["forms.Save"];
             const entity = this.$scope.entity;
+            const fields = this.$scope.fields;
+
             const payload = {
                 alias: entity.alias,
                 id: entity.id,
                 name: entity.name,
                 path: entity.path,
-                fields: entity.fields.map(x => {
+                fields: fields.map(x => {
                     return {
                         alias: x.alias,
                         category: x.category,
@@ -428,7 +431,7 @@ class FormDesignerEventHandlers {
                         }),
                     };
                 }),
-                handlers: entity.handlers.map(x => {
+                handlers: handlers.map(x => {
                     return {
                         alias: x.alias,
                         enabled: x.enabled,
