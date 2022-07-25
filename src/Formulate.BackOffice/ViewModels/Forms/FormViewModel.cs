@@ -58,6 +58,7 @@
                 {
                     Alias = x.Original.Alias,
                     Category = x.Original.Category,
+                    Directive = x.Mapped.Directive,
                     Configuration = x.Mapped.BackOfficeConfiguration,
                     Icon = x.Mapped.Icon,
                     Id = x.Original.Id,

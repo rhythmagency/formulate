@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using Formulate.Core.Converters;
+using System.Text.Json;
 
 namespace Formulate.Core.Utilities.Internal
 {
@@ -11,9 +12,11 @@ namespace Formulate.Core.Utilities.Internal
         public T Deserialize<T>(string value)
         {
             var options = new JsonSerializerOptions();
+            options.Converters.Add(new FlexibleGuidJsonConverter());
+
             return string.IsNullOrWhiteSpace(value)
                 ? default
-                : JsonSerializer.Deserialize<T>(value);
+                : JsonSerializer.Deserialize<T>(value, options);
         }
 
         /// <inheritdoc />

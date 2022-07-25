@@ -267,6 +267,7 @@ class FormDesignerEventHandlers {
                 kindId: handler.kindId,
                 name: null,
                 alias: null,
+                configuration: null
             });
         };
 
@@ -413,6 +414,8 @@ class FormDesignerEventHandlers {
             const fields = this.$scope.fields;
             const handlers = this.$scope.handlers;
 
+            console.log(fields);
+
             const payload = {
                 alias: entity.alias,
                 id: entity.id,
@@ -440,7 +443,7 @@ class FormDesignerEventHandlers {
                         kindId: x.kindId,
                         name: x.name,
                         //TODO: Double check naming (not sure if configuration is correct).
-                        data: JSON.stringify(x.configuration),
+                        configuration: JSON.stringify(x.configuration),
                     };
                 }),
             };

@@ -126,28 +126,33 @@
         /// <inheritdoc />
         public override object GetBackOfficeConfiguration(IFormFieldSettings settings)
         {
-            var preValues = settings.Data == null
-                ? null
-                : _jsonUtility.Deserialize<DropDownFieldPreValues>(settings.Data);
+            if (settings is null)
+            {
+                return default;
+            }
+
+            var preValues = _jsonUtility.Deserialize<DropDownFieldPreValues>(settings.Data);
             var guid = preValues?.DataValue;
-            if (guid.HasValue)
+            if (guid.HasValue == false)
             {
-                var valueSettings = _dataValuesRepository.Get(guid.Value);
-                var definition = valueSettings == null
-                    ? null
-                    : _dataValuesFactory.Create(valueSettings);
-                return definition == null
-                    ? null
-                    : new
-                    {
-                        definition.Id,
-                        definition.Name,
-                    };
+                return default;
             }
-            else
+
+            var valueSettings = _dataValuesRepository.Get(guid.Value);
+            if (valueSettings is null)
             {
-                return null;
+                return default;
             }
+                
+            var definition = _dataValuesFactory.Create(valueSettings);                                
+            if (definition is null)
+            {
+                return default;
+            }
+
+            return new {
+                dataValue = definition.Id,
+            };
         }
     }
 }

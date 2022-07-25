@@ -52,5 +52,10 @@
         /// The validations applied to this field.
         /// </summary>
         public ValidationViewModel[] Validations { get; set; }
+
+        /// <summary>
+        /// The directive for this field.
+        /// </summary>
+        public string Directive { get; set; }
     }
 }
