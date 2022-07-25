@@ -92,12 +92,12 @@
                 //{ "PersistDataValue",
                 //    LinkGenerator.GetUmbracoApiService<DataValuesController>(x =>
                 //        x.PersistDataValue(null)) },
-                //{ "GetDataValueInfo",
-                //    LinkGenerator.GetUmbracoApiService<DataValuesController>(x =>
-                //        x.GetDataValueInfo(null)) },
+                { "GetDataValueInfo",
+                    LinkGenerator.GetUmbracoApiService<DataValuesController>(x =>
+                        x.Get()) },
                 //{ "GetDataValuesInfo",
                 //    LinkGenerator.GetUmbracoApiService<DataValuesController>(x =>
-                //        x.GetDataValuesInfo(null)) },
+                //        x.Get()) },
                 //{ "GetDataValueKinds",
                 //    LinkGenerator.GetUmbracoApiService<DataValuesController>(x =>
                 //        x.GetDataValueTypes()) },

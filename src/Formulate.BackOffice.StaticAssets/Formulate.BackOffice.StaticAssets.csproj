@@ -62,9 +62,14 @@
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\move.dialog.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\move.dialog.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\form-field.editor.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\drop-down\drop-down-field.editor.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\drop-down\drop-down-field.editor.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\form-picker\form-picker.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\form-picker\form-picker.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\resources\dataValuesResource.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\definitionDirectiveResource.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\entityResource.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\resources\formulateServerResource.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\resources\formulateVarsResource.js" />
     </ItemGroup>
 </Project>

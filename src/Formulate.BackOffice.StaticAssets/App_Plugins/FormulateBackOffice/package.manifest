@@ -1,8 +1,11 @@
 {
   "javascript": [
     "/App_Plugins/FormulateBackOffice/filters/formulate-localize-filter.js",
+    "/App_Plugins/FormulateBackOffice/resources/dataValuesResource.js",
     "/App_Plugins/FormulateBackOffice/resources/definitionDirectiveResource.js",
     "/App_Plugins/FormulateBackOffice/resources/entityResource.js",
+    "/App_Plugins/FormulateBackOffice/resources/formulateServerResource.js",
+    "/App_Plugins/FormulateBackOffice/resources/formulateVarsResource.js",
     "/App_Plugins/FormulateBackOffice/resources/typeDefinitionResource.js",
     "/App_Plugins/FormulateBackOffice/utilities/accordion.js",
     "/App_Plugins/FormulateBackOffice/backoffice/dataValues/DataValues.CreateController.js",
@@ -44,6 +47,7 @@
     "/App_Plugins/FormulateBackOffice/directives/editors/dataValues/legacy/legacy-datavalues.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/dataValues/list/list-datavalues.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/dataValues/pairList/pair-list-datavalues.editor.js",
+    "/App_Plugins/FormulateBackOffice/directives/editors/formFields/drop-down/drop-down-field.editor.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/formHandlers/email/formulate-email-handler.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/formHandlers/send-data/formulate-send-data-handler.js",
     "/App_Plugins/FormulateBackOffice/directives/editors/formHandlers/store-data/formulate-store-data-handler.js",
