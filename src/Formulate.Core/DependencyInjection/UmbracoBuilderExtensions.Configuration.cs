@@ -20,6 +20,10 @@
         private static IUmbracoBuilder AddFormulateConfiguration(
             this IUmbracoBuilder builder)
         {
+            builder.Services.Configure<ButtonsOptions>(x =>
+                builder.Config.GetSection(ButtonsOptions.SectionName)
+                .Bind(x));
+
             builder.Services.Configure<TemplatesOptions>(x =>
                 builder.Config.GetSection(TemplatesOptions.SectionName)
                 .Bind(x));

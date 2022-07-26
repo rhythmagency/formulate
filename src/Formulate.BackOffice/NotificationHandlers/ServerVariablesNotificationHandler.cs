@@ -11,6 +11,7 @@
     using Core.Forms;
     using Core.Layouts;
     using Core.Validations;
+    using Formulate.BackOffice.Controllers.Fields;
     using Microsoft.AspNetCore.Routing;
     using System.Collections.Generic;
     using Trees;
@@ -119,9 +120,9 @@
                 //{ "DeleteFolder",
                 //    LinkGenerator.GetUmbracoApiService<FoldersController>(x =>
                 //        x.DeleteFolder(null)) },
-                //{ "GetButtonKinds",
-                //    LinkGenerator.GetUmbracoApiService<FieldsController>(x =>
-                //        x.GetButtonKinds()) },
+                { "GetButtonKinds",
+                    LinkGenerator.GetUmbracoApiService<FieldsController>(x =>
+                        x.GetButtonKinds()) },
                 //{ "GetFieldCategories",
                 //    LinkGenerator.GetUmbracoApiService<FieldsController>(x =>
                 //        x.GetFieldCategories()) },

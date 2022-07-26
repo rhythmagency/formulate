@@ -1,5 +1,6 @@
 ﻿namespace Formulate.Core.FormFields.Button
 {
+    using Formulate.Core.Utilities;
     // Namespaces.
     using System;
 
@@ -8,6 +9,11 @@
     /// </summary>
     public sealed class ButtonFieldDefinition : FormFieldDefinition<ButtonField>
     {
+        /// <summary>
+        /// The json utility.
+        /// </summary>
+        private readonly IJsonUtility _jsonUtility;
+
         /// <summary>
         /// Constants related to <see cref="ButtonFieldDefinition"/>.
         /// </summary>
@@ -34,6 +40,20 @@
             public const string Directive = "formulate-button-field";
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ButtonFieldDefinition"/> class. 
+        /// </summary>
+        /// <param name="jsonUtility">
+        /// The json utility.
+        /// </param>
+        /// <remarks>
+        /// Default constructor.
+        /// </remarks>
+        public ButtonFieldDefinition(IJsonUtility jsonUtility)
+        {
+            _jsonUtility = jsonUtility;
+        }
+
         /// <inheritdoc />
         public override Guid KindId => Guid.Parse(Constants.KindId);
 
@@ -57,6 +77,11 @@
             var field = new ButtonField(settings, configuration);
             
             return field;
+        }
+
+        public override object GetBackOfficeConfiguration(IFormFieldSettings settings)
+        {            
+            return _jsonUtility.Deserialize<ButtonFieldConfiguration>(settings.Data) ?? new ButtonFieldConfiguration();
         }
     }
 }

@@ -24,5 +24,6 @@
   </area>
   <area alias="formulate-options">
     <key alias="Select a Template">Select a Template</key>
+    <key alias="Select a Button Kind">Select a Button Kind</key>
   </area>
 </language>
