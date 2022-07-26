@@ -399,5 +399,3 @@
         }
     }
 }
-
-//TODO: Add GetScaffolding to this class?
