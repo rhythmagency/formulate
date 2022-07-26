@@ -4,6 +4,7 @@
     using Configuration;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using System.Linq;
     using Umbraco.Cms.Core.DependencyInjection;
 
     public partial class UmbracoBuilderExtensions
@@ -23,6 +24,14 @@
             builder.Services.Configure<ButtonsOptions>(x =>
                 builder.Config.GetSection(ButtonsOptions.SectionName)
                 .Bind(x));
+
+            builder.Services.PostConfigure<ButtonsOptions>(options =>
+            {
+                if (options.Any() == false)
+                {
+                    options.AddRange(ButtonsOptions.FallbackOptions);
+                }
+            });
 
             builder.Services.Configure<TemplatesOptions>(x =>
                 builder.Config.GetSection(TemplatesOptions.SectionName)

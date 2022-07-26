@@ -11,17 +11,20 @@
     [FormulateBackOfficePluginController]
     public sealed class FieldsController : UmbracoAuthorizedApiController
     {
-        private readonly ButtonsOptions _buttonConfig;
+        /// <summary>
+        /// The buttons config.
+        /// </summary>
+        private readonly ButtonsOptions _buttonsConfig;
 
         public FieldsController(IOptions<ButtonsOptions> buttonsConfig)
         {
-            _buttonConfig = buttonsConfig.Value;
+            _buttonsConfig = buttonsConfig.Value;
         }
 
         [HttpGet]   
         public IActionResult GetButtonKinds()
         {
-            return Ok(_buttonConfig.Items);
+            return Ok(_buttonsConfig);
         }
     }
 }
