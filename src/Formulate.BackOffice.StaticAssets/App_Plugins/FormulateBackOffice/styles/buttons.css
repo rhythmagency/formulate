@@ -1,0 +1,20 @@
+﻿.formulate__button--close {
+    background: #f00;
+    color: #fff;
+    font-weight: bold;
+    font-family: monospace;
+    height: 24px;
+    width: 24px;
+    padding: 0;
+    border: none;
+    outline: none;
+}
+
+.formulate__button--close:active,
+.formulate__button--close:focus {
+    border: 3px inset #f00;
+}
+
+.formulate__button--close:hover:not(:active):not(:focus) {
+    box-shadow: 2px 2px 0 #000;
+}

@@ -1,9 +1,13 @@
 <div ng-controller="Formulate.ConfiguredFormPicker">
-    <div ng-if="model.value.id">
+    <div ng-if="model.value.id" class="configured-form-picker__chosen">
+        <button type="button" class="formulate__button--close configured-form-picker__close" ng-click="events.clearPickedForm()">X</button>
         <div>
             {{formName}}
         </div>
-        <button type="button" class="btn btn-default" ng-click="events.pickConfiguredForm()">Change</button>
+        <div class="formulate__flex-wrap">
+
+        </div>
+        <button type="button" class="btn btn-default formulate__button--change" ng-click="events.pickConfiguredForm()">Change</button>
     </div>
     <div ng-if="!model.value.id">
         <button type="button" class="btn btn-default" ng-click="events.pickConfiguredForm()">Choose</button>

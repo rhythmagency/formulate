@@ -66,6 +66,7 @@
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\button\button-field.editor.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\drop-down\drop-down-field.editor.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\drop-down\drop-down-field.editor.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\configured-form-picker\form-picker.css" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\form-picker\form-picker.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\form-picker\form-picker.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\dataValuesResource.js" />
@@ -76,5 +77,7 @@
       <None Remove="App_Plugins\FormulateBackOffice\resources\formulateFieldsResource.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\formulateServerResource.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\formulateVarsResource.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\styles\buttons.css" />
+      <None Remove="App_Plugins\FormulateBackOffice\styles\flexbox-utilities.css" />
     </ItemGroup>
 </Project>

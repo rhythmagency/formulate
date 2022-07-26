@@ -1,0 +1,13 @@
+﻿.configured-form-picker__chosen {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.configured-form-picker__close {
+    margin-right: 6px;
+}
+
+button[type=button].formulate__button--change {
+    margin-top: 10px;
+}

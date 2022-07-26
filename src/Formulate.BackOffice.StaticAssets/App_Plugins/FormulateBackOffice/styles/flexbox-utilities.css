@@ -1,0 +1,6 @@
+﻿/* Acts like a <br> tag within a flexbox container, forcing elements to a new line. */
+.formulate__flex-wrap {
+    flex-basis: 100%;
+    height: 0;
+    line-height: 0;
+}

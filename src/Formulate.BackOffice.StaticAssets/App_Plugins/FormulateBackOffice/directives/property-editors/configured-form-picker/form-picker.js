@@ -80,13 +80,20 @@ class ConfiguredFormPicker {
     };
 
     /**
+     * Deselects the currently selected configured form.
+     */
+    clearPickedForm = () => {
+        this.$scope.model.value = {};
+    };
+
+    /**
      * Opens the form chooser dialog.
      */
     pickConfiguredForm = () => {
 
         // This is called when the dialog is closed.
         const closer = () => {
-            this.overlayService.close();
+            this.editorService.close();
         };
 
         // This is called when a form is chosen.
