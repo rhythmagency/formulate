@@ -11,12 +11,15 @@ namespace Formulate.Core.Utilities.Internal
         /// <inheritdoc />
         public T Deserialize<T>(string value)
         {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return default;
+            }
+
             var options = new JsonSerializerOptions();
             options.Converters.Add(new FlexibleGuidJsonConverter());
 
-            return string.IsNullOrWhiteSpace(value)
-                ? default
-                : JsonSerializer.Deserialize<T>(value, options);
+            return JsonSerializer.Deserialize<T>(value, options);
         }
 
         /// <inheritdoc />
