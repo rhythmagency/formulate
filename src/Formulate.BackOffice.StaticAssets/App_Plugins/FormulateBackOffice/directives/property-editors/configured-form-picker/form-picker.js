@@ -44,25 +44,35 @@ class ConfiguredFormPicker {
 
         // This is called when a form is chosen.
         const chosen = ({ id, name }) => {
+            if (!id) {
+                return;
+            }
             this.overlayService.close();
             this.$scope.model.value = {
                 id,
             };
             this.$scope.formName = name;
+            this.editorService.close();
         };
 
-        // The data sent to the layout chooser.
-        const data = {
-            title: "Choose Form",
-            subtitle: "Choose a form.",
-            view: "/app_plugins/formulatebackoffice/directives/overlays/configured-form-chooser/form-chooser-overlay.html",
-            hideSubmitButton: true,
+        // The configuration for the tree that allows the configured
+        // form to be chosen.
+        const config = {
+            section: 'formulate',
+            treeAlias: 'forms',
+            multiPicker: false,
+            entityType: 'ConfiguredForm',
+            filter: (node) => {
+                return node.nodeType !== 'ConfiguredForm';
+            },
+            filterCssClass: 'not-allowed',
+            select: chosen,
+            submit: closer,
             close: closer,
-            chosen: chosen,
         };
 
         // Open the overlay that displays the forms.
-        this.overlayService.open(data);
+        this.editorService.treePicker(config);
 
     };
 

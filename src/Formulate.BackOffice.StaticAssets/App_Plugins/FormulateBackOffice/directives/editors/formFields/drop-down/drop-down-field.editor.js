@@ -64,8 +64,8 @@
                 }
             };
 
-            editorService.treePicker(config);           
-            
+            editorService.treePicker(config);
+
         };
     }
 
