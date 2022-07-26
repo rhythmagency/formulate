@@ -23,16 +23,6 @@
         private readonly IGetDataValuesItemsUtility _getDataValuesItemsUtility;
 
         /// <summary>
-        /// The factory to create data value instances.
-        /// </summary>
-        private readonly IDataValuesFactory _dataValuesFactory;
-
-        /// <summary>
-        /// The repo to fetch data values.
-        /// </summary>
-        private readonly IDataValuesEntityRepository _dataValuesRepository;
-
-        /// <summary>
         /// Constants related to <see cref="DropDownFieldDefinition"/>.
         /// </summary>
         public static class Constants
@@ -84,14 +74,10 @@
         /// </remarks>
         public DropDownFieldDefinition(
             IJsonUtility jsonUtility,
-            IGetDataValuesItemsUtility getDataValuesItemsUtility,
-            IDataValuesFactory dataValuesFactory,
-            IDataValuesEntityRepository dataValuesRepository)
+            IGetDataValuesItemsUtility getDataValuesItemsUtility)
         {
             _jsonUtility = jsonUtility;
             _getDataValuesItemsUtility = getDataValuesItemsUtility;
-            _dataValuesFactory = dataValuesFactory;
-            _dataValuesRepository = dataValuesRepository;
         }
 
         /// <inheritdoc />
@@ -131,28 +117,7 @@
                 return default;
             }
 
-            var preValues = _jsonUtility.Deserialize<DropDownFieldPreValues>(settings.Data);
-            var guid = preValues?.DataValue;
-            if (guid.HasValue == false)
-            {
-                return default;
-            }
-
-            var valueSettings = _dataValuesRepository.Get(guid.Value);
-            if (valueSettings is null)
-            {
-                return default;
-            }
-                
-            var definition = _dataValuesFactory.Create(valueSettings);                                
-            if (definition is null)
-            {
-                return default;
-            }
-
-            return new {
-                dataValue = definition.Id,
-            };
+            return _jsonUtility.Deserialize<DropDownFieldPreValues>(settings.Data);
         }
     }
 }
