@@ -367,5 +367,37 @@
                 Success = true,
             });
         }
+
+        /// <inheritdoc cref="GetConfiguredForm(Guid)"/>
+        /// <remarks>
+        /// This exists purely so the "GetConfiguredForm" method can be referenced
+        /// without parameters so reflection can be used to generate a URL for it.
+        /// </remarks>
+        [NonAction]
+        public IActionResult GetConfiguredForm()
+        {
+            return new EmptyResult();
+        }
+
+        /// <summary>
+        /// Gets details about the configured form with the specified ID.
+        /// </summary>
+        /// <param name="od">
+        /// The ID of the configured form.
+        /// </param>
+        /// <returns>
+        /// The configured form details.
+        /// </returns>
+        [HttpGet]
+        public IActionResult GetConfiguredForm(Guid id)
+        {
+            var entity = new GetEntityResponse()
+            {
+                Entity = configuredFormRepository.Get(id),
+            };
+            return GetConfiguredForm(entity);
+        }
     }
 }
+
+//TODO: Add GetScaffolding to this class?

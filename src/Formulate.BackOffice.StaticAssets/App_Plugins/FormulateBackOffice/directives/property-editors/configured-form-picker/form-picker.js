@@ -1,31 +1,78 @@
-//TODO: Implement.
+/**
+ * The class for the configured form picker property editor, which allows
+ * a user to pick a configured form.
+ */
 class ConfiguredFormPicker {
+
+    // Properties.
     $scope;
+    overlayService;
+    editorService;
+    formulateEntityResource;
+    $http;
 
-    constructor() {
-    }
+    /**
+     * The controller function that gets called by Angular.
+     */
+    controller = (
+        $scope,
+        overlayService,
+        editorService,
+        formulateEntityResource,
+        $http) => {
 
-    controller = ($scope, overlayService, editorService) => {
-        $scope.events = this;
+        // Retain the injected parameters on this object.
         this.retainProperties({
             $scope,
             overlayService,
             editorService,
+            formulateEntityResource,
+            $http,
         });
+
+        // Attach this object to the scope so it's accessible by the view.
+        $scope.events = this;
+
+        // Set the form name.
         this.getFormName();
+
     };
 
+    /**
+     * Sets the name of the form.
+     */
     getFormName = () => {
-        //TODO: Get name of configured form.
-        this.$scope.formName = null;
+
+        // Validate the data (exit early if no ID present).
+        const id = this.$scope.model.value.id;
+        if (!id) {
+            return;
+        }
+
+        // Prepare the request URL.
+        const baseUrl = Umbraco.Sys.ServerVariables.formulate["configuredForms.Get"];
+        const url = `${baseUrl}?id=${id}`;
+
+        // Get the configured form name.
+        this.$http.get(url).then(({ data: { entity: { name } } }) => {
+            this.$scope.formName = name;
+        });
+
     };
 
+    /**
+     * Stores the specified properties on this object.
+     * @param {any} properties The object containing the properties to store.
+     */
     retainProperties = (properties) => {
         for (const [key, value] of Object.entries(properties)) {
             this[key] = value;
         }
     };
 
+    /**
+     * Registers this controller with Angular.
+     */
     registerController = () => {
         angular
             .module('umbraco')

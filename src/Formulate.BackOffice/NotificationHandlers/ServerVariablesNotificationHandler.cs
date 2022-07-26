@@ -188,6 +188,9 @@
                 { "configuredForms.Save", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.SaveConfiguredForm()) },
+                { "configuredForms.Get", LinkGenerator
+                    .GetUmbracoApiService<FormsController>(x =>
+                        x.GetConfiguredForm()) },
                 //{ "DuplicateForm",
                 //    LinkGenerator.GetUmbracoApiService<FormsController>(x => x.DuplicateForm(null)) },
             };
