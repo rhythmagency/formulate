@@ -2,7 +2,6 @@
 {
     // Namespaces.
     using System;
-    using Newtonsoft.Json;
 
     /// <summary>
     /// An abstract class for creating a new <see cref="IFormFieldDefinition"/>.
@@ -45,9 +44,7 @@
         /// <inheritdoc />
         public virtual object GetBackOfficeConfiguration(IFormFieldSettings settings)
         {
-            return settings.Data == null
-                ? null
-                : JsonConvert.DeserializeObject<object>(settings.Data);
+            return default;
         }
     }
 }
