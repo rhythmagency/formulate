@@ -21,7 +21,7 @@ namespace Formulate.Core.DependencyInjection
         {
             builder.Services.AddSingleton<IPersistedEntityCache, FileSystemPersistedEntityCache>();
             builder.Services.AddSingleton<IDataValuesEntityRepository, DataValuesEntityRepository>();
-            builder.Services.AddScoped<IConfiguredFormEntityRepository, ConfiguredFormEntityRepository>();
+            builder.Services.AddSingleton<IConfiguredFormEntityRepository, ConfiguredFormEntityRepository>();
             builder.Services.AddScoped<IFormEntityRepository, FormEntityRepository>();
             builder.Services.AddScoped<IFolderEntityRepository, FolderEntityRepository>();
             builder.Services.AddScoped<ILayoutEntityRepository, LayoutEntityRepository>();
