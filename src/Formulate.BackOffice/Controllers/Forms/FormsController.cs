@@ -10,6 +10,7 @@
     using Core.Forms;
     using Core.Layouts;
     using Core.Persistence;
+    using Formulate.Core.Templates;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
     using Persistence;
@@ -36,7 +37,7 @@
         private readonly IFormFieldFactory formFieldFactory;
         private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
         private readonly FormFieldDefinitionCollection formFieldDefinitions;
-        private readonly IOptions<TemplatesOptions> templatesConfig;
+        private readonly TemplateDefinitionCollection templateDefinitions; 
         private readonly ILayoutEntityRepository layoutEntities;
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
@@ -46,7 +47,7 @@
             IFormFieldFactory formFieldFactory,
             FormHandlerDefinitionCollection formHandlerDefinitions,
             FormFieldDefinitionCollection formFieldDefinitions,
-            IOptions<TemplatesOptions> templatesConfig,
+            TemplateDefinitionCollection templateDefinitions,
             ILayoutEntityRepository layoutEntities,
             IConfiguredFormEntityRepository configuredFormRepository)
             : base(treeEntityRepository, localizedTextService)
@@ -56,7 +57,7 @@
             this.formFieldFactory = formFieldFactory;
             this.formHandlerDefinitions = formHandlerDefinitions;
             this.formFieldDefinitions = formFieldDefinitions;
-            this.templatesConfig = templatesConfig;
+            this.templateDefinitions = templateDefinitions;
             this.layoutEntities = layoutEntities;
             this.configuredFormRepository = configuredFormRepository;
         }
@@ -239,11 +240,13 @@
         [HttpGet]
         public IActionResult GetTemplateDefinitions()
         {
-            return Ok(templatesConfig.Value.Items.Select(x => new
+            var options = templateDefinitions.Select(x => new
             {
                 x.Id,
                 x.Name,
-            }));
+            }).ToArray();
+
+            return Ok(options);
         }
 
         /// <inheritdoc cref="GenerateNewPathAndId(GenerateNewPathAndIdRequest)" />
@@ -317,8 +320,7 @@
                 ? layoutEntities.Get(configuredForm.LayoutId.Value)
                 : null;
             var template = configuredForm.TemplateId.HasValue
-                ? templatesConfig.Value.Items
-                    .FirstOrDefault(x => x.Id == configuredForm.TemplateId.Value)
+                ? templateDefinitions.FirstOrDefault(x => x.Id == configuredForm.TemplateId.Value)
                 : null;
             return Ok(new
             {

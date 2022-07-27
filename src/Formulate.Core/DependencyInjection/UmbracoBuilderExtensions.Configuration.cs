@@ -33,10 +33,6 @@
                 }
             });
 
-            builder.Services.Configure<TemplatesOptions>(x =>
-                builder.Config.GetSection(TemplatesOptions.SectionName)
-                .Bind(x));
-
             return builder;
         }
     }

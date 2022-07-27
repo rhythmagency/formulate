@@ -7,6 +7,7 @@
     using FormHandlers;
     using Layouts;
     using System.Linq;
+    using Templates;
     using Umbraco.Cms.Core.DependencyInjection;
     using Validations;
 
@@ -55,6 +56,18 @@
         }
 
         /// <summary>
+        /// Gets the builder collection for adding <see cref="ITemplateDefinition"/> implementations.
+        /// </summary>
+        /// <param name="builder">The Umbraco builder.</param>
+        /// <returns>A <see cref="TemplateDefinitionCollectionBuilder"/>.</returns>
+        public static TemplateDefinitionCollectionBuilder TemplateDefinitions(this IUmbracoBuilder builder)
+        {
+            return builder.WithCollectionBuilder<TemplateDefinitionCollectionBuilder>();
+        }
+
+
+
+        /// <summary>
         /// Gets the builder collection for adding <see cref="IValidationDefinition"/> implementations.
         /// </summary>
         /// <param name="builder">The Umbraco builder.</param>
@@ -85,6 +98,9 @@
 
             builder.LayoutDefinitions().Add(() =>
                 builder.TypeLoader.GetTypes<ILayoutDefinition>());
+
+            builder.TemplateDefinitions().Add(() =>
+                builder.TypeLoader.GetTypes<ITemplateDefinition>());
 
             builder.ValidationDefinitions().Add(() =>
                 builder.TypeLoader.GetTypes<IValidationDefinition>());
