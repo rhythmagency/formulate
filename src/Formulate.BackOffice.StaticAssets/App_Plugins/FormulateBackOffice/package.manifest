@@ -29,6 +29,7 @@
     "/App_Plugins/FormulateBackOffice/directives/designers/dataValues.designer.js",
     "/App_Plugins/FormulateBackOffice/directives/designers/folder.designer.js",
     "/App_Plugins/FormulateBackOffice/directives/designers/form.designer.js",
+    "/App_Plugins/FormulateBackOffice/directives/designers/layout.designer.js",
     "/App_Plugins/FormulateBackOffice/directives/designers/router.js",
     "/App_Plugins/FormulateBackOffice/directives/designers/validation.designer.js",
     "/App_Plugins/FormulateBackOffice/directives/dialogs/create.dialog.js",
