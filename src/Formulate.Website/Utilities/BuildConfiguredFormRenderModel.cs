@@ -5,7 +5,6 @@
     using Formulate.Core.Forms;
     using Formulate.Core.Layouts;
     using Formulate.Website.RenderModels;
-    using Umbraco.Cms.Core.Web;
 
     public sealed class BuildConfiguredFormRenderModel : IBuildConfiguredFormRenderModel
     {
@@ -15,9 +14,8 @@
 
         private readonly ILayoutEntityRepository _layoutEntityRepository;
         private readonly ILayoutFactory _layoutFactory;
-        private readonly LayoutDefinitionCollection _layoutDefinitions;
 
-        public BuildConfiguredFormRenderModel(IFormEntityRepository formEntityRepository, IFormFieldFactory formFieldFactory, FormFieldDefinitionCollection formFieldDefinitions, ILayoutEntityRepository layoutEntityRepository, ILayoutFactory layoutFactory, LayoutDefinitionCollection layoutDefinitions)
+        public BuildConfiguredFormRenderModel(IFormEntityRepository formEntityRepository, IFormFieldFactory formFieldFactory, FormFieldDefinitionCollection formFieldDefinitions, ILayoutEntityRepository layoutEntityRepository, ILayoutFactory layoutFactory)
         {
             _formEntityRepository = formEntityRepository;
             _formFieldFactory = formFieldFactory;
@@ -25,7 +23,6 @@
 
             _layoutEntityRepository = layoutEntityRepository;
             _layoutFactory = layoutFactory;
-            _layoutDefinitions = layoutDefinitions;
         }
 
         public ConfiguredFormRenderModel? Build(ConfiguredForm configuredForm)
@@ -41,7 +38,7 @@
             return new ConfiguredFormRenderModel(form, layout);
         }
 
-        private LayoutRenderModel? BuildLayout(Guid? layoutId)
+        private ILayout? BuildLayout(Guid? layoutId)
         {
             if (layoutId.HasValue == false)
             {
@@ -55,21 +52,7 @@
                 return default;
             }
 
-            var createdLayout = _layoutFactory.Create(layout);
-
-            if (createdLayout is null)
-            {
-                return default;
-            }
-
-            var layoutDefinition = _layoutDefinitions.FirstOrDefault(x => x.KindId == layout.KindId);
-
-            if (layoutDefinition is null)
-            {
-                return default;
-            }
-
-            return new LayoutRenderModel(layoutDefinition, createdLayout);
+            return _layoutFactory.Create(layout);
         }
 
         public FormRenderModel? BuildForm(Guid formId)

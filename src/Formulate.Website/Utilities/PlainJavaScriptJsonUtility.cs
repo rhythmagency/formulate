@@ -28,7 +28,7 @@
             var fields = renderModel.Form.Fields
             // Exclude server-side only fields.
             .Where(x => !x.Definition.IsServerSideOnly).Select(x => x.Field).ToArray();
-            var layout = renderModel.Layout.Layout as BasicLayout;
+            var layout = renderModel.Layout as BasicLayout;
 
             if (layout is null)
             {
