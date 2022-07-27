@@ -10,17 +10,23 @@
     using Formulate.Core.Validations.Mandatory;
     using Formulate.Core.Validations.Regex;
     using Formulate.Website.RenderModels;
+    using Microsoft.AspNetCore.Antiforgery;
+    using Microsoft.AspNetCore.Http;
     using Umbraco.Cms.Core.Web;
 
     public sealed class PlainJavaScriptJsonUtility : IPlainJavaScriptJsonUtility
     {
         private readonly IJsonUtility _jsonUtility;
         private readonly IUmbracoContextAccessor _umbracoContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IAntiforgery _antiforgery;
 
-        public PlainJavaScriptJsonUtility(IJsonUtility jsonUtility, IUmbracoContextAccessor umbracoContextAccessor)
+        public PlainJavaScriptJsonUtility(IJsonUtility jsonUtility, IUmbracoContextAccessor umbracoContextAccessor, IHttpContextAccessor httpContextAccessor, IAntiforgery antiforgery)
         {
             _jsonUtility = jsonUtility;
             _umbracoContextAccessor = umbracoContextAccessor;
+            _httpContextAccessor = httpContextAccessor;
+            _antiforgery = antiforgery;
         }
 
         public string GetJson(ConfiguredFormRenderModel renderModel, string containerId)
@@ -38,7 +44,12 @@
 
             var pageId = GetPageId();
 
-            var csrfToken = "TODO";
+            var csrfToken = GenerateAntiForgeryToken();
+
+            if (string.IsNullOrEmpty(csrfToken))
+            {
+                return string.Empty;
+            }
 
             // A function that returns a validation configuration.
             var getValidationConfig = new Func<IValidation, object>(x =>
@@ -190,6 +201,20 @@
                     url = "/umbraco/formulate/submissions/submit"
                 }
             });
+        }
+
+        private string GenerateAntiForgeryToken()
+        {
+            var context = _httpContextAccessor.HttpContext;
+
+            if (context is null)
+            {
+                return string.Empty;
+            }
+
+            var tokens = _antiforgery.GetAndStoreTokens(context);
+
+            return tokens.RequestToken;
         }
 
         private int? GetPageId()
