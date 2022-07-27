@@ -22,10 +22,10 @@ namespace Formulate.Core.DependencyInjection
             builder.Services.AddSingleton<IPersistedEntityCache, FileSystemPersistedEntityCache>();
             builder.Services.AddSingleton<IDataValuesEntityRepository, DataValuesEntityRepository>();
             builder.Services.AddSingleton<IConfiguredFormEntityRepository, ConfiguredFormEntityRepository>();
-            builder.Services.AddScoped<IFormEntityRepository, FormEntityRepository>();
-            builder.Services.AddScoped<IFolderEntityRepository, FolderEntityRepository>();
-            builder.Services.AddScoped<ILayoutEntityRepository, LayoutEntityRepository>();
-            builder.Services.AddScoped<IValidationEntityRepository, ValidationEntityRepository>();
+            builder.Services.AddSingleton<IFormEntityRepository, FormEntityRepository>();
+            builder.Services.AddSingleton<IFolderEntityRepository, FolderEntityRepository>();
+            builder.Services.AddSingleton<ILayoutEntityRepository, LayoutEntityRepository>();
+            builder.Services.AddSingleton<IValidationEntityRepository, ValidationEntityRepository>();
 
             return builder;
         }

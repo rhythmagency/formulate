@@ -13,7 +13,11 @@
         <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="68.2.0.9" />
         <ProjectReference Include="..\Formulate.BackOffice\Formulate.BackOffice.csproj" />
         <ProjectReference Include="..\Formulate.Core\Formulate.Core.csproj" />
+        <ProjectReference Include="..\Formulate.Website\Formulate.Website.csproj" />
         <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="68.2" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Views\Partials\" />
     </ItemGroup>
 
 

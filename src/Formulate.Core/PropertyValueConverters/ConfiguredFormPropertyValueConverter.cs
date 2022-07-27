@@ -2,6 +2,7 @@
 {
     using Formulate.Core.ConfiguredForms;
     using Formulate.Core.Utilities;
+    using System;
     using Umbraco.Cms.Core.Models.PublishedContent;
     using Umbraco.Cms.Core.PropertyEditors;
     using Umbraco.Extensions;
@@ -27,6 +28,11 @@
 
 
         #region Methods
+
+        public override Type GetPropertyValueType(IPublishedPropertyType propertyType)
+        {
+            return typeof(ConfiguredForm);
+        }
 
         public override object ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object source, bool preview)
         {

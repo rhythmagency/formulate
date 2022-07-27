@@ -11,7 +11,7 @@ namespace Formulate.Core.Layouts.Basic
         /// <summary>
         /// Gets the field ID.
         /// </summary>
-        [JsonPropertyName("fieldId")]
+        [JsonPropertyName("id")]
         public Guid FieldId { get; set; }
     }
 }
