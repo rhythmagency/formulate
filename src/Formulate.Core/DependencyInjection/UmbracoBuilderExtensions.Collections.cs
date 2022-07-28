@@ -99,9 +99,6 @@
             builder.LayoutDefinitions().Add(() =>
                 builder.TypeLoader.GetTypes<ILayoutDefinition>());
 
-            builder.TemplateDefinitions().Add(() =>
-                builder.TypeLoader.GetTypes<ITemplateDefinition>());
-
             builder.ValidationDefinitions().Add(() =>
                 builder.TypeLoader.GetTypes<IValidationDefinition>());
 
