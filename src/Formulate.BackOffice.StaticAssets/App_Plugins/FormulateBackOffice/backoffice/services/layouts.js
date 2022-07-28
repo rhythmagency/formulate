@@ -9,29 +9,21 @@ class FormulateLayoutsService {
     formulateVars;
 
     /**
-     * Stores the specified properties on this object.
-     * @param {any} properties The object containing the properties to store.
-     */
-    retainProperties = (properties) => {
-        for (const [key, value] of Object.entries(properties)) {
-            this[key] = value;
-        }
-    };
-
-    /**
      * Registers the service with Angular.
      */
     registerService = () => {
         angular
             .module('umbraco')
-            .factory('formulateLayouts', ($http,
+            .factory('formulateLayouts', (
+                retainProperties,
+                $http,
                 formulateVars) => {
 
                 // Retain the injected parameters on this object.
-                this.retainProperties({
+                retainProperties({
                     $http,
                     formulateVars,
-                });
+                }, this);
 
                 // Use this object as the service.
                 return this;

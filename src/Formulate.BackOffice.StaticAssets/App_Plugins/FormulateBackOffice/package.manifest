@@ -26,6 +26,7 @@
     "/App_Plugins/FormulateBackOffice/backoffice/validations/Validations.DeleteController.js",
     "/App_Plugins/FormulateBackOffice/backoffice/validations/Validations.EditController.js",
     "/App_Plugins/FormulateBackOffice/backoffice/validations/Validations.MoveController.js",
+    "/App_Plugins/FormulateBackOffice/backoffice/values/retain-properties.js",
     "/App_Plugins/FormulateBackOffice/directives/designers/configured-form.designer.js",
     "/App_Plugins/FormulateBackOffice/directives/designers/dataValues.designer.js",
     "/App_Plugins/FormulateBackOffice/directives/designers/folder.designer.js",

@@ -14,18 +14,19 @@ class ConfiguredFormPicker {
      * The controller function that gets called by Angular.
      */
     controller = (
+        retainProperties,
         $scope,
         editorService,
         formulateVars,
         $http) => {
 
         // Retain the injected parameters on this object.
-        this.retainProperties({
+        retainProperties({
             $scope,
             editorService,
             formulateVars,
             $http,
-        });
+        }, this);
 
         // Attach this object to the scope so it's accessible by the view.
         $scope.events = this;
@@ -53,16 +54,6 @@ class ConfiguredFormPicker {
         }
         else {
             this.$scope.loaded = true;
-        }
-    };
-
-    /**
-     * Stores the specified properties on this object.
-     * @param {any} properties The object containing the properties to store.
-     */
-    retainProperties = (properties) => {
-        for (const [key, value] of Object.entries(properties)) {
-            this[key] = value;
         }
     };
 

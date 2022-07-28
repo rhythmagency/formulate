@@ -6,9 +6,7 @@ class FormulateLayoutDesigner {
 
     // Properties.
     $scope;
-    overlayService;
     editorService;
-    formulateEntityResource;
     $http;
     $routeParams;
     formulateLayouts;
@@ -17,24 +15,21 @@ class FormulateLayoutDesigner {
      * The controller function that gets called by Angular.
      */
     controller = (
+        retainProperties,
         $scope,
-        overlayService,
         editorService,
-        formulateEntityResource,
         $http,
         $routeParams,
         formulateLayouts) => {
 
         // Retain the injected parameters on this object.
-        this.retainProperties({
+        retainProperties({
             $scope,
-            overlayService,
             editorService,
-            formulateEntityResource,
             $http,
             $routeParams,
             formulateLayouts,
-        });
+        }, this);
 
         // Attach this object to the scope so it's accessible by the view.
         $scope.events = this;
@@ -77,16 +72,6 @@ class FormulateLayoutDesigner {
 
             });
 
-    };
-
-    /**
-     * Stores the specified properties on this object.
-     * @param {any} properties The object containing the properties to store.
-     */
-    retainProperties = (properties) => {
-        for (const [key, value] of Object.entries(properties)) {
-            this[key] = value;
-        }
     };
 
     /**
