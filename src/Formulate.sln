@@ -32,7 +32,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Website", "Website\Website.
 		{329781CD-8683-40BB-AFF6-30E2D63FEC42} = {329781CD-8683-40BB-AFF6-30E2D63FEC42}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formulate.Website", "Formulate.Website\Formulate.Website.csproj", "{1B295D44-4DF2-45C1-B04A-4FD296A0817A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formulate.Website", "Formulate.Website\Formulate.Website.csproj", "{1B295D44-4DF2-45C1-B04A-4FD296A0817A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formulate.Templates.PlainJavaScript", "Formulate.Templates.PlainJavaScript\Formulate.Templates.PlainJavaScript.csproj", "{E0184DDB-878B-4895-8C58-3A0039B143BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +78,10 @@ Global
 		{1B295D44-4DF2-45C1-B04A-4FD296A0817A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B295D44-4DF2-45C1-B04A-4FD296A0817A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B295D44-4DF2-45C1-B04A-4FD296A0817A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0184DDB-878B-4895-8C58-3A0039B143BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0184DDB-878B-4895-8C58-3A0039B143BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0184DDB-878B-4895-8C58-3A0039B143BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0184DDB-878B-4895-8C58-3A0039B143BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

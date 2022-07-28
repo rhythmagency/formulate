@@ -1,7 +1,7 @@
-﻿using Umbraco.Cms.Core.Composing;
-
-namespace Formulate.Core.Templates
+﻿namespace Formulate.Core.Templates
 {
+    using Umbraco.Cms.Core.Composing;
+
     /// <inheritdoc />
     public sealed class TemplateDefinitionCollectionBuilder : LazyCollectionBuilderBase<TemplateDefinitionCollectionBuilder, TemplateDefinitionCollection, ITemplateDefinition>
     {

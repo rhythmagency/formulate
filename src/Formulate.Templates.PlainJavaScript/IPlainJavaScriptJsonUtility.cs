@@ -1,6 +1,6 @@
-﻿namespace Formulate.Website.Utilities
+﻿namespace Formulate.Templates.PlainJavaScript
 {
-    using Formulate.Website.RenderModels;
+    using Formulate.Core.RenderModels;
 
     public interface IPlainJavaScriptJsonUtility
     {

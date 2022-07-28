@@ -8,7 +8,6 @@
     {
         public static IUmbracoBuilder AddFormulateWebsite(this IUmbracoBuilder umbracoBuilder)
         {
-            umbracoBuilder.Services.AddSingleton<IPlainJavaScriptJsonUtility, PlainJavaScriptJsonUtility>();
             umbracoBuilder.Services.AddSingleton<IBuildConfiguredFormRenderModel, BuildConfiguredFormRenderModel>();
 
             return umbracoBuilder;

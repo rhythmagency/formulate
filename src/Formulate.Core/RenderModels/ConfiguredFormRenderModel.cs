@@ -1,4 +1,6 @@
-﻿namespace Formulate.Website.RenderModels
+﻿using Formulate.Website.RenderModels;
+
+namespace Formulate.Core.RenderModels
 {
     using Formulate.Core.Layouts;
 

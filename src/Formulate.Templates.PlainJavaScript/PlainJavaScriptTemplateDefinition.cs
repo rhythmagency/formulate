@@ -1,4 +1,4 @@
-﻿namespace Formulate.Website
+﻿namespace Formulate.Templates.PlainJavaScript
 {
     using Formulate.Core.Templates;
     using System;
@@ -13,7 +13,7 @@
 
         /// <inheritdoc />
         public string Name => "Plain JavaScript";
-        
+
         /// <inheritdoc />
         public string ViewName => "Plain JavaScript";
     }

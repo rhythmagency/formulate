@@ -1,13 +1,11 @@
 ﻿namespace Formulate.Website.Components
 {
-    using Formulate.Core.Configuration;
     using Formulate.Core.ConfiguredForms;
     using Formulate.Core.Templates;
     using Formulate.Website.Utilities;
     using Microsoft.AspNetCore.Html;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.ViewComponents;
-    using Microsoft.Extensions.Options;
 
     [ViewComponent]
     public sealed class FormulateFormViewComponent : ViewComponent

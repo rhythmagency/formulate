@@ -1,15 +1,15 @@
-﻿namespace Formulate.Website.Utilities
+﻿namespace Formulate.Templates.PlainJavaScript
 {
     using Formulate.Core.FormFields;
     using Formulate.Core.FormFields.Button;
     using Formulate.Core.FormFields.DropDown;
     using Formulate.Core.FormFields.Text;
     using Formulate.Core.Layouts.Basic;
+    using Formulate.Core.RenderModels;
     using Formulate.Core.Utilities;
     using Formulate.Core.Validations;
     using Formulate.Core.Validations.Mandatory;
     using Formulate.Core.Validations.Regex;
-    using Formulate.Website.RenderModels;
     using Microsoft.AspNetCore.Antiforgery;
     using Microsoft.AspNetCore.Http;
     using Umbraco.Cms.Core.Web;
@@ -103,7 +103,8 @@
                 return new { };
             });
 
-            var getFieldType = new Func<IFormField, string>(f => {
+            var getFieldType = new Func<IFormField, string>(f =>
+            {
                 switch (f)
                 {
                     case ButtonField:
@@ -117,7 +118,8 @@
                 return f.GetType().Name.ToLower().Replace("field", string.Empty);
             });
 
-            var getValidationType = new Func<IValidation, string>(v => {
+            var getValidationType = new Func<IValidation, string>(v =>
+            {
                 switch (v)
                 {
                     case RegexValidation:

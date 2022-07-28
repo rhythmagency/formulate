@@ -4,6 +4,7 @@
     using Formulate.Core.FormFields;
     using Formulate.Core.Forms;
     using Formulate.Core.Layouts;
+    using Formulate.Core.RenderModels;
     using Formulate.Website.RenderModels;
 
     public sealed class BuildConfiguredFormRenderModel : IBuildConfiguredFormRenderModel
