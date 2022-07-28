@@ -6,44 +6,42 @@ class ConfiguredFormPicker {
 
     // Properties.
     $scope;
-    overlayService;
     editorService;
-    formulateEntityResource;
     $http;
+    formulateVars;
 
     /**
      * The controller function that gets called by Angular.
      */
     controller = (
         $scope,
-        overlayService,
         editorService,
-        formulateEntityResource,
+        formulateVars,
         $http) => {
 
         // Retain the injected parameters on this object.
         this.retainProperties({
             $scope,
-            overlayService,
             editorService,
-            formulateEntityResource,
+            formulateVars,
             $http,
         });
 
         // Attach this object to the scope so it's accessible by the view.
         $scope.events = this;
 
+        // Initialize the property editor.
         this.init();
     };
 
-
+    /**
+     * Initializes the property editor.
+     */
     init = () => {
         this.$scope.loaded = false;
         this.$scope.vm = {};
-
-        console.log(this.$scope.model);
-        if (this.$scope.model.value && this.$scope.model.value.id) {
-            const baseUrl = Umbraco.Sys.ServerVariables.formulate["configuredForms.Get"];
+        if (this.$scope.model.value?.id) {
+            const baseUrl = this.formulateVars["configuredForms.Get"];
             const url = `${baseUrl}?id=${this.$scope.model.value.id}`;
 
             // Get the configured form name.
@@ -51,11 +49,12 @@ class ConfiguredFormPicker {
                 this.$scope.vm.name = name;
                 this.$scope.loaded = true;
             });
+
         }
         else {
             this.$scope.loaded = true;
         }
-    }
+    };
 
     /**
      * Stores the specified properties on this object.
@@ -99,7 +98,6 @@ class ConfiguredFormPicker {
             if (!id) {
                 return;
             }
-            this.overlayService.close();
             this.$scope.model.value = {
                 id,
             };
