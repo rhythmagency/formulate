@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
     <metadata>
-        <id>Formulate.BackOffice.StaticAssets</id>
+        <id>$id$</id>
         <version>4.0.0</version>
-        <title>Formulate.BackOffice.StaticAssets</title>
+        <title>$id$</title>
         <authors>Nicholas Westby, Jamie Pollock</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <license type="expression">MIT</license>
@@ -11,7 +11,7 @@
         <projectUrl>https://www.formulate.rocks/</projectUrl>
         <description>An advanced form builder for Umbraco.</description>
         <releaseNotes>4.0 - .net core version</releaseNotes>
-        <copyright>Copyright 2021</copyright>
+        <copyright>Copyright 2022</copyright>
         <tags>Umbraco forms</tags>
     </metadata>
     <files>

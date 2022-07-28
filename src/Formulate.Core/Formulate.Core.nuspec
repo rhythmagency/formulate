@@ -11,11 +11,11 @@
         <projectUrl>https://www.formulate.rocks/</projectUrl>
         <description>An advanced form builder for Umbraco.</description>
         <releaseNotes>4.0.0 - .net core version</releaseNotes>
-        <copyright>Copyright 2021</copyright>
+        <copyright>Copyright 2022</copyright>
         <tags>Umbraco forms</tags>
         <dependencies>
-            <group targetFramework="net5.0">
-                <dependency id="Umbraco.Cms.Core" version="9.0.1"/>
+            <group targetFramework="net6.0">
+                <dependency id="Umbraco.Cms.Core" version="10.0.1"/>
             </group>
         </dependencies>
     </metadata>
