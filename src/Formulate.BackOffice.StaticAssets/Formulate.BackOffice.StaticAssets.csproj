@@ -37,6 +37,7 @@
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\layouts\Layouts.EditController.js" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\layouts\Layouts.MoveController.js" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\layouts\move.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\backoffice\services\layouts.js" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\create.html" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\delete.html" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\edit.html" />
@@ -57,6 +58,9 @@
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\dataValues.designer.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\layout.designer.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\layout.designer.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\designers\layout\kinds\basic.layout.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\designers\layout\kinds\basic.layout.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\designers\layout\layout.editor.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\validation.designer.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\validation.designer.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\delete.dialog.html" />

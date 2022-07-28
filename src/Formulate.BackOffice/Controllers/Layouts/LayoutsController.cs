@@ -13,6 +13,7 @@ using Umbraco.Cms.Core.Models.ContentEditing;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Extensions;
+using Formulate.Core.Utilities;
 
 namespace Formulate.BackOffice.Controllers.Layouts
 {
@@ -20,11 +21,21 @@ namespace Formulate.BackOffice.Controllers.Layouts
     [FormulateBackOfficePluginController]
     public sealed class LayoutsController : FormulateBackOfficeEntityApiController
     {
-        private readonly LayoutDefinitionCollection _layoutDefinitions;
+        private readonly LayoutDefinitionCollection layoutDefinitions;
+        private readonly ILayoutEntityRepository layoutEntities;
+        private readonly IJsonUtility jsonUtility;
 
-        public LayoutsController(ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService, LayoutDefinitionCollection layoutDefinitions) : base(treeEntityRepository, localizedTextService)
+        public LayoutsController(
+            ITreeEntityRepository treeEntityRepository,
+            ILocalizedTextService localizedTextService,
+            LayoutDefinitionCollection layoutDefinitions,
+            ILayoutEntityRepository layoutEntities,
+            IJsonUtility jsonUtility) :
+                base(treeEntityRepository, localizedTextService)
         {
-            _layoutDefinitions = layoutDefinitions;
+            this.layoutDefinitions = layoutDefinitions;
+            this.layoutEntities = layoutEntities;
+            this.jsonUtility = jsonUtility;
         }
 
         [HttpGet]
@@ -80,7 +91,7 @@ namespace Formulate.BackOffice.Controllers.Layouts
         {
             var options = new List<CreateChildEntityOption>();
 
-            var layoutOptions = _layoutDefinitions.Select(x => new CreateChildEntityOption()
+            var layoutOptions = layoutDefinitions.Select(x => new CreateChildEntityOption()
             {
                 Name = x.DefinitionLabel,
                 KindId = x.KindId,
@@ -109,6 +120,37 @@ namespace Formulate.BackOffice.Controllers.Layouts
             options.AddRange(layoutOptions);
 
             return options;
+        }
+
+        //TODO: Comments.
+        [NonAction]
+        public IActionResult GetLayoutInfo()
+        {
+            return new EmptyResult();
+        }
+
+        //TODO: Implement.
+        [HttpGet]
+        public IActionResult GetLayoutInfo(Guid id)
+        {
+            var layout = layoutEntities.Get(id);
+            if (layout == null)
+            {
+                return Ok(new
+                {
+                    Success = false,
+                });
+            }
+            return Ok(new
+            {
+                Success = true,
+                layout.KindId,
+                layout.Id,
+                //TODO: layout.Alias,
+                layout.Name,
+                layout.Path,
+                Directive = "formulate-layout-basic",//TODO: layout.Directive,
+            });
         }
     }
 }

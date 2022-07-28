@@ -63,9 +63,6 @@
                 //{ "PersistLayout",
                 //    LinkGenerator.GetUmbracoApiService<LayoutsController>(x =>
                 //        x.PersistLayout(null)) },
-                //{ "GetLayoutInfo",
-                //    LinkGenerator.GetUmbracoApiService<LayoutsController>(x =>
-                //        x.GetLayoutInfo(null)) },
                 //{ "GetLayoutKinds",
                 //    LinkGenerator.GetUmbracoApiService<LayoutsController>(x =>
                 //        x.GetLayoutKinds()) },
@@ -191,6 +188,9 @@
                 { "configuredForms.Get", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GetConfiguredForm()) },
+                { "GetLayoutInfo",
+                    LinkGenerator.GetUmbracoApiService<LayoutsController>(x =>
+                        x.GetLayoutInfo()) },
                 //{ "DuplicateForm",
                 //    LinkGenerator.GetUmbracoApiService<FormsController>(x => x.DuplicateForm(null)) },
             };

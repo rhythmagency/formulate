@@ -12,18 +12,10 @@
 
             <umb-editor-container>
                 <div class="form-horizontal">
-                    <div class="umb-group-panel">
-                        <div class="umb-group-panel__content">
-                            <h1>Entity</h1>
-                            <pre>
-{{entity | json}}
-                            </pre>
-                            <h1>Data</h1>
-                            <pre>
-{{test | json}}
-                            </pre>
-                        </div>
-                    </div>
+                    <formulate-layout-editor ng-if="directive"
+                                             directive="directive"
+                                             data="entity">
+                    </formulate-layout-editor>
                 </div>
             </umb-editor-container>
 
