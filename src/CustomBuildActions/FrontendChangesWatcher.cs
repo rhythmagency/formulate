@@ -15,7 +15,7 @@ internal class FrontendChangesWatcher
     /// <remarks>
     /// This is static so it doesn't get garbage collected.
     /// </remarks>
-    private static FileSystemWatcher? Watcher { get; set; }
+    private static List<FileSystemWatcher> Watchers { get; set; }
 
     /// <summary>
     /// A lock object to avoid collisions between parallel watch events.
@@ -33,6 +33,14 @@ internal class FrontendChangesWatcher
     public static long ExecutionCount { get; set; }
 
     /// <summary>
+    /// Static constructor.
+    /// </summary>
+    static FrontendChangesWatcher()
+    {
+        Watchers = new List<FileSystemWatcher>();
+    }
+
+    /// <summary>
     /// Adds a file system watcher to execute a task any time the source
     /// files change.
     /// </summary>
@@ -42,20 +50,29 @@ internal class FrontendChangesWatcher
     /// </param>
     public static void AddWatcher(Action<long> task)
     {
-        var source = PathUtils.NormalizePath("../Formulate.BackOffice.StaticAssets/App_Plugins/FormulateBackOffice");
-        Console.WriteLine($"Adding watcher for: {source}");
-        Watcher = new FileSystemWatcher
+        var staticPath = PathUtils.NormalizePath("../Formulate.BackOffice.StaticAssets/App_Plugins/FormulateBackOffice");
+        var viewsPath = PathUtils.NormalizePath("../Formulate.Templates.PlainJavaScript/Views/Shared");
+        AddWatcherForPath(task, staticPath);
+        AddWatcherForPath(task, viewsPath);
+    }
+
+    /// <inheritdoc cref="AddWatcher(Action{long})" />
+    private static void AddWatcherForPath(Action<long> task, string path)
+    {
+        Console.WriteLine($"Adding watcher for: {path}");
+        var watcher = new FileSystemWatcher
         {
-            Path = source,
+            Path = path,
             NotifyFilter = NotifyFilters.LastWrite,
             Filter = "*.*",
             IncludeSubdirectories = true,
         };
-        Watcher.Changed += new FileSystemEventHandler((_, _) =>
+        watcher.Changed += new FileSystemEventHandler((_, _) =>
         {
             ScheduleTaskExecution(task);
         });
-        Watcher.EnableRaisingEvents = true;
+        watcher.EnableRaisingEvents = true;
+        Watchers.Add(watcher);
     }
 
     /// <summary>
@@ -78,7 +95,7 @@ internal class FrontendChangesWatcher
                 {
                     // Pause watching for further events (in case this task
                     // generates new files).
-                    Watcher.EnableRaisingEvents = false;
+                    Watchers.ForEach(x => x.EnableRaisingEvents = false);
 
                     // Variables.
                     ShouldExecute = false;
@@ -97,7 +114,7 @@ internal class FrontendChangesWatcher
                     ShouldExecute = false;
 
                     // Resume watching for file system changes.
-                    Watcher.EnableRaisingEvents = true;
+                    Watchers.ForEach(x => x.EnableRaisingEvents = true);
                 }
             }
         });

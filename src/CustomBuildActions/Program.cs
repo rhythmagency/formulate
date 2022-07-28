@@ -17,6 +17,7 @@ var executeTasks = new Action<long>(count =>
                 GenerateCssForSvgIcons.Generate(count);
                 GeneratePackageManifest.Generate(count);
                 CopyStaticAssetsToWebsite.Copy(count);
+                CopyViewsToWebsite.Copy(count);
                 RefreshSampleFormulateJson.Refresh(count);
                 break;
             case "-generate-css-for-svg-icons":
@@ -27,6 +28,9 @@ var executeTasks = new Action<long>(count =>
                 break;
             case "-copy-static-assets-to-website":
                 CopyStaticAssetsToWebsite.Copy(count);
+                break;
+            case "-copy-views-to-website":
+                CopyViewsToWebsite.Copy(count);
                 break;
             case "-create-app-settings-json":
                 CreateAppSettingsJson.Create(count);
@@ -46,7 +50,6 @@ executeTasks(1);
 // Should we watch for changes and execute the tasks when they occur?
 if (shouldWatch)
 {
-
     // Start watching.
     FrontendChangesWatcher.ExecutionCount = 1;
     FrontendChangesWatcher.AddWatcher(executeTasks);
@@ -54,5 +57,4 @@ if (shouldWatch)
     // Don't quit while watching for changes.
     Console.WriteLine(Constants.PressEnterToStop);
     Console.ReadLine();
-
 }
