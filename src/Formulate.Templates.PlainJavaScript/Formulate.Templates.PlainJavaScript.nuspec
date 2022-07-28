@@ -19,5 +19,10 @@
                 <dependency id="Formulate.Core" version="$version$"/>
             </group>
         </dependencies>
+        <files>
+            <!--<file src="readme.txt" target="." />-->
+            <file src="build\**\*.*" target="buildTransitive" />
+            <file src="Views\Shared\FormulateForm\**\*.*" target="content\Views\Shared\FormulateForm" />
+        </files>
     </metadata>
 </package>
