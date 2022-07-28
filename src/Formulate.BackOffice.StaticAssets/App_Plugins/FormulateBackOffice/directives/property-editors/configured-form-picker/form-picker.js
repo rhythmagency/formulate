@@ -76,7 +76,7 @@ class ConfiguredFormPicker {
     registerController = () => {
         angular
             .module('umbraco')
-            .controller('Formulate.ConfiguredFormPicker', this.controller);
+            .controller('Formulate.PropertyEditors.ConfiguredFormPicker', this.controller);
     };
 
     /**
