@@ -2,16 +2,24 @@
 {
     using Formulate.Core.FormFields;
 
-    public sealed class FormFieldRenderModel
+    public sealed class FormFieldRenderModel : IFormFieldFeatures
     {
-        public FormFieldRenderModel(IFormFieldDefinition definition, IFormField field)
+        private readonly IFormFieldFeatures _features;
+
+        public FormFieldRenderModel(IFormFieldFeatures features, IFormField field)
         {
-            Definition = definition;
+            _features = features;
             Field = field;
         }
 
-        public IFormFieldDefinition Definition { get; init; }
-
         public IFormField Field { get; init; }
+
+        public bool IsTransitory => _features.IsTransitory;
+
+        public bool IsServerSideOnly => _features.IsServerSideOnly;
+
+        public bool IsHidden => _features.IsHidden;
+
+        public bool IsStored => _features.IsStored;
     }
 }

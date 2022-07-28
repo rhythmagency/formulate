@@ -33,7 +33,7 @@
         {
             var fields = renderModel.Form.Fields
             // Exclude server-side only fields.
-            .Where(x => !x.Definition.IsServerSideOnly).Select(x => x.Field).ToArray();
+            .Where(x => !x.IsServerSideOnly).Select(x => x.Field).ToArray();
             var layout = renderModel.Layout as BasicLayout;
 
             if (layout is null)
