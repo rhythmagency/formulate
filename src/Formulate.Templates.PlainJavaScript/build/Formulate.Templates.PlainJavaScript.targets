@@ -1,0 +1,19 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <FormulatePlainJavaScriptTemplateFilesPath>$(MSBuildThisFileDirectory)..\content\Views\Components\FormulateForm\**\*.*</FormulatePlainJavaScriptTemplateFilesPath>
+    </PropertyGroup>
+
+    <Target Name="CopyFormulatePlainJavaScriptTemplateFiles" BeforeTargets="Build">
+        <ItemGroup>
+            <FormulatePlainJavaScriptTemplateFiles Include="$(FormulateViewFilesPath)" />
+        </ItemGroup>
+        <Message Text="Copying FormulatePlainJavaScriptTemplateFiles files: $(FormulatePlainJavaScriptTemplateFilesPath) - #@(FormulatePlainJavaScriptTemplateFiles->Count()) files"  Importance="high" />
+        <Copy
+            SourceFiles="@(FormulatePlainJavaScriptTemplateFiles)"
+            DestinationFiles="@(FormulatePlainJavaScriptTemplateFiles->'$(MSBuildProjectDirectory)\content\Views\Components\FormulateForm\%(RecursiveDir)%(Filename)%(Extension)')"
+            SkipUnchangedFiles="true" />
+
+    </Target>
+
+</Project>
