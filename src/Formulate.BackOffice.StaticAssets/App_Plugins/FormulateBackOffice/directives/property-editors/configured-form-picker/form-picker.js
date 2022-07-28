@@ -33,32 +33,29 @@ class ConfiguredFormPicker {
         // Attach this object to the scope so it's accessible by the view.
         $scope.events = this;
 
-        // Set the form name.
-        this.getFormName();
-
+        this.init();
     };
 
-    /**
-     * Sets the name of the form.
-     */
-    getFormName = () => {
 
-        // Validate the data (exit early if no ID present).
-        const id = this.$scope.model.value.id;
-        if (!id) {
-            return;
+    init = () => {
+        this.$scope.loaded = false;
+        this.$scope.vm = {};
+
+        console.log(this.$scope.model);
+        if (this.$scope.model.value && this.$scope.model.value.id) {
+            const baseUrl = Umbraco.Sys.ServerVariables.formulate["configuredForms.Get"];
+            const url = `${baseUrl}?id=${this.$scope.model.value.id}`;
+
+            // Get the configured form name.
+            this.$http.get(url).then(({ data: { entity: { name } } }) => {
+                this.$scope.vm.name = name;
+                this.$scope.loaded = true;
+            });
         }
-
-        // Prepare the request URL.
-        const baseUrl = Umbraco.Sys.ServerVariables.formulate["configuredForms.Get"];
-        const url = `${baseUrl}?id=${id}`;
-
-        // Get the configured form name.
-        this.$http.get(url).then(({ data: { entity: { name } } }) => {
-            this.$scope.formName = name;
-        });
-
-    };
+        else {
+            this.$scope.loaded = true;
+        }
+    }
 
     /**
      * Stores the specified properties on this object.
@@ -83,6 +80,7 @@ class ConfiguredFormPicker {
      * Deselects the currently selected configured form.
      */
     clearPickedForm = () => {
+        this.$scope.vm = {};
         this.$scope.model.value = {};
     };
 
@@ -105,7 +103,7 @@ class ConfiguredFormPicker {
             this.$scope.model.value = {
                 id,
             };
-            this.$scope.formName = name;
+            this.$scope.vm.name = name;
             this.editorService.close();
         };
 

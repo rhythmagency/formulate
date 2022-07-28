@@ -1,18 +1,18 @@
 <div ng-controller="Formulate.PropertyEditors.ConfiguredFormPicker">
+    <div ng-if="loaded">
+        <umb-node-preview ng-if="vm.name"
+                          icon="'icon-formulate-conform'"
+                          name="vm.name"
+                          allow-remove="true"
+                          allow-open="false"
+                          on-remove="events.clearPickedForm()">
+        </umb-node-preview>
 
-
-
-    <div ng-if="model.value.id" class="configured-form-picker__chosen">
-        <button type="button" class="formulate__button--close configured-form-picker__close" ng-click="events.clearPickedForm()">X</button>
-        <div>
-            {{formName}}
-        </div>
-        <div class="formulate__flex-wrap">
-
-        </div>
-        <button type="button" class="btn btn-default formulate__button--change" ng-click="events.pickConfiguredForm()">Change</button>
-    </div>
-    <div ng-if="!model.value.id">
-        <button type="button" class="btn btn-default" ng-click="events.pickConfiguredForm()">Choose</button>
+        <button type="button"
+                class="umb-node-preview-add"
+                ng-if="!vm.name"
+                ng-click="events.pickConfiguredForm()">
+            <localize key="general_add">Add</localize>
+        </button>
     </div>
 </div>
