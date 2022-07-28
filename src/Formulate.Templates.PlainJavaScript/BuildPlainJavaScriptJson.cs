@@ -14,14 +14,14 @@
     using Microsoft.AspNetCore.Http;
     using Umbraco.Cms.Core.Web;
 
-    public sealed class PlainJavaScriptJsonUtility : IPlainJavaScriptJsonUtility
+    public sealed class BuildPlainJavaScriptJson : IBuildPlainJavaScriptJson
     {
         private readonly IJsonUtility _jsonUtility;
         private readonly IUmbracoContextAccessor _umbracoContextAccessor;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IAntiforgery _antiforgery;
 
-        public PlainJavaScriptJsonUtility(IJsonUtility jsonUtility, IUmbracoContextAccessor umbracoContextAccessor, IHttpContextAccessor httpContextAccessor, IAntiforgery antiforgery)
+        public BuildPlainJavaScriptJson(IJsonUtility jsonUtility, IUmbracoContextAccessor umbracoContextAccessor, IHttpContextAccessor httpContextAccessor, IAntiforgery antiforgery)
         {
             _jsonUtility = jsonUtility;
             _umbracoContextAccessor = umbracoContextAccessor;
@@ -29,7 +29,7 @@
             _antiforgery = antiforgery;
         }
 
-        public string GetJson(ConfiguredFormRenderModel renderModel, string containerId)
+        public string Build(ConfiguredFormRenderModel renderModel, string containerId)
         {
             var fields = renderModel.Form.Fields
             // Exclude server-side only fields.

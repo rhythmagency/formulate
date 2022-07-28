@@ -1,8 +1,8 @@
-﻿@inject Formulate.Templates.PlainJavaScript.IPlainJavaScriptJsonUtility plainJsJsonUtility;
+﻿@inject Formulate.Templates.PlainJavaScript.IBuildPlainJavaScriptJson buildJson;
 @model Formulate.Core.RenderModels.ConfiguredFormRenderModel
 @{
     var randomFormId = Guid.NewGuid().ToString("N");
-    var json = plainJsJsonUtility.GetJson(Model, randomFormId);
+    var json = buildJson.Build(Model, randomFormId);
 
     if (string.IsNullOrWhiteSpace(json))
     {

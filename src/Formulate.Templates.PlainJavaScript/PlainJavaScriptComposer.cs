@@ -10,7 +10,7 @@
         public void Compose(IUmbracoBuilder builder)
         {
             builder.TemplateDefinitions().Add<PlainJavaScriptTemplateDefinition>();
-            builder.Services.AddSingleton<IPlainJavaScriptJsonUtility, PlainJavaScriptJsonUtility>();
+            builder.Services.AddSingleton<IBuildPlainJavaScriptJson, BuildPlainJavaScriptJson>();
         }
     }
 }
