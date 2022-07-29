@@ -41,6 +41,9 @@
         public override string DefinitionLabel => Constants.DefinitionLabel;
 
         /// <inheritdoc />
+        public override string Category => FormFieldConstants.Categories.Inputs;
+
+        /// <inheritdoc />
         public override string Icon => Constants.Icon;
 
         /// <inheritdoc />

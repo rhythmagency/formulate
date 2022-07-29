@@ -67,6 +67,9 @@
         public override string Directive => Constants.Directive;
 
         /// <inheritdoc />
+        public override string Category => FormFieldConstants.Categories.Actions;
+
+        /// <inheritdoc />
         public override FormField CreateField(IFormFieldSettings settings)
         {
             var configuration = new ButtonFieldConfiguration()

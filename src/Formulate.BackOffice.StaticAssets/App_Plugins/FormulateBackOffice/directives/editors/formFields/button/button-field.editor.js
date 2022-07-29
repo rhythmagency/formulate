@@ -11,8 +11,6 @@
 
         // Get the button kinds.
         formulateFields.getButtonKinds().then(function (kinds) {
-            console.log(kinds);
-
             $scope.kinds.values = kinds.map(function (item) {
                 const kind = item.kind;
                 return {

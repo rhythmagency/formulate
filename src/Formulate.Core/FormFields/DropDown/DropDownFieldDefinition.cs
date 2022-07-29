@@ -60,6 +60,9 @@
         /// <inheritdoc />
         public override string Directive => Constants.Directive;
 
+        /// <inheritdoc />
+        public override string Category => FormFieldConstants.Categories.Inputs;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DropDownFieldDefinition"/> class. 
         /// </summary>

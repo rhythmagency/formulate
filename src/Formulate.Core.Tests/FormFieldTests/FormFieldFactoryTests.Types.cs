@@ -36,7 +36,9 @@
             public override string Icon => "icon-test-field";
 
             public override string Directive => "formulate-test-field";
-            
+
+            public override string Category => "Test";
+
             public override FormField CreateField(IFormFieldSettings settings)
             {
                 return new TestFormField(settings);

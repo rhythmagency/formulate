@@ -37,7 +37,7 @@
         private readonly IFormFieldFactory formFieldFactory;
         private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
         private readonly FormFieldDefinitionCollection formFieldDefinitions;
-        private readonly TemplateDefinitionCollection templateDefinitions; 
+        private readonly TemplateDefinitionCollection templateDefinitions;
         private readonly ILayoutEntityRepository layoutEntities;
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
@@ -227,8 +227,14 @@
         [HttpGet]
         public IActionResult GetFieldDefinitions()
         {
-            var definitions = formFieldDefinitions.ToArray();
-            return Ok(definitions);
+            var groupedDefinitions = formFieldDefinitions.GroupBy(x => x.Category);
+            var viewModels = groupedDefinitions.Select(group => new
+             {
+                key = group.Key,
+                items = group.OrderBy(x => x.DefinitionLabel).ToArray()
+            }).ToArray();
+
+            return Ok(viewModels);
         }
 
         /// <summary>

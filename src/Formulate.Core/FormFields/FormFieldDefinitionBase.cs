@@ -39,6 +39,9 @@
         public virtual bool IsStored => true;
 
         /// <inheritdoc />
+        public virtual string Category => FormFieldConstants.Categories.Uncategorized;
+
+        /// <inheritdoc />
         public abstract FormField CreateField(IFormFieldSettings settings);
 
         /// <inheritdoc />

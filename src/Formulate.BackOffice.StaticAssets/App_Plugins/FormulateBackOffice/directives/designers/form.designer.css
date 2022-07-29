@@ -1,3 +1,40 @@
+.formulate-field {
+    background-color: #fff;
+    border: 1px solid #e9e9eb;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    min-height: 48px;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0 20px;
+}
+.formulate-field:hover {
+    background-color: #f9f9fa;
+}
+.formulate-field:hover .formulate-field__name {
+    color: #2152a3
+}
+
+.formulate-field__header .umb-icon {
+    display: inline-block;
+    font-size: 22px;
+    margin-right: 10px;
+}
+
+.formulate-field__name {
+    color: #1b264f;
+}
+
+.formulate-field__actions {
+    vertical-align: middle;
+}
+
+.formulate-field__action {
+    display: inline-block;
+    font-size: 18px;
+}
+
 .formulate-handler-details,
 .formulate-field-details {
     overflow: hidden;
@@ -31,15 +68,13 @@
     padding-left: 0;
 }
 
-.formulate-handler__header-title .umb-editor-header__name-and-description,
-.formulate-field__header-title .umb-editor-header__name-and-description {
+.formulate-handler__header-title .umb-editor-header__name-and-description {
     margin-right: 0;
 }
 
 .formulate-handler__header,
 .formulate-field__header {
     display: flex;
-    padding-bottom: 5px;
 }
 
 .formulate-handler__header-buttons,

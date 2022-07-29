@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 function formulateFormDesignerDirective(
-        overlayService, $timeout, formHelper, $http, $routeParams, notificationsService) {
+    $timeout, formHelper, $http, $routeParams, editorService, notificationsService, overlayService) {
     const directive = {
         replace: true,
         templateUrl: "/app_plugins/formulatebackoffice/directives/designers/form.designer.html",
@@ -105,6 +105,7 @@ function formulateFormDesignerDirective(
                 $timeout,
                 $http,
                 $routeParams,
+                editorService,
                 overlayService,
                 formHelper,
                 notificationsService,
@@ -157,6 +158,7 @@ class FormDesignerEventHandlers {
     $scope;
     $http;
     $routeParams;
+    editorService;
     overlayService;
     formHelper;
     notificationsService;
@@ -176,13 +178,32 @@ class FormDesignerEventHandlers {
     }
 
     /**
-     * Toggles the field to either show or hide it.
-     * @param field The field to show or hide.
-     * @param target The clicked element.
+     * Edit the field.
+     * @param field The field to edit.
      */
-    toggleField = (field, target) => {
-        let fieldsetEl = target.closest('fieldset');
-        this.fieldAccordion.handleClick(field, fieldsetEl, '.formulate-field-details');
+    editField = (field) => {
+        console.log('edit');
+
+        let cloneField = {};
+        Utilities.copy(field, cloneField);
+
+        var options = {
+            field: cloneField,
+            submit: (model) => {
+                if (model) {
+                    Utilities.copy(model, field);
+                }
+
+                this.editorService.close();
+            },
+            close: () => {
+                this.editorService.close();
+            },
+            view: "/app_plugins/formulatebackoffice/dialogs/form-field/edit-form-field.dialog.html",
+            size: 'small'
+        };
+
+        this.editorService.open(options);
     };
 
     /**
@@ -190,8 +211,7 @@ class FormDesignerEventHandlers {
      * @param field The field to delete.
      */
     deleteField = (field) => {
-
-        // Confirm deletion.
+                // Confirm deletion.
         const name = field.name === null || !field.name.length
             ? "unnamed field"
             : `field, "${field.name}"`;
@@ -301,37 +321,30 @@ class FormDesignerEventHandlers {
 
         // This is called when the dialog is closed.
         let closer = () => {
-            this.overlayService.close();
+            this.editorService.close();
         };
 
         // This is called when a field is chosen.
-        let chosen = (item) => {
-            this.overlayService.close();
-            let field = item.field;
-            this.$scope.fields.push({
-                directive: field.directive,
-                icon: field.icon,
-                id: crypto.randomUUID(),
-                kindId: field.kindId,
-                name: null,
-                alias: null,
-                validations: []
-            });
+        let submit = (field) => {
+            this.editorService.close();
+
+            if (field) {
+                this.$scope.fields.push(field);
+            }
         };
 
         // The data sent to the form field chooser.
-        let data = {
+        var options = {
             title: "Add Field",
             subtitle: "Choose one of the following form fields to add to your form.",
-            view: "/app_plugins/formulatebackoffice/directives/overlays/formfieldchooser/form-field-chooser-overlay.html",
-            hideSubmitButton: true,
+            view: "/app_plugins/formulatebackoffice/dialogs/form-field/pick-form-field.dialog.html",
             close: closer,
-            chosen: chosen,
+            submit: submit,
+            size: 'medium'
         };
 
         // Open the overlay that displays the fields.
-        this.overlayService.open(data);
-
+        this.editorService.open(options);
     };
 
     /**

@@ -26,95 +26,34 @@
 
                             <!-- Render all fields. -->
                             <div ui-sortable="sortableOptions" ng-model="fields">
-
                                 <!-- A fieldset for each field. -->
-                                <fieldset ng-repeat="field in fields" class="formulate-field {{field.expanded ? 'expanded' : 'collapsed'}}">
-                                    <legend class="formulate-field__header">
-                                        <div class="formulate-field__header-buttons">
-                                            <i class="formulate-field__icon formulate-icon icon-formulate-move formulate-field__drag"></i>
-                                            <i class="formulate-field__icon formulate-icon icon-formulate-expand formulate-field__expand" ng-click="events.toggleField(field, $event.currentTarget)"></i>
-                                            <i class="formulate-field__icon formulate-icon icon-formulate-delete formulate-field__delete" ng-click="events.deleteField(field)"></i>
-                                        </div>
-                                        <umb-icon icon="{{field.icon}}" class="formulate-field__type-identifier"></umb-icon>
-                                        <umb-editor-header
-                                                class="formulate-field__header-title"
-                                                name="field.name"
-                                                alias="field.alias"
-                                                hide-icon="true"
-                                                hide-description="true">
-                                        </umb-editor-header>
-                                    </legend>
-                                    <div class="formulate-field-details" ng-style="field.detailsStyle">
-                                        <div class="control-group umb-control-group">
-
-                                            <!-- The label for the field. -->
-                                            <div class="umb-el-wrap">
-                                                <label class="control-label">
-                                                    <localize key="formulate-labels_Field Label">
-                                                        Field Label
-                                                    </localize>
-                                                </label>
-                                                <div class="controls controls-row">
-                                                    <input type="text"
-                                                           ng-model="field.label"
-                                                           formulate-localize-attribute="placeholder"
-                                                           placeholder="formulate-placeholders_Field Label" />
-                                                </div>
-                                            </div>
-
-                                            <!-- The field category. -->
-                                            <div class="umb-el-wrap" ng-if="categories">
-                                                <label class="control-label">
-                                                    <localize key="formulate-labels_Field Category">
-                                                        Field Category
-                                                    </localize>
-                                                </label>
-                                                <div class="controls controls-row">
-                                                    <select ng-model="field.category"
-                                                            ng-options="option.value as option.label group by option.group for option in categories">
-                                                        <option value="" formulate-inject-localization="formulate-options_Select a Field Category"></option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <!-- The field validations. -->
-                                            <div class="umb-el-wrap">
-                                                <label class="control-label">
-                                                    <localize key="formulate-labels_Validations">
-                                                        Validations
-                                                    </localize>
-                                                </label>
-                                                <div class="controls controls-row">
-                                                    <ul>
-                                                        <li ng-repeat="validation in field.validations">
-                                                            {{validation.name}}
-                                                        </li>
-                                                    </ul>
-                                                    <div>
-                                                        <a class="btn link" href ng-click="events.pickValidations(field)">
-                                                            <localize key="formulate-buttons_Pick Validations">
-                                                                Pick Validations
-                                                            </localize>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Each field has their own editor. -->
-                                            <formulate-field-editor directive="field.directive" configuration="field.configuration">
-                                            </formulate-field-editor>
-                                        </div>
+                                <div ng-repeat="field in fields" class="formulate-field">
+                                    <div class="formulate-field__header">
+                                        <umb-icon icon="{{field.icon}}"></umb-icon>
+                                        <span class="formulate-field__name">
+                                            {{field.name}} <small>({{field.alias || 'no alias provided'}})</small>
+                                        </span>
                                     </div>
-                                </fieldset>
 
+                                    <div class="formulate-field__actions">
+                                        <button ng-click="events.editField(field)" class="btn-reset formulate-field__action" prevent-default>
+                                            <umb-icon icon="icon-settings"></umb-icon>
+                                        </button>
+
+                                        <button ng-click="events.deleteField(field)" class="btn-reset formulate-field__action" prevent-default>
+                                            <umb-icon icon="icon-trash"></umb-icon>
+                                        </button>
+                                        <!--<i class="formulate-field__icon formulate-icon icon-settings formulate-field__expand"></i>
+                                        <i class="formulate-field__icon formulate-icon icon-formulate-delete formulate-field__delete" ng-click="events.deleteField(field)"></i>-->
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="btn-group">
-                                <button type="button" class="btn" ng-click="events.addField()" ng-disabled="!events.canAddField()" prevent-default>
-                                    <localize key="formulate-buttons_Add Field">
-                                        Add Field
-                                    </localize>
-                                </button>
-                            </div>
+                            <button type="button" class="umb-group-builder__group-add-property" ng-click="events.addField()" ng-disabled="!events.canAddField()" prevent-default>
+                                <localize key="formulate-buttons_Add Field">
+                                    Add Field
+                                </localize>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -141,12 +80,11 @@
                                             <i class="formulate-handler__icon formulate-icon icon-formulate-delete formulate-handler__delete" ng-click="events.deleteHandler(handler)"></i>
                                         </div>
                                         <umb-icon icon="{{handler.icon}}" class="formulate-handler__type-identifier"></umb-icon>
-                                        <umb-editor-header
-                                                class="formulate-handler__header-title"
-                                                name="handler.name"
-                                                alias="handler.alias"
-                                                hide-icon="true"
-                                                hide-description="true">
+                                        <umb-editor-header class="formulate-handler__header-title"
+                                                           name="handler.name"
+                                                           alias="handler.alias"
+                                                           hide-icon="true"
+                                                           hide-description="true">
                                         </umb-editor-header>
                                     </legend>
                                     <div class="formulate-handler-details" ng-style="handler.detailsStyle">

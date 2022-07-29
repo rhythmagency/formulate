@@ -54,6 +54,8 @@
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\Validations.DeleteController.js" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\Validations.EditController.js" />
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\Validations.MoveController.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\dialogs\form-field\edit-form-field.dialog.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\dialogs\form-field\edit-form-field.dialog.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\dataValues.designer.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\dataValues.designer.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\layout.designer.html" />
@@ -67,6 +69,8 @@
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\delete.dialog.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\move.dialog.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\move.dialog.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\pick-form-field.dialog.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\pick-form-field.dialog.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\form-field.editor.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\button\button-field.editor.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\button\button-field.editor.js" />
