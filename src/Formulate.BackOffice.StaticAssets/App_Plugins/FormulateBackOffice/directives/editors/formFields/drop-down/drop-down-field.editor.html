@@ -1,13 +1,31 @@
-﻿<div class="umb-el-wrap">
-    <label class="control-label">
-        <localize key="formulate-labels_Data Value">Data Value</localize>
-    </label>
-    <div class="controls controls-row">
-        <div>{{dataValue.name}}</div>
-        <div>
-            <button type="button" class="btn link" ng-click="pickDataValue()">
-                <localize key="formulate-buttons_Pick Data Value">Pick Data Value</localize>
-            </button>
+﻿<div class="umb-group-panel">
+    <div class="umb-group-panel__header">
+        Settings
+    </div>
+    <div class="umb-group-panel__content">
+
+        <div class="control-group umb-control-group -no-border">
+            <div class="umb-el-wrap">
+                <label class="control-label" for="datavalue">
+                    <localize key="formulate-labels_Data Value">Data Value</localize>
+                </label>
+                <div class="controls">
+                    <div ng-if="dataValue && dataValue.id">
+                        <umb-node-preview name="dataValue.name"
+                                          allow-remove="true"
+                                          allow-open="false"
+                                          on-remove="removeDataValue()">
+                        </umb-node-preview>
+                    </div>
+                    <div ng-if="!dataValue || !dataValue.id">
+                        <button type="button" 
+                                class="umb-node-preview-add" 
+                                ng-click="pickDataValue()">
+                            <localize key="formulate-buttons_Pick Data Value">Pick Data Value</localize>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

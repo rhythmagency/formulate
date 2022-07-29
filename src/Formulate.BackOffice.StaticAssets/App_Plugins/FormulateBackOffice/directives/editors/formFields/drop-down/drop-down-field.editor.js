@@ -26,7 +26,8 @@
         };
 
         // Set scope variables.
-        $scope.pickDataValue = getPickDataValue(services);
+        $scope.pickDataValue = performPickDataValue(services);
+        $scope.removeDataValue = performRemoveDataValue(services);
 
         // Refresh the data value info.
         refreshDataValue(services);
@@ -34,7 +35,7 @@
     }
 
     // Allows the user to pick their data value.
-    function getPickDataValue(services) {
+    function performPickDataValue(services) {
         var $scope = services.$scope;
         var editorService = services.editorService;
         return function () {
@@ -67,6 +68,15 @@
             editorService.treePicker(config);
 
         };
+    }
+
+    function performRemoveDataValue(services) {
+        var $scope = services.$scope;
+
+        return function () {
+            $scope.configuration.dataValue = undefined;
+            $scope.dataValue = {};
+        }
     }
 
     // Update the scope with info about the data value based on its ID.
