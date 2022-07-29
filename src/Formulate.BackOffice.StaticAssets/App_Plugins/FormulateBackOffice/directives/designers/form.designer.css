@@ -16,7 +16,7 @@
 }
 
 .formulate-field__header,
-.formulate-header__header {
+.formulate-handler__header {
     display: flex;
     align-content: center;
 }
