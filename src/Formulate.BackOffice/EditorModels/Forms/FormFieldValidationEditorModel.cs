@@ -9,11 +9,6 @@
     public sealed class FormFieldValidationEditorModel
     {
         /// <summary>
-        /// The configuration for this validation.
-        /// </summary>
-        public object Configuration { get; set; }
-
-        /// <summary>
         /// The ID of this validation.
         /// </summary>
         public Guid Id { get; set; }
