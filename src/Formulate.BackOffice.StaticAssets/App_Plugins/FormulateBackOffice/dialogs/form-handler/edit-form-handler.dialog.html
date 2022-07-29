@@ -1,7 +1,7 @@
 ﻿<div ng-controller="Formulate.Dialogs.EditFormHandler as vm">
     <umb-editor-view data-element="editor-edit-form-handler">
 
-        <form novalidate name="FormulateEditFormHandlerForm" val-form-manager>
+        <form novalidate name="FormulateEditFormHandlerForm" class="form-horizontal" val-form-manager>
 
             <umb-editor-header name="vm.model.name"
                                alias="vm.model.alias"
@@ -12,34 +12,36 @@
             </umb-editor-header>
 
             <umb-editor-container>
-                <umb-box>
-                    <umb-box-content>
-                        <umb-load-indicator ng-if="vm.loading === true"></umb-load-indicator>
+                <umb-load-indicator ng-if="vm.loading === true"></umb-load-indicator>
 
-                        <div ng-if="vm.loading === false">
-                            <div class="formulate-handler-details">
-                                <div class="control-group umb-control-group">
-                                    <div class="umb-el-wrap">
-                                        <label class="control-label">
-                                            <localize key="formulate-labels_Field Enabled">
-                                                Enabled
-                                            </localize>
-                                        </label>
-                                        <div class="controls controls-row">
-                                            <umb-toggle checked="vm.model.enabled"
-                                                        on-click="vm.toggleEnabled()">
-                                            </umb-toggle>
-                                        </div>
+                <div ng-if="vm.loading === false">
+
+                    <div class="umb-group-panel">
+                        <div class="umb-group-panel__header">
+                            General
+                        </div>
+                        <div class="umb-group-panel__content">
+                            <!-- label -->
+                            <div class="control-group umb-control-group -no-border">
+                                <div class="umb-el-wrap">
+                                    <label class="control-label" for="enabled">
+                                        <localize key="formulate-labels_Field Enabled">
+                                            Enabled
+                                        </localize>
+                                    </label>
+                                    <div class="controls">
+                                        <umb-toggle checked="vm.model.enabled"
+                                                    on-click="vm.toggleEnabled()">
+                                        </umb-toggle>
                                     </div>
-                                </div>
-                                <div class="control-group umb-control-group">
-                                    <formulate-handler-editor directive="vm.model.directive" configuration="vm.model.configuration" fields="vm.fields">
-                                    </formulate-handler-editor>
                                 </div>
                             </div>
                         </div>
-                    </umb-box-content>
-                </umb-box>
+                    </div>
+                    <!-- handler configuration -->
+                    <formulate-handler-editor directive="vm.model.directive" configuration="vm.model.configuration" fields="vm.fields">
+                    </formulate-handler-editor>
+                </div>
             </umb-editor-container>
 
             <umb-editor-footer>
