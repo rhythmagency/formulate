@@ -50,6 +50,12 @@
         public override Guid KindId => Guid.Parse(Constants.KindId);
 
         /// <inheritdoc />
+        /// <remarks>
+        /// This form field does not support validation.
+        /// </remarks>
+        public override bool SupportsValidation => false;
+
+        /// <inheritdoc />
         public override FormField CreateField(IFormFieldSettings settings)
         {
             return new HeaderField(settings);
