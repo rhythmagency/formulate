@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    function FormHandlerEditor($scope) {
+    function FormHandlerEditor($scope, formulateIds) {
         var vm = this;
 
         vm.model = {};
@@ -35,7 +35,7 @@
                     directive: definition.directive,
                     enabled: true,
                     icon: definition.icon,
-                    id: crypto.randomUUID(),
+                    id: formulateIds.generateId(),
                     kindId: definition.kindId,
                     name: null,
                     alias: null,

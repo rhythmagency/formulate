@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    function FormFieldEditor($scope, editorService) {
+    function FormFieldEditor($scope, editorService, formulateIds) {
         var vm = this;
 
         vm.model = {};
@@ -40,7 +40,7 @@
                         return true;
                     }
 
-                    return vm.model.validations.some(x => x.id === node.id);
+                    return vm.model.validations.some(x => formulateIds.compare(x.id, node.id));
                 },
                 filterCssClass: 'not-allowed',
                 submit: () => {
@@ -83,7 +83,7 @@
                 vm.model = {
                     directive: definition.directive,
                     icon: definition.icon,
-                    id: crypto.randomUUID(),
+                    id: formulateIds.generateId(),
                     kindId: definition.kindId,
                     name: null,
                     alias: null,
