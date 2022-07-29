@@ -214,8 +214,14 @@
         [HttpGet]
         public IActionResult GetHandlerDefinitions()
         {
-            var definitions = formHandlerDefinitions.ToArray();
-            return Ok(definitions);
+            var groupedDefinitions = formHandlerDefinitions.GroupBy(x => x.Category);
+            var viewModels = groupedDefinitions.Select(group => new
+            {
+                key = group.Key,
+                items = group.OrderBy(x => x.DefinitionLabel).ToArray()
+            }).ToArray();
+
+            return Ok(viewModels);
         }
 
         /// <summary>

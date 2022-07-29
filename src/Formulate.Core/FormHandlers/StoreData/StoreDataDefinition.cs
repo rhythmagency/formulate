@@ -35,6 +35,9 @@
         }
 
         /// <inheritdoc />
+        public override string Category => FormHandlerConstants.Categories.Persistence;
+
+        /// <inheritdoc />
         public override string Directive => Constants.Directive;
 
         /// <inheritdoc />

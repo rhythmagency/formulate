@@ -23,7 +23,6 @@
                         </div>
 
                         <div class="umb-group-panel__content">
-
                             <!-- Render all fields. -->
                             <div ui-sortable="sortableOptions" ng-model="fields">
                                 <!-- A fieldset for each field. -->
@@ -43,8 +42,6 @@
                                         <button ng-click="events.deleteField(field)" class="btn-reset formulate-field__action" prevent-default>
                                             <umb-icon icon="icon-trash"></umb-icon>
                                         </button>
-                                        <!--<i class="formulate-field__icon formulate-icon icon-settings formulate-field__expand"></i>
-                                        <i class="formulate-field__icon formulate-icon icon-formulate-delete formulate-field__delete" ng-click="events.deleteField(field)"></i>-->
                                     </div>
                                 </div>
                             </div>
@@ -70,41 +67,36 @@
                         </div>
 
                         <div class="umb-group-panel__content">
-                            <div ui-sortable="sortableHandlerOptions" ng-model="handlers">
-                                <fieldset ng-repeat="handler in handlers" class="formulate-handler {{handler.expanded ? 'expanded' : 'collapsed'}} {{handler.enabled ? 'enabled' : 'disabled'}}">
-                                    <legend class="formulate-handler__header">
-                                        <div class="formulate-handler__header-buttons">
-                                            <i class="formulate-handler__icon formulate-icon icon-formulate-move formulate-handler__drag"></i>
-                                            <i class="formulate-handler__icon formulate-icon icon-formulate-expand formulate-handler__expand" ng-click="events.toggleHandler(handler, $event.currentTarget)"></i>
-                                            <i class="formulate-handler__icon formulate-icon icon-formulate-hide formulate-handler__enable" ng-click="events.toggleHandlerEnabled(handler)"></i>
-                                            <i class="formulate-handler__icon formulate-icon icon-formulate-delete formulate-handler__delete" ng-click="events.deleteHandler(handler)"></i>
-                                        </div>
-                                        <umb-icon icon="{{handler.icon}}" class="formulate-handler__type-identifier"></umb-icon>
-                                        <umb-editor-header class="formulate-handler__header-title"
-                                                           name="handler.name"
-                                                           alias="handler.alias"
-                                                           hide-icon="true"
-                                                           hide-description="true">
-                                        </umb-editor-header>
-                                    </legend>
-                                    <div class="formulate-handler-details" ng-style="handler.detailsStyle">
-                                        <div class="control-group umb-control-group">
-                                            <formulate-handler-editor directive="handler.directive" configuration="handler.configuration" fields="fields">
-                                            </formulate-handler-editor>
-                                        </div>
+                            <!-- Render all handlers. -->
+                            <div ui-sortable="sortableOptions" ng-model="handlers">
+                                <!-- A handlerset for each handler. -->
+                                <div ng-repeat="handler in handlers" class="formulate-handler {{handler.enabled ? '' : 'formulate-handler--disabled'}}">
+                                    <div class="formulate-handler__header">
+                                        <umb-icon icon="{{handler.icon}}"></umb-icon>
+                                        <span class="formulate-handler__name">
+                                            {{handler.name}} <small>({{handler.alias || 'no alias provided'}})</small>
+                                        </span>
                                     </div>
-                                </fieldset>
 
-                                <!-- Buttons. -->
-                                <div class="btn-group">
-                                    <button type="button" class="btn" ng-click="events.addHandler()" ng-disabled="!events.canAddHandler()" prevent-default>
-                                        <localize key="formulate-buttons_Add Handler">
-                                            Add Handler
-                                        </localize>
-                                    </button>
-
+                                    <div class="formulate-handler__actions">
+                                        <button ng-click="events.editHandler(handler)" class="btn-reset formulate-handler__action" prevent-default>
+                                            <umb-icon icon="icon-settings"></umb-icon>
+                                        </button>
+                                        <button ng-click="events.toggleHandlerEnabled(handler)" class="btn-reset formulate-handler__action" prevent-default>
+                                            <umb-icon icon="icon-formulate-hide"></umb-icon>
+                                        </button>
+                                        <button ng-click="events.deleteHandler(handler)" class="btn-reset formulate-handler__action" prevent-default>
+                                            <umb-icon icon="icon-trash"></umb-icon>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
+
+                            <button type="button" class="umb-group-builder__group-add-property" ng-click="events.addHandler()" ng-disabled="!events.canAddHandler()" prevent-default>
+                                <localize key="formulate-buttons_Add Handler">
+                                    Add Handler
+                                </localize>
+                            </button>
                         </div>
                     </div>
                 </div>

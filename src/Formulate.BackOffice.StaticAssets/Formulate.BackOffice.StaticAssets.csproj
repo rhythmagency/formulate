@@ -56,6 +56,10 @@
       <None Remove="App_Plugins\FormulateBackOffice\backoffice\validations\Validations.MoveController.js" />
       <None Remove="App_Plugins\FormulateBackOffice\dialogs\form-field\edit-form-field.dialog.html" />
       <None Remove="App_Plugins\FormulateBackOffice\dialogs\form-field\edit-form-field.dialog.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\dialogs\form-handler\edit-form-handler.dialog.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\dialogs\form-handler\edit-form-handler.dialog.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\dialogs\form-handler\pick-form-handler.dialog.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\dialogs\form-handler\pick-form-handler.dialog.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\dataValues.designer.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\dataValues.designer.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\layout.designer.html" />

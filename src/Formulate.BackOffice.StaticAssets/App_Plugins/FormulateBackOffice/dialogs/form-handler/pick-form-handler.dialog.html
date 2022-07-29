@@ -1,0 +1,54 @@
+﻿<div ng-controller="Formulate.Dialogs.PickFormHandler as vm">
+    <umb-editor-view data-element="editor-pick-form-field">
+
+        <form novalidate name="FormulatePickFormHandlerForm" val-form-manager>
+
+            <umb-editor-header name="'Pick a Form Handler'"
+                               name-locked="true"
+                               hide-alias="true"
+                               hide-icon="true"
+                               hide-description="true">
+            </umb-editor-header>
+
+            <umb-editor-container>
+                <umb-box>
+                    <umb-box-content>
+                        <umb-load-indicator ng-if="vm.loading === true"></umb-load-indicator>
+
+                        <div ng-if="vm.loading === false">
+                            <div ng-repeat="group in vm.formHandlers | orderBy: 'key'">
+                                <h2 class="h5">{{group.key}}</h2>
+                                <ul class="umb-card-grid -six-in-row">
+                                    <li ng-repeat="formHandler in group.items | orderBy:'definitionLabel'" data-element="form-field-{{formHandler.definitionLabel}}">
+                                        <button type="button"
+                                                class="btn-reset umb-card-grid-item"
+                                                ng-click="vm.buildFormHandler(formHandler)"
+                                                title="{{formHandler.definitionLabel}}">
+                                            <span>
+                                                <umb-icon icon="{{formHandler.icon || 'icon-help-alt'}}"></umb-icon>
+                                                {{formHandler.definitionLabel}}
+                                            </span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </umb-box-content>
+                </umb-box>
+            </umb-editor-container>
+
+            <umb-editor-footer>
+                <umb-editor-footer-content-right>
+                    <umb-button type="button"
+                                button-style="link"
+                                label-key="general_close"
+                                shortcut="esc"
+                                action="vm.close()">
+                    </umb-button>
+                </umb-editor-footer-content-right>
+            </umb-editor-footer>
+
+        </form>
+
+    </umb-editor-view>
+</div>

@@ -21,6 +21,9 @@
         public abstract string Directive { get; }
 
         /// <inheritdoc />
+        public virtual string Category => FormHandlerConstants.Categories.Uncategorized;
+
+        /// <inheritdoc />
         public abstract FormHandler CreateHandler(IFormHandlerSettings settings);
 
         /// <inheritdoc />

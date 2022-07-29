@@ -18,6 +18,12 @@
         string Icon { get; }
 
         /// <summary>
+        /// Gets the category.
+        /// </summary>
+        /// <remarks>This is used to categorize this form handlers with similar handlers (e.g. General, SalesForce, HubSpot).</remarks>
+        string Category { get; }
+
+        /// <summary>
         /// Creates a Form Handler.
         /// </summary>
         /// <param name="settings">The form handler settings.</param>

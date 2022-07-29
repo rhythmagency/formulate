@@ -182,8 +182,6 @@ class FormDesignerEventHandlers {
      * @param field The field to edit.
      */
     editField = (field) => {
-        console.log('edit');
-
         let cloneField = {};
         Utilities.copy(field, cloneField);
 
@@ -205,6 +203,39 @@ class FormDesignerEventHandlers {
 
         this.editorService.open(options);
     };
+
+    /**
+  * Edit the handler.
+  * @param handler The handler to edit.
+  */
+    editHandler = (handler) => {
+        const fieldsCopy = [];
+        let cloneHandler = {};
+        Utilities.copy(handler, cloneHandler);
+        Utilities.copy(this.$scope.fields, fieldsCopy);
+
+        var options = {
+            handler: cloneHandler,
+            fields: fieldsCopy,
+            submit: (model) => {
+                if (model) {
+                    Utilities.copy(model, handler);
+                }
+
+                this.editorService.close();
+            },
+            close: () => {
+                this.editorService.close();
+            },
+            view: "/app_plugins/formulatebackoffice/dialogs/form-handler/edit-form-handler.dialog.html",
+            size: 'small'
+        };
+
+        this.editorService.open(options);
+    };
+
+
+
 
     /**
      * Deletes the specified field (after confirming with the user).
@@ -269,41 +300,37 @@ class FormDesignerEventHandlers {
      * Shows the dialog that allows the user to choose a form handler to add.
      */
     addHandler = () => {
-
         // This is called when the dialog is closed.
         let closer = () => {
-            this.overlayService.close();
+            this.editorService.close();
         };
 
         // This is called when a handler is chosen.
-        let chosen = (item) => {
-            this.overlayService.close();
-            let handler = item.handler;
-            this.$scope.handlers.push({
-                directive: handler.directive,
-                enabled: true,
-                icon: handler.icon,
-                id: crypto.randomUUID(),
-                kindId: handler.kindId,
-                name: null,
-                alias: null,
-                configuration: null
-            });
+        let submit = (handler) => {
+            this.editorService.close();
+
+            if (handler) {
+                this.$scope.handlers.push(handler);
+            }
         };
 
-        // The data sent to the form handler chooser.
-        let data = {
+        const fieldsCopy = [];
+
+        Utilities.copy(this.$scope.fields, fieldsCopy);
+
+        // The data sent to the form field chooser.
+        var options = {
             title: "Add Handler",
             subtitle: "Choose one of the following form handlers to add to your form.",
-            view: "/app_plugins/formulatebackoffice/directives/overlays/formhandlerchooser/form-handler-chooser-overlay.html",
-            hideSubmitButton: true,
+            view: "/app_plugins/formulatebackoffice/dialogs/form-handler/pick-form-handler.dialog.html",
+            fields: fieldsCopy,
             close: closer,
-            chosen: chosen,
+            submit: submit,
+            size: 'medium'
         };
 
-        // Open the overlay that displays the handlers.
-        this.overlayService.open(data);
-
+        // Open the overlay that displays the fields.
+        this.editorService.open(options);
     };
 
     /**

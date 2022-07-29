@@ -59,6 +59,8 @@ namespace Formulate.Core.Tests.FormHandlerTests
 
             public string Icon => throw new NotImplementedException();
 
+            public string Category => throw new NotImplementedException();
+
             public FormHandler CreateHandler(IFormHandlerSettings settings)
             {
                 throw new NotImplementedException();
