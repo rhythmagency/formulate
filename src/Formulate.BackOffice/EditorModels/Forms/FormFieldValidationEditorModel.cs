@@ -1,4 +1,4 @@
-﻿namespace Formulate.BackOffice.ViewModels.Forms
+﻿namespace Formulate.BackOffice.EditorModels.Forms
 {
     // Namespaces.
     using System;

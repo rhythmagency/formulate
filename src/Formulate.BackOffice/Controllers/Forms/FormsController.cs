@@ -2,7 +2,6 @@
 {
     // Namespaces.
     using Attributes;
-    using Core.Configuration;
     using Core.ConfiguredForms;
     using Core.Folders;
     using Core.FormFields;
@@ -12,7 +11,6 @@
     using Core.Persistence;
     using Formulate.Core.Templates;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Options;
     using Persistence;
     using System;
     using System.Collections.Generic;
@@ -22,7 +20,8 @@
     using Umbraco.Cms.Core.Services;
     using Umbraco.Cms.Web.BackOffice.Filters;
     using Umbraco.Extensions;
-    using ViewModels.Forms;
+    using EditorModels.Forms;
+    using Formulate.BackOffice.Utilities;
 
     /// <summary>
     /// Manages back office API operations for Formulate forms.
@@ -39,6 +38,7 @@
         private readonly FormFieldDefinitionCollection formFieldDefinitions;
         private readonly TemplateDefinitionCollection templateDefinitions;
         private readonly ILayoutEntityRepository layoutEntities;
+        private readonly IBuildEditorModel buildEditorModel;
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
@@ -49,7 +49,8 @@
             FormFieldDefinitionCollection formFieldDefinitions,
             TemplateDefinitionCollection templateDefinitions,
             ILayoutEntityRepository layoutEntities,
-            IConfiguredFormEntityRepository configuredFormRepository)
+            IConfiguredFormEntityRepository configuredFormRepository,
+            IBuildEditorModel buildEditorModel)
             : base(treeEntityRepository, localizedTextService)
         {
             this.formEntityRepository = formEntityRepository;
@@ -60,6 +61,7 @@
             this.templateDefinitions = templateDefinitions;
             this.layoutEntities = layoutEntities;
             this.configuredFormRepository = configuredFormRepository;
+            this.buildEditorModel = buildEditorModel;
         }
 
         [HttpGet]
@@ -151,39 +153,25 @@
         /// <inheritdoc cref="FormulateBackOfficeEntityApiController.Get(Guid)"/>
         public override IActionResult Get(Guid id)
         {
-            // Get the base data.
-            var baseResult = base.GetEntity(id);
+            var entity = TreeEntityRepository.Get(id);
 
             // Data not found?
-            if (baseResult == null)
+            if (entity == null)
             {
                 return NotFound();
             }
 
-            // If this is a folder, return immediately.
-            if (baseResult.Entity is PersistedFolder)
-            {
-                return Ok(baseResult);
-            }
+            var editorModel = buildEditorModel.Build(entity);
 
-            // If this is a configured form, return details for the configured form.
-            if (baseResult.Entity is PersistedConfiguredForm)
+            var response = new
             {
-                return GetConfiguredForm(baseResult);
-            }
-
-            // Supplement the base response with additional data.
-            var form = baseResult.Entity as PersistedForm;
-            var entity = new FormEditorModel(form, formHandlerFactory, formFieldFactory);
-            var formResponse = new GetFormResponse()
-            {
-                Entity = entity,
-                EntityType = baseResult.EntityType,
-                TreePath = baseResult.TreePath,
+                Entity = editorModel,
+                EntityType = entity.EntityType(),
+                TreePath = entity.TreeSafePath(),
             };
 
             // Return the response with the data.
-            return Ok(formResponse);
+            return Ok(response);
         }
 
         /// <summary>
@@ -315,43 +303,6 @@
             });
         }
 
-        /// <summary>
-        /// Returns the data that should be sent to the browser for a configured form.
-        /// </summary>
-        /// <param name="baseResult">
-        /// The generic result for the entity that needs to be converted into the
-        /// more specialized result for the configured form.
-        /// </param>
-        /// <returns>
-        /// The response containing the configured form data.
-        /// </returns>
-        private IActionResult GetConfiguredForm(GetEntityResponse baseResult)
-        {
-            var configuredForm = baseResult.Entity as PersistedConfiguredForm;
-            var layout = configuredForm.LayoutId.HasValue
-                ? layoutEntities.Get(configuredForm.LayoutId.Value)
-                : null;
-            var template = configuredForm.TemplateId.HasValue
-                ? templateDefinitions.FirstOrDefault(x => x.Id == configuredForm.TemplateId.Value)
-                : null;
-            return Ok(new
-            {
-                Entity = new
-                {
-                    configuredForm.Name,
-                    configuredForm.Alias,
-                    configuredForm.Id,
-                    configuredForm.Path,
-                    configuredForm.LayoutId,
-                    LayoutName = layout?.Name,
-                    configuredForm.TemplateId,
-                    TemplateName = template?.Name,
-                },
-                EntityType = baseResult.EntityType,
-                TreePath = baseResult.TreePath,
-            });
-        }
-
         /// <inheritdoc cref="Save(PersistedForm)"/>
         /// <remarks>
         /// This exists purely so the "SaveConfiguredForm" method can be referenced
@@ -405,11 +356,7 @@
         [HttpGet]
         public IActionResult GetConfiguredForm(Guid id)
         {
-            var entity = new GetEntityResponse()
-            {
-                Entity = configuredFormRepository.Get(id),
-            };
-            return GetConfiguredForm(entity);
+            return Get(id);
         }
 
         /// <inheritdoc cref="GetFormInfo(Guid)"/>
