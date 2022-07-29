@@ -83,6 +83,7 @@
                 vm.model = {
                     directive: definition.directive,
                     icon: definition.icon,
+                    supportsValidation: definition.supportsValidation,
                     id: formulateIds.generateId(),
                     kindId: definition.kindId,
                     name: null,
