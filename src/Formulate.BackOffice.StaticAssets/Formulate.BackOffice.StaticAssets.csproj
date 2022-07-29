@@ -90,6 +90,7 @@
       <None Remove="App_Plugins\FormulateBackOffice\resources\formulateFieldsResource.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\formulateServerResource.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\formulateVarsResource.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\resources\idResource.js" />
       <None Remove="App_Plugins\FormulateBackOffice\styles\buttons.css" />
       <None Remove="App_Plugins\FormulateBackOffice\styles\flexbox-utilities.css" />
     </ItemGroup>
