@@ -5,7 +5,6 @@
  */
 function retainProperties (properties, instance) {
     instance = instance || this;
-    console.log({instance});
     for (const [key, value] of Object.entries(properties)) {
         instance[key] = value;
     }

@@ -399,5 +399,48 @@
             };
             return GetConfiguredForm(entity);
         }
+
+        /// <inheritdoc cref="GetFormInfo(Guid)"/>
+        /// <remarks>
+        /// This exists purely so the "GetFormInfo" method can be referenced
+        /// without parameters so reflection can be used to generate a URL for it.
+        /// </remarks>
+        [NonAction]
+        public IActionResult GetFormInfo()
+        {
+            return new EmptyResult();
+        }
+
+        /// <summary>
+        /// Gets details about the configured form with the specified ID.
+        /// </summary>
+        /// <param name="od">
+        /// The ID of the configured form.
+        /// </param>
+        /// <returns>
+        /// The configured form details.
+        /// </returns>
+        [HttpGet]
+        public IActionResult GetFormInfo(Guid id)
+        {
+            var form = formEntityRepository.Get(id);
+            return Ok(new
+            {
+                Success = true,
+                form.Id,
+                form.Path,
+                form.Alias,
+                form.Name,
+                Fields = form.Fields.Select(x => new
+                {
+                    x.Id,
+                    x.Alias,
+                    x.Name,
+                    x.Label,
+                    x.Category,
+                    IsServerSideOnly = false,//TODO: ...
+                }),
+            });
+        }
     }
 }

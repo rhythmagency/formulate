@@ -42,9 +42,6 @@
                 //{ "PersistForm",
                 //    LinkGenerator.GetUmbracoApiService<FormsController>(x =>
                 //        x.PersistForm(null)) },
-                //{ "GetFormInfo",
-                //    LinkGenerator.GetUmbracoApiService<FormsController>(x =>
-                //        x.GetFormInfo(null)) },
                 //{ "MoveForm",
                 //    LinkGenerator.GetUmbracoApiService<FormsController>(x =>
                 //        x.MoveForm(null)) },
@@ -182,6 +179,9 @@
                 { "Forms.GenerateNewPathAndId", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GenerateNewPathAndId()) },
+                { "Forms.GetFormInfo", LinkGenerator
+                    .GetUmbracoApiService<FormsController>(x =>
+                        x.GetFormInfo()) },
                 { "configuredForms.Save", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.SaveConfiguredForm()) },
