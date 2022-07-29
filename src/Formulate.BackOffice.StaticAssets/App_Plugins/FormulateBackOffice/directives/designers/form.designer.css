@@ -49,5 +49,5 @@
 }
 
 .formulate-handler--disabled {
-    opacity: .3;
+    opacity: 0.3 !important; /* TODO: Find a better way of providing a disabled state, this conflicts with ui-draggable */
 }

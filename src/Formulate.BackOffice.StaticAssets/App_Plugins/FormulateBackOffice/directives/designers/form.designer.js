@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 function formulateFormDesignerDirective(
-    $timeout, formHelper, $http, $routeParams, editorService, notificationsService, overlayService) {
+    $timeout, formHelper, $http, $routeParams, editorService, notificationsService) {
     const directive = {
         replace: true,
         templateUrl: "/app_plugins/formulatebackoffice/directives/designers/form.designer.html",
@@ -106,7 +106,6 @@ function formulateFormDesignerDirective(
                 $http,
                 $routeParams,
                 editorService,
-                overlayService,
                 formHelper,
                 notificationsService,
             });
@@ -159,13 +158,8 @@ class FormDesignerEventHandlers {
     $http;
     $routeParams;
     editorService;
-    overlayService;
     formHelper;
     notificationsService;
-
-    // Data properties.
-    handlerAccordion;
-    fieldAccordion;
 
     /**
      * Constructor.
@@ -173,8 +167,6 @@ class FormDesignerEventHandlers {
      */
     constructor(services) {
         Object.keys(services).forEach((x) => this[x] = services[x]);
-        this.handlerAccordion = new window.FormulateAccordion(services);
-        this.fieldAccordion = new window.FormulateAccordion(services);
     }
 
     /**
@@ -234,9 +226,6 @@ class FormDesignerEventHandlers {
         this.editorService.open(options);
     };
 
-
-
-
     /**
      * Deletes the specified field (after confirming with the user).
      * @param field The field to delete.
@@ -254,17 +243,6 @@ class FormDesignerEventHandlers {
             const index = this.$scope.fields.indexOf(field);
             this.$scope.fields.splice(index, 1);
         }
-
-    };
-
-    /**
-     * Toggles the handler to either show or hide it.
-     * @param handler The handler to toggle.
-     * @param target The clicked element.
-     */
-    toggleHandler = (handler, target) => {
-        let fieldsetEl = target.closest('fieldset');
-        this.handlerAccordion.handleClick(handler, fieldsetEl, '.formulate-handler-details');
     };
 
     /**
@@ -285,7 +263,6 @@ class FormDesignerEventHandlers {
             const index = this.$scope.handlers.indexOf(handler);
             this.$scope.handlers.splice(index, 1);
         }
-
     };
 
     /**
@@ -381,32 +358,6 @@ class FormDesignerEventHandlers {
     canAddField = () => {
         return this.$scope.initialized;
     }
-
-    /**
-     * Opens the validation chooser dialog.
-     * @param field The field to choose validations for.
-     */
-    pickValidations = (field) => {
-
-        // This is called when the dialog is closed.
-        let closer = () => {
-            this.overlayService.close();
-        };
-
-        // The data sent to the validation chooser.
-        let data = {
-            title: "Choose Validations",
-            subtitle: "Choose any of these validations to add to your field. They will be evaluated in the order you choose them.",
-            view: "/app_plugins/formulatebackoffice/directives/overlays/validationchooser/validation-chooser-overlay.html",
-            hideSubmitButton: true,
-            close: closer,
-            validations: field.validations,
-        };
-
-        // Open the overlay that displays the validations.
-        this.overlayService.open(data);
-
-    };
 
     /**
      * Can the form be saved currently?

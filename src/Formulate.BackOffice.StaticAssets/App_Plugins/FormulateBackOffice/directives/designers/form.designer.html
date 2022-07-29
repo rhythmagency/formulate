@@ -70,7 +70,7 @@
                             <!-- Render all handlers. -->
                             <div ui-sortable="sortableOptions" ng-model="handlers">
                                 <!-- A handlerset for each handler. -->
-                                <div ng-repeat="handler in handlers" class="formulate-handler {{handler.enabled ? '' : 'formulate-handler--disabled'}}">
+                                <div ng-repeat="handler in handlers track by handler.id" class="formulate-handler {{handler.enabled ? '' : 'formulate-handler--disabled'}}">
                                     <div class="formulate-handler__header">
                                         <umb-icon icon="{{handler.icon}}"></umb-icon>
                                         <span class="formulate-handler__name">
