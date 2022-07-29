@@ -12,74 +12,79 @@
             </umb-editor-header>
 
             <umb-editor-container>
-                <umb-box>
-                    <umb-box-content>
-                        <umb-load-indicator ng-if="vm.loading === true"></umb-load-indicator>
+                <umb-load-indicator ng-if="vm.loading === true"></umb-load-indicator>
 
-                        <div ng-if="vm.loading === false">
-                            <div class="formulate-field-details" ng-style="vm.model.detailsStyle">
-                                <div class="control-group umb-control-group">
-
-                                    <!-- The label for the field. -->
-                                    <div class="umb-el-wrap">
-                                        <label class="control-label">
-                                            <localize key="formulate-labels_Field Label">
-                                                Field Label
-                                            </localize>
-                                        </label>
-                                        <div class="controls controls-row">
-                                            <input type="text"
-                                                   ng-model="vm.model.label"
-                                                   formulate-localize-attribute="placeholder"
-                                                   placeholder="formulate-placeholders_Field Label" />
-                                        </div>
+                <div ng-if="vm.loading === false">
+                    <div class="umb-group-panel">
+                        <div class="umb-group-panel__header">
+                            General
+                        </div>
+                        <div class="umb-group-panel__content">
+                            <!-- label -->
+                            <div class="control-group umb-control-group -no-border">
+                                <div class="umb-el-wrap">
+                                    <label class="control-label" for="label">
+                                        <localize key="formulate-labels_Field Label">
+                                            Field Label
+                                        </localize>
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text" name="label"
+                                               ng-model="vm.model.label"
+                                               formulate-localize-attribute="placeholder"
+                                               placeholder="formulate-placeholders_Field Label"
+                                               style="width:100%" />
                                     </div>
-
-                                    <!-- The field category. -->
-                                    <div class="umb-el-wrap" ng-if="categories">
-                                        <label class="control-label">
-                                            <localize key="formulate-labels_Field Category">
-                                                Field Category
-                                            </localize>
-                                        </label>
-                                        <div class="controls controls-row">
-                                            <select ng-model="vm.model.category"
-                                                    ng-options="option.value as option.label group by option.group for option in categories">
-                                                <option value="" formulate-inject-localization="formulate-options_Select a Field Category"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <!-- The field validations. -->
-                                    <div class="umb-el-wrap">
-                                        <label class="control-label">
-                                            <localize key="formulate-labels_Validations">
-                                                Validations
-                                            </localize>
-                                        </label>
-                                        <div class="controls controls-row">
-                                            <umb-node-preview ng-repeat="validation in vm.model.validations"
-                                                              name="validation.name"
-                                                              allow-remove="true"
-                                                              allow-open="false"
-                                                              on-remove="vm.removeValidation(validation)">
-                                            </umb-node-preview>
-
-                                            <button type="button"
-                                                    class="umb-node-preview-add"
-                                                    ng-click="vm.pickValidations()">
-                                                <localize key="general_add">Add</localize>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!-- Each field has their own editor. -->
-                                    <formulate-field-editor directive="vm.model.directive" configuration="vm.model.configuration">
-                                    </formulate-field-editor>
                                 </div>
                             </div>
+
+                            <!-- The field category. -->
+                            <div class="control-group umb-control-group -no-border" ng-if="categories">
+                                <div class="umb-el-wrap">
+                                    <label class="control-label" for="category">
+                                        <localize key="formulate-labels_Field Category">
+                                            Field Category
+                                        </localize>
+                                    </label>
+                                    <div class="controls">
+                                        <select name="category" ng-model="vm.model.category"
+                                                ng-options="option.value as option.label group by option.group for option in categories">
+                                            <option value="" formulate-inject-localization="formulate-options_Select a Field Category"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Validations -->
+                            <div class="control-group umb-control-group -no-border">
+                                <div class="umb-el-wrap">
+                                    <label class="control-label" for="validations">
+                                        <localize key="formulate-labels_Field Validations">
+                                            Validations
+                                        </localize>
+                                    </label>
+                                    <div class="controls">
+                                        <umb-node-preview ng-repeat="validation in vm.model.validations"
+                                                          name="validation.name"
+                                                          allow-remove="true"
+                                                          allow-open="false"
+                                                          on-remove="vm.removeValidation(validation)">
+                                        </umb-node-preview>
+
+                                        <button type="button"
+                                                class="umb-node-preview-add"
+                                                ng-click="vm.pickValidations()">
+                                            <localize key="general_add">Add</localize>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                    </umb-box-content>
-                </umb-box>
+                    </div>
+                    <formulate-field-editor directive="vm.model.directive" configuration="vm.model.configuration">
+                    </formulate-field-editor>
+                </div>
             </umb-editor-container>
 
             <umb-editor-footer>
@@ -98,8 +103,6 @@
                     </umb-button>
                 </umb-editor-footer-content-right>
             </umb-editor-footer>
-
         </form>
-
     </umb-editor-view>
 </div>
