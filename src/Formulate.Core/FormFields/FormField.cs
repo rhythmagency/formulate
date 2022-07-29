@@ -65,7 +65,7 @@
         public string Category { get; }
 
         /// <inheritdoc />
-        public IReadOnlyCollection<IValidation> Validations { get; set; }
+        public IReadOnlyCollection<IValidation> Validations { get; set; } = Array.Empty<IValidation>();
 
         /// <summary>
         /// Gets or sets the icon for this form field.

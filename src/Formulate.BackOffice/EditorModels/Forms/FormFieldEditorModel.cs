@@ -6,7 +6,7 @@
     /// <summary>
     /// Represents a form field that will be passed to the back office.
     /// </summary>
-    internal class FieldViewModel
+    public sealed class FormFieldEditorModel
     {
         /// <summary>
         /// The field alias.
@@ -51,11 +51,16 @@
         /// <summary>
         /// The validations applied to this field.
         /// </summary>
-        public ValidationViewModel[] Validations { get; set; }
+        public FormFieldValidationEditorModel[] Validations { get; set; } = Array.Empty<FormFieldValidationEditorModel>();
 
         /// <summary>
         /// The directive for this field.
         /// </summary>
         public string Directive { get; set; }
+
+        /// <summary>
+        /// Whether this field supports validation.
+        /// </summary>
+        public bool SupportsValidation { get; set; }
     }
 }

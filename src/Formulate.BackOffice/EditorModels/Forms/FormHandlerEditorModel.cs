@@ -6,7 +6,7 @@
     /// <summary>
     /// The data required by the back office for a form handler.
     /// </summary>
-    internal class HandlerViewModel
+    public sealed class FormHandlerEditorModel
     {
         /// <summary>
         /// The configuration for this handler.

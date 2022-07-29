@@ -13,7 +13,7 @@
     /// A view model that supplements the <see cref="PersistedForm"/> class
     /// with additional data that is not persisted.
     /// </summary>
-    internal class FormViewModel
+    public sealed class FormEditorModel
     {
         /// <inheritdoc cref="IPersistedEntity.Id"/>
         public Guid Id { get; set; }
@@ -28,10 +28,10 @@
         public string Alias { get; set; }
 
         /// <inheritdoc cref="PersistedForm.Fields"/>
-        public FieldViewModel[] Fields { get; set; }
+        public FormFieldEditorModel[] Fields { get; set; }
 
         /// <inheritdoc cref="PersistedForm.Handlers"/>
-        public HandlerViewModel[] Handlers { get; set; }
+        public FormHandlerEditorModel[] Handlers { get; set; }
 
         /// <summary>
         /// Copy constructor.
@@ -39,7 +39,7 @@
         /// <param name="source">
         /// The persisted form to copy.
         /// </param>
-        public FormViewModel(PersistedForm source,
+        public FormEditorModel(PersistedForm source,
             IFormHandlerFactory formHandlerFactory,
             IFormFieldFactory formFieldFactory)
         {
@@ -54,7 +54,7 @@
                     Mapped = formFieldFactory.Create(x) as FormField,
                 })
                 ?.Where(x => x.Mapped != null)
-                ?.Select(x => new FieldViewModel()
+                ?.Select(x => new FormFieldEditorModel()
                 {
                     Alias = x.Original.Alias,
                     Category = x.Original.Category,
@@ -68,7 +68,7 @@
                     Validations = x.Mapped.Validations
                         .Select(y =>
                         {
-                            return new ValidationViewModel()
+                            return new FormFieldValidationEditorModel()
                             {
                                 Configuration = (y as Validation).BackOfficeConfiguration,
                                 Id = y.Id,
@@ -84,7 +84,7 @@
                     Original = x,
                     Mapped = formHandlerFactory.Create(x) as FormHandler,
                 })
-                .Select(x => new HandlerViewModel
+                .Select(x => new FormHandlerEditorModel
                 {
                     Alias = x.Original.Alias,
                     Enabled = x.Original.Enabled,

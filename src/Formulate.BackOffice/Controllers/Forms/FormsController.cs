@@ -174,7 +174,7 @@
 
             // Supplement the base response with additional data.
             var form = baseResult.Entity as PersistedForm;
-            var entity = new FormViewModel(form, formHandlerFactory, formFieldFactory);
+            var entity = new FormEditorModel(form, formHandlerFactory, formFieldFactory);
             var formResponse = new GetFormResponse()
             {
                 Entity = entity,

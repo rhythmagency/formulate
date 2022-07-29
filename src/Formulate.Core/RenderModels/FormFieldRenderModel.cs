@@ -21,5 +21,7 @@
         public bool IsHidden => _features.IsHidden;
 
         public bool IsStored => _features.IsStored;
+
+        public bool SupportsValidation => _features.SupportsValidation;
     }
 }

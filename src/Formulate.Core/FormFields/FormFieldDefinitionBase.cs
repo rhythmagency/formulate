@@ -39,6 +39,10 @@
         public virtual bool IsStored => true;
 
         /// <inheritdoc />
+        /// <remarks>Defaults to true.</remarks>
+        public virtual bool SupportsValidation => true;
+
+        /// <inheritdoc />
         public virtual string Category => FormFieldConstants.Categories.Uncategorized;
 
         /// <inheritdoc />

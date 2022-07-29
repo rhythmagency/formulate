@@ -25,5 +25,10 @@
         /// Gets a value indicating whether this field definition is stored.
         /// </summary>
         bool IsStored { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether this field definition supports validation.
+        /// </summary>
+        bool SupportsValidation { get; }
     }
 }

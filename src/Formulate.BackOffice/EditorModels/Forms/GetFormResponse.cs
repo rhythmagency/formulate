@@ -8,9 +8,9 @@
     /// <summary>
     /// The response data when requesting a form.
     /// </summary>
-    internal class GetFormResponse
+    public sealed class GetFormResponse
     {
-        public FormViewModel Entity { get; set; }
+        public FormEditorModel Entity { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public EntityTypes EntityType { get; set; }

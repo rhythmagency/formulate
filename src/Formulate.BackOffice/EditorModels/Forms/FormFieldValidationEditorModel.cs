@@ -6,7 +6,7 @@
     /// <summary>
     /// The data needed by the back office for a form field validation.
     /// </summary>
-    internal class ValidationViewModel
+    public sealed class FormFieldValidationEditorModel
     {
         /// <summary>
         /// The configuration for this validation.
