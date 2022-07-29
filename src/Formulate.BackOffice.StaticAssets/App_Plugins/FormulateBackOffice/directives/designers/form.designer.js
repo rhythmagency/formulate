@@ -405,8 +405,6 @@ class FormDesignerEventHandlers {
             const fields = this.$scope.fields;
             const handlers = this.$scope.handlers;
 
-            console.log(fields);
-
             const payload = {
                 alias: entity.alias,
                 id: entity.id,
