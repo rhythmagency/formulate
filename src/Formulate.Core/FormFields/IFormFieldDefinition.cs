@@ -14,7 +14,7 @@
         string Icon { get; }
 
         /// <summary>
-        /// Gets the group.
+        /// Gets the category.
         /// </summary>
         /// <remarks>This is used to categorize this form field with similar fields (e.g. Input, Content).</remarks>
         string Category { get; }
