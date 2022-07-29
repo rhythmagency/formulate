@@ -163,7 +163,7 @@
 
             var editorModel = buildEditorModel.Build(entity);
 
-            var response = new
+            var response = new GetEditorModelResponse
             {
                 Entity = editorModel,
                 EntityType = entity.EntityType(),
