@@ -1,11 +1,20 @@
-﻿<div class="umb-el-wrap">
-    <label class="control-label">
-        <localize key="formulate-labels_Button Kind">Button Kind</localize>
-    </label>
-    <div class="controls controls-row">
-        <select ng-options="option.value as option.label for option in kinds.values" ng-model="configuration.buttonKind">
-            <option value="" localize="label" label="formulate-options_Select a Button Kind">
-            </option>
-        </select>
+﻿<div class="umb-group-panel">
+    <div class="umb-group-panel__header">
+        Settings
+    </div>
+    <div class="umb-group-panel__content">
+        <div class="control-group umb-control-group -no-border">
+            <div class="umb-el-wrap">
+                <label class="control-label" for="buttonKind">
+                    <localize key="formulate-labels_Button Kind">Button Kind</localize>
+                </label>
+                <div class="controls">
+                    <select name="buttonKind" ng-options="option.value as option.label for option in kinds.values" ng-model="configuration.buttonKind">
+                        <option value="" localize="label" label="formulate-options_Select a Button Kind">
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
