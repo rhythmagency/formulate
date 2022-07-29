@@ -32,34 +32,25 @@
     {
         private readonly IFormEntityRepository formEntityRepository;
         private readonly IConfiguredFormEntityRepository configuredFormRepository;
-        private readonly IFormHandlerFactory formHandlerFactory;
-        private readonly IFormFieldFactory formFieldFactory;
         private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
         private readonly FormFieldDefinitionCollection formFieldDefinitions;
         private readonly TemplateDefinitionCollection templateDefinitions;
-        private readonly ILayoutEntityRepository layoutEntities;
         private readonly IBuildEditorModel buildEditorModel;
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
             IFormEntityRepository formEntityRepository,
-            IFormHandlerFactory formHandlerFactory,
-            IFormFieldFactory formFieldFactory,
             FormHandlerDefinitionCollection formHandlerDefinitions,
             FormFieldDefinitionCollection formFieldDefinitions,
             TemplateDefinitionCollection templateDefinitions,
-            ILayoutEntityRepository layoutEntities,
             IConfiguredFormEntityRepository configuredFormRepository,
             IBuildEditorModel buildEditorModel)
             : base(treeEntityRepository, localizedTextService)
         {
             this.formEntityRepository = formEntityRepository;
-            this.formHandlerFactory = formHandlerFactory;
-            this.formFieldFactory = formFieldFactory;
             this.formHandlerDefinitions = formHandlerDefinitions;
             this.formFieldDefinitions = formFieldDefinitions;
             this.templateDefinitions = templateDefinitions;
-            this.layoutEntities = layoutEntities;
             this.configuredFormRepository = configuredFormRepository;
             this.buildEditorModel = buildEditorModel;
         }
