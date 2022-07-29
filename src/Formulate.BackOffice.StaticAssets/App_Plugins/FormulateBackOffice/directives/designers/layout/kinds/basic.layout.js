@@ -80,7 +80,7 @@ class FormulateBasicLayout {
             connectWith: ".formulate-cell",
             tolerance: "pointer",
             items: ".formulate-cell-field",
-            opacity: 0.5
+            opacity: 0.5,
         };
     };
 
@@ -94,7 +94,7 @@ class FormulateBasicLayout {
             tolerance: "pointer",
             axis: "y",
             opacity: 0.5,
-            disabled: true
+            disabled: true,
         };
     };
 

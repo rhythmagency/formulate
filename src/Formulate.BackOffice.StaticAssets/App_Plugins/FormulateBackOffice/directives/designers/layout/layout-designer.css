@@ -1,0 +1,128 @@
+.formulate-cell {
+    margin: 0 10px 10px 0;
+    padding: 5px;
+    border: 1px dotted #888;
+    min-height: 34px;
+}
+.formulate-cell-field {
+    background-color: #eee;
+    padding: 3px;
+    margin: 3px;
+}
+.formulate-cell-field.ui-sortable-handle {
+    cursor: move;
+}
+.formulate-cell.editing-rows {
+    background-color: #eee;
+    border-color: transparent;
+}
+.formulate-cell.editing-rows .formulate-cell-field {
+    background-color: transparent;
+}
+.formulate-cell.editing-rows .formulate-cell-field-name {
+    text-decoration: underline;
+}
+.formulate-sample-cell--active, .formulate-sample-cell--inactive {
+    background-color: #eee;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-color: #888;
+    border-top: 4px solid #888;
+    border-bottom: 4px solid #888;
+    transition: border-color 0.25s;
+}
+.formulate-sample-cell--active:hover, .formulate-sample-cell--inactive:hover {
+    background-color: #888;
+    cursor: pointer;
+}
+.formulate-sample-cell--active {
+    margin-left: 8px;
+    border-left: 4px solid #888;
+    transition: border-color 0.25s;
+}
+.formulate-sample-cell--first {
+    border-left: 4px solid #888;
+    transition: border-color 0.25s;
+}
+.formulate-sample-cell--adjacent, .formulate-sample-cell--last {
+    border-right: 4px solid #888;
+    transition: border-color 0.25s;
+}
+.formulate-add-row-section {
+    margin-top: 20px;
+}
+.formulate-btn-use {
+    font-weight: bold;
+}
+.formulate-add-row-button-and-cells {
+    display: flex;
+    flex-wrap: wrap-reverse;
+}
+.btn.btn-add-row {
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: #888;
+    border: none;
+    border-radius: 0;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 18px;
+    transition: background-color 0.25s;
+}
+.btn.btn-add-row:hover {
+    background-color: #4fa23c;
+}
+.btn.btn-add-row:focus {
+    outline: none;
+}
+.btn-add-row + .sample-cells {
+    width: 100%;
+}
+.btn-add-row:hover + .sample-cells .formulate-sample-cell--active, .btn-add-row:hover + .sample-cells .formulate-sample-cell--inactive {
+    border-top-color: #4fa23c;
+    border-bottom-color: #4fa23c;
+}
+.btn-add-row:hover + .sample-cells .formulate-sample-cell--active {
+    border-left-color: #4fa23c;
+}
+.btn-add-row:hover + .sample-cells .formulate-sample-cell--first {
+    border-left-color: #4fa23c;
+}
+.btn-add-row:hover + .sample-cells .formulate-sample-cell--adjacent, .btn-add-row:hover + .sample-cells .formulate-sample-cell--last {
+    border-right-color: #4fa23c;
+}
+.formulate-autopopulate-layout-checkbox {
+    margin-top: 20px;
+}
+.formulate-step-divider {
+    position: relative;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 34px;
+    margin-bottom: 10px;
+}
+.formulate-step-divider:before {
+    display: block;
+    content: "";
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 2px dashed #888;
+}
+.formulate-step-divider__contents {
+    background-color: #f6f4f4;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: inline-block;
+    position: relative;
+    font-weight: bold;
+}
+button.formulate-step-divider__delete {
+    margin-left: 5px;
+    padding: 2px 7px;
+}

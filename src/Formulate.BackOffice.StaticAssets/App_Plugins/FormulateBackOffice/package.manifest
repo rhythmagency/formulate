@@ -67,6 +67,7 @@
     "/App_Plugins/FormulateBackOffice/styles/generated-svg-icons.css",
     "/App_Plugins/FormulateBackOffice/styles/icons.css",
     "/App_Plugins/FormulateBackOffice/directives/designers/form.designer.css",
+    "/App_Plugins/FormulateBackOffice/directives/designers/layout/layout-designer.css",
     "/App_Plugins/FormulateBackOffice/directives/overlays/formFieldChooser/form-field-chooser.css",
     "/App_Plugins/FormulateBackOffice/directives/overlays/formHandlerChooser/form-handler-chooser.css"
   ],
