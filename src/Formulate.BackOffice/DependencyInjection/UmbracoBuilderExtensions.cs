@@ -15,11 +15,14 @@ namespace Formulate.BackOffice.DependencyInjection
             builder.Sections().Append<FormulateSection>();
 
             builder.Services.AddScoped<ITreeEntityRepository, TreeEntityRepository>();
-
-            builder.Services.AddScoped<IBuildEditorModel, BuildEditorModel>();                        
+            builder.Services.AddScoped<IBuildEditorModel, BuildEditorModel>();
+            
+            builder.MapDefinitions().Add<DataValuesEditorModelMapDefinition>();
             builder.MapDefinitions().Add<ConfiguredFormEditorModelMapDefinition>();
             builder.MapDefinitions().Add<FolderEditorModelMapDefinition>();
             builder.MapDefinitions().Add<FormEditorModelMapDefinition>();
+            builder.MapDefinitions().Add<LayoutEditorModelMapDefinition>();
+            builder.MapDefinitions().Add<ValidationEditorModelMapDefinition>();
 
             builder.AddNotificationHandler<ServerVariablesParsingNotification, ServerVariablesNotificationHandler>();
 
