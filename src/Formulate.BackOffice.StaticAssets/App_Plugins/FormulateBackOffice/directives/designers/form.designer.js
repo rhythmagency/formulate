@@ -190,7 +190,7 @@ class FormDesignerEventHandlers {
                 this.editorService.close();
             },
             view: "/app_plugins/formulatebackoffice/dialogs/form-field/edit-form-field.dialog.html",
-            size: 'small'
+            size: 'medium'
         };
 
         this.editorService.open(options);
@@ -220,7 +220,7 @@ class FormDesignerEventHandlers {
                 this.editorService.close();
             },
             view: "/app_plugins/formulatebackoffice/dialogs/form-handler/edit-form-handler.dialog.html",
-            size: 'small'
+            size: 'medium'
         };
 
         this.editorService.open(options);

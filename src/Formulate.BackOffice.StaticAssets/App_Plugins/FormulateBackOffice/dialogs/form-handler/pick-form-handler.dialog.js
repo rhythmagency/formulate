@@ -29,7 +29,7 @@
                 },
                 fields: $scope.model.fields,
                 view: "/app_plugins/formulatebackoffice/dialogs/form-handler/edit-form-handler.dialog.html",
-                size: 'small'
+                size: 'medium'
             };
 
             editorService.open(options);
