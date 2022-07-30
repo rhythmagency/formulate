@@ -1,6 +1,7 @@
 ﻿namespace Formulate.BackOffice.EditorModels
 {
     using Formulate.BackOffice.Persistence;
+    using Formulate.BackOffice.Trees;
     using Formulate.Core.Persistence;
     using System;
 
@@ -11,6 +12,7 @@
             Id = entity.Id;
             Path = entity.Path;
             Name = entity.Name;
+            TreePath = entity.TreeSafePath();
         }
 
         public Guid Id { get; set; }
@@ -22,5 +24,7 @@
         public string Alias { get; set; }
 
         public abstract EntityTypes EntityType { get; }
+
+        public string[] TreePath { get; set; }
     }
 }
