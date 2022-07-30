@@ -1,5 +1,6 @@
 ﻿namespace Formulate.BackOffice.EditorModels
 {
+    using Formulate.BackOffice.Persistence;
     using Formulate.Core.Persistence;
     using System;
 
@@ -19,5 +20,7 @@
         public string Name { get; set; }
 
         public string Alias { get; set; }
+
+        public abstract EntityTypes EntityType { get; }
     }
 }

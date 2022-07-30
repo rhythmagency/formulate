@@ -2,6 +2,7 @@
 {
     // Namespaces.
     using Core.Forms;
+    using Formulate.BackOffice.Persistence;
     using System;
 
     /// <summary>
@@ -20,5 +21,7 @@
 
         /// <inheritdoc cref="PersistedForm.Handlers"/>
         public FormHandlerEditorModel[] Handlers { get; set; } = Array.Empty<FormHandlerEditorModel>();
+
+        public override EntityTypes EntityType => EntityTypes.Form;
     }
 }

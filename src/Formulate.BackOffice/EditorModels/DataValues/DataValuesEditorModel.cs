@@ -1,5 +1,6 @@
 ﻿namespace Formulate.BackOffice.EditorModels.DataValues
 {
+    using Formulate.BackOffice.Persistence;
     using Formulate.Core.DataValues;
     using System;
 
@@ -15,5 +16,7 @@
         public string Data { get; set; }
         
         public Guid KindId { get; set; }
+
+        public override EntityTypes EntityType => EntityTypes.DataValues;
     }
 }

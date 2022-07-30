@@ -1,5 +1,6 @@
 ﻿namespace Formulate.BackOffice.EditorModels.Layouts
 {
+    using Formulate.BackOffice.Persistence;
     using Formulate.Core.Layouts;
     using System;
 
@@ -14,5 +15,7 @@
         public string Data { get; set; }
         
         public Guid KindId { get; set; }
+
+        public override EntityTypes EntityType => EntityTypes.Layout;
     }
 }

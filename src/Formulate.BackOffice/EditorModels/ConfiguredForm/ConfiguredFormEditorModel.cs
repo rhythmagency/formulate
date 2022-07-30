@@ -1,5 +1,6 @@
 ﻿namespace Formulate.BackOffice.EditorModels.ConfiguredForm
 {
+    using Formulate.BackOffice.Persistence;
     using Formulate.Core.ConfiguredForms;
     using System;
 
@@ -10,9 +11,14 @@
             Alias = entity.Alias;
         }
 
-        public Guid LayoutId { get; internal set; }
-        public string LayoutName { get; internal set; }
-        public Guid TemplateId { get; internal set; }
-        public string TemplateName { get; internal set; }
+        public Guid LayoutId { get; set; }
+        
+        public string LayoutName { get; set; }
+        
+        public Guid TemplateId { get; set; }
+        
+        public string TemplateName { get; set; }
+
+        public override EntityTypes EntityType => EntityTypes.ConfiguredForm;
     }
 }
