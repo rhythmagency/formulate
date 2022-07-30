@@ -5,6 +5,7 @@ using System.Linq;
 using Formulate.BackOffice.Attributes;
 using Formulate.BackOffice.Persistence;
 using Formulate.BackOffice.Trees;
+using Formulate.BackOffice.Utilities;
 using Formulate.Core.Folders;
 using Formulate.Core.Persistence;
 using Formulate.Core.Types;
@@ -32,7 +33,7 @@ namespace Formulate.BackOffice.Controllers.Validations
         private readonly IValidationEntityRepository _validationEntityRepository;
         private readonly ValidationDefinitionCollection _validationDefinitions;
 
-        public ValidationsController(IValidationEntityRepository validationEntityRepository, ValidationDefinitionCollection validationDefinitions, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService) : base(treeEntityRepository, localizedTextService)
+        public ValidationsController(IBuildEditorModel buildEditorModel, IValidationEntityRepository validationEntityRepository, ValidationDefinitionCollection validationDefinitions, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService) : base(buildEditorModel, treeEntityRepository, localizedTextService)
         {
             _validationEntityRepository = validationEntityRepository;
             _validationDefinitions = validationDefinitions;

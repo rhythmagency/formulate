@@ -14,6 +14,7 @@ using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Extensions;
 using Formulate.Core.Utilities;
+using Formulate.BackOffice.Utilities;
 
 namespace Formulate.BackOffice.Controllers.Layouts
 {
@@ -26,12 +27,13 @@ namespace Formulate.BackOffice.Controllers.Layouts
         private readonly IJsonUtility jsonUtility;
 
         public LayoutsController(
+            IBuildEditorModel buildEditorModel,
             ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
             LayoutDefinitionCollection layoutDefinitions,
             ILayoutEntityRepository layoutEntities,
             IJsonUtility jsonUtility) :
-                base(treeEntityRepository, localizedTextService)
+                base(buildEditorModel, treeEntityRepository, localizedTextService)
         {
             this.layoutDefinitions = layoutDefinitions;
             this.layoutEntities = layoutEntities;

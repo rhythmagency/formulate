@@ -35,7 +35,6 @@
         private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
         private readonly FormFieldDefinitionCollection formFieldDefinitions;
         private readonly TemplateDefinitionCollection templateDefinitions;
-        private readonly IBuildEditorModel buildEditorModel;
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
@@ -45,14 +44,13 @@
             TemplateDefinitionCollection templateDefinitions,
             IConfiguredFormEntityRepository configuredFormRepository,
             IBuildEditorModel buildEditorModel)
-            : base(treeEntityRepository, localizedTextService)
+            : base(buildEditorModel, treeEntityRepository, localizedTextService)
         {
             this.formEntityRepository = formEntityRepository;
             this.formHandlerDefinitions = formHandlerDefinitions;
             this.formFieldDefinitions = formFieldDefinitions;
             this.templateDefinitions = templateDefinitions;
             this.configuredFormRepository = configuredFormRepository;
-            this.buildEditorModel = buildEditorModel;
         }
 
         [HttpGet]
@@ -71,6 +69,7 @@
             }
 
             var parent = parentId.HasValue ? TreeEntityRepository.Get(parentId.Value) : default;
+            var entityPath = parent is null ? Array.Empty<Guid>() : parent.Path;
             IPersistedEntity entity = null;
 
             if (entityType == EntityTypes.Form)
@@ -78,16 +77,23 @@
                 entity = new PersistedForm()
                 {
                     Fields = Array.Empty<PersistedFormField>(),
-                    Handlers = Array.Empty<PersistedFormHandler>()
+                    Handlers = Array.Empty<PersistedFormHandler>(),
+                    Path = entityPath
                 };
             }
             else if (entityType == EntityTypes.Folder)
             {
-                entity = new PersistedFolder();
+                entity = new PersistedFolder()
+                {
+                    Path = entityPath,
+                };
             }
             else if (entityType == EntityTypes.ConfiguredForm)
             {
-                entity = new PersistedConfiguredForm();
+                entity = new PersistedConfiguredForm()
+                {
+                    Path = entityPath,
+                };
             }
 
             if (entity is null)
@@ -98,14 +104,9 @@
                 return ValidationProblem(errorModel);
             }
 
-            var response = new GetEntityResponse()
-            {
-                Entity = entity,
-                EntityType = entityType,
-                TreePath = parent.TreeSafePath(),
-            };
+            var editorModel = _buildEditorModel.Build(entity);
 
-            return Ok(response);
+            return Ok(editorModel);
         }
 
         [HttpGet]
@@ -139,30 +140,6 @@
             options.AddFormOption();
 
             return options;
-        }
-
-        /// <inheritdoc cref="FormulateBackOfficeEntityApiController.Get(Guid)"/>
-        public override IActionResult Get(Guid id)
-        {
-            var entity = TreeEntityRepository.Get(id);
-
-            // Data not found?
-            if (entity == null)
-            {
-                return NotFound();
-            }
-
-            var editorModel = buildEditorModel.Build(entity);
-
-            var response = new GetEditorModelResponse
-            {
-                Entity = editorModel,
-                EntityType = entity.EntityType(),
-                TreePath = entity.TreeSafePath(),
-            };
-
-            // Return the response with the data.
-            return Ok(response);
         }
 
         /// <summary>

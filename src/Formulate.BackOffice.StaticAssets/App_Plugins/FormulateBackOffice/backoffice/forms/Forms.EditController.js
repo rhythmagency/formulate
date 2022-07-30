@@ -9,12 +9,11 @@
 
         $scope.loading = true;
         formulateEntityResource.getOrScaffold(options).then(
-            function (data) {
-                $scope.entity = data.entity;
-                $scope.entityType = data.entityType;
+            function (entity) {
+                $scope.entity = entity;
                 $scope.treeType = options.treeType;
 
-                navigationService.syncTree({ tree: options.treeType, path: data.treePath, forceReload: true });
+                navigationService.syncTree({ tree: options.treeType, path: entity.treePath, forceReload: true });
 
                 $scope.loading = false;
             }, function (err) {

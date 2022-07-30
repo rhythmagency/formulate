@@ -10,13 +10,12 @@
 
         $scope.loading = true;
         formulateEntityResource.getOrScaffold(options).then(
-            function (data) {
-                $scope.entity = data.entity;
-                $scope.entityType = data.entityType;
-                $scope.kindId = data.kindId;
+            function (entity) {
+                $scope.entity = entity;
+                $scope.kindId = entity.kindId;
                 $scope.treeType = options.treeType;
 
-                navigationService.syncTree({ tree: options.treeType, path: data.treePath, forceReload: true });
+                navigationService.syncTree({ tree: options.treeType, path: entity.treePath, forceReload: true });
 
                 $scope.loading = false;
             }, function (err) {

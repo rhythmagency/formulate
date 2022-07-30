@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Formulate.BackOffice.Attributes;
 using Formulate.BackOffice.Persistence;
 using Formulate.BackOffice.Trees;
+using Formulate.BackOffice.Utilities;
 using Formulate.Core.Folders;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Core.Services;
@@ -23,7 +24,7 @@ namespace Formulate.BackOffice.Controllers.Folders
         /// </summary>
         private readonly IFolderEntityRepository _folderEntityRepository;
         
-        public FoldersController(IFolderEntityRepository folderEntityRepository, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService) : base(treeEntityRepository, localizedTextService)
+        public FoldersController(IBuildEditorModel buildEditorModel, IFolderEntityRepository folderEntityRepository, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService) : base(buildEditorModel, treeEntityRepository, localizedTextService)
         {
             _folderEntityRepository = folderEntityRepository;
         }

@@ -13,6 +13,7 @@ using Umbraco.Cms.Core.Models.ContentEditing;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Extensions;
+using Formulate.BackOffice.Utilities;
 
 namespace Formulate.BackOffice.Controllers.DataValues
 {
@@ -23,7 +24,7 @@ namespace Formulate.BackOffice.Controllers.DataValues
         private readonly IDataValuesEntityRepository _dataValuesEntityRepository;
         private readonly DataValuesDefinitionCollection _dataValuesDefinitions;
 
-        public DataValuesController(IDataValuesEntityRepository dataValuesEntityRepository, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService, DataValuesDefinitionCollection dataValuesDefinitions) : base(treeEntityRepository, localizedTextService)
+        public DataValuesController(IBuildEditorModel buildEditorModel, IDataValuesEntityRepository dataValuesEntityRepository, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService, DataValuesDefinitionCollection dataValuesDefinitions) : base(buildEditorModel, treeEntityRepository, localizedTextService)
         {
             _dataValuesEntityRepository = dataValuesEntityRepository;
             _dataValuesDefinitions = dataValuesDefinitions;

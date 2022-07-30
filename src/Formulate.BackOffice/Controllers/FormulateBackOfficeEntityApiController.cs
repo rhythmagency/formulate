@@ -1,6 +1,7 @@
 ﻿using Formulate.BackOffice.Attributes;
 using Formulate.BackOffice.Persistence;
 using Formulate.BackOffice.Trees;
+using Formulate.BackOffice.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,13 @@ namespace Formulate.BackOffice.Controllers
 
         private readonly ILocalizedTextService _localizedTextService;
 
-        protected FormulateBackOfficeEntityApiController(ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService)
+        protected readonly IBuildEditorModel _buildEditorModel;
+
+        protected FormulateBackOfficeEntityApiController(IBuildEditorModel buildEditorModel, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService)
         {
             TreeEntityRepository = treeEntityRepository;
             _localizedTextService = localizedTextService;
+            _buildEditorModel = buildEditorModel;
         }
 
         /// <summary>
@@ -41,14 +45,18 @@ namespace Formulate.BackOffice.Controllers
         [HttpGet]
         public virtual IActionResult Get(Guid id)
         {
-            var response = GetEntity(id);
+            var entity = TreeEntityRepository.Get(id);
 
-            if (response == null)
+            // Data not found?
+            if (entity == null)
             {
                 return NotFound();
             }
 
-            return Ok(response);
+            var editorModel = _buildEditorModel.Build(entity);
+
+            // Return the response with the data.
+            return Ok(editorModel);
         }
 
         [HttpGet]
