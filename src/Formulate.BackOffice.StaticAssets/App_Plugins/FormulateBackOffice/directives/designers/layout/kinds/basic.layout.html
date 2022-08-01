@@ -1,11 +1,83 @@
 ﻿<div>
 
-    <div ui-sortable="rowsSortableOptions" ng-model="dataObject.rows">
+    <!-- Buttons (pick form, and edit rows). -->
+    <button type="button" class="btn btn-default" ng-click="context.pickForm()">Pick Form</button>
+    <button ng-if="!editRows" type="button" class="btn btn-default" ng-click="context.toggleEditRows()">
+        <localize key="formulate-labels_Edit Rows">
+            Edit Rows
+        </localize>
+    </button>
+    <button ng-if="editRows" type="button" class="btn btn-default" ng-click="context.toggleEditRows()">
+        <localize key="formulate-labels_Edit Fields">
+            Edit Fields
+        </localize>
+    </button>
+
+    <!-- Checkbox for "Autopopulate?" -->
+    <div class="formulate-autopopulate-layout-checkbox">
+        <label>
+            <input type="checkbox" ng-model="dataObject.autopopulate" />
+            Autopopulate?
+            <small>
+                Should the layout be automatically populated from the fields in the
+                form? This is more convenient, but gives you less control over the
+                layout (e.g., splitting the fields into rows and columns).
+            </small>
+        </label>
+    </div>
+
+    <!-- Add row section. -->
+    <div class="formulate-add-row-section" ng-if="!dataObject.autopopulate">
+
+        <!-- Add row instructions. -->
+        <p>
+            <localize key="formulate-instructions_Add Sample Columns Below">
+                The row will be added using the columns that you specify below.
+                Click a cell to split or join adjacent cells.
+            </localize>
+        </p>
+
+        <!-- The button and the neighboring cells. -->
+        <div class="formulate-add-row-button-and-cells">
+
+            <!-- Add row button. -->
+            <button type="button" class="btn btn-default btn-add-row" ng-click="context.addRow()">
+                <localize key="formulate-buttons_Click to Add Row">
+                    Click to Add Row
+                </localize>
+            </button>
+
+            <!-- Sample cells for new rows. -->
+            <div class="row sample-cells">
+                <div ng-repeat="cell in sampleCells" class="span1">
+                    <div ng-class="context.getSampleCellClasses($index)" ng-click="context.toggleCell($index)">
+                        {{$index + 1}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- The "Layout" header. -->
+    <h2 ng-if="!dataObject.autopopulate">
+        <localize key="formulate-headers_Layout">
+            Layout
+        </localize>
+        <small>
+            <localize key="formulate-header-descriptions_Layout">
+                Organize your fields into rows and columns.
+            </localize>
+        </small>
+    </h2>
+
+    <div ui-sortable="rowsSortableOptions" ng-model="dataObject.rows" ng-if="!dataObject.autopopulate">
         <div ng-repeat="(rowIndex, row) in dataObject.rows" class="row">
 
             <!-- Loop over cells if this is a row with cells. -->
             <div ng-if="row.cells.length">
-                <div ng-repeat="cell in row.cells" ng-class="getCellClass(row, cell)">
+                <div ng-repeat="cell in row.cells" ng-class="context.getCellClass(row, cell)">
 
                     <!-- Show full fields when editing fields. -->
                     <div ng-if="!editRows" class="formulate-cell" ui-sortable="fieldSortableOptions" ng-model="cell.fields">
@@ -47,6 +119,33 @@
             </div>
 
         </div>
+    </div>
+
+    <!-- Unused fields. -->
+    <div ng-if="!dataObject.autopopulate">
+        <h2>
+            <localize key="formulate-headers_Unused Fields">
+                Unused Fields
+            </localize>
+            <small>
+                <localize key="formulate-header-descriptions_Unused Fields">
+                    These are the fields you are not using for this layout.
+                </localize>
+            </small>
+        </h2>
+
+        <!-- Unused fields. -->
+        <div class="formulate-cell" ui-sortable="fieldSortableOptions" ng-model="unusedFields">
+            <div ng-repeat="field in unusedFields" class="formulate-cell-field">
+                <button type="button" class="btn btn-default formulate-btn-use" ng-click="context.useField($index)">
+                    <localize key="formulate-buttons_Use">
+                        Use
+                    </localize>
+                </button>
+                {{field.name}}
+            </div>
+        </div>
+
     </div>
 
 </div>

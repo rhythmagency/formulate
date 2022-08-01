@@ -22,7 +22,8 @@
 .formulate-cell.editing-rows .formulate-cell-field-name {
     text-decoration: underline;
 }
-.formulate-sample-cell--active, .formulate-sample-cell--inactive {
+.formulate-sample-cell--active,
+.formulate-sample-cell--inactive {
     background-color: #eee;
     height: 40px;
     line-height: 40px;
@@ -32,7 +33,8 @@
     border-bottom: 4px solid #888;
     transition: border-color 0.25s;
 }
-.formulate-sample-cell--active:hover, .formulate-sample-cell--inactive:hover {
+.formulate-sample-cell--active:hover,
+.formulate-sample-cell--inactive:hover {
     background-color: #888;
     cursor: pointer;
 }
@@ -45,7 +47,8 @@
     border-left: 4px solid #888;
     transition: border-color 0.25s;
 }
-.formulate-sample-cell--adjacent, .formulate-sample-cell--last {
+.formulate-sample-cell--adjacent,
+.formulate-sample-cell--last {
     border-right: 4px solid #888;
     transition: border-color 0.25s;
 }
@@ -80,7 +83,8 @@
 .btn-add-row + .sample-cells {
     width: 100%;
 }
-.btn-add-row:hover + .sample-cells .formulate-sample-cell--active, .btn-add-row:hover + .sample-cells .formulate-sample-cell--inactive {
+.btn-add-row:hover + .sample-cells .formulate-sample-cell--active,
+.btn-add-row:hover + .sample-cells .formulate-sample-cell--inactive {
     border-top-color: #4fa23c;
     border-bottom-color: #4fa23c;
 }
@@ -90,7 +94,8 @@
 .btn-add-row:hover + .sample-cells .formulate-sample-cell--first {
     border-left-color: #4fa23c;
 }
-.btn-add-row:hover + .sample-cells .formulate-sample-cell--adjacent, .btn-add-row:hover + .sample-cells .formulate-sample-cell--last {
+.btn-add-row:hover + .sample-cells .formulate-sample-cell--adjacent,
+.btn-add-row:hover + .sample-cells .formulate-sample-cell--last {
     border-right-color: #4fa23c;
 }
 .formulate-autopopulate-layout-checkbox {
