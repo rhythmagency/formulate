@@ -9,6 +9,7 @@ class FormulateBasicLayout {
     formulateVars;
     editorService;
     $http;
+    notificationsService;
 
     /**
      * Registers this directive so it's discoverable with AngularJS.
@@ -29,20 +30,24 @@ class FormulateBasicLayout {
             });
     };
 
-    //TODO: Implement.
+    /**
+     * The controller for this directive.
+     */
     controller = (
         retainProperties,
         $scope,
         formulateVars,
         editorService,
-        $http) => {
+        $http,
+        notificationsService) => {
 
         // Keep the properties for later use.
         retainProperties({
             $scope,
             formulateVars,
             editorService,
-            $http
+            $http,
+            notificationsService,
         }, this);
 
         // Initialize variables on the scope.
@@ -274,8 +279,16 @@ class FormulateBasicLayout {
      */
     useField = (fieldIndex) => {
         const rows = this.$scope.dataObject.rows;
-        const field = this.$scope.unusedFields.splice(fieldIndex, 1)[0];
-        rows[rows.length -1].cells[0].fields.push(field);
+        let offset = 1;
+        while (offset <= rows.length) {
+            const cells = rows[rows.length - offset].cells;
+            if (cells.length) {
+                const field = this.$scope.unusedFields.splice(fieldIndex, 1)[0];
+                cells[0].fields.push(field);
+                break;
+            }
+            offset = offset + 1;
+        }
     };
 
     /**
@@ -368,6 +381,37 @@ class FormulateBasicLayout {
      */
     getCellClass = (row, cell) => {
         return 'span' + cell.columnSpan.toString();
+    };
+
+    /**
+     * Deletes the row at the specified index.
+     * @param index The index of the row to delete.
+     */
+    deleteRow = (index) => {
+        const $scope = this.$scope;
+        const rows = $scope.dataObject.rows;
+        const rowsWithCells = rows.filter(x => x.cells.length > 0);
+        if (rowsWithCells.length > 1) {
+            rows.splice(index, 1);
+            this.replenishFields();
+        } else {
+            const title = "Unable to Delete Final Row";
+            const message = "The layout must contain at least one row.";
+            this.notificationsService.error(title, message);
+        }
+    };
+
+    /**
+     * Adds a step at the row at the specified index.
+     * @param index The index of the row.
+     */
+    addStep = (index) => {
+        const newRow = {
+            isStep: true,
+            cells: [],
+        };
+        this.$scope.dataObject.rows.splice(index + 1, 0, newRow);
+        this.replenishFields(this.$scope);
     };
 
 }
