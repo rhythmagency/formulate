@@ -7,12 +7,13 @@
 
     public abstract class EditorModel : IEditorModel
     {
-        public EditorModel(IPersistedEntity entity)
+        public EditorModel(IPersistedEntity entity, bool isNew)
         {
             Id = entity.Id;
             Path = entity.Path;
             Name = entity.Name;
             TreePath = entity.TreeSafePath();
+            IsNew = isNew;            
         }
 
         public Guid Id { get; set; }
@@ -26,5 +27,7 @@
         public abstract EntityTypes EntityType { get; }
 
         public string[] TreePath { get; set; }
+
+        public bool IsNew { get; set; }
     }
 }

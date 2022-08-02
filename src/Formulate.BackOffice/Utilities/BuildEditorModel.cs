@@ -1,7 +1,6 @@
 ﻿namespace Formulate.BackOffice.Utilities
 {
     using Formulate.BackOffice.EditorModels;
-    using Formulate.Core.Persistence;
     using Umbraco.Cms.Core.Mapping;
 
     internal sealed class BuildEditorModel : IBuildEditorModel
@@ -13,9 +12,14 @@
             _umbracoMapper = umbracoMapper;
         }
 
-        public IEditorModel Build(IPersistedEntity entity)
+        public IEditorModel? Build(BuildEditorModelInput input)
         {
-            return _umbracoMapper.Map<IEditorModel>(entity);
+            if (input.Entity is null)
+            {
+                return default;
+            }
+
+            return _umbracoMapper.Map<IEditorModel>(input.Entity, (context) => { context.Items.Add("isNew", input.IsNew); });
         }
     }
 }

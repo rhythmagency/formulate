@@ -5,6 +5,6 @@
 
     public interface IBuildEditorModel
     {
-        IEditorModel Build(IPersistedEntity entity);
+        IEditorModel? Build(BuildEditorModelInput input);
     }
 }

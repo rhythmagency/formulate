@@ -53,7 +53,8 @@ namespace Formulate.BackOffice.Controllers
                 return NotFound();
             }
 
-            var editorModel = _buildEditorModel.Build(entity);
+            var buildInput = new BuildEditorModelInput(entity, false);
+            var editorModel = _buildEditorModel.Build(buildInput);
 
             // Return the response with the data.
             return Ok(editorModel);

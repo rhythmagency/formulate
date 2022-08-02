@@ -5,7 +5,7 @@
 
     public sealed class FolderEditorModel : EditorModel
     {
-        public FolderEditorModel(PersistedFolder entity) : base(entity)
+        public FolderEditorModel(PersistedFolder entity, bool isNew) : base(entity, isNew)
         {
         }
 

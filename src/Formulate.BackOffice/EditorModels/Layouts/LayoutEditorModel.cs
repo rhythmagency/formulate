@@ -6,7 +6,7 @@
 
     public sealed class LayoutEditorModel : EditorModel
     {
-        public LayoutEditorModel(PersistedLayout entity) : base(entity)
+        public LayoutEditorModel(PersistedLayout entity, bool isNew) : base(entity, isNew)
         {
             KindId = entity.KindId;
             Data = entity.Data;

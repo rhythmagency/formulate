@@ -2,13 +2,12 @@
 {
     using Formulate.BackOffice.EditorModels.DataValues;
     using Formulate.Core.DataValues;
-    using Umbraco.Cms.Core.Mapping;
 
     internal sealed class DataValuesEditorModelMapDefinition : EditorModelMapDefinition<PersistedDataValues, DataValuesEditorModel>
     {
-        protected override DataValuesEditorModel Map(PersistedDataValues entity, MapperContext mapperContext)
+        protected override DataValuesEditorModel Map(PersistedDataValues entity, bool isNew)
         {
-            return new DataValuesEditorModel(entity);
+            return new DataValuesEditorModel(entity, isNew);
         }
     }
 

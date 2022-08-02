@@ -14,6 +14,7 @@ using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Extensions;
 using Formulate.BackOffice.Utilities;
+using Formulate.BackOffice.Utilities.DataValues;
 
 namespace Formulate.BackOffice.Controllers.DataValues
 {
@@ -23,11 +24,21 @@ namespace Formulate.BackOffice.Controllers.DataValues
     {
         private readonly IDataValuesEntityRepository _dataValuesEntityRepository;
         private readonly DataValuesDefinitionCollection _dataValuesDefinitions;
+        private readonly IGetDataValuesChildEntityOptions _getDataValuesChildEntityOptions;
+        private readonly ICreateDataValuesScaffoldingEntity _createDataValuesScaffoldingEntity;
 
-        public DataValuesController(IBuildEditorModel buildEditorModel, IDataValuesEntityRepository dataValuesEntityRepository, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService, DataValuesDefinitionCollection dataValuesDefinitions) : base(buildEditorModel, treeEntityRepository, localizedTextService)
+        public DataValuesController(IBuildEditorModel buildEditorModel,
+            IDataValuesEntityRepository dataValuesEntityRepository,
+            ITreeEntityRepository treeEntityRepository,
+            ILocalizedTextService localizedTextService,
+            DataValuesDefinitionCollection dataValuesDefinitions,
+            IGetDataValuesChildEntityOptions getDataValuesChildEntityOptions,
+            ICreateDataValuesScaffoldingEntity createDataValuesScaffoldingEntity) : base(buildEditorModel, treeEntityRepository, localizedTextService)
         {
             _dataValuesEntityRepository = dataValuesEntityRepository;
             _dataValuesDefinitions = dataValuesDefinitions;
+            _getDataValuesChildEntityOptions = getDataValuesChildEntityOptions;
+            _createDataValuesScaffoldingEntity = createDataValuesScaffoldingEntity;
         }
         
         [NonAction]
@@ -57,7 +68,8 @@ namespace Formulate.BackOffice.Controllers.DataValues
         [HttpGet]
         public IActionResult GetScaffolding(EntityTypes entityType, Guid? kindId, Guid? parentId)
         {
-            var options = this.GetCreateOptions(parentId);
+            var parent = TreeEntityRepository.Get(parentId);
+            var options = _getDataValuesChildEntityOptions.Get(parent);
 
             var isValidOption = kindId.HasValue ? options.Any(x => x.EntityType == entityType && x.KindId == kindId) : options.Any(x => x.EntityType == entityType);
 
@@ -69,20 +81,14 @@ namespace Formulate.BackOffice.Controllers.DataValues
                 return ValidationProblem(errorModel);
             }
 
-            var parent = parentId.HasValue ? TreeEntityRepository.Get(parentId.Value) : default;
-            IPersistedEntity entity = null;
-
-            if (entityType == EntityTypes.DataValues && kindId.HasValue)
+            var input = new CreateDataValuesScaffoldingEntityInput()
             {
-                entity = new PersistedDataValues()
-                {
-                    KindId = kindId.Value,
-                };
-            }
-            else if (entityType == EntityTypes.Folder)
-            {
-                entity = new PersistedFolder();
-            }
+                EntityType = entityType,
+                Parent = parent,
+                KindId = kindId,
+                RootId = TreeEntityRepository.GetRootId(TreeRootTypes.DataValues)
+            };
+            var entity = _createDataValuesScaffoldingEntity.Create(input);
 
             if (entity is null)
             {
@@ -92,50 +98,19 @@ namespace Formulate.BackOffice.Controllers.DataValues
                 return ValidationProblem(errorModel);
             }
 
-            var response = new GetEntityResponse()
-            {
-                Entity = entity,
-                EntityType = entityType,
-                TreePath = parent.TreeSafePath(),
-            };
+            var buildInput = new BuildEditorModelInput(entity, true);
+            var editorModel = _buildEditorModel.Build(buildInput);
 
-            return Ok(response);
+            return Ok(editorModel);
         }
 
         [HttpGet]
-        public IEnumerable<CreateChildEntityOption> GetCreateOptions(Guid? id)
+        public IActionResult  GetCreateOptions(Guid? id)
         {
-            var options = new List<CreateChildEntityOption>();
+            var entity = TreeEntityRepository.Get(id);
+            var options = _getDataValuesChildEntityOptions.Get(entity);
 
-            var dataValueOptions = _dataValuesDefinitions.Select(x => new CreateChildEntityOption()
-            {
-                Name = x.DefinitionLabel,
-                KindId = x.KindId,
-                EntityType = EntityTypes.DataValues,
-                Icon = x.Icon
-            }).OrderBy(x => x.Name)
-              .ToArray();
-
-
-            if (id is null)
-            {
-                options.AddDataValuesFolderOption();
-                options.AddRange(dataValueOptions);
-
-                return options;
-            }
-
-            var entity = TreeEntityRepository.Get(id.Value);
-
-            if (entity is not PersistedFolder)
-            {
-                return options;
-            }
-
-            options.AddDataValuesFolderOption();
-            options.AddRange(dataValueOptions);
-
-            return options;
+            return this.Ok(options);
         }
 
         [HttpPost]

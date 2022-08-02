@@ -20,5 +20,8 @@
         /// </summary>
         /// <remarks>This should be the same as the path but in a format safe for an Umbraco tree.</remarks>
         string[] TreePath { get; }
+
+
+        bool IsNew { get; }
     }
 }

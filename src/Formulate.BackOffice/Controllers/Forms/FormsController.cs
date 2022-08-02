@@ -3,24 +3,18 @@
     // Namespaces.
     using Attributes;
     using Core.ConfiguredForms;
-    using Core.Folders;
     using Core.FormFields;
     using Core.FormHandlers;
     using Core.Forms;
-    using Core.Layouts;
-    using Core.Persistence;
     using Formulate.Core.Templates;
     using Microsoft.AspNetCore.Mvc;
     using Persistence;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using Trees;
     using Umbraco.Cms.Core.Models.ContentEditing;
     using Umbraco.Cms.Core.Services;
     using Umbraco.Cms.Web.BackOffice.Filters;
     using Umbraco.Extensions;
-    using EditorModels.Forms;
     using Formulate.BackOffice.Utilities;
     using Formulate.BackOffice.Utilities.Forms;
 
@@ -92,7 +86,8 @@
                 return ValidationProblem(errorModel);
             }
 
-            var editorModel = _buildEditorModel.Build(entity);
+            var buildInput = new BuildEditorModelInput(entity, true);
+            var editorModel = _buildEditorModel.Build(buildInput);
 
             return Ok(editorModel);
         }

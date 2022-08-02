@@ -2,13 +2,12 @@
 {
     using Formulate.BackOffice.EditorModels.Folders;
     using Formulate.Core.Folders;
-    using Umbraco.Cms.Core.Mapping;
 
     internal sealed class FolderEditorModelMapDefinition : EditorModelMapDefinition<PersistedFolder, FolderEditorModel>
     {
-        protected override FolderEditorModel Map(PersistedFolder entity, MapperContext mapperContext)
+        protected override FolderEditorModel Map(PersistedFolder entity, bool isNew)
         {
-            return new FolderEditorModel(entity);
+            return new FolderEditorModel(entity, isNew);
         }
     }
 }

@@ -6,7 +6,7 @@
 
     public sealed class ConfiguredFormEditorModel : EditorModel
     {
-        public ConfiguredFormEditorModel(PersistedConfiguredForm entity) : base(entity)
+        public ConfiguredFormEditorModel(PersistedConfiguredForm entity, bool isNew) : base(entity, isNew)
         {
             Alias = entity.Alias;
         }

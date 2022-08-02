@@ -6,7 +6,7 @@
 
     public sealed class DataValuesEditorModel : EditorModel
     {
-        public DataValuesEditorModel(PersistedDataValues entity) : base(entity)
+        public DataValuesEditorModel(PersistedDataValues entity, bool isNew) : base(entity, isNew)
         {
             Alias = entity.Alias;
             KindId = entity.KindId;

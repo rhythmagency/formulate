@@ -13,6 +13,17 @@
             mapper.Define<TPersistedEntity, IEditorModel>((block, mapperContext) => Map(block, mapperContext));
         }
 
-        protected abstract TEditorModel Map(TPersistedEntity entity, MapperContext mapperContext);
+        protected virtual TEditorModel Map(TPersistedEntity entity, MapperContext mapperContext)
+        {
+            if (mapperContext.Items.TryGetValue("isNew", out var value) && value is bool isNew)
+            {
+                return Map(entity, isNew);
+            }
+
+            return Map(entity, false);
+        }
+
+
+        protected abstract TEditorModel Map(TPersistedEntity entity, bool isNew);
     }
 }

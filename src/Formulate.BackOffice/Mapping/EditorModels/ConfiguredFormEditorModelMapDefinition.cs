@@ -6,7 +6,6 @@
     using Formulate.Core.Templates;
     using System;
     using System.Linq;
-    using Umbraco.Cms.Core.Mapping;
 
     internal sealed class ConfiguredFormEditorModelMapDefinition : EditorModelMapDefinition<PersistedConfiguredForm, ConfiguredFormEditorModel>
     {
@@ -19,11 +18,11 @@
             _layoutEntities = layoutEntityRepository;
         }
 
-        protected override ConfiguredFormEditorModel Map(PersistedConfiguredForm entity, MapperContext mapperContext)
+        protected override ConfiguredFormEditorModel Map(PersistedConfiguredForm entity, bool isNew)
         {
             var layout = GetLayout(entity.LayoutId);
             var template = GetTemplate(entity.TemplateId);
-            var editorModel = new ConfiguredFormEditorModel(entity);
+            var editorModel = new ConfiguredFormEditorModel(entity, isNew);
 
             if (layout is not null)
             {

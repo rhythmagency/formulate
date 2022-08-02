@@ -6,7 +6,7 @@
 
     public sealed class ValidationEditorModel : EditorModel
     {
-        public ValidationEditorModel(PersistedValidation entity) : base(entity)
+        public ValidationEditorModel(PersistedValidation entity, bool isNew) : base(entity, isNew)
         {
             Alias = entity.Alias;
             KindId = entity.KindId;

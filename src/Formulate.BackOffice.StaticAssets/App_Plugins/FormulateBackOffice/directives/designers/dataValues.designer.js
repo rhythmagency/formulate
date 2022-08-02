@@ -15,10 +15,15 @@
                     scope.deserializedConfiguration = {};
                 }
 
+                console.log('hey');
                 formulateDefinitionDirectiveResource.getDataValuesDirective(scope.entity.kindId).then(
                     function (directive) {
+                        console.log('hey after');
+
                         scope.directive = directive;
                     });
+                console.log('hey 2');
+
 
                 // Set scope functions.
                 scope.save = function () {

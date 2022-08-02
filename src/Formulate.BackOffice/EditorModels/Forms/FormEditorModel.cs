@@ -11,7 +11,7 @@
     /// </summary>
     public sealed class FormEditorModel : EditorModel
     {
-        public FormEditorModel(PersistedForm entity) : base(entity)
+        public FormEditorModel(PersistedForm entity, bool isNew) : base(entity, isNew)
         {
             Alias = entity.Alias;
         } 

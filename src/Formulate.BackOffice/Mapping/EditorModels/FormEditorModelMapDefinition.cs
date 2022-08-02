@@ -7,7 +7,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Umbraco.Cms.Core.Mapping;
     using Formulate.Core.Types;
     using Formulate.Core.Validations;
 
@@ -26,9 +25,9 @@
             _validationEntityRepository = validationEntityRepository;
         }
 
-        protected override FormEditorModel Map(PersistedForm entity, MapperContext mapperContext)
+        protected override FormEditorModel Map(PersistedForm entity, bool isNew)
         {
-            return new FormEditorModel(entity)
+            return new FormEditorModel(entity, isNew)
             {
                 Fields = MapFields(entity.Fields),
                 Handlers = MapHandlers(entity.Handlers)
