@@ -15,6 +15,7 @@ using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Extensions;
 using Formulate.Core.Utilities;
 using Formulate.BackOffice.Utilities;
+using Formulate.BackOffice.Utilities.Layouts;
 
 namespace Formulate.BackOffice.Controllers.Layouts
 {
@@ -24,7 +25,8 @@ namespace Formulate.BackOffice.Controllers.Layouts
     {
         private readonly LayoutDefinitionCollection layoutDefinitions;
         private readonly ILayoutEntityRepository layoutEntities;
-        private readonly IJsonUtility jsonUtility;
+        private readonly ICreateLayoutsScaffoldingEntity _createLayoutsScaffoldingEntity;
+        private readonly IGetLayoutsChildEntityOptions _getLayoutsChildEntityOptions;
 
         public LayoutsController(
             IBuildEditorModel buildEditorModel,
@@ -32,18 +34,21 @@ namespace Formulate.BackOffice.Controllers.Layouts
             ILocalizedTextService localizedTextService,
             LayoutDefinitionCollection layoutDefinitions,
             ILayoutEntityRepository layoutEntities,
-            IJsonUtility jsonUtility) :
+            ICreateLayoutsScaffoldingEntity createLayoutsScaffoldingEntity,
+            IGetLayoutsChildEntityOptions getLayoutsChildEntityOptions) :
                 base(buildEditorModel, treeEntityRepository, localizedTextService)
         {
             this.layoutDefinitions = layoutDefinitions;
             this.layoutEntities = layoutEntities;
-            this.jsonUtility = jsonUtility;
+            _createLayoutsScaffoldingEntity = createLayoutsScaffoldingEntity;
+            _getLayoutsChildEntityOptions = getLayoutsChildEntityOptions;
         }
 
         [HttpGet]
         public IActionResult GetScaffolding(EntityTypes entityType, Guid? kindId, Guid? parentId)
         {
-            var options = this.GetCreateOptions(parentId);
+            var parent = TreeEntityRepository.Get(parentId);
+            var options = _getLayoutsChildEntityOptions.Get(parent);
 
             var isValidOption = kindId.HasValue ? options.Any(x => x.EntityType == entityType && x.KindId == kindId) : options.Any(x => x.EntityType == entityType);
 
@@ -55,20 +60,14 @@ namespace Formulate.BackOffice.Controllers.Layouts
                 return ValidationProblem(errorModel);
             }
 
-            var parent = parentId.HasValue ? TreeEntityRepository.Get(parentId.Value) : default;
-            IPersistedEntity entity = null;
-
-            if (entityType == EntityTypes.Layout && kindId.HasValue)
+            var input = new CreateLayoutsScaffoldingEntityInput()
             {
-                entity = new PersistedLayout()
-                {
-                    KindId = kindId.Value,
-                };
-            }
-            else if (entityType == EntityTypes.Folder)
-            {
-                entity = new PersistedFolder();
-            }
+                EntityType = entityType,
+                KindId = kindId,
+                Parent = parent,
+                RootId = TreeEntityRepository.GetRootId(TreeRootTypes.Layouts)
+            };
+            var entity = _createLayoutsScaffoldingEntity.Create(input);
 
             if (entity is null)
             {
@@ -78,50 +77,19 @@ namespace Formulate.BackOffice.Controllers.Layouts
                 return ValidationProblem(errorModel);
             }
 
-            var response = new GetEntityResponse()
-            {
-                Entity = entity,
-                EntityType = entityType,
-                TreePath = parent.TreeSafePath(),
-            };
-
-            return Ok(response);
+            var buildInput = new BuildEditorModelInput(entity, true);
+            var editorModel = _buildEditorModel.Build(buildInput);
+            
+            return Ok(editorModel);
         }
 
         [HttpGet]
-        public IEnumerable<CreateChildEntityOption> GetCreateOptions(Guid? id)
+        public IActionResult GetCreateOptions(Guid? id)
         {
-            var options = new List<CreateChildEntityOption>();
+            var parent = TreeEntityRepository.Get(id);
+            var options = _getLayoutsChildEntityOptions.Get(parent);
 
-            var layoutOptions = layoutDefinitions.Select(x => new CreateChildEntityOption()
-            {
-                Name = x.DefinitionLabel,
-                KindId = x.KindId,
-                EntityType = EntityTypes.Layout,
-                Icon = FormulateLayoutsTreeController.Constants.ItemNodeIcon
-            }).OrderBy(x => x.Name)
-              .ToArray();
-
-
-            if (id is null)
-            {
-                options.AddLayoutsFolderOption();
-                options.AddRange(layoutOptions);
-
-                return options;
-            }
-
-            var entity = TreeEntityRepository.Get(id.Value);
-
-            if (entity is not PersistedFolder)
-            {
-                return options;
-            }
-
-            options.AddLayoutsFolderOption();
-            options.AddRange(layoutOptions);
-
-            return options;
+            return Ok(options);
         }
 
         //TODO: Comments.

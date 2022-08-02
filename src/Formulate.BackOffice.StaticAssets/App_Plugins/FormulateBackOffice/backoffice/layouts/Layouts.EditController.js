@@ -15,7 +15,9 @@
                 $scope.kindId = entity.kindId;
                 $scope.treeType = options.treeType;
 
-                navigationService.syncTree({ tree: options.treeType, path: entity.treePath, forceReload: true });
+                if (!entity.isNew) {
+                    navigationService.syncTree({ tree: options.treeType, path: entity.treePath, forceReload: true });
+                }
 
                 $scope.loading = false;
             }, function (err) {

@@ -4,6 +4,7 @@ using Formulate.BackOffice.Persistence;
 using Formulate.BackOffice.Utilities;
 using Formulate.BackOffice.Utilities.DataValues;
 using Formulate.BackOffice.Utilities.Forms;
+using Formulate.BackOffice.Utilities.Layouts;
 using Formulate.BackOffice.Utilities.Validations;
 using Microsoft.Extensions.DependencyInjection;
 using Umbraco.Cms.Core.DependencyInjection;
@@ -25,6 +26,9 @@ namespace Formulate.BackOffice.DependencyInjection
 
             builder.Services.AddScoped<ICreateDataValuesScaffoldingEntity, CreateDataValuesScaffoldingEntity>();
             builder.Services.AddScoped<IGetDataValuesChildEntityOptions, GetDataValuesChildEntityOptions>();
+
+            builder.Services.AddScoped<ICreateLayoutsScaffoldingEntity, CreateLayoutsScaffoldingEntity>();
+            builder.Services.AddScoped<IGetLayoutsChildEntityOptions, GetLayoutsChildEntityOptions>();
 
             builder.Services.AddScoped<ICreateValidationsScaffoldingEntity, CreateValidationsScaffoldingEntity>();
             builder.Services.AddScoped<IGetValidationsChildEntityOptions, GetValidationsChildEntityOptions>();
