@@ -36,6 +36,11 @@ namespace Formulate.Core.Tests.LayoutTests
             {
                 return new TestLayout(settings);
             }
+
+            public object GetBackOfficeConfiguration(ILayoutSettings settings)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private sealed class TestLayout : Layout

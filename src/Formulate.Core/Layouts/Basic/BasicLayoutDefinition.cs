@@ -56,5 +56,22 @@ namespace Formulate.Core.Layouts.Basic
 
             return new BasicLayout(settings, config);
         }
+
+        /// <inheritdoc />
+        public object GetBackOfficeConfiguration(ILayoutSettings settings)
+        {
+            var existingConfig = _jsonUtility.Deserialize<BasicLayoutConfiguration>(settings.Data);
+
+            if (existingConfig is not null)
+            {
+                return existingConfig;
+            }
+
+            return new BasicLayoutConfiguration()
+            {
+                AutoPopulate = false,
+                Rows = Array.Empty<BasicLayoutRow>()
+            };            
+        }
     }
 }

@@ -35,43 +35,50 @@ class FormulateLayoutDesigner {
         $scope.events = this;
 
         // Initializes layout.
-        this.initializeLayout();
+        this.initializeLayout($scope);
 
     };
 
     /**
      * Initializes the layout.
      */
-    initializeLayout = () => {
+    initializeLayout = ($scope) => {
 
         // Disable layout saving until the data is populated.
-        this.$scope.initialized = false;
+        $scope.initialized = false;
 
         // Get the layout info.
-        const id = this.$routeParams.id;
-        this.formulateLayouts.getLayoutInfo(id)
-            .then((layout) => {
+        const entity = $scope.entity;
 
-                // Update tree.
-                //TODO: ...
-                //this.formulateTrees.activateEntity(layout);
 
-                //TODO: Confirm if this is necessary.
-                // Set the layout info.
-                this.$scope.kindId = layout.kindId;
-                this.$scope.layoutId = layout.id;
-                this.$scope.info = {};
-                this.$scope.info.layoutAlias = layout.alias;
-                this.$scope.info.layoutName = layout.name;
-                this.$scope.layoutPath = layout.path;
-                this.$scope.directive = layout.directive;
-                this.$scope.data = layout.data;
+/*            this.$routeParams.id;*/
 
-                // The layout can be saved now.
-                this.$scope.initialized = true;
+        $scope.kindId = entity.kindId;
+        $scope.layoutId = entity.id;
+        $scope.info = {};
+        $scope.info.layoutAlias = entity.alias;
+        $scope.info.layoutName = entity.name;
+        $scope.layoutPath = entity.path;
+        $scope.directive = entity.directive;
+        $scope.data = entity.data;
 
-            });
+        //this.formulateLayouts.getLayoutInfo(id)
+        //    .then((layout) => {
 
+        //        // Update tree.
+        //        //TODO: ...
+        //        //this.formulateTrees.activateEntity(layout);
+
+        //        //TODO: Confirm if this is necessary.
+        //        // Set the layout info.
+
+
+        //        // The layout can be saved now.
+        //        this.$scope.initialized = true;
+
+        //    });
+
+        $scope.initialized = true;
     };
 
     /**

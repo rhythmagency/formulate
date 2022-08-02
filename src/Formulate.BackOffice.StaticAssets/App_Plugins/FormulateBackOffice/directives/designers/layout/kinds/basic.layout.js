@@ -54,7 +54,7 @@ class FormulateBasicLayout {
         this.initializeScopeVariables();
 
         // Parse/refresh field data.
-        if ($scope.dataObject.formId) {
+        if ($scope.vm.form.id) {
             this.refreshFields();
         } else {
             this.replenishFields();
@@ -73,14 +73,14 @@ class FormulateBasicLayout {
                 active: false
             });
         }
-        this.$scope.sampleCells = cells;
+        this.$scope.vm.sampleCells = cells;
     };
 
     /**
      * Allows the user to pick a form.
      */
     pickForm = () => {
-        const formId = this.$scope.dataObject.formId;
+        const formId = this.$scope.vm.form.id;
 
         // This is called when the dialog is closed.
         const closer = () => {
@@ -96,7 +96,7 @@ class FormulateBasicLayout {
             }
 
             // Update fields.
-            this.$scope.dataObject.formId = id;
+            this.$scope.vm.form.id = id;
             this.refreshFields();
             this.editorService.close();
 
@@ -134,16 +134,35 @@ class FormulateBasicLayout {
      * for this directive.
      */
     initializeScopeVariables = () => {
+        // default view model
+        const vm = {
+            autoPopulate: false,
+            form: {},
+            rows: [],
+            allFields: [],
+            unusedFields: [],
+            sampleCells: []
+        };
+
+        const data = this.$scope.data;
+
+        // wire up data
+        if (this.$scope.data) {
+            vm.autoPopulate = data.autoPopulate;
+            vm.form.id = data.formId;
+            vm.rows = data.rows;
+        }
+
+        this.$scope.vm = vm;
 
         // Initialize variables.
-        this.$scope.unusedFields = [];
         this.$scope.rowsSortableOptions = this.getRowSortableOptions();
         this.$scope.fieldSortableOptions = this.getFieldSortableOptions();
         this.$scope.context = this;
         this.setSampleCells();
 
         // Parse/refresh field data.
-        this.$scope.dataObject = JSON.parse(this.$scope.data.data);
+        //this.$scope.dataObject = this.$scope.data.data;
 
     };
 
@@ -180,11 +199,11 @@ class FormulateBasicLayout {
      */
     refreshFields = () => {
         const baseUrl = this.formulateVars['Forms.GetFormInfo'];
-        const url = `${baseUrl}?id=${this.$scope.dataObject.formId}`;
+        const url = `${baseUrl}?id=${this.$scope.vm.form.id}`;
         this.$http.get(url)
             .then(x => x.data)
             .then((formData) => {
-                this.$scope.allFields = formData.fields
+                this.$scope.vm.allFields = formData.fields
                     .filter(function (item) {
                         return !item.isServerSideOnly;
                     })
@@ -208,11 +227,11 @@ class FormulateBasicLayout {
         // Variables.
         let i, j, field, row, cell, key;
         let fields = {}, $scope = this.$scope,
-            rows = $scope.dataObject.rows;
+            rows = $scope.vm.rows;
 
         // Place all fields in an associative array keyed by ID.
-        for (i = 0; i < $scope.allFields.length; i++) {
-            field = $scope.allFields[i];
+        for (i = 0; i < $scope.vm.allFields.length; i++) {
+            field = $scope.vm.allFields[i];
             fields[field.id] = field;
         }
 
@@ -226,7 +245,7 @@ class FormulateBasicLayout {
         }
 
         // Remove or replenish the fields in the unused fields section.
-        this.deleteAndUpdateFields(fields, $scope.unusedFields);
+        this.deleteAndUpdateFields(fields, $scope.vm.unusedFields);
 
         // Aggregate all fields which aren't yet assigned to a row.
         let unassignedFields = [];
@@ -238,7 +257,7 @@ class FormulateBasicLayout {
 
         // Add unassigned fields to the unused fields section.
         if (unassignedFields.length > 0) {
-            $scope.unusedFields = $scope.unusedFields.concat(unassignedFields);
+            $scope.vm.unusedFields = $scope.vm.unusedFields.concat(unassignedFields);
         }
 
     };
@@ -278,12 +297,12 @@ class FormulateBasicLayout {
      * @param fieldIndex The index of the field to move.
      */
     useField = (fieldIndex) => {
-        const rows = this.$scope.dataObject.rows;
+        const rows = this.$scope.vm.rows;
         let offset = 1;
         while (offset <= rows.length) {
             const cells = rows[rows.length - offset].cells;
             if (cells.length) {
-                const field = this.$scope.unusedFields.splice(fieldIndex, 1)[0];
+                const field = this.$scope.vm.unusedFields.splice(fieldIndex, 1)[0];
                 cells[0].fields.push(field);
                 break;
             }
@@ -297,7 +316,7 @@ class FormulateBasicLayout {
      * @returns {string} The CSS classes.
      */
     getSampleCellClasses = (index) => {
-        const cells = this.$scope.sampleCells;
+        const cells = this.$scope.vm.sampleCells;
         const cell = cells[index];
         const activeClass = cell.active
             ? "formulate-sample-cell--active"
@@ -330,12 +349,16 @@ class FormulateBasicLayout {
      * @param index The index of the cell to toggle the left of.
      */
     toggleCell = (index) => {
-        const cells = this.$scope.sampleCells;
+        const cells = this.$scope.vm.sampleCells;
         const cell = cells[index];
         if (index > 0) {
             cell.active = !cell.active;
         }
     };
+
+    toggleAutoPopulate = () => {
+        this.$scope.vm.autoPopulate = !this.$scope.vm.autoPopulate;
+    }
 
     /**
      * Adds a row based on the sample cells.
@@ -343,7 +366,8 @@ class FormulateBasicLayout {
     addRow = () => {
 
         // Variables.
-        const sampleCells = this.$scope.sampleCells;
+        const sampleCells = this.$scope.vm.sampleCells;
+
         const cells = [];
         let columnSpan = 0, sampleCell;
 
@@ -367,7 +391,7 @@ class FormulateBasicLayout {
         });
 
         // Add the new row.
-        this.$scope.dataObject.rows.push({
+        this.$scope.vm.rows.push({
             cells: cells,
         });
 
@@ -389,7 +413,7 @@ class FormulateBasicLayout {
      */
     deleteRow = (index) => {
         const $scope = this.$scope;
-        const rows = $scope.dataObject.rows;
+        const rows = $scope.vm.rows;
         const rowsWithCells = rows.filter(x => x.cells.length > 0);
         if (rowsWithCells.length > 1) {
             rows.splice(index, 1);
@@ -410,7 +434,7 @@ class FormulateBasicLayout {
             isStep: true,
             cells: [],
         };
-        this.$scope.dataObject.rows.splice(index + 1, 0, newRow);
+        this.$scope.vm.rows.splice(index + 1, 0, newRow);
         this.replenishFields(this.$scope);
     };
 

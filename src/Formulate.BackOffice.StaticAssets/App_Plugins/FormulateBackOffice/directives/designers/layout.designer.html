@@ -11,12 +11,10 @@
             </umb-editor-header>
 
             <umb-editor-container>
-                <div class="form-horizontal">
-                    <formulate-layout-editor ng-if="directive"
-                                             directive="directive"
-                                             data="entity">
-                    </formulate-layout-editor>
-                </div>
+                <formulate-layout-editor ng-if="directive"
+                                         directive="directive"
+                                         data="entity.data">
+                </formulate-layout-editor>
             </umb-editor-container>
 
             <umb-editor-footer>

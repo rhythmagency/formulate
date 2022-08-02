@@ -12,10 +12,12 @@
             Data = entity.Data;
         }
 
-        public string Data { get; set; }
+        public object Data { get; set; }
         
         public Guid KindId { get; set; }
 
         public override EntityTypes EntityType => EntityTypes.Layout;
+
+        public string Directive { get; internal set; }
     }
 }
