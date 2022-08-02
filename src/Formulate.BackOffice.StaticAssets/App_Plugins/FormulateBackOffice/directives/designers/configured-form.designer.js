@@ -42,32 +42,18 @@
          * @param $scope The current AngularJS scope.
          * @param $routeParams The parameters from the route.
          */
-        function initializeIdAndPath($scope, $routeParams) {
+        function initializeIdAndPath($scope) {
 
             // Variables.
             const entity = $scope.entity;
             const path = entity.path;
             const id = entity.id;
-            const url = Umbraco.Sys.ServerVariables.formulate["Forms.GenerateNewPathAndId"];
-            const parentId = !$routeParams.isNew && $routeParams.id && $routeParams.id !== "-1"
-                ? $routeParams.id
-                : null;
 
             // Return early if the path and ID are already set.
             if (path && path.length && id) {
                 $scope.initialized = true;
                 return new Promise(resolve => resolve());
             }
-
-            // Get the path and ID from the server.
-            const payload = {
-                parentId,
-            };
-            return $http.post(url, payload).then(({data: response}) => {
-                entity.id = response.id;
-                entity.path = response.path;
-            });
-
         }
     }
 

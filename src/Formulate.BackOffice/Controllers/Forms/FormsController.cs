@@ -22,6 +22,7 @@
     using Umbraco.Extensions;
     using EditorModels.Forms;
     using Formulate.BackOffice.Utilities;
+    using Formulate.BackOffice.Utilities.Forms;
 
     /// <summary>
     /// Manages back office API operations for Formulate forms.
@@ -30,6 +31,8 @@
     [FormulateBackOfficePluginController]
     public sealed class FormsController : FormulateBackOfficeEntityApiController
     {
+        private readonly IGetFormsChildEntityOptions _getFormsChildEntityOptions;
+        private readonly ICreateFormsScaffoldingEntity _createFormsScaffoldingEntity;
         private readonly IFormEntityRepository formEntityRepository;
         private readonly IConfiguredFormEntityRepository configuredFormRepository;
         private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
@@ -43,7 +46,9 @@
             FormFieldDefinitionCollection formFieldDefinitions,
             TemplateDefinitionCollection templateDefinitions,
             IConfiguredFormEntityRepository configuredFormRepository,
-            IBuildEditorModel buildEditorModel)
+            IBuildEditorModel buildEditorModel,
+            IGetFormsChildEntityOptions getFormsChildEntityOptions,
+            ICreateFormsScaffoldingEntity createFormsScaffoldingEntity)
             : base(buildEditorModel, treeEntityRepository, localizedTextService)
         {
             this.formEntityRepository = formEntityRepository;
@@ -51,14 +56,16 @@
             this.formFieldDefinitions = formFieldDefinitions;
             this.templateDefinitions = templateDefinitions;
             this.configuredFormRepository = configuredFormRepository;
+            _getFormsChildEntityOptions = getFormsChildEntityOptions;
+            _createFormsScaffoldingEntity = createFormsScaffoldingEntity;
         }
 
         [HttpGet]
-        public IActionResult GetScaffolding(EntityTypes entityType, Guid? parentId)
+        public IActionResult GetScaffolding([FromQuery] FormsGetScaffoldingRequest request)
         {
-            var options = GetCreateOptions(parentId);
-
-            var isValidOption = options.Any(x => x.EntityType == entityType);
+            var parent = TreeEntityRepository.Get(request.ParentId);
+            var options = _getFormsChildEntityOptions.Get(parent);
+            var isValidOption = options.Any(x => x.EntityType == request.EntityType);
 
             if (isValidOption == false)
             {
@@ -68,33 +75,14 @@
                 return ValidationProblem(errorModel);
             }
 
-            var parent = parentId.HasValue ? TreeEntityRepository.Get(parentId.Value) : default;
-            var entityPath = parent is null ? Array.Empty<Guid>() : parent.Path;
-            IPersistedEntity entity = null;
+            var input = new CreateFormsScaffoldingEntityInput()
+            {
+                Parent = parent,
+                EntityType = request.EntityType,
+                RootId = TreeEntityRepository.GetRootId(TreeRootTypes.Forms),
+            };
 
-            if (entityType == EntityTypes.Form)
-            {
-                entity = new PersistedForm()
-                {
-                    Fields = Array.Empty<PersistedFormField>(),
-                    Handlers = Array.Empty<PersistedFormHandler>(),
-                    Path = entityPath
-                };
-            }
-            else if (entityType == EntityTypes.Folder)
-            {
-                entity = new PersistedFolder()
-                {
-                    Path = entityPath,
-                };
-            }
-            else if (entityType == EntityTypes.ConfiguredForm)
-            {
-                entity = new PersistedConfiguredForm()
-                {
-                    Path = entityPath,
-                };
-            }
+            var entity = _createFormsScaffoldingEntity.Create(input);
 
             if (entity is null)
             {
@@ -110,36 +98,12 @@
         }
 
         [HttpGet]
-        public IEnumerable<CreateChildEntityOption> GetCreateOptions(Guid? id)
+        public IActionResult GetCreateOptions(Guid? id)
         {
-            var options = new List<CreateChildEntityOption>();
+            var parent = TreeEntityRepository.Get(id);
+            var options = _getFormsChildEntityOptions.Get(parent);
 
-            if (id is null)
-            {
-                options.AddFormFolderOption();
-                options.AddFormOption();
-
-                return options;
-            }
-
-            var entity = TreeEntityRepository.Get(id.Value);
-
-            if (entity is PersistedForm)
-            {
-                options.AddConfiguredFormOption();
-
-                return options;
-            }
-
-            if (entity is not PersistedFolder)
-            {
-                return options;
-            }
-
-            options.AddFormFolderOption();
-            options.AddFormOption();
-
-            return options;
+            return Ok(options);
         }
 
         /// <summary>
@@ -215,60 +179,6 @@
             }).ToArray();
 
             return Ok(options);
-        }
-
-        /// <inheritdoc cref="GenerateNewPathAndId(GenerateNewPathAndIdRequest)" />
-        /// <remarks>
-        /// This is never called, but it is used to generate a URL that
-        /// is passed to the frontend.
-        /// </remarks>
-        [NonAction]
-        public IActionResult GenerateNewPathAndId() => new EmptyResult();
-
-        /// <summary>
-        /// Generates a new path and ID for a new entity.
-        /// </summary>
-        /// <param name="request">
-        /// The request to generate a new path.
-        /// </param>
-        /// <returns>
-        /// The path and ID.
-        /// </returns>
-        /// <remarks>
-        /// This method is necessary because the frontend doesn't know the
-        /// path for the parent of a new entity.
-        /// </remarks>
-        public IActionResult GenerateNewPathAndId(GenerateNewPathAndIdRequest request)
-        {
-            // Variables.
-            var newPath = default(Guid[]);
-            var newId = Guid.NewGuid();
-
-            // Does this new entity have a parent?
-            if (request.ParentId.HasValue)
-            {
-                // Append new ID to path from parent entity.
-                var parentEntity = base.GetEntity(request.ParentId.Value);
-                newPath = parentEntity.Entity.Path
-                    .Concat(new[] { newId })
-                    .ToArray();
-            }
-            else
-            {
-                // Create new path.
-                newPath = new Guid[]
-                {
-                    Guid.Parse(FormConstants.RootId),
-                    newId,
-                };
-            }
-
-            // Return the path and ID.
-            return Ok(new
-            {
-                Path = newPath,
-                Id = newId,
-            });
         }
 
         /// <inheritdoc cref="Save(PersistedForm)"/>

@@ -2,6 +2,7 @@
 using Formulate.BackOffice.NotificationHandlers;
 using Formulate.BackOffice.Persistence;
 using Formulate.BackOffice.Utilities;
+using Formulate.BackOffice.Utilities.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Notifications;
@@ -16,7 +17,10 @@ namespace Formulate.BackOffice.DependencyInjection
 
             builder.Services.AddScoped<ITreeEntityRepository, TreeEntityRepository>();
             builder.Services.AddScoped<IBuildEditorModel, BuildEditorModel>();
-            
+
+            builder.Services.AddScoped<ICreateFormsScaffoldingEntity, CreateFormsScaffoldingEntity>();
+            builder.Services.AddScoped<IGetFormsChildEntityOptions, GetFormsChildEntityOptions>();
+
             builder.MapDefinitions().Add<DataValuesEditorModelMapDefinition>();
             builder.MapDefinitions().Add<ConfiguredFormEditorModelMapDefinition>();
             builder.MapDefinitions().Add<FolderEditorModelMapDefinition>();

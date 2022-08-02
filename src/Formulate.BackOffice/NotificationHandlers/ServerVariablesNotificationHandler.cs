@@ -37,7 +37,7 @@
             var key = "formulate";// Meta.Constants.PackageNameCamelCase;
 
             // Add server variables.
-            var newEntries = new Dictionary<string, object>()
+            var newEntries = new Dictionary<string, object?>()
             {
                 //{ "PersistForm",
                 //    LinkGenerator.GetUmbracoApiService<FormsController>(x =>
@@ -176,9 +176,6 @@
                 { "GetTemplateDefinitions", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GetTemplateDefinitions()) },
-                { "Forms.GenerateNewPathAndId", LinkGenerator
-                    .GetUmbracoApiService<FormsController>(x =>
-                        x.GenerateNewPathAndId()) },
                 { "Forms.GetFormInfo", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GetFormInfo()) },
@@ -216,7 +213,7 @@
             }
         }
 
-        private void AddVariables<TApiController>(string sectionAlias, IDictionary<string, object> newEntries) where TApiController : FormulateBackOfficeEntityApiController 
+        private void AddVariables<TApiController>(string sectionAlias, IDictionary<string, object?> newEntries) where TApiController : FormulateBackOfficeEntityApiController 
         {
             newEntries.Add($"{sectionAlias}.Delete", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.Delete()));
             newEntries.Add($"{sectionAlias}.Get", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.Get()));

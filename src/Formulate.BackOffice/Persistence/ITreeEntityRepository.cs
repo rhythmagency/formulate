@@ -10,12 +10,14 @@ namespace Formulate.BackOffice.Persistence
     /// <remarks>A tree entity repository pulls entities from all repositories.</remarks>
     public interface ITreeEntityRepository
     {
+        TPersistedEntity Create<TPersistedEntity>(IPersistedEntity parent) where TPersistedEntity : IPersistedEntity, new();
+
         /// <summary>
         /// Gets a persisted entity for a given id.
         /// </summary>
         /// <param name="id">The entity ID.</param>
         /// <returns>A <see cref="IPersistedEntity"/>.</returns>
-        IPersistedEntity Get(Guid id);
+        IPersistedEntity? Get(Guid? id);
 
         /// <summary>
         /// Gets a the children a given ID.

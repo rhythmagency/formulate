@@ -66,8 +66,13 @@ namespace Formulate.BackOffice.Persistence
         }
 
         /// <inheritdoc />
-        public IPersistedEntity Get(Guid id)
+        public IPersistedEntity? Get(Guid? id)
         {
+            if (id is null)
+            {
+                return default;
+            }
+
             var actions = new Func<Guid, IPersistedEntity>[]
             {
                 _configuredFormEntityRepository.Get,
@@ -80,7 +85,7 @@ namespace Formulate.BackOffice.Persistence
 
             foreach (var action in actions)
             {
-                var entity = action.Invoke(id);
+                var entity = action.Invoke(id.Value);
 
                 if (entity is not null)
                 {
@@ -251,6 +256,14 @@ namespace Formulate.BackOffice.Persistence
                 TreeRootTypes.Validations => ValidationConstants.RootId,
                 _ => throw new NotSupportedException($"{treeRootType} is not a supported root type.")
             };
+        }
+
+        public TPersistedEntity Create<TPersistedEntity>(IPersistedEntity parent) where TPersistedEntity : IPersistedEntity, new()
+        {
+            var entity = new TPersistedEntity();
+
+
+            return entity;
         }
     }
 }
