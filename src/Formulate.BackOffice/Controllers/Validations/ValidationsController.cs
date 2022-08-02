@@ -11,15 +11,11 @@ using Formulate.Core.Persistence;
 using Formulate.Core.Types;
 using Formulate.Core.Validations;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using Umbraco.Cms.Core.Models.ContentEditing;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Filters;
-using Umbraco.Cms.Web.Common.Formatters;
 using Umbraco.Extensions;
+using Formulate.BackOffice.Utilities.Validations;
 
 namespace Formulate.BackOffice.Controllers.Validations
 {
@@ -32,18 +28,28 @@ namespace Formulate.BackOffice.Controllers.Validations
     {
         private readonly IValidationEntityRepository _validationEntityRepository;
         private readonly ValidationDefinitionCollection _validationDefinitions;
+        private readonly ICreateValidationsScaffoldingEntity _createValidationsScaffoldingEntity;
+        private readonly IGetValidationsChildEntityOptions _getValidationsChildEntityOptions;
 
-        public ValidationsController(IBuildEditorModel buildEditorModel, IValidationEntityRepository validationEntityRepository, ValidationDefinitionCollection validationDefinitions, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService) : base(buildEditorModel, treeEntityRepository, localizedTextService)
+        public ValidationsController(IBuildEditorModel buildEditorModel,
+            IValidationEntityRepository validationEntityRepository, 
+            ValidationDefinitionCollection validationDefinitions, 
+            ITreeEntityRepository treeEntityRepository, 
+            ILocalizedTextService localizedTextService,
+            ICreateValidationsScaffoldingEntity createValidationsScaffoldingEntity,
+            IGetValidationsChildEntityOptions getValidationsChildEntityOptions) : base(buildEditorModel, treeEntityRepository, localizedTextService)
         {
             _validationEntityRepository = validationEntityRepository;
             _validationDefinitions = validationDefinitions;
+            _createValidationsScaffoldingEntity = createValidationsScaffoldingEntity;
+            _getValidationsChildEntityOptions = getValidationsChildEntityOptions;
         }
 
         [HttpGet]
         public IActionResult GetScaffolding(EntityTypes entityType, Guid? kindId, Guid? parentId)
         {
-            var options = this.GetCreateOptions(parentId);
-
+            var parent = TreeEntityRepository.Get(parentId);
+            var options = _getValidationsChildEntityOptions.Get(parent);
             var isValidOption = kindId.HasValue ? options.Any(x => x.EntityType == entityType && x.KindId == kindId) : options.Any(x => x.EntityType == entityType);
 
             if (isValidOption == false)
@@ -54,20 +60,14 @@ namespace Formulate.BackOffice.Controllers.Validations
                 return ValidationProblem(errorModel);
             }
 
-            var parent = parentId.HasValue ? TreeEntityRepository.Get(parentId.Value) : default;
-            IPersistedEntity entity = null;
-
-            if (entityType == EntityTypes.Validation && kindId.HasValue)
+            var input = new CreateValidationsScaffoldingEntityInput()
             {
-                entity = new PersistedValidation()
-                {
-                    KindId = kindId.Value,
-                };
-            }
-            else if (entityType == EntityTypes.Folder)
-            {
-                entity = new PersistedFolder();
-            }
+                EntityType = entityType,
+                KindId = kindId,
+                Parent = parent,
+                RootId = TreeEntityRepository.GetRootId(TreeRootTypes.Validations)
+            };
+            var entity = _createValidationsScaffoldingEntity.Create(input);
 
             if (entity is null)
             {
@@ -77,50 +77,19 @@ namespace Formulate.BackOffice.Controllers.Validations
                 return ValidationProblem(errorModel);
             }
 
-            var response = new GetEntityResponse()
-            {
-                Entity = entity,
-                EntityType = entityType,
-                TreePath = parent.TreeSafePath(),
-            };
+            var buildInput = new BuildEditorModelInput(entity, true);
+            var editorModel = _buildEditorModel.Build(buildInput);
 
-            return Ok(response);
+            return Ok(editorModel);
         }
 
         [HttpGet]
-        public IEnumerable<CreateChildEntityOption> GetCreateOptions(Guid? id)
+        public IActionResult GetCreateOptions(Guid? id)
         {
-            var options = new List<CreateChildEntityOption>();
-
-            var validationOptions = _validationDefinitions.Select(x => new CreateChildEntityOption()
-            {
-                Name = x.DefinitionLabel,
-                KindId = x.KindId,
-                EntityType = EntityTypes.Validation,
-                Icon = FormulateValidationsTreeController.Constants.ItemNodeIcon
-            }).OrderBy(x => x.Name)
-                .ToArray();
-
-
-            if (id is null)
-            {
-                options.AddValidationsFolderOption();
-                options.AddRange(validationOptions);
-
-                return options;
-            }
-
-            var entity = TreeEntityRepository.Get(id.Value);
-
-            if (entity is not PersistedFolder)
-            {
-                return options;
-            }
-
-            options.AddValidationsFolderOption();
-            options.AddRange(validationOptions);
-
-            return options;
+            var parent = TreeEntityRepository.Get(id);
+            var options = _getValidationsChildEntityOptions.Get(parent);
+                        
+            return Ok(options);
         }
 
         [NonAction]
