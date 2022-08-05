@@ -475,7 +475,7 @@
         return {
             restrict: "E",
             replace: true,
-            templateUrl: "/app_plugins/formulatebackoffice/directives/designers/layout/kinds/basic.layout.html",
+            templateUrl: "/app_plugins/formulatebackoffice/directives/editors/layouts/basic/basic.layout.html",
             controller: controller,
             scope: {
                 data: "="

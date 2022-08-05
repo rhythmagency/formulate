@@ -64,9 +64,6 @@
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\dataValues.designer.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\layout.designer.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\layout.designer.js" />
-      <None Remove="App_Plugins\FormulateBackOffice\directives\designers\layout\kinds\basic.layout.html" />
-      <None Remove="App_Plugins\FormulateBackOffice\directives\designers\layout\kinds\basic.layout.js" />
-      <None Remove="App_Plugins\FormulateBackOffice\directives\designers\layout\layout.editor.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\validation.designer.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\designers\validation.designer.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\dialogs\delete.dialog.html" />
