@@ -12,7 +12,7 @@ namespace Formulate.Core.Layouts.Basic
         /// <summary>
         /// Gets a value indicating whether to automatically populate this layout based on changes to the form.
         /// </summary>
-        [JsonPropertyName("autopopulate")]
+        [JsonPropertyName("autoPopulate")]
         public bool AutoPopulate { get; set; }
 
         /// <summary>

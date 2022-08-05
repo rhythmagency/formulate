@@ -1,5 +1,5 @@
 ﻿<div>
-    <form novalidate name="formulateValidationDesigner"
+    <form novalidate name="formulateLayoutDesigner"
           ng-submit="save()"
           val-form-manager>
 
@@ -11,8 +11,8 @@
             </umb-editor-header>
 
             <umb-editor-container>
-                <formulate-layout-editor ng-if="directive"
-                                         directive="directive"
+                <formulate-layout-editor ng-if="entity.directive"
+                                         directive="entity.directive"
                                          data="entity.data">
                 </formulate-layout-editor>
             </umb-editor-container>

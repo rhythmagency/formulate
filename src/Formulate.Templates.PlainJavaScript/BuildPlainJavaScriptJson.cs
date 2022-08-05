@@ -172,7 +172,7 @@
                     columns = y.ColumnSpan,
                     fields = y.Fields.Select(z => new
                     {
-                        id = z.FieldId.ToString("N")
+                        id = z.Id.ToString("N")
                     }).Where(i => fieldsData.Any(f => f.id.Equals(i.id))).ToArray()
                 }).ToArray()
             }).ToArray();

@@ -16,7 +16,10 @@ namespace Formulate.Core.Utilities.Internal
                 return default;
             }
 
-            var options = new JsonSerializerOptions();
+            var options = new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true,
+            };
             options.Converters.Add(new FlexibleGuidJsonConverter());
 
             return JsonSerializer.Deserialize<T>(value, options);

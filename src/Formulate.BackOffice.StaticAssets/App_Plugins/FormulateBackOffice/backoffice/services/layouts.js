@@ -46,6 +46,23 @@ class FormulateLayoutsService {
 
     };
 
+    // Returns the function that persists a layout on the server.
+    persistLayout(data) {
+
+        // Variables.
+        const url = this.formulateVars['layouts.Save'];
+
+        // Send request to create the layout.
+        return this.$http.post(url, data, function (data) {
+
+            // Return layout information.
+            return {
+                id: data.Id,
+                path: data.Path
+            };
+
+        });
+    };
 }
 
 // Initialize.

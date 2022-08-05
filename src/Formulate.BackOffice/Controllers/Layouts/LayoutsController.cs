@@ -79,7 +79,7 @@ namespace Formulate.BackOffice.Controllers.Layouts
 
             var buildInput = new BuildEditorModelInput(entity, true);
             var editorModel = _buildEditorModel.Build(buildInput);
-            
+
             return Ok(editorModel);
         }
 
@@ -120,6 +120,16 @@ namespace Formulate.BackOffice.Controllers.Layouts
                 layout.Name,
                 layout.Path,
                 Directive = "formulate-layout-basic",//TODO: layout.Directive,
+            });
+        }
+
+        [HttpPost]
+        public ActionResult Save(PersistedLayout entity)
+        {
+            layoutEntities.Save(entity);
+            return Ok(new
+            {
+                Success = true,
             });
         }
     }

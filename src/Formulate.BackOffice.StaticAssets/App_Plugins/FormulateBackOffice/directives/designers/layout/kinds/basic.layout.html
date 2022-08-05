@@ -6,11 +6,29 @@
         <div class="umb-group-panel__content">
             <div class="control-group umb-control-group -no-border">
                 <div class="umb-el-wrap">
-                    <label class="control-label" for="pickForm">
-                        <localize key="formulate-labels_Pick Form">Pick Form</localize>
-                    </label>
+                    <div class="control-header">
+                        <label class="control-label" for="pickForm">
+                            <localize key="formulate-labels_Form">Form</localize>
+                        </label>
+                        <small class="control-description">
+                            The form which determines the fields to be used for this layout.
+                        </small>
+                    </div>
                     <div class="controls">
-                        <button type="button" class="btn btn-default" ng-click="context.pickForm()">Pick Form</button>
+                        <div ng-if="vm.form && vm.form.id">
+                            <umb-node-preview name="vm.form.name"
+                                              allow-remove="true"
+                                              allow-open="false"
+                                              on-remove="actions.removeForm()">
+                            </umb-node-preview>
+                        </div>
+                        <div ng-if="!vm.form || !vm.form.id">
+                            <button type="button"
+                                    class="umb-node-preview-add"
+                                    ng-click="actions.pickForm()">
+                                <localize key="formulate-buttons_Select Form">Select Form</localize>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -29,7 +47,7 @@
 
                     <div class="controls">
                         <umb-toggle checked="vm.autoPopulate"
-                                    on-click="context.toggleAutoPopulate()"></umb-toggle>
+                                    on-click="actions.toggleAutoPopulate()"></umb-toggle>
                     </div>
                 </div>
             </div>
@@ -49,20 +67,18 @@
 
             <div style="position:relative;padding: 50px;" ng-if="vm.form.id && vm.autoPopulate">
                 <umb-empty-state position="center">
-                    Layout will be auto populated.
+                    Layout will be auto populated!
                 </umb-empty-state>
             </div>
 
             <div ng-if="vm.form.id && !vm.autoPopulate">
 
                 <!-- Buttons (pick form, and edit rows). -->
-                <button ng-if="!editRows" type="button" class="btn btn-default" ng-click="context.toggleEditRows()">
-                    <localize key="formulate-labels_Edit Rows">
+                <button type="button" class="btn btn-default" ng-click="actions.toggleEditorMode()">
+                    <localize key="formulate-labels_Edit Rows" ng-if="editor.mode === 'fields'">
                         Edit Rows
                     </localize>
-                </button>
-                <button ng-if="editRows" type="button" class="btn btn-default" ng-click="context.toggleEditRows()">
-                    <localize key="formulate-labels_Edit Fields">
+                    <localize key="formulate-labels_Edit Fields" ng-if="editor.mode === 'rows'">
                         Edit Fields
                     </localize>
                 </button>
@@ -82,7 +98,7 @@
                     <div class="formulate-add-row-button-and-cells">
 
                         <!-- Add row button. -->
-                        <button type="button" class="btn btn-default btn-add-row" ng-click="context.addRow()">
+                        <button type="button" class="btn btn-default btn-add-row" ng-click="actions.addRow()">
                             <localize key="formulate-buttons_Click to Add Row">
                                 Click to Add Row
                             </localize>
@@ -91,7 +107,7 @@
                         <!-- Sample cells for new rows. -->
                         <div class="row sample-cells">
                             <div ng-repeat="cell in vm.sampleCells" class="span1">
-                                <div ng-class="context.getSampleCellClasses($index)" ng-click="context.toggleCell($index)">
+                                <div ng-class="actions.getSampleCellClasses($index)" ng-click="actions.toggleCell($index)">
                                     {{$index + 1}}
                                 </div>
                             </div>
@@ -113,32 +129,32 @@
                     </small>
                 </h2>
 
-                <div ui-sortable="rowsSortableOptions" ng-model="vm.rows" ng-if="!vm.autoPopulate && vm.form.id">
+                <div ui-sortable="sortableOptions.rows" ng-model="vm.rows" ng-if="!vm.autoPopulate && vm.form.id">
                     <div ng-repeat="(rowIndex, row) in vm.rows" class="row">
 
                         <!-- Loop over cells if this is a row with cells. -->
                         <div ng-if="row.cells.length">
-                            <div ng-repeat="cell in row.cells" ng-class="context.getCellClass(row, cell)">
+                            <div ng-repeat="cell in row.cells" ng-class="actions.getCellClass(row, cell)">
 
                                 <!-- Show full fields when editing fields. -->
-                                <div ng-if="!editRows" class="formulate-cell" ui-sortable="fieldSortableOptions" ng-model="cell.fields">
+                                <div ng-if="editor.mode === 'fields'" class="formulate-cell" ui-sortable="sortableOptions.fields" ng-model="cell.fields">
                                     <div ng-repeat="field in cell.fields" class="formulate-cell-field">
                                         {{field.name}}
                                     </div>
                                 </div>
 
                                 <!-- Show field summaries when editing rows. -->
-                                <div ng-if="editRows" class="formulate-cell editing-rows">
+                                <div ng-if="editor.mode === 'rows'" class="formulate-cell editing-rows">
                                     <span ng-repeat="field in cell.fields" class="formulate-cell-field">
                                         <span class="formulate-cell-field-name">{{field.name}}</span>
                                     </span>
                                     <div>
-                                        <button type="button" ng-click="context.deleteRow(rowIndex)" ng-if="$index === 0" class="btn btn-danger">
+                                        <button type="button" ng-click="actions.deleteRow(rowIndex)" ng-if="$index === 0" class="btn btn-danger">
                                             <localize key="formulate-buttons_Delete Row">
                                                 Delete Row
                                             </localize>
                                         </button>
-                                        <button type="button" ng-click="context.addStep(rowIndex)" ng-if="$index === 0" class="btn btn-success">
+                                        <button type="button" ng-click="actions.addStep(rowIndex)" ng-if="$index === 0" class="btn btn-success">
                                             <localize key="formulate-buttons_Add Step">
                                                 Add Step
                                             </localize>
@@ -152,8 +168,8 @@
                         <!-- Display a divider for a step. -->
                         <div ng-if="row.isStep" class="formulate-step-divider">
                             <span class="formulate-step-divider__contents">
-                                Step #{{countStep(row)}}
-                                <button ng-if="editRows" type="button" ng-click="deleteRow(rowIndex)" class="btn btn-danger formulate-step-divider__delete" aria-label="Delete Row">
+                                Step #{{row.stepNumber}}
+                                <button ng-if="editor.mode === 'rows'" type="button" ng-click="actions.deleteRow(rowIndex)" class="btn btn-danger formulate-step-divider__delete" aria-label="Delete Row">
                                     X
                                 </button>
                             </span>
@@ -176,9 +192,9 @@
                     </h2>
 
                     <!-- Unused fields. -->
-                    <div class="formulate-cell" ui-sortable="fieldSortableOptions" ng-model="vm.unusedFields">
+                    <div class="formulate-cell" ui-sortable="sortableOptions.fields" ng-model="vm.unusedFields">
                         <div ng-repeat="field in vm.unusedFields" class="formulate-cell-field">
-                            <button type="button" class="btn btn-default formulate-btn-use" ng-click="context.useField($index)">
+                            <button type="button" class="btn btn-default formulate-btn-use" ng-click="actions.useField(field)">
                                 <localize key="formulate-buttons_Use">
                                     Use
                                 </localize>

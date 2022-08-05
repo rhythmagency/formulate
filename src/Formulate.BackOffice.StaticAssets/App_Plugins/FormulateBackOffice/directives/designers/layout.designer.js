@@ -3,80 +3,99 @@
  * field positions, etc.).
  */
 class FormulateLayoutDesigner {
-
-    // Properties.
-    $scope;
-    editorService;
-    $http;
-    $routeParams;
-    formulateLayouts;
-
     /**
      * The controller function that gets called by Angular.
      */
     controller = (
-        retainProperties,
         $scope,
-        editorService,
         $http,
+        $location,
         $routeParams,
+        formHelper,
+        notificationsService,
+        formulateIds,
         formulateLayouts) => {
 
-        // Retain the injected parameters on this object.
-        retainProperties({
+        const services = {
             $scope,
-            editorService,
             $http,
+            $location,
             $routeParams,
-            formulateLayouts,
-        }, this);
-
-        // Attach this object to the scope so it's accessible by the view.
-        $scope.events = this;
+            formHelper,
+            notificationsService,
+            formulateIds,
+            formulateLayouts
+        }
 
         // Initializes layout.
-        this.initializeLayout($scope);
+        this.initializeLayout(services);
 
     };
 
     /**
      * Initializes the layout.
      */
-    initializeLayout = ($scope) => {
-
+    initializeLayout = (services) => {
+        const { $location, $scope, formHelper, notificationsService, formulateLayouts, formulateIds } = services;
         // Disable layout saving until the data is populated.
         $scope.initialized = false;
+        $scope.saveButtonState = 'init';
 
         // Get the layout info.
-        const entity = $scope.entity;
 
+        $scope.canSave = function () {
+            return $scope.entity.name && $scope.entity.name.length > 0;
+        };
 
-/*            this.$routeParams.id;*/
+        $scope.save = () => {
+            $scope.saveButtonState = 'busy';
 
-        $scope.kindId = entity.kindId;
-        $scope.layoutId = entity.id;
-        $scope.info = {};
-        $scope.info.layoutAlias = entity.alias;
-        $scope.info.layoutName = entity.name;
-        $scope.layoutPath = entity.path;
-        $scope.directive = entity.directive;
-        $scope.data = entity.data;
+            const submitFormData = {
+                scope: $scope,
+                formCtrl: $scope.formulateLayoutDesigner,
+            };
 
-        //this.formulateLayouts.getLayoutInfo(id)
-        //    .then((layout) => {
+            if (formHelper.submitForm(submitFormData)) {
+                const entity = $scope.entity;
+                const data = {
+                    Id: entity.id,
+                    Name: entity.name,
+                    Alias: entity.alias,
+                    Path: entity.path,
+                    KindId: entity.kindId,
+                    Data: JSON.stringify(entity.data)
+                };
 
-        //        // Update tree.
-        //        //TODO: ...
-        //        //this.formulateTrees.activateEntity(layout);
+                formulateLayouts.persistLayout(data).then((x) => {
+                    $scope.saveButtonState = 'success';
 
-        //        //TODO: Confirm if this is necessary.
-        //        // Set the layout info.
+                    const resetData = {
+                        scope: $scope,
+                        formCtrl: $scope.formulateLayoutDesigner,
+                    };
 
+                    formHelper.resetForm(resetData);
 
-        //        // The layout can be saved now.
-        //        this.$scope.initialized = true;
+                    notificationsService.success("Layout saved.");
 
-        //    });
+                    if (entity.isNew) {
+                        const sanitizedEntityId = formulateIds.sanitize(entity.id);
+
+                        $location.path("/formulate/layouts/edit/" + sanitizedEntityId).search({});
+                    }
+                });
+            }
+            else {
+
+                const resetData = {
+                    scope: $scope,
+                    formCtrl: $scope.formulateLayoutDesigner,
+                    hasErrors: true
+                };
+
+                formHelper.resetForm(resetData);
+            }
+        };
 
         $scope.initialized = true;
     };
