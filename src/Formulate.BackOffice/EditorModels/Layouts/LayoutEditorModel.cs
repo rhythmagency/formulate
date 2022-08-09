@@ -18,6 +18,6 @@
 
         public override EntityTypes EntityType => EntityTypes.Layout;
 
-        public string Directive { get; internal set; }
+        public string Directive { get; set; }
     }
 }

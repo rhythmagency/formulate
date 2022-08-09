@@ -8,15 +8,15 @@ namespace Formulate.Core.DataValues.PairList
     internal sealed class PairListDataValuesPreValuesItem
     {
         /// <summary>
-        /// Gets or sets the label.
+        /// Gets or sets the secondary value.
         /// </summary>
         [JsonPropertyName("secondary")]
-        public string Label { get; set; }
+        public string Secondary { get; set; }
 
         /// <summary>
-        /// Gets or sets the value.
+        /// Gets or sets the primary value.
         /// </summary>
         [JsonPropertyName("primary")]
-        public string Value { get; set; }
+        public string Primary { get; set; }
     }
 }

@@ -54,11 +54,6 @@ namespace Formulate.BackOffice.Controllers.DataValues
 
             if (definition is null)
             {
-                var legacyId = Guid.Parse("bbf66f6a-8f7d-4aba-9d5b-194a46084ec2");
-                if (id == legacyId)
-                {
-                    return Ok("formulate-legacy-data-value");
-                }
                 return NotFound();
             }
 
@@ -114,43 +109,13 @@ namespace Formulate.BackOffice.Controllers.DataValues
         }
 
         [HttpPost]
-        public ActionResult Save(SavePersistedDataValuesRequest request)
+        public ActionResult Save(PersistedDataValues entity)
         {
-            PersistedDataValues savedEntity;
+            _dataValuesEntityRepository.Save(entity);
 
-            if (request.Entity.Id == Guid.Empty)
+            return Ok(new
             {
-                var entityToSave = request.Entity;
-                var entityToSavePath = new List<Guid>();
-                var parent = request.ParentId.HasValue ? TreeEntityRepository.Get(request.ParentId.Value) : default;
-
-                entityToSave.Id = Guid.NewGuid();
-
-                if (parent is not null)
-                {
-                    entityToSavePath.AddRange(parent.Path);
-                }
-                else
-                {
-                    var rootId = TreeEntityRepository.GetRootId(TreeRootTypes.DataValues);
-
-                    entityToSavePath.Add(rootId);
-                }
-
-                entityToSavePath.Add(entityToSave.Id);
-                entityToSave.Path = entityToSavePath.ToArray();
-
-                savedEntity = _dataValuesEntityRepository.Save(entityToSave);
-            }
-            else
-            {
-                savedEntity = _dataValuesEntityRepository.Save(request.Entity);
-            }
-
-            return Ok(new SavePersistedDataValuesResponse()
-            {
-                EntityId = savedEntity.BackOfficeSafeId(),
-                EntityPath = savedEntity.TreeSafePath()
+                Success = true,
             });
         }
     }

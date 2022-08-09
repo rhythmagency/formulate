@@ -76,5 +76,21 @@
 
             return new DataValues(settings, items);
         }
+
+        /// <inheritdoc />
+        public override object GetBackOfficeConfiguration(IDataValuesSettings settings)
+        {
+            var preValues = _jsonUtility.Deserialize<ListDataValuesPreValues>(settings.Data);
+
+            if (preValues is not null)
+            {
+                return preValues;
+            }
+
+            return new ListDataValuesPreValues()
+            {
+                Items = Array.Empty<ListDataValuesPreValuesItem>()
+            };
+        }
     }
 }

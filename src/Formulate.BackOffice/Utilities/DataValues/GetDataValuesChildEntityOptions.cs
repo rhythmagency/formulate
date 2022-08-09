@@ -21,7 +21,7 @@
         {
             var options = new List<CreateChildEntityOption>();
 
-            var dataValueOptions = _dataValuesDefinitions.Select(x => new CreateChildEntityOption()
+            var dataValueOptions = _dataValuesDefinitions.Where(x => x.IsLegacy == false).Select(x => new CreateChildEntityOption()
             {
                 Name = x.DefinitionLabel,
                 KindId = x.KindId,

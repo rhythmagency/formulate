@@ -5,7 +5,7 @@
 
     internal sealed class FolderEditorModelMapDefinition : EditorModelMapDefinition<PersistedFolder, FolderEditorModel>
     {
-        protected override FolderEditorModel Map(PersistedFolder entity, bool isNew)
+        protected override FolderEditorModel? Map(PersistedFolder entity, bool isNew)
         {
             return new FolderEditorModel(entity, isNew);
         }

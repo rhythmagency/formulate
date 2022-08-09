@@ -112,5 +112,10 @@
 
             return new DataValues(settings, items);
         }
+
+        public override object GetBackOfficeConfiguration(IDataValuesSettings settings)
+        {
+            return default;
+        }
     }
 }

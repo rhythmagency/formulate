@@ -21,6 +21,12 @@
         public abstract string Icon { get; }
 
         /// <inheritdoc />
+        public virtual bool IsLegacy => false;
+
+        /// <inheritdoc />
         public abstract IDataValues CreateDataValues(IDataValuesSettings settings);
+
+        /// <inheritdoc />
+        public abstract object GetBackOfficeConfiguration(IDataValuesSettings settings);
     }
 }

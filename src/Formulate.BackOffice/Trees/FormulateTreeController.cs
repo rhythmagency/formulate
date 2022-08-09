@@ -167,7 +167,7 @@
         /// The object to set the additional data on.
         /// </param>
         protected virtual void SetAdditionalNodeData(IPersistedEntity entity,
-            IDictionary<string, object> data)
+            IDictionary<string, object?> data)
         {
             // Does nothing here. Derived classes may set additional data.
         }

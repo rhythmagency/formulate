@@ -36,6 +36,11 @@
             {
                 return new TestDataValues(settings, new List<KeyValuePair<string, string>>());
             }
+
+            public override object GetBackOfficeConfiguration(IDataValuesSettings settings)
+            {
+                return default;
+            }
         }
 
         private sealed class TestDataValues : DataValuesBase

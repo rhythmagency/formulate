@@ -9,50 +9,36 @@
             link: function (scope, element, attrs) {
                 scope.saveButtonState = "init";
 
-                if (scope.entity.data !== null) {
-                    scope.deserializedConfiguration = JSON.parse(scope.entity.data);
-                } else {
-                    scope.deserializedConfiguration = {};
-                }
-
-                formulateDefinitionDirectiveResource.getDataValuesDirective(scope.entity.kindId).then(
-                    function (directive) {
-                        
-                        scope.directive = directive;
-                    });
-
-
                 // Set scope functions.
                 scope.save = function () {
                     scope.saveButtonState = "busy";
-
-                    if (typeof (scope.deserializedConfiguration) !== "undefined") {
-                        scope.entity.data = JSON.stringify(scope.deserializedConfiguration);
-                    }
-
-                    var payload = {
-                        entity: scope.entity,
-                        parentId: !$routeParams.isNew && $routeParams.id && $routeParams.id !== "-1" ? $routeParams.id : ""
+                    const entity = scope.entity;
+                    const payload = {
+                        Id: entity.id,
+                        Name: entity.name,
+                        Alias: entity.alias,
+                        Path: entity.path,
+                        KindId: entity.kindId,
+                        Data: JSON.stringify(entity.data)
                     };
 
                     if (formHelper.submitForm({ scope: scope, formCtrl: scope.formCtrl })) {
                         $http.post(Umbraco.Sys.ServerVariables.formulate["datavalues.Save"], payload).then(
                             function (response) {
-                                var entityId = response.data.entityId;
                                 scope.saveButtonState = "success";
 
                                 formHelper.resetForm({ scope: scope, formCtrl: scope.formCtrl });
 
-                                if (entityId !== $routeParams.id) {
+                                if (entity.isNew) {
                                     notificationsService.success("Data Values created.");
 
-                                    $location.path("/formulate/datavalues/edit/" + entityId).search({});
+                                    $location.path("/formulate/datavalues/edit/" + entity.id).search({});
                                 } else {
                                     notificationsService.success("Data Values saved.");
-
+                                    console.log(entity);
                                     var options = {
                                         tree: "datavalues",
-                                        path: response.data.entityPath,
+                                        path: entity.treePath,
                                         forceReload: true,
                                         activate: false
                                     };
@@ -64,6 +50,10 @@
                 };
 
                 scope.canSave = function () {
+                    if (scope.entity.isLegacy) {
+                        return false;
+                    }
+
                     if (scope.saveButtonState === "busy") {
                         return false;
                     }

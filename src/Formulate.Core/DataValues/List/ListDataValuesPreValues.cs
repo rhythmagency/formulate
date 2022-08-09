@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Formulate.Core.DataValues.List
 {
@@ -11,6 +12,6 @@ namespace Formulate.Core.DataValues.List
         /// Gets or sets the items.
         /// </summary>
         [JsonPropertyName("items")]
-        public ListDataValuesPreValuesItem[] Items { get; set; }
+        public ListDataValuesPreValuesItem[] Items { get; set; } = Array.Empty<ListDataValuesPreValuesItem>();
     }
 }

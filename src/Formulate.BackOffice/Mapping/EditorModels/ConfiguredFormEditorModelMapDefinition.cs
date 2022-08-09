@@ -4,6 +4,8 @@
     using Formulate.Core.ConfiguredForms;
     using Formulate.Core.Layouts;
     using Formulate.Core.Templates;
+    using Formulate.Core.Types;
+
     using System;
     using System.Linq;
 
@@ -18,7 +20,7 @@
             _layoutEntities = layoutEntityRepository;
         }
 
-        protected override ConfiguredFormEditorModel Map(PersistedConfiguredForm entity, bool isNew)
+        protected override ConfiguredFormEditorModel? Map(PersistedConfiguredForm entity, bool isNew)
         {
             var layout = GetLayout(entity.LayoutId);
             var template = GetTemplate(entity.TemplateId);
@@ -39,7 +41,7 @@
             return editorModel;
         }
 
-        private ITemplateDefinition GetTemplate(Guid? templateId)
+        private ITemplateDefinition? GetTemplate(Guid? templateId)
         {
             if (templateId is null || templateId.HasValue == false)
             {
@@ -49,7 +51,7 @@
             return _templateDefinitions.FirstOrDefault(x => x.Id == templateId);
         }
 
-        private PersistedLayout GetLayout(Guid? layoutId)
+        private PersistedLayout? GetLayout(Guid? layoutId)
         {
             if (layoutId is null || layoutId.HasValue == false)
             {

@@ -71,10 +71,25 @@
 
             if (preValues is not null)
             {
-                items.AddRange(preValues.Items.Select(x => new KeyValuePair<string, string>(x.Label, x.Value)).ToArray());
+                items.AddRange(preValues.Items.Select(x => new KeyValuePair<string, string>(x.Secondary, x.Primary)).ToArray());
             }
 
             return new DataValues(settings, items);
+        }
+
+        public override object GetBackOfficeConfiguration(IDataValuesSettings settings)
+        {
+            var preValues = _jsonUtility.Deserialize<PairListDataValuesPreValues>(settings.Data);
+
+            if (preValues is not null)
+            {
+                return preValues;
+            }
+
+            return new PairListDataValuesPreValues()
+            {
+                Items = Array.Empty<PairListDataValuesPreValuesItem>()
+            };
         }
     }
 }
