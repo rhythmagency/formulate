@@ -35,7 +35,6 @@
                                     $location.path("/formulate/datavalues/edit/" + entity.id).search({});
                                 } else {
                                     notificationsService.success("Data Values saved.");
-                                    console.log(entity);
                                     var options = {
                                         tree: "datavalues",
                                         path: entity.treePath,
