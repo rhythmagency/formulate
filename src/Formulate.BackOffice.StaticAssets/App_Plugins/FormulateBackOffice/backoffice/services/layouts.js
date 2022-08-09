@@ -31,21 +31,6 @@ class FormulateLayoutsService {
             });
     };
 
-    /**
-     * Returns information about the layout with the specified ID.
-     * @param {any} id The layout ID.
-     */
-    getLayoutInfo = (id) => {
-
-        // Variables.
-        const baseUrl = this.formulateVars.GetLayoutInfo;
-        const url = `${baseUrl}?id=${id}`
-
-        // Get layout info from server.
-        return this.$http.get(url).then(({ data }) => data);
-
-    };
-
     // Returns the function that persists a layout on the server.
     persistLayout(data) {
 

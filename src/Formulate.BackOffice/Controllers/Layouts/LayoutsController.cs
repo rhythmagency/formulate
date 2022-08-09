@@ -92,37 +92,6 @@ namespace Formulate.BackOffice.Controllers.Layouts
             return Ok(options);
         }
 
-        //TODO: Comments.
-        [NonAction]
-        public IActionResult GetLayoutInfo()
-        {
-            return new EmptyResult();
-        }
-
-        //TODO: Implement.
-        [HttpGet]
-        public IActionResult GetLayoutInfo(Guid id)
-        {
-            var layout = layoutEntities.Get(id);
-            if (layout == null)
-            {
-                return Ok(new
-                {
-                    Success = false,
-                });
-            }
-            return Ok(new
-            {
-                Success = true,
-                layout.KindId,
-                layout.Id,
-                //TODO: layout.Alias,
-                layout.Name,
-                layout.Path,
-                Directive = "formulate-layout-basic",//TODO: layout.Directive,
-            });
-        }
-
         [HttpPost]
         public ActionResult Save(PersistedLayout entity)
         {

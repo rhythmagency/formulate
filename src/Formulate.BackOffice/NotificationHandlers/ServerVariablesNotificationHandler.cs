@@ -185,9 +185,6 @@
                 { "configuredForms.Get", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GetConfiguredForm()) },
-                { "GetLayoutInfo",
-                    LinkGenerator.GetUmbracoApiService<LayoutsController>(x =>
-                        x.GetLayoutInfo()) },
                 //{ "DuplicateForm",
                 //    LinkGenerator.GetUmbracoApiService<FormsController>(x => x.DuplicateForm(null)) },
             };

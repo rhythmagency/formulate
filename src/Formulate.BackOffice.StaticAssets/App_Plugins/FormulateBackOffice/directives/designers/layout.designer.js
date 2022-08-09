@@ -66,7 +66,7 @@ class FormulateLayoutDesigner {
                     Data: JSON.stringify(entity.data)
                 };
 
-                formulateLayouts.persistLayout(data).then((x) => {
+                formulateLayouts.persistLayout(data).then(() => {
                     $scope.saveButtonState = 'success';
 
                     const resetData = {
