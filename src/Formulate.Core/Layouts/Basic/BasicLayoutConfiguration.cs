@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
-
-namespace Formulate.Core.Layouts.Basic
+﻿namespace Formulate.Core.Layouts.Basic
 {
+    using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
     /// The configuration for a <see cref="BasicLayout"/>.
     /// </summary>
@@ -12,19 +12,19 @@ namespace Formulate.Core.Layouts.Basic
         /// <summary>
         /// Gets a value indicating whether to automatically populate this layout based on changes to the form.
         /// </summary>
-        [JsonPropertyName("autoPopulate")]
+        [JsonProperty("autoPopulate")]
         public bool AutoPopulate { get; set; }
 
         /// <summary>
         /// Gets the form ID.
         /// </summary>
-        [JsonPropertyName("formId")]
+        [JsonProperty("formId")]
         public Guid? FormId { get; set; }
 
         /// <summary>
         /// Gets the rows.
         /// </summary>
-        [JsonPropertyName("rows")]
+        [JsonProperty("rows")]
         public IEnumerable<BasicLayoutRow> Rows { get; set; }
     }
 }

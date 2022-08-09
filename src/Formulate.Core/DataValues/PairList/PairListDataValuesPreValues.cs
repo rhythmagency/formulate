@@ -1,8 +1,8 @@
-﻿using System;
-using System.Text.Json.Serialization;
-
-namespace Formulate.Core.DataValues.PairList
+﻿namespace Formulate.Core.DataValues.PairList
 {
+    using Newtonsoft.Json;
+    using System;
+
     /// <summary>
     /// The configuration pre-values used by a <see cref="PairListDataValuesDefinition" />.
     /// </summary>
@@ -11,7 +11,7 @@ namespace Formulate.Core.DataValues.PairList
         /// <summary>
         /// Gets or sets the items.
         /// </summary>
-        [JsonPropertyName("items")]
+        [JsonProperty("items")]
         public PairListDataValuesPreValuesItem[] Items { get; set; } = Array.Empty<PairListDataValuesPreValuesItem>(); 
     }
 }

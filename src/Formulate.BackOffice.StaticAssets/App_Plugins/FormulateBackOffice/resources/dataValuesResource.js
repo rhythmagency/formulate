@@ -53,9 +53,7 @@
             };
 
             var callbackOptions = {
-                success: (data) => {
-                    var entity = data.entity;
-
+                success: (entity) => {                    
                     return {
                         id: entity.id,
                         kindId: entity.kindId,

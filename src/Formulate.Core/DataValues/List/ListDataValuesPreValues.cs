@@ -1,8 +1,8 @@
-﻿using System;
-using System.Text.Json.Serialization;
-
-namespace Formulate.Core.DataValues.List
+﻿namespace Formulate.Core.DataValues.List
 {
+    using Newtonsoft.Json;
+    using System;
+
     /// <summary>
     /// The configuration pre-values used by a <see cref="ListDataValuesDefinition" />.
     /// </summary>
@@ -11,7 +11,7 @@ namespace Formulate.Core.DataValues.List
         /// <summary>
         /// Gets or sets the items.
         /// </summary>
-        [JsonPropertyName("items")]
+        [JsonProperty("items")]
         public ListDataValuesPreValuesItem[] Items { get; set; } = Array.Empty<ListDataValuesPreValuesItem>();
     }
 }

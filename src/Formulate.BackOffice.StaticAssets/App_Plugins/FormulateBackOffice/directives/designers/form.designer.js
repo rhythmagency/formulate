@@ -400,10 +400,10 @@ class FormDesignerEventHandlers {
                         alias: x.alias,
                         category: x.category,
                         id: x.id,
-                        kindId: x.kindId,
+                        typeId: x.kindId,
                         name: x.name,
                         label: x.label,
-                        data: JSON.stringify(x.configuration),
+                        fieldConfiguration: JSON.stringify(x.fieldConfiguration),
                         validations: x.validations.map(y => {
                             return y.id;
                         }),
@@ -414,10 +414,10 @@ class FormDesignerEventHandlers {
                         alias: x.alias,
                         enabled: x.enabled,
                         id: x.id,
-                        kindId: x.kindId,
+                        typeId: x.kindId,
                         name: x.name,
                         //TODO: Double check naming (not sure if configuration is correct).
-                        configuration: JSON.stringify(x.configuration),
+                        handlerConfiguration: JSON.stringify(x.configuration),
                     };
                 }),
             };

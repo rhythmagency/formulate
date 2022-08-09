@@ -1,8 +1,7 @@
 ﻿namespace Formulate.Core.FormFields
 {
-    // Namespaces.
+    using Newtonsoft.Json;
     using System;
-    using System.Text.Json.Serialization;
 
     /// <summary>
     /// A persisted form field.
@@ -17,7 +16,7 @@
         /// <summary>
         /// Gets or sets the kind ID.
         /// </summary>
-        [JsonPropertyName("TypeId")]
+        [JsonProperty("TypeId")]
         public Guid KindId { get; set; }
 
         /// <summary>
@@ -28,7 +27,7 @@
         /// <summary>
         /// Gets or sets the configuration.
         /// </summary>
-        [JsonPropertyName("FieldConfiguration")]
+        [JsonProperty("FieldConfiguration")]
         public string Data { get; set; }
 
         /// <summary>

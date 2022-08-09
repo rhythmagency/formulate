@@ -1,7 +1,7 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Formulate.Core.DataValues.List
+﻿namespace Formulate.Core.DataValues.List
 {
+    using Newtonsoft.Json;
+
     /// <summary>
     /// An item used by the <see cref="ListDataValuesPreValues"/>.
     /// </summary>
@@ -10,7 +10,7 @@ namespace Formulate.Core.DataValues.List
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
-        [JsonPropertyName("value")]
+        [JsonProperty("value")]
         public string Value { get; set; }
     }
 }

@@ -17,7 +17,7 @@
         {
             builder.Services.AddSingleton<IGetDataValuesItemsUtility, GetDataValuesItemsUtility>();
             builder.Services.AddSingleton<IJsonUtility, JsonUtility>();
-            builder.Services.AddSingleton<IJsonSerializer, SystemTextJsonSerializer>();
+            builder.Services.AddSingleton<IJsonSerializer, NewtonsoftJsonSerializer>();
 
             return builder;
         }

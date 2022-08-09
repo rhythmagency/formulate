@@ -1,6 +1,6 @@
 ﻿namespace Formulate.Core.FormFields.Button
 {
-    using System.Text.Json.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Configuration required by the <see cref="ButtonField"/>.
@@ -10,7 +10,7 @@
         /// <summary>
         /// Gets or sets the button kind.
         /// </summary>
-        [JsonPropertyName("buttonKind")]
+        [JsonProperty("buttonKind")]
         public string ButtonKind { get; set; }
     }
 }

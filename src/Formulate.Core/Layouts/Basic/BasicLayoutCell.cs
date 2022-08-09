@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
-
-namespace Formulate.Core.Layouts.Basic
+﻿namespace Formulate.Core.Layouts.Basic
 {
+    using Newtonsoft.Json;
+    using System.Collections.Generic;
+
     /// <summary>
     /// A cell in a basic layout row.
     /// </summary>
@@ -11,13 +11,13 @@ namespace Formulate.Core.Layouts.Basic
         /// <summary>
         /// Gets the number of columns this cell spans.
         /// </summary>
-        [JsonPropertyName("columnSpan")]
+        [JsonProperty("columnSpan")]
         public int ColumnSpan { get; set; }
 
         /// <summary>
         /// Gets the fields in this cell.
         /// </summary>
-        [JsonPropertyName("fields")]
+        [JsonProperty("fields")]
         public IEnumerable<BasicLayoutField> Fields { get; set; }
     }
 }

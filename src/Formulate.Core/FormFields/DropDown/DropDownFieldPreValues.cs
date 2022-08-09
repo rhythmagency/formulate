@@ -1,8 +1,7 @@
 ﻿namespace Formulate.Core.FormFields.DropDown
 {
-    // Namespaces.
+    using Newtonsoft.Json;
     using System;
-    using System.Text.Json.Serialization;
 
     /// <summary>
     /// Configuration pre-values used by <see cref="DropDownFieldDefinition"/>
@@ -13,7 +12,7 @@
         /// <summary>
         /// Gets or sets the data value.
         /// </summary>
-        [JsonPropertyName("dataValue")]
+        [JsonProperty("dataValue")]
         public Guid DataValue { get; set; }
     }
 }

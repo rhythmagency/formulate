@@ -1,7 +1,7 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Formulate.Core.DataValues.PairList
+﻿namespace Formulate.Core.DataValues.PairList
 {
+    using Newtonsoft.Json;
+
     /// <summary>
     /// An item used by the <see cref="PairListDataValuesPreValues"/>.
     /// </summary>
@@ -10,13 +10,13 @@ namespace Formulate.Core.DataValues.PairList
         /// <summary>
         /// Gets or sets the secondary value.
         /// </summary>
-        [JsonPropertyName("secondary")]
+        [JsonProperty("secondary")]
         public string Secondary { get; set; }
 
         /// <summary>
         /// Gets or sets the primary value.
         /// </summary>
-        [JsonPropertyName("primary")]
+        [JsonProperty("primary")]
         public string Primary { get; set; }
     }
 }
