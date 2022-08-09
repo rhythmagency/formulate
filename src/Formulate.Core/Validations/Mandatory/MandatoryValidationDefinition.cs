@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Formulate.Core.Utilities;
+using System;
 
 namespace Formulate.Core.Validations.Mandatory
 {
@@ -7,6 +8,8 @@ namespace Formulate.Core.Validations.Mandatory
     /// </summary>
     public sealed class MandatoryValidationDefinition : IValidationDefinition
     {
+        private readonly IJsonUtility _jsonUtility;
+
         /// <summary>
         /// Constants related to <see cref="MandatoryValidationDefinition"/>.
         /// </summary>
@@ -26,6 +29,11 @@ namespace Formulate.Core.Validations.Mandatory
             /// The Angular JS directive.
             /// </summary>
             public const string Directive = "formulate-mandatory-validation";
+        }
+
+        public MandatoryValidationDefinition(IJsonUtility jsonUtility)
+        {
+            _jsonUtility = jsonUtility;
         }
 
         /// <inheritdoc />
@@ -48,7 +56,14 @@ namespace Formulate.Core.Validations.Mandatory
         /// <inheritdoc />
         public object GetBackOfficeConfiguration(IValidationSettings settings)
         {
-            return null;
+            var config = _jsonUtility.Deserialize<MandatoryValidationConfiguration>(settings.Data);
+
+            if (config is null)
+            {
+                return new MandatoryValidationConfiguration();
+            }
+
+            return config;
         }
     }
 }

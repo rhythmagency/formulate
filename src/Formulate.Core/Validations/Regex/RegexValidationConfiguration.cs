@@ -8,7 +8,7 @@
         /// <summary>
         /// Gets or sets the regular expression pattern.
         /// </summary>
-        public string Pattern { get; set; }
+        public string Regex { get; set; }
 
         /// <summary>
         /// Gets or sets the error message to show when the validation fails.

@@ -9,50 +9,37 @@
             link: function (scope, element, attrs) {
                 scope.saveButtonState = "init";
 
-                if (scope.entity.data !== null) {
-                    scope.deserializedConfiguration = JSON.parse(scope.entity.data);
-                } else {
-                    scope.deserializedConfiguration = {};
-                }
-
-                var chosenId = scope.entity.kindId || scope.entity.id;
-                formulateDefinitionDirectiveResource.getValidationDirective(chosenId).then(
-                    function (directive) {
-                        scope.directive = directive;
-                    });
-
                 // Set scope functions.
                 scope.save = function () {
                     scope.saveButtonState = "busy";
 
-                    if (typeof (scope.deserializedConfiguration) !== "undefined") {
-                        scope.entity.data = JSON.stringify(scope.deserializedConfiguration);
-                    }
-
-                    var payload = {
-                        entity: scope.entity,
-                        parentId: !$routeParams.isNew && $routeParams.id && $routeParams.id !== "-1" ? $routeParams.id : "",
-                        treeType: scope.treeType
+                    const entity = scope.entity;
+                    const payload = {
+                        Id: entity.id,
+                        Name: entity.name,
+                        Alias: entity.alias,
+                        Path: entity.path,
+                        KindId: entity.kindId,
+                        Data: JSON.stringify(entity.data)
                     };
 
                     if (formHelper.submitForm({ scope: scope, formCtrl: scope.formCtrl })) {
                         $http.post(Umbraco.Sys.ServerVariables.formulate["validations.Save"], payload).then(
                             function (response) {
-                                var entityId = response.data.entityId;
                                 scope.saveButtonState = "success";
 
                                 formHelper.resetForm({ scope: scope, formCtrl: scope.formCtrl });
 
-                                if (entityId !== $routeParams.id) {
+                                if (entity.isNew) {
                                     notificationsService.success("Validation created.");
 
-                                    $location.path("/formulate/validations/edit/" + entityId).search({});
+                                    $location.path("/formulate/validations/edit/" + entity.id).search({});
                                 } else {
                                     notificationsService.success("Validation saved.");
 
                                     var options = {
                                         tree: "validations",
-                                        path: response.data.entityPath,
+                                        path: entity.treePath,
                                         forceReload: true,
                                         activate: false
                                     };

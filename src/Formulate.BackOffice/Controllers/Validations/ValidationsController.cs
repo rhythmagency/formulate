@@ -112,43 +112,12 @@ namespace Formulate.BackOffice.Controllers.Validations
         }
 
         [HttpPost]
-        public ActionResult Save(SavePersistedValidationRequest request)
+        public ActionResult Save(PersistedValidation entity)
         {
-            PersistedValidation savedEntity;
+            _validationEntityRepository.Save(entity);
 
-            if (request.Entity.Id == Guid.Empty)
-            {
-                var entityToSave = request.Entity;
-                var entityToSavePath = new List<Guid>();
-                var parent = request.ParentId.HasValue ? TreeEntityRepository.Get(request.ParentId.Value) : default;
-
-                entityToSave.Id = Guid.NewGuid();
-
-                if (parent is not null)
-                {
-                    entityToSavePath.AddRange(parent.Path);
-                }
-                else
-                {
-                    var rootId = TreeEntityRepository.GetRootId(TreeRootTypes.Validations);
-
-                    entityToSavePath.Add(rootId);
-                }
-
-                entityToSavePath.Add(entityToSave.Id);
-                entityToSave.Path = entityToSavePath.ToArray();
-
-                savedEntity = _validationEntityRepository.Save(entityToSave);
-            }
-            else
-            {
-                savedEntity = _validationEntityRepository.Save(request.Entity);
-            }
-
-            return Ok(new SavePersistedValidationResponse()
-            {
-                EntityId = savedEntity.BackOfficeSafeId(),
-                EntityPath = savedEntity.TreeSafePath()
+            return Ok(new {
+                success = true
             });
         }
     }

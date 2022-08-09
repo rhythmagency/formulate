@@ -10,13 +10,14 @@
         {
             Alias = entity.Alias;
             KindId = entity.KindId;
-            Data = entity.Data;
         }
 
-        public string Data { get; set; }
+        public object Data { get; set; }
         
         public Guid KindId { get; set; }
 
         public override EntityTypes EntityType => EntityTypes.Validation;
+
+        public string Directive { get; set; }
     }
 }

@@ -60,7 +60,7 @@
                     return new
                     {
                         message = config.Message,
-                        pattern = config.Pattern
+                        pattern = config.Regex
                     };
                 }
                 else if (x is MandatoryValidation mandatory)
