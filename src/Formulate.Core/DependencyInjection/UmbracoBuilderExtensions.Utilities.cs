@@ -16,7 +16,8 @@
         private static IUmbracoBuilder AddFormulateUtilities(this IUmbracoBuilder builder)
         {
             builder.Services.AddSingleton<IGetDataValuesItemsUtility, GetDataValuesItemsUtility>();
-            builder.Services.AddSingleton<IJsonUtility, SystemTextJsonUtility>();
+            builder.Services.AddSingleton<IJsonUtility, JsonUtility>();
+            builder.Services.AddSingleton<IJsonSerializer, SystemTextJsonSerializer>();
 
             return builder;
         }
