@@ -176,9 +176,6 @@
                 { "GetTemplateDefinitions", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GetTemplateDefinitions()) },
-                { "Forms.GetFormInfo", LinkGenerator
-                    .GetUmbracoApiService<FormsController>(x =>
-                        x.GetFormInfo()) },
                 { "configuredForms.Save", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.SaveConfiguredForm()) },
