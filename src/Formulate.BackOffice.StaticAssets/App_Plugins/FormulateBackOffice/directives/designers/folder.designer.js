@@ -14,30 +14,31 @@
                 scope.save = function () {
                     scope.saveButtonState = "busy";
 
-                    var payload = {
-                        entity: scope.entity,
-                        parentId: !$routeParams.isNew && $routeParams.id && $routeParams.id !== "-1" ? $routeParams.id : "",
-                        treeType: scope.treeType
+                    const entity = scope.entity;
+                    const payload = {
+                        Id: entity.id,
+                        Name: entity.name,
+                        Alias: entity.alias,
+                        Path: entity.path,
                     };
 
                     if (formHelper.submitForm({ scope: scope, formCtrl: scope.formCtrl })) {
                         $http.post(Umbraco.Sys.ServerVariables.formulate["Folders.Save"], payload).then(
                             function (response) {
-                                var entityId = response.data.entityId;
                                 scope.saveButtonState = "success";
 
                                 formHelper.resetForm({ scope: scope, formCtrl: scope.formCtrl });
 
-                                if (entityId !== $routeParams.id) {
+                                if (entity.isNew) {
                                     notificationsService.success("Folder created.");
 
-                                    $location.path("/formulate/" + scope.treeType + "/edit/" + entityId).search({});
+                                    $location.path("/formulate/" + scope.treeType + "/edit/" + entity.id).search({});
                                 } else {
                                     notificationsService.success("Folder saved.");
 
                                     var options = {
                                         tree: scope.treeType,
-                                        path: response.data.entityPath,
+                                        path: entity.treePath,
                                         forceReload: true,
                                         activate: false
                                     };

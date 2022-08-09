@@ -30,43 +30,12 @@ namespace Formulate.BackOffice.Controllers.Folders
         }
 
         [HttpPost]
-        public ActionResult Save(SavePersistedFolderRequest request)
+        public ActionResult Save(PersistedFolder entity)
         {
-            PersistedFolder savedEntity;
+            _folderEntityRepository.Save(entity);
 
-            if (request.Entity.Id == Guid.Empty)
-            {
-                var entityToSave = request.Entity;
-                var entityToSavePath = new List<Guid>();
-                var parent = request.ParentId.HasValue ? TreeEntityRepository.Get(request.ParentId.Value) : default;
-
-                entityToSave.Id = Guid.NewGuid();
-
-                if (parent is not null)
-                {
-                    entityToSavePath.AddRange(parent.Path);
-                }
-                else
-                {
-                    var rootId = TreeEntityRepository.GetRootId(request.TreeType);
-
-                    entityToSavePath.Add(rootId);
-                }
-                
-                entityToSavePath.Add(entityToSave.Id);
-                entityToSave.Path = entityToSavePath.ToArray();
-
-                savedEntity = _folderEntityRepository.Save(entityToSave);
-            }
-            else
-            {
-                savedEntity = _folderEntityRepository.Save(request.Entity);
-            }
-
-            return Ok(new SavePersistedFolderResponse()
-            {
-                EntityId = savedEntity.BackOfficeSafeId(),
-                EntityPath = savedEntity.TreeSafePath()
+            return Ok(new {
+                success = true
             });
         }
     }
