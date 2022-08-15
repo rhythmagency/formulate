@@ -1,29 +1,31 @@
 ﻿(function () {
     function formulateConfiguredFormDesignerDirective(
-            notificationsService, formHelper, overlayService, $http, $routeParams,
-            formulateTypeDefinitionResource) {
+        $http,
+        $location,
+        editorService,
+        formHelper,
+        formulateIds,
+        formulateTypeDefinitionResource,
+        notificationsService) {
 
         const link = (scope) => {
+            scope.loading = true;
             scope.saveButtonState = 'init';
             const services = {
                 $scope: scope,
                 $http,
-                overlayService,
+                $location,
+                editorService,
                 formHelper,
-                notificationsService,
+                formulateIds,
+                formulateTypeDefinitionResource,
+                notificationsService
             };
             scope.events = new ConfiguredFormEvents(services);
 
-            // Initialize the templates and ID/path.
-            const promise1 = initializeTemplates(formulateTypeDefinitionResource, scope);
-            const promise2 = initializeIdAndPath(scope, $routeParams);
-
-            // Store initialization state once complete.
-            Promise.all([promise1, promise2])
-                .then(() => {
-                    scope.initialied = true;
-                });
-
+            initializeTemplates(formulateTypeDefinitionResource, scope).then(() => {
+                scope.loading = false;
+            });
         };
 
         const directive = {
@@ -36,25 +38,6 @@
         };
 
         return (directive);
-
-        /**
-         * Initializes the ID and path of the entity if it is new.
-         * @param $scope The current AngularJS scope.
-         * @param $routeParams The parameters from the route.
-         */
-        function initializeIdAndPath($scope) {
-
-            // Variables.
-            const entity = $scope.entity;
-            const path = entity.path;
-            const id = entity.id;
-
-            // Return early if the path and ID are already set.
-            if (path && path.length && id) {
-                $scope.initialized = true;
-                return new Promise(resolve => resolve());
-            }
-        }
     }
 
     /**
@@ -79,7 +62,7 @@
         // Service properties.
         $scope;
         $http;
-        overlayService;
+        editorService;
         formHelper;
         notificationsService;
 
@@ -98,37 +81,45 @@
 
             // This is called when the dialog is closed.
             let closer = () => {
-                this.overlayService.close();
+                this.editorService.close();
             };
 
             // This is called when a layout is chosen.
             let chosen = ({id, name}) => {
-                this.overlayService.close();
-                this.$scope.entity.layoutId = id;
-                this.$scope.entity.layoutName = name;
+                this.editorService.close();
+                this.$scope.entity.layout = { id, name };
             };
 
             // The data sent to the layout chooser.
             let data = {
+                section: 'formulate',
+                treeAlias: 'layouts',
+                multiPicker: false,
+                entityType: 'Layout',
+                filter: (node) => {
+                    return node.nodeType !== 'Layout';
+                },
+                filterCssClass: 'not-allowed',
                 title: "Choose Layout",
                 subtitle: "Choose a layout to associate with your form configuration.",
-                view: "/app_plugins/formulatebackoffice/directives/overlays/layoutchooser/layout-chooser-overlay.html",
-                hideSubmitButton: true,
                 close: closer,
-                chosen: chosen,
+                select: chosen,
             };
 
             // Open the overlay that displays the layouts.
-            this.overlayService.open(data);
-
+            this.editorService.treePicker(data);
         };
+
+        removeLayout = () => {
+            this.$scope.entity.layout = {};
+        }
 
         /**
          * Can the configured form be saved currently?
          * @returns {boolean} True, if the configured form can be saved; otherwise, false.
          */
         canSave = () => {
-            return this.$scope.initialized && this.isReadyToSave() && this.hasValidName();
+            return !this.$scope.loading && this.isReadyToSave() && this.hasValidName();
         };
 
         /**
@@ -162,7 +153,6 @@
                 formCtrl: this.$scope.formulateConfiguredFormDesigner,
             };
             if (this.formHelper.submitForm(submitFormData)) {
-
                 // Prepare the data to save.
                 const url = Umbraco.Sys.ServerVariables.formulate["configuredForms.Save"];
                 const entity = this.$scope.entity;
@@ -172,20 +162,31 @@
                     name: entity.name,
                     path: entity.path,
                     templateId: entity.templateId,
-                    layoutId: entity.layoutId,
+                    layout: !entity.layout.id ? null : { id: entity.layout.id }
                 };
 
                 // Save the data to the server.
                 this.$http.post(url, payload).then(({data: {success}}) => {
-                    this.$scope.saveButtonState = 'init';
                     const resetData = {
                         scope: this.$scope,
                         formCtrl: this.$scope.formulateConfiguredFormDesigner,
                     };
                     this.formHelper.resetForm(resetData);
                     if (success) {
-                        this.notificationsService.success("Configured form saved.");
+                        this.$scope.saveButtonState = 'success';
+
+                        if (entity.isNew) {
+                            const sanitizedEntityId = this.formulateIds.sanitize(entity.id);
+                            this.notificationsService.success("Configured form created.");
+
+                            this.$location.path("/formulate/forms/edit/" + sanitizedEntityId).search({});
+                        }
+                        else {
+                            this.notificationsService.success("Configured form saved.");
+                        }
                     } else {
+                        this.$scope.saveButtonState = 'error';
+
                         this.notificationsService.error("Unknown error while saving configured form.");
                     }
                 });

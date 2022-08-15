@@ -15,44 +15,52 @@
             <umb-editor-container>
                 <div class="form-horizontal">
                     <div class="umb-group-panel">
+                        <div class="umb-group-panel__header">
+                            Settings
+                        </div>
                         <div class="umb-group-panel__content">
 
-                            <!-- Introduction. -->
-                            <p>
-                                <localize key="formulate-introductions_Configured Form">
-                                    A configured form is just a form with a layout and template selected.
-                                    To configure this form, select a template and layout below.
-                                </localize>
-                            </p>
 
-                            <!-- Template. -->
-                            <select ng-options="option.id as option.name for option in templates" ng-model="entity.templateId">
-                                <option value="" formulate-inject-localization="formulate-options_Select a Template"></option>
-                            </select>
-
-                            <!-- Show picked layout. -->
-                            <div ng-if="entity.layoutId">
-                                <strong>
-                                    <localize key="formulate-labels_Layout:">
-                                        Layout:
-                                    </localize>
-                                </strong> {{entity.layoutName}}
+                            <div class="control-group umb-control-group -no-border">
+                                <div class="umb-el-wrap">
+                                    <div class="control-header">
+                                        <label class="control-label" for="pickLayout">
+                                            <localize key="formulate-labels_Layout">Layout</localize>
+                                        </label>
+                                    </div>
+                                    <div class="controls">
+                                        <div ng-if="entity.layout && entity.layout.id">
+                                            <umb-node-preview name="entity.layout.name"
+                                                              allow-remove="true"
+                                                              allow-open="false"
+                                                              on-remove="events.removeLayout()">
+                                            </umb-node-preview>
+                                        </div>
+                                        <div ng-if="!entity.layout || !entity.layout.id">
+                                            <button type="button"
+                                                    class="umb-node-preview-add"
+                                                    ng-click="events.pickLayout()">
+                                                <localize key="formulate-buttons_Select Layout">Select Layout</localize>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <!-- Show message indicating no layout has been picked. -->
-                            <div ng-if="!entity.layoutId">
-                                <localize key="formulate-labels_Layout not chosen">
-                                    Layout not yet chosen.
-                                </localize>
+                            <div class="control-group umb-control-group -no-border">
+                                <div class="umb-el-wrap">
+                                    <div class="control-header">
+                                        <label class="control-label" for="template">
+                                            <localize key="formulate-labels_Template">Template</localize>
+                                        </label>
+                                    </div>
+                                    <div class="controls">
+                                        <select ng-options="option.id as option.name for option in templates" ng-model="entity.templateId" name="template">
+                                            <option value="" formulate-inject-localization="formulate-options_Select a Template"></option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-
-                            <!-- Show button to pick the layout. -->
-                            <button type="button" class="btn btn-default" ng-click="events.pickLayout()">
-                                <localize key="formulate-buttons_Pick Layout">
-                                    Pick Layout
-                                </localize>
-                            </button>
-
                         </div>
                     </div>
                 </div>

@@ -29,14 +29,12 @@
 
             if (layout is not null)
             {
-                editorModel.LayoutId = layout.Id;
-                editorModel.LayoutName = layout.Name;
+                editorModel.Layout = new ConfiguredFormLayoutEditorModel(layout);
             }
 
             if (template is not null)
             {
                 editorModel.TemplateId = template.Id;
-                editorModel.TemplateName = template.Name;
             }
 
             return editorModel;
@@ -68,7 +66,7 @@
             {
                 Alias = editorModel.Alias,
                 Id = editorModel.Id,
-                LayoutId = editorModel.LayoutId,
+                LayoutId = editorModel.Layout?.Id,
                 Name = editorModel.Name,
                 Path = editorModel.Path,
                 TemplateId = editorModel.TemplateId
