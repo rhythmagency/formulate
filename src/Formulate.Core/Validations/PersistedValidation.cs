@@ -18,11 +18,5 @@ namespace Formulate.Core.Validations
         /// </summary>
         [DataMember]
         public string Data { get; set; }
-
-        /// <summary>
-        /// The alias for this validation.
-        /// </summary>
-        [DataMember]
-        public string Alias { get; set; }
     }
 }

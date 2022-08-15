@@ -20,5 +20,11 @@ namespace Formulate.Core.Persistence
         /// <inheritdoc cref="IPersistedEntity.Name"/>
         [DataMember]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the alias.
+        /// </summary>
+        [DataMember]
+        public string Alias { get; set; }
     }
 }

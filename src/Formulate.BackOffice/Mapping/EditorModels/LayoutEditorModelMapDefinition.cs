@@ -39,6 +39,7 @@
             return new PersistedLayout()
             {
                 Id = editorModel.Id,
+                Alias = editorModel.Alias,
                 KindId = editorModel.KindId,
                 Name = editorModel.Name,
                 Path = editorModel.Path,

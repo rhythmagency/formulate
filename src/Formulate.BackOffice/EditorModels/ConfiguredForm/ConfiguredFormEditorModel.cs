@@ -14,7 +14,6 @@
 
         public ConfiguredFormEditorModel(PersistedConfiguredForm entity, bool isNew) : base(entity, isNew)
         {
-            Alias = entity.Alias;
         }
 
         [DataMember(Name = "layout")]

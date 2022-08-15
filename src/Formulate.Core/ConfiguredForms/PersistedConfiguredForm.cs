@@ -12,12 +12,6 @@
     public sealed class PersistedConfiguredForm : PersistedEntity, IConfiguredFormSettings
     {
         /// <summary>
-        /// Gets or sets the alias.
-        /// </summary>
-        [DataMember]
-        public string Alias { get; set; }
-
-        /// <summary>
         /// The ID of the chosen template.
         /// </summary>
         [DataMember]

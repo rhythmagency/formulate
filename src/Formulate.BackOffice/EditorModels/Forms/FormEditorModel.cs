@@ -19,7 +19,6 @@
 
         public FormEditorModel(PersistedForm entity, bool isNew) : base(entity, isNew)
         {
-            Alias = entity.Alias;
         }
 
         /// <inheritdoc cref="PersistedForm.Fields"/>

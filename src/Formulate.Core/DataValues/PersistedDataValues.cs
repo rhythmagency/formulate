@@ -21,11 +21,5 @@ namespace Formulate.Core.DataValues
         /// </summary>
         [DataMember]
         public string Data { get; set; }
-
-        /// <summary>
-        /// Gets or sets the alias of this data value.
-        /// </summary>
-        [DataMember]
-        public string Alias { get; set; }
     }
 }

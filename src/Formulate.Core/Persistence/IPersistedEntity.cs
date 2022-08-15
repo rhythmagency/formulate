@@ -21,5 +21,10 @@ namespace Formulate.Core.Persistence
         /// Gets the name.
         /// </summary>
         string Name { get; }
+
+        /// <summary>
+        /// Gets the alias.
+        /// </summary>
+        string Alias { get; }
     }
 }

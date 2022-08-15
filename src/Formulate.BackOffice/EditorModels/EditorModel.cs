@@ -18,6 +18,7 @@
             Id = entity.Id;
             Path = entity.Path;
             Name = entity.Name;
+            Alias = entity.Alias;
             TreePath = entity.TreeSafePath();
             IsNew = isNew;            
         }

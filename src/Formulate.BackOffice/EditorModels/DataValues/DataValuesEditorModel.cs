@@ -14,7 +14,6 @@
 
         public DataValuesEditorModel(PersistedDataValues entity, bool isNew) : base(entity, isNew)
         {
-            Alias = entity.Alias;
             KindId = entity.KindId;
         }
 

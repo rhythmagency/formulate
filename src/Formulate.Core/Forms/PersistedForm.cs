@@ -13,12 +13,6 @@ namespace Formulate.Core.Forms
     public sealed class PersistedForm : PersistedEntity
     {
         /// <summary>
-        /// Gets or sets the alias.
-        /// </summary>
-        [DataMember]
-        public string Alias { get; set; }
-
-        /// <summary>
         /// Gets or sets the fields.
         /// </summary>
         [DataMember]
