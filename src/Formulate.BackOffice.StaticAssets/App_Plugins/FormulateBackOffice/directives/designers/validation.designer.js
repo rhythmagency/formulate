@@ -1,5 +1,5 @@
 ﻿(function () {
-    function formulateValidationDesignerDirective($http, $location, $routeParams, formulateDefinitionDirectiveResource, navigationService, notificationsService, formHelper) {
+    function formulateValidationDesignerDirective($http, formulateDesignerResource, formHelper) {
         var directive = {
             replace: true,
             templateUrl: "/app_plugins/formulatebackoffice/directives/designers/validation.designer.html",
@@ -27,25 +27,16 @@
                         $http.post(Umbraco.Sys.ServerVariables.formulate["validations.Save"], payload).then(
                             function (response) {
                                 scope.saveButtonState = "success";
-
                                 formHelper.resetForm({ scope: scope, formCtrl: scope.formCtrl });
 
-                                if (entity.isNew) {
-                                    notificationsService.success("Validation created.");
+                                const options = {
+                                    entity,
+                                    treeAlias: 'validations',
+                                    newEntityText: 'Validation created',
+                                    existingEntityText: 'Validation saved'
+                                };
 
-                                    $location.path("/formulate/validations/edit/" + entity.id).search({});
-                                } else {
-                                    notificationsService.success("Validation saved.");
-
-                                    var options = {
-                                        tree: "validations",
-                                        path: entity.treePath,
-                                        forceReload: true,
-                                        activate: false
-                                    };
-
-                                    navigationService.syncTree(options);
-                                }
+                                formulateDesignerResource.handleSuccessfulSave(options);
                             });
                     }
                 };
