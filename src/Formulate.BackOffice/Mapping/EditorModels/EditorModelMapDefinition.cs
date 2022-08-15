@@ -10,10 +10,14 @@
     {
         public void DefineMaps(IUmbracoMapper mapper)
         {
-            mapper.Define<TPersistedEntity, IEditorModel?>((block, mapperContext) => Map(block, mapperContext));
+            mapper.Define<TPersistedEntity, IEditorModel?>((entity, mapperContext) => MapFromEntity(entity, mapperContext));
+
+            mapper.Define<TEditorModel, TPersistedEntity?>((editorModel, mapperContext) => MapToEntity(editorModel, mapperContext));
         }
 
-        protected virtual TEditorModel? Map(TPersistedEntity entity, MapperContext mapperContext)
+        protected abstract TPersistedEntity? MapToEntity(TEditorModel editorModel, MapperContext mapperContext);
+
+        protected virtual TEditorModel? MapFromEntity(TPersistedEntity entity, MapperContext mapperContext)
         {
             if (mapperContext.Items.TryGetValue("isNew", out var value) && value is bool isNew)
             {

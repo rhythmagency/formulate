@@ -1,43 +1,48 @@
 ﻿namespace Formulate.Core.FormHandlers
 {
-    using Newtonsoft.Json;
     using System;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// A persisted form handler.
     /// </summary>
+    [DataContract]
     public sealed class PersistedFormHandler : IFormHandlerSettings
     {
         /// <summary>
         /// Gets or sets the ID.
         /// </summary>
+        [DataMember]
         public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the kind ID.
         /// </summary>
-        [JsonProperty("TypeId")]
+        [DataMember(Name = "TypeId")]
         public Guid KindId { get; set; }
 
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
+        [DataMember]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the configuration.
         /// </summary>
-        [JsonProperty("HandlerConfiguration")]
+        [DataMember(Name = "HandlerConfiguration")]
         public string Data { get; set; }
 
         /// <summary>
         /// Gets or sets the alias.
         /// </summary>
+        [DataMember]
         public string Alias { get; set; }
 
         /// <summary>
         /// Gets or sets value indicating whether this is enabled.
         /// </summary>
+        [DataMember]
         public bool Enabled { get; set; }
     }
 }

@@ -19,7 +19,7 @@
                         Alias: entity.alias,
                         Path: entity.path,
                         KindId: entity.kindId,
-                        Data: JSON.stringify(entity.data)
+                        Data: entity.data
                     };
 
                     if (formHelper.submitForm({ scope: scope, formCtrl: scope.formCtrl })) {

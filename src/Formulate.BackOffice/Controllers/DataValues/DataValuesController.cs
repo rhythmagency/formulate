@@ -15,10 +15,10 @@ using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Extensions;
 using Formulate.BackOffice.Utilities;
 using Formulate.BackOffice.Utilities.DataValues;
+using Formulate.BackOffice.EditorModels.DataValues;
 
 namespace Formulate.BackOffice.Controllers.DataValues
 {
-    [JsonCamelCaseFormatter]
     [FormulateBackOfficePluginController]
     public sealed class DataValuesController : FormulateBackOfficeEntityApiController
     {
@@ -27,13 +27,13 @@ namespace Formulate.BackOffice.Controllers.DataValues
         private readonly IGetDataValuesChildEntityOptions _getDataValuesChildEntityOptions;
         private readonly ICreateDataValuesScaffoldingEntity _createDataValuesScaffoldingEntity;
 
-        public DataValuesController(IBuildEditorModel buildEditorModel,
+        public DataValuesController(IMapEditorModel mapEditorModel,
             IDataValuesEntityRepository dataValuesEntityRepository,
             ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
             DataValuesDefinitionCollection dataValuesDefinitions,
             IGetDataValuesChildEntityOptions getDataValuesChildEntityOptions,
-            ICreateDataValuesScaffoldingEntity createDataValuesScaffoldingEntity) : base(buildEditorModel, treeEntityRepository, localizedTextService)
+            ICreateDataValuesScaffoldingEntity createDataValuesScaffoldingEntity) : base(mapEditorModel, treeEntityRepository, localizedTextService)
         {
             _dataValuesEntityRepository = dataValuesEntityRepository;
             _dataValuesDefinitions = dataValuesDefinitions;
@@ -93,14 +93,14 @@ namespace Formulate.BackOffice.Controllers.DataValues
                 return ValidationProblem(errorModel);
             }
 
-            var buildInput = new BuildEditorModelInput(entity, true);
-            var editorModel = _buildEditorModel.Build(buildInput);
+            var mapInput = new MapToEditorModelInput(entity, true);
+            var editorModel = _mapEditorModel.MapTo(mapInput);
 
             return Ok(editorModel);
         }
 
         [HttpGet]
-        public IActionResult  GetCreateOptions(Guid? id)
+        public IActionResult GetCreateOptions(Guid? id)
         {
             var entity = TreeEntityRepository.Get(id);
             var options = _getDataValuesChildEntityOptions.Get(entity);
@@ -109,8 +109,9 @@ namespace Formulate.BackOffice.Controllers.DataValues
         }
 
         [HttpPost]
-        public ActionResult Save(PersistedDataValues entity)
+        public ActionResult Save(DataValuesEditorModel model)
         {
+            var entity = _mapEditorModel.MapFrom<DataValuesEditorModel, PersistedDataValues>(model);
             _dataValuesEntityRepository.Save(entity);
 
             return Ok(new

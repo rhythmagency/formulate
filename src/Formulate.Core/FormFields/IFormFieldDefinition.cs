@@ -1,5 +1,6 @@
 ﻿namespace Formulate.Core.FormFields
 {
+    using System.Runtime.Serialization;
     // Namespaces.
     using Types;
 

@@ -400,12 +400,14 @@ class FormDesignerEventHandlers {
                         alias: x.alias,
                         category: x.category,
                         id: x.id,
-                        typeId: x.kindId,
+                        kindId: x.kindId,
                         name: x.name,
                         label: x.label,
-                        fieldConfiguration: JSON.stringify(x.fieldConfiguration),
-                        validations: x.validations.map(y => {
-                            return y.id;
+                        configuration: x.configuration,
+                        validations: x.validations.map(v => {
+                            return {
+                                id: v.id
+                            };
                         }),
                     };
                 }),
@@ -414,27 +416,27 @@ class FormDesignerEventHandlers {
                         alias: x.alias,
                         enabled: x.enabled,
                         id: x.id,
-                        typeId: x.kindId,
+                        kindId: x.kindId,
                         name: x.name,
                         //TODO: Double check naming (not sure if configuration is correct).
-                        handlerConfiguration: JSON.stringify(x.configuration),
+                        configuration: x.configuration,
                     };
                 }),
             };
 
             // Save the data to the server.
-            this.$http.post(url, payload).then(({data: {success}}) => {
-                this.$scope.saveButtonState = 'init';
+            this.$http.post(url, payload).then(() => {
+                this.$scope.saveButtonState = 'success';
                 const resetData = {
                     scope: this.$scope,
                     formCtrl: this.$scope.formulateFormDesigner,
                 };
                 this.formHelper.resetForm(resetData);
-                if (success) {
-                    this.notificationsService.success("Form saved.");
-                } else {
-                    this.notificationsService.error("Unknown error while saving form.");
-                }
+
+                this.notificationsService.success(entity.isNew ? "Form created" : "Form saved.");
+            }, () => {
+                this.$scope.saveButtonState = 'error';
+                this.notificationsService.error(entity.isNew ? "Unknown error while creating form." : "Unknown error while saving form.");
             });
 
         } else {

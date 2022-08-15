@@ -63,7 +63,7 @@ class FormulateLayoutDesigner {
                     Alias: entity.alias,
                     Path: entity.path,
                     KindId: entity.kindId,
-                    Data: JSON.stringify(entity.data)
+                    Data: entity.data
                 };
 
                 formulateLayouts.persistLayout(data).then(() => {

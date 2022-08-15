@@ -16,10 +16,10 @@ using Umbraco.Extensions;
 using Formulate.Core.Utilities;
 using Formulate.BackOffice.Utilities;
 using Formulate.BackOffice.Utilities.Layouts;
+using Formulate.BackOffice.EditorModels.Layouts;
 
 namespace Formulate.BackOffice.Controllers.Layouts
 {
-    [JsonCamelCaseFormatter]
     [FormulateBackOfficePluginController]
     public sealed class LayoutsController : FormulateBackOfficeEntityApiController
     {
@@ -29,14 +29,14 @@ namespace Formulate.BackOffice.Controllers.Layouts
         private readonly IGetLayoutsChildEntityOptions _getLayoutsChildEntityOptions;
 
         public LayoutsController(
-            IBuildEditorModel buildEditorModel,
+            IMapEditorModel mapEditorModel,
             ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
             LayoutDefinitionCollection layoutDefinitions,
             ILayoutEntityRepository layoutEntities,
             ICreateLayoutsScaffoldingEntity createLayoutsScaffoldingEntity,
             IGetLayoutsChildEntityOptions getLayoutsChildEntityOptions) :
-                base(buildEditorModel, treeEntityRepository, localizedTextService)
+                base(mapEditorModel, treeEntityRepository, localizedTextService)
         {
             this.layoutDefinitions = layoutDefinitions;
             this.layoutEntities = layoutEntities;
@@ -77,8 +77,8 @@ namespace Formulate.BackOffice.Controllers.Layouts
                 return ValidationProblem(errorModel);
             }
 
-            var buildInput = new BuildEditorModelInput(entity, true);
-            var editorModel = _buildEditorModel.Build(buildInput);
+            var mapInput = new MapToEditorModelInput(entity, true);
+            var editorModel = _mapEditorModel.MapTo(mapInput);
 
             return Ok(editorModel);
         }
@@ -93,8 +93,9 @@ namespace Formulate.BackOffice.Controllers.Layouts
         }
 
         [HttpPost]
-        public ActionResult Save(PersistedLayout entity)
+        public ActionResult Save(LayoutEditorModel model)
         {
+            var entity = _mapEditorModel.MapFrom<LayoutEditorModel, PersistedLayout>(model);
             layoutEntities.Save(entity);
             return Ok(new
             {

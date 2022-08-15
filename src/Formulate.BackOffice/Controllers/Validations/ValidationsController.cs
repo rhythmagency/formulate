@@ -16,13 +16,13 @@ using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Extensions;
 using Formulate.BackOffice.Utilities.Validations;
+using Formulate.BackOffice.EditorModels.Validation;
 
 namespace Formulate.BackOffice.Controllers.Validations
 {
     /// <summary>
     /// Controller for Formulate validations.
     /// </summary>
-    [JsonCamelCaseFormatter]
     [FormulateBackOfficePluginController]
     public sealed class ValidationsController : FormulateBackOfficeEntityApiController
     {
@@ -31,13 +31,13 @@ namespace Formulate.BackOffice.Controllers.Validations
         private readonly ICreateValidationsScaffoldingEntity _createValidationsScaffoldingEntity;
         private readonly IGetValidationsChildEntityOptions _getValidationsChildEntityOptions;
 
-        public ValidationsController(IBuildEditorModel buildEditorModel,
+        public ValidationsController(IMapEditorModel mapEditorModel,
             IValidationEntityRepository validationEntityRepository, 
             ValidationDefinitionCollection validationDefinitions, 
             ITreeEntityRepository treeEntityRepository, 
             ILocalizedTextService localizedTextService,
             ICreateValidationsScaffoldingEntity createValidationsScaffoldingEntity,
-            IGetValidationsChildEntityOptions getValidationsChildEntityOptions) : base(buildEditorModel, treeEntityRepository, localizedTextService)
+            IGetValidationsChildEntityOptions getValidationsChildEntityOptions) : base(mapEditorModel, treeEntityRepository, localizedTextService)
         {
             _validationEntityRepository = validationEntityRepository;
             _validationDefinitions = validationDefinitions;
@@ -77,8 +77,8 @@ namespace Formulate.BackOffice.Controllers.Validations
                 return ValidationProblem(errorModel);
             }
 
-            var buildInput = new BuildEditorModelInput(entity, true);
-            var editorModel = _buildEditorModel.Build(buildInput);
+            var mapInput = new MapToEditorModelInput(entity, true);
+            var editorModel = _mapEditorModel.MapTo(mapInput);
 
             return Ok(editorModel);
         }
@@ -112,8 +112,9 @@ namespace Formulate.BackOffice.Controllers.Validations
         }
 
         [HttpPost]
-        public ActionResult Save(PersistedValidation entity)
+        public ActionResult Save(ValidationEditorModel model)
         {
+            var entity = _mapEditorModel.MapFrom<ValidationEditorModel, PersistedValidation>(model);
             _validationEntityRepository.Save(entity);
 
             return Ok(new {

@@ -9,17 +9,22 @@
     using System.Linq;
     using Formulate.Core.Types;
     using Formulate.Core.Validations;
+    using Umbraco.Cms.Core.Mapping;
+    using Formulate.Core.Utilities;
 
     internal sealed class FormEditorModelMapDefinition : EditorModelMapDefinition<PersistedForm, FormEditorModel>
     {
+        private readonly IJsonUtility _jsonUtility;
+
         private readonly FormFieldDefinitionCollection _formFieldDefinitions;
 
         private readonly FormHandlerDefinitionCollection _formHandlerDefinitions;
 
         private readonly IValidationEntityRepository _validationEntityRepository;
 
-        public FormEditorModelMapDefinition(FormFieldDefinitionCollection formFieldDefinitions, FormHandlerDefinitionCollection formHandlerDefinitions,  IValidationEntityRepository validationEntityRepository)
+        public FormEditorModelMapDefinition(IJsonUtility jsonUtility, FormFieldDefinitionCollection formFieldDefinitions, FormHandlerDefinitionCollection formHandlerDefinitions,  IValidationEntityRepository validationEntityRepository)
         {
+            _jsonUtility = jsonUtility;
             _formFieldDefinitions = formFieldDefinitions;
             _formHandlerDefinitions = formHandlerDefinitions;
             _validationEntityRepository = validationEntityRepository;
@@ -32,6 +37,47 @@
                 Fields = MapFields(entity.Fields),
                 Handlers = MapHandlers(entity.Handlers)
             };
+        }
+
+        protected override PersistedForm? MapToEntity(FormEditorModel editorModel, MapperContext mapperContext)
+        {
+            return new PersistedForm()
+            {
+                Alias = editorModel.Alias,
+                Id = editorModel.Id,
+                Name = editorModel.Name,
+                Path = editorModel.Path,
+                Fields = MapFields(editorModel.Fields),
+                Handlers = MapHandlers(editorModel.Handlers)
+            };
+        }
+
+
+        private PersistedFormField[] MapFields(FormFieldEditorModel[] fields)
+        {
+            if (fields.Length == 0)
+            {
+                return Array.Empty<PersistedFormField>();
+            }
+
+            var mappedFields = new List<PersistedFormField>();
+
+            foreach (var field in fields)
+            {
+                mappedFields.Add(new PersistedFormField()
+                {
+                    Alias = field.Alias,
+                    Category = field.Category,
+                    Id = field.Id,
+                    KindId = field.KindId,
+                    Label = field.Label,
+                    Name = field.Name,
+                    Validations = MapValidations(field.Validations),
+                    Data = _jsonUtility.Serialize(field.Configuration)
+                });
+            }
+
+            return mappedFields.ToArray();
         }
 
         private FormFieldEditorModel[] MapFields(PersistedFormField[] fields)
@@ -74,7 +120,7 @@
 
             return mappedFields.ToArray();
         }
-
+        
         private FormHandlerEditorModel[] MapHandlers(PersistedFormHandler[] handlers)
         {
             if (handlers.Length == 0)
@@ -111,6 +157,31 @@
             return mappedHandlers.ToArray();
         }
 
+        private PersistedFormHandler[] MapHandlers(FormHandlerEditorModel[] handlers)
+        {
+            if (handlers is null || handlers.Any() == false)
+            {
+                return Array.Empty<PersistedFormHandler>();
+            }
+
+            var mappedHandlers = new List<PersistedFormHandler>();
+
+            foreach (var handler in handlers)
+            {
+                mappedHandlers.Add(new PersistedFormHandler()
+                {
+                    Alias = handler.Alias,
+                    Enabled = handler.Enabled,
+                    Id = handler.Id,
+                    KindId = handler.KindId,
+                    Name = handler.Name,
+                    Data = _jsonUtility.Serialize(handler.Configuration)
+                });
+            }
+
+            return mappedHandlers.ToArray();
+        }
+
         private FormFieldValidationEditorModel[] MapValidations(Guid[] validations)
         {
             if (validations is null || validations.Any() == false)
@@ -126,6 +197,16 @@
                 Id = x.Id,
                 Name = x.Name
             }).ToArray();
+        }
+
+        private Guid[] MapValidations(FormFieldValidationEditorModel[] validations)
+        {
+            if (validations.Length == 0)
+            {
+                return Array.Empty<Guid>();
+            }
+
+            return validations.Select(x => x.Id).ToArray();
         }
     }
 }

@@ -17,11 +17,11 @@
     using Umbraco.Extensions;
     using Formulate.BackOffice.Utilities;
     using Formulate.BackOffice.Utilities.Forms;
+    using Formulate.BackOffice.EditorModels.Forms;
 
     /// <summary>
     /// Manages back office API operations for Formulate forms.
     /// </summary>
-    [JsonCamelCaseFormatter]
     [FormulateBackOfficePluginController]
     public sealed class FormsController : FormulateBackOfficeEntityApiController
     {
@@ -40,10 +40,10 @@
             FormFieldDefinitionCollection formFieldDefinitions,
             TemplateDefinitionCollection templateDefinitions,
             IConfiguredFormEntityRepository configuredFormRepository,
-            IBuildEditorModel buildEditorModel,
+            IMapEditorModel mapEditorModel,
             IGetFormsChildEntityOptions getFormsChildEntityOptions,
             ICreateFormsScaffoldingEntity createFormsScaffoldingEntity)
-            : base(buildEditorModel, treeEntityRepository, localizedTextService)
+            : base(mapEditorModel, treeEntityRepository, localizedTextService)
         {
             this.formEntityRepository = formEntityRepository;
             this.formHandlerDefinitions = formHandlerDefinitions;
@@ -86,8 +86,8 @@
                 return ValidationProblem(errorModel);
             }
 
-            var buildInput = new BuildEditorModelInput(entity, true);
-            var editorModel = _buildEditorModel.Build(buildInput);
+            var mapInput = new MapToEditorModelInput(entity, true);
+            var editorModel = _mapEditorModel.MapTo(mapInput);
 
             return Ok(editorModel);
         }
@@ -111,13 +111,12 @@
         /// An indicator of success.
         /// </returns>
         [HttpPost]
-        public ActionResult Save(PersistedForm entity)
+        public ActionResult Save(FormEditorModel model)
         {
+            var entity = _mapEditorModel.MapFrom<FormEditorModel, PersistedForm>(model);
             formEntityRepository.Save(entity);
-            return Ok(new
-            {
-                Success = true,
-            });
+            
+            return Ok();
         }
 
         /// <summary>
@@ -169,8 +168,8 @@
         {
             var options = templateDefinitions.Select(x => new
             {
-                x.Id,
-                x.Name,
+                id = x.Id,
+                name = x.Name,
             }).ToArray();
 
             return Ok(options);

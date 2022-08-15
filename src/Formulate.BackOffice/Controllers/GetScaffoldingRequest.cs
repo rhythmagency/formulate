@@ -1,16 +1,16 @@
 ﻿namespace Formulate.BackOffice.Controllers
 {
     using Formulate.BackOffice.Persistence;
-    using Newtonsoft.Json;
     using System;
-    using System.Text.Json.Serialization;
+    using System.Runtime.Serialization;
 
+    [DataContract]
     public abstract class GetScaffoldingRequest
     {
-        [JsonProperty("entityType")]
+        [DataMember(Name = "entityType")]
         public EntityTypes EntityType { get; set; }
 
-        [JsonProperty("parentId")]
+        [DataMember(Name = "parentId")]
         public Guid? ParentId { get; set; }
     }
 }

@@ -53,7 +53,7 @@
             };
 
             var callbackOptions = {
-                success: (entity) => {                    
+                success: (entity) => {
                     return {
                         id: entity.id,
                         kindId: entity.kindId,
@@ -61,7 +61,7 @@
                         name: entity.name,
                         alias: entity.alias,
                         directive: entity.directive,
-                        data: JSON.parse(entity.data)
+                        data: entity.data
                     };
                 },
                 errorMsg: 'Unable to get data value'

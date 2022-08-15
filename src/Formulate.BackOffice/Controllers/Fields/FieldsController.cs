@@ -7,7 +7,6 @@
     using Umbraco.Cms.Web.BackOffice.Controllers;
     using Umbraco.Cms.Web.BackOffice.Filters;
 
-    [JsonCamelCaseFormatter]
     [FormulateBackOfficePluginController]
     public sealed class FieldsController : UmbracoAuthorizedApiController
     {

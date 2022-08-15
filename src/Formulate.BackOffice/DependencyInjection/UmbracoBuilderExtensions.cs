@@ -19,7 +19,7 @@ namespace Formulate.BackOffice.DependencyInjection
             builder.Sections().Append<FormulateSection>();
 
             builder.Services.AddScoped<ITreeEntityRepository, TreeEntityRepository>();
-            builder.Services.AddScoped<IBuildEditorModel, BuildEditorModel>();
+            builder.Services.AddScoped<IMapEditorModel, MapEditorModel>();
 
             builder.Services.AddScoped<ICreateFormsScaffoldingEntity, CreateFormsScaffoldingEntity>();
             builder.Services.AddScoped<IGetFormsChildEntityOptions, GetFormsChildEntityOptions>();

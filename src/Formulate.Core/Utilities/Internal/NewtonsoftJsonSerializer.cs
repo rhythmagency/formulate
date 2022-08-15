@@ -8,16 +8,22 @@
     /// </summary>
     internal sealed class NewtonsoftJsonSerializer : IJsonSerializer
     {
+        private readonly JsonSerializerSettings _settings = new JsonSerializerSettings()
+        {
+            Formatting = Formatting.Indented,
+            ContractResolver = new DefaultContractResolver()
+        };
+
         /// <inheritdoc />
         public T Deserialize<T>(string value)
         {
-            return JsonConvert.DeserializeObject<T>(value);
+            return JsonConvert.DeserializeObject<T>(value, _settings);
         }
 
         /// <inheritdoc />
         public string Serialize(object value)
         {
-            return JsonConvert.SerializeObject(value, Formatting.Indented);
+            return JsonConvert.SerializeObject(value, _settings);
         }
     }
 }

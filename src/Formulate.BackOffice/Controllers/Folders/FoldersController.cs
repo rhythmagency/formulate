@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Formulate.BackOffice.Attributes;
+using Formulate.BackOffice.EditorModels.Folders;
 using Formulate.BackOffice.Persistence;
 using Formulate.BackOffice.Trees;
 using Formulate.BackOffice.Utilities;
@@ -15,7 +16,6 @@ namespace Formulate.BackOffice.Controllers.Folders
     /// A controller for persisting folders in the Formulate backoffice.
     /// </summary>
     /// <remarks>Unlike other controllers folders is just used for saving and not getting data.</remarks>
-    [JsonCamelCaseFormatter]
     [FormulateBackOfficePluginController]
     public sealed class FoldersController : FormulateBackOfficeEntityApiController
     {
@@ -24,14 +24,15 @@ namespace Formulate.BackOffice.Controllers.Folders
         /// </summary>
         private readonly IFolderEntityRepository _folderEntityRepository;
         
-        public FoldersController(IBuildEditorModel buildEditorModel, IFolderEntityRepository folderEntityRepository, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService) : base(buildEditorModel, treeEntityRepository, localizedTextService)
+        public FoldersController(IMapEditorModel mapEditorModel, IFolderEntityRepository folderEntityRepository, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService) : base(mapEditorModel, treeEntityRepository, localizedTextService)
         {
             _folderEntityRepository = folderEntityRepository;
         }
 
         [HttpPost]
-        public ActionResult Save(PersistedFolder entity)
+        public ActionResult Save(FolderEditorModel model)
         {
+            var entity = _mapEditorModel.MapFrom<FolderEditorModel, PersistedFolder>(model);
             _folderEntityRepository.Save(entity);
 
             return Ok(new {

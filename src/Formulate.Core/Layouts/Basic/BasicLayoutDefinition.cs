@@ -69,8 +69,7 @@ namespace Formulate.Core.Layouts.Basic
 
             return new BasicLayoutConfiguration()
             {
-                AutoPopulate = false,
-                Rows = Array.Empty<BasicLayoutRow>()
+                AutoPopulate = false
             };            
         }
     }

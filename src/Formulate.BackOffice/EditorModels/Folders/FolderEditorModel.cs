@@ -2,9 +2,15 @@
 {
     using Formulate.BackOffice.Persistence;
     using Formulate.Core.Folders;
+    using System.Runtime.Serialization;
 
+    [DataContract]
     public sealed class FolderEditorModel : EditorModel
     {
+        public FolderEditorModel() : base()
+        {
+        }
+
         public FolderEditorModel(PersistedFolder entity, bool isNew) : base(entity, isNew)
         {
         }

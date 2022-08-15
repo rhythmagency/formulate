@@ -2,13 +2,13 @@
 {
     using Formulate.Core.Persistence;
 
-    public sealed class BuildEditorModelInput
+    public sealed class MapToEditorModelInput
     {
-        public BuildEditorModelInput(IPersistedEntity entity) : this(entity, false)
+        public MapToEditorModelInput(IPersistedEntity entity) : this(entity, false)
         {
         }
 
-        public BuildEditorModelInput(IPersistedEntity entity, bool isNew)
+        public MapToEditorModelInput(IPersistedEntity entity, bool isNew)
         {
             Entity = entity;
             IsNew = isNew;

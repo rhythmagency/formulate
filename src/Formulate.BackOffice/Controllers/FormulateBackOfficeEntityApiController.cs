@@ -14,21 +14,20 @@ using Umbraco.Extensions;
 
 namespace Formulate.BackOffice.Controllers
 {
-    [JsonCamelCaseFormatter]
     [FormulateBackOfficePluginController]
     public abstract partial class FormulateBackOfficeEntityApiController : UmbracoAuthorizedApiController
     {
         protected readonly ITreeEntityRepository TreeEntityRepository;
 
+        protected readonly IMapEditorModel _mapEditorModel;
+
         private readonly ILocalizedTextService _localizedTextService;
 
-        protected readonly IBuildEditorModel _buildEditorModel;
-
-        protected FormulateBackOfficeEntityApiController(IBuildEditorModel buildEditorModel, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService)
+        protected FormulateBackOfficeEntityApiController(IMapEditorModel mapEditorModel, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService)
         {
             TreeEntityRepository = treeEntityRepository;
             _localizedTextService = localizedTextService;
-            _buildEditorModel = buildEditorModel;
+            _mapEditorModel = mapEditorModel;
         }
 
         /// <summary>
@@ -53,8 +52,8 @@ namespace Formulate.BackOffice.Controllers
                 return NotFound();
             }
 
-            var buildInput = new BuildEditorModelInput(entity, false);
-            var editorModel = _buildEditorModel.Build(buildInput);
+            var mapInput = new MapToEditorModelInput(entity, false);
+            var editorModel = _mapEditorModel.MapTo(mapInput);
 
             // Return the response with the data.
             return Ok(editorModel);

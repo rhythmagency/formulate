@@ -1,14 +1,15 @@
 ﻿namespace Formulate.Core.ConfiguredForms
 {
-    using Newtonsoft.Json;
     using System;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// The property value stored by a Confirmed Form Picker.
     /// </summary>
+    [DataContract]
     public sealed class ConfiguredFormPropertyValue
     {
-        [JsonProperty("id")]
+        [DataMember(Name = "id")]
         public Guid Id { get; set; }
     }
 }

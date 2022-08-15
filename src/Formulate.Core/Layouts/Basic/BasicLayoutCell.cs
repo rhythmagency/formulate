@@ -1,23 +1,25 @@
 ﻿namespace Formulate.Core.Layouts.Basic
 {
-    using Newtonsoft.Json;
+    using System;
     using System.Collections.Generic;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// A cell in a basic layout row.
     /// </summary>
+    [DataContract]
     public sealed class BasicLayoutCell
     {
         /// <summary>
         /// Gets the number of columns this cell spans.
         /// </summary>
-        [JsonProperty("columnSpan")]
+        [DataMember(Name = "columnSpan")]
         public int ColumnSpan { get; set; }
 
         /// <summary>
         /// Gets the fields in this cell.
         /// </summary>
-        [JsonProperty("fields")]
-        public IEnumerable<BasicLayoutField> Fields { get; set; }
+        [DataMember(Name = "fields")]
+        public BasicLayoutField[] Fields { get; set; } = Array.Empty<BasicLayoutField>();
     }
 }

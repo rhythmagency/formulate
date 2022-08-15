@@ -1,6 +1,7 @@
 ﻿namespace Formulate.Core.Utilities.Internal
 {
     using Formulate.Core.Converters;
+    using System.Runtime.Serialization.Json;
     using System.Text.Json;
 
     /// <summary>
@@ -14,6 +15,7 @@
             {
                 PropertyNameCaseInsensitive = true,
             };
+
             options.Converters.Add(new FlexibleGuidJsonConverter());
 
             return JsonSerializer.Deserialize<T>(value, options);
