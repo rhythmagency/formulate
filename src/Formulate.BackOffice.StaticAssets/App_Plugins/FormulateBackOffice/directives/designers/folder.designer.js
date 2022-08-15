@@ -1,5 +1,5 @@
 ﻿(function () {
-    function formulateFolderDesignerDirective($http, $location, $routeParams, navigationService, notificationsService, formHelper) {
+    function formulateFolderDesignerDirective($http, formulateDesignerResource, formHelper) {
         var directive = {
             replace: true,
             templateUrl: "/app_plugins/formulatebackoffice/directives/designers/folder.designer.html",
@@ -29,22 +29,14 @@
 
                                 formHelper.resetForm({ scope: scope, formCtrl: scope.formCtrl });
 
-                                if (entity.isNew) {
-                                    notificationsService.success("Folder created.");
+                                const options = {
+                                    entity,
+                                    treeAlias: scope.treeType,
+                                    newEntityText: 'Folder created',
+                                    existingEntityText: 'Folder saved'
+                                };
 
-                                    $location.path("/formulate/" + scope.treeType + "/edit/" + entity.id).search({});
-                                } else {
-                                    notificationsService.success("Folder saved.");
-
-                                    var options = {
-                                        tree: scope.treeType,
-                                        path: entity.treePath,
-                                        forceReload: true,
-                                        activate: false
-                                    };
-
-                                    navigationService.syncTree(options);
-                                }
+                                formulateDesignerResource.handleSuccessfulSave(options);
                             });
                     }
                 };
