@@ -1,10 +1,9 @@
 ﻿(function () {
     function formulateConfiguredFormDesignerDirective(
         $http,
-        $location,
         editorService,
         formHelper,
-        formulateIds,
+        formulateDesignerResource,
         formulateTypeDefinitionResource,
         notificationsService) {
 
@@ -14,10 +13,9 @@
             const services = {
                 $scope: scope,
                 $http,
-                $location,
                 editorService,
                 formHelper,
-                formulateIds,
+                formulateDesignerResource,
                 formulateTypeDefinitionResource,
                 notificationsService
             };
@@ -65,6 +63,7 @@
         editorService;
         formHelper;
         notificationsService;
+        formulateDesignerResource;
 
         /**
          * Constructor.
@@ -156,13 +155,14 @@
                 // Prepare the data to save.
                 const url = Umbraco.Sys.ServerVariables.formulate["configuredForms.Save"];
                 const entity = this.$scope.entity;
+                const hasLayout = entity.layout && entity.layout.id;
                 const payload = {
                     alias: entity.alias,
                     id: entity.id,
                     name: entity.name,
                     path: entity.path,
                     templateId: entity.templateId,
-                    layout: !entity.layout.id ? null : { id: entity.layout.id }
+                    layout: !hasLayout ? null : { id: entity.layout.id }
                 };
 
                 // Save the data to the server.
@@ -175,15 +175,14 @@
                     if (success) {
                         this.$scope.saveButtonState = 'success';
 
-                        if (entity.isNew) {
-                            const sanitizedEntityId = this.formulateIds.sanitize(entity.id);
-                            this.notificationsService.success("Configured form created.");
+                        const options = {
+                            entity,
+                            treeAlias: 'forms',
+                            newEntityText: 'Configured form created',
+                            existingEntityText: 'Configured form saved'
+                        };
 
-                            this.$location.path("/formulate/forms/edit/" + sanitizedEntityId).search({});
-                        }
-                        else {
-                            this.notificationsService.success("Configured form saved.");
-                        }
+                        this.formulateDesignerResource.handleSuccessfulSave(options);                        
                     } else {
                         this.$scope.saveButtonState = 'error';
 
