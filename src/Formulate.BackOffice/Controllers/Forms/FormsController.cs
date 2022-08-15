@@ -38,7 +38,6 @@
             FormHandlerDefinitionCollection formHandlerDefinitions,
             FormFieldDefinitionCollection formFieldDefinitions,
             TemplateDefinitionCollection templateDefinitions,
-            IConfiguredFormEntityRepository configuredFormRepository,
             IEditorModelMapper editorModelMapper,
             IGetFormsChildEntityOptions getFormsChildEntityOptions,
             ICreateFormsScaffoldingEntity createFormsScaffoldingEntity)
