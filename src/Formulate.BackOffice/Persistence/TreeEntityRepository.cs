@@ -181,7 +181,7 @@ namespace Formulate.BackOffice.Persistence
                     break;
 
                 case PersistedForm:
-                    _folderEntityRepository.Delete(entity.Id);
+                    _formEntityRepository.Delete(entity.Id);
                     break;
 
                 case PersistedLayout:
