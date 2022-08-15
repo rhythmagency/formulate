@@ -76,12 +76,15 @@ class FormulateLayoutDesigner {
 
                     formHelper.resetForm(resetData);
 
-                    notificationsService.success("Layout saved.");
 
                     if (entity.isNew) {
                         const sanitizedEntityId = formulateIds.sanitize(entity.id);
 
+                        notificationsService.success("Layout created.");
                         $location.path("/formulate/layouts/edit/" + sanitizedEntityId).search({});
+                    }
+                    else {
+                        notificationsService.success("Layout saved.");
                     }
                 });
             }
