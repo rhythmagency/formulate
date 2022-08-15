@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 function formulateFormDesignerDirective(
-    $timeout, formHelper, $http, $routeParams, editorService, notificationsService) {
+    $timeout, formHelper, $http, formulateDesignerResource, editorService, notificationsService) {
     const directive = {
         replace: true,
         templateUrl: "/app_plugins/formulatebackoffice/directives/designers/form.designer.html",
@@ -98,37 +98,19 @@ function formulateFormDesignerDirective(
                 scope.appChanged(scope.apps[0]);
             }
 
-            initializeIdAndPath(scope);
-
             scope.events = new FormDesignerEventHandlers({
                 $scope: scope,
                 $timeout,
                 $http,
-                $routeParams,
+                formulateDesignerResource,
                 editorService,
                 formHelper,
                 notificationsService,
             });
+
+            scope.initialized = true;
         }
     };
-
-    /**
-     * Initializes the ID and path of the entity if it is new.
-     * @param $scope The current AngularJS scope.
-     */
-    function initializeIdAndPath($scope) {
-
-        // Variables.
-        const entity = $scope.entity;
-        const path = entity.path;
-        const id = entity.id;
-
-        // Return early if the path and ID are already set.
-        if (path && path.length && id) {
-            $scope.initialized = true;
-            return;
-        }
-    }
 
     return directive;
 }
@@ -141,7 +123,7 @@ class FormDesignerEventHandlers {
     // Service properties.
     $scope;
     $http;
-    $routeParams;
+    formulateDesignerResource;
     editorService;
     formHelper;
     notificationsService;
@@ -433,7 +415,14 @@ class FormDesignerEventHandlers {
                 };
                 this.formHelper.resetForm(resetData);
 
-                this.notificationsService.success(entity.isNew ? "Form created" : "Form saved.");
+                const options = {
+                    entity,
+                    treeAlias: 'forms',
+                    newEntityText: 'Form created',
+                    existingEntityText: 'Form saved'
+                };
+
+                this.formulateDesignerResource.handleSuccessfulSave(options);
             }, () => {
                 this.$scope.saveButtonState = 'error';
                 this.notificationsService.error(entity.isNew ? "Unknown error while creating form." : "Unknown error while saving form.");
