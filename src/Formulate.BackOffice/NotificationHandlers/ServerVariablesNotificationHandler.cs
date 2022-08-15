@@ -11,6 +11,7 @@
     using Core.Forms;
     using Core.Layouts;
     using Core.Validations;
+    using Formulate.BackOffice.Controllers.ConfiguredForms;
     using Formulate.BackOffice.Controllers.Fields;
     using Microsoft.AspNetCore.Routing;
     using System.Collections.Generic;
@@ -176,20 +177,13 @@
                 { "GetTemplateDefinitions", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GetTemplateDefinitions()) },
-                { "configuredForms.Save", LinkGenerator
-                    .GetUmbracoApiService<FormsController>(x =>
-                        x.SaveConfiguredForm()) },
-                { "configuredForms.Get", LinkGenerator
-                    .GetUmbracoApiService<FormsController>(x =>
-                        x.GetConfiguredForm()) },
-                //{ "DuplicateForm",
-                //    LinkGenerator.GetUmbracoApiService<FormsController>(x => x.DuplicateForm(null)) },
             };
 
             AddVariables<DataValuesController>(FormulateDataValuesTreeController.Constants.Alias, newEntries);
             AddVariables<FormsController>(FormulateFormsTreeController.Constants.Alias, newEntries);
             AddVariables<LayoutsController>(FormulateLayoutsTreeController.Constants.Alias, newEntries);
             AddVariables<ValidationsController>(FormulateValidationsTreeController.Constants.Alias, newEntries);
+            AddVariables<ConfiguredFormsController>("configuredForms", newEntries);
 
             if (notification.ServerVariables.ContainsKey(key))
             {
