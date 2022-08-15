@@ -83,6 +83,7 @@
       <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\configured-form-picker\form-picker.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\configured-form-picker\form-picker.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\definitionDirectiveResource.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\resources\designerResource.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\entityResource.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\formulateFieldsResource.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\formulateServerResource.js" />
