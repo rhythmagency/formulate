@@ -18,7 +18,7 @@
             _validationDefinitions = validationDefinitions;
         }
 
-        protected override ValidationEditorModel? Map(PersistedValidation entity, bool isNew)
+        protected override ValidationEditorModel? MapToEditor(PersistedValidation entity, bool isNew)
         {
             var definition = _validationDefinitions.FirstOrDefault(entity.KindId);
 

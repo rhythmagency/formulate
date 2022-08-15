@@ -19,7 +19,7 @@
             _dataValuesDefinitions = dataValuesDefinitions;
         }
 
-        protected override DataValuesEditorModel? Map(PersistedDataValues entity, bool isNew)
+        protected override DataValuesEditorModel? MapToEditor(PersistedDataValues entity, bool isNew)
         {
             var definition = _dataValuesDefinitions.FirstOrDefault(entity.KindId);
             

@@ -21,7 +21,7 @@
             _layoutEntities = layoutEntityRepository;
         }
 
-        protected override ConfiguredFormEditorModel? Map(PersistedConfiguredForm entity, bool isNew)
+        protected override ConfiguredFormEditorModel? MapToEditor(PersistedConfiguredForm entity, bool isNew)
         {
             var layout = GetLayout(entity.LayoutId);
             var template = GetTemplate(entity.TemplateId);

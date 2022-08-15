@@ -18,7 +18,7 @@
             _layoutDefinitions = layoutDefinitions;
         }
 
-        protected override LayoutEditorModel? Map(PersistedLayout entity, bool isNew)
+        protected override LayoutEditorModel? MapToEditor(PersistedLayout entity, bool isNew)
         {
             var definition = _layoutDefinitions.FirstOrDefault(entity.KindId);
 

@@ -30,7 +30,7 @@
             _validationEntityRepository = validationEntityRepository;
         }
 
-        protected override FormEditorModel? Map(PersistedForm entity, bool isNew)
+        protected override FormEditorModel? MapToEditor(PersistedForm entity, bool isNew)
         {
             return new FormEditorModel(entity, isNew)
             {
