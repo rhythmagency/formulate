@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Formulate.BackOffice.Controllers
+﻿namespace Formulate.BackOffice.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     public abstract partial class FormulateBackOfficeEntityApiController
     {
         [NonAction]

@@ -1,25 +1,19 @@
-﻿using Formulate.BackOffice.Attributes;
-using Formulate.BackOffice.Persistence;
-using Formulate.BackOffice.Trees;
-using Formulate.Core.DataValues;
-using Formulate.Core.Folders;
-using Formulate.Core.Persistence;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Formulate.Core.Layouts;
-using Umbraco.Cms.Core.Models.ContentEditing;
-using Umbraco.Cms.Core.Services;
-
-using Umbraco.Extensions;
-using Formulate.Core.Utilities;
-using Formulate.BackOffice.Utilities;
-using Formulate.BackOffice.Utilities.Layouts;
-using Formulate.BackOffice.EditorModels.Layouts;
-
-namespace Formulate.BackOffice.Controllers.Layouts
+﻿namespace Formulate.BackOffice.Controllers.Layouts
 {
+    using Formulate.BackOffice.Attributes;
+    using Formulate.BackOffice.Persistence;
+    using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Linq;
+    using Formulate.Core.Layouts;
+    using Umbraco.Cms.Core.Models.ContentEditing;
+    using Umbraco.Cms.Core.Services;
+
+    using Umbraco.Extensions;
+    using Formulate.BackOffice.Utilities;
+    using Formulate.BackOffice.Utilities.Layouts;
+    using Formulate.BackOffice.EditorModels.Layouts;
+
     [FormulateBackOfficePluginController]
     public sealed class LayoutsController : FormulateBackOfficeEntityApiController
     {

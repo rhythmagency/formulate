@@ -1,8 +1,8 @@
-﻿using Umbraco.Cms.Core.Services;
-using Umbraco.Extensions;
-
-namespace Formulate.BackOffice
+﻿namespace Formulate.BackOffice
 {
+    using Umbraco.Cms.Core.Services;
+    using Umbraco.Extensions;
+
     /// <summary>
     /// Extension methods that augment classes that implement <see cref="ILocalizedTextService"/>.
     /// </summary>

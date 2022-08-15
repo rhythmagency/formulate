@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Formulate.Core.ConfiguredForms;
-using Formulate.Core.DataValues;
-using Formulate.Core.Folders;
-using Formulate.Core.Forms;
-using Formulate.Core.Layouts;
-using Formulate.Core.Persistence;
-using Formulate.Core.Validations;
-
-namespace Formulate.BackOffice.Persistence
+﻿namespace Formulate.BackOffice.Persistence
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Formulate.Core.ConfiguredForms;
+    using Formulate.Core.DataValues;
+    using Formulate.Core.Folders;
+    using Formulate.Core.Forms;
+    using Formulate.Core.Layouts;
+    using Formulate.Core.Persistence;
+    using Formulate.Core.Validations;
+
     /// <summary>
     /// The default implementation of <see cref="ITreeEntityRepository"/>.
     /// </summary>

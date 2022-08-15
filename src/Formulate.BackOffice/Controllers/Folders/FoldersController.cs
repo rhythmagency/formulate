@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Formulate.BackOffice.Attributes;
-using Formulate.BackOffice.EditorModels.Folders;
-using Formulate.BackOffice.Persistence;
-using Formulate.BackOffice.Trees;
-using Formulate.BackOffice.Utilities;
-using Formulate.Core.Folders;
-using Microsoft.AspNetCore.Mvc;
-using Umbraco.Cms.Core.Services;
-
-
-namespace Formulate.BackOffice.Controllers.Folders
+﻿namespace Formulate.BackOffice.Controllers.Folders
 {
+    using Formulate.BackOffice.Attributes;
+    using Formulate.BackOffice.EditorModels.Folders;
+    using Formulate.BackOffice.Persistence;
+    using Formulate.BackOffice.Utilities;
+    using Formulate.Core.Folders;
+    using Microsoft.AspNetCore.Mvc;
+    using Umbraco.Cms.Core.Services;
+
     /// <summary>
     /// A controller for persisting folders in the Formulate backoffice.
     /// </summary>

@@ -1,7 +1,7 @@
-﻿using Umbraco.Cms.Core.Sections;
-
-namespace Formulate.BackOffice
+﻿namespace Formulate.BackOffice
 {
+    using Umbraco.Cms.Core.Sections;
+
     public sealed class FormulateSection : ISection
     {
         public static class Constants

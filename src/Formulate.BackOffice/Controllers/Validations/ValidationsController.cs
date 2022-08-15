@@ -1,25 +1,19 @@
-﻿using System;
-using System.Buffers;
-using System.Collections.Generic;
-using System.Linq;
-using Formulate.BackOffice.Attributes;
-using Formulate.BackOffice.Persistence;
-using Formulate.BackOffice.Trees;
-using Formulate.BackOffice.Utilities;
-using Formulate.Core.Folders;
-using Formulate.Core.Persistence;
-using Formulate.Core.Types;
-using Formulate.Core.Validations;
-using Microsoft.AspNetCore.Mvc;
-using Umbraco.Cms.Core.Models.ContentEditing;
-using Umbraco.Cms.Core.Services;
-
-using Umbraco.Extensions;
-using Formulate.BackOffice.Utilities.Validations;
-using Formulate.BackOffice.EditorModels.Validation;
-
-namespace Formulate.BackOffice.Controllers.Validations
+﻿namespace Formulate.BackOffice.Controllers.Validations
 {
+    using System;
+    using System.Linq;
+    using Formulate.BackOffice.Attributes;
+    using Formulate.BackOffice.Persistence;
+    using Formulate.BackOffice.Utilities;
+    using Formulate.Core.Validations;
+    using Microsoft.AspNetCore.Mvc;
+    using Umbraco.Cms.Core.Models.ContentEditing;
+    using Umbraco.Cms.Core.Services;
+
+    using Umbraco.Extensions;
+    using Formulate.BackOffice.Utilities.Validations;
+    using Formulate.BackOffice.EditorModels.Validation;
+
     /// <summary>
     /// Controller for Formulate validations.
     /// </summary>

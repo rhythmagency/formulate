@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using Formulate.BackOffice.Persistence;
-using Formulate.BackOffice.Trees;
-using Umbraco.Cms.Core;
-
-namespace Formulate.BackOffice.Controllers
+﻿namespace Formulate.BackOffice.Controllers
 {
+    using System.Collections.Generic;
+    using Formulate.BackOffice.Persistence;
+    using Formulate.BackOffice.Trees;
+    using Umbraco.Cms.Core;
+
     internal static class CreateCreateChildEntityOptionCollectionExtensions
     {
         public static void AddFormOption(this List<CreateChildEntityOption> items)

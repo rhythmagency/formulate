@@ -1,17 +1,17 @@
-﻿using Formulate.BackOffice.Mapping.EditorModels;
-using Formulate.BackOffice.NotificationHandlers;
-using Formulate.BackOffice.Persistence;
-using Formulate.BackOffice.Utilities;
-using Formulate.BackOffice.Utilities.DataValues;
-using Formulate.BackOffice.Utilities.Forms;
-using Formulate.BackOffice.Utilities.Layouts;
-using Formulate.BackOffice.Utilities.Validations;
-using Microsoft.Extensions.DependencyInjection;
-using Umbraco.Cms.Core.DependencyInjection;
-using Umbraco.Cms.Core.Notifications;
-
-namespace Formulate.BackOffice.DependencyInjection
+﻿namespace Formulate.BackOffice.DependencyInjection
 {
+    using Formulate.BackOffice.Mapping.EditorModels;
+    using Formulate.BackOffice.NotificationHandlers;
+    using Formulate.BackOffice.Persistence;
+    using Formulate.BackOffice.Utilities;
+    using Formulate.BackOffice.Utilities.DataValues;
+    using Formulate.BackOffice.Utilities.Forms;
+    using Formulate.BackOffice.Utilities.Layouts;
+    using Formulate.BackOffice.Utilities.Validations;
+    using Microsoft.Extensions.DependencyInjection;
+    using Umbraco.Cms.Core.DependencyInjection;
+    using Umbraco.Cms.Core.Notifications;
+
     public static class UmbracoBuilderExtensions
     {
         public static IUmbracoBuilder AddFormulateBackOffice(this IUmbracoBuilder builder)

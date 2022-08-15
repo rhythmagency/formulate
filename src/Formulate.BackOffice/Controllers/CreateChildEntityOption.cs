@@ -1,11 +1,11 @@
-﻿using System;
-using System.Runtime.Serialization;
-using Formulate.BackOffice.Persistence;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
-namespace Formulate.BackOffice.Controllers
+﻿namespace Formulate.BackOffice.Controllers
 {
+    using System;
+    using System.Runtime.Serialization;
+    using Formulate.BackOffice.Persistence;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+
     [DataContract]
     public sealed class CreateChildEntityOption
     {

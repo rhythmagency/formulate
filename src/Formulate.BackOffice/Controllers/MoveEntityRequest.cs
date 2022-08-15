@@ -1,8 +1,8 @@
-﻿using System;
-using Formulate.BackOffice.Persistence;
-
-namespace Formulate.BackOffice.Controllers
+﻿namespace Formulate.BackOffice.Controllers
 {
+    using System;
+    using Formulate.BackOffice.Persistence;
+
     public sealed class MoveEntityRequest
     {
         public Guid EntityId { get; set; }

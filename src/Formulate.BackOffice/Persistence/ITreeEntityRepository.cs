@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Formulate.Core.Persistence;
-
-namespace Formulate.BackOffice.Persistence
+﻿namespace Formulate.BackOffice.Persistence
 {
+    using System;
+    using System.Collections.Generic;
+    using Formulate.Core.Persistence;
+
     /// <summary>
     /// A contract for creating a tree entity repository.
     /// </summary>

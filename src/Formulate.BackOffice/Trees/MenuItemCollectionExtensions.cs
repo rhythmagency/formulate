@@ -1,11 +1,10 @@
-﻿using System.Runtime.InteropServices;
-using Umbraco.Cms.Core.Actions;
-using Umbraco.Cms.Core.Models.Trees;
-using Umbraco.Cms.Core.Services;
-using Umbraco.Cms.Core.Trees;
-
-namespace Formulate.BackOffice.Trees
+﻿namespace Formulate.BackOffice.Trees
 {
+    using Umbraco.Cms.Core.Actions;
+    using Umbraco.Cms.Core.Models.Trees;
+    using Umbraco.Cms.Core.Services;
+    using Umbraco.Cms.Core.Trees;
+
     /// <summary>
     /// Extension methods that augments the <see cref="MenuItemCollection"/> class.
     /// </summary>

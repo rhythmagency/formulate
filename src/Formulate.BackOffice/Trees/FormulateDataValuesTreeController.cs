@@ -1,21 +1,20 @@
-﻿using Formulate.BackOffice.Attributes;
-using Formulate.BackOffice.Persistence;
-using Formulate.Core.DataValues;
-using Formulate.Core.Folders;
-using Formulate.Core.Persistence;
-using Formulate.Core.Types;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Umbraco.Cms.Core;
-using Umbraco.Cms.Core.Actions;
-using Umbraco.Cms.Core.Events;
-using Umbraco.Cms.Core.Services;
-using Umbraco.Cms.Core.Trees;
-using Umbraco.Cms.Web.BackOffice.Trees;
-
-namespace Formulate.BackOffice.Trees
+﻿namespace Formulate.BackOffice.Trees
 {
+    using Formulate.BackOffice.Attributes;
+    using Formulate.BackOffice.Persistence;
+    using Formulate.Core.DataValues;
+    using Formulate.Core.Folders;
+    using Formulate.Core.Persistence;
+    using Formulate.Core.Types;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Umbraco.Cms.Core;
+    using Umbraco.Cms.Core.Actions;
+    using Umbraco.Cms.Core.Events;
+    using Umbraco.Cms.Core.Services;
+    using Umbraco.Cms.Core.Trees;
+    using Umbraco.Cms.Web.BackOffice.Trees;
+
     /// <summary>
     /// The Formulate data values tree controller.
     /// </summary>

@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using Formulate.Core.Persistence;
-using System.Linq;
-using Formulate.BackOffice.Persistence;
-using Formulate.Core.ConfiguredForms;
-using Formulate.Core.DataValues;
-using Formulate.Core.Folders;
-using Formulate.Core.Forms;
-using Formulate.Core.Layouts;
-using Formulate.Core.Validations;
-using Microsoft.AspNetCore.Http.Features;
-using Serilog.Enrichers;
-
-namespace Formulate.BackOffice.Trees
+﻿namespace Formulate.BackOffice.Trees
 {
+    using System;
+    using System.Collections.Generic;
+    using Formulate.Core.Persistence;
+    using System.Linq;
+    using Formulate.BackOffice.Persistence;
+    using Formulate.Core.ConfiguredForms;
+    using Formulate.Core.DataValues;
+    using Formulate.Core.Folders;
+    using Formulate.Core.Forms;
+    using Formulate.Core.Layouts;
+    using Formulate.Core.Validations;
+
     public static class PersistedEntityExtensions
     {
         public static string TreeSafePathString(this IPersistedEntity entity)
