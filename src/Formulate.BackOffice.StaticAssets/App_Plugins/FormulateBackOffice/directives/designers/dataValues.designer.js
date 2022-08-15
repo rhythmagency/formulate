@@ -1,5 +1,5 @@
 ﻿(function () {
-    function formulateValidationDesignerDirective($http, $location, $routeParams, formulateDefinitionDirectiveResource, navigationService, notificationsService, formHelper) {
+    function formulateValidationDesignerDirective($http, formulateDesignerResource, formHelper) {
         var directive = {
             replace: true,
             templateUrl: "/app_plugins/formulatebackoffice/directives/designers/dataValues.designer.html",
@@ -26,24 +26,17 @@
                         $http.post(Umbraco.Sys.ServerVariables.formulate["datavalues.Save"], payload).then(
                             function (response) {
                                 scope.saveButtonState = "success";
-
+                                                               
                                 formHelper.resetForm({ scope: scope, formCtrl: scope.formCtrl });
 
-                                if (entity.isNew) {
-                                    notificationsService.success("Data Values created.");
+                                const options = {
+                                    entity,
+                                    treeAlias: 'datavalues',
+                                    newEntityText: 'Data Values created',
+                                    existingEntityText: 'Data Values saved'
+                                };
 
-                                    $location.path("/formulate/datavalues/edit/" + entity.id).search({});
-                                } else {
-                                    notificationsService.success("Data Values saved.");
-                                    var options = {
-                                        tree: "datavalues",
-                                        path: entity.treePath,
-                                        forceReload: true,
-                                        activate: false
-                                    };
-
-                                    navigationService.syncTree(options);
-                                }
+                                formulateDesignerResource.handleSuccessfulSave(options);
                             });
                     }
                 };
