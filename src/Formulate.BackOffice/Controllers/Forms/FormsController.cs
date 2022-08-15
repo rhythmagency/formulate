@@ -28,7 +28,6 @@
         private readonly IGetFormsChildEntityOptions _getFormsChildEntityOptions;
         private readonly ICreateFormsScaffoldingEntity _createFormsScaffoldingEntity;
         private readonly IFormEntityRepository formEntityRepository;
-        private readonly IConfiguredFormEntityRepository configuredFormRepository;
         private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
         private readonly FormFieldDefinitionCollection formFieldDefinitions;
         private readonly TemplateDefinitionCollection templateDefinitions;
@@ -49,7 +48,6 @@
             this.formHandlerDefinitions = formHandlerDefinitions;
             this.formFieldDefinitions = formFieldDefinitions;
             this.templateDefinitions = templateDefinitions;
-            this.configuredFormRepository = configuredFormRepository;
             _getFormsChildEntityOptions = getFormsChildEntityOptions;
             _createFormsScaffoldingEntity = createFormsScaffoldingEntity;
         }
