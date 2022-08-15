@@ -162,12 +162,6 @@
                 { "Folders.Save", LinkGenerator
                     .GetUmbracoApiService<FoldersController>(x => x.Save()) },
 
-                { "datavalues.GetDirective", LinkGenerator
-                    .GetUmbracoApiService<DataValuesController>(x =>
-                        x.GetDefinitionDirective()) },
-                { "validations.GetDirective", LinkGenerator
-                    .GetUmbracoApiService<ValidationsController>(x =>
-                        x.GetDefinitionDirective()) },
                 { "GetHandlerDefinitions", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GetHandlerDefinitions()) },

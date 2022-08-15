@@ -27,20 +27,17 @@ namespace Formulate.BackOffice.Controllers.Validations
     public sealed class ValidationsController : FormulateBackOfficeEntityApiController
     {
         private readonly IValidationEntityRepository _validationEntityRepository;
-        private readonly ValidationDefinitionCollection _validationDefinitions;
         private readonly ICreateValidationsScaffoldingEntity _createValidationsScaffoldingEntity;
         private readonly IGetValidationsChildEntityOptions _getValidationsChildEntityOptions;
 
         public ValidationsController(IMapEditorModel mapEditorModel,
-            IValidationEntityRepository validationEntityRepository, 
-            ValidationDefinitionCollection validationDefinitions, 
+            IValidationEntityRepository validationEntityRepository,
             ITreeEntityRepository treeEntityRepository, 
             ILocalizedTextService localizedTextService,
             ICreateValidationsScaffoldingEntity createValidationsScaffoldingEntity,
             IGetValidationsChildEntityOptions getValidationsChildEntityOptions) : base(mapEditorModel, treeEntityRepository, localizedTextService)
         {
             _validationEntityRepository = validationEntityRepository;
-            _validationDefinitions = validationDefinitions;
             _createValidationsScaffoldingEntity = createValidationsScaffoldingEntity;
             _getValidationsChildEntityOptions = getValidationsChildEntityOptions;
         }
@@ -90,25 +87,6 @@ namespace Formulate.BackOffice.Controllers.Validations
             var options = _getValidationsChildEntityOptions.Get(parent);
                         
             return Ok(options);
-        }
-
-        [NonAction]
-        public IActionResult GetDefinitionDirective()
-        {
-            return new EmptyResult();
-        }
-
-        [HttpGet]
-        public IActionResult GetDefinitionDirective(Guid id)
-        {
-            var definition = _validationDefinitions.FirstOrDefault(id);
-
-            if (definition is null)
-            {
-                return NotFound();
-            }
-
-            return Ok(definition.Directive);
         }
 
         [HttpPost]

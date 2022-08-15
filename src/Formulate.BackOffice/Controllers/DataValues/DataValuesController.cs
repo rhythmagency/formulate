@@ -23,7 +23,6 @@ namespace Formulate.BackOffice.Controllers.DataValues
     public sealed class DataValuesController : FormulateBackOfficeEntityApiController
     {
         private readonly IDataValuesEntityRepository _dataValuesEntityRepository;
-        private readonly DataValuesDefinitionCollection _dataValuesDefinitions;
         private readonly IGetDataValuesChildEntityOptions _getDataValuesChildEntityOptions;
         private readonly ICreateDataValuesScaffoldingEntity _createDataValuesScaffoldingEntity;
 
@@ -31,33 +30,12 @@ namespace Formulate.BackOffice.Controllers.DataValues
             IDataValuesEntityRepository dataValuesEntityRepository,
             ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
-            DataValuesDefinitionCollection dataValuesDefinitions,
             IGetDataValuesChildEntityOptions getDataValuesChildEntityOptions,
             ICreateDataValuesScaffoldingEntity createDataValuesScaffoldingEntity) : base(mapEditorModel, treeEntityRepository, localizedTextService)
         {
             _dataValuesEntityRepository = dataValuesEntityRepository;
-            _dataValuesDefinitions = dataValuesDefinitions;
             _getDataValuesChildEntityOptions = getDataValuesChildEntityOptions;
             _createDataValuesScaffoldingEntity = createDataValuesScaffoldingEntity;
-        }
-        
-        [NonAction]
-        public IActionResult GetDefinitionDirective()
-        {
-            return new EmptyResult();
-        }
-
-        [HttpGet]
-        public IActionResult GetDefinitionDirective(Guid id)
-        {
-            var definition = _dataValuesDefinitions.FirstOrDefault(id);
-
-            if (definition is null)
-            {
-                return NotFound();
-            }
-
-            return Ok(definition.Directive);
         }
 
         [HttpGet]
