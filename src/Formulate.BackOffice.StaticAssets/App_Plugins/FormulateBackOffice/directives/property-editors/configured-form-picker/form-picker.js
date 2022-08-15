@@ -46,8 +46,11 @@ class ConfiguredFormPicker {
             const url = `${baseUrl}?id=${this.$scope.model.value.id}`;
 
             // Get the configured form name.
-            this.$http.get(url).then(({ data: { entity: { name } } }) => {
+            this.$http.get(url).then(response => {
+                const { name, id } = response.data;
+
                 this.$scope.vm.name = name;
+                this.$scope.vm.id = id;
                 this.$scope.loaded = true;
             });
 
@@ -92,6 +95,7 @@ class ConfiguredFormPicker {
             this.$scope.model.value = {
                 id,
             };
+            this.$scope.vm.id = id;
             this.$scope.vm.name = name;
             this.editorService.close();
         };
