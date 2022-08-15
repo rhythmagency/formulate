@@ -21,12 +21,12 @@
         private readonly IGetDataValuesChildEntityOptions _getDataValuesChildEntityOptions;
         private readonly ICreateDataValuesScaffoldingEntity _createDataValuesScaffoldingEntity;
 
-        public DataValuesController(IMapEditorModel mapEditorModel,
+        public DataValuesController(IEditorModelMapper editorModelMapper,
             IDataValuesEntityRepository dataValuesEntityRepository,
             ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
             IGetDataValuesChildEntityOptions getDataValuesChildEntityOptions,
-            ICreateDataValuesScaffoldingEntity createDataValuesScaffoldingEntity) : base(mapEditorModel, treeEntityRepository, localizedTextService)
+            ICreateDataValuesScaffoldingEntity createDataValuesScaffoldingEntity) : base(editorModelMapper, treeEntityRepository, localizedTextService)
         {
             _dataValuesEntityRepository = dataValuesEntityRepository;
             _getDataValuesChildEntityOptions = getDataValuesChildEntityOptions;
@@ -67,7 +67,7 @@
             }
 
             var mapInput = new MapToEditorModelInput(entity, true);
-            var editorModel = _mapEditorModel.MapTo(mapInput);
+            var editorModel = _editorModelMapper.MapToEditor(mapInput);
 
             return Ok(editorModel);
         }
@@ -84,7 +84,7 @@
         [HttpPost]
         public ActionResult Save(DataValuesEditorModel model)
         {
-            var entity = _mapEditorModel.MapFrom<DataValuesEditorModel, PersistedDataValues>(model);
+            var entity = _editorModelMapper.MapToEntity<DataValuesEditorModel, PersistedDataValues>(model);
             _dataValuesEntityRepository.Save(entity);
 
             return Ok(new

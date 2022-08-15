@@ -39,10 +39,10 @@
             FormFieldDefinitionCollection formFieldDefinitions,
             TemplateDefinitionCollection templateDefinitions,
             IConfiguredFormEntityRepository configuredFormRepository,
-            IMapEditorModel mapEditorModel,
+            IEditorModelMapper editorModelMapper,
             IGetFormsChildEntityOptions getFormsChildEntityOptions,
             ICreateFormsScaffoldingEntity createFormsScaffoldingEntity)
-            : base(mapEditorModel, treeEntityRepository, localizedTextService)
+            : base(editorModelMapper, treeEntityRepository, localizedTextService)
         {
             this.formEntityRepository = formEntityRepository;
             this.formHandlerDefinitions = formHandlerDefinitions;
@@ -85,7 +85,7 @@
             }
 
             var mapInput = new MapToEditorModelInput(entity, true);
-            var editorModel = _mapEditorModel.MapTo(mapInput);
+            var editorModel = _editorModelMapper.MapToEditor(mapInput);
 
             return Ok(editorModel);
         }
@@ -111,7 +111,7 @@
         [HttpPost]
         public ActionResult Save(FormEditorModel model)
         {
-            var entity = _mapEditorModel.MapFrom<FormEditorModel, PersistedForm>(model);
+            var entity = _editorModelMapper.MapToEntity<FormEditorModel, PersistedForm>(model);
             formEntityRepository.Save(entity);
             
             return Ok();

@@ -19,15 +19,15 @@
     {
         protected readonly ITreeEntityRepository TreeEntityRepository;
 
-        protected readonly IMapEditorModel _mapEditorModel;
+        protected readonly IEditorModelMapper _editorModelMapper;
 
         private readonly ILocalizedTextService _localizedTextService;
 
-        protected FormulateBackOfficeEntityApiController(IMapEditorModel mapEditorModel, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService)
+        protected FormulateBackOfficeEntityApiController(IEditorModelMapper editorModelMapper, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService)
         {
             TreeEntityRepository = treeEntityRepository;
             _localizedTextService = localizedTextService;
-            _mapEditorModel = mapEditorModel;
+            _editorModelMapper = editorModelMapper;
         }
 
         /// <summary>
@@ -53,7 +53,7 @@
             }
 
             var mapInput = new MapToEditorModelInput(entity, false);
-            var editorModel = _mapEditorModel.MapTo(mapInput);
+            var editorModel = _editorModelMapper.MapToEditor(mapInput);
 
             // Return the response with the data.
             return Ok(editorModel);

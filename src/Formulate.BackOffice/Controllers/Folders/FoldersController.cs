@@ -20,7 +20,7 @@
         /// </summary>
         private readonly IFolderEntityRepository _folderEntityRepository;
         
-        public FoldersController(IMapEditorModel mapEditorModel, IFolderEntityRepository folderEntityRepository, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService) : base(mapEditorModel, treeEntityRepository, localizedTextService)
+        public FoldersController(IEditorModelMapper editorModelMapper, IFolderEntityRepository folderEntityRepository, ITreeEntityRepository treeEntityRepository, ILocalizedTextService localizedTextService) : base(editorModelMapper, treeEntityRepository, localizedTextService)
         {
             _folderEntityRepository = folderEntityRepository;
         }
@@ -28,7 +28,7 @@
         [HttpPost]
         public ActionResult Save(FolderEditorModel model)
         {
-            var entity = _mapEditorModel.MapFrom<FolderEditorModel, PersistedFolder>(model);
+            var entity = _editorModelMapper.MapToEntity<FolderEditorModel, PersistedFolder>(model);
             _folderEntityRepository.Save(entity);
 
             return Ok(new {

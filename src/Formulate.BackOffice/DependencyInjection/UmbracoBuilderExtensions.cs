@@ -19,7 +19,7 @@
             builder.Sections().Append<FormulateSection>();
 
             builder.Services.AddScoped<ITreeEntityRepository, TreeEntityRepository>();
-            builder.Services.AddScoped<IMapEditorModel, MapEditorModel>();
+            builder.Services.AddScoped<IEditorModelMapper, EditorModelMapper>();
 
             builder.Services.AddScoped<ICreateFormsScaffoldingEntity, CreateFormsScaffoldingEntity>();
             builder.Services.AddScoped<IGetFormsChildEntityOptions, GetFormsChildEntityOptions>();

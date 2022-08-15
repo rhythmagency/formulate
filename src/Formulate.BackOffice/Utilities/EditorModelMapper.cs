@@ -4,16 +4,16 @@
     using Formulate.Core.Persistence;
     using Umbraco.Cms.Core.Mapping;
 
-    internal sealed class MapEditorModel : IMapEditorModel
+    internal sealed class EditorModelMapper : IEditorModelMapper
     {
         private readonly IUmbracoMapper _umbracoMapper;
 
-        public MapEditorModel(IUmbracoMapper umbracoMapper)
+        public EditorModelMapper(IUmbracoMapper umbracoMapper)
         {
             _umbracoMapper = umbracoMapper;
         }
 
-        public IEditorModel? MapTo(MapToEditorModelInput input)
+        public IEditorModel? MapToEditor(MapToEditorModelInput input)
         {
             if (input.Entity is null)
             {
@@ -23,7 +23,7 @@
             return _umbracoMapper.Map<IEditorModel>(input.Entity, (context) => { context.Items.Add("isNew", input.IsNew); });
         }
 
-        public TEntity? MapFrom<TEditorModel, TEntity>(TEditorModel input)
+        public TEntity? MapToEntity<TEditorModel, TEntity>(TEditorModel input)
             where TEditorModel : IEditorModel
             where TEntity : IPersistedEntity
         {

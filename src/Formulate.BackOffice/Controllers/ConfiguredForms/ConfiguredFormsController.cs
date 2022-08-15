@@ -16,9 +16,9 @@
 
         public ConfiguredFormsController(
             IConfiguredFormEntityRepository configuredFormEntityRepository,
-            IMapEditorModel mapEditorModel,
+            IEditorModelMapper editorModelMapper,
             ITreeEntityRepository treeEntityRepository,
-            ILocalizedTextService localizedTextService) : base(mapEditorModel, treeEntityRepository, localizedTextService)
+            ILocalizedTextService localizedTextService) : base(editorModelMapper, treeEntityRepository, localizedTextService)
         {
             _configuredFormEntityRepository = configuredFormEntityRepository;
         }
@@ -26,7 +26,7 @@
         [HttpPost]
         public ActionResult Save(ConfiguredFormEditorModel model)
         {
-            var entity = _mapEditorModel.MapFrom<ConfiguredFormEditorModel, PersistedConfiguredForm>(model);
+            var entity = _editorModelMapper.MapToEntity<ConfiguredFormEditorModel, PersistedConfiguredForm>(model);
             _configuredFormEntityRepository.Save(entity);
 
             return Ok(new

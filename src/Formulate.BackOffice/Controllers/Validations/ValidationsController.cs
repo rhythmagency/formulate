@@ -24,12 +24,12 @@
         private readonly ICreateValidationsScaffoldingEntity _createValidationsScaffoldingEntity;
         private readonly IGetValidationsChildEntityOptions _getValidationsChildEntityOptions;
 
-        public ValidationsController(IMapEditorModel mapEditorModel,
+        public ValidationsController(IEditorModelMapper editorModelMapper,
             IValidationEntityRepository validationEntityRepository,
             ITreeEntityRepository treeEntityRepository, 
             ILocalizedTextService localizedTextService,
             ICreateValidationsScaffoldingEntity createValidationsScaffoldingEntity,
-            IGetValidationsChildEntityOptions getValidationsChildEntityOptions) : base(mapEditorModel, treeEntityRepository, localizedTextService)
+            IGetValidationsChildEntityOptions getValidationsChildEntityOptions) : base(editorModelMapper, treeEntityRepository, localizedTextService)
         {
             _validationEntityRepository = validationEntityRepository;
             _createValidationsScaffoldingEntity = createValidationsScaffoldingEntity;
@@ -69,7 +69,7 @@
             }
 
             var mapInput = new MapToEditorModelInput(entity, true);
-            var editorModel = _mapEditorModel.MapTo(mapInput);
+            var editorModel = _editorModelMapper.MapToEditor(mapInput);
 
             return Ok(editorModel);
         }
@@ -86,7 +86,7 @@
         [HttpPost]
         public ActionResult Save(ValidationEditorModel model)
         {
-            var entity = _mapEditorModel.MapFrom<ValidationEditorModel, PersistedValidation>(model);
+            var entity = _editorModelMapper.MapToEntity<ValidationEditorModel, PersistedValidation>(model);
             _validationEntityRepository.Save(entity);
 
             return Ok(new {

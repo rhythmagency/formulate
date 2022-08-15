@@ -23,14 +23,14 @@
         private readonly IGetLayoutsChildEntityOptions _getLayoutsChildEntityOptions;
 
         public LayoutsController(
-            IMapEditorModel mapEditorModel,
+            IEditorModelMapper editorModelMapper,
             ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
             LayoutDefinitionCollection layoutDefinitions,
             ILayoutEntityRepository layoutEntities,
             ICreateLayoutsScaffoldingEntity createLayoutsScaffoldingEntity,
             IGetLayoutsChildEntityOptions getLayoutsChildEntityOptions) :
-                base(mapEditorModel, treeEntityRepository, localizedTextService)
+                base(editorModelMapper, treeEntityRepository, localizedTextService)
         {
             this.layoutDefinitions = layoutDefinitions;
             this.layoutEntities = layoutEntities;
@@ -72,7 +72,7 @@
             }
 
             var mapInput = new MapToEditorModelInput(entity, true);
-            var editorModel = _mapEditorModel.MapTo(mapInput);
+            var editorModel = _editorModelMapper.MapToEditor(mapInput);
 
             return Ok(editorModel);
         }
@@ -89,7 +89,7 @@
         [HttpPost]
         public ActionResult Save(LayoutEditorModel model)
         {
-            var entity = _mapEditorModel.MapFrom<LayoutEditorModel, PersistedLayout>(model);
+            var entity = _editorModelMapper.MapToEntity<LayoutEditorModel, PersistedLayout>(model);
             layoutEntities.Save(entity);
             return Ok(new
             {
