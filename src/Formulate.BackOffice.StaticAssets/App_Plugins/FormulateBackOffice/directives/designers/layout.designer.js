@@ -9,21 +9,15 @@ class FormulateLayoutDesigner {
     controller = (
         $scope,
         $http,
-        $location,
-        $routeParams,
         formHelper,
-        notificationsService,
-        formulateIds,
+        formulateDesignerResource,
         formulateLayouts) => {
 
         const services = {
             $scope,
             $http,
-            $location,
-            $routeParams,
             formHelper,
-            notificationsService,
-            formulateIds,
+            formulateDesignerResource,            
             formulateLayouts
         }
 
@@ -36,7 +30,7 @@ class FormulateLayoutDesigner {
      * Initializes the layout.
      */
     initializeLayout = (services) => {
-        const { $location, $scope, formHelper, notificationsService, formulateLayouts, formulateIds } = services;
+        const { $scope, formHelper, formulateLayouts, formulateDesignerResource } = services;
         // Disable layout saving until the data is populated.
         $scope.initialized = false;
         $scope.saveButtonState = 'init';
@@ -76,16 +70,14 @@ class FormulateLayoutDesigner {
 
                     formHelper.resetForm(resetData);
 
+                    const options = {
+                        entity,
+                        treeAlias: 'layouts',
+                        newEntityText: 'Layout created',
+                        existingEntityText: 'Layout saved'
+                    };
 
-                    if (entity.isNew) {
-                        const sanitizedEntityId = formulateIds.sanitize(entity.id);
-
-                        notificationsService.success("Layout created.");
-                        $location.path("/formulate/layouts/edit/" + sanitizedEntityId).search({});
-                    }
-                    else {
-                        notificationsService.success("Layout saved.");
-                    }
+                    formulateDesignerResource.handleSuccessfulSave(options);
                 });
             }
             else {
