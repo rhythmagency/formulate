@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
     using Umbraco.Cms.Web.BackOffice.Controllers;
-    using Umbraco.Cms.Web.BackOffice.Filters;
+    
 
     [FormulateBackOfficePluginController]
     public sealed class FieldsController : UmbracoAuthorizedApiController

@@ -11,7 +11,7 @@ using System.Linq;
 using Formulate.Core.Types;
 using Umbraco.Cms.Core.Models.ContentEditing;
 using Umbraco.Cms.Core.Services;
-using Umbraco.Cms.Web.BackOffice.Filters;
+
 using Umbraco.Extensions;
 using Formulate.BackOffice.Utilities;
 using Formulate.BackOffice.Utilities.DataValues;
