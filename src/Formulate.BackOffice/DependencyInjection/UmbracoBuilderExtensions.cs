@@ -37,6 +37,7 @@
             builder.MapDefinitions().Add<ConfiguredFormEditorModelMapDefinition>();
             builder.MapDefinitions().Add<FolderEditorModelMapDefinition>();
             builder.MapDefinitions().Add<FormFieldEditorModelMapDefinition>();
+            builder.MapDefinitions().Add<FormHandlerEditorModelMapDefinition>();
             builder.MapDefinitions().Add<FormEditorModelMapDefinition>();
             builder.MapDefinitions().Add<LayoutEditorModelMapDefinition>();
             builder.MapDefinitions().Add<ValidationEditorModelMapDefinition>();

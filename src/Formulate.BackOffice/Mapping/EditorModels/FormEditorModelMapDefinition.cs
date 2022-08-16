@@ -7,22 +7,10 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Formulate.Core.Types;
     using Umbraco.Cms.Core.Mapping;
-    using Formulate.Core.Utilities;
 
     internal sealed class FormEditorModelMapDefinition : EntityEditorModelMapDefinition<PersistedForm, FormEditorModel>
     {
-        private readonly IJsonUtility _jsonUtility;
-
-        private readonly FormHandlerDefinitionCollection _formHandlerDefinitions;
-
-        public FormEditorModelMapDefinition(IJsonUtility jsonUtility, FormFieldDefinitionCollection formFieldDefinitions, FormHandlerDefinitionCollection formHandlerDefinitions)
-        {
-            _jsonUtility = jsonUtility;
-            _formHandlerDefinitions = formHandlerDefinitions;
-        }
-
         public override FormEditorModel? MapToEditor(PersistedForm entity, MapperContext mapperContext)
         {
             return new FormEditorModel(entity, mapperContext.IsNew())
@@ -41,12 +29,11 @@
                 Name = editorModel.Name,
                 Path = editorModel.Path,
                 Fields = MapFields(editorModel.Fields, mapperContext),
-                Handlers = MapHandlers(editorModel.Handlers)
+                Handlers = MapHandlers(editorModel.Handlers, mapperContext)
             };
         }
 
-
-        private PersistedFormField[] MapFields(FormFieldEditorModel[] fields, MapperContext mapperContext)
+        private static PersistedFormField[] MapFields(FormFieldEditorModel[] fields, MapperContext mapperContext)
         {
             if (fields.Length == 0)
             {
@@ -68,7 +55,7 @@
             return mappedFields.ToArray();
         }
 
-        private FormFieldEditorModel[] MapFields(PersistedFormField[] fields, MapperContext mapperContext)
+        private static FormFieldEditorModel[] MapFields(PersistedFormField[] fields, MapperContext mapperContext)
         {
             if (fields.Length == 0)
             {
@@ -85,13 +72,12 @@
                 {
                     mappedFields.Add(mappedField);
                 }
-
             }
 
             return mappedFields.ToArray();
         }
         
-        private FormHandlerEditorModel[] MapHandlers(PersistedFormHandler[] handlers, MapperContext mapperContext)
+        private static FormHandlerEditorModel[] MapHandlers(PersistedFormHandler[] handlers, MapperContext mapperContext)
         {
             if (handlers.Length == 0)
             {
@@ -102,32 +88,18 @@
 
             foreach (var handler in handlers)
             {
-                var definition = _formHandlerDefinitions.FirstOrDefault(handler.KindId);
+                var mappedHandler = mapperContext.Map<PersistedFormHandler, FormHandlerEditorModel>(handler);
 
-                if (definition is null)
+                if (mappedHandler is not null)
                 {
-                    continue;
+                    mappedHandlers.Add(mappedHandler);
                 }
-
-                var mappedHandler = new FormHandlerEditorModel()
-                {
-                    Alias = handler.Alias,
-                    Directive = definition.Directive,
-                    Configuration = definition.GetBackOfficeConfiguration(handler),
-                    Enabled = handler.Enabled,
-                    Icon = definition.Icon,
-                    Id = handler.Id,
-                    KindId = handler.KindId,
-                    Name = handler.Name
-                };
-
-                mappedHandlers.Add(mappedHandler);
             }
 
             return mappedHandlers.ToArray();
         }
 
-        private PersistedFormHandler[] MapHandlers(FormHandlerEditorModel[] handlers)
+        private static PersistedFormHandler[] MapHandlers(FormHandlerEditorModel[] handlers, MapperContext mapperContext)
         {
             if (handlers is null || handlers.Any() == false)
             {
@@ -138,15 +110,12 @@
 
             foreach (var handler in handlers)
             {
-                mappedHandlers.Add(new PersistedFormHandler()
+                var mappedHandler = mapperContext.Map<FormHandlerEditorModel, PersistedFormHandler>(handler);
+
+                if (mappedHandler is not null)
                 {
-                    Alias = handler.Alias,
-                    Enabled = handler.Enabled,
-                    Id = handler.Id,
-                    KindId = handler.KindId,
-                    Name = handler.Name,
-                    Data = _jsonUtility.Serialize(handler.Configuration)
-                });
+                    mappedHandlers.Add(mappedHandler);
+                }
             }
 
             return mappedHandlers.ToArray();
