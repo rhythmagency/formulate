@@ -29,14 +29,12 @@
         private readonly ICreateFormsScaffoldingEntity _createFormsScaffoldingEntity;
         private readonly IFormEntityRepository formEntityRepository;
         private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
-        private readonly FormFieldDefinitionCollection formFieldDefinitions;
         private readonly TemplateDefinitionCollection templateDefinitions;
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
             IFormEntityRepository formEntityRepository,
             FormHandlerDefinitionCollection formHandlerDefinitions,
-            FormFieldDefinitionCollection formFieldDefinitions,
             TemplateDefinitionCollection templateDefinitions,
             IEditorModelMapper editorModelMapper,
             IGetFormsChildEntityOptions getFormsChildEntityOptions,
@@ -45,7 +43,6 @@
         {
             this.formEntityRepository = formEntityRepository;
             this.formHandlerDefinitions = formHandlerDefinitions;
-            this.formFieldDefinitions = formFieldDefinitions;
             this.templateDefinitions = templateDefinitions;
             _getFormsChildEntityOptions = getFormsChildEntityOptions;
             _createFormsScaffoldingEntity = createFormsScaffoldingEntity;
@@ -128,25 +125,6 @@
             var groupedDefinitions = formHandlerDefinitions.GroupBy(x => x.Category);
             var viewModels = groupedDefinitions.Select(group => new
             {
-                key = group.Key,
-                items = group.OrderBy(x => x.DefinitionLabel).ToArray()
-            }).ToArray();
-
-            return Ok(viewModels);
-        }
-
-        /// <summary>
-        /// Returns the form field definitions.
-        /// </summary>
-        /// <returns>
-        /// The array of form field definitions.
-        /// </returns>
-        [HttpGet]
-        public IActionResult GetFieldDefinitions()
-        {
-            var groupedDefinitions = formFieldDefinitions.GroupBy(x => x.Category);
-            var viewModels = groupedDefinitions.Select(group => new
-             {
                 key = group.Key,
                 items = group.OrderBy(x => x.DefinitionLabel).ToArray()
             }).ToArray();

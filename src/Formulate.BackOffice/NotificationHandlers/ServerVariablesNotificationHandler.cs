@@ -2,8 +2,10 @@
 {
     // Namespaces.
     using Controllers;
+    using Controllers.ConfiguredForms;
     using Controllers.DataValues;
     using Controllers.Folders;
+    using Controllers.FormFields;
     using Controllers.Forms;
     using Controllers.Layouts;
     using Controllers.Validations;
@@ -11,8 +13,6 @@
     using Core.Forms;
     using Core.Layouts;
     using Core.Validations;
-    using Formulate.BackOffice.Controllers.ConfiguredForms;
-    using Formulate.BackOffice.Controllers.Fields;
     using Microsoft.AspNetCore.Routing;
     using System.Collections.Generic;
     using Trees;
@@ -41,7 +41,7 @@
             var newEntries = new Dictionary<string, object?>()
             {
                 { "GetButtonKinds",
-                    LinkGenerator.GetUmbracoApiService<FieldsController>(x =>
+                    LinkGenerator.GetUmbracoApiService<FormFieldsController>(x =>
                         x.GetButtonKinds()) },
 
                 { "Layout.RootId", LayoutConstants.RootId },
@@ -56,8 +56,8 @@
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GetHandlerDefinitions()) },
                 { "GetFieldDefinitions", LinkGenerator
-                    .GetUmbracoApiService<FormsController>(x =>
-                        x.GetFieldDefinitions()) },
+                    .GetUmbracoApiService<FormFieldsController>(x =>
+                        x.GetDefinitions()) },
                 { "GetTemplateDefinitions", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GetTemplateDefinitions()) },
