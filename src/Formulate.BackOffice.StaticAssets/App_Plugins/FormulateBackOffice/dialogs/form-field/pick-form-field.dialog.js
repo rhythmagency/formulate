@@ -40,7 +40,24 @@
 
             formulateTypeDefinitionResource.getFieldDefinitions()
                 .then((response) => {
-                    vm.formFields = response;
+                    const groupedFormFields = {};
+                    vm.formFields = [];
+
+                    response.map(x => {
+                        if (!groupedFormFields[x.category]) {
+                            groupedFormFields[x.category] = [];
+                        }
+
+                        groupedFormFields[x.category].push(x);
+                    });
+
+                    for (const group in groupedFormFields) {
+                        vm.formFields.push({
+                            name: group,
+                            items: groupedFormFields[group]
+                        });
+                    }
+
                     vm.loading = false;
                 });
         };

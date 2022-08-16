@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    function FormFieldEditor($scope, editorService, formulateIds) {
+    function FormFieldEditor($scope, editorService, formulateServer, formulateVars) {
         var vm = this;
 
         vm.model = {};
@@ -75,24 +75,34 @@
         function init() {
             if ($scope.model.field) {
                 vm.model = $scope.model.field;
+
+                vm.loading = false;
             }
 
             else if ($scope.model.definition) {
                 const definition = $scope.model.definition;
+                const url = formulateVars['FormFields.GetScaffolding'] + '?id=' + definition.kindId;
 
-                vm.model = {
-                    directive: definition.directive,
-                    icon: definition.icon,
-                    supportsValidation: definition.supportsValidation,
-                    id: formulateIds.generateId(),
-                    kindId: definition.kindId,
-                    name: null,
-                    alias: null,
-                    validations: []
-                };
+                formulateServer.get(url).then(function (response) {
+                    // response
+                    /*
+                     * {
+                        directive: definition.directive,
+                        icon: definition.icon,
+                        supportsValidation: definition.supportsValidation,
+                        id: formulateIds.generateId(),
+                        kindId: definition.kindId,
+                        name: null,
+                        alias: null,
+                        validations: []
+                    };
+                     */
+                    vm.model = response;
+
+                    vm.loading = false;
+                })
+
             }
-
-            vm.loading = false;
         };
 
         init();

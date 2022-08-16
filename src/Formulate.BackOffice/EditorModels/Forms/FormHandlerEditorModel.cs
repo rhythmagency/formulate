@@ -8,7 +8,7 @@
     /// The data required by the back office for a form handler.
     /// </summary>
     [DataContract]
-    public sealed class FormHandlerEditorModel
+    public sealed class FormHandlerEditorModel : ItemEditorModel
     {
         /// <summary>
         /// The configuration for this handler.
@@ -17,28 +17,10 @@
         public object Configuration { get; set; }
 
         /// <summary>
-        /// The ID of this handler.
-        /// </summary>
-        [DataMember(Name = "id")]
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// The ID for the type of this handler.
         /// </summary>
         [DataMember(Name = "kindId")]
         public Guid KindId { get; set; }
-
-        /// <summary>
-        /// The name of this handler.
-        /// </summary>
-        [DataMember(Name = "name")]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// The alias of this handler.
-        /// </summary>
-        [DataMember(Name = "alias")]
-        public string Alias { get; set; }
 
         /// <summary>
         /// The back office directive that renders this handler.

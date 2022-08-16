@@ -5,7 +5,7 @@
     using System.Runtime.Serialization;
 
     [DataContract]
-    public sealed class FolderEditorModel : EditorModel
+    public sealed class FolderEditorModel : EntityEditorModel
     {
         public FolderEditorModel() : base()
         {

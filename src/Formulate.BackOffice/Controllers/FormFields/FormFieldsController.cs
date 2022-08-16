@@ -1,10 +1,13 @@
 ﻿namespace Formulate.BackOffice.Controllers.FormFields
 {
     using Formulate.BackOffice.Attributes;
+    using Formulate.BackOffice.Utilities;
+    using Formulate.BackOffice.Utilities.FormFields;
     using Formulate.Core.Configuration;
     using Formulate.Core.FormFields;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
+    using System;
     using System.Linq;
     using Umbraco.Cms.Web.BackOffice.Controllers;
     
@@ -20,12 +23,18 @@
         /// <summary>
         /// The form field definitions.
         /// </summary>
-        private readonly FormFieldDefinitionCollection _formFieldDefinitions;
+        private readonly IGetFormFieldOptions _getFormFieldOptions;
+        
+        private readonly IGetFormFieldScaffolding _getFormFieldScaffolding;
+        
+        private readonly IEditorModelMapper _editorModelMapper;
 
-        public FormFieldsController(IOptions<ButtonsOptions> buttonsConfig, FormFieldDefinitionCollection formFieldDefinitions)
+        public FormFieldsController(IOptions<ButtonsOptions> buttonsConfig, IGetFormFieldScaffolding getFormFieldScaffolding, IGetFormFieldOptions getFormFieldOptions, IEditorModelMapper editorModelMapper)
         {
             _buttonsConfig = buttonsConfig.Value;
-            _formFieldDefinitions = formFieldDefinitions;
+            _getFormFieldOptions = getFormFieldOptions;
+            _getFormFieldScaffolding = getFormFieldScaffolding;
+            _editorModelMapper = editorModelMapper;
         }
 
         [HttpGet]   
@@ -43,14 +52,31 @@
         [HttpGet]
         public IActionResult GetDefinitions()
         {
-            var groupedDefinitions = _formFieldDefinitions.GroupBy(x => x.Category);
-            var viewModels = groupedDefinitions.Select(group => new
-            {
-                key = group.Key,
-                items = group.OrderBy(x => x.DefinitionLabel).ToArray()
-            }).ToArray();
+            var options = _getFormFieldOptions.Get();
 
-            return Ok(viewModels);
+            return Ok(options);
+        }
+
+        [NonAction]
+        public IActionResult GetScaffolding()
+        {
+            return new EmptyResult();
+        }
+
+        [HttpGet]
+        public IActionResult GetScaffolding(Guid id)
+        {
+            var item = _getFormFieldScaffolding.Get(id);
+
+            if (item is null)
+            {
+                return BadRequest();
+            }
+
+            var input = new MapToEditorModelInput(item, true);
+            var editorModel = _editorModelMapper.MapToEditor(input);
+
+            return Ok(editorModel);
         }
     }
 }

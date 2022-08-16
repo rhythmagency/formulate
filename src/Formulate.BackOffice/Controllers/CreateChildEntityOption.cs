@@ -6,6 +6,7 @@
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
+
     [DataContract]
     public sealed class CreateChildEntityOption
     {

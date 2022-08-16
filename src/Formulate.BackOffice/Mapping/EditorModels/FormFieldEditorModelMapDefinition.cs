@@ -34,6 +34,7 @@
 
             var editorModel = new FormFieldEditorModel()
             {
+                IsNew = mapperContext.IsNew(),
                 Id = entity.Id,
                 Label = entity.Label,
                 Name = entity.Name,

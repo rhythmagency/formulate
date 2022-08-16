@@ -11,7 +11,7 @@
     /// with additional data that is not persisted.
     /// </summary>
     [DataContract]
-    public sealed class FormEditorModel : EditorModel
+    public sealed class FormEditorModel : EntityEditorModel
     {
         public FormEditorModel() : base()
         {

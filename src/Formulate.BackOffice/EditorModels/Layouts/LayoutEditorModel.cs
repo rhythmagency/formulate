@@ -6,7 +6,7 @@
     using System.Runtime.Serialization;
 
     [DataContract]
-    public sealed class LayoutEditorModel : EditorModel
+    public sealed class LayoutEditorModel : EntityEditorModel
     {
         public LayoutEditorModel() : base()
         {

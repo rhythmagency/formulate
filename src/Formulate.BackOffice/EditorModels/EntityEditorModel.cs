@@ -7,13 +7,13 @@
     using System.Runtime.Serialization;
 
     [DataContract]
-    public abstract class EditorModel : IEditorModel
+    public abstract class EntityEditorModel : IEntityEditorModel
     {
-        public EditorModel()
+        public EntityEditorModel()
         {
         }
 
-        public EditorModel(IPersistedEntity entity, bool isNew)
+        public EntityEditorModel(IPersistedEntity entity, bool isNew)
         {
             Id = entity.Id;
             Path = entity.Path;

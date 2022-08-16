@@ -8,20 +8,8 @@
     /// Represents a form field that will be passed to the back office.
     /// </summary>
     [DataContract]
-    public sealed class FormFieldEditorModel
+    public sealed class FormFieldEditorModel : ItemEditorModel
     {
-        /// <summary>
-        /// The field alias.
-        /// </summary>
-        [DataMember(Name = "alias")]
-        public string Alias { get; set; }
-
-        /// <summary>
-        /// The field name.
-        /// </summary>
-        [DataMember(Name = "name")]
-        public string Name { get; set; }
-
         /// <summary>
         /// The field configuration.
         /// </summary>
@@ -39,12 +27,6 @@
         /// </summary>
         [DataMember(Name = "icon")]
         public string Icon { get; set; }
-
-        /// <summary>
-        /// The ID of this field.
-        /// </summary>
-        [DataMember(Name = "id")]
-        public Guid Id { get; set; }
 
         /// <summary>
         /// The ID corresponding to the type of field this is.

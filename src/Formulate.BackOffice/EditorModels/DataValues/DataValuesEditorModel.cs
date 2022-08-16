@@ -6,7 +6,7 @@
     using System.Runtime.Serialization;
 
     [DataContract]
-    public sealed class DataValuesEditorModel : EditorModel
+    public sealed class DataValuesEditorModel : EntityEditorModel
     {
         public DataValuesEditorModel() : base()
         {
