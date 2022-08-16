@@ -6,6 +6,7 @@
     using Controllers.DataValues;
     using Controllers.Folders;
     using Controllers.FormFields;
+    using Controllers.FormHandlers;
     using Controllers.Forms;
     using Controllers.Layouts;
     using Controllers.Validations;
@@ -53,8 +54,8 @@
                     .GetUmbracoApiService<FoldersController>(x => x.Save()) },
 
                 { "GetHandlerDefinitions", LinkGenerator
-                    .GetUmbracoApiService<FormsController>(x =>
-                        x.GetHandlerDefinitions()) },
+                    .GetUmbracoApiService<FormHandlersController>(x =>
+                        x.GetDefinitions()) },
                 { "GetFieldDefinitions", LinkGenerator
                     .GetUmbracoApiService<FormFieldsController>(x =>
                         x.GetDefinitions()) },

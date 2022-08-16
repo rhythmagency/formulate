@@ -28,13 +28,11 @@
         private readonly IGetFormsChildEntityOptions _getFormsChildEntityOptions;
         private readonly ICreateFormsScaffoldingEntity _createFormsScaffoldingEntity;
         private readonly IFormEntityRepository formEntityRepository;
-        private readonly FormHandlerDefinitionCollection formHandlerDefinitions;
         private readonly TemplateDefinitionCollection templateDefinitions;
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
             IFormEntityRepository formEntityRepository,
-            FormHandlerDefinitionCollection formHandlerDefinitions,
             TemplateDefinitionCollection templateDefinitions,
             IEditorModelMapper editorModelMapper,
             IGetFormsChildEntityOptions getFormsChildEntityOptions,
@@ -42,7 +40,6 @@
             : base(editorModelMapper, treeEntityRepository, localizedTextService)
         {
             this.formEntityRepository = formEntityRepository;
-            this.formHandlerDefinitions = formHandlerDefinitions;
             this.templateDefinitions = templateDefinitions;
             _getFormsChildEntityOptions = getFormsChildEntityOptions;
             _createFormsScaffoldingEntity = createFormsScaffoldingEntity;
@@ -111,25 +108,6 @@
             formEntityRepository.Save(entity);
             
             return Ok();
-        }
-
-        /// <summary>
-        /// Returns the form handler definitions.
-        /// </summary>
-        /// <returns>
-        /// The array of form handler definitions.
-        /// </returns>
-        [HttpGet]
-        public IActionResult GetHandlerDefinitions()
-        {
-            var groupedDefinitions = formHandlerDefinitions.GroupBy(x => x.Category);
-            var viewModels = groupedDefinitions.Select(group => new
-            {
-                key = group.Key,
-                items = group.OrderBy(x => x.DefinitionLabel).ToArray()
-            }).ToArray();
-
-            return Ok(viewModels);
         }
 
         /// <summary>
