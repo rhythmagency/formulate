@@ -1,5 +1,6 @@
 ﻿namespace Formulate.Core.FormFields
 {
+    using Formulate.Core.Persistence;
     using System;
     using System.Runtime.Serialization;
 
@@ -7,7 +8,7 @@
     /// A persisted form field.
     /// </summary>
     [DataContract]
-    public sealed class PersistedFormField : IFormFieldSettings
+    public sealed class PersistedFormField : IFormFieldSettings, IPersistedItem
     {
         /// <summary>
         /// Gets or sets the ID.

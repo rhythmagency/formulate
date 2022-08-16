@@ -1,5 +1,6 @@
 ﻿namespace Formulate.Core.FormHandlers
 {
+    using Formulate.Core.Persistence;
     using System;
     using System.Runtime.Serialization;
 
@@ -7,7 +8,7 @@
     /// A persisted form handler.
     /// </summary>
     [DataContract]
-    public sealed class PersistedFormHandler : IFormHandlerSettings
+    public sealed class PersistedFormHandler : IFormHandlerSettings, IPersistedItem
     {
         /// <summary>
         /// Gets or sets the ID.
