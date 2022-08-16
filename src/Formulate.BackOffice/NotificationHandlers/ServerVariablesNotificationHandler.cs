@@ -64,6 +64,10 @@
                     .GetUmbracoApiService<FormFieldsController>(x =>
                         x.GetScaffolding()) },
 
+                { "FormHandlers.GetScaffolding", LinkGenerator
+                    .GetUmbracoApiService<FormHandlersController>(x =>
+                        x.GetScaffolding()) },
+
                 { "GetTemplateDefinitions", LinkGenerator
                     .GetUmbracoApiService<FormsController>(x =>
                         x.GetTemplateDefinitions()) },

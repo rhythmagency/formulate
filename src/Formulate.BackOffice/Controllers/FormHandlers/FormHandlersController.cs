@@ -1,22 +1,27 @@
 ﻿namespace Formulate.BackOffice.Controllers.FormHandlers
 {
     using Formulate.BackOffice.Attributes;
-    using Formulate.Core.FormHandlers;
+    using Formulate.BackOffice.Utilities;
+    using Formulate.BackOffice.Utilities.FormHandlers;
     using Microsoft.AspNetCore.Mvc;
+    using System;
     using System.Linq;
     using Umbraco.Cms.Web.BackOffice.Controllers;
 
     [FormulateBackOfficePluginController]
     public sealed class FormHandlersController : UmbracoAuthorizedApiController
     {
-        /// <summary>
-        /// The form handler definitions.
-        /// </summary>
-        private readonly FormHandlerDefinitionCollection _formHandlerDefinitions;
+        private readonly IGetFormHandlerOptions _getFormHandlerOptions;
 
-        public FormHandlersController(FormHandlerDefinitionCollection formHandlerDefinitions)
+        private readonly IGetFormHandlerScaffolding _getFormHandlerScaffolding;
+
+        private readonly IEditorModelMapper _editorModelMapper;
+
+        public FormHandlersController(IGetFormHandlerOptions getFormHandlerOptions, IGetFormHandlerScaffolding getFormHandlerScaffolding, IEditorModelMapper editorModelMapper)
         {
-            _formHandlerDefinitions = formHandlerDefinitions;
+            _getFormHandlerOptions = getFormHandlerOptions;
+            _getFormHandlerScaffolding = getFormHandlerScaffolding;
+            _editorModelMapper = editorModelMapper;
         }
 
         /// <summary>
@@ -28,14 +33,31 @@
         [HttpGet]
         public IActionResult GetDefinitions()
         {
-            var groupedDefinitions = _formHandlerDefinitions.GroupBy(x => x.Category);
-            var viewModels = groupedDefinitions.Select(group => new
-            {
-                key = group.Key,
-                items = group.OrderBy(x => x.DefinitionLabel).ToArray()
-            }).ToArray();
+            var options = _getFormHandlerOptions.Get();
 
-            return Ok(viewModels);
+            return Ok(options);
+        }
+
+        [NonAction]
+        public IActionResult GetScaffolding()
+        {
+            return new EmptyResult();
+        }
+
+        [HttpGet]
+        public IActionResult GetScaffolding(Guid id)
+        {
+            var item = _getFormHandlerScaffolding.Get(id);
+
+            if (item is null)
+            {
+                return BadRequest();
+            }
+
+            var input = new MapToEditorModelInput(item, true);
+            var editorModel = _editorModelMapper.MapToEditor(input);
+
+            return Ok(editorModel);
         }
     }
 }

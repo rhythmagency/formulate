@@ -16,17 +16,17 @@
                         <umb-load-indicator ng-if="vm.loading === true"></umb-load-indicator>
 
                         <div ng-if="vm.loading === false">
-                            <div ng-repeat="group in vm.formHandlers | orderBy: 'key'">
-                                <h2 class="h5">{{group.key}}</h2>
+                            <div ng-repeat="group in vm.formHandlers | orderBy: 'name'">
+                                <h2 class="h5">{{group.name}}</h2>
                                 <ul class="umb-card-grid -six-in-row">
-                                    <li ng-repeat="formHandler in group.items | orderBy:'definitionLabel'" data-element="form-field-{{formHandler.definitionLabel}}">
+                                    <li ng-repeat="formHandler in group.items | orderBy: 'name'" data-element="form-field-{{formHandler.name}}">
                                         <button type="button"
                                                 class="btn-reset umb-card-grid-item"
                                                 ng-click="vm.buildFormHandler(formHandler)"
-                                                title="{{formHandler.definitionLabel}}">
+                                                title="{{formHandler.name}}">
                                             <span>
                                                 <umb-icon icon="{{formHandler.icon || 'icon-help-alt'}}"></umb-icon>
-                                                {{formHandler.definitionLabel}}
+                                                {{formHandler.name}}
                                             </span>
                                         </button>
                                     </li>

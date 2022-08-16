@@ -1,11 +1,9 @@
 ﻿namespace Formulate.BackOffice.Mapping.EditorModels
 {
-    using Formulate.BackOffice.EditorModels;
     using Formulate.BackOffice.EditorModels.Forms;
     using Formulate.Core.FormHandlers;
     using Formulate.Core.Types;
     using Formulate.Core.Utilities;
-    using System;
     using System.Linq;
     using Umbraco.Cms.Core.Mapping;
 

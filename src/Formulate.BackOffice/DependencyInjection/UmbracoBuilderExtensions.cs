@@ -6,6 +6,7 @@
     using Formulate.BackOffice.Utilities;
     using Formulate.BackOffice.Utilities.DataValues;
     using Formulate.BackOffice.Utilities.FormFields;
+    using Formulate.BackOffice.Utilities.FormHandlers;
     using Formulate.BackOffice.Utilities.Forms;
     using Formulate.BackOffice.Utilities.Layouts;
     using Formulate.BackOffice.Utilities.Validations;
@@ -36,6 +37,10 @@
 
             builder.Services.AddScoped<IGetFormFieldOptions, GetFormFieldOptions>();
             builder.Services.AddScoped<IGetFormFieldScaffolding, GetFormFieldScaffolding>();
+
+            builder.Services.AddScoped<IGetFormHandlerOptions, GetFormHandlerOptions>();
+            builder.Services.AddScoped<IGetFormHandlerScaffolding, GetFormHandlerScaffolding>();
+
             builder.MapDefinitions().Add<DataValuesEditorModelMapDefinition>();
             builder.MapDefinitions().Add<ConfiguredFormEditorModelMapDefinition>();
             builder.MapDefinitions().Add<FolderEditorModelMapDefinition>();

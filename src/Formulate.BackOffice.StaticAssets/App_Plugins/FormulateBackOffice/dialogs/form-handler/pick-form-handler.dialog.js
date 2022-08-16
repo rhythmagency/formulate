@@ -41,7 +41,24 @@
 
             formulateTypeDefinitionResource.getHandlerDefinitions()
                 .then((response) => {
-                    vm.formHandlers = response;
+                    const groupedFormHandlers = {};
+                    vm.formHandlers = [];
+
+                    response.map(x => {
+                        if (!groupedFormHandlers[x.category]) {
+                            groupedFormHandlers[x.category] = [];
+                        }
+
+                        groupedFormHandlers[x.category].push(x);
+                    });
+
+                    for (const group in groupedFormHandlers) {
+                        vm.formHandlers.push({
+                            name: group,
+                            items: groupedFormHandlers[group]
+                        });
+                    }
+
                     vm.loading = false;
                 });
         };

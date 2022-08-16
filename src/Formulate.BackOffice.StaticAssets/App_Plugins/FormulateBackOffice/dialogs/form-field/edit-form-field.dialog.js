@@ -84,24 +84,9 @@
                 const url = formulateVars['FormFields.GetScaffolding'] + '?id=' + definition.kindId;
 
                 formulateServer.get(url).then(function (response) {
-                    // response
-                    /*
-                     * {
-                        directive: definition.directive,
-                        icon: definition.icon,
-                        supportsValidation: definition.supportsValidation,
-                        id: formulateIds.generateId(),
-                        kindId: definition.kindId,
-                        name: null,
-                        alias: null,
-                        validations: []
-                    };
-                     */
                     vm.model = response;
-
                     vm.loading = false;
-                })
-
+                });
             }
         };
 
