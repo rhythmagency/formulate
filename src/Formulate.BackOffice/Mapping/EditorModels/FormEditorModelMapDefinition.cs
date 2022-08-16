@@ -8,38 +8,31 @@
     using System.Collections.Generic;
     using System.Linq;
     using Formulate.Core.Types;
-    using Formulate.Core.Validations;
     using Umbraco.Cms.Core.Mapping;
     using Formulate.Core.Utilities;
 
-    internal sealed class FormEditorModelMapDefinition : EditorModelMapDefinition<PersistedForm, FormEditorModel>
+    internal sealed class FormEditorModelMapDefinition : EntityEditorModelMapDefinition<PersistedForm, FormEditorModel>
     {
         private readonly IJsonUtility _jsonUtility;
 
-        private readonly FormFieldDefinitionCollection _formFieldDefinitions;
-
         private readonly FormHandlerDefinitionCollection _formHandlerDefinitions;
 
-        private readonly IValidationEntityRepository _validationEntityRepository;
-
-        public FormEditorModelMapDefinition(IJsonUtility jsonUtility, FormFieldDefinitionCollection formFieldDefinitions, FormHandlerDefinitionCollection formHandlerDefinitions,  IValidationEntityRepository validationEntityRepository)
+        public FormEditorModelMapDefinition(IJsonUtility jsonUtility, FormFieldDefinitionCollection formFieldDefinitions, FormHandlerDefinitionCollection formHandlerDefinitions)
         {
             _jsonUtility = jsonUtility;
-            _formFieldDefinitions = formFieldDefinitions;
             _formHandlerDefinitions = formHandlerDefinitions;
-            _validationEntityRepository = validationEntityRepository;
         }
 
-        protected override FormEditorModel? MapToEditor(PersistedForm entity, bool isNew)
+        public override FormEditorModel? MapToEditor(PersistedForm entity, MapperContext mapperContext)
         {
-            return new FormEditorModel(entity, isNew)
+            return new FormEditorModel(entity, mapperContext.IsNew())
             {
-                Fields = MapFields(entity.Fields),
-                Handlers = MapHandlers(entity.Handlers)
+                Fields = MapFields(entity.Fields, mapperContext),
+                Handlers = MapHandlers(entity.Handlers, mapperContext)
             };
         }
 
-        protected override PersistedForm? MapToEntity(FormEditorModel editorModel, MapperContext mapperContext)
+        public override PersistedForm? MapToEntity(FormEditorModel editorModel, MapperContext mapperContext)
         {
             return new PersistedForm()
             {
@@ -47,13 +40,13 @@
                 Id = editorModel.Id,
                 Name = editorModel.Name,
                 Path = editorModel.Path,
-                Fields = MapFields(editorModel.Fields),
+                Fields = MapFields(editorModel.Fields, mapperContext),
                 Handlers = MapHandlers(editorModel.Handlers)
             };
         }
 
 
-        private PersistedFormField[] MapFields(FormFieldEditorModel[] fields)
+        private PersistedFormField[] MapFields(FormFieldEditorModel[] fields, MapperContext mapperContext)
         {
             if (fields.Length == 0)
             {
@@ -64,23 +57,18 @@
 
             foreach (var field in fields)
             {
-                mappedFields.Add(new PersistedFormField()
+                var mappedField = mapperContext.Map<FormFieldEditorModel, PersistedFormField>(field);
+
+                if (mappedField is not null)
                 {
-                    Alias = field.Alias,
-                    Category = field.Category,
-                    Id = field.Id,
-                    KindId = field.KindId,
-                    Label = field.Label,
-                    Name = field.Name,
-                    Validations = MapValidations(field.Validations),
-                    Data = _jsonUtility.Serialize(field.Configuration)
-                });
+                    mappedFields.Add(mappedField);
+                }
             }
 
             return mappedFields.ToArray();
         }
 
-        private FormFieldEditorModel[] MapFields(PersistedFormField[] fields)
+        private FormFieldEditorModel[] MapFields(PersistedFormField[] fields, MapperContext mapperContext)
         {
             if (fields.Length == 0)
             {
@@ -91,37 +79,19 @@
 
             foreach (var field in fields)
             {
-                var definition = _formFieldDefinitions.FirstOrDefault(field.KindId);
-                if (definition is null)
+                var mappedField = mapperContext.Map<PersistedFormField, FormFieldEditorModel>(field);
+
+                if (mappedField is not null)
                 {
-                    continue;
+                    mappedFields.Add(mappedField);
                 }
 
-                var mappedField = new FormFieldEditorModel()
-                {
-                    Id = field.Id,
-                    Label = field.Label,
-                    Name = field.Name,
-                    Alias = field.Alias,
-                    KindId = field.KindId,
-                    Configuration = definition.GetBackOfficeConfiguration(field),
-                    SupportsValidation = definition.SupportsValidation,
-                    Icon = definition.Icon,
-                    Directive = definition.Directive,
-                };
-
-                if (definition.SupportsValidation)
-                {
-                    mappedField.Validations = MapValidations(field.Validations);
-                }
-
-                mappedFields.Add(mappedField);
             }
 
             return mappedFields.ToArray();
         }
         
-        private FormHandlerEditorModel[] MapHandlers(PersistedFormHandler[] handlers)
+        private FormHandlerEditorModel[] MapHandlers(PersistedFormHandler[] handlers, MapperContext mapperContext)
         {
             if (handlers.Length == 0)
             {
@@ -180,33 +150,6 @@
             }
 
             return mappedHandlers.ToArray();
-        }
-
-        private FormFieldValidationEditorModel[] MapValidations(Guid[] validations)
-        {
-            if (validations is null || validations.Any() == false)
-            {
-                return Array.Empty<FormFieldValidationEditorModel>();
-            }
-
-            // TODO: Improve this logic by including GetMultiple in repo.
-            var entities = validations.Select(_validationEntityRepository.Get).Where(x => x is not null).ToArray();
-
-            return entities.Select(x => new FormFieldValidationEditorModel()
-            {
-                Id = x.Id,
-                Name = x.Name
-            }).ToArray();
-        }
-
-        private Guid[] MapValidations(FormFieldValidationEditorModel[] validations)
-        {
-            if (validations.Length == 0)
-            {
-                return Array.Empty<Guid>();
-            }
-
-            return validations.Select(x => x.Id).ToArray();
         }
     }
 }

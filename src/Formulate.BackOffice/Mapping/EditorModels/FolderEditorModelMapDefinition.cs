@@ -4,14 +4,14 @@
     using Formulate.Core.Folders;
     using Umbraco.Cms.Core.Mapping;
 
-    internal sealed class FolderEditorModelMapDefinition : EditorModelMapDefinition<PersistedFolder, FolderEditorModel>
+    internal sealed class FolderEditorModelMapDefinition : EntityEditorModelMapDefinition<PersistedFolder, FolderEditorModel>
     {
-        protected override FolderEditorModel? MapToEditor(PersistedFolder entity, bool isNew)
+        public override FolderEditorModel? MapToEditor(PersistedFolder entity, MapperContext mapperContext)
         {
-            return new FolderEditorModel(entity, isNew);
+            return new FolderEditorModel(entity, mapperContext.IsNew());
         }
 
-        protected override PersistedFolder? MapToEntity(FolderEditorModel editorModel, MapperContext mapperContext)
+        public override PersistedFolder? MapToEntity(FolderEditorModel editorModel, MapperContext mapperContext)
         {
             return new PersistedFolder()
             {

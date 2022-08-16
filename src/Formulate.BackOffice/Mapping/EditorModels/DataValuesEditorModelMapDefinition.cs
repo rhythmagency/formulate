@@ -7,7 +7,7 @@
     using System.Linq;
     using Umbraco.Cms.Core.Mapping;
 
-    internal sealed class DataValuesEditorModelMapDefinition : EditorModelMapDefinition<PersistedDataValues, DataValuesEditorModel>
+    internal sealed class DataValuesEditorModelMapDefinition : EntityEditorModelMapDefinition<PersistedDataValues, DataValuesEditorModel>
     {
         private readonly IJsonUtility _jsonUtility;
 
@@ -19,7 +19,7 @@
             _dataValuesDefinitions = dataValuesDefinitions;
         }
 
-        protected override DataValuesEditorModel? MapToEditor(PersistedDataValues entity, bool isNew)
+        public override DataValuesEditorModel? MapToEditor(PersistedDataValues entity, MapperContext mapperContext)
         {
             var definition = _dataValuesDefinitions.FirstOrDefault(entity.KindId);
             
@@ -28,7 +28,7 @@
                 return default;
             }
 
-            return new DataValuesEditorModel(entity, isNew)
+            return new DataValuesEditorModel(entity, mapperContext.IsNew())
             {
                 Directive = definition.Directive,
                 Data = definition.GetBackOfficeConfiguration(entity),
@@ -36,7 +36,7 @@
             };
         }
 
-        protected override PersistedDataValues? MapToEntity(DataValuesEditorModel editorModel, MapperContext mapperContext)
+        public override PersistedDataValues? MapToEntity(DataValuesEditorModel editorModel, MapperContext mapperContext)
         {
             return new PersistedDataValues()
             {

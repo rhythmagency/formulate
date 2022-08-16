@@ -10,7 +10,7 @@
     using System.Linq;
     using Umbraco.Cms.Core.Mapping;
 
-    internal sealed class ConfiguredFormEditorModelMapDefinition : EditorModelMapDefinition<PersistedConfiguredForm, ConfiguredFormEditorModel>
+    internal sealed class ConfiguredFormEditorModelMapDefinition : EntityEditorModelMapDefinition<PersistedConfiguredForm, ConfiguredFormEditorModel>
     {
         private readonly TemplateDefinitionCollection _templateDefinitions;
         private readonly ILayoutEntityRepository _layoutEntities;
@@ -21,11 +21,11 @@
             _layoutEntities = layoutEntityRepository;
         }
 
-        protected override ConfiguredFormEditorModel? MapToEditor(PersistedConfiguredForm entity, bool isNew)
+        public override ConfiguredFormEditorModel? MapToEditor(PersistedConfiguredForm entity, MapperContext mapperContext)
         {
             var layout = GetLayout(entity.LayoutId);
             var template = GetTemplate(entity.TemplateId);
-            var editorModel = new ConfiguredFormEditorModel(entity, isNew);
+            var editorModel = new ConfiguredFormEditorModel(entity, mapperContext.IsNew());
 
             if (layout is not null)
             {
@@ -60,7 +60,7 @@
             return _layoutEntities.Get(layoutId.Value);
         }
 
-        protected override PersistedConfiguredForm? MapToEntity(ConfiguredFormEditorModel editorModel, MapperContext mapperContext)
+        public override PersistedConfiguredForm? MapToEntity(ConfiguredFormEditorModel editorModel, MapperContext mapperContext)
         {
             return new PersistedConfiguredForm()
             {

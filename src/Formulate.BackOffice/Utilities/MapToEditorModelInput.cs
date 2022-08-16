@@ -4,17 +4,17 @@
 
     public sealed class MapToEditorModelInput
     {
-        public MapToEditorModelInput(IPersistedEntity entity) : this(entity, false)
+        public MapToEditorModelInput(IPersistedItem item) : this(item, false)
         {
         }
 
-        public MapToEditorModelInput(IPersistedEntity entity, bool isNew)
+        public MapToEditorModelInput(IPersistedItem item, bool isNew)
         {
-            Entity = entity;
+            Item = item;
             IsNew = isNew;
         }
 
-        public IPersistedEntity Entity { get; init; }
+        public IPersistedItem Item { get; init; }
 
         public bool IsNew { get; init; }
     }

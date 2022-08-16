@@ -10,5 +10,9 @@
         TEntity? MapToEntity<TEditorModel, TEntity>(TEditorModel input) 
             where TEditorModel : IEditorModel
             where TEntity : IPersistedEntity;
+
+        TItem? MapToItem<TEditorModel, TItem>(TEditorModel input) 
+            where TEditorModel : IEditorModel
+            where TItem : IPersistedItem;
     }
 }

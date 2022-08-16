@@ -1,6 +1,7 @@
 ﻿namespace Formulate.BackOffice.Utilities
 {
     using Formulate.BackOffice.EditorModels;
+    using Formulate.BackOffice.Mapping.EditorModels;
     using Formulate.Core.Persistence;
     using Umbraco.Cms.Core.Mapping;
 
@@ -15,12 +16,12 @@
 
         public IEditorModel? MapToEditor(MapToEditorModelInput input)
         {
-            if (input.Entity is null)
+            if (input.Item is null)
             {
                 return default;
             }
 
-            return _umbracoMapper.Map<IEditorModel>(input.Entity, (context) => { context.Items.Add("isNew", input.IsNew); });
+            return _umbracoMapper.Map<IEditorModel>(input.Item, (context) => { context.SetIsNew(input.IsNew); });
         }
 
         public TEntity? MapToEntity<TEditorModel, TEntity>(TEditorModel input)
@@ -33,6 +34,18 @@
             }
 
             return _umbracoMapper.Map<TEditorModel, TEntity>(input);
+        }
+
+        public TItem? MapToItem<TEditorModel, TItem>(TEditorModel input)
+            where TEditorModel : IEditorModel
+            where TItem : IPersistedItem
+        {
+            if (input is null)
+            {
+                return default;
+            }
+
+            return _umbracoMapper.Map<TEditorModel, TItem>(input);
         }
     }
 }

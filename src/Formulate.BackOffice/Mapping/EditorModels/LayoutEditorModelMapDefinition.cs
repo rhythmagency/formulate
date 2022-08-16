@@ -6,7 +6,7 @@
     using Formulate.Core.Utilities;
     using Umbraco.Cms.Core.Mapping;
 
-    internal sealed class LayoutEditorModelMapDefinition : EditorModelMapDefinition<PersistedLayout, LayoutEditorModel>
+    internal sealed class LayoutEditorModelMapDefinition : EntityEditorModelMapDefinition<PersistedLayout, LayoutEditorModel>
     {
         private readonly IJsonUtility _jsonUtility;
 
@@ -18,7 +18,7 @@
             _layoutDefinitions = layoutDefinitions;
         }
 
-        protected override LayoutEditorModel? MapToEditor(PersistedLayout entity, bool isNew)
+        public override LayoutEditorModel? MapToEditor(PersistedLayout entity, MapperContext mapperContext)
         {
             var definition = _layoutDefinitions.FirstOrDefault(entity.KindId);
 
@@ -27,14 +27,14 @@
                 return default;
             }
 
-            return new LayoutEditorModel(entity, isNew)
+            return new LayoutEditorModel(entity, mapperContext.IsNew())
             {
                 Directive = definition.Directive,
                 Data = definition.GetBackOfficeConfiguration(entity)
             };
         }
 
-        protected override PersistedLayout? MapToEntity(LayoutEditorModel editorModel, MapperContext mapperContext)
+        public override PersistedLayout? MapToEntity(LayoutEditorModel editorModel, MapperContext mapperContext)
         {
             return new PersistedLayout()
             {
