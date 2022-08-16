@@ -17,7 +17,6 @@
     [FormulateBackOfficePluginController]
     public sealed class LayoutsController : FormulateBackOfficeEntityApiController
     {
-        private readonly LayoutDefinitionCollection layoutDefinitions;
         private readonly ILayoutEntityRepository layoutEntities;
         private readonly ICreateLayoutsScaffoldingEntity _createLayoutsScaffoldingEntity;
         private readonly IGetLayoutsChildEntityOptions _getLayoutsChildEntityOptions;
@@ -26,13 +25,11 @@
             IEditorModelMapper editorModelMapper,
             ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
-            LayoutDefinitionCollection layoutDefinitions,
             ILayoutEntityRepository layoutEntities,
             ICreateLayoutsScaffoldingEntity createLayoutsScaffoldingEntity,
             IGetLayoutsChildEntityOptions getLayoutsChildEntityOptions) :
                 base(editorModelMapper, treeEntityRepository, localizedTextService)
         {
-            this.layoutDefinitions = layoutDefinitions;
             this.layoutEntities = layoutEntities;
             _createLayoutsScaffoldingEntity = createLayoutsScaffoldingEntity;
             _getLayoutsChildEntityOptions = getLayoutsChildEntityOptions;
