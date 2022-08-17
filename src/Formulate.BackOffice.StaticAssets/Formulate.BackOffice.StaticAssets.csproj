@@ -77,6 +77,8 @@
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\button\button-field.editor.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\drop-down\drop-down-field.editor.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\drop-down\drop-down-field.editor.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\header\header-field.editor.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\header\header-field.editor.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\form-picker\form-picker.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\form-picker\form-picker.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\dataValuesResource.js" />
