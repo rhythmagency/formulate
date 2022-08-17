@@ -72,11 +72,7 @@
         /// <inheritdoc />
         public override FormField CreateField(IFormFieldSettings settings)
         {
-            var configuration = new ButtonFieldConfiguration()
-            {
-                ButtonKind = "submit"
-            };
-
+            var configuration = _jsonUtility.Deserialize<ButtonFieldConfiguration>(settings.Data);
             var field = new ButtonField(settings, configuration);
             
             return field;
