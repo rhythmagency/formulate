@@ -59,9 +59,9 @@
         public bool SupportsValidation { get; set; }
 
         /// <summary>
-        /// Whether this field supports field label.
+        /// Whether this field supports a label.
         /// </summary>
-        [DataMember(Name = "supportsFieldLabel")]
-        public bool SupportsFieldLabel { get; set; }
+        [DataMember(Name = "supportsLabel")]
+        public bool SupportsLabel { get; set; }
     }
 }

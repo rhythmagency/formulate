@@ -41,12 +41,12 @@
                 KindId = entity.KindId,
                 Configuration = definition.GetBackOfficeConfiguration(entity),
                 SupportsValidation = definition.SupportsValidation,
-                SupportsFieldLabel = definition.SupportsFieldLabel,
+                SupportsLabel = definition.SupportsLabel,
                 Icon = definition.Icon,
                 Directive = definition.Directive,
             };
 
-            if (definition.SupportsFieldLabel)
+            if (definition.SupportsLabel)
             {
                 editorModel.Label = entity.Label;
             }

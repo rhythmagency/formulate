@@ -34,6 +34,6 @@
         /// <summary>
         /// Gets a value indicating whether this field definition supports a field label.
         /// </summary>
-        bool SupportsFieldLabel { get; }
+        bool SupportsLabel { get; }
     }
 }

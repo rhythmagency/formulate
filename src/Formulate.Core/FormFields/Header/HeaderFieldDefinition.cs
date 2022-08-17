@@ -65,9 +65,9 @@
 
         /// <inheritdoc />
         /// <remarks>
-        /// This form field does not support a field label.
+        /// This form field does not support a label.
         /// </remarks>
-        public override bool SupportsFieldLabel => false;
+        public override bool SupportsLabel => false;
 
         /// <inheritdoc />
         public override FormField CreateField(IFormFieldSettings settings)

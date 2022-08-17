@@ -55,8 +55,8 @@
 
         /// <inheritdoc />
         /// <remarks>Defaults to true.</remarks>
-        [DataMember(Name = "supportsFieldLabel")]
-        public virtual bool SupportsFieldLabel => true;
+        [DataMember(Name = "supportsLabel")]
+        public virtual bool SupportsLabel => true;
 
         /// <inheritdoc />
         [DataMember(Name = "category")]

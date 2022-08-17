@@ -24,6 +24,6 @@
 
         public bool SupportsValidation => _features.SupportsValidation;
 
-        public bool SupportsFieldLabel => _features.SupportsFieldLabel;
+        public bool SupportsLabel => _features.SupportsLabel;
     }
 }
