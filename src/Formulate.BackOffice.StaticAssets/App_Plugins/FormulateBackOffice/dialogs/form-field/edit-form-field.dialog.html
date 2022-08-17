@@ -15,13 +15,13 @@
                 <umb-load-indicator ng-if="vm.loading === true"></umb-load-indicator>
 
                 <div ng-if="vm.loading === false">
-                    <div class="umb-group-panel">
+                    <div class="umb-group-panel" ng-if="vm.supportsGeneralFields">
                         <div class="umb-group-panel__header">
                             General
                         </div>
                         <div class="umb-group-panel__content">
                             <!-- label -->
-                            <div class="control-group umb-control-group -no-border">
+                            <div class="control-group umb-control-group -no-border" ng-if="vm.model.supportsFieldLabel">
                                 <div class="umb-el-wrap">
                                     <label class="control-label" for="label">
                                         <localize key="formulate-labels_Field Label">

@@ -54,6 +54,11 @@
         public virtual bool SupportsValidation => true;
 
         /// <inheritdoc />
+        /// <remarks>Defaults to true.</remarks>
+        [DataMember(Name = "supportsFieldLabel")]
+        public virtual bool SupportsFieldLabel => true;
+
+        /// <inheritdoc />
         [DataMember(Name = "category")]
         public virtual string Category => FormFieldConstants.Categories.Uncategorized;
 

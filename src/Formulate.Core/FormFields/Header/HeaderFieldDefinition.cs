@@ -56,6 +56,12 @@
         public override bool SupportsValidation => false;
 
         /// <inheritdoc />
+        /// <remarks>
+        /// This form field does not support a field label.
+        /// </remarks>
+        public override bool SupportsFieldLabel => false;
+
+        /// <inheritdoc />
         public override FormField CreateField(IFormFieldSettings settings)
         {
             return new HeaderField(settings);

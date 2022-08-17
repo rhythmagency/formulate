@@ -36,15 +36,20 @@
             {
                 IsNew = mapperContext.IsNew(),
                 Id = entity.Id,
-                Label = entity.Label,
                 Name = entity.Name,
                 Alias = entity.Alias,
                 KindId = entity.KindId,
                 Configuration = definition.GetBackOfficeConfiguration(entity),
                 SupportsValidation = definition.SupportsValidation,
+                SupportsFieldLabel = definition.SupportsFieldLabel,
                 Icon = definition.Icon,
                 Directive = definition.Directive,
             };
+
+            if (definition.SupportsFieldLabel)
+            {
+                editorModel.Label = entity.Label;
+            }
 
             if (definition.SupportsValidation)
             {

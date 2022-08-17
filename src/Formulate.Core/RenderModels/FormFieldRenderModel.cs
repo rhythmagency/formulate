@@ -23,5 +23,7 @@
         public bool IsStored => _features.IsStored;
 
         public bool SupportsValidation => _features.SupportsValidation;
+
+        public bool SupportsFieldLabel => _features.SupportsFieldLabel;
     }
 }

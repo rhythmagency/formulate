@@ -30,5 +30,10 @@
         /// Gets a value indicating whether this field definition supports validation.
         /// </summary>
         bool SupportsValidation { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether this field definition supports a field label.
+        /// </summary>
+        bool SupportsFieldLabel { get; }
     }
 }

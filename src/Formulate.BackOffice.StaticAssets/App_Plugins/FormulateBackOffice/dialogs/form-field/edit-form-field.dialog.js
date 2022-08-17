@@ -75,7 +75,7 @@
         function init() {
             if ($scope.model.field) {
                 vm.model = $scope.model.field;
-
+                vm.supportsGeneralFields = getGeneralFieldSupport(vm.model);
                 vm.loading = false;
             }
 
@@ -85,10 +85,15 @@
 
                 formulateServer.get(url).then(function (response) {
                     vm.model = response;
+                    vm.supportsGeneralFields = getGeneralFieldSupport(vm.model);
                     vm.loading = false;
                 });
             }
         };
+
+        function getGeneralFieldSupport(model) {
+            return model.supportsValidation || model.supportsFormField;
+        }
 
         init();
     };
