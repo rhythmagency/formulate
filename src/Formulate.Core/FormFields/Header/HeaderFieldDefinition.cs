@@ -1,5 +1,6 @@
 ﻿namespace Formulate.Core.FormFields.Header
 {
+    using Formulate.Core.Utilities;
     // Namespaces.
     using System;
 
@@ -8,6 +9,13 @@
     /// </summary>
     public sealed class HeaderFieldDefinition : FormFieldDefinition<HeaderField>
     {
+        private readonly IJsonUtility _jsonUtility;
+
+        public HeaderFieldDefinition(IJsonUtility jsonUtility)
+        {
+            _jsonUtility = jsonUtility;
+        }
+
         /// <summary>
         /// Constants related to <see cref="HeaderFieldDefinition"/>.
         /// </summary>
@@ -64,7 +72,22 @@
         /// <inheritdoc />
         public override FormField CreateField(IFormFieldSettings settings)
         {
-            return new HeaderField(settings);
+            var configuration = _jsonUtility.Deserialize<HeaderFieldConfiguration>(settings.Data);
+
+            return new HeaderField(settings, configuration);
+        }
+
+        /// <inheritdoc />
+        public override object GetBackOfficeConfiguration(IFormFieldSettings settings)
+        {
+            var config = _jsonUtility.Deserialize<HeaderFieldConfiguration>(settings.Data);
+            
+            if (config is null)
+            {
+                return new HeaderFieldConfiguration();
+            }
+
+            return config;
         }
     }
 }
