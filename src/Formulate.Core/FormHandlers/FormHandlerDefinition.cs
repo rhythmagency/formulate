@@ -15,7 +15,7 @@
         public abstract Guid KindId { get; }
 
         /// <inheritdoc />
-        public abstract string DefinitionLabel { get; }
+        public abstract string Name { get; }
 
         /// <inheritdoc />
         public abstract string Directive { get; }

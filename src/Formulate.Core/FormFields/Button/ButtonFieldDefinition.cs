@@ -25,9 +25,9 @@
             public const string KindId = "CDE8565C5E9241129A1F7FFA1940C53C";
 
             /// <summary>
-            /// The definition label.
+            /// The name.
             /// </summary>
-            public const string DefinitionLabel = "Button";
+            public const string Name = "Button";
 
             /// <summary>
             /// The icon.
@@ -61,7 +61,7 @@
         public override string Icon => Constants.Icon;
 
         /// <inheritdoc />
-        public override string DefinitionLabel => Constants.DefinitionLabel;
+        public override string Name => Constants.Name;
 
         /// <inheritdoc />
         public override string Directive => Constants.Directive;

@@ -26,7 +26,7 @@
         {
             public override Guid KindId => Guid.Parse(Constants.TestDataValuesKindId);
 
-            public override string DefinitionLabel => "Test Data Values";
+            public override string Name => "Test Data Values";
 
             public override string Directive => "test-data-values";
 

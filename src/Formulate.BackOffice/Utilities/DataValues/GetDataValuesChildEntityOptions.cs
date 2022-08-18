@@ -23,7 +23,7 @@
 
             var dataValueOptions = _dataValuesDefinitions.Where(x => x.IsLegacy == false).Select(x => new CreateChildEntityOption()
             {
-                Name = x.DefinitionLabel,
+                Name = x.Name,
                 KindId = x.KindId,
                 EntityType = EntityTypes.DataValues,
                 Icon = x.Icon

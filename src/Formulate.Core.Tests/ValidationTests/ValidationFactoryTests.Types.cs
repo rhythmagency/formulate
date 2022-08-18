@@ -30,7 +30,7 @@ namespace Formulate.Core.Tests.ValidationTests
         {
             public Guid KindId => Guid.Parse(Constants.TestValidationKindId);
             
-            public string DefinitionLabel => "Test Validation";
+            public string Name => "Test Validation";
             
             public string Directive => "formulate-test-validation";
             

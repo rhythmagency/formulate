@@ -1,6 +1,5 @@
 ﻿namespace Formulate.Core.FormFields.DropDown
 {
-    using Formulate.Core.DataValues;
     // Namesapces.
     using System;
     using System.Collections.Generic;
@@ -33,9 +32,9 @@
             public const string KindId = "6D3DF1571BC44FCFB2B70A94FE719B47";
 
             /// <summary>
-            /// The definition label.
+            /// The name.
             /// </summary>
-            public const string DefinitionLabel = "Drop Down";
+            public const string Name = "Drop Down";
 
             /// <summary>
             /// The Angular JS directive.
@@ -52,7 +51,7 @@
         public override Guid KindId => Guid.Parse(Constants.KindId);
 
         /// <inheritdoc />
-        public override string DefinitionLabel => Constants.DefinitionLabel;
+        public override string Name => Constants.Name;
 
         /// <inheritdoc />
         public override string Icon => Constants.Icon;

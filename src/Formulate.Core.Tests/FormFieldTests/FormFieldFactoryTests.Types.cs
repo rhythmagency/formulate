@@ -31,7 +31,7 @@
         {
             public override Guid KindId => Guid.Parse(Constants.TestFormFieldKindId);
 
-            public override string DefinitionLabel => "Text Form Field";
+            public override string Name => "Text Form Field";
 
             public override string Icon => "icon-test-field";
 

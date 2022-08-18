@@ -23,7 +23,7 @@
             var options = new List<CreateChildEntityOption>();
             var validationOptions = _validationDefinitions.Select(x => new CreateChildEntityOption()
             {
-                Name = x.DefinitionLabel,
+                Name = x.Name,
                 KindId = x.KindId,
                 EntityType = EntityTypes.Validation,
                 Icon = FormulateValidationsTreeController.Constants.ItemNodeIcon

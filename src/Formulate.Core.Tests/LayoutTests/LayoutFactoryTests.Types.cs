@@ -28,7 +28,7 @@ namespace Formulate.Core.Tests.LayoutTests
         {
             public Guid KindId => Guid.Parse(Constants.TestLayoutKindId);
             
-            public string DefinitionLabel => "Test Layout";
+            public string Name => "Test Layout";
             
             public string Directive => "formulate-test-layout";
             

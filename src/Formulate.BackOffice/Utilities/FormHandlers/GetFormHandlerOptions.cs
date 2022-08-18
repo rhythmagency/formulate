@@ -19,7 +19,7 @@
             return _formHandlerDefinitions.Select(x => new CreateItemOption() {
                 Icon = x.Icon,
                 KindId = x.KindId,
-                Name = x.DefinitionLabel,
+                Name = x.Name,
                 Category = x.Category
             }).ToArray();
         }

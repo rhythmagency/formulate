@@ -15,9 +15,9 @@
             public const string KindId = "BBF66F6A8F7D4ABA9D5B194A46084EC2";
 
             /// <summary>
-            /// The definition label.
+            /// The name.
             /// </summary>
-            public const string DefinitionLabel = "Legacy";
+            public const string Name = "Legacy";
 
             /// <summary>
             /// The Angular JS directive.
@@ -37,7 +37,7 @@
         public override Guid KindId => Guid.Parse(Constants.KindId);
 
         /// <inheritdoc />
-        public override string DefinitionLabel => Constants.DefinitionLabel;
+        public override string Name => Constants.Name;
 
         /// <inheritdoc />
         public override string Directive => Constants.Directive;

@@ -24,9 +24,9 @@ namespace Formulate.Core.Validations.Regex
             public const string KindId = "AC9A464F6F3F4AF9A3B29C85FF0C5580";
 
             /// <summary>
-            /// The definition label.
+            /// The name.
             /// </summary>
-            public const string DefinitionLabel = "Regular Expression";
+            public const string Name = "Regular Expression";
 
             /// <summary>
             /// The Angular JS directive.
@@ -43,7 +43,7 @@ namespace Formulate.Core.Validations.Regex
         public Guid KindId => Guid.Parse(Constants.KindId);
 
         /// <inheritdoc />
-        public string DefinitionLabel => Constants.DefinitionLabel;
+        public string Name => Constants.Name;
 
         /// <inheritdoc />
         public string Directive => Constants.Directive;

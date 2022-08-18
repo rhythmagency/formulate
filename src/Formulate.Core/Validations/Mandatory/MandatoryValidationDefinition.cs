@@ -21,9 +21,9 @@ namespace Formulate.Core.Validations.Mandatory
             public const string KindId = "93957A02633944A193238E8CD754680B";
 
             /// <summary>
-            /// The definition label.
+            /// The name.
             /// </summary>
-            public const string DefinitionLabel = "Mandatory";
+            public const string Name = "Mandatory";
 
             /// <summary>
             /// The Angular JS directive.
@@ -40,7 +40,7 @@ namespace Formulate.Core.Validations.Mandatory
         public Guid KindId => Guid.Parse(Constants.KindId);
 
         /// <inheritdoc />
-        public string DefinitionLabel => Constants.DefinitionLabel;
+        public string Name => Constants.Name;
 
         /// <inheritdoc />
         public string Directive => Constants.Directive;

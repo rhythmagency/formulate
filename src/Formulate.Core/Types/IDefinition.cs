@@ -15,9 +15,9 @@ namespace Formulate.Core.Types
         Guid KindId { get; }
 
         /// <summary>
-        /// Gets the definition label.
+        /// Gets the name.
         /// </summary>
-        string DefinitionLabel { get; }
+        string Name { get; }
 
         /// <summary>
         /// Gets the directive.

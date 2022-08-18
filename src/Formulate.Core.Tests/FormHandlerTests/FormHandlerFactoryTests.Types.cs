@@ -32,7 +32,7 @@ namespace Formulate.Core.Tests.FormHandlerTests
         {
             public override Guid KindId => Guid.Parse(Constants.TestFormHandlerKindId);
             
-            public override string DefinitionLabel => "Test Form Handler";
+            public override string Name => "Test Form Handler";
 
             public override string Directive => throw new NotImplementedException();
 
@@ -53,7 +53,7 @@ namespace Formulate.Core.Tests.FormHandlerTests
         {
             public Guid KindId => Guid.Parse(Constants.TestUnsupportedFormHandlerKindId);
             
-            public string DefinitionLabel => "Test Unsupported Form Handler";
+            public string Name => "Test Unsupported Form Handler";
             
             public string Directive => "test-form-handler";
 

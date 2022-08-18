@@ -20,9 +20,9 @@
             public const string KindId = "6CFFC488670E4CC7B965A5F3676BA333";
 
             /// <summary>
-            /// The definition label.
+            /// The name.
             /// </summary>
-            public const string DefinitionLabel = "List of States and Territories in the United States";
+            public const string Name = "List of States and Territories in the United States";
 
             /// <summary>
             /// The Angular JS directive.
@@ -39,7 +39,7 @@
         public override Guid KindId => Guid.Parse(Constants.KindId);
 
         /// <inheritdoc />
-        public override string DefinitionLabel => Constants.DefinitionLabel;
+        public override string Name => Constants.Name;
 
         /// <inheritdoc />
         public override string Directive => Constants.Directive;

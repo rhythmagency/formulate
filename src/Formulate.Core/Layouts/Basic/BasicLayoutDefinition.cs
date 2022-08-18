@@ -21,9 +21,9 @@ namespace Formulate.Core.Layouts.Basic
             public const string KindId = "B03310E9320744DCBE96BE0CF4F26C59";
 
             /// <summary>
-            /// The definition label.
+            /// The name.
             /// </summary>
-            public const string DefinitionLabel = "Basic Layout";
+            public const string Name = "Basic Layout";
 
             /// <summary>
             /// The Angular JS directive.
@@ -35,7 +35,7 @@ namespace Formulate.Core.Layouts.Basic
         public Guid KindId => Guid.Parse(Constants.KindId);
 
         /// <inheritdoc />
-        public string DefinitionLabel => Constants.DefinitionLabel;
+        public string Name => Constants.Name;
 
         /// <inheritdoc />
         public string Directive => Constants.Directive;
