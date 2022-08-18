@@ -19,7 +19,7 @@
     /// <summary>
     /// A base tree controller class for handling Formulate entity trees.
     /// </summary>
-    public abstract class FormulateTreeController : TreeController
+    public abstract class FormulateEntityTreeController : TreeController
     {
         /// <summary>
         /// The tree entity repository.
@@ -32,14 +32,14 @@
         protected readonly IMenuItemCollectionFactory MenuItemCollectionFactory;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FormulateTreeController"/> class.
+        /// Initializes a new instance of the <see cref="FormulateEntityTreeController"/> class.
         /// </summary>
         /// <param name="treeEntityRepository">The tree entity repository.</param>
         /// <param name="menuItemCollectionFactory">The menu item collection factory.</param>
         /// <param name="localizedTextService">The localized text service.</param>
         /// <param name="umbracoApiControllerTypeCollection">The umbraco api controller type collection.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        protected FormulateTreeController(ITreeEntityRepository treeEntityRepository,
+        protected FormulateEntityTreeController(ITreeEntityRepository treeEntityRepository,
             IMenuItemCollectionFactory menuItemCollectionFactory, ILocalizedTextService localizedTextService,
             UmbracoApiControllerTypeCollection umbracoApiControllerTypeCollection, IEventAggregator eventAggregator) :
             base(localizedTextService, umbracoApiControllerTypeCollection, eventAggregator)

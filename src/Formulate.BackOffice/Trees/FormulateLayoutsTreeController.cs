@@ -19,7 +19,7 @@
     /// </summary>
     [Tree(FormulateSection.Constants.Alias, Constants.Alias, TreeTitle = "Layouts", SortOrder = 1)]
     [FormulateBackOfficePluginController]
-    public sealed class FormulateLayoutsTreeController : FormulateTreeController
+    public sealed class FormulateLayoutsTreeController : FormulateEntityTreeController
     {
         private readonly LayoutDefinitionCollection _layoutDefinitions;
 

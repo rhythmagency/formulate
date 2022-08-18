@@ -20,7 +20,7 @@
     /// </summary>
     [Tree(FormulateSection.Constants.Alias, Constants.Alias, TreeTitle = "Data Values", SortOrder = 2)]
     [FormulateBackOfficePluginController]
-    public sealed class FormulateDataValuesTreeController : FormulateTreeController
+    public sealed class FormulateDataValuesTreeController : FormulateEntityTreeController
     {
         public static class Constants
         {

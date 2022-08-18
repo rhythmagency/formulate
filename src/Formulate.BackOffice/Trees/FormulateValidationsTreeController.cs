@@ -21,7 +21,7 @@
     /// </summary>
     [Tree(FormulateSection.Constants.Alias, Constants.Alias, TreeTitle = "Validation Library", SortOrder = 3)]
     [FormulateBackOfficePluginController]
-    public sealed class FormulateValidationsTreeController : FormulateTreeController
+    public sealed class FormulateValidationsTreeController : FormulateEntityTreeController
     {
         private readonly ValidationDefinitionCollection _validationDefinitions;
 
