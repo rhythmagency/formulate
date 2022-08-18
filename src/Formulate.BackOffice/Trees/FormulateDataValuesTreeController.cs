@@ -65,7 +65,7 @@
         }
 
         /// <inheritdoc />
-        protected override TreeNodeDisplaySettings GetNodeDisplaySettings(IPersistedEntity entity)
+        protected override TreeNodeMetaData GetNodeMetaData(IPersistedEntity entity)
         {
             if (entity is PersistedDataValues dataValuesEntity)
             {
@@ -77,12 +77,12 @@
 
                     if (string.IsNullOrWhiteSpace(icon) == false)
                     {
-                        return new TreeNodeDisplaySettings(icon, definition.IsLegacy);
+                        return new TreeNodeMetaData(icon, definition.IsLegacy);
                     }
                 }
             }
 
-            return base.GetNodeDisplaySettings(entity);
+            return base.GetNodeMetaData(entity);
         }
 
         /// <inheritdoc />

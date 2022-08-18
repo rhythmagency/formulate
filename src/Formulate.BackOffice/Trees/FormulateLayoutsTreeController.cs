@@ -67,7 +67,7 @@
         }
 
         /// <inheritdoc />
-        protected override TreeNodeDisplaySettings GetNodeDisplaySettings(IPersistedEntity entity)
+        protected override TreeNodeMetaData GetNodeMetaData(IPersistedEntity entity)
         {
             if (entity is PersistedLayout layoutEntity)
             {
@@ -75,11 +75,11 @@
 
                 if (definition is not null)
                 {
-                    return new TreeNodeDisplaySettings(ItemNodeIcon, definition.IsLegacy);
+                    return new TreeNodeMetaData(ItemNodeIcon, definition.IsLegacy);
                 }
             }
 
-            return base.GetNodeDisplaySettings(entity);
+            return base.GetNodeMetaData(entity);
         }
 
         /// <inheritdoc />

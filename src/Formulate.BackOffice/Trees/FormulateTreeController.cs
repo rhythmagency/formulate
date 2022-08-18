@@ -89,10 +89,10 @@
             foreach (var entity in filteredEntities)
             {
                 var hasChildren = _treeEntityRepository.HasChildren(entity.Id, hasChildrenFilter);
-                var displaySettings = GetNodeDisplaySettings(entity);
-                var node = CreateTreeNode(entity.BackOfficeSafeId(), id, queryStrings, entity.Name, displaySettings.Icon, hasChildren);
+                var metaData = GetNodeMetaData(entity);
+                var node = CreateTreeNode(entity.BackOfficeSafeId(), id, queryStrings, entity.Name, metaData.Icon, hasChildren);
 
-                if (displaySettings.IsLegacy)
+                if (metaData.IsLegacy)
                 {
                     node.SetNotPublishedStyle();
                 }
@@ -157,11 +157,11 @@
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        protected virtual TreeNodeDisplaySettings GetNodeDisplaySettings(IPersistedEntity entity)
+        protected virtual TreeNodeMetaData GetNodeMetaData(IPersistedEntity entity)
         {
             var icon = entity.IsFolder() ? FolderNodeIcon : ItemNodeIcon;
 
-            return new TreeNodeDisplaySettings(icon);
+            return new TreeNodeMetaData(icon);
         }
 
         /// <summary>

@@ -54,14 +54,14 @@
         }
 
         /// <inheritdoc />
-        protected override TreeNodeDisplaySettings GetNodeDisplaySettings(IPersistedEntity entity)
+        protected override TreeNodeMetaData GetNodeMetaData(IPersistedEntity entity)
         {
             if (entity is PersistedConfiguredForm)
             {
-                return new TreeNodeDisplaySettings(Constants.ConfiguredFormNodeIcon);
+                return new TreeNodeMetaData(Constants.ConfiguredFormNodeIcon);
             }
 
-            return base.GetNodeDisplaySettings(entity);
+            return base.GetNodeMetaData(entity);
         }
 
         /// <inheritdoc />

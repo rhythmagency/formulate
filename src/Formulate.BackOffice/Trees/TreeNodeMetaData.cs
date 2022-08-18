@@ -1,12 +1,12 @@
 ﻿namespace Formulate.BackOffice.Trees
 {
-    public sealed class TreeNodeDisplaySettings
+    public sealed class TreeNodeMetaData
     {
-        public TreeNodeDisplaySettings(string icon) : this(icon, false)
+        public TreeNodeMetaData(string icon) : this(icon, false)
         {
         }
 
-        public TreeNodeDisplaySettings(string icon, bool isLegacy)
+        public TreeNodeMetaData(string icon, bool isLegacy)
         {
             Icon = icon;
             IsLegacy = isLegacy;
