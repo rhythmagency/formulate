@@ -103,6 +103,8 @@
                 // Set additional data so it is readily available to the frontend.
                 node.AdditionalData["NodeId"] = entity.Id;
                 node.AdditionalData["NodeName"] = entity.Name;
+                node.AdditionalData["IsLegacy"] = metaData.IsLegacy;
+
                 SetAdditionalNodeData(entity, node.AdditionalData);
 
                 nodes.Add(node);
