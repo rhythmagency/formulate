@@ -10,8 +10,6 @@
     /// <remarks>A tree entity repository pulls entities from all repositories.</remarks>
     public interface ITreeEntityRepository
     {
-        TPersistedEntity Create<TPersistedEntity>(IPersistedEntity parent) where TPersistedEntity : IPersistedEntity, new();
-
         /// <summary>
         /// Gets a persisted entity for a given id.
         /// </summary>

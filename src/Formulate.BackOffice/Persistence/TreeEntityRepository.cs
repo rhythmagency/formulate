@@ -257,13 +257,5 @@
                 _ => throw new NotSupportedException($"{treeRootType} is not a supported root type.")
             };
         }
-
-        public TPersistedEntity Create<TPersistedEntity>(IPersistedEntity parent) where TPersistedEntity : IPersistedEntity, new()
-        {
-            var entity = new TPersistedEntity();
-
-
-            return entity;
-        }
     }
 }
