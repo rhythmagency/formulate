@@ -15,26 +15,16 @@
     using Umbraco.Cms.Core.Services;
     using Umbraco.Cms.Core.Trees;
     using Umbraco.Cms.Web.BackOffice.Trees;
+    using FormulateConstants = Formulate.BackOffice.Constants;
 
     /// <summary>
     /// The Formulate validations tree controller.
     /// </summary>
-    [Tree(FormulateSection.Constants.Alias, Constants.Alias, TreeTitle = "Validation Library", SortOrder = 3)]
+    [Tree(FormulateSection.Constants.Alias, FormulateConstants.Trees.Validations, TreeTitle = "Validation Library", SortOrder = 3)]
     [FormulateBackOfficePluginController]
     public sealed class FormulateValidationsTreeController : FormulateEntityTreeController
     {
         private readonly ValidationDefinitionCollection _validationDefinitions;
-
-        public static class Constants
-        {
-            public const string Alias = "validations";
-
-            public const string RootNodeIcon = "icon-formulate-validations";
-
-            public const string FolderNodeIcon = "icon-formulate-validation-group";
-
-            public const string ItemNodeIcon = "icon-formulate-validation";
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormulateValidationsTreeController"/> class.
@@ -49,13 +39,13 @@
         protected override TreeRootTypes TreeRootType => TreeRootTypes.Validations;
 
         /// <inheritdoc />
-        protected override string RootNodeIcon => Constants.RootNodeIcon;
+        protected override string RootNodeIcon => FormulateConstants.Icons.Roots.Validations;
 
         /// <inheritdoc />
-        protected override string FolderNodeIcon => Constants.FolderNodeIcon;
+        protected override string FolderNodeIcon => FormulateConstants.Icons.Folders.Validations;
 
         /// <inheritdoc />
-        protected override string ItemNodeIcon => Constants.ItemNodeIcon;
+        protected override string ItemNodeIcon => FormulateConstants.Icons.Entities.Validation;
 
         /// <inheritdoc />
         protected override ActionResult<MenuItemCollection> GetMenuForRoot(FormCollection queryStrings)

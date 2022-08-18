@@ -76,7 +76,7 @@
             AddVariables<DataValuesController>(Constants.Trees.DataValues, newEntries);
             AddVariables<FormsController>(Constants.Trees.Forms, newEntries);
             AddVariables<LayoutsController>(Constants.Trees.Layouts, newEntries);
-            AddVariables<ValidationsController>(FormulateValidationsTreeController.Constants.Alias, newEntries);
+            AddVariables<ValidationsController>(Constants.Trees.Validations, newEntries);
             AddVariables<ConfiguredFormsController>("configuredForms", newEntries);
 
             if (notification.ServerVariables.ContainsKey(key))

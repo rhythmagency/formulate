@@ -26,7 +26,7 @@
                 Name = x.Name,
                 KindId = x.KindId,
                 EntityType = EntityTypes.Validation,
-                Icon = FormulateValidationsTreeController.Constants.ItemNodeIcon
+                Icon = Constants.Icons.Entities.Validation
             }).OrderBy(x => x.Name)
             .ToArray();
 
