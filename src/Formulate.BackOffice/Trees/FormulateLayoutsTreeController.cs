@@ -13,26 +13,16 @@
     using Umbraco.Cms.Core.Services;
     using Umbraco.Cms.Core.Trees;
     using Umbraco.Cms.Web.BackOffice.Trees;
+    using FormulateConstants = Formulate.BackOffice.Constants;
 
     /// <summary>
     /// The Formulate layouts tree controller.
     /// </summary>
-    [Tree(FormulateSection.Constants.Alias, Constants.Alias, TreeTitle = "Layouts", SortOrder = 1)]
+    [Tree(FormulateSection.Constants.Alias, FormulateConstants.Trees.Layouts, TreeTitle = "Layouts", SortOrder = 1)]
     [FormulateBackOfficePluginController]
     public sealed class FormulateLayoutsTreeController : FormulateEntityTreeController
     {
         private readonly LayoutDefinitionCollection _layoutDefinitions;
-
-        public static class Constants
-        {
-            public const string Alias = "layouts";
-
-            public const string RootNodeIcon = "icon-formulate-layouts";
-
-            public const string FolderNodeIcon = "icon-formulate-layout-group";
-
-            public const string ItemNodeIcon = "icon-formulate-layout";
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormulateLayoutsTreeController"/> class.
@@ -47,13 +37,13 @@
         protected override TreeRootTypes TreeRootType => TreeRootTypes.Layouts;
 
         /// <inheritdoc />
-        protected override string RootNodeIcon => Constants.RootNodeIcon;
+        protected override string RootNodeIcon => FormulateConstants.Icons.Roots.Layouts;
 
         /// <inheritdoc />
-        protected override string FolderNodeIcon => Constants.FolderNodeIcon;
+        protected override string FolderNodeIcon => FormulateConstants.Icons.Folders.Layouts;
 
         /// <inheritdoc />
-        protected override string ItemNodeIcon => Constants.ItemNodeIcon;
+        protected override string ItemNodeIcon => FormulateConstants.Icons.Entities.Layout;
         
         /// <inheritdoc />
         protected override ActionResult<MenuItemCollection> GetMenuForRoot(FormCollection queryStrings)

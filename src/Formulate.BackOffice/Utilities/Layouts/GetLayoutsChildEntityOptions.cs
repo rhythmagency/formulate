@@ -7,7 +7,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using Formulate.BackOffice.Persistence;
-    using Formulate.BackOffice.Trees;
 
     public sealed class GetLayoutsChildEntityOptions : IGetLayoutsChildEntityOptions
     {
@@ -26,7 +25,7 @@
                 Name = x.Name,
                 KindId = x.KindId,
                 EntityType = EntityTypes.Layout,
-                Icon = FormulateLayoutsTreeController.Constants.ItemNodeIcon
+                Icon = Constants.Icons.Entities.Layout
             }).OrderBy(x => x.Name)
             .ToArray();
 
