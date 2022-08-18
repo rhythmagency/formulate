@@ -69,12 +69,22 @@
         protected abstract string ItemNodeIcon { get; }
 
         /// <inheritdoc />
-        protected override ActionResult<TreeNode> CreateRootNode(FormCollection queryStrings)
+        protected override ActionResult<TreeNode?> CreateRootNode(FormCollection queryStrings)
         {
-            var node = base.CreateRootNode(queryStrings);
-            node.Value.Icon = RootNodeIcon;
+            ActionResult<TreeNode?> rootResult = base.CreateRootNode(queryStrings);
+            if (rootResult.Result is not null)
+            {
+                return rootResult;
+            }
 
-            return node;
+            var root = rootResult.Value;
+
+            if (root is not null)
+            {
+                root.Icon = RootNodeIcon;
+            }
+
+            return root;
         }
 
         /// <inheritdoc />
