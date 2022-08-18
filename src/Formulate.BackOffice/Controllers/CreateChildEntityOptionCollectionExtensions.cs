@@ -2,10 +2,8 @@
 {
     using System.Collections.Generic;
     using Formulate.BackOffice.Persistence;
-    using Formulate.BackOffice.Trees;
-    using Umbraco.Cms.Core;
 
-    internal static class CreateCreateChildEntityOptionCollectionExtensions
+    internal static class CreateChildEntityOptionCollectionExtensions
     {
         public static void AddFormOption(this List<CreateChildEntityOption> items)
         {
@@ -13,7 +11,7 @@
             {
                 EntityType = EntityTypes.Form,
                 Name = "Form",
-                Icon = FormulateFormsTreeController.Constants.FormNodeIcon
+                Icon = Constants.Icons.Entities.Form
             });
         }
 
@@ -24,31 +22,31 @@
                 {
                     EntityType = EntityTypes.ConfiguredForm,
                     Name = "Configured Form",
-                    Icon = FormulateFormsTreeController.Constants.ConfiguredFormNodeIcon,
+                    Icon = Constants.Icons.Entities.ConfiguredForm,
                 });
         }
         
         public static void AddDataValuesFolderOption(this List<CreateChildEntityOption> items)
         {
-            items.AddFolderOption(FormulateDataValuesTreeController.Constants.FolderNodeIcon);
+            items.AddFolderOption(Constants.Icons.Folders.DataValues);
         }
 
         public static void AddFormFolderOption(this List<CreateChildEntityOption> items)
         {
-            items.AddFolderOption(FormulateFormsTreeController.Constants.FolderNodeIcon);
+            items.AddFolderOption(Constants.Icons.Folders.Forms);
         }
 
         public static void AddLayoutsFolderOption(this List<CreateChildEntityOption> items)
         {
-            items.AddFolderOption(FormulateLayoutsTreeController.Constants.FolderNodeIcon);
+            items.AddFolderOption(Constants.Icons.Folders.Layouts);
         }
 
         public static void AddValidationsFolderOption(this List<CreateChildEntityOption> items)
         {
-            items.AddFolderOption(FormulateValidationsTreeController.Constants.FolderNodeIcon);
+            items.AddFolderOption(Constants.Icons.Folders.Validations);
         }
 
-        public static void AddFolderOption(this List<CreateChildEntityOption> items, string icon = Constants.Icons.Folder)
+        public static void AddFolderOption(this List<CreateChildEntityOption> items, string icon = Constants.Icons.Folders.Default)
         {
             items.Add(new CreateChildEntityOption()
             {
