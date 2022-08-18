@@ -31,7 +31,9 @@ namespace Formulate.Core.Tests.LayoutTests
             public string Name => "Test Layout";
             
             public string Directive => "formulate-test-layout";
-            
+
+            public bool IsLegacy => false;
+
             public ILayout CreateLayout(ILayoutSettings settings)
             {
                 return new TestLayout(settings);

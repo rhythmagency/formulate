@@ -21,7 +21,7 @@
         public IReadOnlyCollection<CreateChildEntityOption> Get(IPersistedEntity? parent)
         {
             var options = new List<CreateChildEntityOption>();
-            var validationOptions = _layoutDefinitions.Select(x => new CreateChildEntityOption()
+            var validationOptions = _layoutDefinitions.Where(x => x.IsLegacy == false).Select(x => new CreateChildEntityOption()
             {
                 Name = x.Name,
                 KindId = x.KindId,

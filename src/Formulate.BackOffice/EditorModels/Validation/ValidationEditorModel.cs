@@ -12,7 +12,7 @@
         {
         }
 
-        public ValidationEditorModel(PersistedValidation entity, bool isNew) : base(entity, isNew)
+        public ValidationEditorModel(PersistedValidation entity, bool isNew, bool isLegacy) : base(entity, isNew, isLegacy)
         {
             KindId = entity.KindId;
         }

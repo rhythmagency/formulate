@@ -12,7 +12,7 @@
         {
         }
 
-        public ConfiguredFormEditorModel(PersistedConfiguredForm entity, bool isNew) : base(entity, isNew)
+        public ConfiguredFormEditorModel(PersistedConfiguredForm entity, bool isNew) : base(entity, isNew, false)
         {
         }
 

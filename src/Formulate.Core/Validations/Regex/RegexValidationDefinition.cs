@@ -47,6 +47,9 @@ namespace Formulate.Core.Validations.Regex
 
         /// <inheritdoc />
         public string Directive => Constants.Directive;
+        
+        /// <inheritdoc />
+        public bool IsLegacy => false;
 
         /// <inheritdoc />
         public Validation CreateValidation(IValidationSettings settings)

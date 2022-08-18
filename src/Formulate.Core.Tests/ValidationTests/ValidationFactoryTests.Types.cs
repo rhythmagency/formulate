@@ -33,7 +33,9 @@ namespace Formulate.Core.Tests.ValidationTests
             public string Name => "Test Validation";
             
             public string Directive => "formulate-test-validation";
-            
+
+            public bool IsLegacy => false;
+
             public Validation CreateValidation(IValidationSettings settings)
             {
                 return new TestValidation(settings);

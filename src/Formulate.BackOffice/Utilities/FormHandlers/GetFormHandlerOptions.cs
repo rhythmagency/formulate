@@ -16,7 +16,7 @@
 
         public IReadOnlyCollection<CreateItemOption> Get()
         {
-            return _formHandlerDefinitions.Select(x => new CreateItemOption() {
+            return _formHandlerDefinitions.Where(x => x.IsLegacy == false).Select(x => new CreateItemOption() {
                 Icon = x.Icon,
                 KindId = x.KindId,
                 Name = x.Name,

@@ -61,6 +61,8 @@ namespace Formulate.Core.Tests.FormHandlerTests
 
             public string Category => throw new NotImplementedException();
 
+            public bool IsLegacy => false;
+
             public FormHandler CreateHandler(IFormHandlerSettings settings)
             {
                 throw new NotImplementedException();

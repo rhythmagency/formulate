@@ -13,14 +13,15 @@
         {
         }
 
-        public EntityEditorModel(IPersistedEntity entity, bool isNew)
+        public EntityEditorModel(IPersistedEntity entity, bool isNew, bool isLegacy)
         {
             Id = entity.Id;
             Path = entity.Path;
             Name = entity.Name;
             Alias = entity.Alias;
             TreePath = entity.TreeSafePath();
-            IsNew = isNew;            
+            IsNew = isNew;
+            IsLegacy = isLegacy;
         }
 
         [DataMember(Name = "id")]
@@ -43,5 +44,8 @@
 
         [DataMember(Name = "isNew")]
         public bool IsNew { get; set; }
+
+        [DataMember(Name = "isLegacy")]
+        public bool IsLegacy { get; set; }
     }
 }

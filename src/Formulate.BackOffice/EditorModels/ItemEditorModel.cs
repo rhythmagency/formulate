@@ -11,12 +11,13 @@
         {
         }
 
-        public ItemEditorModel(IPersistedItem item, bool isNew)
+        public ItemEditorModel(IPersistedItem item, bool isNew, bool isLegacy)
         {
             Id = item.Id;
             Alias = item.Alias;
             Name = item.Alias;
             IsNew = isNew;
+            isLegacy = isLegacy;
         }
 
 
@@ -33,5 +34,8 @@
 
         [DataMember(Name = "isNew")]
         public bool IsNew { get; set; }
+
+        [DataMember(Name = "isLegacy")]
+        public bool IsLegacy { get; set; }
     }
 }

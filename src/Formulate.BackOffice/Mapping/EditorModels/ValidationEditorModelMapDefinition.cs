@@ -27,7 +27,7 @@
                 return default;
             }
 
-            return new ValidationEditorModel(entity, mapperContext.IsNew())
+            return new ValidationEditorModel(entity, mapperContext.IsNew(), definition.IsLegacy)
             {
                 Data = definition.GetBackOfficeConfiguration(entity),
                 Directive = definition.Directive

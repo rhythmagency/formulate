@@ -40,6 +40,9 @@ namespace Formulate.Core.Layouts.Basic
         /// <inheritdoc />
         public string Directive => Constants.Directive;
         
+        /// <inheritdoc />
+        public bool IsLegacy => false;
+
         /// <summary>
         /// 
         /// </summary>

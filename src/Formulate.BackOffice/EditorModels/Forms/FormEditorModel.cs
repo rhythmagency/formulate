@@ -17,7 +17,7 @@
         {
         }
 
-        public FormEditorModel(PersistedForm entity, bool isNew) : base(entity, isNew)
+        public FormEditorModel(PersistedForm entity, bool isNew) : base(entity, isNew, false)
         {
         }
 

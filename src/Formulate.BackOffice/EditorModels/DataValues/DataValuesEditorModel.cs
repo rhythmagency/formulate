@@ -12,7 +12,7 @@
         {
         }
 
-        public DataValuesEditorModel(PersistedDataValues entity, bool isNew) : base(entity, isNew)
+        public DataValuesEditorModel(PersistedDataValues entity, bool isNew, bool isLegacy) : base(entity, isNew, isLegacy)
         {
             KindId = entity.KindId;
         }
@@ -27,9 +27,5 @@
 
         [DataMember(Name = "directive")]
         public string Directive { get; set; }
-
-        [DataMember(Name = "isLegacy")]
-        public bool IsLegacy { get; set; }
-
     }
 }

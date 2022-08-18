@@ -27,7 +27,7 @@
                 return default;
             }
 
-            return new LayoutEditorModel(entity, mapperContext.IsNew())
+            return new LayoutEditorModel(entity, mapperContext.IsNew(), definition.IsLegacy)
             {
                 Directive = definition.Directive,
                 Data = definition.GetBackOfficeConfiguration(entity)

@@ -24,6 +24,9 @@
         public virtual string Category => FormHandlerConstants.Categories.Uncategorized;
 
         /// <inheritdoc />
+        public bool IsLegacy => false;
+
+        /// <inheritdoc />
         public abstract FormHandler CreateHandler(IFormHandlerSettings settings);
 
         /// <inheritdoc />

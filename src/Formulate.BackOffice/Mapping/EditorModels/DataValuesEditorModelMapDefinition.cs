@@ -28,7 +28,7 @@
                 return default;
             }
 
-            return new DataValuesEditorModel(entity, mapperContext.IsNew())
+            return new DataValuesEditorModel(entity, mapperContext.IsNew(), definition.IsLegacy)
             {
                 Directive = definition.Directive,
                 Data = definition.GetBackOfficeConfiguration(entity),

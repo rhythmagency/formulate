@@ -14,12 +14,6 @@
         string Icon { get; }
 
         /// <summary>
-        /// Gets if this is a legacy definition.
-        /// </summary>
-        /// <remarks>Legacy definitions can not have new entities created from them and exist for older data.</remarks>
-        bool IsLegacy { get; }
-
-        /// <summary>
         /// Creates a <see cref="IDataValues"/>.
         /// </summary>
         /// <param name="settings">

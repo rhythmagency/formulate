@@ -12,7 +12,7 @@
         {
         }
 
-        public LayoutEditorModel(PersistedLayout entity, bool isNew) : base(entity, isNew)
+        public LayoutEditorModel(PersistedLayout entity, bool isNew, bool isLegacy) : base(entity, isNew, isLegacy)
         {
             KindId = entity.KindId;
             Data = entity.Data;

@@ -42,6 +42,10 @@
                 };
 
                 scope.canSave = function () {
+                    if (scope.entity.isLegacy) {
+                        return false;
+                    }
+
                     if (scope.saveButtonState === "busy") {
                         return false;
                     }

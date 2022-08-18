@@ -23,5 +23,11 @@ namespace Formulate.Core.Types
         /// Gets the directive.
         /// </summary>
         string Directive { get; }
+
+        /// <summary>
+        /// Gets if this is a legacy definition.
+        /// </summary>
+        /// <remarks>Legacy definitions can not have new entities created from them and exist for older data.</remarks>
+        bool IsLegacy { get; }
     }
 }

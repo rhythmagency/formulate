@@ -49,6 +49,9 @@
 
         /// <inheritdoc />
         public virtual string Category => FormFieldConstants.Categories.Uncategorized;
+        
+        /// <inheritdoc />
+        public bool IsLegacy => false;
 
         /// <inheritdoc />
         public abstract FormField CreateField(IFormFieldSettings settings);

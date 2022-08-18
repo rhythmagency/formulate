@@ -38,6 +38,10 @@ class FormulateLayoutDesigner {
         // Get the layout info.
 
         $scope.canSave = function () {
+            if (scope.entity.isLegacy) {
+                return false;
+            }
+
             return $scope.entity.name && $scope.entity.name.length > 0;
         };
 

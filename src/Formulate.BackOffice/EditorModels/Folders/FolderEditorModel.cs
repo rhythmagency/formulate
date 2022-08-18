@@ -11,7 +11,7 @@
         {
         }
 
-        public FolderEditorModel(PersistedFolder entity, bool isNew) : base(entity, isNew)
+        public FolderEditorModel(PersistedFolder entity, bool isNew) : base(entity, isNew, false)
         {
         }
 

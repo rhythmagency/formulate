@@ -5,5 +5,7 @@
     public interface IEditorModel : IPersistedItem
     {
         bool IsNew { get; }
+
+        bool IsLegacy { get; }
     }
 }

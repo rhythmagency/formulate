@@ -46,6 +46,9 @@ namespace Formulate.Core.Validations.Mandatory
         public string Directive => Constants.Directive;
 
         /// <inheritdoc />
+        public bool IsLegacy => false;
+
+        /// <inheritdoc />
         public Validation CreateValidation(IValidationSettings settings)
         {
             var config = new MandatoryValidationConfiguration();
