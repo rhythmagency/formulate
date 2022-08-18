@@ -44,6 +44,11 @@
                 public const string DataValues = "icon-formulate-value-group";
 
                 /// <summary>
+                /// The default folder icon.
+                /// </summary>
+                public const string Default = Umbraco.Cms.Core.Constants.Icons.Folder;
+
+                /// <summary>
                 /// The Forms folder icon.
                 /// </summary>
                 public const string Forms = "icon-formulate-form-group";
@@ -60,29 +65,36 @@
             }
 
             /// <summary>
-            /// The default DataValues icon.
+            /// Constants related to entity icons.
             /// </summary>
-            public const string DataValues = "icon-formulate-value";
+            public static class Entities
+            {
+                /// <summary>
+                /// The default DataValues icon.
+                /// </summary>
+                public const string DataValues = "icon-formulate-value";
 
-            /// <summary>
-            /// The configured form icon.
-            /// </summary>
-            public const string ConfiguredForm = "icon-formulate-conform";
+                /// <summary>
+                /// The configured form icon.
+                /// </summary>
+                public const string ConfiguredForm = "icon-formulate-conform";
 
-            /// <summary>
-            /// The form icon.
-            /// </summary>
-            public const string Form = "icon-formulate-form";
+                /// <summary>
+                /// The form icon.
+                /// </summary>
+                public const string Form = "icon-formulate-form";
 
-            /// <summary>
-            /// The layout icon.
-            /// </summary>
-            public const string Layout = "icon-formulate-layout";
+                /// <summary>
+                /// The layout icon.
+                /// </summary>
+                public const string Layout = "icon-formulate-layout";
 
-            /// <summary>
-            /// The validation icon.
-            /// </summary>
-            public const string Validation = "icon-formulate-validation";
+                /// <summary>
+                /// The validation icon.
+                /// </summary>
+                public const string Validation = "icon-formulate-validation";
+
+            }
         }
     }
 }
