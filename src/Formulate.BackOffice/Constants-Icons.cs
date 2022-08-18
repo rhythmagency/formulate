@@ -2,6 +2,8 @@
 {
     public static partial class Constants
     {
+
+
         /// <summary>
         /// Constants related to Icons.
         /// </summary>
@@ -10,8 +12,8 @@
             /// <summary>
             /// Constants related to tree root icons.
             /// </summary>
-            public static class TreeRoots
-            {                
+            public static class Roots
+            {
                 /// <summary>
                 /// The DataValues tree root icon.
                 /// </summary>

@@ -12,38 +12,26 @@
     using Umbraco.Cms.Core.Services;
     using Umbraco.Cms.Core.Trees;
     using Umbraco.Cms.Web.BackOffice.Trees;
+    using FormulateConstants = Constants;
 
     /// <summary>
     /// The Formulate forms tree controller.
     /// </summary>
-    [Tree(FormulateSection.Constants.Alias, Constants.Alias, TreeTitle = "Forms", SortOrder = 0)]
+    [Tree(FormulateSection.Constants.Alias, FormulateConstants.Trees.Forms, TreeTitle = "Forms", SortOrder = 0)]
     [FormulateBackOfficePluginController]
     public sealed class FormulateFormsTreeController : FormulateEntityTreeController
     {
-        public static class Constants
-        {
-            public const string Alias = "forms";
-
-            public const string RootNodeIcon = "icon-formulate-forms";
-
-            public const string FolderNodeIcon = "icon-formulate-form-group";
-
-            public const string FormNodeIcon = "icon-formulate-form";
-
-            public const string ConfiguredFormNodeIcon = "icon-formulate-conform";
-        }
-
         /// <inheritdoc />
         protected override TreeRootTypes TreeRootType => TreeRootTypes.Forms;
 
         /// <inheritdoc />
-        protected override string RootNodeIcon => Constants.RootNodeIcon;
+        protected override string RootNodeIcon => FormulateConstants.Icons.Roots.Forms;
 
         /// <inheritdoc />
-        protected override string FolderNodeIcon => Constants.FolderNodeIcon;
+        protected override string FolderNodeIcon => FormulateConstants.Icons.Folders.Forms;
 
         /// <inheritdoc />
-        protected override string ItemNodeIcon => Constants.FormNodeIcon;
+        protected override string ItemNodeIcon => FormulateConstants.Icons.Entities.Form;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormulateFormsTreeController"/> class.
@@ -58,7 +46,7 @@
         {
             if (entity is PersistedConfiguredForm)
             {
-                return new TreeNodeMetaData(Constants.ConfiguredFormNodeIcon);
+                return new TreeNodeMetaData(FormulateConstants.Icons.Entities.ConfiguredForm);
             }
 
             return base.GetNodeMetaData(entity);

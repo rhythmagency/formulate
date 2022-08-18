@@ -74,7 +74,7 @@
             };
 
             AddVariables<DataValuesController>(FormulateDataValuesTreeController.Constants.Alias, newEntries);
-            AddVariables<FormsController>(FormulateFormsTreeController.Constants.Alias, newEntries);
+            AddVariables<FormsController>(Constants.Trees.Forms, newEntries);
             AddVariables<LayoutsController>(FormulateLayoutsTreeController.Constants.Alias, newEntries);
             AddVariables<ValidationsController>(FormulateValidationsTreeController.Constants.Alias, newEntries);
             AddVariables<ConfiguredFormsController>("configuredForms", newEntries);
