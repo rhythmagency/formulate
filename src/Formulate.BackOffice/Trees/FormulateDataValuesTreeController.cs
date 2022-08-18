@@ -14,25 +14,15 @@
     using Umbraco.Cms.Core.Services;
     using Umbraco.Cms.Core.Trees;
     using Umbraco.Cms.Web.BackOffice.Trees;
+    using FormulateConstants = Formulate.BackOffice.Constants;
 
     /// <summary>
     /// The Formulate data values tree controller.
     /// </summary>
-    [Tree(FormulateSection.Constants.Alias, Constants.Alias, TreeTitle = "Data Values", SortOrder = 2)]
+    [Tree(FormulateSection.Constants.Alias, FormulateConstants.Trees.DataValues, TreeTitle = "Data Values", SortOrder = 2)]
     [FormulateBackOfficePluginController]
     public sealed class FormulateDataValuesTreeController : FormulateEntityTreeController
     {
-        public static class Constants
-        {
-            public const string Alias = "datavalues";
-
-            public const string RootNodeIcon = "icon-formulate-values";
-
-            public const string FolderNodeIcon = "icon-formulate-value-group";
-
-            public const string ItemNodeIcon = "icon-formulate-value";
-        }
-
         /// <summary>
         /// The data values definitions.
         /// </summary>
@@ -42,13 +32,13 @@
         protected override TreeRootTypes TreeRootType => TreeRootTypes.DataValues;
 
         /// <inheritdoc />
-        protected override string RootNodeIcon => Constants.RootNodeIcon;
+        protected override string RootNodeIcon => FormulateConstants.Icons.Roots.DataValues;
 
         /// <inheritdoc />
-        protected override string FolderNodeIcon => Constants.FolderNodeIcon;
+        protected override string FolderNodeIcon => FormulateConstants.Icons.Folders.DataValues;
 
         /// <inheritdoc />
-        protected override string ItemNodeIcon => Constants.ItemNodeIcon;
+        protected override string ItemNodeIcon => FormulateConstants.Icons.Entities.DataValues;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormulateDataValuesTreeController"/> class.

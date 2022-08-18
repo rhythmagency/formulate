@@ -73,7 +73,7 @@
                         x.GetTemplateDefinitions()) },
             };
 
-            AddVariables<DataValuesController>(FormulateDataValuesTreeController.Constants.Alias, newEntries);
+            AddVariables<DataValuesController>(Constants.Trees.DataValues, newEntries);
             AddVariables<FormsController>(Constants.Trees.Forms, newEntries);
             AddVariables<LayoutsController>(FormulateLayoutsTreeController.Constants.Alias, newEntries);
             AddVariables<ValidationsController>(FormulateValidationsTreeController.Constants.Alias, newEntries);
