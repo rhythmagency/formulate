@@ -89,8 +89,14 @@
             foreach (var entity in filteredEntities)
             {
                 var hasChildren = _treeEntityRepository.HasChildren(entity.Id, hasChildrenFilter);
-                var icon = GetNodeIcon(entity);
-                var node = CreateTreeNode(entity.BackOfficeSafeId(), id, queryStrings, entity.Name, icon, hasChildren);
+                var displaySettings = GetNodeDisplaySettings(entity);
+                var node = CreateTreeNode(entity.BackOfficeSafeId(), id, queryStrings, entity.Name, displaySettings.Icon, hasChildren);
+
+                if (displaySettings.IsLegacy)
+                {
+                    node.SetNotPublishedStyle();
+                }
+
                 node.Path = entity.TreeSafePathString();
                 node.NodeType = entity.EntityType().ToString();
 
@@ -151,9 +157,11 @@
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        protected virtual string GetNodeIcon(IPersistedEntity entity)
+        protected virtual TreeNodeDisplaySettings GetNodeDisplaySettings(IPersistedEntity entity)
         {
-            return entity.IsFolder() ? FolderNodeIcon : ItemNodeIcon;
+            var icon = entity.IsFolder() ? FolderNodeIcon : ItemNodeIcon;
+
+            return new TreeNodeDisplaySettings(icon);
         }
 
         /// <summary>

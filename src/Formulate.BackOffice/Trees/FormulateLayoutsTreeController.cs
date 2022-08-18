@@ -5,6 +5,7 @@
     using Formulate.Core.Folders;
     using Formulate.Core.Layouts;
     using Formulate.Core.Persistence;
+    using Formulate.Core.Types;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Umbraco.Cms.Core;
@@ -20,6 +21,8 @@
     [FormulateBackOfficePluginController]
     public sealed class FormulateLayoutsTreeController : FormulateTreeController
     {
+        private readonly LayoutDefinitionCollection _layoutDefinitions;
+
         public static class Constants
         {
             public const string Alias = "layouts";
@@ -35,8 +38,9 @@
         /// Initializes a new instance of the <see cref="FormulateLayoutsTreeController"/> class.
         /// </summary>
         /// <inheritdoc />
-        public FormulateLayoutsTreeController(ITreeEntityRepository treeEntityRepository, IMenuItemCollectionFactory menuItemCollectionFactory, ILocalizedTextService localizedTextService, UmbracoApiControllerTypeCollection umbracoApiControllerTypeCollection, IEventAggregator eventAggregator) : base(treeEntityRepository, menuItemCollectionFactory, localizedTextService, umbracoApiControllerTypeCollection, eventAggregator)
+        public FormulateLayoutsTreeController(LayoutDefinitionCollection layoutDefinitions, ITreeEntityRepository treeEntityRepository, IMenuItemCollectionFactory menuItemCollectionFactory, ILocalizedTextService localizedTextService, UmbracoApiControllerTypeCollection umbracoApiControllerTypeCollection, IEventAggregator eventAggregator) : base(treeEntityRepository, menuItemCollectionFactory, localizedTextService, umbracoApiControllerTypeCollection, eventAggregator)
         {
+            _layoutDefinitions = layoutDefinitions;
         }
 
         /// <inheritdoc />
@@ -60,6 +64,22 @@
             menuItemCollection.AddRefreshMenuItem(LocalizedTextService);
 
             return menuItemCollection;
+        }
+
+        /// <inheritdoc />
+        protected override TreeNodeDisplaySettings GetNodeDisplaySettings(IPersistedEntity entity)
+        {
+            if (entity is PersistedLayout layoutEntity)
+            {
+                var definition = _layoutDefinitions.FirstOrDefault(layoutEntity.KindId);
+
+                if (definition is not null)
+                {
+                    return new TreeNodeDisplaySettings(ItemNodeIcon, definition.IsLegacy);
+                }
+            }
+
+            return base.GetNodeDisplaySettings(entity);
         }
 
         /// <inheritdoc />

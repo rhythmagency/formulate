@@ -5,6 +5,7 @@
     using Core.Folders;
     using Core.Persistence;
     using Core.Validations;
+    using Formulate.Core.Types;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Persistence;
@@ -22,6 +23,8 @@
     [FormulateBackOfficePluginController]
     public sealed class FormulateValidationsTreeController : FormulateTreeController
     {
+        private readonly ValidationDefinitionCollection _validationDefinitions;
+
         public static class Constants
         {
             public const string Alias = "validations";
@@ -37,8 +40,9 @@
         /// Initializes a new instance of the <see cref="FormulateValidationsTreeController"/> class.
         /// </summary>
         /// <inheritdoc />
-        public FormulateValidationsTreeController(ITreeEntityRepository treeEntityRepository, IMenuItemCollectionFactory menuItemCollectionFactory, ILocalizedTextService localizedTextService, UmbracoApiControllerTypeCollection umbracoApiControllerTypeCollection, IEventAggregator eventAggregator) : base(treeEntityRepository, menuItemCollectionFactory, localizedTextService, umbracoApiControllerTypeCollection, eventAggregator)
+        public FormulateValidationsTreeController(ValidationDefinitionCollection validationDefinitions, ITreeEntityRepository treeEntityRepository, IMenuItemCollectionFactory menuItemCollectionFactory, ILocalizedTextService localizedTextService, UmbracoApiControllerTypeCollection umbracoApiControllerTypeCollection, IEventAggregator eventAggregator) : base(treeEntityRepository, menuItemCollectionFactory, localizedTextService, umbracoApiControllerTypeCollection, eventAggregator)
         {
+            _validationDefinitions = validationDefinitions;
         }
 
         /// <inheritdoc />
@@ -84,6 +88,22 @@
             }
 
             return menuItemCollection;
+        }
+
+        /// <inheritdoc />
+        protected override TreeNodeDisplaySettings GetNodeDisplaySettings(IPersistedEntity entity)
+        {
+            if (entity is PersistedValidation validationEntity)
+            {
+                var definition = _validationDefinitions.FirstOrDefault(validationEntity.KindId);
+
+                if (definition is not null)
+                {
+                    return new TreeNodeDisplaySettings(ItemNodeIcon, definition.IsLegacy);
+                }
+            }
+
+            return base.GetNodeDisplaySettings(entity);
         }
 
         /// <inheritdoc />
