@@ -112,7 +112,7 @@
         }
 
         /// <inheritdoc />
-        public bool HasChildren(Guid parentId, Func<IPersistedEntity, bool> filter = default)
+        public bool HasChildren(Guid parentId, Func<IPersistedEntity, bool>? filter = default)
         {
             var children = GetChildren(parentId);
 

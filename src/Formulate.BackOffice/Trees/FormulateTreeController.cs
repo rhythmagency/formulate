@@ -94,7 +94,7 @@
             var entities = GetEntities(id);
             var isFolderOnly = queryStrings["foldersonly"].ToString().IsNullOrWhiteSpace() == false && queryStrings["foldersonly"].ToString() == "1";
             var filteredEntities = isFolderOnly ? entities.OfType<PersistedFolder>().ToArray() : entities;
-            Func<IPersistedEntity, bool> hasChildrenFilter = isFolderOnly ? (entity) => entity is PersistedFolder : default;
+            Func<IPersistedEntity, bool>? hasChildrenFilter = isFolderOnly ? (entity) => entity is PersistedFolder : default;
 
             foreach (var entity in filteredEntities)
             {

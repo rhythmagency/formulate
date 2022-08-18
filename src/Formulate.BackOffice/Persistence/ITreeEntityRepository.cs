@@ -32,7 +32,7 @@
         /// <param name="parentId">The parent ID.</param>
         /// <param name="filter">Optional filter to use when finding child nodes.</param>
         /// <returns>A <see cref="bool"/>.</returns>
-        bool HasChildren(Guid parentId, Func<IPersistedEntity, bool> filter = null);
+        bool HasChildren(Guid parentId, Func<IPersistedEntity, bool>? filter = default);
 
         /// <summary>
         /// Gets the root items for a given tree root type.
