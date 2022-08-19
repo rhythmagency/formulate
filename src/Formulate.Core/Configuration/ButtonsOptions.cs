@@ -1,9 +1,6 @@
 ﻿namespace Formulate.Core.Configuration
 {
-    using System;
     using System.Collections.Generic;
-
-    // Namespaces.
 
     /// <summary>
     /// The configuration options for form buttons.

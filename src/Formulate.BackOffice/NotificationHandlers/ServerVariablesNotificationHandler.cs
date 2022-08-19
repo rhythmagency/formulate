@@ -42,9 +42,9 @@
             // Add server variables.
             var newEntries = new Dictionary<string, object?>()
             {
-                { "GetButtonKinds",
-                    LinkGenerator.GetUmbracoApiService<FormFieldsController>(x =>
-                        x.GetButtonKinds()) },
+                { "ButtonKinds.GetAll",
+                    LinkGenerator.GetUmbracoApiService<ButtonKindsController>(x =>
+                        x.GetAll()) },
 
                 { "Layout.RootId", LayoutConstants.RootId },
                 { "Validation.RootId", ValidationConstants.RootId },

@@ -61,7 +61,7 @@
         return function () {
 
             // Variables.
-            const url = services.formulateVars.GetButtonKinds;
+            const url = services.formulateVars['ButtonKinds.GetAll'];
 
             var callbackOptions = {
                 success: (data) => {

@@ -4,23 +4,14 @@
     using Formulate.BackOffice.Utilities;
     using Formulate.BackOffice.Utilities.CreateOptions.FormFields;
     using Formulate.BackOffice.Utilities.FormFields;
-    using Formulate.Core.Configuration;
-    using Formulate.Core.FormFields;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Options;
     using System;
-    using System.Linq;
     using Umbraco.Cms.Web.BackOffice.Controllers;
 
 
     [FormulateBackOfficePluginController]
     public sealed class FormFieldsController : UmbracoAuthorizedApiController
     {
-        /// <summary>
-        /// The buttons config.
-        /// </summary>
-        private readonly ButtonsOptions _buttonsConfig;
-
         /// <summary>
         /// The form field definitions.
         /// </summary>
@@ -30,18 +21,11 @@
         
         private readonly IEditorModelMapper _editorModelMapper;
 
-        public FormFieldsController(IOptions<ButtonsOptions> buttonsConfig, IGetFormFieldScaffolding getFormFieldScaffolding, IGetFormFieldOptions getFormFieldOptions, IEditorModelMapper editorModelMapper)
+        public FormFieldsController(IGetFormFieldScaffolding getFormFieldScaffolding, IGetFormFieldOptions getFormFieldOptions, IEditorModelMapper editorModelMapper)
         {
-            _buttonsConfig = buttonsConfig.Value;
             _getFormFieldOptions = getFormFieldOptions;
             _getFormFieldScaffolding = getFormFieldScaffolding;
             _editorModelMapper = editorModelMapper;
-        }
-
-        [HttpGet]   
-        public IActionResult GetButtonKinds()
-        {
-            return Ok(_buttonsConfig);
         }
 
         /// <summary>

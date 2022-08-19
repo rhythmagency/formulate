@@ -12,6 +12,7 @@
     using Formulate.BackOffice.Utilities.CreateOptions.Layouts;
     using Formulate.BackOffice.Utilities.CreateOptions.Validations;
     using Formulate.BackOffice.Utilities.DataValues;
+    using Formulate.BackOffice.Utilities.EditorModels.Buttons;
     using Formulate.BackOffice.Utilities.EditorModels.Templates;
     using Formulate.BackOffice.Utilities.FormFields;
     using Formulate.BackOffice.Utilities.FormHandlers;
@@ -37,6 +38,7 @@
 
             builder.Services.AddScoped<IGetFolderIconOrDefault, GetFolderIconOrDefault>();
 
+            builder.Services.AddScoped<IGetButtonKindEditorModels, GetButtonKindEditorModels>();
             builder.Services.AddScoped<IGetTemplateEditorModels, GetTemplateEditorModels>();
 
             builder.Services.AddScoped<ITreeEntityRepository, TreeEntityRepository>();
