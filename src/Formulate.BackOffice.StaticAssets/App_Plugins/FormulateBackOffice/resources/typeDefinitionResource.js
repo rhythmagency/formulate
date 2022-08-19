@@ -44,7 +44,7 @@ class FormulateTypeDefinitionResource {
      * @returns {*} The promise that resolves to the array of definitions.
      */
     getTemplateDefinitions() {
-        const url = this.serverVars['GetTemplateDefinitions'];
+        const url = this.serverVars['Templates.GetAll'];
         return this.umbRequestHelper
             .resourcePromise(this.$http.get(url));
     }

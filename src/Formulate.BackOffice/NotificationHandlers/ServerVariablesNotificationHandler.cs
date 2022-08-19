@@ -14,6 +14,7 @@
     using Core.Forms;
     using Core.Layouts;
     using Core.Validations;
+    using Formulate.BackOffice.Controllers.Templates;
     using Microsoft.AspNetCore.Routing;
     using System.Collections.Generic;
     using Trees;
@@ -68,9 +69,9 @@
                     .GetUmbracoApiService<FormHandlersController>(x =>
                         x.GetScaffolding()) },
 
-                { "GetTemplateDefinitions", LinkGenerator
-                    .GetUmbracoApiService<FormsController>(x =>
-                        x.GetTemplateDefinitions()) },
+                { "Templates.GetAll", LinkGenerator
+                    .GetUmbracoApiService<TemplatesController>(x =>
+                        x.GetAll()) },
             };
 
             AddVariables<DataValuesController>(Constants.Trees.DataValues, newEntries);

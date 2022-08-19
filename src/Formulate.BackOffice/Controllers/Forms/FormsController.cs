@@ -26,19 +26,16 @@
         private readonly IGetFormsChildEntityOptions _getFormsChildEntityOptions;
         private readonly ICreateFormsScaffoldingEntity _createFormsScaffoldingEntity;
         private readonly IFormEntityRepository _formEntityRepository;
-        private readonly TemplateDefinitionCollection _templateDefinitions;
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
-            IFormEntityRepository _formEntityRepository,
-            TemplateDefinitionCollection _templateDefinitions,
+            IFormEntityRepository formEntityRepository,
             IEditorModelMapper editorModelMapper,
             IGetFormsChildEntityOptions getFormsChildEntityOptions,
             ICreateFormsScaffoldingEntity createFormsScaffoldingEntity)
             : base(editorModelMapper, treeEntityRepository, localizedTextService)
         {
-            _formEntityRepository = _formEntityRepository;
-            _templateDefinitions = _templateDefinitions;
+            _formEntityRepository = formEntityRepository;
             _getFormsChildEntityOptions = getFormsChildEntityOptions;
             _createFormsScaffoldingEntity = createFormsScaffoldingEntity;
         }
@@ -106,24 +103,6 @@
             _formEntityRepository.Save(entity);
             
             return Ok();
-        }
-
-        /// <summary>
-        /// Returns the form template definitions.
-        /// </summary>
-        /// <returns>
-        /// The array of form template definitions.
-        /// </returns>
-        [HttpGet]
-        public IActionResult GetTemplateDefinitions()
-        {
-            var options = _templateDefinitions.Select(x => new
-            {
-                id = x.Id,
-                name = x.Name,
-            }).ToArray();
-
-            return Ok(options);
         }
     }
 }
