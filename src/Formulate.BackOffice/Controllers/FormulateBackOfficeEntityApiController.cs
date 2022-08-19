@@ -118,33 +118,5 @@
 
             return Ok(treeSafePath);
         }
-
-        /// <summary>
-        /// Returns the data for the entity with the specified ID.
-        /// </summary>
-        /// <param name="id">
-        /// The ID of the entity.
-        /// </param>
-        /// <returns>
-        /// The data for the entity, or null.
-        /// </returns>
-        protected virtual GetEntityResponse GetEntity(Guid id)
-        {
-            var entity = TreeEntityRepository.Get(id);
-
-            if (entity is null)
-            {
-                return null;
-            }
-
-            var response = new GetEntityResponse()
-            {
-                Entity = entity,
-                EntityType = entity.EntityType(),
-                TreePath = entity.TreeSafePath()
-            };
-
-            return response;
-        }
     }
 }
