@@ -62,7 +62,7 @@
             {
                 Parent = parent,
                 EntityType = request.EntityType,
-                RootId = TreeEntityRepository.GetRootId(TreeRootTypes.Forms),
+                RootId = TreeEntityRepository.GetRootId(TreeTypes.Forms),
             };
 
             var entity = _createFormsScaffoldingEntity.Create(input);

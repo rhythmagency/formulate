@@ -19,7 +19,7 @@
 
         public DataValuesEntityTreeUtility(IGetFolderIconOrDefault getFolderIconOrDefault, DataValuesDefinitionCollection dataValuesDefinitions, ILocalizedTextService localizedTextService, IMenuItemCollectionFactory menuItemCollectionFactory, ITreeEntityRepository treeEntityRepository) : base(localizedTextService, menuItemCollectionFactory, treeEntityRepository)
         {
-            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeRootTypes.DataValues);
+            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeTypes.DataValues);
             _dataValuesDefinitions = dataValuesDefinitions;
         }
 
@@ -73,7 +73,7 @@
         /// <inheritdoc />
         protected override IReadOnlyCollection<IPersistedEntity> GetRootEntities()
         {
-            return _treeEntityRepository.GetRootItems(TreeRootTypes.DataValues);
+            return _treeEntityRepository.GetRootItems(TreeTypes.DataValues);
         }
     }
 }

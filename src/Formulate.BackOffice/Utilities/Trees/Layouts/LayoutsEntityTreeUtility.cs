@@ -19,7 +19,7 @@
 
         public LayoutsEntityTreeUtility(IGetFolderIconOrDefault getFolderIconOrDefault, LayoutDefinitionCollection layoutDefinitions, ILocalizedTextService localizedTextService, IMenuItemCollectionFactory menuItemCollectionFactory, ITreeEntityRepository treeEntityRepository) : base(localizedTextService, menuItemCollectionFactory, treeEntityRepository)
         {
-            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeRootTypes.Layouts);
+            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeTypes.Layouts);
             _layoutDefinitions = layoutDefinitions;
         }
 
@@ -67,7 +67,7 @@
         /// <inheritdoc />
         protected override IReadOnlyCollection<IPersistedEntity> GetRootEntities()
         {
-            return _treeEntityRepository.GetRootItems(TreeRootTypes.Layouts);
+            return _treeEntityRepository.GetRootItems(TreeTypes.Layouts);
         }
     }
 }

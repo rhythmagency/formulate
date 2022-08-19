@@ -8,6 +8,6 @@
 
         public Guid? ParentId { get; set; }
 
-        public TreeRootTypes TreeType { get; set; }
+        public TreeTypes TreeType { get; set; }
     }
 }

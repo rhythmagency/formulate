@@ -3,7 +3,7 @@
     /// <summary>
     /// The tree root types used by Formulate in the back office.
     /// </summary>
-    public enum TreeRootTypes
+    public enum TreeTypes
     {
         /// <summary>
         /// An unknown tree root type.

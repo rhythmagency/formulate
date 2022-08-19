@@ -11,6 +11,6 @@
         /// </summary>
         /// <param name="input">The folder icon.</param>
         /// <returns>A <see cref="string"/></returns>
-        string GetFolderIcon(TreeRootTypes input);
+        string GetFolderIcon(TreeTypes input);
     }
 }

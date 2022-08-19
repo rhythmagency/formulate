@@ -19,7 +19,7 @@
 
         public ValidationsEntityTreeUtility(IGetFolderIconOrDefault getFolderIconOrDefault, ValidationDefinitionCollection validationDefinitions, ILocalizedTextService localizedTextService, IMenuItemCollectionFactory menuItemCollectionFactory, ITreeEntityRepository treeEntityRepository) : base(localizedTextService, menuItemCollectionFactory, treeEntityRepository)
         {
-            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeRootTypes.Validations);
+            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeTypes.Validations);
             _validationDefinitions = validationDefinitions;
         }
 
@@ -80,7 +80,7 @@
         /// <inheritdoc />
         protected override IReadOnlyCollection<IPersistedEntity> GetRootEntities()
         {
-            return _treeEntityRepository.GetRootItems(TreeRootTypes.Validations);
+            return _treeEntityRepository.GetRootItems(TreeTypes.Validations);
         }
     }
 }

@@ -57,7 +57,7 @@
                 EntityType = entityType,
                 KindId = kindId,
                 Parent = parent,
-                RootId = TreeEntityRepository.GetRootId(TreeRootTypes.Layouts)
+                RootId = TreeEntityRepository.GetRootId(TreeTypes.Layouts)
             };
             var entity = _createLayoutsScaffoldingEntity.Create(input);
 

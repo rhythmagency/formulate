@@ -16,7 +16,7 @@
 
         public GetLayoutsChildEntityOptions(IGetFolderIconOrDefault getFolderIconOrDefault, LayoutDefinitionCollection validationDefinitions)
         {
-            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeRootTypes.Layouts);
+            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeTypes.Layouts);
             _layoutDefinitions = validationDefinitions;
         }
 

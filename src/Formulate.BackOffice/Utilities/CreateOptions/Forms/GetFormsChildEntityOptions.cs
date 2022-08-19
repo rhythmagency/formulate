@@ -12,7 +12,7 @@
 
         public GetFormsChildEntityOptions(IGetFolderIconOrDefault getFolderIconOrDefault)
         {
-            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeRootTypes.Forms);
+            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeTypes.Forms);
         }
 
         public IReadOnlyCollection<CreateChildEntityOption> Get(IPersistedEntity? parent)

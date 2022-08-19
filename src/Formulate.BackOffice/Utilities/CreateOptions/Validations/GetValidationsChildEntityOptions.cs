@@ -16,7 +16,7 @@
 
         public GetValidationsChildEntityOptions(IGetFolderIconOrDefault getFolderIconOrDefault, ValidationDefinitionCollection validationDefinitions)
         {
-            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeRootTypes.Validations);
+            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeTypes.Validations);
             _validationDefinitions = validationDefinitions;
         }
 

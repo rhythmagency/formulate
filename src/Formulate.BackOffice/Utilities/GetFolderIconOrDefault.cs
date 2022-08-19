@@ -12,7 +12,7 @@
             _useDefaultFolderIcon = options.Value.UseDefaultFolderIcon;
         }
 
-        public string GetFolderIcon(TreeRootTypes input)
+        public string GetFolderIcon(TreeTypes input)
         {
             if (_useDefaultFolderIcon)
             {
@@ -21,10 +21,10 @@
 
             return input switch
             {
-                TreeRootTypes.DataValues => Constants.Icons.Folders.DataValues,
-                TreeRootTypes.Forms => Constants.Icons.Folders.Forms,
-                TreeRootTypes.Layouts => Constants.Icons.Folders.Layouts,
-                TreeRootTypes.Validations => Constants.Icons.Folders.Validations,
+                TreeTypes.DataValues => Constants.Icons.Folders.DataValues,
+                TreeTypes.Forms => Constants.Icons.Folders.Forms,
+                TreeTypes.Layouts => Constants.Icons.Folders.Layouts,
+                TreeTypes.Validations => Constants.Icons.Folders.Validations,
                 _ => Constants.Icons.Folders.Default
             };
         }

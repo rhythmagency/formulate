@@ -16,7 +16,7 @@
 
         public GetDataValuesChildEntityOptions(IGetFolderIconOrDefault getFolderIconOrDefault, DataValuesDefinitionCollection dataValuesDefinitions)
         {
-            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeRootTypes.DataValues);
+            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeTypes.DataValues);
             _dataValuesDefinitions = dataValuesDefinitions;
         }
 

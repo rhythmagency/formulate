@@ -16,7 +16,7 @@
 
         public FormsEntityTreeUtility(IGetFolderIconOrDefault getFolderIconOrDefault, ILocalizedTextService localizedTextService, IMenuItemCollectionFactory menuItemCollectionFactory, ITreeEntityRepository treeEntityRepository) : base(localizedTextService, menuItemCollectionFactory, treeEntityRepository)
         {
-            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeRootTypes.Forms);
+            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeTypes.Forms);
         }
 
         protected override MenuItemCollection GetMenuForEntity(IPersistedEntity entity, FormCollection queryStrings)
@@ -59,7 +59,7 @@
         /// <inheritdoc />
         protected override IReadOnlyCollection<IPersistedEntity> GetRootEntities()
         {
-            return _treeEntityRepository.GetRootItems(TreeRootTypes.Forms);
+            return _treeEntityRepository.GetRootItems(TreeTypes.Forms);
         }
     }
 }

@@ -57,7 +57,7 @@
                 EntityType = entityType,
                 KindId = kindId,
                 Parent = parent,
-                RootId = TreeEntityRepository.GetRootId(TreeRootTypes.Validations)
+                RootId = TreeEntityRepository.GetRootId(TreeTypes.Validations)
             };
             var entity = _createValidationsScaffoldingEntity.Create(input);
 

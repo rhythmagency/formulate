@@ -120,23 +120,23 @@
         }
 
         /// <inheritdoc />
-        public IReadOnlyCollection<IPersistedEntity> GetRootItems(TreeRootTypes treeRootType)
+        public IReadOnlyCollection<IPersistedEntity> GetRootItems(TreeTypes treeRootType)
         {
             var rootId = GetRootId(treeRootType);
             var entities = new List<IPersistedEntity>(_folderEntityRepository.GetChildren(rootId));
 
             switch (treeRootType)
             {
-                case TreeRootTypes.DataValues:
+                case TreeTypes.DataValues:
                     entities.AddRange(_dataValuesEntityRepository.GetRootItems());
                     break;
-                case TreeRootTypes.Forms:
+                case TreeTypes.Forms:
                     entities.AddRange(_formEntityRepository.GetRootItems());
                     break;
-                case TreeRootTypes.Layouts:
+                case TreeTypes.Layouts:
                     entities.AddRange(_layoutEntityRepository.GetRootItems());
                     break;
-                case TreeRootTypes.Validations:
+                case TreeTypes.Validations:
                     entities.AddRange(_validationEntityRepository.GetRootItems());
                     break;
             }
@@ -144,7 +144,7 @@
             return entities.ToArray();
         }
 
-        public Guid GetRootId(TreeRootTypes treeRootType)
+        public Guid GetRootId(TreeTypes treeRootType)
         {
             var rootId = GetRootIdString(treeRootType);
 
@@ -246,14 +246,14 @@
         /// <returns>
         /// A <see cref="string"/>. representaiton of the root ID.
         /// </returns>
-        private static string GetRootIdString(TreeRootTypes treeRootType)
+        private static string GetRootIdString(TreeTypes treeRootType)
         {
             return treeRootType switch
             {
-                TreeRootTypes.Forms => FormConstants.RootId,
-                TreeRootTypes.DataValues => DataValuesConstants.RootId,
-                TreeRootTypes.Layouts => LayoutConstants.RootId,
-                TreeRootTypes.Validations => ValidationConstants.RootId,
+                TreeTypes.Forms => FormConstants.RootId,
+                TreeTypes.DataValues => DataValuesConstants.RootId,
+                TreeTypes.Layouts => LayoutConstants.RootId,
+                TreeTypes.Validations => ValidationConstants.RootId,
                 _ => throw new NotSupportedException($"{treeRootType} is not a supported root type.")
             };
         }
