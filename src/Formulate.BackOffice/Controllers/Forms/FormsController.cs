@@ -25,20 +25,20 @@
     {
         private readonly IGetFormsChildEntityOptions _getFormsChildEntityOptions;
         private readonly ICreateFormsScaffoldingEntity _createFormsScaffoldingEntity;
-        private readonly IFormEntityRepository formEntityRepository;
-        private readonly TemplateDefinitionCollection templateDefinitions;
+        private readonly IFormEntityRepository _formEntityRepository;
+        private readonly TemplateDefinitionCollection _templateDefinitions;
 
         public FormsController(ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
-            IFormEntityRepository formEntityRepository,
-            TemplateDefinitionCollection templateDefinitions,
+            IFormEntityRepository _formEntityRepository,
+            TemplateDefinitionCollection _templateDefinitions,
             IEditorModelMapper editorModelMapper,
             IGetFormsChildEntityOptions getFormsChildEntityOptions,
             ICreateFormsScaffoldingEntity createFormsScaffoldingEntity)
             : base(editorModelMapper, treeEntityRepository, localizedTextService)
         {
-            this.formEntityRepository = formEntityRepository;
-            this.templateDefinitions = templateDefinitions;
+            _formEntityRepository = _formEntityRepository;
+            _templateDefinitions = _templateDefinitions;
             _getFormsChildEntityOptions = getFormsChildEntityOptions;
             _createFormsScaffoldingEntity = createFormsScaffoldingEntity;
         }
@@ -103,7 +103,7 @@
         public ActionResult Save(FormEditorModel model)
         {
             var entity = _editorModelMapper.MapToEntity<FormEditorModel, PersistedForm>(model);
-            formEntityRepository.Save(entity);
+            _formEntityRepository.Save(entity);
             
             return Ok();
         }
@@ -117,7 +117,7 @@
         [HttpGet]
         public IActionResult GetTemplateDefinitions()
         {
-            var options = templateDefinitions.Select(x => new
+            var options = _templateDefinitions.Select(x => new
             {
                 id = x.Id,
                 name = x.Name,

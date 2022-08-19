@@ -79,7 +79,7 @@
             var entity = TreeEntityRepository.Get(id);
             var options = _getDataValuesChildEntityOptions.Get(entity);
 
-            return this.Ok(options);
+            return Ok(options);
         }
 
         [HttpPost]
