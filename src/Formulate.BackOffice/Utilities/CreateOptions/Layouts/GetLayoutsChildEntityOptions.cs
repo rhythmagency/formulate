@@ -9,11 +9,14 @@
     using Formulate.BackOffice.Persistence;
 
     public sealed class GetLayoutsChildEntityOptions : IGetLayoutsChildEntityOptions
-    {
+    {        
+        private readonly string _folderIcon;
+        
         private readonly LayoutDefinitionCollection _layoutDefinitions;
 
-        public GetLayoutsChildEntityOptions(LayoutDefinitionCollection validationDefinitions)
+        public GetLayoutsChildEntityOptions(IGetFolderIconOrDefault getFolderIconOrDefault, LayoutDefinitionCollection validationDefinitions)
         {
+            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeRootTypes.Layouts);
             _layoutDefinitions = validationDefinitions;
         }
 
@@ -31,7 +34,7 @@
 
             if (parent is null)
             {
-                options.AddLayoutsFolderOption();
+                options.AddFolderOption(_folderIcon);
                 options.AddRange(validationOptions);
 
                 return options;
@@ -42,7 +45,7 @@
                 return options;
             }
 
-            options.AddLayoutsFolderOption();
+            options.AddFolderOption(_folderIcon);
             options.AddRange(validationOptions);
 
             return options;

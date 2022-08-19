@@ -1,7 +1,6 @@
 ﻿namespace Formulate.BackOffice.Utilities.Trees
 {
     using Formulate.BackOffice.Trees;
-    using Microsoft.AspNetCore.Http;
     using System.Collections.Generic;
     using Umbraco.Cms.Core.Trees;
 

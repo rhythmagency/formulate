@@ -7,14 +7,16 @@
     using System.Collections.Generic;
     using System.Linq;
     using Formulate.BackOffice.Persistence;
-    using Formulate.BackOffice.Trees;
 
     public sealed class GetValidationsChildEntityOptions : IGetValidationsChildEntityOptions
     {
+        private readonly string _folderIcon;
+
         private readonly ValidationDefinitionCollection _validationDefinitions;
 
-        public GetValidationsChildEntityOptions(ValidationDefinitionCollection validationDefinitions)
+        public GetValidationsChildEntityOptions(IGetFolderIconOrDefault getFolderIconOrDefault, ValidationDefinitionCollection validationDefinitions)
         {
+            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeRootTypes.Validations);
             _validationDefinitions = validationDefinitions;
         }
 
@@ -32,7 +34,7 @@
 
             if (parent is null)
             {
-                options.AddValidationsFolderOption();
+                options.AddFolderOption(_folderIcon);
                 options.AddRange(validationOptions);
 
                 return options;
@@ -43,7 +45,7 @@
                 return options;
             }
 
-            options.AddValidationsFolderOption();
+            options.AddFolderOption(_folderIcon);
             options.AddRange(validationOptions);
 
             return options;

@@ -1,5 +1,6 @@
 ﻿namespace Formulate.BackOffice.DependencyInjection
 {
+    using Formulate.BackOffice.Configuration;
     using Formulate.BackOffice.Mapping.EditorModels;
     using Formulate.BackOffice.NotificationHandlers;
     using Formulate.BackOffice.Persistence;
@@ -20,6 +21,7 @@
     using Formulate.BackOffice.Utilities.Trees.Layouts;
     using Formulate.BackOffice.Utilities.Trees.Validations;
     using Formulate.BackOffice.Utilities.Validations;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Umbraco.Cms.Core.DependencyInjection;
     using Umbraco.Cms.Core.Notifications;
@@ -29,6 +31,10 @@
         public static IUmbracoBuilder AddFormulateBackOffice(this IUmbracoBuilder builder)
         {
             builder.Sections().Append<FormulateSection>();
+
+            builder.Services.Configure<FormulateBackOfficeOptions>(x => builder.Config.GetSection(FormulateBackOfficeOptions.SectionName).Bind(x));
+
+            builder.Services.AddScoped<IGetFolderIconOrDefault, GetFolderIconOrDefault>();
 
             builder.Services.AddScoped<ITreeEntityRepository, TreeEntityRepository>();
             builder.Services.AddScoped<IEditorModelMapper, EditorModelMapper>();

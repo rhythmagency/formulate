@@ -12,8 +12,11 @@
 
     internal sealed class FormsEntityTreeUtility : EntityTreeUtility, IFormsEntityTreeUtility
     {
-        public FormsEntityTreeUtility(ILocalizedTextService localizedTextService, IMenuItemCollectionFactory menuItemCollectionFactory, ITreeEntityRepository treeEntityRepository) : base(localizedTextService, menuItemCollectionFactory, treeEntityRepository)
+        private readonly string _folderIcon;
+
+        public FormsEntityTreeUtility(IGetFolderIconOrDefault getFolderIconOrDefault, ILocalizedTextService localizedTextService, IMenuItemCollectionFactory menuItemCollectionFactory, ITreeEntityRepository treeEntityRepository) : base(localizedTextService, menuItemCollectionFactory, treeEntityRepository)
         {
+            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeRootTypes.Forms);
         }
 
         protected override MenuItemCollection GetMenuForEntity(IPersistedEntity entity, FormCollection queryStrings)
@@ -42,7 +45,7 @@
         {
             if (entity.IsFolder())
             {
-                return new EntityTreeNodeMetaData(Constants.Icons.Folders.Forms);
+                return new EntityTreeNodeMetaData(_folderIcon);
             }
 
             if (entity is PersistedConfiguredForm)

@@ -12,11 +12,14 @@
     using Umbraco.Cms.Core.Trees;
 
     internal sealed class LayoutsEntityTreeUtility : EntityTreeUtility, ILayoutsEntityTreeUtility
-    {
+    {        
+        private readonly string _folderIcon;
+        
         private readonly LayoutDefinitionCollection _layoutDefinitions;
 
-        public LayoutsEntityTreeUtility(LayoutDefinitionCollection layoutDefinitions, ILocalizedTextService localizedTextService, IMenuItemCollectionFactory menuItemCollectionFactory, ITreeEntityRepository treeEntityRepository) : base(localizedTextService, menuItemCollectionFactory, treeEntityRepository)
+        public LayoutsEntityTreeUtility(IGetFolderIconOrDefault getFolderIconOrDefault, LayoutDefinitionCollection layoutDefinitions, ILocalizedTextService localizedTextService, IMenuItemCollectionFactory menuItemCollectionFactory, ITreeEntityRepository treeEntityRepository) : base(localizedTextService, menuItemCollectionFactory, treeEntityRepository)
         {
+            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeRootTypes.Layouts);
             _layoutDefinitions = layoutDefinitions;
         }
 
@@ -45,7 +48,7 @@
         {
             if (entity.IsFolder())
             {
-                return new EntityTreeNodeMetaData(Constants.Icons.Folders.Layouts);
+                return new EntityTreeNodeMetaData(_folderIcon);
             }
 
             if (entity is PersistedLayout layoutEntity)

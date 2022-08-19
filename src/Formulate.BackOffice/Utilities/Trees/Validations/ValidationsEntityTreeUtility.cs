@@ -13,10 +13,13 @@
 
     internal sealed class ValidationsEntityTreeUtility : EntityTreeUtility, IValidationsEntityTreeUtility
     {
+        private readonly string _folderIcon;
+
         private readonly ValidationDefinitionCollection _validationDefinitions;
 
-        public ValidationsEntityTreeUtility(ValidationDefinitionCollection validationDefinitions, ILocalizedTextService localizedTextService, IMenuItemCollectionFactory menuItemCollectionFactory, ITreeEntityRepository treeEntityRepository) : base(localizedTextService, menuItemCollectionFactory, treeEntityRepository)
+        public ValidationsEntityTreeUtility(IGetFolderIconOrDefault getFolderIconOrDefault, ValidationDefinitionCollection validationDefinitions, ILocalizedTextService localizedTextService, IMenuItemCollectionFactory menuItemCollectionFactory, ITreeEntityRepository treeEntityRepository) : base(localizedTextService, menuItemCollectionFactory, treeEntityRepository)
         {
+            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeRootTypes.Validations);
             _validationDefinitions = validationDefinitions;
         }
 
@@ -58,7 +61,7 @@
         {
             if (entity.IsFolder())
             {
-                return new EntityTreeNodeMetaData(Constants.Icons.Folders.Validations);
+                return new EntityTreeNodeMetaData(_folderIcon);
             }
 
             if (entity is PersistedValidation validationEntity)

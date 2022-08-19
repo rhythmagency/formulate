@@ -12,8 +12,11 @@
     {
         private readonly DataValuesDefinitionCollection _dataValuesDefinitions;
 
-        public GetDataValuesChildEntityOptions(DataValuesDefinitionCollection dataValuesDefinitions)
+        private readonly string _folderIcon;
+
+        public GetDataValuesChildEntityOptions(IGetFolderIconOrDefault getFolderIconOrDefault, DataValuesDefinitionCollection dataValuesDefinitions)
         {
+            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeRootTypes.DataValues);
             _dataValuesDefinitions = dataValuesDefinitions;
         }
 
@@ -30,10 +33,9 @@
             }).OrderBy(x => x.Name)
             .ToArray();
 
-
             if (parent is null)
             {
-                options.AddDataValuesFolderOption();
+                options.AddFolderOption(_folderIcon);
                 options.AddRange(dataValueOptions);
 
                 return options;
@@ -44,7 +46,7 @@
                 return options;
             }
 
-            options.AddDataValuesFolderOption();
+            options.AddFolderOption(_folderIcon);
             options.AddRange(dataValueOptions);
 
             return options;

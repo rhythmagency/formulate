@@ -15,8 +15,11 @@
     {
         private readonly DataValuesDefinitionCollection _dataValuesDefinitions;
 
-        public DataValuesEntityTreeUtility(DataValuesDefinitionCollection dataValuesDefinitions, ILocalizedTextService localizedTextService, IMenuItemCollectionFactory menuItemCollectionFactory, ITreeEntityRepository treeEntityRepository) : base(localizedTextService, menuItemCollectionFactory, treeEntityRepository)
+        private readonly string _folderIcon;
+
+        public DataValuesEntityTreeUtility(IGetFolderIconOrDefault getFolderIconOrDefault, DataValuesDefinitionCollection dataValuesDefinitions, ILocalizedTextService localizedTextService, IMenuItemCollectionFactory menuItemCollectionFactory, ITreeEntityRepository treeEntityRepository) : base(localizedTextService, menuItemCollectionFactory, treeEntityRepository)
         {
+            _folderIcon = getFolderIconOrDefault.GetFolderIcon(TreeRootTypes.DataValues);
             _dataValuesDefinitions = dataValuesDefinitions;
         }
 
@@ -46,7 +49,7 @@
         {
             if (entity.IsFolder())
             {
-                return new EntityTreeNodeMetaData(Constants.Icons.Folders.DataValues);
+                return new EntityTreeNodeMetaData(_folderIcon);
             }
 
             if (entity is PersistedDataValues dataValuesEntity)
