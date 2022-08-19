@@ -7,7 +7,6 @@
 
         return {
             compare: compare,
-            generateId: generateId,
             sanitize: sanitize,
         };
 
@@ -25,10 +24,6 @@
             }
 
             return sanitize(a) === sanitize(b);
-        }
-
-        function generateId() {
-            return crypto.randomUUID();
         }
 
         function sanitize(id) {
