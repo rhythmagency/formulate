@@ -16,13 +16,9 @@
 
                     var url = Umbraco.Sys.ServerVariables.formulate[scope.treeType].GetCreateOptions;
 
-                    console.log(url);
-
                     if (scope.currentNode.id !== "-1") {
                         url += `?id=${scope.currentNode.id}`;
                     }
-
-                    console.log(url);
 
                     $http.get(url).then(
                             function (response) {

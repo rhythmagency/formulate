@@ -11,7 +11,6 @@
         $scope.loading = true;
         formulateEntityResource.getOrScaffold(options).then(
             function (entity) {
-                console.log(entity);
                 $scope.entity = entity;
                 $scope.kindId = entity.kindId;
                 $scope.treeType = options.treeType;
