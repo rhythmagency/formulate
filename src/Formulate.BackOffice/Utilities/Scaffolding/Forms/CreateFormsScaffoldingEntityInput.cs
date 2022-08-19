@@ -1,4 +1,4 @@
-﻿namespace Formulate.BackOffice.Utilities.Forms
+﻿namespace Formulate.BackOffice.Utilities.Scaffolding.Forms
 {
     using Formulate.BackOffice.Persistence;
     using Formulate.Core.Persistence;

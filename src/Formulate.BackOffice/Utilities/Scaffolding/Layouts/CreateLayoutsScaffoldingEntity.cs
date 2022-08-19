@@ -1,4 +1,4 @@
-﻿namespace Formulate.BackOffice.Utilities.Layouts
+﻿namespace Formulate.BackOffice.Utilities.Scaffolding.Layouts
 {
     using Formulate.BackOffice.Persistence;
     using Formulate.Core.Layouts;
@@ -14,12 +14,12 @@
             var parent = input.Parent;
             var id = Guid.NewGuid();
             var entityPath = new List<Guid>();
-            
+
             if (parent is not null)
             {
                 entityPath.AddRange(parent.Path);
             }
-            else 
+            else
             {
                 entityPath.Add(input.RootId);
             }

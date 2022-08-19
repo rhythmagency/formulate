@@ -11,8 +11,9 @@
 
     using Umbraco.Extensions;
     using Formulate.BackOffice.Utilities;
-    using Formulate.BackOffice.Utilities.Layouts;
     using Formulate.BackOffice.EditorModels.Layouts;
+    using Formulate.BackOffice.Utilities.Scaffolding.Layouts;
+    using Formulate.BackOffice.Utilities.CreateOptions.Layouts;
 
     [FormulateBackOfficePluginController]
     public sealed class LayoutsController : FormulateBackOfficeEntityApiController

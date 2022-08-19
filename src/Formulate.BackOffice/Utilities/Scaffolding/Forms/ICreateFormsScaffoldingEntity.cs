@@ -1,8 +1,8 @@
-﻿namespace Formulate.BackOffice.Utilities.Forms
+﻿namespace Formulate.BackOffice.Utilities.Scaffolding.Forms
 {
     using Formulate.Core.Persistence;
 
-    public  interface ICreateFormsScaffoldingEntity
+    public interface ICreateFormsScaffoldingEntity
     {
         IPersistedEntity? Create(CreateFormsScaffoldingEntityInput input);
     }

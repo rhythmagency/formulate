@@ -1,37 +1,38 @@
-﻿namespace Formulate.BackOffice.Utilities.Layouts
+﻿namespace Formulate.BackOffice.Utilities.CreateOptions.Validations
 {
     using Formulate.BackOffice.Controllers;
     using Formulate.Core.Folders;
-    using Formulate.Core.Layouts;
+    using Formulate.Core.Validations;
     using Formulate.Core.Persistence;
     using System.Collections.Generic;
     using System.Linq;
     using Formulate.BackOffice.Persistence;
+    using Formulate.BackOffice.Trees;
 
-    public sealed class GetLayoutsChildEntityOptions : IGetLayoutsChildEntityOptions
+    public sealed class GetValidationsChildEntityOptions : IGetValidationsChildEntityOptions
     {
-        private readonly LayoutDefinitionCollection _layoutDefinitions;
+        private readonly ValidationDefinitionCollection _validationDefinitions;
 
-        public GetLayoutsChildEntityOptions(LayoutDefinitionCollection validationDefinitions)
+        public GetValidationsChildEntityOptions(ValidationDefinitionCollection validationDefinitions)
         {
-            _layoutDefinitions = validationDefinitions;
+            _validationDefinitions = validationDefinitions;
         }
 
         public IReadOnlyCollection<CreateChildEntityOption> Get(IPersistedEntity? parent)
         {
             var options = new List<CreateChildEntityOption>();
-            var validationOptions = _layoutDefinitions.Where(x => x.IsLegacy == false).Select(x => new CreateChildEntityOption()
+            var validationOptions = _validationDefinitions.Where(x => x.IsLegacy == false).Select(x => new CreateChildEntityOption()
             {
                 Name = x.Name,
                 KindId = x.KindId,
-                EntityType = EntityTypes.Layout,
-                Icon = Constants.Icons.Entities.Layout
+                EntityType = EntityTypes.Validation,
+                Icon = Constants.Icons.Entities.Validation
             }).OrderBy(x => x.Name)
             .ToArray();
 
             if (parent is null)
             {
-                options.AddLayoutsFolderOption();
+                options.AddValidationsFolderOption();
                 options.AddRange(validationOptions);
 
                 return options;
@@ -42,7 +43,7 @@
                 return options;
             }
 
-            options.AddLayoutsFolderOption();
+            options.AddValidationsFolderOption();
             options.AddRange(validationOptions);
 
             return options;

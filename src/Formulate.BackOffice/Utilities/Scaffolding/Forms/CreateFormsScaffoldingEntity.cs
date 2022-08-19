@@ -1,4 +1,4 @@
-﻿namespace Formulate.BackOffice.Utilities.Forms
+﻿namespace Formulate.BackOffice.Utilities.Scaffolding.Forms
 {
     using Formulate.BackOffice.Persistence;
     using Formulate.Core.ConfiguredForms;
@@ -17,12 +17,12 @@
             var parent = input.Parent;
             var id = Guid.NewGuid();
             var entityPath = new List<Guid>();
-            
+
             if (parent is not null)
             {
                 entityPath.AddRange(parent.Path);
             }
-            else 
+            else
             {
                 entityPath.Add(input.RootId);
             }

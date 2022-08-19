@@ -1,4 +1,4 @@
-﻿namespace Formulate.BackOffice.Utilities.Layouts
+﻿namespace Formulate.BackOffice.Utilities.Scaffolding.Layouts
 {
     using Formulate.BackOffice.Persistence;
     using Formulate.Core.Persistence;
@@ -11,7 +11,7 @@
         public Guid RootId { get; init; }
 
         public EntityTypes EntityType { get; init; }
-        
+
         public Guid? KindId { get; init; }
     }
 }

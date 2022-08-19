@@ -1,4 +1,4 @@
-﻿namespace Formulate.BackOffice.Utilities.FormFields
+﻿namespace Formulate.BackOffice.Utilities.CreateOptions.FormFields
 {
     using Formulate.BackOffice.Controllers;
     using Formulate.Core.FormFields;
@@ -16,7 +16,8 @@
 
         public IReadOnlyCollection<CreateItemOption> Get()
         {
-            return _formFieldDefinitions.Where(x => x.IsLegacy == false).Select(x => new CreateItemOption() {
+            return _formFieldDefinitions.Where(x => x.IsLegacy == false).Select(x => new CreateItemOption()
+            {
                 Icon = x.Icon,
                 KindId = x.KindId,
                 Name = x.Name,

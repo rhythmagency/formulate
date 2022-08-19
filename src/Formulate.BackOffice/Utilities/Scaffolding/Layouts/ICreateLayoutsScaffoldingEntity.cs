@@ -1,4 +1,4 @@
-﻿namespace Formulate.BackOffice.Utilities.Layouts
+﻿namespace Formulate.BackOffice.Utilities.Scaffolding.Layouts
 {
     using Formulate.Core.Persistence;
 
