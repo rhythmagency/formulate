@@ -153,7 +153,7 @@
             };
             if (this.formHelper.submitForm(submitFormData)) {
                 // Prepare the data to save.
-                const url = Umbraco.Sys.ServerVariables.formulate["configuredForms.Save"];
+                const url = Umbraco.Sys.ServerVariables.formulate.ConfiguredForms.Save;
                 const entity = this.$scope.entity;
                 const hasLayout = entity.layout && entity.layout.id;
                 const payload = {

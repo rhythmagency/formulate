@@ -24,7 +24,7 @@ class FormulateTypeDefinitionResource {
      * @returns {*} The promise that resolves to the array of definitions.
      */
     getHandlerDefinitions() {
-        const url = this.serverVars['GetHandlerDefinitions'];
+        const url = this.serverVars.FormHandlers.GetDefinitions;
         return this.umbRequestHelper
             .resourcePromise(this.$http.get(url));
     }
@@ -34,7 +34,7 @@ class FormulateTypeDefinitionResource {
      * @returns {*} The promise that resolves to the array of definitions.
      */
     getFieldDefinitions() {
-        const url = this.serverVars['GetFieldDefinitions'];
+        const url = this.serverVars.FormFields.GetDefinitions;
         return this.umbRequestHelper
             .resourcePromise(this.$http.get(url));
     }
@@ -44,7 +44,7 @@ class FormulateTypeDefinitionResource {
      * @returns {*} The promise that resolves to the array of definitions.
      */
     getTemplateDefinitions() {
-        const url = this.serverVars['Templates.GetAll'];
+        const url = this.serverVars.Templates.GetAll;
         return this.umbRequestHelper
             .resourcePromise(this.$http.get(url));
     }

@@ -31,7 +31,7 @@
             }
             else if ($scope.model.definition) {
                 const definition = $scope.model.definition;
-                const url = formulateVars['FormHandlers.GetScaffolding'] + '?id=' + definition.kindId;
+                const url = formulateVars.FormHandlers.GetScaffolding + '?id=' + definition.kindId;
 
                 formulateServer.get(url).then(function (response) {
                     vm.model = response;

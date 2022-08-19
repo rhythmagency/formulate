@@ -108,7 +108,7 @@
                 return resolve();
             }
 
-            const baseUrl = formulateVars['forms.Get'];
+            const baseUrl = formulateVars.Forms.Get;
             const url = `${baseUrl}?id=${form.id}`;
             $http.get(url)
                 .then(x => x.data)

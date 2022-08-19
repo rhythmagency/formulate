@@ -10,14 +10,9 @@
     using Controllers.Forms;
     using Controllers.Layouts;
     using Controllers.Validations;
-    using Core.DataValues;
-    using Core.Forms;
-    using Core.Layouts;
-    using Core.Validations;
     using Formulate.BackOffice.Controllers.Templates;
     using Microsoft.AspNetCore.Routing;
     using System.Collections.Generic;
-    using Trees;
     using Umbraco.Cms.Core.Events;
     using Umbraco.Cms.Core.Notifications;
     using Umbraco.Extensions;
@@ -42,43 +37,51 @@
             // Add server variables.
             var newEntries = new Dictionary<string, object?>()
             {
-                { "ButtonKinds.GetAll",
-                    LinkGenerator.GetUmbracoApiService<ButtonKindsController>(x =>
-                        x.GetAll()) },
-
-                { "Folders.Save", LinkGenerator
-                    .GetUmbracoApiService<FoldersController>(x => x.Save()) },
-
-                { "GetHandlerDefinitions", LinkGenerator
-                    .GetUmbracoApiService<FormHandlersController>(x =>
-                        x.GetDefinitions()) },
-
-                { "FormFields.GetCategories", LinkGenerator
-                    .GetUmbracoApiService<FormFieldsController>(x =>
-                        x.GetCategories()) },
-
-                { "GetFieldDefinitions", LinkGenerator
-                    .GetUmbracoApiService<FormFieldsController>(x =>
-                        x.GetDefinitions()) },
-
-                { "FormFields.GetScaffolding", LinkGenerator
-                    .GetUmbracoApiService<FormFieldsController>(x =>
-                        x.GetScaffolding()) },
-
-                { "FormHandlers.GetScaffolding", LinkGenerator
-                    .GetUmbracoApiService<FormHandlersController>(x =>
-                        x.GetScaffolding()) },
-
-                { "Templates.GetAll", LinkGenerator
-                    .GetUmbracoApiService<TemplatesController>(x =>
-                        x.GetAll()) },
+                {
+                    "ButtonKinds", new {
+                        GetAll = LinkGenerator.GetUmbracoApiService<ButtonKindsController>(x =>
+                            x.GetAll())
+                    }
+                },
+                {
+                    "Folders", new {
+                        Save = LinkGenerator.GetUmbracoApiService<FoldersController>(x => x.Save())
+                    }
+                },
+                {
+                    "FormHandlers", new {
+                        GetDefinitions = LinkGenerator.GetUmbracoApiService<FormHandlersController>(x => x.GetDefinitions()),
+                        GetScaffolding = LinkGenerator.GetUmbracoApiService<FormHandlersController>(x => x.GetScaffolding()),
+                    }
+                },
+                {
+                    "FormFields", new {
+                        GetCategories = LinkGenerator.GetUmbracoApiService<FormFieldsController>(x => x.GetCategories()),
+                        GetDefinitions = LinkGenerator.GetUmbracoApiService<FormFieldsController>(x => x.GetDefinitions()),
+                        GetScaffolding = LinkGenerator.GetUmbracoApiService<FormFieldsController>(x => x.GetScaffolding())
+                    }
+                },
+                {
+                    "Templates", new {
+                        GetAll = LinkGenerator.GetUmbracoApiService<TemplatesController>(x => x.GetAll())
+                    }
+                },
+                {
+                    "ConfiguredForms", GetApiControllerVariables<ConfiguredFormsController>()
+                },
+                {
+                    "DataValues", GetApiControllerVariables<DataValuesController>()
+                },
+                {
+                    "Forms", GetApiControllerVariables<FormsController>()
+                },
+                {
+                    "Layouts", GetApiControllerVariables<LayoutsController>()
+                },
+                {
+                    "Validations", GetApiControllerVariables<ValidationsController>()
+                }
             };
-
-            AddVariables<DataValuesController>(Constants.Trees.DataValues, newEntries);
-            AddVariables<FormsController>(Constants.Trees.Forms, newEntries);
-            AddVariables<LayoutsController>(Constants.Trees.Layouts, newEntries);
-            AddVariables<ValidationsController>(Constants.Trees.Validations, newEntries);
-            AddVariables<ConfiguredFormsController>("configuredForms", newEntries);
 
             if (notification.ServerVariables.ContainsKey(key))
             {
@@ -86,7 +89,10 @@
                 {
                     foreach (var item in newEntries)
                     {
-                        existing[item.Key] = item.Value;
+                        if (item.Value is not null)
+                        {
+                            existing[item.Key] = item.Value;
+                        }
                     }
                 }
             }
@@ -96,14 +102,21 @@
             }
         }
 
-        private void AddVariables<TApiController>(string sectionAlias, IDictionary<string, object?> newEntries) where TApiController : FormulateBackOfficeEntityApiController 
+        /// <summary>
+        /// Gets the standard variables for a controller inheriting from <typeparamref name="TApiController"/>.
+        /// </summary>
+        /// <typeparam name="TApiController">The type of the API controller.</typeparam>
+        /// <returns>An anonymous object containing all expected API endpoints.</returns>
+        private object GetApiControllerVariables<TApiController>() where TApiController : FormulateBackOfficeEntityApiController
         {
-            newEntries.Add($"{sectionAlias}.Delete", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.Delete()));
-            newEntries.Add($"{sectionAlias}.Get", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.Get()));
-            newEntries.Add($"{sectionAlias}.GetCreateOptions", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.GetCreateOptions()));
-            newEntries.Add($"{sectionAlias}.GetScaffolding", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.GetScaffolding()));
-            newEntries.Add($"{sectionAlias}.Move", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.Move()));
-            newEntries.Add($"{sectionAlias}.Save", LinkGenerator.GetUmbracoApiService<TApiController>(x => x.Save()));
+            return new {
+                Delete = LinkGenerator.GetUmbracoApiService<TApiController>(x => x.Delete()),
+                Get = LinkGenerator.GetUmbracoApiService<TApiController>(x => x.Get()),
+                GetCreateOptions = LinkGenerator.GetUmbracoApiService<TApiController>(x => x.GetCreateOptions()),
+                GetScaffolding = LinkGenerator.GetUmbracoApiService<TApiController>(x => x.GetScaffolding()),
+                Move = LinkGenerator.GetUmbracoApiService<TApiController>(x => x.Move()),
+                Save = LinkGenerator.GetUmbracoApiService<TApiController>(x => x.Save())
+            };
         }
     }
 }

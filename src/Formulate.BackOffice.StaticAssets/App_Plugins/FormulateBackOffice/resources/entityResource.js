@@ -3,6 +3,7 @@
         var serverVars = Umbraco.Sys.ServerVariables.formulate;
 
         function performGetOrScaffold(options) {
+            const treeServerVars = serverVars[options.treeType];
             var isNew = options.create === "true" && options.entityType;
             var hasId = options.id && options.id !== "-1";
             var hasKindId = options.kindId && options.kindId.length > 0;
@@ -10,7 +11,7 @@
 
             // replace with resource calls
             if (isNew) {
-                url = serverVars[`${options.treeType}.GetScaffolding`] + "?entityType=" + options.entityType;
+                url = treeServerVars.GetScaffolding + "?entityType=" + options.entityType;
 
                 if (hasId) {
                     url += `&parentId=${options.id}`;
@@ -20,7 +21,7 @@
                     url += `&kindId=${options.kindId}`;
                 }
             } else {
-                url = serverVars[`${options.treeType}.Get`];
+                url = treeServerVars.Get;
 
                 if (hasId) {
                     url += `?id=${options.id}`;

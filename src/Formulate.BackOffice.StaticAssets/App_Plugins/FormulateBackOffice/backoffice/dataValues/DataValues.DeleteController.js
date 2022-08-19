@@ -2,7 +2,7 @@
     var controller = function () {
         var vm = this;
 
-        vm.treeType = "dataValues";
+        vm.treeType = "DataValues";
     };
 
     angular.module("umbraco").controller("FormulateBackOffice.DataValues.DeleteController", controller);

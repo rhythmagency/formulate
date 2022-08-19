@@ -31,7 +31,7 @@
             return new Promise((resolve, reject) => {
 
                 if (vm.model.supportsCategory) {
-                    const url = formulateVars['FormFields.GetCategories'];
+                    const url = formulateVars.FormFields.GetCategories;
 
                     return formulateServer.get(url).then(function (response) {
                         vm.categories = response;
@@ -100,7 +100,7 @@
 
             else if ($scope.model.definition) {
                 const definition = $scope.model.definition;
-                const url = formulateVars['FormFields.GetScaffolding'] + '?id=' + definition.kindId;
+                const url = formulateVars.FormFields.GetScaffolding + '?id=' + definition.kindId;
 
                 formulateServer.get(url).then(function (response) {
                     vm.model = response;

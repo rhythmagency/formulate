@@ -2,7 +2,7 @@
     var controller = function ($location) {
         var vm = this;
 
-        vm.treeType = "layouts";
+        vm.treeType = "Layouts";
 
         vm.create = function (option, parentId) {
             var path = "/formulate/layouts/edit/" + parentId;

@@ -367,7 +367,7 @@ class FormDesignerEventHandlers {
         if (this.formHelper.submitForm(submitFormData)) {
 
             // Prepare the data to save.
-            const url = Umbraco.Sys.ServerVariables.formulate["forms.Save"];
+            const url = Umbraco.Sys.ServerVariables.formulate.Forms.Save;
             const entity = this.$scope.entity;
             const fields = this.$scope.fields;
             const handlers = this.$scope.handlers;

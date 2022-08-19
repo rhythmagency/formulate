@@ -14,9 +14,7 @@
                     scope.loading = true;
                     scope.allowedOptions = [];
 
-                    console.log('hey');
-
-                    var url = Umbraco.Sys.ServerVariables.formulate[scope.treeType + ".GetCreateOptions"];
+                    var url = Umbraco.Sys.ServerVariables.formulate[scope.treeType].GetCreateOptions;
 
                     console.log(url);
 

@@ -2,7 +2,7 @@
     var controller = function ($location) {
         var vm = this;
 
-        vm.treeType = "validations";
+        vm.treeType = "Validations";
 
         vm.create = function (option, parentId) {
             var path = "/formulate/validations/edit/" + parentId;

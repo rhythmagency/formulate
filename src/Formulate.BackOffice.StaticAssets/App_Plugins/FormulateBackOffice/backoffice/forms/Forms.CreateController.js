@@ -2,7 +2,7 @@
     var controller = function ($location) {
         var vm = this;
 
-        vm.treeType = "forms";
+        vm.treeType = "Forms";
 
         vm.create = function (option, parentId) {
             $location

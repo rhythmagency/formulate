@@ -2,7 +2,7 @@
     var controller = function () {
         var vm = this;
 
-        vm.treeType = "validations";
+        vm.treeType = "Validations";
     };
 
     angular.module("umbraco").controller("FormulateBackOffice.Validations.MoveController", controller);

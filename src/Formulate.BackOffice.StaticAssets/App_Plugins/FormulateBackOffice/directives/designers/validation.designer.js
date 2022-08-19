@@ -24,7 +24,7 @@
                     };
 
                     if (formHelper.submitForm({ scope: scope, formCtrl: scope.formCtrl })) {
-                        $http.post(Umbraco.Sys.ServerVariables.formulate["validations.Save"], payload).then(
+                        $http.post(Umbraco.Sys.ServerVariables.formulate.Validations.Save, payload).then(
                             function (response) {
                                 scope.saveButtonState = "success";
                                 formHelper.resetForm({ scope: scope, formCtrl: scope.formCtrl });

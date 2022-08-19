@@ -23,7 +23,7 @@
                     };
 
                     if (formHelper.submitForm({ scope: scope, formCtrl: scope.formCtrl })) {
-                        $http.post(Umbraco.Sys.ServerVariables.formulate["Folders.Save"], payload).then(
+                        $http.post(Umbraco.Sys.ServerVariables.formulate.Folders.Save, payload).then(
                             function (response) {
                                 scope.saveButtonState = "success";
 

@@ -42,7 +42,7 @@ class ConfiguredFormPicker {
         this.$scope.loaded = false;
         this.$scope.vm = {};
         if (this.$scope.model.value && this.$scope.model.value.id) {
-            const baseUrl = this.formulateVars["configuredForms.Get"];
+            const baseUrl = this.formulateVars.ConfiguredForms.Get;
             const url = `${baseUrl}?id=${this.$scope.model.value.id}`;
 
             // Get the configured form name.

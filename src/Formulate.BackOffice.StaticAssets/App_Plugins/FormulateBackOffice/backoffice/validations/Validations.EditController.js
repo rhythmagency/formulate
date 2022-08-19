@@ -3,7 +3,7 @@
         var options = {
             create: $routeParams.create,
             entityType: $routeParams.entityType,
-            treeType: "validations",
+            treeType: "Validations",
             id: $routeParams.id,
             kindId: $routeParams.kindId
         };
