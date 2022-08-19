@@ -43,7 +43,7 @@
                 section: 'formulate',
                 treeAlias: 'dataValues',
                 multiPicker: false,
-                entityType: 'datavalue',
+                entityType: 'dataValues',
                 filter: (node) => {
                     return node.nodeType === 'Folder';
                 },
