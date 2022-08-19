@@ -9,7 +9,10 @@
     using Formulate.BackOffice.Utilities.FormHandlers;
     using Formulate.BackOffice.Utilities.Forms;
     using Formulate.BackOffice.Utilities.Layouts;
-    using Formulate.BackOffice.Utilities.Trees;
+    using Formulate.BackOffice.Utilities.Trees.DataValues;
+    using Formulate.BackOffice.Utilities.Trees.Forms;
+    using Formulate.BackOffice.Utilities.Trees.Layouts;
+    using Formulate.BackOffice.Utilities.Trees.Validations;
     using Formulate.BackOffice.Utilities.Validations;
     using Microsoft.Extensions.DependencyInjection;
     using Umbraco.Cms.Core.DependencyInjection;

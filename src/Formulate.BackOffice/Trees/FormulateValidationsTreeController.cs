@@ -2,7 +2,7 @@
 {
     // Namespaces.
     using Attributes;
-    using Formulate.BackOffice.Utilities.Trees;
+    using Formulate.BackOffice.Utilities.Trees.Validations;
     using Persistence;
     using Umbraco.Cms.Core;
     using Umbraco.Cms.Core.Events;

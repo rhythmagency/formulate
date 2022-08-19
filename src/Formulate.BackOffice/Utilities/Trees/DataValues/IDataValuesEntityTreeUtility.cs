@@ -1,4 +1,4 @@
-﻿namespace Formulate.BackOffice.Utilities.Trees
+﻿namespace Formulate.BackOffice.Utilities.Trees.DataValues
 {
     using Formulate.BackOffice.Trees;
 

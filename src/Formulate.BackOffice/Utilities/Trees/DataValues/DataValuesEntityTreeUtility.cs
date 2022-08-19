@@ -1,4 +1,4 @@
-﻿namespace Formulate.BackOffice.Utilities.Trees
+﻿namespace Formulate.BackOffice.Utilities.Trees.DataValues
 {
     using Formulate.BackOffice.Persistence;
     using Formulate.BackOffice.Trees;
@@ -14,7 +14,7 @@
     internal sealed class DataValuesEntityTreeUtility : EntityTreeUtility, IDataValuesEntityTreeUtility
     {
         private readonly DataValuesDefinitionCollection _dataValuesDefinitions;
-        
+
         public DataValuesEntityTreeUtility(DataValuesDefinitionCollection dataValuesDefinitions, ILocalizedTextService localizedTextService, IMenuItemCollectionFactory menuItemCollectionFactory, ITreeEntityRepository treeEntityRepository) : base(localizedTextService, menuItemCollectionFactory, treeEntityRepository)
         {
             _dataValuesDefinitions = dataValuesDefinitions;

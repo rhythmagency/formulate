@@ -1,4 +1,4 @@
-﻿namespace Formulate.BackOffice.Utilities.Trees
+﻿namespace Formulate.BackOffice.Utilities.Trees.Forms
 {
     using Formulate.BackOffice.Persistence;
     using Formulate.BackOffice.Trees;
@@ -44,12 +44,12 @@
             {
                 return new EntityTreeNodeMetaData(Constants.Icons.Folders.Forms);
             }
-            
+
             if (entity is PersistedConfiguredForm)
             {
                 return new EntityTreeNodeMetaData(Constants.Icons.Entities.ConfiguredForm);
             }
-            
+
             return new EntityTreeNodeMetaData(Constants.Icons.Entities.Form);
         }
 

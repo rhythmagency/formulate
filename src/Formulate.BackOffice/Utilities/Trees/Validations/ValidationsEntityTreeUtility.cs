@@ -1,4 +1,4 @@
-﻿namespace Formulate.BackOffice.Utilities.Trees
+﻿namespace Formulate.BackOffice.Utilities.Trees.Validations
 {
     using Formulate.BackOffice.Persistence;
     using Formulate.BackOffice.Trees;
@@ -14,7 +14,7 @@
     internal sealed class ValidationsEntityTreeUtility : EntityTreeUtility, IValidationsEntityTreeUtility
     {
         private readonly ValidationDefinitionCollection _validationDefinitions;
-        
+
         public ValidationsEntityTreeUtility(ValidationDefinitionCollection validationDefinitions, ILocalizedTextService localizedTextService, IMenuItemCollectionFactory menuItemCollectionFactory, ITreeEntityRepository treeEntityRepository) : base(localizedTextService, menuItemCollectionFactory, treeEntityRepository)
         {
             _validationDefinitions = validationDefinitions;
