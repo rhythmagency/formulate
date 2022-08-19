@@ -1,6 +1,5 @@
 ﻿namespace Formulate.BackOffice.EditorModels.Layouts
 {
-    using Formulate.BackOffice.Persistence;
     using Formulate.Core.Layouts;
     using System;
     using System.Runtime.Serialization;

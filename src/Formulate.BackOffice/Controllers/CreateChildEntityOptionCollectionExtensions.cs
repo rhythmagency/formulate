@@ -1,7 +1,6 @@
 ﻿namespace Formulate.BackOffice.Controllers
 {
     using System.Collections.Generic;
-    using Formulate.BackOffice.Persistence;
 
     internal static class CreateChildEntityOptionCollectionExtensions
     {

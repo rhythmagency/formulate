@@ -1,6 +1,5 @@
 ﻿namespace Formulate.BackOffice.EditorModels.DataValues
 {
-    using Formulate.BackOffice.Persistence;
     using Formulate.Core.DataValues;
     using System;
     using System.Runtime.Serialization;

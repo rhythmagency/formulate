@@ -2,7 +2,6 @@
 {
     using System;
     using System.Runtime.Serialization;
-    using Formulate.BackOffice.Persistence;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 

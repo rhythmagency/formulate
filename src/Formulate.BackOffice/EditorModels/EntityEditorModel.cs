@@ -1,6 +1,5 @@
 ﻿namespace Formulate.BackOffice.EditorModels
 {
-    using Formulate.BackOffice.Persistence;
     using Formulate.BackOffice.Trees;
     using Formulate.Core.Persistence;
     using System;

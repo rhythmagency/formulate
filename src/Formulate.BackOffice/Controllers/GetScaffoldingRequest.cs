@@ -1,6 +1,5 @@
 ﻿namespace Formulate.BackOffice.Controllers
 {
-    using Formulate.BackOffice.Persistence;
     using System;
     using System.Runtime.Serialization;
 

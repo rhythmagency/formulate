@@ -1,4 +1,4 @@
-﻿namespace Formulate.BackOffice.Persistence
+﻿namespace Formulate.BackOffice
 {
     /// <summary>
     /// The entity types used by Formulate in the back office.

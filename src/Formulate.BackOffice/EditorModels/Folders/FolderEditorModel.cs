@@ -1,6 +1,5 @@
 ﻿namespace Formulate.BackOffice.EditorModels.Folders
 {
-    using Formulate.BackOffice.Persistence;
     using Formulate.Core.Folders;
     using System.Runtime.Serialization;
 

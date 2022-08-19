@@ -1,6 +1,5 @@
 ﻿namespace Formulate.BackOffice.EditorModels
 {
-    using Formulate.BackOffice.Persistence;
 
     public interface IEntityEditorModel : IEditorModel
     {

@@ -1,6 +1,5 @@
 ﻿namespace Formulate.BackOffice.EditorModels.Validation
 {
-    using Formulate.BackOffice.Persistence;
     using Formulate.Core.Validations;
     using System;
     using System.Runtime.Serialization;

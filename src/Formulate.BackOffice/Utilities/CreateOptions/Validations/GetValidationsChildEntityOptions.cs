@@ -6,7 +6,6 @@
     using Formulate.Core.Persistence;
     using System.Collections.Generic;
     using System.Linq;
-    using Formulate.BackOffice.Persistence;
 
     public sealed class GetValidationsChildEntityOptions : IGetValidationsChildEntityOptions
     {
