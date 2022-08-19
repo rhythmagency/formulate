@@ -1,6 +1,5 @@
 ﻿namespace Formulate.BackOffice.EditorModels.ConfiguredForm
 {
-    using Formulate.BackOffice.Persistence;
     using Formulate.Core.ConfiguredForms;
     using System;
     using System.Runtime.Serialization;
