@@ -12,9 +12,7 @@
     public interface IEntityTreeUtility
     {
         MenuItemCollection GetMenuItems(GetMenuItemsInput input);
-
-        MenuItemCollection GetMenuItemsForRoot(FormCollection queryStrings);
-                
+                        
         IReadOnlyCollection<EntityTreeNode> GetTreeNodes(GetTreeNodesInput input);
     }
 }
