@@ -16,7 +16,5 @@
         MenuItemCollection GetMenuItemsForRoot(FormCollection queryStrings);
                 
         IReadOnlyCollection<EntityTreeNode> GetTreeNodes(GetTreeNodesInput input);
-
-        IReadOnlyCollection<EntityTreeNode> GetTreeNodesForRoot(FormCollection queryStrings);
     }
 }
