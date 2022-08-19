@@ -13,6 +13,7 @@
     using Formulate.BackOffice.Utilities.CreateOptions.Validations;
     using Formulate.BackOffice.Utilities.DataValues;
     using Formulate.BackOffice.Utilities.EditorModels.Buttons;
+    using Formulate.BackOffice.Utilities.EditorModels.Forms;
     using Formulate.BackOffice.Utilities.EditorModels.Templates;
     using Formulate.BackOffice.Utilities.FormFields;
     using Formulate.BackOffice.Utilities.FormHandlers;
@@ -28,17 +29,17 @@
     using Umbraco.Cms.Core.DependencyInjection;
     using Umbraco.Cms.Core.Notifications;
 
-    public static class UmbracoBuilderExtensions
+    public static partial class UmbracoBuilderExtensions
     {
         public static IUmbracoBuilder AddFormulateBackOffice(this IUmbracoBuilder builder)
         {
             builder.Sections().Append<FormulateSection>();
-
-            builder.Services.Configure<FormulateBackOfficeOptions>(x => builder.Config.GetSection(FormulateBackOfficeOptions.SectionName).Bind(x));
+            builder.AddFormulateConfiguration();
 
             builder.Services.AddScoped<IGetFolderIconOrDefault, GetFolderIconOrDefault>();
 
             builder.Services.AddScoped<IGetButtonKindEditorModels, GetButtonKindEditorModels>();
+            builder.Services.AddScoped<IGetFormFieldCategoryEditorModels, GetFormFieldCategoryEditorModels>();
             builder.Services.AddScoped<IGetTemplateEditorModels, GetTemplateEditorModels>();
 
             builder.Services.AddScoped<ITreeEntityRepository, TreeEntityRepository>();

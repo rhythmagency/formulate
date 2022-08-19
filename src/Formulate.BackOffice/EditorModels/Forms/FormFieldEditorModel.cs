@@ -63,5 +63,11 @@
         /// </summary>
         [DataMember(Name = "supportsLabel")]
         public bool SupportsLabel { get; set; }
+
+        /// <summary>
+        /// Whether this field supports a category.
+        /// </summary>
+        [DataMember(Name = "supportsCategory")]
+        public bool SupportsCategory { get; set; }
     }
 }

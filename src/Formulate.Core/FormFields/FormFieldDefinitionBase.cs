@@ -48,6 +48,10 @@
         public virtual bool SupportsLabel => true;
 
         /// <inheritdoc />
+        /// <remarks>Defaults to true.</remarks>
+        public virtual bool SupportsCategory => true;
+
+        /// <inheritdoc />
         public virtual string Category => FormFieldConstants.Categories.Uncategorized;
         
         /// <inheritdoc />

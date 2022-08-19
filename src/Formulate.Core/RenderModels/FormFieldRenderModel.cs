@@ -25,5 +25,7 @@
         public bool SupportsValidation => _features.SupportsValidation;
 
         public bool SupportsLabel => _features.SupportsLabel;
+
+        public bool SupportsCategory => _features.SupportsCategory;
     }
 }

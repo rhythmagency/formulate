@@ -1,4 +1,4 @@
-﻿namespace Formulate.Core.Configuration
+﻿namespace Formulate.BackOffice.Configuration
 {
     using System.Collections.Generic;
 

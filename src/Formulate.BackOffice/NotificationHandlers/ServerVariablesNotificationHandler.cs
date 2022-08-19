@@ -57,6 +57,11 @@
                 { "GetHandlerDefinitions", LinkGenerator
                     .GetUmbracoApiService<FormHandlersController>(x =>
                         x.GetDefinitions()) },
+
+                { "FormFields.GetCategories", LinkGenerator
+                    .GetUmbracoApiService<FormFieldsController>(x =>
+                        x.GetCategories()) },
+
                 { "GetFieldDefinitions", LinkGenerator
                     .GetUmbracoApiService<FormFieldsController>(x =>
                         x.GetDefinitions()) },

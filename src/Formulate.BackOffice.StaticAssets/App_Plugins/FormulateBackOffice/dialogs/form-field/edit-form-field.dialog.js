@@ -27,6 +27,22 @@
             }
         }
 
+        function initCategories(model) {
+            return new Promise((resolve, reject) => {
+
+                if (vm.model.supportsCategory) {
+                    const url = formulateVars['FormFields.GetCategories'];
+
+                    return formulateServer.get(url).then(function (response) {
+                        vm.categories = response;
+                    }).then(resolve());
+                }
+                else {
+                    return resolve();
+                }
+            });
+        }
+
         function pickValidations() {
             // The data sent to the validation chooser.
             var config = {
@@ -76,7 +92,10 @@
             if ($scope.model.field) {
                 vm.model = $scope.model.field;
                 vm.supportsGeneralSettings = getGeneralSettingsSupport(vm.model);
-                vm.loading = false;
+
+                initCategories(vm.model).then(() => {
+                    vm.loading = false;
+                });                
             }
 
             else if ($scope.model.definition) {
@@ -86,13 +105,16 @@
                 formulateServer.get(url).then(function (response) {
                     vm.model = response;
                     vm.supportsGeneralSettings = getGeneralSettingsSupport(vm.model);
-                    vm.loading = false;
+
+                    initCategories(vm.model).then(() => {
+                        vm.loading = false;
+                    });
                 });
             }
         };
 
         function getGeneralSettingsSupport(model) {
-            return model.supportsValidation || model.supportsLabel;
+            return model.supportsValidation || model.supportsLabel || model.supportsCategory;
         }
 
         init();

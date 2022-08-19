@@ -35,5 +35,10 @@
         /// Gets a value indicating whether this field definition supports a field label.
         /// </summary>
         bool SupportsLabel { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether this field definition supports a field category.
+        /// </summary>
+        bool SupportsCategory { get; }
     }
 }

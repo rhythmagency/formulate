@@ -42,9 +42,15 @@
                 Configuration = definition.GetBackOfficeConfiguration(entity),
                 SupportsValidation = definition.SupportsValidation,
                 SupportsLabel = definition.SupportsLabel,
+                SupportsCategory = definition.SupportsCategory,
                 Icon = definition.Icon,
                 Directive = definition.Directive,
             };
+
+            if (definition.SupportsCategory)
+            {
+                editorModel.Category = entity.Category;
+            }
 
             if (definition.SupportsLabel)
             {

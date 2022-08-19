@@ -39,7 +39,7 @@
                             </div>
 
                             <!-- The field category. -->
-                            <div class="control-group umb-control-group -no-border" ng-if="categories">
+                            <div class="control-group umb-control-group -no-border" ng-if="vm.model.supportsCategory">
                                 <div class="umb-el-wrap">
                                     <label class="control-label" for="category">
                                         <localize key="formulate-labels_Field Category">
@@ -48,7 +48,7 @@
                                     </label>
                                     <div class="controls">
                                         <select name="category" ng-model="vm.model.category"
-                                                ng-options="option.value as option.label group by option.group for option in categories">
+                                                ng-options="option.value as option.label group by option.group for option in vm.categories">
                                             <option value="" formulate-inject-localization="formulate-options_Select a Field Category"></option>
                                         </select>
                                     </div>

@@ -69,6 +69,13 @@
         /// </remarks>
         public override bool SupportsLabel => false;
 
+
+        /// <inheritdoc />
+        /// <remarks>
+        /// This form field does not support a category.
+        /// </remarks>
+        public override bool SupportsCategory => false;
+
         /// <inheritdoc />
         public override FormField CreateField(IFormFieldSettings settings)
         {

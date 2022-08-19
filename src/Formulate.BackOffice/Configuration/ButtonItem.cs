@@ -1,4 +1,4 @@
-﻿namespace Formulate.Core.Configuration
+﻿namespace Formulate.BackOffice.Configuration
 {
     /// <summary>
     /// Details about a button item from configuration.

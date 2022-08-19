@@ -1,4 +1,4 @@
-﻿namespace Formulate.Core.DependencyInjection
+﻿namespace Formulate.BackOffice.DependencyInjection
 {
     // Namespaces.
     using Configuration;
@@ -21,9 +21,15 @@
         private static IUmbracoBuilder AddFormulateConfiguration(
             this IUmbracoBuilder builder)
         {
+            builder.Services.Configure<FormulateBackOfficeOptions>(x => builder.Config.GetSection(FormulateBackOfficeOptions.SectionName).Bind(x));
+
+            builder.Services.Configure<FormFieldOptions>(x =>
+               builder.Config.GetSection(FormFieldOptions.SectionName)
+               .Bind(x));
+
             builder.Services.Configure<ButtonsOptions>(x =>
                 builder.Config.GetSection(ButtonsOptions.SectionName)
-                .Bind(x));
+                .Bind(x));;
 
             builder.Services.PostConfigure<ButtonsOptions>(options =>
             {

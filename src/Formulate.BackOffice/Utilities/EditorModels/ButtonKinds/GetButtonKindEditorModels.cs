@@ -1,7 +1,7 @@
 ﻿namespace Formulate.BackOffice.Utilities.EditorModels.Buttons
 {
+    using Formulate.BackOffice.Configuration;
     using Formulate.BackOffice.EditorModels.ButtonKinds;
-    using Formulate.Core.Configuration;
     using Microsoft.Extensions.Options;
     using System.Collections.Generic;
     using System.Linq;
