@@ -1,6 +1,5 @@
 ﻿namespace Formulate.BackOffice.DependencyInjection
 {
-    // Namespaces.
     using Configuration;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
