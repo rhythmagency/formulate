@@ -1,7 +1,6 @@
 ﻿namespace Formulate.BackOffice.Controllers
 {
     using System;
-    using Formulate.BackOffice.Persistence;
 
     public sealed class MoveEntityRequest
     {

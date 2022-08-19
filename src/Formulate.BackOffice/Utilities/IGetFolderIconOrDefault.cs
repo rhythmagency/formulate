@@ -1,6 +1,5 @@
 ﻿namespace Formulate.BackOffice.Utilities
 {
-    using Formulate.BackOffice.Persistence;
 
     /// <summary>
     /// A contract for creating a utility to get the expected folder icon or the default folder icon based.

@@ -1,7 +1,6 @@
 ﻿namespace Formulate.BackOffice.Utilities
 {
     using Formulate.BackOffice.Configuration;
-    using Formulate.BackOffice.Persistence;
     using Microsoft.Extensions.Options;
 
     internal sealed class GetFolderIconOrDefault : IGetFolderIconOrDefault
