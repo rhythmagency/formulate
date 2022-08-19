@@ -85,7 +85,7 @@
             return menuItemCollection;
         }
 
-        protected abstract TreeNodeMetaData GetNodeMetaData(IPersistedEntity entity);
+        protected abstract EntityTreeNodeMetaData GetNodeMetaData(IPersistedEntity entity);
 
         protected abstract IReadOnlyCollection<IPersistedEntity> GetRootEntities();
 

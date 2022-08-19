@@ -54,11 +54,11 @@
             return menuItemCollection;
         }
 
-        protected override TreeNodeMetaData GetNodeMetaData(IPersistedEntity entity)
+        protected override EntityTreeNodeMetaData GetNodeMetaData(IPersistedEntity entity)
         {
             if (entity.IsFolder())
             {
-                return new TreeNodeMetaData(Constants.Icons.Folders.Validations);
+                return new EntityTreeNodeMetaData(Constants.Icons.Folders.Validations);
             }
 
             if (entity is PersistedValidation validationEntity)
@@ -67,11 +67,11 @@
 
                 if (definition is not null)
                 {
-                    return new TreeNodeMetaData(Constants.Icons.Entities.Validation, definition.IsLegacy);
+                    return new EntityTreeNodeMetaData(Constants.Icons.Entities.Validation, definition.IsLegacy);
                 }
             }
 
-            return new TreeNodeMetaData(Constants.Icons.Entities.Validation);
+            return new EntityTreeNodeMetaData(Constants.Icons.Entities.Validation);
         }
 
         /// <inheritdoc />

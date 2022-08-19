@@ -42,11 +42,11 @@
             return menuItemCollection;
         }
 
-        protected override TreeNodeMetaData GetNodeMetaData(IPersistedEntity entity)
+        protected override EntityTreeNodeMetaData GetNodeMetaData(IPersistedEntity entity)
         {
             if (entity.IsFolder())
             {
-                return new TreeNodeMetaData(Constants.Icons.Folders.DataValues);
+                return new EntityTreeNodeMetaData(Constants.Icons.Folders.DataValues);
             }
 
             if (entity is PersistedDataValues dataValuesEntity)
@@ -59,12 +59,12 @@
 
                     if (string.IsNullOrWhiteSpace(icon) == false)
                     {
-                        return new TreeNodeMetaData(icon, definition.IsLegacy);
+                        return new EntityTreeNodeMetaData(icon, definition.IsLegacy);
                     }
                 }
             }
 
-            return new TreeNodeMetaData(Constants.Icons.Entities.DataValues);
+            return new EntityTreeNodeMetaData(Constants.Icons.Entities.DataValues);
         }
 
         /// <inheritdoc />
