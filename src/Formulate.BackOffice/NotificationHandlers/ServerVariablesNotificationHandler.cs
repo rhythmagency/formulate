@@ -46,11 +46,6 @@
                     LinkGenerator.GetUmbracoApiService<ButtonKindsController>(x =>
                         x.GetAll()) },
 
-                { "Layout.RootId", LayoutConstants.RootId },
-                { "Validation.RootId", ValidationConstants.RootId },
-                { "DataValues.RootId", DataValuesConstants.RootId },
-                { "forms.RootId", FormConstants.RootId },
-
                 { "Folders.Save", LinkGenerator
                     .GetUmbracoApiService<FoldersController>(x => x.Save()) },
 
