@@ -1,14 +1,8 @@
 ﻿namespace Formulate.BackOffice.Trees
 {
-    // Namespaces.
-    using Core.Folders;
-    using Core.Persistence;
+    using Formulate.BackOffice.Utilities.Trees;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Persistence;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Umbraco.Cms.Core;
     using Umbraco.Cms.Core.Events;
     using Umbraco.Cms.Core.Services;
@@ -22,52 +16,29 @@
     public abstract class FormulateEntityTreeController : TreeController
     {
         /// <summary>
-        /// The tree entity repository.
+        /// The entity tree utility.
         /// </summary>
-        private readonly ITreeEntityRepository _treeEntityRepository;
-
-        /// <summary>
-        /// The menu item collection factory.
-        /// </summary>
-        protected readonly IMenuItemCollectionFactory MenuItemCollectionFactory;
+        private readonly IEntityTreeUtility _entityTreeUtility;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormulateEntityTreeController"/> class.
         /// </summary>
-        /// <param name="treeEntityRepository">The tree entity repository.</param>
-        /// <param name="menuItemCollectionFactory">The menu item collection factory.</param>
         /// <param name="localizedTextService">The localized text service.</param>
         /// <param name="umbracoApiControllerTypeCollection">The umbraco api controller type collection.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        protected FormulateEntityTreeController(ITreeEntityRepository treeEntityRepository,
-            IMenuItemCollectionFactory menuItemCollectionFactory, ILocalizedTextService localizedTextService,
+        protected FormulateEntityTreeController(IEntityTreeUtility entityTreeUtility,
+            ILocalizedTextService localizedTextService,
             UmbracoApiControllerTypeCollection umbracoApiControllerTypeCollection, IEventAggregator eventAggregator) :
             base(localizedTextService, umbracoApiControllerTypeCollection, eventAggregator)
         {
-            _treeEntityRepository = treeEntityRepository;
-            MenuItemCollectionFactory = menuItemCollectionFactory ?? throw new ArgumentNullException(nameof(menuItemCollectionFactory));
+            _entityTreeUtility = entityTreeUtility;
         }
-
-        /// <summary>
-        /// Gets the tree root type.
-        /// </summary>
-        protected abstract TreeRootTypes TreeRootType { get; }
 
         /// <summary>
         /// Gets the root node icon.
         /// </summary>
         protected abstract string RootNodeIcon { get; }
         
-        /// <summary>
-        /// Gets the folder node icon.
-        /// </summary>
-        protected abstract string FolderNodeIcon { get; }
-
-        /// <summary>
-        /// Gets the item node icon.
-        /// </summary>
-        protected abstract string ItemNodeIcon { get; }
-
         /// <inheritdoc />
         protected override ActionResult<TreeNode?> CreateRootNode(FormCollection queryStrings)
         {
@@ -90,32 +61,26 @@
         /// <inheritdoc />
         protected override ActionResult<TreeNodeCollection> GetTreeNodes(string id, FormCollection queryStrings)
         {
+            var input = new GetTreeNodesInput(id, queryStrings);
+            var entities = _entityTreeUtility.GetTreeNodes(input);
             var nodes = new TreeNodeCollection();
-            var entities = GetEntities(id);
-            var isFolderOnly = queryStrings["foldersonly"].ToString().IsNullOrWhiteSpace() == false && queryStrings["foldersonly"].ToString() == "1";
-            var filteredEntities = isFolderOnly ? entities.OfType<PersistedFolder>().ToArray() : entities;
-            Func<IPersistedEntity, bool>? hasChildrenFilter = isFolderOnly ? (entity) => entity is PersistedFolder : default;
-
-            foreach (var entity in filteredEntities)
+            
+            foreach (var entity in entities)
             {
-                var hasChildren = _treeEntityRepository.HasChildren(entity.Id, hasChildrenFilter);
-                var metaData = GetNodeMetaData(entity);
-                var node = CreateTreeNode(entity.BackOfficeSafeId(), id, queryStrings, entity.Name, metaData.Icon, hasChildren);
+                var node = CreateTreeNode(entity.Id, id, queryStrings, entity.Name, entity.Icon, entity.HasChildren);
 
-                if (metaData.IsLegacy)
+                if (entity.IsLegacy)
                 {
                     node.SetNotPublishedStyle();
                 }
 
-                node.Path = entity.TreeSafePathString();
-                node.NodeType = entity.EntityType().ToString();
+                node.Path = entity.Path;
+                node.NodeType = entity.NodeType;
 
                 // Set additional data so it is readily available to the frontend.
                 node.AdditionalData["NodeId"] = entity.Id;
                 node.AdditionalData["NodeName"] = entity.Name;
-                node.AdditionalData["IsLegacy"] = metaData.IsLegacy;
-
-                SetAdditionalNodeData(entity, node.AdditionalData);
+                node.AdditionalData["IsLegacy"] = entity.IsLegacy;
 
                 nodes.Add(node);
             }
@@ -126,90 +91,9 @@
         /// <inheritdoc />
         protected sealed override ActionResult<MenuItemCollection> GetMenuForNode(string id, FormCollection queryStrings)
         {
-            if (id.Equals(Constants.System.Root.ToInvariantString()))
-            {
-                return GetMenuForRoot(queryStrings);
-            }
+            var input = new GetMenuItemsInput(id, queryStrings);
 
-            if (Guid.TryParse(id, out var entityId))
-            {
-                var entity = _treeEntityRepository.Get(entityId);
-                if (entity is not null)
-                {
-                    return GetMenuForEntity(entity, queryStrings);
-                }
-            }
-
-            return MenuItemCollectionFactory.Create();
-        }
-
-        /// <summary>
-        /// Creates a menu for a given entity.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <param name="queryStrings">The query strings for the current request.</param>
-        /// <returns>A <see cref="ActionResult{MenuItemCollection}"/>.</returns>
-        protected virtual ActionResult<MenuItemCollection> GetMenuForEntity(IPersistedEntity entity, FormCollection queryStrings)
-        {
-            return MenuItemCollectionFactory.Create();
-        }
-        
-        /// <summary>
-        /// Creates a menu for the root node.
-        /// </summary>
-        /// <param name="queryStrings">The query strings for the current request.</param>
-        /// <returns>A <see cref="ActionResult{MenuItemCollection}"/>.</returns>
-        protected virtual ActionResult<MenuItemCollection> GetMenuForRoot(FormCollection queryStrings)
-        {
-            return MenuItemCollectionFactory.Create();
-        }
-        
-        /// <summary>
-        /// Gets the icon used for the current entity node.
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        protected virtual TreeNodeMetaData GetNodeMetaData(IPersistedEntity entity)
-        {
-            var icon = entity.IsFolder() ? FolderNodeIcon : ItemNodeIcon;
-
-            return new TreeNodeMetaData(icon);
-        }
-
-        /// <summary>
-        /// Sets additional data to be passed to the frontend for the given
-        /// entity.
-        /// </summary>
-        /// <param name="entity">
-        /// The entity being returned to the frontend as a node.
-        /// </param>
-        /// <param name="data">
-        /// The object to set the additional data on.
-        /// </param>
-        protected virtual void SetAdditionalNodeData(IPersistedEntity entity,
-            IDictionary<string, object?> data)
-        {
-            // Does nothing here. Derived classes may set additional data.
-        }
-
-        /// <summary>
-        /// Gets the entities used to populate the tree.
-        /// </summary>
-        /// <param name="id">The current id.</param>
-        /// <returns>A read only collection of <see cref="IPersistedEntity"/>.</returns>
-        private IReadOnlyCollection<IPersistedEntity> GetEntities(string id)
-        {
-            if (id.Equals(Constants.System.Root.ToInvariantString()))
-            {
-                return _treeEntityRepository.GetRootItems(TreeRootType);
-            }
-
-            if (Guid.TryParse(id, out var parentId))
-            {
-                return _treeEntityRepository.GetChildren(parentId);
-            }
-
-            return Array.Empty<IPersistedEntity>();
+            return _entityTreeUtility.GetMenuItems(input);
         }
     }
 }

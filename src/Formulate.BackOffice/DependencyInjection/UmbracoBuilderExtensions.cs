@@ -9,6 +9,7 @@
     using Formulate.BackOffice.Utilities.FormHandlers;
     using Formulate.BackOffice.Utilities.Forms;
     using Formulate.BackOffice.Utilities.Layouts;
+    using Formulate.BackOffice.Utilities.Trees;
     using Formulate.BackOffice.Utilities.Validations;
     using Microsoft.Extensions.DependencyInjection;
     using Umbraco.Cms.Core.DependencyInjection;
@@ -22,6 +23,11 @@
 
             builder.Services.AddScoped<ITreeEntityRepository, TreeEntityRepository>();
             builder.Services.AddScoped<IEditorModelMapper, EditorModelMapper>();
+
+            builder.Services.AddScoped<IDataValuesEntityTreeUtility, DataValuesEntityTreeUtility>();
+            builder.Services.AddScoped<IFormsEntityTreeUtility, FormsEntityTreeUtility>();
+            builder.Services.AddScoped<ILayoutsEntityTreeUtility, LayoutsEntityTreeUtility>();
+            builder.Services.AddScoped<IValidationsEntityTreeUtility, ValidationsEntityTreeUtility>();
 
             builder.Services.AddScoped<ICreateFormsScaffoldingEntity, CreateFormsScaffoldingEntity>();
             builder.Services.AddScoped<IGetFormsChildEntityOptions, GetFormsChildEntityOptions>();
