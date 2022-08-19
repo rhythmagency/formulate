@@ -5,6 +5,6 @@
 
     public interface IGetTemplateEditorModels
     {
-        IReadOnlyCollection<TemplateEditorModel> GetTemplates();
+        IReadOnlyCollection<TemplateEditorModel> GetAll();
     }
 }

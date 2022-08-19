@@ -24,7 +24,7 @@
         [HttpGet]
         public IActionResult GetAll()
         {
-            var options = _getTemplateEditorModels.GetTemplates();
+            var options = _getTemplateEditorModels.GetAll();
 
             return Ok(options);
         }

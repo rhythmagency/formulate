@@ -14,7 +14,7 @@
             _templateDefinitions = templateDefinitions;
         }
 
-        public IReadOnlyCollection<TemplateEditorModel> GetTemplates()
+        public IReadOnlyCollection<TemplateEditorModel> GetAll()
         {
             return _templateDefinitions.Select(x => new TemplateEditorModel(x)).ToArray();
         }
