@@ -5,7 +5,7 @@
         function performGetDataValuesDirective(kindId) {
             var options = {
                 id: kindId,
-                type: "datavalues"
+                type: "dataValues"
             };
 
             return performGet(options);

@@ -41,7 +41,7 @@
         return function () {
             const config = {
                 section: 'formulate',
-                treeAlias: 'datavalues',
+                treeAlias: 'dataValues',
                 multiPicker: false,
                 entityType: 'datavalue',
                 filter: (node) => {

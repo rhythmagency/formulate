@@ -23,7 +23,7 @@
                     };
 
                     if (formHelper.submitForm({ scope: scope, formCtrl: scope.formCtrl })) {
-                        $http.post(Umbraco.Sys.ServerVariables.formulate["datavalues.Save"], payload).then(
+                        $http.post(Umbraco.Sys.ServerVariables.formulate["dataValues.Save"], payload).then(
                             function (response) {
                                 scope.saveButtonState = "success";
                                                                
@@ -31,7 +31,7 @@
 
                                 const options = {
                                     entity,
-                                    treeAlias: 'datavalues',
+                                    treeAlias: 'dataValues',
                                     newEntityText: 'Data Values created',
                                     existingEntityText: 'Data Values saved'
                                 };

@@ -47,7 +47,7 @@
         return function (id) {
 
             // Variables.
-            var url = services.formulateVars['datavalues.Get'];
+            var url = services.formulateVars['dataValues.Get'];
             var params = {
                 id: id
             };
