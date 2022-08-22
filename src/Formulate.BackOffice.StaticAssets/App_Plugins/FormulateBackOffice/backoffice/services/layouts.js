@@ -35,7 +35,7 @@ class FormulateLayoutsService {
     persistLayout(data) {
 
         // Variables.
-        const url = this.formulateVars['layouts.Save'];
+        const url = this.formulateVars.Layouts.Save;
 
         // Send request to create the layout.
         return this.$http.post(url, data, function (data) {
