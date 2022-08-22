@@ -32,7 +32,7 @@
         }
 
         function performDelete(options) {
-            var url = serverVars[`${options.treeType}.Delete`] + "?id=" + options.id;
+            var url = serverVars[options.treeType].Delete + "?id=" + options.id;
 
             return umbRequestHelper.resourcePromise($http.get(url), handleError("Unable to delete item."));
         }
@@ -47,7 +47,7 @@
                 request.parentId = options.parentId;
             }
 
-            var url = serverVars[`${options.treeType}.Move`];
+            var url = serverVars[options.treeType].Move;
 
             return umbRequestHelper.resourcePromise($http.post(url, request), handleError("Failed to move item."));
         };
