@@ -38,7 +38,7 @@ class FormulateLayoutDesigner {
         // Get the layout info.
 
         $scope.canSave = function () {
-            if (scope.entity.isLegacy) {
+            if ($scope.entity.isLegacy) {
                 return false;
             }
 
