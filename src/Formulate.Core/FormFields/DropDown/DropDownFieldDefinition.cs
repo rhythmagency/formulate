@@ -119,7 +119,14 @@
                 return default;
             }
 
-            return _jsonUtility.Deserialize<DropDownFieldPreValues>(settings.Data);
+            var savedSettings = _jsonUtility.Deserialize<DropDownFieldPreValues>(settings.Data);
+
+            if (savedSettings is not null)
+            {
+                return savedSettings;
+            }
+
+            return new DropDownFieldPreValues();
         }
     }
 }
