@@ -2,6 +2,7 @@
 {
     using Formulate.Core.FormFields;
     using Formulate.Core.FormFields.Button;
+    using Formulate.Core.FormFields.CheckboxList;
     using Formulate.Core.FormFields.DropDown;
     using Formulate.Core.FormFields.Text;
     using Formulate.Core.Layouts.Basic;
@@ -91,6 +92,19 @@
                         }).ToArray()
                     };
                 }
+                if (x is CheckboxListField checkboxList)
+                {
+                    var config = checkboxList.Configuration;
+                    return new
+                    {
+                        items = config.Items.Select(y => new
+                        {
+                            value = y.Value,
+                            label = y.Label,
+                            selected = y.Selected
+                        }).ToArray()
+                    };
+                }
                 else if (x is ButtonField button)
                 {
                     var config = button.Configuration;
@@ -109,6 +123,8 @@
                 {
                     case ButtonField:
                         return "button";
+                    case CheckboxListField checkboxList:
+                        return "checkbox-list";
                     case DropDownField:
                         return "select";
                     case TextField:

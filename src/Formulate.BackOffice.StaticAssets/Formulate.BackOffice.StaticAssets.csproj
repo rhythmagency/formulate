@@ -75,6 +75,8 @@
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\form-field.editor.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\button\button-field.editor.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\button\button-field.editor.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\checkbox-list\checkbox-list-field.editor.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\checkbox-list\checkbox-list-field.editor.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\dataValues-picker.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\dataValues-picker.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\drop-down\drop-down-field.editor.html" />
