@@ -14,4 +14,8 @@
             <_Parameter1>Formulate.Core.Tests</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Primitives\" />
+    </ItemGroup>
 </Project>

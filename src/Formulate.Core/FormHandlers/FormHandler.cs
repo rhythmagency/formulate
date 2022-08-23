@@ -1,5 +1,6 @@
 ﻿namespace Formulate.Core.FormHandlers
 {
+    using Formulate.Core.Submissions.Requests;
     // Namespaces.
     using System.Threading;
     using System.Threading.Tasks;
@@ -22,7 +23,7 @@
         /// <returns>
         /// The async task.
         /// </returns>
-        public abstract Task Handle(object submission,
+        public abstract Task Handle(FormSubmissionRequest submission,
             CancellationToken cancellationToken = default);
 
         /// <summary>

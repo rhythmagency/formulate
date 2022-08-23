@@ -216,7 +216,7 @@
                         PageId = pageId,
                         __RequestVerificationToken = csrfToken
                     },
-                    url = "/umbraco/formulate/submissions/submit"
+                    url = "/api/formulate/plain-js/submit"
                 }
             });
         }

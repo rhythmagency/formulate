@@ -51,7 +51,12 @@ namespace Formulate.Core.Validations.Mandatory
         /// <inheritdoc />
         public Validation CreateValidation(IValidationSettings settings)
         {
-            var config = new MandatoryValidationConfiguration();
+            var config = _jsonUtility.Deserialize<MandatoryValidationConfiguration>(settings.Data);
+
+            if (config is null)
+            {
+                config = new MandatoryValidationConfiguration();
+            }
 
             return new MandatoryValidation(settings, config);
         }

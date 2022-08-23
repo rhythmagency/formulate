@@ -5,6 +5,7 @@
     using Umbraco.Cms.Core.DependencyInjection;
     using Utilities;
     using Utilities.Internal;
+    using Utilities.Submissions;
 
     public partial class UmbracoBuilderExtensions
     {
@@ -18,6 +19,9 @@
             builder.Services.AddSingleton<IGetDataValuesItemsUtility, GetDataValuesItemsUtility>();
             builder.Services.AddSingleton<IJsonUtility, JsonUtility>();
             builder.Services.AddSingleton<IJsonSerializer, NewtonsoftJsonSerializer>();
+
+            builder.Services.AddScoped<IValidateFormSubmissionRequest, ValidateFormSubmissionRequest>();
+            builder.Services.AddScoped<ISubmitFormSubmissionRequest, SubmitFormSubmissionRequest>();
 
             return builder;
         }

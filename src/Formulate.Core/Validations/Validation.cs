@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Formulate.Core.Submissions.Requests;
+using Microsoft.Extensions.Primitives;
+using System;
+using System.Collections.Generic;
 
 namespace Formulate.Core.Validations
 {
@@ -72,6 +75,16 @@ namespace Formulate.Core.Validations
             Id = settings.Id;
             KindId = settings.KindId;
             RawConfiguration = settings.Data;
+        }
+
+        public virtual IReadOnlyCollection<string> ValidateStrings(StringValues values)
+        {
+            return Array.Empty<string>();
+        }
+
+        public virtual IReadOnlyCollection<string> ValidateFiles(IReadOnlyCollection<FormFileValue> values)
+        {
+            return Array.Empty<string>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Formulate.Core.FormHandlers.Email
 {
+    using Formulate.Core.Submissions.Requests;
     // Namespaces.
     using System;
     using System.Threading;
@@ -8,17 +9,16 @@
     /// <summary>
     /// Sends an email for a Formulate submission.
     /// </summary>
-    internal class EmailHandler : FormHandler
+    internal sealed class EmailHandler : FormHandler
     {
         public EmailHandler(IFormHandlerSettings settings) : base(settings)
         {
         }
 
-        public override Task Handle(object submission,
+        public override async Task Handle(FormSubmissionRequest submission,
             CancellationToken cancellationToken = default)
         {
-            //TODO: Implement.
-            throw new NotImplementedException();
+            await Task.Run(() => "To Do");
         }
     }
 }

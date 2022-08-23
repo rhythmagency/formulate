@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Formulate.Core.Submissions.Requests;
 using Formulate.Core.Types;
 using Formulate.Core.Validations;
 
@@ -33,5 +34,7 @@ namespace Formulate.Core.FormFields
         /// Gets the validations.
         /// </summary>
         IReadOnlyCollection<IValidation> Validations { get; }
+
+        FormFieldValidationResult Validate(IFormFieldValues values);
     }
 }

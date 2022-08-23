@@ -1,8 +1,10 @@
 ﻿namespace Formulate.Core.FormFields
 {
+    using Formulate.Core.Submissions.Requests;
     // Namespaces.
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Validations;
 
     /// <summary>
@@ -125,6 +127,58 @@
             Category = settings.Category;
             Validations = validations ?? Array.Empty<IValidation>();
             RawConfiguration = settings.Data;
+        }
+
+        public virtual FormFieldValidationResult Validate(IFormFieldValues values)
+        {
+            if (Validations.Any() == false)
+            {
+                return new FormFieldValidationResult();
+            }
+
+            if (values is IStringFormFieldValues strings)
+            {
+                return ValidateStrings(strings);
+            }
+
+            if (values is IFileFormFieldValues files)
+            {
+                return ValidateFiles(files);
+            }
+
+            return new FormFieldValidationResult();
+        }
+
+        protected virtual FormFieldValidationResult ValidateFiles(IFileFormFieldValues files)
+        {
+            var errorMessages = new List<string>();
+            var values = files.GetValues();
+
+            foreach (var validation in Validations)
+            {
+                errorMessages.AddRange(validation.ValidateFiles(values));
+            }
+
+            return new FormFieldValidationResult()
+            {
+                ErrorMessages = errorMessages.Distinct().ToArray()
+            };
+        }
+
+        protected virtual FormFieldValidationResult ValidateStrings(IStringFormFieldValues strings)
+        {
+            var errorMessages = new List<string>();
+            var values = strings.GetValues();
+
+            foreach (var validation in Validations)
+            {
+                errorMessages.AddRange(validation.ValidateStrings(values));
+            }
+
+            return new FormFieldValidationResult()
+            {
+                ErrorMessages = errorMessages.Distinct().ToArray()
+            };
         }
     }
 }

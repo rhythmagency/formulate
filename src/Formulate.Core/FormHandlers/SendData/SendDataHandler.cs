@@ -1,5 +1,6 @@
 ﻿namespace Formulate.Core.FormHandlers.SendData
 {
+    using Formulate.Core.Submissions.Requests;
     // Namespaces.
     using System;
     using System.Threading;
@@ -8,17 +9,16 @@
     /// <summary>
     /// Sends form submission data to a URL.
     /// </summary>
-    internal class SendDataHandler : FormHandler
+    internal sealed class SendDataHandler : FormHandler
     {
         public SendDataHandler(IFormHandlerSettings settings) : base(settings)
         {
         }
 
-        public override Task Handle(object submission,
+        public override async Task Handle(FormSubmissionRequest submission,
             CancellationToken cancellationToken = default)
         {
-            //TODO: Implement.
-            throw new NotImplementedException();
+            await Task.Run(() => "To Do");
         }
     }
 }

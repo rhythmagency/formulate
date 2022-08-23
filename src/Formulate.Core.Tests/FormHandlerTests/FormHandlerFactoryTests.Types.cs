@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Formulate.Core.FormHandlers;
+using Formulate.Core.Submissions.Requests;
 
 namespace Formulate.Core.Tests.FormHandlerTests
 {
@@ -80,9 +81,8 @@ namespace Formulate.Core.Tests.FormHandlerTests
             {
             }
 
-            public override Task Handle(object submission, CancellationToken cancellationToken = default)
+            public override async Task Handle(FormSubmissionRequest submission, CancellationToken cancellationToken = default)
             {
-                return Task.CompletedTask;
             }
         }
     }

@@ -9,6 +9,7 @@
         public static IUmbracoBuilder AddFormulateWebsite(this IUmbracoBuilder umbracoBuilder)
         {
             umbracoBuilder.Services.AddSingleton<IBuildConfiguredFormRenderModel, BuildConfiguredFormRenderModel>();
+            umbracoBuilder.Services.AddScoped<IAttemptSubmitForm, AttemptSubmitForm>();
 
             return umbracoBuilder;
         }
