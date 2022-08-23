@@ -1,0 +1,14 @@
+﻿<div ng-if="dataValues && dataValues.id">
+    <umb-node-preview name="dataValues.name"
+                      allow-remove="true"
+                      allow-open="false"
+                      on-remove="removeDataValues()">
+    </umb-node-preview>
+</div>
+<div ng-if="!dataValues || !dataValues.id">
+    <button type="button"
+            class="umb-node-preview-add"
+            ng-click="pickDataValues()">
+        <localize key="formulate-buttons_Pick Data Value">Pick Data Value</localize>
+    </button>
+</div>
