@@ -10,20 +10,7 @@
                     <localize key="formulate-labels_Data Value">Data Value</localize>
                 </label>
                 <div class="controls">
-                    <div ng-if="dataValue && dataValue.id">
-                        <umb-node-preview name="dataValue.name"
-                                          allow-remove="true"
-                                          allow-open="false"
-                                          on-remove="removeDataValue()">
-                        </umb-node-preview>
-                    </div>
-                    <div ng-if="!dataValue || !dataValue.id">
-                        <button type="button" 
-                                class="umb-node-preview-add" 
-                                ng-click="pickDataValue()">
-                            <localize key="formulate-buttons_Pick Data Value">Pick Data Value</localize>
-                        </button>
-                    </div>
+                    <formulate-data-values-picker model="configuration.dataValue"></formulate-data-values-picker>
                 </div>
             </div>
         </div>
