@@ -2,6 +2,7 @@
 {
     using Formulate.Core.FormHandlers;
     using Formulate.Core.Submissions.Requests;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -18,14 +19,10 @@
         public async Task<bool> SubmitAsync(FormSubmissionRequest input, CancellationToken cancellationToken)
         {
             var form = input.Form;
+            var enabledHandlers = form.Handlers.Where(x => x.Enabled).ToArray();
 
-            foreach (var handler in form.Handlers)
+            foreach (var handler in enabledHandlers)
             {
-                if (handler.Enabled == false)
-                {
-                    continue;
-                }
-
                 var formHandler = _formHandlerFactory.Create(handler);
 
                 if (formHandler is null)
@@ -37,7 +34,6 @@
                 {
                     await typedFormHandler.Handle(input, cancellationToken);
                 }
-
             }
 
             return true;
