@@ -4,10 +4,12 @@
 
     app.factory("formulateIds", function () {
         const sanitizeRegex = /-/g;
+        const sanitizeZerosRegex = /0/g;
 
         return {
             compare: compare,
             sanitize: sanitize,
+            isEmpty: isEmptyOrNew,
         };
 
         function compare(a, b) {
@@ -32,6 +34,20 @@
             }
 
             return id.trim().toLowerCase().replace(sanitizeRegex, '');
+        }
+
+        function isEmptyOrNew(id) {
+            if (!id) {
+                return true;
+            }
+
+            if (!id.length === 0) {
+                return true;
+            }
+
+            const sanitizedId = sanitize(id);
+
+            return sanitizedId.replace(sanitizeZerosRegex, '').length === 0;
         }
     });
 })();
