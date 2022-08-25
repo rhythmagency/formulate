@@ -34,7 +34,7 @@
             /// <summary>
             /// The icon.
             /// </summary>
-            public const string Icon = "icon-font";
+            public const string Icon = "icon-formulate-header";
 
             /// <summary>
             /// The Angular JS directive.
