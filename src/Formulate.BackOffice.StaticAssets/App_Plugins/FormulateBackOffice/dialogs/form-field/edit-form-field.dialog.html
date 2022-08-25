@@ -31,8 +31,8 @@
                                     <div class="controls">
                                         <input type="text" name="label"
                                                ng-model="vm.model.label"
-                                               formulate-localize-attribute="placeholder"
-                                               placeholder="formulate-placeholders_Label"
+                                               localize="placeholder"
+                                               placeholder="@formulate-placeholders_Label"
                                                style="width:100%" />
                                     </div>
                                 </div>
@@ -49,7 +49,11 @@
                                     <div class="controls">
                                         <select name="category" ng-model="vm.model.category"
                                                 ng-options="option.value as option.label group by option.group for option in vm.categories">
-                                            <option value="" formulate-inject-localization="formulate-options_Select a Field Category"></option>
+                                            <option value="">
+                                                <localize key="formulate-options_Select a Field Category">
+                                                    Select a Field Category
+                                                </localize>
+                                            </option>
                                         </select>
                                     </div>
                                 </div>

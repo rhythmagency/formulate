@@ -11,7 +11,7 @@
     <key alias="Error Message">Error Message</key>
     <key alias="Field Name">Field Name</key>
     <key alias="Field Alias">Field Alias</key>
-    <key alias="Field Label">Field Label</key>
+    <key alias="Label">Label</key>
     <key alias="Handler Name">Handler Name</key>
     <key alias="Handler Alias">Handler Alias</key>
   </area>
@@ -25,5 +25,6 @@
   <area alias="formulate-options">
     <key alias="Select a Template">Select a Template</key>
     <key alias="Select a Button Kind">Select a Button Kind</key>
+    <key alias="Select a Field Category">Select a Field Category</key>
   </area>
 </language>

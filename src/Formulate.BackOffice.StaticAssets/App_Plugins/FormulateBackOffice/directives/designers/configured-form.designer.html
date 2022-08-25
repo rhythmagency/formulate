@@ -54,7 +54,11 @@
                                     </div>
                                     <div class="controls">
                                         <select ng-options="option.id as option.name for option in templates" ng-model="entity.templateId" name="template">
-                                            <option value="" formulate-inject-localization="formulate-options_Select a Template"></option>
+                                            <option value="">
+                                                <localize key="formulate-options_Select a Template">
+                                                    Select a Template
+                                                </localize>
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
