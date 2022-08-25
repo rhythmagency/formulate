@@ -64,7 +64,7 @@ namespace Formulate.Core.Tests.FormHandlerTests
 
             public bool IsLegacy => false;
 
-            public FormHandler CreateHandler(IFormHandlerSettings settings)
+            public IFormHandler CreateHandler(IFormHandlerSettings settings)
             {
                 throw new NotImplementedException();
             }
@@ -81,7 +81,7 @@ namespace Formulate.Core.Tests.FormHandlerTests
             {
             }
 
-            public override async Task Handle(FormSubmissionRequest submission, CancellationToken cancellationToken = default)
+            public override void Handle(FormSubmissionRequest submission)
             {
             }
         }

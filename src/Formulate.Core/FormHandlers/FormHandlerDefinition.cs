@@ -27,7 +27,7 @@
         public bool IsLegacy => false;
 
         /// <inheritdoc />
-        public abstract FormHandler CreateHandler(IFormHandlerSettings settings);
+        public abstract IFormHandler CreateHandler(IFormHandlerSettings settings);
 
         /// <inheritdoc />
         public abstract object GetBackOfficeConfiguration(IFormHandlerSettings settings);

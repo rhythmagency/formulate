@@ -50,7 +50,7 @@
         public override string Icon => Constants.Icon;
 
         /// <inheritdoc />
-        public override FormHandler CreateHandler(IFormHandlerSettings settings)
+        public override IFormHandler CreateHandler(IFormHandlerSettings settings)
         {
             var handler = new StoreDataHandler(settings);
             return handler;

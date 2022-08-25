@@ -9,13 +9,13 @@
     /// <summary>
     /// Stores form submission data to the database.
     /// </summary>
-    internal sealed class StoreDataHandler : FormHandler
+    internal sealed class StoreDataHandler : AsyncFormHandler
     {
         public StoreDataHandler(IFormHandlerSettings settings) : base(settings)
         {
         }
 
-        public override async Task Handle(FormSubmissionRequest submission,
+        public override async Task HandleAsync(FormSubmissionRequest submission,
             CancellationToken cancellationToken = default)
         {
             await Task.Run(() => "To Do");

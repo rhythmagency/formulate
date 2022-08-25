@@ -28,7 +28,7 @@
         /// </summary>
         /// <param name="settings">The form handler settings.</param>
         /// <returns>A <see cref="FormHandler"/>.</returns>
-        FormHandler CreateHandler(IFormHandlerSettings settings);
+        IFormHandler CreateHandler(IFormHandlerSettings settings);
 
         /// <summary>
         /// Creates an instance of the configuration needed by the back

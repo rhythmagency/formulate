@@ -1,15 +1,26 @@
 ﻿namespace Formulate.Core.FormHandlers.SendData
 {
-    // Namespaces.
+    using Formulate.Core.Utilities;
     using System;
+    using System.Net.Http;
 
     /// <summary>
     /// The data definition for a form handler that sends data to a URL.
     /// </summary>
-    public sealed class SendDataDefinition : FormHandlerDefinition
+    public sealed class SendDataFormHandlerDefinition : FormHandlerDefinition
     {
+        private readonly IHttpClientFactory _httpClientFactory;
+
+        private readonly IJsonUtility _jsonUtility;
+
+        public SendDataFormHandlerDefinition(IHttpClientFactory httpClientFactory, IJsonUtility jsonUtility)
+        {
+            _httpClientFactory = httpClientFactory;
+            _jsonUtility = jsonUtility;
+        }
+
         /// <summary>
-        /// Constants related to <see cref="SendDataDefinition"/>.
+        /// Constants related to <see cref="SendDataFormHandlerDefinition"/>.
         /// </summary>
         public static class Constants
         {
@@ -50,17 +61,19 @@
         public override string Icon => Constants.Icon;
 
         /// <inheritdoc />
-        public override FormHandler CreateHandler(IFormHandlerSettings settings)
+        public override IFormHandler CreateHandler(IFormHandlerSettings settings)
         {
-            var handler = new SendDataHandler(settings);
+            var configuration = _jsonUtility.Deserialize<SendDataConfiguration>(settings.Data);
+
+            var handler = new SendDataFormHandler(settings, configuration, _httpClientFactory);
+
             return handler;
         }
 
         /// <inheritdoc />
         public override object GetBackOfficeConfiguration(IFormHandlerSettings settings)
         {
-            //TODO: Implement.
-            return null;
+            return _jsonUtility.Deserialize<SendDataConfiguration>(settings.Data);
         }
     }
 }

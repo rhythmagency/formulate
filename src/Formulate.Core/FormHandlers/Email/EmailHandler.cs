@@ -15,10 +15,8 @@
         {
         }
 
-        public override async Task Handle(FormSubmissionRequest submission,
-            CancellationToken cancellationToken = default)
+        public override void Handle(FormSubmissionRequest submission)
         {
-            await Task.Run(() => "To Do");
         }
     }
 }

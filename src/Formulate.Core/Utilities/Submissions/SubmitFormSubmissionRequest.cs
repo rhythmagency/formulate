@@ -2,6 +2,8 @@
 {
     using Formulate.Core.FormHandlers;
     using Formulate.Core.Submissions.Requests;
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -15,28 +17,48 @@
             _formHandlerFactory = formHandlerFactory;
         }
 
-
         public async Task<bool> SubmitAsync(FormSubmissionRequest input, CancellationToken cancellationToken)
         {
             var form = input.Form;
-            var enabledHandlers = form.Handlers.Where(x => x.Enabled).ToArray();
+            var formHandlers = CreateFormHandlers(form.Handlers);
 
-            foreach (var handler in enabledHandlers)
+            foreach (var item in formHandlers)
             {
-                var formHandler = _formHandlerFactory.Create(handler);
-
-                if (formHandler is null)
+                if (item is FormHandler formHandler)
                 {
-                    continue;
+                    formHandler.Handle(input);
                 }
-
-                if (formHandler is FormHandler typedFormHandler)
+                
+                if (item is AsyncFormHandler asyncFormHandler)
                 {
-                    await typedFormHandler.Handle(input, cancellationToken);
+                    await asyncFormHandler.HandleAsync(input, cancellationToken);
                 }
             }
 
             return true;
+        }
+
+        private IReadOnlyCollection<IFormHandler> CreateFormHandlers(PersistedFormHandler[] items)
+        {
+            if (items == null)
+            {
+                return Array.Empty<IFormHandler>();
+            }
+
+            var enabledItems = items.Where(x => x.Enabled).ToArray();
+            var createdFormHandlers = new List<IFormHandler>();
+
+            foreach(var item in enabledItems)
+            {
+                var createdFormHandler = _formHandlerFactory.Create(item);
+
+                if (createdFormHandler is not null)
+                {
+                    createdFormHandlers.Add(createdFormHandler);
+                }
+            }
+
+            return createdFormHandlers.ToArray();
         }
     }
 }
