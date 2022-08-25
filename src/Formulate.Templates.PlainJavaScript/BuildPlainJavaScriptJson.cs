@@ -4,6 +4,7 @@
     using Formulate.Core.FormFields.Button;
     using Formulate.Core.FormFields.CheckboxList;
     using Formulate.Core.FormFields.DropDown;
+    using Formulate.Core.FormFields.Header;
     using Formulate.Core.FormFields.Text;
     using Formulate.Core.Layouts.Basic;
     using Formulate.Core.RenderModels;
@@ -103,6 +104,14 @@
                             label = y.Label,
                             selected = y.Selected
                         }).ToArray()
+                    };
+                }
+                else if (x is HeaderField header)
+                {
+                    var config = header.Configuration;
+                    return new
+                    {
+                        text = config.Text
                     };
                 }
                 else if (x is ButtonField button)
