@@ -7,7 +7,9 @@
             public const string Content = "Content";
             
             public const string Inputs = "Inputs";
-            
+
+            public const string Constants = "Constants";
+
             public const string Actions = "Actions";
 
             public const string Specialized = "Specialized";
