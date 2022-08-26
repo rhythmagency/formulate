@@ -6,6 +6,7 @@
         vm.model = {};
         vm.close = close;
         vm.submit = submit;
+        vm.canSave = canSave;
         vm.toggleEnabled = toggleEnabled;
 
         function close() {
@@ -22,6 +23,18 @@
 
         function toggleEnabled() {
             vm.model.enabled = !vm.model.enabled;
+        }
+
+        function canSave() {
+            if (!vm.model) {
+                return false;
+            }
+
+            if (!vm.model.name) {
+                return false;
+            }
+
+            return vm.model.name.length > 0;
         }
 
         function init() {
