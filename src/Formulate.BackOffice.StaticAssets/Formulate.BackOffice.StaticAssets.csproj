@@ -83,6 +83,8 @@
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\drop-down\drop-down-field.editor.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\header\header-field.editor.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\header\header-field.editor.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\hidden\hidden-field.editor.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\hidden\hidden-field.editor.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\rich-text\rich-text-field.editor.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\rich-text\rich-text-field.editor.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\text-constant\text-constant-field.editor.html" />
