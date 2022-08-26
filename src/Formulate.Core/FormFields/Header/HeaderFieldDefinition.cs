@@ -58,6 +58,9 @@
         public override Guid KindId => Guid.Parse(Constants.KindId);
 
         /// <inheritdoc />
+        public override bool IsStored => false;
+
+        /// <inheritdoc />
         /// <remarks>
         /// This form field does not support validation.
         /// </remarks>
