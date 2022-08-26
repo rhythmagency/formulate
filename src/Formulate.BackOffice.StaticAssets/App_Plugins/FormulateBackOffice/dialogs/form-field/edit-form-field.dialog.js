@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    function FormFieldEditor($scope, editorService, formulateServer, formulateVars) {
+    function FormFieldEditor($scope, editorService, formulateIds, formulateServer, formulateVars) {
         var vm = this;
 
         vm.model = {};
