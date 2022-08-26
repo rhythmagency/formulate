@@ -5,6 +5,7 @@
     using Formulate.Core.FormFields.CheckboxList;
     using Formulate.Core.FormFields.DropDown;
     using Formulate.Core.FormFields.Header;
+    using Formulate.Core.FormFields.RichText;
     using Formulate.Core.FormFields.Text;
     using Formulate.Core.Layouts.Basic;
     using Formulate.Core.RenderModels;
@@ -114,6 +115,14 @@
                         text = config.Text
                     };
                 }
+                else if (x is RichTextField richText)
+                {
+                    var config = richText.Configuration;
+                    return new
+                    {
+                        text = config.Text
+                    };
+                }
                 else if (x is ButtonField button)
                 {
                     var config = button.Configuration;
@@ -136,6 +145,8 @@
                         return "checkbox-list";
                     case DropDownField:
                         return "select";
+                    case RichTextField:
+                        return "rich-text";
                     case TextField:
                         return "text";
                 }
