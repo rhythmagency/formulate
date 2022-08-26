@@ -6,6 +6,7 @@
         vm.model = {};
         vm.close = close;
         vm.submit = submit;
+        vm.canSave = canSave;
         vm.pickValidations = pickValidations;
         vm.removeValidation = removeValidation;
 
@@ -81,11 +82,22 @@
             editorService.treePicker(config);
         };
 
-
         function submit() {
             if ($scope.model.submit) {
                 $scope.model.submit(vm.model);
             }
+        }
+
+        function canSave() {
+            if (!vm.model) {
+                return false;
+            }
+
+            if (!vm.model.name) {
+                return false;
+            }
+
+            return vm.model.name.length > 0;
         }
 
         function init() {
