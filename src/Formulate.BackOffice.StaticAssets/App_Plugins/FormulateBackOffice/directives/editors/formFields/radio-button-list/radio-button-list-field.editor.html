@@ -1,0 +1,35 @@
+﻿<div class="umb-group-panel">
+    <div class="umb-group-panel__header">
+        Settings
+    </div>
+    <div class="umb-group-panel__content">
+
+        <div class="control-group umb-control-group -no-border">
+            <div class="umb-el-wrap">
+                <label class="control-label" for="datavalue">
+                    <localize key="formulate-labels_Data Value">Data Value</localize>
+                </label>
+                <div class="controls">
+                    <formulate-data-values-picker model="configuration.dataValue"></formulate-data-values-picker>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group umb-control-group -no-border">
+            <div class="umb-el-wrap">
+                <label class="control-label" for="orientation">
+                    <localize key="formulate-labels_Orientation">
+                        Orientation
+                    </localize>
+                </label>
+                <div class="controls">
+                    <select name="orientation" ng-options="option.value as option.label for option in orientations.values" ng-model="configuration.orientation">
+                        <option value="">
+                            <localize key="formulate-options_Select an Orientation">Select an Orientation</localize>
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,6 +5,7 @@
     using Formulate.Core.FormFields.CheckboxList;
     using Formulate.Core.FormFields.DropDown;
     using Formulate.Core.FormFields.Header;
+    using Formulate.Core.FormFields.RadioButtonList;
     using Formulate.Core.FormFields.RichText;
     using Formulate.Core.FormFields.Text;
     using Formulate.Core.Layouts.Basic;
@@ -131,6 +132,21 @@
                         buttonKind = config.ButtonKind
                     };
                 }
+                else if (x is RadioButtonListField radioButtonList)
+                {
+                    var config = radioButtonList.Configuration;
+
+                    return new
+                    {
+                        orientation = config.Orientation,
+                        items = config.Items.Select(y => new
+                        {
+                            value = y.Value,
+                            label = y.Label,
+                            selected = y.Selected
+                        }).ToArray()
+                    };
+                }
 
                 return new { };
             });
@@ -149,6 +165,8 @@
                         return "rich-text";
                     case TextField:
                         return "text";
+                    case RadioButtonListField:
+                        return "radio-list";
                 }
 
                 return f.GetType().Name.ToLower().Replace("field", string.Empty);
