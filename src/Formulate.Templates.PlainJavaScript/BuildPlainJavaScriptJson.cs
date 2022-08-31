@@ -26,9 +26,6 @@
 
         public string Build(ConfiguredFormRenderModel renderModel, string containerId)
         {
-            var fields = renderModel.Form.Fields
-            // Exclude server-side only fields.
-            .Where(x => !x.IsServerSideOnly).Select(x => x.Field).ToArray();
             var layout = _umbracoMapper.Map<PlainJavaScriptLayout>(renderModel.Layout);
 
             if (layout is null)
@@ -36,6 +33,9 @@
                 // only basic layout is supported.
                 return string.Empty;
             }
+
+            // Exclude server-side only fields.
+            var fields = renderModel.Form.Fields.Where(x => !x.IsServerSideOnly).Select(x => x.Field).ToArray();
 
             var pageId = GetPageId();
 
