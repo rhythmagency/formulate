@@ -41,7 +41,7 @@
             var fields = renderModel.Form.Fields
             // Exclude server-side only fields.
             .Where(x => !x.IsServerSideOnly).Select(x => x.Field).ToArray();
-            var layout = renderModel.Layout as BasicLayout;
+            var layout = _umbracoMapper.Map<PlainJavaScriptLayout>(renderModel.Layout);
 
             if (layout is null)
             {
@@ -97,15 +97,15 @@
 
 
             // Structure layout as an anonymous object suitable for serialization to JSON.
-            var rowsData = layout.Configuration.Rows.Select(x => new
+            var rowsData = layout.Rows.Select(x => new
             {
                 isStep = x.IsStep,
                 cells = x.Cells.Select(y => new
                 {
                     columns = y.ColumnSpan,
-                    fields = y.Fields.Select(z => new
+                    fields = y.FieldIds.Select(z => new
                     {
-                        id = z.Id.ToString("N")
+                        id = z.ToString("N")
                     }).Where(i => fieldsData.Any(f => f.id.Equals(i.id))).ToArray()
                 }).ToArray()
             }).ToArray();

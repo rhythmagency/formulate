@@ -2,6 +2,7 @@
 {
     using Formulate.Core.DependencyInjection;
     using Formulate.Templates.PlainJavaScript.Mapping.FormFields;
+    using Formulate.Templates.PlainJavaScript.Mapping.Layouts;
     using Formulate.Templates.PlainJavaScript.Mapping.Validations;
     using Microsoft.Extensions.DependencyInjection;
     using Umbraco.Cms.Core.Composing;
@@ -24,6 +25,9 @@
             builder.MapDefinitions().Add<DefaultValidationMapDefinition>();
             builder.MapDefinitions().Add<MandatoryValidationMapDefinition>();
             builder.MapDefinitions().Add<RegexValidationMapDefinition>();
+
+            builder.MapDefinitions().Add<BasicLayoutMapDefinition>();
+
         }
     }
 }
