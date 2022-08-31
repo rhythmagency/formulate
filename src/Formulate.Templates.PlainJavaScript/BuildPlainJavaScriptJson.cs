@@ -1,19 +1,7 @@
 ﻿namespace Formulate.Templates.PlainJavaScript
 {
-    using Formulate.Core.FormFields;
-    using Formulate.Core.FormFields.Button;
-    using Formulate.Core.FormFields.CheckboxList;
-    using Formulate.Core.FormFields.DropDown;
-    using Formulate.Core.FormFields.Header;
-    using Formulate.Core.FormFields.RadioButtonList;
-    using Formulate.Core.FormFields.RichText;
-    using Formulate.Core.FormFields.Text;
-    using Formulate.Core.Layouts.Basic;
     using Formulate.Core.RenderModels;
     using Formulate.Core.Utilities;
-    using Formulate.Core.Validations;
-    using Formulate.Core.Validations.Mandatory;
-    using Formulate.Core.Validations.Regex;
     using Microsoft.AspNetCore.Antiforgery;
     using Microsoft.AspNetCore.Http;
     using Umbraco.Cms.Core.Mapping;
