@@ -11,7 +11,5 @@
         }
 
         protected abstract PlainJavaScriptFormField Map(TFormField field, MapperContext context);
-
-
-        }
+    }
 }

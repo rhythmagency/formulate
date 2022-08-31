@@ -2,11 +2,6 @@
 {
     using Formulate.Core.FormFields;
     using Formulate.Templates.PlainJavaScript;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Umbraco.Cms.Core.Mapping;
 
     public sealed class DefaultFormFieldMapDefinition : FormFieldMapDefinition<IFormField>

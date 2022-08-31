@@ -1,5 +1,7 @@
 ﻿namespace Formulate.Templates.PlainJavaScript
 {
+    using Formulate.Core.FormFields;
+
     /// <summary>
     /// An object that controls how a <see cref="IFormField"/> is displayed in the Plain JS template.
     /// </summary>
