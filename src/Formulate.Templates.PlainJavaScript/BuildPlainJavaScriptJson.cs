@@ -16,6 +16,7 @@
     using Formulate.Core.Validations.Regex;
     using Microsoft.AspNetCore.Antiforgery;
     using Microsoft.AspNetCore.Http;
+    using Umbraco.Cms.Core.Mapping;
     using Umbraco.Cms.Core.Web;
 
     public sealed class BuildPlainJavaScriptJson : IBuildPlainJavaScriptJson
@@ -24,13 +25,15 @@
         private readonly IUmbracoContextAccessor _umbracoContextAccessor;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IAntiforgery _antiforgery;
-
-        public BuildPlainJavaScriptJson(IJsonUtility jsonUtility, IUmbracoContextAccessor umbracoContextAccessor, IHttpContextAccessor httpContextAccessor, IAntiforgery antiforgery)
+        private readonly IUmbracoMapper _umbracoMapper;
+        
+        public BuildPlainJavaScriptJson(IJsonUtility jsonUtility, IUmbracoContextAccessor umbracoContextAccessor, IHttpContextAccessor httpContextAccessor, IAntiforgery antiforgery, IUmbracoMapper umbracoMapper)
         {
             _jsonUtility = jsonUtility;
             _umbracoContextAccessor = umbracoContextAccessor;
             _httpContextAccessor = httpContextAccessor;
             _antiforgery = antiforgery;
+            _umbracoMapper = umbracoMapper;
         }
 
         public string Build(ConfiguredFormRenderModel renderModel, string containerId)
@@ -78,100 +81,6 @@
                 return new { };
             });
 
-
-            // A function that returns a field configuration.
-            var getFieldConfig = new Func<IFormField, object>(x =>
-            {
-                if (x is DropDownField dropDown)
-                {
-                    var config = dropDown.Configuration;
-                    return new
-                    {
-                        items = config.Items.Select(y => new
-                        {
-                            value = y.Value,
-                            label = y.Label,
-                            selected = y.Selected
-                        }).ToArray()
-                    };
-                }
-                if (x is CheckboxListField checkboxList)
-                {
-                    var config = checkboxList.Configuration;
-                    return new
-                    {
-                        items = config.Items.Select(y => new
-                        {
-                            value = y.Value,
-                            label = y.Label,
-                            selected = y.Selected
-                        }).ToArray()
-                    };
-                }
-                else if (x is HeaderField header)
-                {
-                    var config = header.Configuration;
-                    return new
-                    {
-                        text = config.Text
-                    };
-                }
-                else if (x is RichTextField richText)
-                {
-                    var config = richText.Configuration;
-                    return new
-                    {
-                        text = config.Text
-                    };
-                }
-                else if (x is ButtonField button)
-                {
-                    var config = button.Configuration;
-                    return new
-                    {
-                        buttonKind = config.ButtonKind
-                    };
-                }
-                else if (x is RadioButtonListField radioButtonList)
-                {
-                    var config = radioButtonList.Configuration;
-
-                    return new
-                    {
-                        orientation = config.Orientation,
-                        items = config.Items.Select(y => new
-                        {
-                            value = y.Value,
-                            label = y.Label,
-                            selected = y.Selected
-                        }).ToArray()
-                    };
-                }
-
-                return new { };
-            });
-
-            var getFieldType = new Func<IFormField, string>(f =>
-            {
-                switch (f)
-                {
-                    case ButtonField:
-                        return "button";
-                    case CheckboxListField checkboxList:
-                        return "checkbox-list";
-                    case DropDownField:
-                        return "select";
-                    case RichTextField:
-                        return "rich-text";
-                    case TextField:
-                        return "text";
-                    case RadioButtonListField:
-                        return "radio-list";
-                }
-
-                return f.GetType().Name.ToLower().Replace("field", string.Empty);
-            });
-
             var getValidationType = new Func<IValidation, string>(v =>
             {
                 switch (v)
@@ -186,34 +95,37 @@
             });
 
             // Structure fields as an anonymous object suitable for serialization to JSON.
-            var fieldsData = fields.Select(x => new
-            {
-                // The alias can be used to attach custom styles.
-                alias = x.Alias,
-                // The label can be used to instruct the user what data to enter.
-                label = x.Label ?? x.Name,
-                // The ID can be submitted to the server to uniquely identify the field.
-                id = x.Id.ToString("N"),
-                // The random ID can be used to uniquely identify the field on the page.
-                // Note that this random ID is regenerated on each page render.
-                randomId = Guid.NewGuid().ToString("N"),
-                // This field type (e.g., "text", "checkbox") can be used to figure out how to render a field.
-                fieldType = getFieldType(x),//.ConvertFieldTypeToAngularType(),
-                                            // The validations can be used to validate that the data is of the expected format.
-                validations = x.Validations.Select(y => new
+            var fieldsData = fields.Select(x => {
+                var mappedField = _umbracoMapper.Map<PlainJavaScriptFormField>(x) ?? new PlainJavaScriptFormField("unknown");
+                return new
                 {
-                    id = y.Id.ToString("N"),
-                    alias = y.Name,
-                    validationType = getValidationType(y),//.ConvertValidationTypeToJavaScriptType(),
-                                                          // The validation configuration stores parameters particular to a validation instance (e.g., a regex pattern).
-                    configuration = getValidationConfig(y)
-                }).ToArray(),
-                // The field configuration stores parameters particular to a field (e.g., a list of items).
-                configuration = getFieldConfig(x),
-                // The initial value comes from the query string based on the field alias.
-                initialValue = "",
-                // The user selected category of the field
-                category = x.Category
+                    // The alias can be used to attach custom styles.
+                    alias = x.Alias,
+                    // The label can be used to instruct the user what data to enter.
+                    label = x.Label ?? x.Name,
+                    // The ID can be submitted to the server to uniquely identify the field.
+                    id = x.Id.ToString("N"),
+                    // The random ID can be used to uniquely identify the field on the page.
+                    // Note that this random ID is regenerated on each page render.
+                    randomId = Guid.NewGuid().ToString("N"),
+                    // This field type (e.g., "text", "checkbox") can be used to figure out how to render a field.
+                    fieldType = mappedField.FieldType,//.ConvertFieldTypeToAngularType(),
+                                                // The validations can be used to validate that the data is of the expected format.
+                    validations = x.Validations.Select(y => new
+                    {
+                        id = y.Id.ToString("N"),
+                        alias = y.Name,
+                        validationType = getValidationType(y),//.ConvertValidationTypeToJavaScriptType(),
+                                                              // The validation configuration stores parameters particular to a validation instance (e.g., a regex pattern).
+                        configuration = getValidationConfig(y)
+                    }).ToArray(),
+                    // The field configuration stores parameters particular to a field (e.g., a list of items).
+                    configuration = mappedField.Configuration,
+                    // The initial value comes from the query string based on the field alias.
+                    initialValue = "",
+                    // The user selected category of the field
+                    category = x.Category
+                };
             }).ToArray();
 
 
