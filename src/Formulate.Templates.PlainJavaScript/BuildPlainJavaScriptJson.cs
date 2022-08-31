@@ -58,42 +58,6 @@
                 return string.Empty;
             }
 
-            // A function that returns a validation configuration.
-            var getValidationConfig = new Func<IValidation, object>(x =>
-            {
-                if (x is RegexValidation regex)
-                {
-                    var config = regex.Configuration;
-                    return new
-                    {
-                        message = config.Message,
-                        pattern = config.Regex
-                    };
-                }
-                else if (x is MandatoryValidation mandatory)
-                {
-                    var config = mandatory.Configuration;
-                    return new
-                    {
-                        message = config.Message
-                    };
-                }
-                return new { };
-            });
-
-            var getValidationType = new Func<IValidation, string>(v =>
-            {
-                switch (v)
-                {
-                    case RegexValidation:
-                        return "regex";
-                    case MandatoryValidation:
-                        return "required";
-                }
-
-                return v.GetType().Name.ToLower().Replace("validation", string.Empty);
-            });
-
             // Structure fields as an anonymous object suitable for serialization to JSON.
             var fieldsData = fields.Select(x => {
                 var mappedField = _umbracoMapper.Map<PlainJavaScriptFormField>(x) ?? new PlainJavaScriptFormField("unknown");
@@ -109,23 +73,26 @@
                     // Note that this random ID is regenerated on each page render.
                     randomId = Guid.NewGuid().ToString("N"),
                     // This field type (e.g., "text", "checkbox") can be used to figure out how to render a field.
-                    fieldType = mappedField.FieldType,//.ConvertFieldTypeToAngularType(),
-                                                // The validations can be used to validate that the data is of the expected format.
-                    validations = x.Validations.Select(y => new
+                    fieldType = mappedField.FieldType,
+                    validations = x.Validations.Select(y =>
                     {
-                        id = y.Id.ToString("N"),
-                        alias = y.Name,
-                        validationType = getValidationType(y),//.ConvertValidationTypeToJavaScriptType(),
-                                                              // The validation configuration stores parameters particular to a validation instance (e.g., a regex pattern).
-                        configuration = getValidationConfig(y)
+                        var mappedValidation = _umbracoMapper.Map<PlainJavaScriptValidation>(y) ?? new PlainJavaScriptValidation("unknown");
+                        return new
+                        {
+                            id = y.Id.ToString("N"),
+                            alias = y.Name,
+                            validationType = mappedValidation.ValidationType,
+                            configuration = mappedValidation.Configuration
+                        };
                     }).ToArray(),
                     // The field configuration stores parameters particular to a field (e.g., a list of items).
                     configuration = mappedField.Configuration,
                     // The initial value comes from the query string based on the field alias.
                     initialValue = "",
                     // The user selected category of the field
-                    category = x.Category
+                    category = x.Category                
                 };
+
             }).ToArray();
 
 

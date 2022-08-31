@@ -2,6 +2,7 @@
 {
     using Formulate.Core.DependencyInjection;
     using Formulate.Templates.PlainJavaScript.Mapping.FormFields;
+    using Formulate.Templates.PlainJavaScript.Mapping.Validations;
     using Microsoft.Extensions.DependencyInjection;
     using Umbraco.Cms.Core.Composing;
     using Umbraco.Cms.Core.DependencyInjection;
@@ -19,6 +20,10 @@
             builder.MapDefinitions().Add<CheckboxListFieldMapDefinition>();
             builder.MapDefinitions().Add<RichTextFieldMapDefinition>();
             builder.MapDefinitions().Add<RadioButtonListFieldMapDefinition>();
+
+            builder.MapDefinitions().Add<DefaultValidationMapDefinition>();
+            builder.MapDefinitions().Add<MandatoryValidationMapDefinition>();
+            builder.MapDefinitions().Add<RegexValidationMapDefinition>();
         }
     }
 }
