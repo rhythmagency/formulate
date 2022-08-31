@@ -26,8 +26,8 @@
             builder.MapDefinitions().Add<MandatoryValidationMapDefinition>();
             builder.MapDefinitions().Add<RegexValidationMapDefinition>();
 
+            builder.MapDefinitions().Add<DefaultLayoutMapDefinition>();
             builder.MapDefinitions().Add<BasicLayoutMapDefinition>();
-
         }
     }
 }

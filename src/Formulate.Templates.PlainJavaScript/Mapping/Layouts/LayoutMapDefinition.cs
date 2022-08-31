@@ -7,9 +7,9 @@
     {
         public void DefineMaps(IUmbracoMapper mapper)
         {
-            mapper.Define<TLayout, PlainJavaScriptLayout>((x, context) => Map(x, context));
+            mapper.Define<TLayout, PlainJavaScriptLayout?>((x, context) => Map(x, context));
         }
 
-        protected abstract PlainJavaScriptLayout Map(TLayout layout, MapperContext context);
+        protected abstract PlainJavaScriptLayout? Map(TLayout layout, MapperContext context);
     }
 }

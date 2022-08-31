@@ -26,7 +26,7 @@
 
         public string Build(ConfiguredFormRenderModel renderModel, string containerId)
         {
-            var layout = _umbracoMapper.Map<PlainJavaScriptLayout>(renderModel.Layout);
+            var layout = _umbracoMapper.Map<PlainJavaScriptLayout?>(renderModel.Layout);
 
             if (layout is null)
             {
