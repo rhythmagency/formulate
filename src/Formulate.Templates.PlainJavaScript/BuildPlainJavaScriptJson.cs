@@ -30,7 +30,6 @@
 
             if (layout is null)
             {
-                // only basic layout is supported.
                 return string.Empty;
             }
 
