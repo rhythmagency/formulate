@@ -1,0 +1,78 @@
+﻿/* Set all elements to use sensible box sizing. This is probably already part of your styles. */
+* {
+    box-sizing: border-box;
+}
+
+/* Define flexbox sizing on each row. */
+.formulate__row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Set the width of each column. */
+.formulate__cell--1-columns {
+    width: calc(8.3333333333% - 9.1666666667px);
+}
+
+.formulate__cell--2-columns {
+    width: calc(16.6666666667% - 8.3333333333px);
+}
+
+.formulate__cell--3-columns {
+    width: calc(25% - 7.5px);
+}
+
+.formulate__cell--4-columns {
+    width: calc(33.3333333333% - 6.6666666667px);
+}
+
+.formulate__cell--5-columns {
+    width: calc(41.6666666667% - 5.8333333333px);
+}
+
+.formulate__cell--6-columns {
+    width: calc(50% - 5px);
+}
+
+.formulate__cell--7-columns {
+    width: calc(58.3333333333% - 4.1666666667px);
+}
+
+.formulate__cell--8-columns {
+    width: calc(66.6666666667% - 3.3333333333px);
+}
+
+.formulate__cell--9-columns {
+    width: calc(75% - 2.5px);
+}
+
+.formulate__cell--10-columns {
+    width: calc(83.3333333333% - 1.6666666667px);
+}
+
+.formulate__cell--11-columns {
+    width: calc(91.6666666667% - 0.8333333333px);
+}
+
+.formulate__cell--12-columns {
+    width: calc(100% - 0px);
+}
+
+/* On mobile, use the full width of the viewport. */
+@media (max-width: 767px) {
+    .formulate__cell {
+        width: 100%;
+    }
+}
+/* Decorative (so you can see the rows/columns in this example). */
+.formulate__row {
+    background-color: #888;
+    min-height: 50px;
+    border: 5px solid #000;
+}
+
+.formulate__cell {
+    min-height: 50px;
+    border: 5px solid #fff;
+}
