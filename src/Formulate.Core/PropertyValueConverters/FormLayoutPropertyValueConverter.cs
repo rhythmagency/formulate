@@ -1,6 +1,7 @@
 ﻿namespace Formulate.Core.PropertyValueConverters
 {
     using Formulate.Core.Layouts;
+    using Formulate.Core.Persistence;
     using Formulate.Core.Utilities;
     using System;
     using Umbraco.Cms.Core.Models.PublishedContent;
@@ -65,10 +66,17 @@
                 return default;
             }
 
+            var formId = entity.ParentId();
+
+            if (formId.HasValue == false)
+            {
+                return default;
+            }
+
             // Return configuration.
             return new FormLayout()
             {
-                FormId = entity.Path[^2],
+                FormId = formId.Value,
                 LayoutId = entity.Id,
                 TemplateId = entity.TemplateId
             };
