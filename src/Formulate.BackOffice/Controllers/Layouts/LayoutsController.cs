@@ -3,13 +3,9 @@
     using Formulate.BackOffice.Attributes;
     using Formulate.BackOffice.Persistence;
     using Microsoft.AspNetCore.Mvc;
-    using System;
-    using System.Linq;
     using Formulate.Core.Layouts;
-    using Umbraco.Cms.Core.Models.ContentEditing;
     using Umbraco.Cms.Core.Services;
 
-    using Umbraco.Extensions;
     using Formulate.BackOffice.Utilities;
     using Formulate.BackOffice.EditorModels.Layouts;
 
