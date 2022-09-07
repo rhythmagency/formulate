@@ -72,8 +72,13 @@
                     "Forms", GetApiControllerVariables<FormsController>()
                 },
                 {
-                    "Layouts", GetApiControllerVariables<LayoutsController>()
+                    "Layouts", new {
+                        Save = LinkGenerator.GetUmbracoApiService<LayoutsController>(x => x.Save())
+                    }
                 },
+                //{
+                //    "Layouts", GetApiControllerVariables<LayoutsController>()
+                //},
                 {
                     "Validations", GetApiControllerVariables<ValidationsController>()
                 }

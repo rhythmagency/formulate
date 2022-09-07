@@ -12,76 +12,21 @@
     using Umbraco.Extensions;
     using Formulate.BackOffice.Utilities;
     using Formulate.BackOffice.EditorModels.Layouts;
-    using Formulate.BackOffice.Utilities.Scaffolding.Layouts;
-    using Formulate.BackOffice.Utilities.CreateOptions.Layouts;
 
     [FormulateBackOfficePluginController]
     public sealed class LayoutsController : FormulateBackOfficeEntityApiController
     {
         private readonly ILayoutEntityRepository _layoutEntityRepository;
-        private readonly ICreateLayoutsScaffoldingEntity _createLayoutsScaffoldingEntity;
-        private readonly IGetLayoutsChildEntityOptions _getLayoutsChildEntityOptions;
 
         public LayoutsController(
             IEditorModelMapper editorModelMapper,
             ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
-            ILayoutEntityRepository layoutEntityRepository,
-            ICreateLayoutsScaffoldingEntity createLayoutsScaffoldingEntity,
-            IGetLayoutsChildEntityOptions getLayoutsChildEntityOptions) :
+            ILayoutEntityRepository layoutEntityRepository
+            ) :
                 base(editorModelMapper, treeEntityRepository, localizedTextService)
         {
             _layoutEntityRepository = layoutEntityRepository;
-            _createLayoutsScaffoldingEntity = createLayoutsScaffoldingEntity;
-            _getLayoutsChildEntityOptions = getLayoutsChildEntityOptions;
-        }
-
-        [HttpGet]
-        public IActionResult GetScaffolding(EntityTypes entityType, Guid? kindId, Guid? parentId)
-        {
-            var parent = TreeEntityRepository.Get(parentId);
-            var options = _getLayoutsChildEntityOptions.Get(parent);
-
-            var isValidOption = kindId.HasValue ? options.Any(x => x.EntityType == entityType && x.KindId == kindId) : options.Any(x => x.EntityType == entityType);
-
-            if (isValidOption == false)
-            {
-                var errorModel = new SimpleNotificationModel();
-                errorModel.AddErrorNotification("Invalid requested item type.", "");
-
-                return ValidationProblem(errorModel);
-            }
-
-            var input = new CreateLayoutsScaffoldingEntityInput()
-            {
-                EntityType = entityType,
-                KindId = kindId,
-                Parent = parent,
-                RootId = TreeEntityRepository.GetRootId(TreeTypes.Layouts)
-            };
-            var entity = _createLayoutsScaffoldingEntity.Create(input);
-
-            if (entity is null)
-            {
-                var errorModel = new SimpleNotificationModel();
-                errorModel.AddErrorNotification("Unable to get a valid item type.", "");
-
-                return ValidationProblem(errorModel);
-            }
-
-            var mapInput = new MapToEditorModelInput(entity, true);
-            var editorModel = _editorModelMapper.MapToEditor(mapInput);
-
-            return Ok(editorModel);
-        }
-
-        [HttpGet]
-        public IActionResult GetCreateOptions(Guid? id)
-        {
-            var parent = TreeEntityRepository.Get(id);
-            var options = _getLayoutsChildEntityOptions.Get(parent);
-
-            return Ok(options);
         }
 
         [HttpPost]

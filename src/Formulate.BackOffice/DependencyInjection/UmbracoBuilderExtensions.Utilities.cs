@@ -19,7 +19,6 @@
     using Formulate.BackOffice.Utilities.Scaffolding.Layouts;
     using Formulate.BackOffice.Utilities.Trees.DataValues;
     using Formulate.BackOffice.Utilities.Trees.Forms;
-    using Formulate.BackOffice.Utilities.Trees.Layouts;
     using Formulate.BackOffice.Utilities.Trees.Validations;
     using Formulate.BackOffice.Utilities.Validations;
     using Formulate.Core.Utilities.Submissions;
@@ -52,7 +51,6 @@
 
             builder.Services.AddScoped<IDataValuesEntityTreeUtility, DataValuesEntityTreeUtility>();
             builder.Services.AddScoped<IFormsEntityTreeUtility, FormsEntityTreeUtility>();
-            builder.Services.AddScoped<ILayoutsEntityTreeUtility, LayoutsEntityTreeUtility>();
             builder.Services.AddScoped<IValidationsEntityTreeUtility, ValidationsEntityTreeUtility>();
 
             builder.Services.AddScoped<ICreateFormsScaffoldingEntity, CreateFormsScaffoldingEntity>();
