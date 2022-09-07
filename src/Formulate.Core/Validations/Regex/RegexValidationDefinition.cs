@@ -54,7 +54,9 @@ namespace Formulate.Core.Validations.Regex
         /// <inheritdoc />
         public Validation CreateValidation(PersistedValidation entity)
         {
-            return new RegexValidation(entity, new RegexValidationConfiguration());
+            var config = _jsonUtility.Deserialize<RegexValidationConfiguration>(entity.Data) ?? new RegexValidationConfiguration();
+
+            return new RegexValidation(entity, config);
         }
 
         /// <inheritdoc />
