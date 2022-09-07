@@ -28,6 +28,7 @@
                 Id = editorModel.Id,
                 Name = editorModel.Name,
                 Path = editorModel.Path,
+                KindId = editorModel.IsNew ? editorModel.KindId : default,
                 Fields = MapFields(editorModel.Fields, mapperContext),
                 Handlers = MapHandlers(editorModel.Handlers, mapperContext)
             };

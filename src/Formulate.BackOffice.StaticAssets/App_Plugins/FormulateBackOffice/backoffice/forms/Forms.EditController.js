@@ -5,7 +5,8 @@
             entityType: $routeParams.entityType,
             treeType: "Forms",
             id: $routeParams.id,
-            kindId: $routeParams.kindId
+            kindId: $routeParams.kindId,
+            noTemplate: $routeParams.notemplate
         };
 
         $scope.loading = true;
@@ -18,12 +19,7 @@
                     navigationService.syncTree({ tree: options.treeType, path: entity.treePath, forceReload: true });
                 }
 
-                if (entity.entityType === 'layout') {
-
-                }
-                else {
-                    $scope.loading = false;
-                }
+                $scope.loading = false;
             }, function (err) {
                 notificationsService.error(err.errorMsg);
             });

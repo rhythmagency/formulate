@@ -29,12 +29,13 @@
             entityPath.Add(id);
 
 
-            if (input.EntityType == EntityTypes.Form)
+            if (input.EntityType == EntityTypes.Form && input.KindId.HasValue)
             {
                 return new PersistedForm()
                 {
                     Id = id,
                     Path = entityPath.ToArray(),
+                    KindId = input.KindId,
                     Fields = Array.Empty<PersistedFormField>(),
                     Handlers = Array.Empty<PersistedFormHandler>()
                 };

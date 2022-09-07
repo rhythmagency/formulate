@@ -13,6 +13,13 @@ namespace Formulate.Core.Forms
     public sealed class PersistedForm : PersistedEntity
     {
         /// <summary>
+        /// Gets or sets the kind ID.
+        /// </summary>
+        /// <remarks>This is only used in new entity creation and is ignored any other time.</remarks>
+        [IgnoreDataMember]
+        public Guid? KindId { get; set; }
+
+        /// <summary>
         /// Gets or sets the fields.
         /// </summary>
         [DataMember]

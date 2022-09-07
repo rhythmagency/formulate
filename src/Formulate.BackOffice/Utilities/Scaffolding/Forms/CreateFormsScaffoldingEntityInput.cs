@@ -10,6 +10,7 @@
         public Guid RootId { get; init; }
 
         public EntityTypes EntityType { get; init; }
+
         public Guid? KindId { get; internal set; }
     }
 }

@@ -18,7 +18,14 @@
 
         public FormEditorModel(PersistedForm entity, bool isNew) : base(entity, isNew, false)
         {
+            if (isNew)
+            {
+                KindId = entity.KindId;
+            }
         }
+
+        [DataMember(Name = "kindId", EmitDefaultValue = false)]
+        public Guid? KindId { get; set; }
 
         /// <inheritdoc cref="PersistedForm.Fields"/>
         [DataMember(Name = "fields")]

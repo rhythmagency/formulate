@@ -16,6 +16,8 @@
     using Formulate.BackOffice.EditorModels.Forms;
     using Formulate.BackOffice.Utilities.Scaffolding.Forms;
     using Formulate.BackOffice.Utilities.CreateOptions.Forms;
+    using Formulate.BackOffice.Definitions.Forms;
+    using Formulate.Core.Types;
 
     /// <summary>
     /// Manages back office API operations for Formulate forms.
@@ -23,11 +25,14 @@
     [FormulateBackOfficePluginController]
     public sealed class FormsController : FormulateBackOfficeEntityApiController
     {
+        private readonly FormDefinitionCollection _formDefinitions;
         private readonly IGetFormsChildEntityOptions _getFormsChildEntityOptions;
         private readonly ICreateFormsScaffoldingEntity _createFormsScaffoldingEntity;
         private readonly IFormEntityRepository _formEntityRepository;
 
-        public FormsController(ITreeEntityRepository treeEntityRepository,
+        public FormsController(
+            FormDefinitionCollection formDefinitions,
+            ITreeEntityRepository treeEntityRepository,
             ILocalizedTextService localizedTextService,
             IFormEntityRepository formEntityRepository,
             IEditorModelMapper editorModelMapper,
@@ -35,6 +40,7 @@
             ICreateFormsScaffoldingEntity createFormsScaffoldingEntity)
             : base(editorModelMapper, treeEntityRepository, localizedTextService)
         {
+            _formDefinitions = formDefinitions;
             _formEntityRepository = formEntityRepository;
             _getFormsChildEntityOptions = getFormsChildEntityOptions;
             _createFormsScaffoldingEntity = createFormsScaffoldingEntity;
@@ -60,7 +66,7 @@
                 Parent = parent,
                 EntityType = request.EntityType,
                 RootId = TreeEntityRepository.GetRootId(TreeTypes.Forms),
-                KindId = request.KindId
+                KindId = request.KindId,
             };
 
             var entity = _createFormsScaffoldingEntity.Create(input);
@@ -102,6 +108,16 @@
         {
             var entity = _editorModelMapper.MapToEntity<FormEditorModel, PersistedForm>(model);
             _formEntityRepository.Save(entity);
+
+            if (entity is not null && entity.KindId.HasValue)
+            {
+                var definition = _formDefinitions.FirstOrDefault(model.KindId);
+
+                if (definition is not null)
+                {
+                    definition.PostSave(entity);
+                }
+            }
             
             return Ok();
         }

@@ -377,6 +377,8 @@ class FormDesignerEventHandlers {
                 id: entity.id,
                 name: entity.name,
                 path: entity.path,
+                kindid: entity.kindId,
+                isNew: entity.isNew,
                 fields: fields.map(x => {
                     return {
                         alias: x.alias,

@@ -7,6 +7,7 @@
             var isNew = options.create === "true" && options.entityType;
             var hasId = options.id && options.id !== "-1";
             var hasKindId = options.kindId && options.kindId.length > 0;
+            var hasNoTemplate = options.noTemplate && options.noTemplate.length > 0;
             var url;
 
             // replace with resource calls
@@ -20,6 +21,11 @@
                 if (hasKindId) {
                     url += `&kindId=${options.kindId}`;
                 }
+
+                if (hasNoTemplate) {
+                    url += `&kindId=${options.noTemplate}`;
+                }
+
             } else {
                 url = treeServerVars.Get;
 

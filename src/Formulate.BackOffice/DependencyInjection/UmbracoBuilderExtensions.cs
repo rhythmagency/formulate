@@ -6,6 +6,8 @@
     {
         public static IUmbracoBuilder AddFormulateBackOffice(this IUmbracoBuilder builder)
         {
+            builder.AddFormDefinitions();
+
             builder.AddFormulateSection();
             builder.AddFormulateConfiguration();
             builder.AddFormulateUtilities();

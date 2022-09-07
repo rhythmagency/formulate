@@ -2,6 +2,7 @@
 {
     using Formulate.Core.Persistence;
     using System;
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     [DataContract]
