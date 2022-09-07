@@ -1,6 +1,6 @@
 ﻿namespace Formulate.Website.Components
 {
-    using Formulate.Core.Layouts;
+    using Formulate.Core;
     using Formulate.Core.Templates;
     using Formulate.Website.Utilities;
     using Microsoft.AspNetCore.Html;

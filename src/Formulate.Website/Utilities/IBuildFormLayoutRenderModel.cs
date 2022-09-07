@@ -1,6 +1,6 @@
 ﻿namespace Formulate.Website.Utilities
 {
-    using Formulate.Core.Layouts;
+    using Formulate.Core;
     using Formulate.Core.RenderModels;
 
     public interface IBuildFormLayoutRenderModel

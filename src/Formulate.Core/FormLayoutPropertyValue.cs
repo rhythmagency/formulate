@@ -1,4 +1,4 @@
-﻿namespace Formulate.Core.Layouts
+﻿namespace Formulate.Core
 {
     using System;
     using System.Runtime.Serialization;

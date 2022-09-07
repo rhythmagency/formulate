@@ -1,5 +1,6 @@
 ﻿namespace Formulate.Website.Utilities
 {
+    using Formulate.Core;
     using Formulate.Core.FormFields;
     using Formulate.Core.Forms;
     using Formulate.Core.Layouts;
@@ -38,14 +39,9 @@
             return new FormLayoutRenderModel(form, layout);
         }
 
-        private ILayout? BuildLayout(Guid? layoutId)
+        private ILayout? BuildLayout(Guid layoutId)
         {
-            if (layoutId.HasValue == false)
-            {
-                return default;
-            }
-
-            var layout = _layoutEntityRepository.Get(layoutId.Value);
+            var layout = _layoutEntityRepository.Get(layoutId);
 
             if (layout is null)
             {

@@ -1,4 +1,4 @@
-﻿namespace Formulate.Core.Layouts
+﻿namespace Formulate.Core
 {
     using System;
 
@@ -9,7 +9,7 @@
     {
         public Guid FormId { get; init; }
 
-        public Guid? LayoutId { get; init; }
+        public Guid LayoutId { get; init; }
 
         public Guid? TemplateId { get; init; }
     }
