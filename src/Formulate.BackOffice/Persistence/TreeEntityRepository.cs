@@ -17,11 +17,6 @@
     internal sealed class TreeEntityRepository : ITreeEntityRepository
     {
         /// <summary>
-        /// The configured form entity repository.
-        /// </summary>
-        private readonly IConfiguredFormEntityRepository _configuredFormEntityRepository;
-
-        /// <summary>
         /// The form entity repository.
         /// </summary>
         private readonly IFormEntityRepository _formEntityRepository;
@@ -49,15 +44,13 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="TreeEntityRepository"/> class.
         /// </summary>
-        /// <param name="configuredFormEntityRepository">The configured form entity repository.</param>
         /// <param name="formEntityRepository">The form entity repository.</param>
         /// <param name="layoutEntityRepository">The layout entity repository.</param>
         /// <param name="folderEntityRepository">The folder entity repository.</param>
         /// <param name="dataValuesEntityRepository">The data values entity repository.</param>
         /// <param name="validationEntityRepository">The validation entity repository.</param>
-        public TreeEntityRepository(IConfiguredFormEntityRepository configuredFormEntityRepository, IFormEntityRepository formEntityRepository, ILayoutEntityRepository layoutEntityRepository, IFolderEntityRepository folderEntityRepository, IDataValuesEntityRepository dataValuesEntityRepository, IValidationEntityRepository validationEntityRepository)
+        public TreeEntityRepository(IFormEntityRepository formEntityRepository, ILayoutEntityRepository layoutEntityRepository, IFolderEntityRepository folderEntityRepository, IDataValuesEntityRepository dataValuesEntityRepository, IValidationEntityRepository validationEntityRepository)
         {
-            _configuredFormEntityRepository = configuredFormEntityRepository;
             _formEntityRepository = formEntityRepository;
             _layoutEntityRepository = layoutEntityRepository;
             _folderEntityRepository = folderEntityRepository;
@@ -75,7 +68,6 @@
 
             var actions = new Func<Guid, IPersistedEntity>[]
             {
-                _configuredFormEntityRepository.Get,
                 _dataValuesEntityRepository.Get,
                 _folderEntityRepository.Get,
                 _formEntityRepository.Get,
@@ -101,7 +93,6 @@
         {
             var children = new List<IPersistedEntity>();
 
-            children.AddRange(_configuredFormEntityRepository.GetChildren(parentId));
             children.AddRange(_dataValuesEntityRepository.GetChildren(parentId));
             children.AddRange(_folderEntityRepository.GetChildren(parentId));
             children.AddRange(_formEntityRepository.GetChildren(parentId));
@@ -168,10 +159,6 @@
 
             switch (entity)
             {
-                case PersistedConfiguredForm:
-                    _configuredFormEntityRepository.Delete(entity.Id);
-                    break;
-
                 case PersistedDataValues:
                     _dataValuesEntityRepository.Delete(entity.Id);
                     break;
@@ -215,9 +202,6 @@
 
             switch (persistedEntity)
             {
-                case PersistedConfiguredForm configuredForm:
-                    return _configuredFormEntityRepository.Move(configuredForm, updatedPath);
-
                 case PersistedDataValues dataValues:
                     return _dataValuesEntityRepository.Move(dataValues, updatedPath);
 

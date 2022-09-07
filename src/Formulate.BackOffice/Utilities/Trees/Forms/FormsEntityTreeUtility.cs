@@ -2,7 +2,7 @@
 {
     using Formulate.BackOffice.Persistence;
     using Formulate.BackOffice.Trees;
-    using Formulate.Core.ConfiguredForms;
+    using Formulate.Core.Layouts;
     using Formulate.Core.Persistence;
     using Microsoft.AspNetCore.Http;
     using System.Collections.Generic;
@@ -23,7 +23,7 @@
         {
             var menuItemCollection = _menuItemCollectionFactory.Create();
 
-            if (entity is PersistedConfiguredForm)
+            if (entity is PersistedLayout)
             {
                 menuItemCollection.AddDeleteDialogMenuItem(_localizedTextService);
             }
@@ -48,9 +48,9 @@
                 return new EntityTreeNodeMetaData(_folderIcon);
             }
 
-            if (entity is PersistedConfiguredForm)
+            if (entity is PersistedLayout)
             {
-                return new EntityTreeNodeMetaData(Constants.Icons.Entities.ConfiguredForm);
+                return new EntityTreeNodeMetaData(Constants.Icons.Entities.Layout);
             }
 
             return new EntityTreeNodeMetaData(Constants.Icons.Entities.Form);
