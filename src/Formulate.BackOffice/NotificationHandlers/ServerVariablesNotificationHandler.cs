@@ -2,7 +2,6 @@
 {
     // Namespaces.
     using Controllers;
-    using Controllers.ConfiguredForms;
     using Controllers.DataValues;
     using Controllers.Folders;
     using Controllers.FormFields;
@@ -65,9 +64,6 @@
                     "Templates", new {
                         GetAll = LinkGenerator.GetUmbracoApiService<TemplatesController>(x => x.GetAll())
                     }
-                },
-                {
-                    "ConfiguredForms", GetApiControllerVariables<ConfiguredFormsController>()
                 },
                 {
                     "DataValues", GetApiControllerVariables<DataValuesController>()

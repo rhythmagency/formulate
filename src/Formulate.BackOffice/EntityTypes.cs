@@ -14,11 +14,6 @@
         Unknown,
 
         /// <summary>
-        /// A configured form entity type.
-        /// </summary>
-        ConfiguredForm,
-
-        /// <summary>
         /// A data values entity type.
         /// </summary>
         DataValues,

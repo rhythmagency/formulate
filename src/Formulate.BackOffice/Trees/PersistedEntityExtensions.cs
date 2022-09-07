@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using Formulate.Core.Persistence;
     using System.Linq;
-    using Formulate.Core.ConfiguredForms;
     using Formulate.Core.DataValues;
     using Formulate.Core.Folders;
     using Formulate.Core.Forms;
@@ -60,7 +59,6 @@
         {
             return entity switch
             {
-                PersistedConfiguredForm => EntityTypes.ConfiguredForm,
                 PersistedDataValues => EntityTypes.DataValues,
                 PersistedFolder => EntityTypes.Folder,
                 PersistedForm => EntityTypes.Form,

@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Formulate.Core.ConfiguredForms;
     using Formulate.Core.DataValues;
     using Formulate.Core.Folders;
     using Formulate.Core.Forms;

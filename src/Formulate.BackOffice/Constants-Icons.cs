@@ -77,11 +77,6 @@
                 public const string DataValues = "icon-formulate-value";
 
                 /// <summary>
-                /// The configured form icon.
-                /// </summary>
-                public const string ConfiguredForm = "icon-formulate-conform";
-
-                /// <summary>
                 /// The form icon.
                 /// </summary>
                 public const string Form = "icon-formulate-form";

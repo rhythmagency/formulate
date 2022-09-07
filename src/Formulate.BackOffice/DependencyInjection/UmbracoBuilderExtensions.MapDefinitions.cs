@@ -18,7 +18,6 @@
             this IUmbracoBuilder builder)
         {
             builder.MapDefinitions().Add<DataValuesEditorModelMapDefinition>();
-            builder.MapDefinitions().Add<ConfiguredFormEditorModelMapDefinition>();
             builder.MapDefinitions().Add<FolderEditorModelMapDefinition>();
             builder.MapDefinitions().Add<FormFieldEditorModelMapDefinition>();
             builder.MapDefinitions().Add<FormHandlerEditorModelMapDefinition>();

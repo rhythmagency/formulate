@@ -21,16 +21,6 @@
         public string Wildcard { get; set; }
 
         /// <summary>
-        /// Settings used for configured forms entities.
-        /// </summary>
-        public static readonly IRepositoryUtilitySettings ConfiguredForms = new RepositoryUtilitySettings()
-        {
-            BasePath = "ConfiguredForms",
-            Extension = ".conform",
-            Wildcard = "*.conform"
-        };
-
-        /// <summary>
         /// Settings used for data values entities.
         /// </summary>
         public static readonly IRepositoryUtilitySettings DataValues = new RepositoryUtilitySettings()

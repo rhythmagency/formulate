@@ -40,18 +40,18 @@
             {
                 var deserializedSource = _jsonUtility.Deserialize<FormLayoutPropertyValue>(stringSource);
 
-                return ConvertPickedConfiguredFormToObject(deserializedSource);
+                return ConvertPickedFormLayoutToObject(deserializedSource);
             }
 
             if (source is FormLayoutPropertyValue pickedSource)
             {
-                return ConvertPickedConfiguredFormToObject(pickedSource);
+                return ConvertPickedFormLayoutToObject(pickedSource);
             }
 
             return default;
         }
 
-        private FormLayout ConvertPickedConfiguredFormToObject(FormLayoutPropertyValue propertyValue)
+        private FormLayout ConvertPickedFormLayoutToObject(FormLayoutPropertyValue propertyValue)
         {
             if (propertyValue is null)
             {

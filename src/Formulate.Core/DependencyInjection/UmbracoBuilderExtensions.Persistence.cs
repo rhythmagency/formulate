@@ -1,5 +1,4 @@
-﻿using Formulate.Core.ConfiguredForms;
-using Formulate.Core.DataValues;
+﻿using Formulate.Core.DataValues;
 using Formulate.Core.Folders;
 using Formulate.Core.Forms;
 using Formulate.Core.Layouts;
@@ -21,7 +20,6 @@ namespace Formulate.Core.DependencyInjection
         {
             builder.Services.AddSingleton<IPersistedEntityCache, FileSystemPersistedEntityCache>();
             builder.Services.AddSingleton<IDataValuesEntityRepository, DataValuesEntityRepository>();
-            builder.Services.AddSingleton<IConfiguredFormEntityRepository, ConfiguredFormEntityRepository>();
             builder.Services.AddSingleton<IFormEntityRepository, FormEntityRepository>();
             builder.Services.AddSingleton<IFolderEntityRepository, FolderEntityRepository>();
             builder.Services.AddSingleton<ILayoutEntityRepository, LayoutEntityRepository>();
