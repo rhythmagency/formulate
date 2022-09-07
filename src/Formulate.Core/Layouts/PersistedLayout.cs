@@ -17,6 +17,12 @@ namespace Formulate.Core.Layouts
         public Guid KindId { get; set; }
 
         /// <summary>
+        /// The ID of the chosen template.
+        /// </summary>
+        [DataMember]
+        public Guid? TemplateId { get; set; }
+
+        /// <summary>
         /// Gets or sets the configuration.
         /// </summary>
         [DataMember]

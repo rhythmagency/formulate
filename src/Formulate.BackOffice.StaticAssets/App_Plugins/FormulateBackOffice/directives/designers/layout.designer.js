@@ -11,14 +11,18 @@ class FormulateLayoutDesigner {
         $http,
         formHelper,
         formulateDesignerResource,
-        formulateLayouts) => {
+        formulateEntityResource,
+        formulateLayouts,
+        formulateTypeDefinitionResource) => {
 
         const services = {
             $scope,
             $http,
             formHelper,
-            formulateDesignerResource,            
-            formulateLayouts
+            formulateDesignerResource,
+            formulateEntityResource,
+            formulateLayouts,
+            formulateTypeDefinitionResource
         }
 
         // Initializes layout.
@@ -27,10 +31,24 @@ class FormulateLayoutDesigner {
     };
 
     /**
+     * Initializes the templates on the scope.
+     * @param formulateTypeDefinitionResource The resource that can be used to
+     *  fetch templates.
+     * @param scope The scope to set the templates on.
+     */
+    initializeTemplates = (formulateTypeDefinitionResource, scope) => {
+        scope.templates = [];
+        return formulateTypeDefinitionResource.getTemplateDefinitions()
+            .then((data) => {
+                scope.templates = data;
+            });
+    }
+
+    /**
      * Initializes the layout.
      */
     initializeLayout = (services) => {
-        const { $scope, formHelper, formulateLayouts, formulateDesignerResource } = services;
+        const { $scope, formHelper, formulateLayouts, formulateDesignerResource, formulateEntityResource, formulateTypeDefinitionResource } = services;
         // Disable layout saving until the data is populated.
         $scope.initialized = false;
         $scope.saveButtonState = 'init';
@@ -61,6 +79,7 @@ class FormulateLayoutDesigner {
                     Alias: entity.alias,
                     Path: entity.path,
                     KindId: entity.kindId,
+                    TemplateId: entity.templateId,
                     Data: entity.data
                 };
 
@@ -76,7 +95,7 @@ class FormulateLayoutDesigner {
 
                     const options = {
                         entity,
-                        treeAlias: 'layouts',
+                        treeAlias: 'forms',
                         newEntityText: 'Layout created',
                         existingEntityText: 'Layout saved'
                     };
@@ -96,7 +115,24 @@ class FormulateLayoutDesigner {
             }
         };
 
-        $scope.initialized = true;
+        if (Utilities.isArray($scope.entity.path)) {
+            const formId = $scope.entity.path.at(-2);
+
+            const getFormOptions = {
+                entityType: 'form',
+                treeType: "Forms",
+                id: formId
+            };
+
+            formulateEntityResource.getOrScaffold(getFormOptions).then(
+                function (formEntity) {
+                    $scope.form = formEntity;
+                });
+        }
+
+        this.initializeTemplates(formulateTypeDefinitionResource, $scope).then(() => {
+            $scope.loading = false;
+        });
     };
 
     /**

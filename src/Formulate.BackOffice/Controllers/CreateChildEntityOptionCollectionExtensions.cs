@@ -14,14 +14,14 @@
             });
         }
 
-        public static void AddConfiguredFormOption(this List<CreateChildEntityOption> items)
+        public static void AddLayoutOption(this List<CreateChildEntityOption> items)
         {
             items.Add(
                 new CreateChildEntityOption()
                 {
-                    EntityType = EntityTypes.ConfiguredForm,
-                    Name = "Configured Form",
-                    Icon = Constants.Icons.Entities.ConfiguredForm,
+                    EntityType = EntityTypes.Layout,
+                    Name = "Layout",
+                    Icon = Constants.Icons.Entities.Layout,
                 });
         }
         

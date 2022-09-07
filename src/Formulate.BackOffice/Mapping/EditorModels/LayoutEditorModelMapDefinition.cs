@@ -43,6 +43,7 @@
                 KindId = editorModel.KindId,
                 Name = editorModel.Name,
                 Path = editorModel.Path,
+                TemplateId = editorModel.TemplateId,
                 Data = _jsonUtility.Serialize(editorModel.Data)
             };
         }

@@ -1,10 +1,10 @@
 ﻿namespace Formulate.BackOffice.Utilities.Scaffolding.Forms
 {
-    using Formulate.Core.ConfiguredForms;
     using Formulate.Core.Folders;
     using Formulate.Core.FormFields;
     using Formulate.Core.FormHandlers;
     using Formulate.Core.Forms;
+    using Formulate.Core.Layouts;
     using Formulate.Core.Persistence;
     using System;
     using System.Collections.Generic;
@@ -47,12 +47,13 @@
                     Path = entityPath.ToArray(),
                 };
             }
-            else if (input.EntityType == EntityTypes.ConfiguredForm)
+            else if (input.EntityType == EntityTypes.Layout && input.KindId.HasValue)
             {
-                return new PersistedConfiguredForm()
+                return new PersistedLayout()
                 {
                     Id = id,
                     Path = entityPath.ToArray(),
+                    KindId = input.KindId.Value
                 };
             }
 

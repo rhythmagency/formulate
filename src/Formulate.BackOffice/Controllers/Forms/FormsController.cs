@@ -60,6 +60,7 @@
                 Parent = parent,
                 EntityType = request.EntityType,
                 RootId = TreeEntityRepository.GetRootId(TreeTypes.Forms),
+                KindId = request.KindId
             };
 
             var entity = _createFormsScaffoldingEntity.Create(input);

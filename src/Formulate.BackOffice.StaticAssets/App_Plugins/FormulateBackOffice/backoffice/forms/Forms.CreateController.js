@@ -5,10 +5,23 @@
         vm.treeType = "Forms";
 
         vm.create = function (option, parentId) {
-            $location
-                .path("/formulate/forms/edit/" + parentId)
-                .search("entityType", option.entityType)
-                .search("create", "true");
+            const path = "/formulate/forms/edit/" + parentId;
+
+            if (option.kindId) {
+                $location
+                    .path(path)
+                    .search("entityType", option.entityType)
+                    .search("kindId", option.kindId)
+                    .search("create", "true");
+            }
+            else {
+                $location
+                    .path(path)
+                    .search("entityType", option.entityType)
+                    .search("create", "true");
+            }
+
+
         };
     };
 

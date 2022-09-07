@@ -13,9 +13,13 @@
 
         public LayoutEditorModel(PersistedLayout entity, bool isNew, bool isLegacy) : base(entity, isNew, isLegacy)
         {
+            TemplateId = entity.TemplateId;
             KindId = entity.KindId;
             Data = entity.Data;
         }
+
+        [DataMember(Name = "templateId")]
+        public Guid? TemplateId { get; set; }
 
         [DataMember(Name = "data")]
         public object Data { get; set; }

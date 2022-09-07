@@ -20,12 +20,22 @@
 
         // default VM setup.
         $scope.vm = {
-            form: {},
             unusedFields: [],
             rows: [],
             autoPopulate: false,
             sampleCells : []
         };
+
+        if ($scope.form) {           
+            updateFields(services, $scope.form);
+        }
+
+        if ($scope.data) {
+            const rows = Utilities.isArray($scope.data.rows) ? $scope.data.rows : [];
+            updateRows(services, rows);
+        }
+
+        finalizeInit(services);
 
         $scope.editor = {
             mode: 'fields',
@@ -56,8 +66,6 @@
 
         // configure actions.
         $scope.actions = {
-            pickForm: performPickForm(services),
-            removeForm: performRemoveForm(services),
             toggleAutoPopulate: () => {
                 $scope.vm.autoPopulate = !$scope.vm.autoPopulate;
             },
@@ -78,105 +86,10 @@
             if ($scope.data.autoPopulate) {
                 $scope.vm.autoPopulate = $scope.data.autoPopulate;
             }
-
-            if ($scope.data.formId) {
-                $scope.vm.form.id = $scope.data.formId;
-
-                requestFormData(services).then((formData) => {
-                    const rows = Utilities.isArray($scope.data.rows) ? $scope.data.rows : [];
-                    updateForm(services, formData);
-                    updateFields(services, formData);
-                    updateRows(services, rows);
-
-                    finalizeInit(services);
-                });
-            }
-            else {
-                finalizeInit(services);
-            }
         } else {
             finalizeInit(services);
         }
     };
-
-    const requestFormData = function (services) {
-        const { $scope, $http, formulateVars } = services;
-        return new Promise((resolve, reject) => {
-            const { form } = $scope.vm;
-
-            if (!form || !form.id) {
-                return resolve();
-            }
-
-            const baseUrl = formulateVars.Forms.Get;
-            const url = `${baseUrl}?id=${form.id}`;
-            $http.get(url)
-                .then(x => x.data)
-                .then((formData) => {
-                    return resolve(formData);
-                });
-        });
-    }
-
-    const performPickForm = function (services) {
-        const { editorService, $scope } = services;
-
-        return function () {
-            const chosen = (node) => {
-                $scope.vm.form = {
-                    id: node.id,
-                    name: node.name
-                };
-                requestFormData(services).then((formData) => {
-                    updateForm(services, formData);
-                    updateFields(services, formData);
-                    updateRows(services, []);
-                });
-                editorService.close();
-            };
-
-            const closer = () => {
-                editorService.close();
-            };
-
-            const config = {
-                section: 'formulate',
-                treeAlias: 'forms',
-                multiPicker: false,
-                entityType: 'Form',
-                filter: (node) => {
-                    return node.nodeType !== 'Form';
-                },
-                filterCssClass: 'not-allowed',
-                select: chosen,
-                submit: closer,
-                close: closer,
-            };
-
-            //        // Open the overlay that displays the forms.
-            editorService.treePicker(config);
-        };
-    };
-
-    const performRemoveForm = function (services) {
-        return function () {
-            reset(services);
-        };
-    };
-
-    const updateForm = function (services, formData) {
-        const { $scope } = services;
-
-        if (!formData) {
-            $scope.vm.form = {};
-            return;
-        }
-
-        $scope.vm.form = {
-            id: formData.id,
-            name: formData.name
-        };
-    }
 
     const updateFields = function (services, formData) {
         const { $scope } = services;
@@ -264,16 +177,6 @@
             unusedFields.splice(index, 1);
         }
     }
-
-    const reset = function (services) {
-        const { $scope } = services;
-
-        $scope.editor.mode = 'fields';
-        $scope.vm.form = {};
-        $scope.vm.allFields = [];
-        $scope.vm.unusedFields = [];
-        $scope.vm.rows = [];        
-    };
 
     /* sample cells */
 
@@ -438,36 +341,26 @@
 
         $scope.$watch('vm', function (newVal, oldVal) {
             const vm = newVal;
-            const hasFormId = vm.form && vm.form.id;
 
-            if (hasFormId) {
-                $scope.data = {
-                    formId: vm.form.id,
-                    autoPopulate: vm.autoPopulate,
-                    rows: vm.rows.map((row) => {
-                        return {
-                            cells: row.cells.map((cell) => {
-                                return {
-                                    columnSpan: cell.columnSpan,
-                                    fields: cell.fields.map((field) => {
-                                        return {
-                                            id: field.id
-                                        }
-                                    })
-                                };
-                            }),
-                            isStep: row.isStep
-                        };
-                    })
-                };
-            }
-            else {
-                $scope.data = {
-                    formId: undefined,
-                    autoPopulate: vm.autoPopulate,
-                    rows: []
-                };
-            }
+            $scope.data = {
+                autoPopulate: vm.autoPopulate,
+                rows: vm.rows.map((row) => {
+                    return {
+                        cells: row.cells.map((cell) => {
+                            return {
+                                columnSpan: cell.columnSpan,
+                                fields: cell.fields.map((field) => {
+                                    return {
+                                        id: field.id
+                                    }
+                                })
+                            };
+                        }),
+                        isStep: row.isStep
+                    };
+                })
+            };
+
         }, true);
     }
 
@@ -478,7 +371,8 @@
             templateUrl: "/app_plugins/formulatebackoffice/directives/editors/layouts/basic/basic.layout.html",
             controller: controller,
             scope: {
-                data: "="
+                data: "=",
+                form: "<"
             }
         };
     };

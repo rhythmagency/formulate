@@ -1,38 +1,10 @@
 ﻿<div class="form-horizontal">
     <div class="umb-group-panel">
         <div class="umb-group-panel__header">
-            Settings
+            Layout
         </div>
         <div class="umb-group-panel__content">
-            <div class="control-group umb-control-group -no-border">
-                <div class="umb-el-wrap">
-                    <div class="control-header">
-                        <label class="control-label" for="pickForm">
-                            <localize key="formulate-labels_Form">Form</localize>
-                        </label>
-                        <small class="control-description">
-                            The form which determines the fields to be used for this layout.
-                        </small>
-                    </div>
-                    <div class="controls">
-                        <div ng-if="vm.form && vm.form.id">
-                            <umb-node-preview name="vm.form.name"
-                                              allow-remove="true"
-                                              allow-open="false"
-                                              on-remove="actions.removeForm()">
-                            </umb-node-preview>
-                        </div>
-                        <div ng-if="!vm.form || !vm.form.id">
-                            <button type="button"
-                                    class="umb-node-preview-add"
-                                    ng-click="actions.pickForm()">
-                                <localize key="formulate-buttons_Select Form">Select Form</localize>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="control-group umb-control-group -no-border">
+            <div class="control-group umb-control-group">
                 <div class="umb-el-wrap">
                     <div class="control-header">
                         <label class="control-label" for="autoopulate">
@@ -51,160 +23,149 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+            <div class="control-group umb-control-group -no-border">
+                <div class="umb-el-wrap">
+                    <div style="position:relative;padding: 50px;" ng-if="vm.autoPopulate">
+                        <umb-empty-state position="center">
+                            Layout will be auto populated!
+                        </umb-empty-state>
+                    </div>
 
+                    <div ng-if="!vm.autoPopulate">
 
-    <umb-box>
-        <umb-box-header title="Layout"></umb-box-header>
-        <umb-box-content>
-
-            <div style="position:relative;padding: 50px;" ng-if="!vm.form.id">
-                <umb-empty-state position="center">
-                    Select a form to get started!
-                </umb-empty-state>
-            </div>
-
-            <div style="position:relative;padding: 50px;" ng-if="vm.form.id && vm.autoPopulate">
-                <umb-empty-state position="center">
-                    Layout will be auto populated!
-                </umb-empty-state>
-            </div>
-
-            <div ng-if="vm.form.id && !vm.autoPopulate">
-
-                <!-- Buttons (pick form, and edit rows). -->
-                <button type="button" class="btn btn-default" ng-click="actions.toggleEditorMode()">
-                    <localize key="formulate-labels_Edit Rows" ng-if="editor.mode === 'fields'">
-                        Edit Rows
-                    </localize>
-                    <localize key="formulate-labels_Edit Fields" ng-if="editor.mode === 'rows'">
-                        Edit Fields
-                    </localize>
-                </button>
-
-                <!-- Add row section. -->
-                <div class="formulate-add-row-section">
-
-                    <!-- Add row instructions. -->
-                    <p>
-                        <localize key="formulate-instructions_Add Sample Columns Below">
-                            The row will be added using the columns that you specify below.
-                            Click a cell to split or join adjacent cells.
-                        </localize>
-                    </p>
-
-                    <!-- The button and the neighboring cells. -->
-                    <div class="formulate-add-row-button-and-cells">
-
-                        <!-- Add row button. -->
-                        <button type="button" class="btn btn-default btn-add-row" ng-click="actions.addRow()">
-                            <localize key="formulate-buttons_Click to Add Row">
-                                Click to Add Row
+                        <!-- Buttons (pick form, and edit rows). -->
+                        <button type="button" class="btn btn-default" ng-click="actions.toggleEditorMode()">
+                            <localize key="formulate-labels_Edit Rows" ng-if="editor.mode === 'fields'">
+                                Edit Rows
+                            </localize>
+                            <localize key="formulate-labels_Edit Fields" ng-if="editor.mode === 'rows'">
+                                Edit Fields
                             </localize>
                         </button>
 
-                        <!-- Sample cells for new rows. -->
-                        <div class="row sample-cells">
-                            <div ng-repeat="cell in vm.sampleCells" class="span1">
-                                <div ng-class="actions.getSampleCellClasses($index)" ng-click="actions.toggleCell($index)">
-                                    {{$index + 1}}
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Add row section. -->
+                        <div class="formulate-add-row-section">
 
-                    </div>
-
-                </div>
-
-                <!-- The "Layout" header. -->
-                <h2>
-                    <localize key="formulate-headers_Layout">
-                        Layout
-                    </localize>
-                    <small>
-                        <localize key="formulate-header-descriptions_Layout">
-                            Organize your fields into rows and columns.
-                        </localize>
-                    </small>
-                </h2>
-
-                <div ui-sortable="sortableOptions.rows" ng-model="vm.rows" ng-if="!vm.autoPopulate && vm.form.id">
-                    <div ng-repeat="(rowIndex, row) in vm.rows" class="row">
-
-                        <!-- Loop over cells if this is a row with cells. -->
-                        <div ng-if="row.cells.length">
-                            <div ng-repeat="cell in row.cells" ng-class="actions.getCellClass(row, cell)">
-
-                                <!-- Show full fields when editing fields. -->
-                                <div ng-if="editor.mode === 'fields'" class="formulate-cell" ui-sortable="sortableOptions.fields" ng-model="cell.fields">
-                                    <div ng-repeat="field in cell.fields" class="formulate-cell-field">
-                                        {{field.name}}
-                                    </div>
-                                </div>
-
-                                <!-- Show field summaries when editing rows. -->
-                                <div ng-if="editor.mode === 'rows'" class="formulate-cell editing-rows">
-                                    <span ng-repeat="field in cell.fields" class="formulate-cell-field">
-                                        <span class="formulate-cell-field-name">{{field.name}}</span>
-                                    </span>
-                                    <div>
-                                        <button type="button" ng-click="actions.deleteRow(rowIndex)" ng-if="$index === 0" class="btn btn-danger">
-                                            <localize key="formulate-buttons_Delete Row">
-                                                Delete Row
-                                            </localize>
-                                        </button>
-                                        <button type="button" ng-click="actions.addStep(rowIndex)" ng-if="$index === 0" class="btn btn-success">
-                                            <localize key="formulate-buttons_Add Step">
-                                                Add Step
-                                            </localize>
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Display a divider for a step. -->
-                        <div ng-if="row.isStep" class="formulate-step-divider">
-                            <span class="formulate-step-divider__contents">
-                                Step #{{row.stepNumber}}
-                                <button ng-if="editor.mode === 'rows'" type="button" ng-click="actions.deleteRow(rowIndex)" class="btn btn-danger formulate-step-divider__delete" aria-label="Delete Row">
-                                    X
-                                </button>
-                            </span>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- Unused fields. -->
-                <div>
-                    <h2>
-                        <localize key="formulate-headers_Unused Fields">
-                            Unused Fields
-                        </localize>
-                        <small>
-                            <localize key="formulate-header-descriptions_Unused Fields">
-                                These are the fields you are not using for this layout.
-                            </localize>
-                        </small>
-                    </h2>
-
-                    <!-- Unused fields. -->
-                    <div class="formulate-cell" ui-sortable="sortableOptions.fields" ng-model="vm.unusedFields">
-                        <div ng-repeat="field in vm.unusedFields" class="formulate-cell-field">
-                            <button type="button" class="btn btn-default formulate-btn-use" ng-click="actions.useField(field)">
-                                <localize key="formulate-buttons_Use">
-                                    Use
+                            <!-- Add row instructions. -->
+                            <p>
+                                <localize key="formulate-instructions_Add Sample Columns Below">
+                                    The row will be added using the columns that you specify below.
+                                    Click a cell to split or join adjacent cells.
                                 </localize>
-                            </button>
-                            {{field.name}}
+                            </p>
+
+                            <!-- The button and the neighboring cells. -->
+                            <div class="formulate-add-row-button-and-cells">
+
+                                <!-- Add row button. -->
+                                <button type="button" class="btn btn-default btn-add-row" ng-click="actions.addRow()">
+                                    <localize key="formulate-buttons_Click to Add Row">
+                                        Click to Add Row
+                                    </localize>
+                                </button>
+
+                                <!-- Sample cells for new rows. -->
+                                <div class="row sample-cells">
+                                    <div ng-repeat="cell in vm.sampleCells" class="span1">
+                                        <div ng-class="actions.getSampleCellClasses($index)" ng-click="actions.toggleCell($index)">
+                                            {{$index + 1}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- The "Layout" header. -->
+                        <h2>
+                            <localize key="formulate-headers_Layout">
+                                Layout
+                            </localize>
+                            <small>
+                                <localize key="formulate-header-descriptions_Layout">
+                                    Organize your fields into rows and columns.
+                                </localize>
+                            </small>
+                        </h2>
+
+                        <div ui-sortable="sortableOptions.rows" ng-model="vm.rows" ng-if="!vm.autoPopulate">
+                            <div ng-repeat="(rowIndex, row) in vm.rows" class="row">
+
+                                <!-- Loop over cells if this is a row with cells. -->
+                                <div ng-if="row.cells.length">
+                                    <div ng-repeat="cell in row.cells" ng-class="actions.getCellClass(row, cell)">
+
+                                        <!-- Show full fields when editing fields. -->
+                                        <div ng-if="editor.mode === 'fields'" class="formulate-cell" ui-sortable="sortableOptions.fields" ng-model="cell.fields">
+                                            <div ng-repeat="field in cell.fields" class="formulate-cell-field">
+                                                {{field.name}}
+                                            </div>
+                                        </div>
+
+                                        <!-- Show field summaries when editing rows. -->
+                                        <div ng-if="editor.mode === 'rows'" class="formulate-cell editing-rows">
+                                            <span ng-repeat="field in cell.fields" class="formulate-cell-field">
+                                                <span class="formulate-cell-field-name">{{field.name}}</span>
+                                            </span>
+                                            <div>
+                                                <button type="button" ng-click="actions.deleteRow(rowIndex)" ng-if="$index === 0" class="btn btn-danger">
+                                                    <localize key="formulate-buttons_Delete Row">
+                                                        Delete Row
+                                                    </localize>
+                                                </button>
+                                                <button type="button" ng-click="actions.addStep(rowIndex)" ng-if="$index === 0" class="btn btn-success">
+                                                    <localize key="formulate-buttons_Add Step">
+                                                        Add Step
+                                                    </localize>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Display a divider for a step. -->
+                                <div ng-if="row.isStep" class="formulate-step-divider">
+                                    <span class="formulate-step-divider__contents">
+                                        Step #{{row.stepNumber}}
+                                        <button ng-if="editor.mode === 'rows'" type="button" ng-click="actions.deleteRow(rowIndex)" class="btn btn-danger formulate-step-divider__delete" aria-label="Delete Row">
+                                            X
+                                        </button>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Unused fields. -->
+                        <div>
+                            <h2>
+                                <localize key="formulate-headers_Unused Fields">
+                                    Unused Fields
+                                </localize>
+                                <small>
+                                    <localize key="formulate-header-descriptions_Unused Fields">
+                                        These are the fields you are not using for this layout.
+                                    </localize>
+                                </small>
+                            </h2>
+
+                            <!-- Unused fields. -->
+                            <div class="formulate-cell" ui-sortable="sortableOptions.fields" ng-model="vm.unusedFields">
+                                <div ng-repeat="field in vm.unusedFields" class="formulate-cell-field">
+                                    <button type="button" class="btn btn-default formulate-btn-use" ng-click="actions.useField(field)">
+                                        <localize key="formulate-buttons_Use">
+                                            Use
+                                        </localize>
+                                    </button>
+                                    {{field.name}}
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-        </umb-box-content>
-    </umb-box>
+        </div>
+    </div>
 </div>

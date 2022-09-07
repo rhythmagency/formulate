@@ -13,8 +13,8 @@
     /// <summary>
     /// The Formulate layouts tree controller.
     /// </summary>
-    [Tree(FormulateSection.Constants.Alias, FormulateConstants.Trees.Layouts, TreeTitle = "Layouts", SortOrder = 1)]
-    [FormulateBackOfficePluginController]
+    //[Tree(FormulateSection.Constants.Alias, FormulateConstants.Trees.Layouts, TreeTitle = "Layouts", SortOrder = 1)]
+    //[FormulateBackOfficePluginController]
     public sealed class FormulateLayoutsTreeController : FormulateEntityTreeController
     {
         /// <summary>
