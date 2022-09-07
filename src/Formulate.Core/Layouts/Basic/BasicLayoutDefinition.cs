@@ -58,9 +58,9 @@ namespace Formulate.Core.Layouts.Basic
         }
 
         /// <inheritdoc />
-        public ILayout CreateLayout(PersistedLayout layout)
+        public ILayout CreateLayout(PersistedLayout entity)
         {
-            var config = _jsonUtility.Deserialize<BasicLayoutConfiguration>(layout.Data);
+            var config = _jsonUtility.Deserialize<BasicLayoutConfiguration>(entity.Data);
 
             if (config is null)
             {
@@ -69,10 +69,10 @@ namespace Formulate.Core.Layouts.Basic
 
             if (config.AutoPopulate == false)
             {
-                return new BasicLayout(layout, config);
+                return new BasicLayout(entity, config);
             }
 
-            var formId = layout.ParentId();
+            var formId = entity.ParentId();
 
             if (formId.HasValue == false)
             {
@@ -110,13 +110,13 @@ namespace Formulate.Core.Layouts.Basic
             };
 
 
-            return new BasicLayout(layout, autoPopulatedConfig);
+            return new BasicLayout(entity, autoPopulatedConfig);
         }
 
         /// <inheritdoc />
-        public object GetBackOfficeConfiguration(PersistedLayout layout)
+        public object GetBackOfficeConfiguration(PersistedLayout entity)
         {
-            var existingConfig = _jsonUtility.Deserialize<BasicLayoutConfiguration>(layout.Data);
+            var existingConfig = _jsonUtility.Deserialize<BasicLayoutConfiguration>(entity.Data);
 
             if (existingConfig is not null)
             {

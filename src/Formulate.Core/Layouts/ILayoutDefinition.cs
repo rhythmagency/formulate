@@ -10,11 +10,11 @@ namespace Formulate.Core.Layouts
         /// <summary>
         /// Creates a new instance of a <see cref="ILayout"/>.
         /// </summary>
-        /// <param name="settings">The current layout settings.</param>
+        /// <param name="entity">The current layout settings.</param>
         /// <returns>A <see cref="ILayout"/>.</returns>
-        ILayout CreateLayout(PersistedLayout settings);
+        ILayout CreateLayout(PersistedLayout entity);
 
         /// <inheritdoc />
-        public object GetBackOfficeConfiguration(PersistedLayout settings);
+        public object GetBackOfficeConfiguration(PersistedLayout entity);
     }
 }
