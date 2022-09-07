@@ -30,8 +30,6 @@ class FormulateLayoutEditor {
      * layout designer to render.
      */
     linkDirective = (scope, element) => {
-        console.log(scope.form);
-
         // Create directive.
         const markup = "<" + scope.directive + " data=\"data\" form=\"form\"></" + scope.directive + ">";
         const directive = this.$compile(markup)(scope);
