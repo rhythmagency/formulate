@@ -1,26 +1,26 @@
 ﻿namespace Formulate.Core.PropertyValueConverters
 {
-    using Formulate.Core.ConfiguredForms;
+    using Formulate.Core.Layouts;
     using Formulate.Core.Utilities;
     using System;
     using Umbraco.Cms.Core.Models.PublishedContent;
     using Umbraco.Cms.Core.PropertyEditors;
     using Umbraco.Extensions;
 
-    public sealed class ConfiguredFormPropertyValueConverter : PropertyValueConverterBase
+    public sealed class FormLayoutPropertyValueConverter : PropertyValueConverterBase
     {
-        private readonly IConfiguredFormEntityRepository _configuredFormEntityRepository;
-
         private readonly IJsonUtility _jsonUtility;
+
+        private readonly ILayoutEntityRepository _layoutEntityRepository;
 
         #region Constructors
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public ConfiguredFormPropertyValueConverter(IConfiguredFormEntityRepository configuredFormEntityRepository, IJsonUtility jsonUtility)
+        public FormLayoutPropertyValueConverter(ILayoutEntityRepository layoutEntityRepository, IJsonUtility jsonUtility)
         {
-            _configuredFormEntityRepository = configuredFormEntityRepository;
+            _layoutEntityRepository = layoutEntityRepository;
             _jsonUtility = jsonUtility;
         }
 
@@ -31,19 +31,19 @@
 
         public override Type GetPropertyValueType(IPublishedPropertyType propertyType)
         {
-            return typeof(ConfiguredForm);
+            return typeof(FormLayout);
         }
 
         public override object ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object source, bool preview)
         {
             if (source is string stringSource)
             {
-                var deserializedSource = _jsonUtility.Deserialize<ConfiguredFormPropertyValue>(stringSource);
+                var deserializedSource = _jsonUtility.Deserialize<FormLayoutPropertyValue>(stringSource);
 
                 return ConvertPickedConfiguredFormToObject(deserializedSource);
             }
 
-            if (source is ConfiguredFormPropertyValue pickedSource)
+            if (source is FormLayoutPropertyValue pickedSource)
             {
                 return ConvertPickedConfiguredFormToObject(pickedSource);
             }
@@ -51,14 +51,14 @@
             return default;
         }
 
-        private ConfiguredForm ConvertPickedConfiguredFormToObject(ConfiguredFormPropertyValue propertyValue)
+        private FormLayout ConvertPickedConfiguredFormToObject(FormLayoutPropertyValue propertyValue)
         {
             if (propertyValue is null)
             {
                 return default;
             }
 
-            var entity = _configuredFormEntityRepository.Get(propertyValue.Id);
+            var entity = _layoutEntityRepository.Get(propertyValue.Id);
 
             if (entity is null)
             {
@@ -66,18 +66,17 @@
             }
 
             // Return configuration.
-            return new ConfiguredForm()
+            return new FormLayout()
             {
-                Configuration = entity.Path[^1],
                 FormId = entity.Path[^2],
-                LayoutId = entity.LayoutId,
+                LayoutId = entity.Id,
                 TemplateId = entity.TemplateId
             };
         }
 
         public override bool IsConverter(IPublishedPropertyType propertyType)
         {
-            return "Formulate.ConfiguredFormPicker".InvariantEquals(propertyType.EditorAlias);
+            return "Formulate.FormLayoutPicker".InvariantEquals(propertyType.EditorAlias);
         }
 
         #endregion

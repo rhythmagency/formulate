@@ -4,6 +4,6 @@
 
     public interface IBuildPlainJavaScriptJson
     {
-        string Build(ConfiguredFormRenderModel renderModel, string containerId);
+        string Build(FormLayoutRenderModel renderModel, string containerId);
     }
 }

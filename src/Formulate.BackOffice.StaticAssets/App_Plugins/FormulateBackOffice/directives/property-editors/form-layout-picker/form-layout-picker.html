@@ -1,17 +1,17 @@
-<div ng-controller="Formulate.PropertyEditors.ConfiguredFormPicker">
+<div ng-controller="Formulate.PropertyEditors.FormLayoutPicker">
     <div ng-if="loaded">
         <umb-node-preview ng-if="vm.name"
-                          icon="'icon-formulate-conform'"
+                          icon="'icon-formulate-layout'"
                           name="vm.name"
                           allow-remove="true"
                           allow-open="false"
-                          on-remove="events.clearPickedForm()">
+                          on-remove="events.clearFormLayout()">
         </umb-node-preview>
 
         <button type="button"
                 class="umb-node-preview-add"
                 ng-if="!vm.name"
-                ng-click="events.pickConfiguredForm()">
+                ng-click="events.pickFormLayout()">
             <localize key="general_add">Add</localize>
         </button>
     </div>

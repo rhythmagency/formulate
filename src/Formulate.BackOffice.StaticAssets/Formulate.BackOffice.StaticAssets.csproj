@@ -89,11 +89,9 @@
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\rich-text\rich-text-field.editor.js" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\text-constant\text-constant-field.editor.html" />
       <None Remove="App_Plugins\FormulateBackOffice\directives\editors\formFields\text-constant\text-constant-field.editor.js" />
-      <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\form-picker\form-picker.html" />
-      <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\form-picker\form-picker.js" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\form-layout-picker\form-layout-picker.html" />
+      <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\form-layout-picker\form-layout-picker.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\dataValuesResource.js" />
-      <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\configured-form-picker\form-picker.html" />
-      <None Remove="App_Plugins\FormulateBackOffice\directives\property-editors\configured-form-picker\form-picker.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\definitionDirectiveResource.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\designerResource.js" />
       <None Remove="App_Plugins\FormulateBackOffice\resources\entityResource.js" />

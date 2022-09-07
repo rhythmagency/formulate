@@ -1,6 +1,6 @@
 ﻿namespace Formulate.Website.Components
 {
-    using Formulate.Core.ConfiguredForms;
+    using Formulate.Core.Layouts;
     using Formulate.Core.Templates;
     using Formulate.Website.Utilities;
     using Microsoft.AspNetCore.Html;
@@ -11,15 +11,15 @@
     public sealed class FormulateFormViewComponent : ViewComponent
     {
         private readonly TemplateDefinitionCollection _templateDefinitions;
-        private readonly IBuildConfiguredFormRenderModel _buildConfiguredFormRenderModel;
+        private readonly IBuildFormLayoutRenderModel _buildFormLayoutRenderModel;
 
-        public FormulateFormViewComponent(TemplateDefinitionCollection templateDefinitions, IBuildConfiguredFormRenderModel buildConfiguredFormRenderModel)
+        public FormulateFormViewComponent(TemplateDefinitionCollection templateDefinitions, IBuildFormLayoutRenderModel buildFormLayoutRenderModel)
         {
             _templateDefinitions = templateDefinitions;
-            _buildConfiguredFormRenderModel = buildConfiguredFormRenderModel;
+            _buildFormLayoutRenderModel = buildFormLayoutRenderModel;
         }
 
-        public IViewComponentResult Invoke(ConfiguredForm model)
+        public IViewComponentResult Invoke(FormLayout model)
         {
             if (model is null)
             {
@@ -33,7 +33,7 @@
                 return EmptyResult();
             }
 
-            var renderModel = _buildConfiguredFormRenderModel.Build(model);
+            var renderModel = _buildFormLayoutRenderModel.Build(model);
 
             if (renderModel is null)
             {

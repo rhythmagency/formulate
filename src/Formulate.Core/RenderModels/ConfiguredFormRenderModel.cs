@@ -4,9 +4,9 @@ namespace Formulate.Core.RenderModels
 {
     using Formulate.Core.Layouts;
 
-    public sealed class ConfiguredFormRenderModel
+    public sealed class FormLayoutRenderModel
     {
-        public ConfiguredFormRenderModel(FormRenderModel form, ILayout layout)
+        public FormLayoutRenderModel(FormRenderModel form, ILayout layout)
         {
             Form = form;
             Layout = layout;

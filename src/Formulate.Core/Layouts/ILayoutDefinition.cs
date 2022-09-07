@@ -12,9 +12,9 @@ namespace Formulate.Core.Layouts
         /// </summary>
         /// <param name="settings">The current layout settings.</param>
         /// <returns>A <see cref="ILayout"/>.</returns>
-        ILayout CreateLayout(ILayoutSettings settings);
+        ILayout CreateLayout(PersistedLayout settings);
 
         /// <inheritdoc />
-        public object GetBackOfficeConfiguration(ILayoutSettings settings);
+        public object GetBackOfficeConfiguration(PersistedLayout settings);
     }
 }

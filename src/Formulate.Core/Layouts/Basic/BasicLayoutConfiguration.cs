@@ -17,12 +17,6 @@
         public bool AutoPopulate { get; set; }
 
         /// <summary>
-        /// Gets the form ID.
-        /// </summary>
-        [DataMember(Name = "formId")]
-        public Guid? FormId { get; set; }
-
-        /// <summary>
         /// Gets the rows.
         /// </summary>
         [DataMember(Name = "rows")]

@@ -24,16 +24,16 @@ namespace Formulate.Core.Layouts
 
         /// <inheritdoc />
         /// <exception cref="ArgumentNullException">The provided settings are null.</exception>
-        public ILayout Create(ILayoutSettings settings)
+        public ILayout Create(PersistedLayout layout)
         {
-            if (settings is null)
+            if (layout is null)
             {
-                throw new ArgumentNullException(nameof(settings));
+                throw new ArgumentNullException(nameof(layout));
             }
 
-            var foundLayoutDefinition = _layoutDefinitions.FirstOrDefault(settings.KindId);
+            var foundLayoutDefinition = _layoutDefinitions.FirstOrDefault(layout.KindId);
 
-            return foundLayoutDefinition?.CreateLayout(settings);
+            return foundLayoutDefinition?.CreateLayout(layout);
         }
     }
 }

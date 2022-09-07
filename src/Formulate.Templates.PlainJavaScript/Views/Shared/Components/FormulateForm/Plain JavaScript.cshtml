@@ -1,5 +1,5 @@
 ﻿@inject Formulate.Templates.PlainJavaScript.IBuildPlainJavaScriptJson buildJson;
-@model Formulate.Core.RenderModels.ConfiguredFormRenderModel
+@model Formulate.Core.RenderModels.FormLayoutRenderModel
 @{
     var randomFormId = Guid.NewGuid().ToString("N");
     var json = buildJson.Build(Model, randomFormId);

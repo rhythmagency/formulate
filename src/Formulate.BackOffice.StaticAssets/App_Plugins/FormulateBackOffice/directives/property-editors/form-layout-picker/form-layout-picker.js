@@ -1,8 +1,8 @@
 /**
- * The class for the configured form picker property editor, which allows
- * a user to pick a configured form.
+ * The class for the form picker property editor, which allows
+ * a user to pick a form layout.
  */
-class ConfiguredFormPicker {
+class FormLayoutPicker {
 
     // Properties.
     $scope;
@@ -42,10 +42,10 @@ class ConfiguredFormPicker {
         this.$scope.loaded = false;
         this.$scope.vm = {};
         if (this.$scope.model.value && this.$scope.model.value.id) {
-            const baseUrl = this.formulateVars.ConfiguredForms.Get;
+            const baseUrl = this.formulateVars.Forms.Get;
             const url = `${baseUrl}?id=${this.$scope.model.value.id}`;
 
-            // Get the configured form name.
+            // Get the form layout name.
             this.$http.get(url).then(response => {
                 const { name, id } = response.data;
 
@@ -66,21 +66,21 @@ class ConfiguredFormPicker {
     registerController = () => {
         angular
             .module('umbraco')
-            .controller('Formulate.PropertyEditors.ConfiguredFormPicker', this.controller);
+            .controller('Formulate.PropertyEditors.FormLayoutPicker', this.controller);
     };
 
     /**
-     * Deselects the currently selected configured form.
+     * Deselects the currently selected form layout.
      */
-    clearPickedForm = () => {
+    clearFormLayout = () => {
         this.$scope.vm = {};
         this.$scope.model.value = {};
     };
 
     /**
-     * Opens the form chooser dialog.
+     * Opens the form layout chooser dialog.
      */
-    pickConfiguredForm = () => {
+    pickFormLayout = () => {
 
         // This is called when the dialog is closed.
         const closer = () => {
@@ -100,15 +100,15 @@ class ConfiguredFormPicker {
             this.editorService.close();
         };
 
-        // The configuration for the tree that allows the configured
-        // form to be chosen.
+        // The configuration for the tree that allows the
+        // form layout to be chosen.
         const config = {
             section: 'formulate',
             treeAlias: 'forms',
             multiPicker: false,
-            entityType: 'ConfiguredForm',
+            entityType: 'Layout',
             filter: (node) => {
-                return node.nodeType !== 'ConfiguredForm';
+                return node.nodeType !== 'Layout';
             },
             filterCssClass: 'not-allowed',
             select: chosen,
@@ -124,5 +124,5 @@ class ConfiguredFormPicker {
 }
 
 // Initialize.
-const picker = new ConfiguredFormPicker();
+const picker = new FormLayoutPicker();
 picker.registerController();

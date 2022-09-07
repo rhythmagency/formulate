@@ -1,13 +1,12 @@
 ﻿namespace Formulate.Website.Utilities
 {
-    using Formulate.Core.ConfiguredForms;
     using Formulate.Core.FormFields;
     using Formulate.Core.Forms;
     using Formulate.Core.Layouts;
     using Formulate.Core.RenderModels;
     using Formulate.Website.RenderModels;
 
-    public sealed class BuildConfiguredFormRenderModel : IBuildConfiguredFormRenderModel
+    public sealed class BuildFormLayoutRenderModel : IBuildFormLayoutRenderModel
     {
         private readonly IFormEntityRepository _formEntityRepository;
         private readonly IFormFieldFactory _formFieldFactory;
@@ -16,7 +15,7 @@
         private readonly ILayoutEntityRepository _layoutEntityRepository;
         private readonly ILayoutFactory _layoutFactory;
 
-        public BuildConfiguredFormRenderModel(IFormEntityRepository formEntityRepository, IFormFieldFactory formFieldFactory, FormFieldDefinitionCollection formFieldDefinitions, ILayoutEntityRepository layoutEntityRepository, ILayoutFactory layoutFactory)
+        public BuildFormLayoutRenderModel(IFormEntityRepository formEntityRepository, IFormFieldFactory formFieldFactory, FormFieldDefinitionCollection formFieldDefinitions, ILayoutEntityRepository layoutEntityRepository, ILayoutFactory layoutFactory)
         {
             _formEntityRepository = formEntityRepository;
             _formFieldFactory = formFieldFactory;
@@ -26,17 +25,17 @@
             _layoutFactory = layoutFactory;
         }
 
-        public ConfiguredFormRenderModel? Build(ConfiguredForm configuredForm)
+        public FormLayoutRenderModel? Build(FormLayout formLayout)
         {
-            var form = BuildForm(configuredForm.FormId);
-            var layout = BuildLayout(configuredForm.LayoutId);
+            var form = BuildForm(formLayout.FormId);
+            var layout = BuildLayout(formLayout.LayoutId);
             
             if (form is null || layout is null)
             {
                 return default;
             }
 
-            return new ConfiguredFormRenderModel(form, layout);
+            return new FormLayoutRenderModel(form, layout);
         }
 
         private ILayout? BuildLayout(Guid? layoutId)

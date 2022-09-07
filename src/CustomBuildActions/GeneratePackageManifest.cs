@@ -44,11 +44,11 @@ internal class GeneratePackageManifest
             {
                 new
                 {
-                    alias = "Formulate.ConfiguredFormPicker",
-                    name = "Formulate Form Picker",
+                    alias = "Formulate.FormLayoutPicker",
+                    name = "Formulate Form Layout Picker",
                     editor = new
                     {
-                        view = "/App_Plugins/FormulateBackOffice/directives/property-editors/configured-form-picker/form-picker.html",
+                        view = "/App_Plugins/FormulateBackOffice/directives/property-editors/form-layout-picker/form-layout-picker.html",
                         valueType = "JSON",
                     },
                 },

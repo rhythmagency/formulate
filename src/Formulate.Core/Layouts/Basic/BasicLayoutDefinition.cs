@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using Formulate.Core.Forms;
+using Formulate.Core.Persistence;
 using Formulate.Core.Utilities;
 
 namespace Formulate.Core.Layouts.Basic
@@ -8,6 +11,7 @@ namespace Formulate.Core.Layouts.Basic
     /// </summary>
     public sealed class BasicLayoutDefinition : ILayoutDefinition
     {
+        private readonly IFormEntityRepository _formEntityRepository;
         private readonly IJsonUtility _jsonUtility;
 
         /// <summary>
@@ -39,7 +43,7 @@ namespace Formulate.Core.Layouts.Basic
 
         /// <inheritdoc />
         public string Directive => Constants.Directive;
-        
+
         /// <inheritdoc />
         public bool IsLegacy => false;
 
@@ -47,23 +51,72 @@ namespace Formulate.Core.Layouts.Basic
         /// 
         /// </summary>
         /// <param name="jsonUtility"></param>
-        public BasicLayoutDefinition(IJsonUtility jsonUtility)
+        public BasicLayoutDefinition(IFormEntityRepository formEntityRepository, IJsonUtility jsonUtility)
         {
+            _formEntityRepository = formEntityRepository;
             _jsonUtility = jsonUtility;
         }
 
         /// <inheritdoc />
-        public ILayout CreateLayout(ILayoutSettings settings)
+        public ILayout CreateLayout(PersistedLayout layout)
         {
-            var config = _jsonUtility.Deserialize<BasicLayoutConfiguration>(settings.Data);
+            var config = _jsonUtility.Deserialize<BasicLayoutConfiguration>(layout.Data);
 
-            return new BasicLayout(settings, config);
+            if (config is null)
+            {
+                return default;
+            }
+
+            if (config.AutoPopulate == false)
+            {
+                return new BasicLayout(layout, config);
+            }
+
+            var formId = layout.ParentId();
+
+            if (formId.HasValue == false)
+            {
+                return default;
+            }
+
+            var form = _formEntityRepository.Get(formId.Value);
+
+            if (form is null)
+            {
+                return default;
+            }
+
+            var autoPopulatedConfig = new BasicLayoutConfiguration()
+            {
+                AutoPopulate = true,
+                Rows = new[] 
+                {
+                    new BasicLayoutRow()
+                    {
+                        Cells = new [] 
+                        { 
+                            new BasicLayoutCell()
+                            {
+                                ColumnSpan = 12,
+                                Fields = form.Fields.Select(x=> new BasicLayoutField()
+                                {
+                                    Id = x.Id,
+                                }).ToArray(),
+                            }
+                        },
+                        IsStep = false
+                    }
+                }
+            };
+
+
+            return new BasicLayout(layout, autoPopulatedConfig);
         }
 
         /// <inheritdoc />
-        public object GetBackOfficeConfiguration(ILayoutSettings settings)
+        public object GetBackOfficeConfiguration(PersistedLayout layout)
         {
-            var existingConfig = _jsonUtility.Deserialize<BasicLayoutConfiguration>(settings.Data);
+            var existingConfig = _jsonUtility.Deserialize<BasicLayoutConfiguration>(layout.Data);
 
             if (existingConfig is not null)
             {
@@ -73,7 +126,7 @@ namespace Formulate.Core.Layouts.Basic
             return new BasicLayoutConfiguration()
             {
                 AutoPopulate = false
-            };            
+            };
         }
     }
 }

@@ -34,12 +34,12 @@ namespace Formulate.Core.Tests.LayoutTests
 
             public bool IsLegacy => false;
 
-            public ILayout CreateLayout(ILayoutSettings settings)
+            public ILayout CreateLayout(PersistedLayout settings)
             {
                 return new TestLayout(settings);
             }
 
-            public object GetBackOfficeConfiguration(ILayoutSettings settings)
+            public object GetBackOfficeConfiguration(PersistedLayout settings)
             {
                 throw new NotImplementedException();
             }

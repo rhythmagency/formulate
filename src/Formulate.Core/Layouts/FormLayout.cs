@@ -1,14 +1,12 @@
-﻿namespace Formulate.Core.ConfiguredForms
+﻿namespace Formulate.Core.Layouts
 {
     using System;
 
     /// <summary>
     /// A configured form used by the front end.
     /// </summary>
-    public sealed class ConfiguredForm
+    public sealed class FormLayout
     {
-        public Guid Configuration { get; init; }
-
         public Guid FormId { get; init; }
 
         public Guid? LayoutId { get; init; }
