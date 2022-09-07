@@ -139,7 +139,7 @@ namespace Formulate.Core.Persistence
             }
 
             // Return entities under folder.
-            return entities.Where(x => x.Path[^2] == parentId).ToArray();
+            return entities.Where(x => x.ParentId() == parentId).ToArray();
         }
 
         /// <summary>
