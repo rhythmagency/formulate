@@ -45,12 +45,12 @@
         /// <inheritdoc />
         public override string Icon => Constants.Icon;
 
-        public override IDataValues CreateDataValues(IDataValuesSettings settings)
+        public override IDataValues CreateDataValues(PersistedDataValues entity)
         {
             return default;
         }
 
-        public override object GetBackOfficeConfiguration(IDataValuesSettings settings)
+        public override object GetBackOfficeConfiguration(PersistedDataValues entity)
         {
             return default;
         }

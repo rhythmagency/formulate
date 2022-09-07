@@ -8,15 +8,15 @@
 
     public partial class DataValuesFactoryTests
     {
-        [Fact(DisplayName = "When no settings provided should throw an Argument Null Exception")]
+        [Fact(DisplayName = "When no entity provided should throw an Argument Null Exception")]
         public void WhenNoSettingsProvidedShouldThrowArgumentNullException()
         {
             // arrange
             var factory = CreateFactory();
-            TestDataValuesSettings settings = default;
+            PersistedDataValues entity = default;
 
             // act / asset
-            Assert.Throws<ArgumentNullException>(() =>  factory.Create(settings));
+            Assert.Throws<ArgumentNullException>(() =>  factory.Create(entity));
         }
 
         [Fact(DisplayName = "When no KindId matches should return Default")]
@@ -24,13 +24,13 @@
         {
             // arrange
             var factory = CreateFactory();
-            var settings = new TestDataValuesSettings()
+            var entity = new PersistedDataValues()
             {
                 KindId = Guid.Parse(Constants.MissingDataValuesKindId)
             };
 
             // act
-            var formField = factory.Create(settings);
+            var formField = factory.Create(entity);
 
             // assert
             Assert.Equal(default, formField);
@@ -41,13 +41,13 @@
         {
             // arrange
             var factory = CreateFactory();
-            var settings = new TestDataValuesSettings()
+            var entity = new PersistedDataValues()
             {
                 KindId = Guid.Parse(Constants.TestDataValuesKindId)
             };
 
             // act
-            var formField = factory.Create(settings);
+            var formField = factory.Create(entity);
 
             // assert
             Assert.IsType<TestDataValues>(formField);

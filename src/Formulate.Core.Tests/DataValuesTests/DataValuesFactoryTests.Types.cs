@@ -32,12 +32,12 @@
 
             public override string Icon => "icon-test";
 
-            public override IDataValues CreateDataValues(IDataValuesSettings settings)
+            public override IDataValues CreateDataValues(PersistedDataValues entity)
             {
-                return new TestDataValues(settings, new List<KeyValuePair<string, string>>());
+                return new TestDataValues(entity, new List<KeyValuePair<string, string>>());
             }
 
-            public override object GetBackOfficeConfiguration(IDataValuesSettings settings)
+            public override object GetBackOfficeConfiguration(PersistedDataValues entity)
             {
                 return default;
             }

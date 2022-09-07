@@ -24,21 +24,21 @@
         }
 
         /// <inheritdoc />
-        public IDataValues Create(IDataValuesSettings settings)
+        public IDataValues Create(PersistedDataValues entity)
         {
-            if (settings is null)
+            if (entity is null)
             {
-                throw new ArgumentNullException(nameof(settings));
+                throw new ArgumentNullException(nameof(entity));
             }
 
-            var foundDataValuesDefinition = _dataValuesDefinitions.FirstOrDefault(settings.KindId);
+            var foundDataValuesDefinition = _dataValuesDefinitions.FirstOrDefault(entity.KindId);
 
             if (foundDataValuesDefinition is null)
             {
                 return default;
             }
 
-            return foundDataValuesDefinition.CreateDataValues(settings);
+            return foundDataValuesDefinition.CreateDataValues(entity);
         }
     }
 }

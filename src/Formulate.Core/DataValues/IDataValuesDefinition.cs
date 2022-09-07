@@ -16,15 +16,15 @@
         /// <summary>
         /// Creates a <see cref="IDataValues"/>.
         /// </summary>
-        /// <param name="settings">
-        /// The current settings.
+        /// <param name="entity">
+        /// The current entity.
         /// </param>
         /// <returns>
         /// A <see cref="IDataValues"/>.
         /// </returns>
-        IDataValues CreateDataValues(IDataValuesSettings settings);
+        IDataValues CreateDataValues(PersistedDataValues entity);
 
         /// <inheritdoc />
-        public object GetBackOfficeConfiguration(IDataValuesSettings settings);
+        public object GetBackOfficeConfiguration(PersistedDataValues entity);
     }
 }

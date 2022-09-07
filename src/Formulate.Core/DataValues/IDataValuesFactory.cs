@@ -7,7 +7,7 @@
     /// Creates a <see cref="IDataValues"/>.
     /// </summary>
     public interface IDataValuesFactory
-        : IEntityFactory<IDataValuesSettings, IDataValues>
+        : IEntityFactory<PersistedDataValues, IDataValues>
     {
     }
 }

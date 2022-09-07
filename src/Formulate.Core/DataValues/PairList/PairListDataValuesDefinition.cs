@@ -64,22 +64,22 @@
         }
 
         /// <inheritdoc />
-        public override IDataValues CreateDataValues(IDataValuesSettings settings)
+        public override IDataValues CreateDataValues(PersistedDataValues entity)
         {
             var items = new List<KeyValuePair<string, string>>();
-            var preValues = _jsonUtility.Deserialize<PairListDataValuesPreValues>(settings.Data);
+            var preValues = _jsonUtility.Deserialize<PairListDataValuesPreValues>(entity.Data);
 
             if (preValues is not null)
             {
                 items.AddRange(preValues.Items.Select(x => new KeyValuePair<string, string>(x.Secondary, x.Primary)).ToArray());
             }
 
-            return new DataValues(settings, items);
+            return new DataValues(entity, items);
         }
 
-        public override object GetBackOfficeConfiguration(IDataValuesSettings settings)
+        public override object GetBackOfficeConfiguration(PersistedDataValues entity)
         {
-            var preValues = _jsonUtility.Deserialize<PairListDataValuesPreValues>(settings.Data);
+            var preValues = _jsonUtility.Deserialize<PairListDataValuesPreValues>(entity.Data);
 
             if (preValues is not null)
             {

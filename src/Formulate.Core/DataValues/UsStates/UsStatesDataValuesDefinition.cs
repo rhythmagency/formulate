@@ -48,7 +48,7 @@
         public override string Icon => Constants.Icon;
 
         /// <inheritdoc />
-        public override IDataValues CreateDataValues(IDataValuesSettings settings)
+        public override IDataValues CreateDataValues(PersistedDataValues entity)
         {
             var items = new KeyValuePair<string, string>[]
             {
@@ -110,10 +110,10 @@
                 new("Wyoming", "WY")
             };
 
-            return new DataValues(settings, items);
+            return new DataValues(entity, items);
         }
 
-        public override object GetBackOfficeConfiguration(IDataValuesSettings settings)
+        public override object GetBackOfficeConfiguration(PersistedDataValues entity)
         {
             return default;
         }

@@ -24,9 +24,9 @@
         public virtual bool IsLegacy => false;
 
         /// <inheritdoc />
-        public abstract IDataValues CreateDataValues(IDataValuesSettings settings);
+        public abstract IDataValues CreateDataValues(PersistedDataValues entity);
 
         /// <inheritdoc />
-        public abstract object GetBackOfficeConfiguration(IDataValuesSettings settings);
+        public abstract object GetBackOfficeConfiguration(PersistedDataValues entity);
     }
 }
