@@ -36,12 +36,12 @@ namespace Formulate.Core.Tests.ValidationTests
 
             public bool IsLegacy => false;
 
-            public Validation CreateValidation(IValidationSettings settings)
+            public Validation CreateValidation(PersistedValidation entity)
             {
-                return new TestValidation(settings);
+                return new TestValidation(entity);
             }
 
-            public object GetBackOfficeConfiguration(IValidationSettings settings)
+            public object GetBackOfficeConfiguration(PersistedValidation entity)
             {
                 return null;
             }

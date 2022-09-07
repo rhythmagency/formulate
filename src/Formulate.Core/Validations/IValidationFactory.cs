@@ -5,7 +5,7 @@ namespace Formulate.Core.Validations
     /// <summary>
     /// Creates a <see cref="IValidation"/>.
     /// </summary>
-    public interface IValidationFactory : IEntityFactory<IValidationSettings, IValidation>
+    public interface IValidationFactory : IEntityFactory<PersistedValidation, IValidation>
     {
     }
 }

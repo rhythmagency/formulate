@@ -49,22 +49,22 @@ namespace Formulate.Core.Validations.Mandatory
         public bool IsLegacy => false;
 
         /// <inheritdoc />
-        public Validation CreateValidation(IValidationSettings settings)
+        public Validation CreateValidation(PersistedValidation entity)
         {
-            var config = _jsonUtility.Deserialize<MandatoryValidationConfiguration>(settings.Data);
+            var config = _jsonUtility.Deserialize<MandatoryValidationConfiguration>(entity.Data);
 
             if (config is null)
             {
                 config = new MandatoryValidationConfiguration();
             }
 
-            return new MandatoryValidation(settings, config);
+            return new MandatoryValidation(entity, config);
         }
 
         /// <inheritdoc />
-        public object GetBackOfficeConfiguration(IValidationSettings settings)
+        public object GetBackOfficeConfiguration(PersistedValidation entity)
         {
-            var config = _jsonUtility.Deserialize<MandatoryValidationConfiguration>(settings.Data);
+            var config = _jsonUtility.Deserialize<MandatoryValidationConfiguration>(entity.Data);
 
             if (config is null)
             {

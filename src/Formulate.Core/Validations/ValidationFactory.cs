@@ -25,7 +25,7 @@
 
         /// <inheritdoc />
         /// <exception cref="ArgumentNullException">The provided settings are null.</exception>
-        public IValidation Create(IValidationSettings settings)
+        public IValidation Create(PersistedValidation settings)
         {
             if (settings is null)
             {

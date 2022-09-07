@@ -52,15 +52,15 @@ namespace Formulate.Core.Validations.Regex
         public bool IsLegacy => false;
 
         /// <inheritdoc />
-        public Validation CreateValidation(IValidationSettings settings)
+        public Validation CreateValidation(PersistedValidation entity)
         {
-            return new RegexValidation(settings, new RegexValidationConfiguration());
+            return new RegexValidation(entity, new RegexValidationConfiguration());
         }
 
         /// <inheritdoc />
-        public object GetBackOfficeConfiguration(IValidationSettings settings)
+        public object GetBackOfficeConfiguration(PersistedValidation entity)
         {
-            var config = _jsonUtility.Deserialize<RegexValidationConfiguration>(settings.Data);
+            var config = _jsonUtility.Deserialize<RegexValidationConfiguration>(entity.Data);
 
             if (config is null)
             {

@@ -11,20 +11,20 @@
         /// <summary>
         /// Creates a new instance of a <see cref="IValidation"/>.
         /// </summary>
-        /// <param name="settings">The current validation settings.</param>
+        /// <param name="entity">The current entity.</param>
         /// <returns>A <see cref="IValidation"/>.</returns>
-        Validation CreateValidation(IValidationSettings settings);
+        Validation CreateValidation(PersistedValidation entity);
 
         /// <summary>
         /// Creates an instance of the configuration needed by the back
         /// office.
         /// </summary>
-        /// <param name="settings">
-        /// The current validation settings.
+        /// <param name="entity">
+        /// The current entity.
         /// </param>
         /// <returns>
         /// The configuration.
         /// </returns>
-        object GetBackOfficeConfiguration(IValidationSettings settings);
+        object GetBackOfficeConfiguration(PersistedValidation entity);
     }
 }

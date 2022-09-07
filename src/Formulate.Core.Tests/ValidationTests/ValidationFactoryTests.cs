@@ -7,15 +7,15 @@ namespace Formulate.Core.Tests.ValidationTests
 {
     public partial class ValidationFactoryTests
     {
-        [Fact(DisplayName = "When no settings provided should throw an Argument Null Exception")]
+        [Fact(DisplayName = "When no entity provided should throw an Argument Null Exception")]
         public void WhenNoSettingsProvidedShouldThrowArgumentNullException()
         {
             // arrange
             var factory = CreateFactory();
-            TestValidationSettings settings = default;
+            PersistedValidation entity = default;
 
             // act / asset
-            Assert.Throws<ArgumentNullException>(() => factory.Create(settings));
+            Assert.Throws<ArgumentNullException>(() => factory.Create(entity));
         }
 
         [Fact(DisplayName = "When no KindId matches should return Default")]
@@ -23,13 +23,13 @@ namespace Formulate.Core.Tests.ValidationTests
         {
             // arrange
             var factory = CreateFactory();
-            var settings = new TestValidationSettings()
+            var entity = new PersistedValidation()
             {
                 KindId = Guid.Parse(Constants.MissingValidationKindId)
             };
 
             // act
-            var validation = factory.Create(settings);
+            var validation = factory.Create(entity);
 
             // assert
             Assert.Equal(default, validation);
@@ -40,13 +40,13 @@ namespace Formulate.Core.Tests.ValidationTests
         {
             // arrange
             var factory = CreateFactory();
-            var settings = new TestValidationSettings()
+            var entity = new PersistedValidation()
             {
                 KindId = Guid.Parse(Constants.TestValidationKindId)
             };
 
             // act
-            var validation = factory.Create(settings);
+            var validation = factory.Create(entity);
 
             // assert
             Assert.IsType<TestValidation>(validation);
