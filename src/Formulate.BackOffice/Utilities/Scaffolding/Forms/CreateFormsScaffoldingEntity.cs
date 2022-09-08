@@ -11,6 +11,13 @@
 
     public sealed class CreateFormsScaffoldingEntity : ICreateFormsScaffoldingEntity
     {
+        private readonly IGetDefaultTemplateId _getDefaultTemplateId;
+
+        public CreateFormsScaffoldingEntity(IGetDefaultTemplateId getDefaultTemplateId)
+        {
+            _getDefaultTemplateId = getDefaultTemplateId;
+        }
+
         public IPersistedEntity? Create(CreateFormsScaffoldingEntityInput input)
         {
             var parent = input.Parent;
@@ -54,7 +61,8 @@
                 {
                     Id = id,
                     Path = entityPath.ToArray(),
-                    KindId = input.KindId.Value
+                    KindId = input.KindId.Value,
+                    TemplateId = _getDefaultTemplateId.GetValue()
                 };
             }
 
