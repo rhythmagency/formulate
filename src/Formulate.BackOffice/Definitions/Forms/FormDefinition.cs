@@ -14,8 +14,6 @@ namespace Formulate.BackOffice.Definitions.Forms
 
         public abstract string Name { get; }
 
-        public string Directive => string.Empty;
-
         public virtual bool IsLegacy => false;
 
         public virtual int SortOrder => 0;
