@@ -10,6 +10,7 @@ using Umbraco.Extensions;
 using System.Collections.Generic;
 using Formulate.BackOffice.Definitions.Forms;
 using Formulate.Core.Types;
+using Formulate.BackOffice.Utilities;
 
 namespace Formulate.BackOffice.NotificationHandlers
 {
@@ -23,12 +24,15 @@ namespace Formulate.BackOffice.NotificationHandlers
 
         private readonly IShortStringHelper _shortStringHelper;
 
-        public FormSavedWithBasicLayoutNotificationHandler(FormDefinitionCollection formDefinitions, IShortStringHelper shortStringHelper, ILayoutEntityRepository layoutEntityRepository, IJsonUtility jsonUtility)
+        private readonly IGetDefaultTemplateId _getDefaultTemplateId;
+
+        public FormSavedWithBasicLayoutNotificationHandler(FormDefinitionCollection formDefinitions, IShortStringHelper shortStringHelper, ILayoutEntityRepository layoutEntityRepository, IJsonUtility jsonUtility, IGetDefaultTemplateId getDefaultTemplateId)
         {
             _formDefinitions = formDefinitions;
             _shortStringHelper = shortStringHelper;
             _layoutEntityRepository = layoutEntityRepository;
             _jsonUtility = jsonUtility;
+            _getDefaultTemplateId = getDefaultTemplateId;
         }
 
         public void Handle(EntitySavedNotification<PersistedForm> notification)
@@ -63,7 +67,7 @@ namespace Formulate.BackOffice.NotificationHandlers
                 Id = layoutId,
                 Path = layoutPath.ToArray(),
                 KindId = Guid.Parse(BasicLayoutDefinition.Constants.KindId),
-                TemplateId = Guid.Parse("F3FB1485C1D14806B4190D7ABDE39530"), // replace with config value.
+                TemplateId = _getDefaultTemplateId.GetValue(),
                 Name = layoutName,
                 Alias = layoutAlias,
                 Data = _jsonUtility.Serialize(config)
