@@ -12,7 +12,7 @@
     {
         public void Compose(IUmbracoBuilder builder)
         {
-            builder.TemplateDefinitions().Add<PlainJavaScriptTemplateDefinition>();
+            builder.TemplateDefinitions().Append<PlainJavaScriptTemplateDefinition>();
             builder.Services.AddSingleton<IBuildPlainJavaScriptJson, BuildPlainJavaScriptJson>();
 
             builder.MapDefinitions().Add<DefaultFormFieldMapDefinition>();
