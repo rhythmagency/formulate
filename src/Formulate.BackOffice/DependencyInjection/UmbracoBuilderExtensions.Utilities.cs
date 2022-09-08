@@ -71,6 +71,8 @@
             builder.Services.AddScoped<IGetFormHandlerOptions, GetFormHandlerOptions>();
             builder.Services.AddScoped<IGetFormHandlerScaffolding, GetFormHandlerScaffolding>();
 
+            builder.Services.AddSingleton<IGetDefaultTemplateId, GetDefaultTemplateId>();
+
             return builder;
         }
     }
