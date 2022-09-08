@@ -3,7 +3,7 @@
 namespace Formulate.Core.Types
 {
     using System;
-    
+
     /// <summary>
     /// The underlying definition for other definitions identified by a kind ID.
     /// </summary>
@@ -18,11 +18,6 @@ namespace Formulate.Core.Types
         /// Gets the name.
         /// </summary>
         string Name { get; }
-
-        /// <summary>
-        /// Gets the directive.
-        /// </summary>
-        string Directive { get; }
 
         /// <summary>
         /// Gets if this is a legacy definition.
