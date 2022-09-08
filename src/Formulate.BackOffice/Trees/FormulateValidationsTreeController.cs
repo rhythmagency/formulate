@@ -14,7 +14,7 @@
     /// <summary>
     /// The Formulate validations tree controller.
     /// </summary>
-    [Tree(FormulateSection.Constants.Alias, FormulateConstants.Trees.Validations, TreeTitle = "Validation Library", SortOrder = 3)]
+    [Tree(FormulateSection.Constants.Alias, FormulateConstants.Trees.Validations, TreeTitle = "Validation Library", TreeGroup = FormulateConstants.TreeGroups.Shared, SortOrder = 3)]
     [FormulateBackOfficePluginController]
     public sealed class FormulateValidationsTreeController : FormulateEntityTreeController
     {

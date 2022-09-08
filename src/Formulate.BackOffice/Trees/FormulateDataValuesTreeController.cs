@@ -12,7 +12,7 @@
     /// <summary>
     /// The Formulate data values tree controller.
     /// </summary>
-    [Tree(FormulateSection.Constants.Alias, FormulateConstants.Trees.DataValues, TreeTitle = "Data Values", SortOrder = 2)]
+    [Tree(FormulateSection.Constants.Alias, FormulateConstants.Trees.DataValues, TreeTitle = "Data Values", TreeGroup = FormulateConstants.TreeGroups.Shared, SortOrder = 2)]
     [FormulateBackOfficePluginController]
     public sealed class FormulateDataValuesTreeController : FormulateEntityTreeController
     {

@@ -3,6 +3,12 @@
   <area alias="sections">
     <key alias="formulate">Formulate</key>
   </area>
+  
+  <area alias="treeGroups">
+    <key alias="content">Content</key>
+    <key alias="shared">Shared</key>
+  </area>
+
   <area alias="formulate-buttons">
     <key alias="Save">Save</key>
   </area>

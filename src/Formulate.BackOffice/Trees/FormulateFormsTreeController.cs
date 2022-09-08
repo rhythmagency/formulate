@@ -12,7 +12,7 @@
     /// <summary>
     /// The Formulate forms tree controller.
     /// </summary>
-    [Tree(FormulateSection.Constants.Alias, FormulateConstants.Trees.Forms, TreeTitle = "Forms", SortOrder = 0)]
+    [Tree(FormulateSection.Constants.Alias, FormulateConstants.Trees.Forms, TreeTitle = "Forms", TreeGroup = FormulateConstants.TreeGroups.Content, SortOrder = 0)]
     [FormulateBackOfficePluginController]
     public sealed class FormulateFormsTreeController : FormulateEntityTreeController
     {
