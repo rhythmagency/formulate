@@ -44,9 +44,7 @@
 
             options.AddFolderOption(_folderIcon);
 
-            var formDefinitions = _formDefinitions.OrderBy(x => x.SortOrder).ThenBy(x => x.Name).ToArray();
-
-            foreach(var definition in formDefinitions)
+            foreach(var definition in _formDefinitions)
             {
                 options.Add(new CreateChildEntityOption()
                 {

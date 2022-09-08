@@ -9,7 +9,5 @@
         public override string Name => "Form";
 
         public override string Description => "Creates a form without a layout. A layout can be added after a form is saved.";
-
-        public override int SortOrder => int.MaxValue;
     }
 }

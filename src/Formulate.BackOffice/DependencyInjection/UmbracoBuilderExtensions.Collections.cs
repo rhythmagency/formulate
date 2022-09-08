@@ -7,8 +7,8 @@
     {
         private static void AddFormDefinitions(this IUmbracoBuilder builder)
         {
-            builder.FormDefinitions().Add<DefaultFormLayoutDefinition>();
-            builder.FormDefinitions().Add<FormWithBasicLayoutDefinition>();
+            builder.FormDefinitions().Append<FormWithBasicLayoutDefinition>();
+            builder.FormDefinitions().Append<DefaultFormLayoutDefinition>();
         }
 
         /// <summary>

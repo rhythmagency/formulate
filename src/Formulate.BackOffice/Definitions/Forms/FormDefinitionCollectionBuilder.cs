@@ -5,7 +5,7 @@
 
     /// <inheritdoc />
     public sealed class FormDefinitionCollectionBuilder
-        : LazyCollectionBuilderBase<
+        : OrderedCollectionBuilderBase<
             FormDefinitionCollectionBuilder,
             FormDefinitionCollection,
             IFormDefinition>

@@ -1,6 +1,4 @@
-﻿using Formulate.Core.Forms;
-
-namespace Formulate.BackOffice.Definitions.Forms
+﻿namespace Formulate.BackOffice.Definitions.Forms
 {
     using System;
 
@@ -15,7 +13,5 @@ namespace Formulate.BackOffice.Definitions.Forms
         public abstract string Name { get; }
 
         public virtual bool IsLegacy => false;
-
-        public virtual int SortOrder => 0;
     }
 }

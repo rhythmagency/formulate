@@ -18,10 +18,5 @@ namespace Formulate.BackOffice.Definitions.Forms
         /// Gets the description.
         /// </summary>
         string Description { get; }
-
-        /// <summary>
-        /// Gets the sort order.
-        /// </summary>
-        int SortOrder { get; }
     }
 }
