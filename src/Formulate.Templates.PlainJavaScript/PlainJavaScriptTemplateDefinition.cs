@@ -6,15 +6,15 @@
     /// <summary>
     /// A template definition for Plain JavaScript rendering.
     /// </summary>
-    public sealed class PlainJavaScriptTemplateDefinition : ITemplateDefinition
+    public sealed class PlainJavaScriptTemplateDefinition : TemplateDefinition
     {
         /// <inheritdoc />
-        public Guid Id => Guid.Parse("F3FB1485C1D14806B4190D7ABDE39530");
+        public override Guid KindId => Guid.Parse("F3FB1485C1D14806B4190D7ABDE39530");
 
         /// <inheritdoc />
-        public string Name => "Plain JavaScript";
+        public override string Name => "Plain JavaScript";
 
         /// <inheritdoc />
-        public string ViewName => "Plain JavaScript";
+        public override string ViewName => "Plain JavaScript";
     }
 }

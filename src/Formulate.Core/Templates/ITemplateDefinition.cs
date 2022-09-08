@@ -1,23 +1,12 @@
 ﻿namespace Formulate.Core.Templates
 {
-    using System;
-    using Umbraco.Cms.Core.Composing;
+    using Formulate.Core.Types;
 
     /// <summary>
     /// Represents a contract for configuring template definitions.
     /// </summary>
-    public interface ITemplateDefinition : IDiscoverable
+    public interface ITemplateDefinition : IDefinition
     {
-        /// <summary>
-        /// The id of the template definition.
-        /// </summary>
-        Guid Id { get; }
-
-        /// <summary>
-        /// The name of the template definition.
-        /// </summary>
-        string Name { get; }
-
         /// <summary>
         /// The view name of the template definition.
         /// </summary>

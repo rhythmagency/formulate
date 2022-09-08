@@ -7,7 +7,7 @@
     [DataContract]
     public sealed class TemplateEditorModel
     {
-        public TemplateEditorModel(ITemplateDefinition definition) : this(definition.Id, definition.Name)
+        public TemplateEditorModel(ITemplateDefinition definition) : this(definition.KindId, definition.Name)
         {
         }
 

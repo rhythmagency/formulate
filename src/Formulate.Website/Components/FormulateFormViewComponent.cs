@@ -2,6 +2,7 @@
 {
     using Formulate.Core;
     using Formulate.Core.Templates;
+    using Formulate.Core.Types;
     using Formulate.Website.Utilities;
     using Microsoft.AspNetCore.Html;
     using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@
                 return EmptyResult();
             }
 
-            var template = _templateDefinitions.FirstOrDefault(x => x.Id == model.TemplateId);
+            var template = _templateDefinitions.FirstOrDefault(model.TemplateId);
 
             if (template is null)
             {
