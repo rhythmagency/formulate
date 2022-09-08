@@ -5,7 +5,7 @@ namespace Formulate.Core.Layouts
     /// <summary>
     /// A contract for creating a layout definition.
     /// </summary>
-    public interface ILayoutDefinition : IDefinition
+    public interface ILayoutDefinition : IDefinition, IHaveDirective
     {
         /// <summary>
         /// Creates a new instance of a <see cref="ILayout"/>.

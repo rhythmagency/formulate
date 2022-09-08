@@ -10,7 +10,7 @@
     /// Do not implement this definition directly.
     /// Instead implement <see cref="FormHandlerDefinition"/>.
     /// </remarks>
-    public interface IFormHandlerDefinition : IDefinition
+    public interface IFormHandlerDefinition : IDefinition, IHaveDirective
     {
         /// <summary>
         /// Gets the icon for this form handle definition.
