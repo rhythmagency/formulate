@@ -18,11 +18,6 @@
             public const string Forms = "forms";
 
             /// <summary>
-            /// The Layouts tree alias.
-            /// </summary>
-            public const string Layouts = "layouts";
-
-            /// <summary>
             /// The Validations tree alias.
             /// </summary>
             public const string Validations = "validations";
