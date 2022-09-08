@@ -78,7 +78,6 @@
             {
                 FormId = formId.Value,
                 LayoutId = entity.Id,
-                TemplateId = entity.TemplateId
             };
         }
 
