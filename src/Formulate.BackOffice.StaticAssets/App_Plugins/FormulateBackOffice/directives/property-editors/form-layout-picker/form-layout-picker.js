@@ -52,6 +52,9 @@ class FormLayoutPicker {
                 this.$scope.vm.name = name;
                 this.$scope.vm.id = id;
                 this.$scope.loaded = true;
+            },
+            response => {
+                this.$scope.loaded = true;
             });
 
         }
