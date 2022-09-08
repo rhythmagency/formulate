@@ -1,4 +1,5 @@
 ﻿using Formulate.Core.Persistence;
+using Umbraco.Cms.Core.Scoping;
 
 namespace Formulate.Core.DataValues
 {
@@ -11,7 +12,7 @@ namespace Formulate.Core.DataValues
         /// Initializes a new instance of the <see cref="DataValuesEntityRepository"/> class.
         /// </summary>
         /// <inheritdoc />
-        public DataValuesEntityRepository(IRepositoryUtilityFactory repositoryHelperFactory) : base(repositoryHelperFactory)
+        public DataValuesEntityRepository(IRepositoryUtilityFactory repositoryHelperFactory, ICoreScopeProvider coreScopeProvider) : base(repositoryHelperFactory, coreScopeProvider)
         {
         }
     }

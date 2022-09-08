@@ -17,9 +17,5 @@ namespace Formulate.BackOffice.Definitions.Forms
         public virtual bool IsLegacy => false;
 
         public virtual int SortOrder => 0;
-
-        public virtual void PostSave(PersistedForm form)
-        {
-        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Formulate.Core.Persistence;
+using Umbraco.Cms.Core.Scoping;
 
 namespace Formulate.Core.Validations
 {
@@ -11,7 +12,7 @@ namespace Formulate.Core.Validations
         /// Initializes a new instance of the <see cref="ValidationEntityRepository"/> class.
         /// </summary>
         /// <inheritdoc />
-        public ValidationEntityRepository(IRepositoryUtilityFactory repositoryHelperFactory) : base(repositoryHelperFactory)
+        public ValidationEntityRepository(IRepositoryUtilityFactory repositoryHelperFactory, ICoreScopeProvider coreScopeProvider) : base(repositoryHelperFactory, coreScopeProvider)
         {
         }
     }

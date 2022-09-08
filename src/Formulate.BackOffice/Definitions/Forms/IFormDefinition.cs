@@ -23,13 +23,5 @@ namespace Formulate.BackOffice.Definitions.Forms
         /// Gets the sort order.
         /// </summary>
         int SortOrder { get; }
-
-        /// <summary>
-        /// Processes a form post save.
-        /// </summary>
-        /// <param name="form">
-        /// The current form.
-        /// </param>
-        void PostSave(PersistedForm form);
     }
 }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Formulate.Core.Notifications;
+using System;
 using System.Collections.Generic;
+using Umbraco.Cms.Core.Scoping;
 
 namespace Formulate.Core.Persistence
 {
@@ -9,6 +11,8 @@ namespace Formulate.Core.Persistence
     /// <typeparam name="TPersistedEntity">The type of entity to manage.</typeparam>
     public abstract class EntityRepository<TPersistedEntity> : IEntityRepository<TPersistedEntity> where TPersistedEntity : class, IPersistedEntity
     {
+        private readonly ICoreScopeProvider _coreScopeProvider;
+
         /// <summary>
         /// THe repository utility.
         /// </summary>
@@ -18,9 +22,10 @@ namespace Formulate.Core.Persistence
         /// Initializes a new instance of the <see cref="EntityRepository{TPersistedEntity}"/> class.
         /// </summary>
         /// <param name="repositoryHelperFactory">The repository utility helper.</param>
-        protected EntityRepository(IRepositoryUtilityFactory repositoryHelperFactory)
+        protected EntityRepository(IRepositoryUtilityFactory repositoryHelperFactory, ICoreScopeProvider coreScopeProvider)
         {
             _repositoryUtility = repositoryHelperFactory.Create<TPersistedEntity>();
+            _coreScopeProvider = coreScopeProvider;
         }
 
         /// <inheritdoc />
@@ -32,7 +37,19 @@ namespace Formulate.Core.Persistence
         /// <inheritdoc />
         public virtual TPersistedEntity Save(TPersistedEntity entity)
         {
-            return _repositoryUtility.Save(entity);
+            using (var scope = _coreScopeProvider.CreateCoreScope())
+            {
+                var savingNotification = new EntitySavingNotification<TPersistedEntity>(entity);
+                scope.Notifications.Publish(savingNotification);
+
+                var savedEntity = _repositoryUtility.Save(entity);
+                var savedNotification = new EntitySavedNotification<TPersistedEntity>(savedEntity);
+                
+                scope.Notifications.Publish(savedNotification);
+                scope.Complete();
+
+                return savedEntity;
+            }
         }
 
         /// <inheritdoc />

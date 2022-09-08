@@ -1,4 +1,5 @@
 ﻿using Formulate.Core.Persistence;
+using Umbraco.Cms.Core.Scoping;
 
 namespace Formulate.Core.Layouts
 {
@@ -11,7 +12,7 @@ namespace Formulate.Core.Layouts
         /// Initializes a new instance of the <see cref="LayoutEntityRepository"/> class.
         /// </summary>
         /// <inheritdoc />
-        public LayoutEntityRepository(IRepositoryUtilityFactory repositoryHelperFactory) : base(repositoryHelperFactory)
+        public LayoutEntityRepository(IRepositoryUtilityFactory repositoryHelperFactory, ICoreScopeProvider coreScopeProvider) : base(repositoryHelperFactory, coreScopeProvider)
         {
         }
     }

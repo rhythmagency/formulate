@@ -1,6 +1,8 @@
 ﻿namespace Formulate.BackOffice.DependencyInjection
 {
     using Formulate.BackOffice.NotificationHandlers;
+    using Formulate.Core.Forms;
+    using Formulate.Core.Notifications;
     using Umbraco.Cms.Core.DependencyInjection;
     using Umbraco.Cms.Core.Notifications;
 
@@ -19,6 +21,8 @@
             this IUmbracoBuilder builder)
         {
             builder.AddNotificationHandler<ServerVariablesParsingNotification, ServerVariablesNotificationHandler>();
+
+            builder.AddNotificationHandler<EntitySavedNotification<PersistedForm>, FormSavedWithBasicLayoutNotificationHandler>();
 
             return builder;
         }

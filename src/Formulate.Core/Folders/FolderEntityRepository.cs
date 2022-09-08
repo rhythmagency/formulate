@@ -1,4 +1,5 @@
 ﻿using Formulate.Core.Persistence;
+using Umbraco.Cms.Core.Scoping;
 
 namespace Formulate.Core.Folders
 {
@@ -11,7 +12,7 @@ namespace Formulate.Core.Folders
         /// Initializes a new instance of the <see cref="FolderEntityRepository"/> class.
         /// </summary>
         /// <inheritdoc />
-        public FolderEntityRepository(IRepositoryUtilityFactory repositoryHelperFactory) : base(repositoryHelperFactory)
+        public FolderEntityRepository(IRepositoryUtilityFactory repositoryHelperFactory, ICoreScopeProvider coreScopeProvider) : base(repositoryHelperFactory, coreScopeProvider)
         {
         }
     }

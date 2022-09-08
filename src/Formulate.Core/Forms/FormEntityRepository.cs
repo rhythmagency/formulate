@@ -1,4 +1,7 @@
 ﻿using Formulate.Core.Persistence;
+using System;
+using Umbraco.Cms.Core.Models.ContentEditing;
+using Umbraco.Cms.Core.Scoping;
 
 namespace Formulate.Core.Forms
 {
@@ -11,7 +14,7 @@ namespace Formulate.Core.Forms
         /// Initializes a new instance of the <see cref="FormEntityRepository"/> class.
         /// </summary>
         /// <inheritdoc />
-        public FormEntityRepository(IRepositoryUtilityFactory repositoryHelperFactory) : base(repositoryHelperFactory)
+        public FormEntityRepository(IRepositoryUtilityFactory repositoryHelperFactory, ICoreScopeProvider coreScopeProvider) : base(repositoryHelperFactory, coreScopeProvider)
         {
         }
     }
