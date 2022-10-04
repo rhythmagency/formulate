@@ -1,29 +1,29 @@
-﻿namespace Formulate.Core.Persistence
+﻿namespace Formulate.Website.Persistence
 {
     /// <summary>
-    /// A settings class required to create a <see cref="RepositoryUtility{TPersistedEntity}"/>.
+    /// A settings class required to create a <see cref="WebHostRepositoryUtility{TPersistedEntity}"/>.
     /// </summary>
-    internal sealed class RepositoryUtilitySettings : IRepositoryUtilitySettings
+    internal sealed class WebHostRepositoryUtilitySettings
     {
         /// <summary>
         /// Gets or sets the base path to JSON files.
         /// </summary>
-        public string BasePath { get; set; }
+        public string BasePath { get; init; }
 
         /// <summary>
         /// Gets or sets the extension of JSON files.
         /// </summary>
-        public string Extension { get; set; }
+        public string Extension { get; init; }
 
         /// <summary>
         /// Gets or sets the wildcard used to match JSON files.
         /// </summary>
-        public string Wildcard { get; set; }
+        public string Wildcard { get; init; }
 
         /// <summary>
         /// Settings used for data values entities.
         /// </summary>
-        public static readonly IRepositoryUtilitySettings DataValues = new RepositoryUtilitySettings()
+        public static readonly WebHostRepositoryUtilitySettings DataValues = new WebHostRepositoryUtilitySettings()
         {
             BasePath = "DataValues",
             Extension = ".dataValue",
@@ -33,7 +33,7 @@
         /// <summary>
         /// Settings used for form entities.
         /// </summary>
-        public static readonly IRepositoryUtilitySettings Forms = new RepositoryUtilitySettings()
+        public static readonly WebHostRepositoryUtilitySettings Forms = new WebHostRepositoryUtilitySettings()
         {
             BasePath = "forms",
             Extension = ".form",
@@ -43,7 +43,7 @@
         /// <summary>
         /// Settings used for folder entities.
         /// </summary>
-        public static readonly IRepositoryUtilitySettings Folders = new RepositoryUtilitySettings()
+        public static readonly WebHostRepositoryUtilitySettings Folders = new WebHostRepositoryUtilitySettings()
         {
             BasePath = "folders",
             Extension = ".folder",
@@ -53,7 +53,7 @@
         /// <summary>
         /// Settings used for layout entities.
         /// </summary>
-        public static readonly IRepositoryUtilitySettings Layouts = new RepositoryUtilitySettings()
+        public static readonly WebHostRepositoryUtilitySettings Layouts = new WebHostRepositoryUtilitySettings()
         {
             BasePath = "layouts",
             Extension = ".layout",
@@ -63,7 +63,7 @@
         /// <summary>
         /// Settings used for validation entities.
         /// </summary>
-        public static IRepositoryUtilitySettings Validations = new RepositoryUtilitySettings()
+        public static WebHostRepositoryUtilitySettings Validations = new WebHostRepositoryUtilitySettings()
         {
             BasePath = "validations",
             Extension = ".validation",

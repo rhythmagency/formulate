@@ -1,24 +1,27 @@
-﻿using System;
-using Formulate.Core.DataValues;
+﻿using Formulate.Core.DataValues;
 using Formulate.Core.Folders;
 using Formulate.Core.Forms;
 using Formulate.Core.Layouts;
+using Formulate.Core.Persistence;
 using Formulate.Core.Utilities;
 using Formulate.Core.Validations;
 using Microsoft.Extensions.Logging;
-using Umbraco.Cms.Core.Hosting;
 
-namespace Formulate.Core.Persistence
+using Microsoft.AspNetCore.Hosting;
+
+using Umbraco.Extensions;
+
+namespace Formulate.Website.Persistence
 {
     /// <summary>
-    /// The default implementation of <see cref="IRepositoryUtilityFactory"/>.
+    /// The default implementation of <see cref="IRepositoryUtilityFactory"/> which uses the <see cref="IWebHostEnvironment"/>.
     /// </summary>
-    internal sealed class RepositoryUtilityFactory : IRepositoryUtilityFactory
+    internal sealed class WebHostRepositoryUtilityFactory : IRepositoryUtilityFactory
     {
         /// <summary>
-        /// The hosting environment.
+        /// The web host environment.
         /// </summary>
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         /// <summary>
         /// The json utility.
@@ -41,15 +44,15 @@ namespace Formulate.Core.Persistence
         private readonly string _jsonRootPath;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RepositoryUtilityFactory"/> class.
+        /// Initializes a new instance of the <see cref="WebHostRepositoryUtilityFactory"/> class.
         /// </summary>
-        /// <param name="hostingEnvironment">The hosting environment.</param>
+        /// <param name="webHostEnvironment">The web host environment.</param>
         /// <param name="jsonUtility">The json utility.</param>
         /// <param name="entityCache">The entity cache.</param>
         /// <param name="logger">The logger.</param>
-        public RepositoryUtilityFactory(IHostingEnvironment hostingEnvironment, IJsonUtility jsonUtility, IPersistedEntityCache entityCache, ILogger<RepositoryUtilityFactory> logger)
+        public WebHostRepositoryUtilityFactory(IWebHostEnvironment webHostEnvironment, IJsonUtility jsonUtility, IPersistedEntityCache entityCache, ILogger<WebHostRepositoryUtilityFactory> logger)
         {
-            _hostingEnvironment = hostingEnvironment;
+            _webHostEnvironment = webHostEnvironment;
             _jsonUtility = jsonUtility;
             _entityCache = entityCache;
             _logger = logger;
@@ -65,7 +68,7 @@ namespace Formulate.Core.Persistence
             var settings = GetSettings<TEntity>();
             var updatedSettings = UpdateSettings(settings);
 
-            return new RepositoryUtility<TEntity>(updatedSettings, _jsonUtility, _entityCache, _logger);
+            return new WebHostRepositoryUtility<TEntity>(updatedSettings, _jsonUtility, _entityCache, _logger);
         }
 
         /// <summary>
@@ -73,13 +76,13 @@ namespace Formulate.Core.Persistence
         /// </summary>
         /// <param name="settings">The current settings.</param>
         /// <returns>A <see cref="IRepositoryUtilitySettings"/>.</returns>
-        private IRepositoryUtilitySettings UpdateSettings(IRepositoryUtilitySettings settings)
+        private WebHostRepositoryUtilitySettings UpdateSettings(WebHostRepositoryUtilitySettings settings)
         {
             var baseVirtualPath = $"{_jsonRootPath.TrimEnd('/')}/{settings.BasePath}";
 
-            return new RepositoryUtilitySettings()
+            return new WebHostRepositoryUtilitySettings()
             {
-                BasePath = _hostingEnvironment.MapPathWebRoot(baseVirtualPath),
+                BasePath =_webHostEnvironment.MapPathWebRoot(baseVirtualPath.ToString()),
                 Extension = settings.Extension,
                 Wildcard = settings.Wildcard
             };
@@ -90,36 +93,36 @@ namespace Formulate.Core.Persistence
         /// </summary>
         /// <returns>A <see cref="IRepositoryUtilitySettings"/>.</returns>
         /// <exception cref="NotSupportedException">If the type provided is not supported.</exception>
-        private static IRepositoryUtilitySettings GetSettings<TEntity>()
+        private static WebHostRepositoryUtilitySettings GetSettings<TEntity>()
         {
             var type = typeof(TEntity);
             
             if (type == typeof(PersistedDataValues))
             {
-                return RepositoryUtilitySettings.DataValues;
+                return WebHostRepositoryUtilitySettings.DataValues;
             }
 
             if (type == typeof(PersistedForm))
             {
-                return RepositoryUtilitySettings.Forms;
+                return WebHostRepositoryUtilitySettings.Forms;
             }
 
             if (type == typeof(PersistedFolder))
             {
-                return RepositoryUtilitySettings.Folders;
+                return WebHostRepositoryUtilitySettings.Folders;
             }
 
             if (type == typeof(PersistedLayout))
             {
-                return RepositoryUtilitySettings.Layouts;
+                return WebHostRepositoryUtilitySettings.Layouts;
             }
 
             if (type == typeof(PersistedValidation))
             {
-                return RepositoryUtilitySettings.Validations;
+                return WebHostRepositoryUtilitySettings.Validations;
             }
 
-            throw new NotSupportedException($"Entity type {type} has no matching {typeof(IRepositoryUtilitySettings)} settings.");
+            throw new NotSupportedException($"Entity type {type} has no matching {typeof(WebHostRepositoryUtilitySettings)} settings.");
         }
     }
 }

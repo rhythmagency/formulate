@@ -1,8 +1,8 @@
-﻿using System.IO;
-using System.Runtime.Caching;
+﻿using System.Runtime.Caching;
+using Formulate.Core.Persistence;
 using Formulate.Core.Utilities;
 
-namespace Formulate.Core.Persistence
+namespace Formulate.Website.Persistence
 {
     /// <summary>
     /// A cache of entities that are stored on the file system (helps to avoid
@@ -28,7 +28,7 @@ namespace Formulate.Core.Persistence
         }
 
         /// <inheritdoc />
-        public TPersistedEntity Get<TPersistedEntity>(string path) where TPersistedEntity : class, IPersistedEntity
+        public TPersistedEntity? Get<TPersistedEntity>(string path) where TPersistedEntity : class, IPersistedEntity
         {
             var key = path?.ToLower();
             var exists = _entities.Contains(key);
@@ -65,7 +65,7 @@ namespace Formulate.Core.Persistence
         /// <returns>
         /// The file contents, or null.
         /// </returns>
-        private static string GetFileContents(string path)
+        private static string? GetFileContents(string? path)
         {
             if (File.Exists(path))
             {

@@ -18,7 +18,6 @@ namespace Formulate.Core.DependencyInjection
         /// <returns>The current <see cref="IUmbracoBuilder"/>.</returns>
         private static IUmbracoBuilder AddFormulatePersistence(this IUmbracoBuilder builder)
         {
-            builder.Services.AddSingleton<IPersistedEntityCache, FileSystemPersistedEntityCache>();
             builder.Services.AddSingleton<IDataValuesEntityRepository, DataValuesEntityRepository>();
             builder.Services.AddSingleton<IFormEntityRepository, FormEntityRepository>();
             builder.Services.AddSingleton<IFolderEntityRepository, FolderEntityRepository>();

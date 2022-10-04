@@ -23,7 +23,6 @@ namespace Formulate.Core.DependencyInjection
             builder.Services.AddSingleton<IFormFieldFactory, FormFieldFactory>();
             builder.Services.AddSingleton<ILayoutFactory, LayoutFactory>();
             builder.Services.AddSingleton<IValidationFactory, ValidationFactory>();
-            builder.Services.AddSingleton<IRepositoryUtilityFactory, RepositoryUtilityFactory>();
 
             return builder;
         }

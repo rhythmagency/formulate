@@ -3,7 +3,7 @@
     /// <summary>
     /// A contract for creating a cache for persisted entities.
     /// </summary>
-    internal interface IPersistedEntityCache
+    public interface IPersistedEntityCache
     {
         /// <summary>
         /// Gets a persisted entity from the cache.

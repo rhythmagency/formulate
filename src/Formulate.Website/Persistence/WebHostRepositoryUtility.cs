@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using Formulate.Core.Persistence;
 using Formulate.Core.Utilities;
 using Microsoft.Extensions.Logging;
 
-namespace Formulate.Core.Persistence
+namespace Formulate.Website.Persistence
 {
     /// <summary>
     /// A utility to help with repository for a given type.
     /// </summary>
-    internal sealed class RepositoryUtility<TPersistedEntity> : IRepositoryUtility<TPersistedEntity> where TPersistedEntity : class, IPersistedEntity
+    internal sealed class WebHostRepositoryUtility<TPersistedEntity> : IRepositoryUtility<TPersistedEntity> where TPersistedEntity : class, IPersistedEntity
     {
         /// <summary>
         /// The base folder path to store files in.
@@ -49,7 +46,7 @@ namespace Formulate.Core.Persistence
         /// <param name="jsonUtility">The json utility.</param>
         /// <param name="entityCache">The entity cache.</param>
         /// <param name="logger"></param>
-        public RepositoryUtility(IRepositoryUtilitySettings settings, IJsonUtility jsonUtility,
+        public WebHostRepositoryUtility(WebHostRepositoryUtilitySettings settings, IJsonUtility jsonUtility,
             IPersistedEntityCache entityCache, ILogger logger)
         {
             _basePath = settings.BasePath;
