@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 
 using Umbraco.Extensions;
+using Microsoft.Extensions.Options;
+using Formulate.Website.Configuration;
 
 namespace Formulate.Website.Persistence
 {
@@ -50,15 +52,15 @@ namespace Formulate.Website.Persistence
         /// <param name="jsonUtility">The json utility.</param>
         /// <param name="entityCache">The entity cache.</param>
         /// <param name="logger">The logger.</param>
-        public WebHostRepositoryUtilityFactory(IWebHostEnvironment webHostEnvironment, IJsonUtility jsonUtility, IPersistedEntityCache entityCache, ILogger<WebHostRepositoryUtilityFactory> logger)
+        public WebHostRepositoryUtilityFactory(IOptions<FormulateWebsiteOptions> options, IWebHostEnvironment webHostEnvironment, IJsonUtility jsonUtility, IPersistedEntityCache entityCache, ILogger<WebHostRepositoryUtilityFactory> logger)
         {
             _webHostEnvironment = webHostEnvironment;
             _jsonUtility = jsonUtility;
             _entityCache = entityCache;
             _logger = logger;
 
-            // TODO: Replace with config value.
-            _jsonRootPath = "/App_Data/Formulate/Json/";
+            var persistence = options.Value.Persistence;
+            _jsonRootPath = persistence.DataFolderPath;
         }
 
         /// <inheritdoc />
