@@ -5,6 +5,17 @@
     /// </summary>
     internal sealed class WebHostRepositoryUtilitySettings
     {
+        public WebHostRepositoryUtilitySettings(string basePath, string extension) : this(basePath, extension, $"*{extension}")
+        {
+        }
+
+        public WebHostRepositoryUtilitySettings(string basePath, string extension, string wildcard)
+        {
+            BasePath = basePath;
+            Extension = extension;
+            Wildcard = wildcard;
+        }
+
         /// <summary>
         /// Gets or sets the base path to JSON files.
         /// </summary>
@@ -23,51 +34,26 @@
         /// <summary>
         /// Settings used for data values entities.
         /// </summary>
-        public static readonly WebHostRepositoryUtilitySettings DataValues = new WebHostRepositoryUtilitySettings()
-        {
-            BasePath = "DataValues",
-            Extension = ".dataValue",
-            Wildcard = "*.dataValue"
-        };
+        public static readonly WebHostRepositoryUtilitySettings DataValues = new("DataValues", ".dataValue");
 
         /// <summary>
         /// Settings used for form entities.
         /// </summary>
-        public static readonly WebHostRepositoryUtilitySettings Forms = new WebHostRepositoryUtilitySettings()
-        {
-            BasePath = "forms",
-            Extension = ".form",
-            Wildcard = "*.form"
-        };
-        
+        public static readonly WebHostRepositoryUtilitySettings Forms = new("forms", ".form");
+
         /// <summary>
         /// Settings used for folder entities.
         /// </summary>
-        public static readonly WebHostRepositoryUtilitySettings Folders = new WebHostRepositoryUtilitySettings()
-        {
-            BasePath = "folders",
-            Extension = ".folder",
-            Wildcard = "*.folder"
-        };
+        public static readonly WebHostRepositoryUtilitySettings Folders = new("folders", ".folder");
 
         /// <summary>
         /// Settings used for layout entities.
         /// </summary>
-        public static readonly WebHostRepositoryUtilitySettings Layouts = new WebHostRepositoryUtilitySettings()
-        {
-            BasePath = "layouts",
-            Extension = ".layout",
-            Wildcard = "*.layout"
-        };
+        public static readonly WebHostRepositoryUtilitySettings Layouts = new("layouts", ".layout");
 
         /// <summary>
         /// Settings used for validation entities.
         /// </summary>
-        public static WebHostRepositoryUtilitySettings Validations = new WebHostRepositoryUtilitySettings()
-        {
-            BasePath = "validations",
-            Extension = ".validation",
-            Wildcard = "*.validation"
-        };
+        public static WebHostRepositoryUtilitySettings Validations = new("validations", ".validation");
     }
 }

@@ -75,23 +75,19 @@ namespace Formulate.Website.Persistence
         /// Updates the settings to be rooted in the application.
         /// </summary>
         /// <param name="settings">The current settings.</param>
-        /// <returns>A <see cref="IRepositoryUtilitySettings"/>.</returns>
+        /// <returns>A <see cref="WebHostRepositoryUtilitySettings"/>.</returns>
         private WebHostRepositoryUtilitySettings UpdateSettings(WebHostRepositoryUtilitySettings settings)
         {
             var baseVirtualPath = $"{_jsonRootPath.TrimEnd('/')}/{settings.BasePath}";
+            var mappedBasePath = _webHostEnvironment.MapPathWebRoot(baseVirtualPath.ToString());
 
-            return new WebHostRepositoryUtilitySettings()
-            {
-                BasePath =_webHostEnvironment.MapPathWebRoot(baseVirtualPath.ToString()),
-                Extension = settings.Extension,
-                Wildcard = settings.Wildcard
-            };
+            return new WebHostRepositoryUtilitySettings(mappedBasePath, settings.Extension, settings.Wildcard);
         }
 
         /// <summary>
         /// Gets the settings for the incoming type.
         /// </summary>
-        /// <returns>A <see cref="IRepositoryUtilitySettings"/>.</returns>
+        /// <returns>A <see cref="WebHostRepositoryUtilitySettings"/>.</returns>
         /// <exception cref="NotSupportedException">If the type provided is not supported.</exception>
         private static WebHostRepositoryUtilitySettings GetSettings<TEntity>()
         {
