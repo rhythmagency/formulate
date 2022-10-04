@@ -15,7 +15,7 @@
         <tags>Umbraco forms</tags>
         <dependencies>
             <group targetFramework="net6.0">
-                <dependency id="Umbraco.Cms.Web.BackOffice" version="9.0.1"/>
+                <dependency id="Umbraco.Cms.Web.Common" version="10.0.1"/>
                 <dependency id="Formulate.Core" version="$version$"/>
             </group>
         </dependencies>
