@@ -1,9 +1,9 @@
-﻿namespace Formulate.Website.DependencyInjection
+﻿namespace Formulate.Web.DependencyInjection
 {
     using Formulate.Core.Persistence;
-    using Formulate.Website.Configuration;
-    using Formulate.Website.Persistence;
-    using Formulate.Website.Utilities;
+    using Formulate.Web.Configuration;
+    using Formulate.Web.Persistence;
+    using Formulate.Web.Utilities;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Umbraco.Cms.Core.DependencyInjection;

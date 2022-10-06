@@ -1,4 +1,4 @@
-﻿namespace Formulate.Website.Utilities
+﻿namespace Formulate.Web.Utilities
 {
     using Formulate.Core.Submissions.Responses;
 

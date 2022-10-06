@@ -11,9 +11,9 @@ using Microsoft.AspNetCore.Hosting;
 
 using Umbraco.Extensions;
 using Microsoft.Extensions.Options;
-using Formulate.Website.Configuration;
+using Formulate.Web.Configuration;
 
-namespace Formulate.Website.Persistence
+namespace Formulate.Web.Persistence
 {
     /// <summary>
     /// The default implementation of <see cref="IRepositoryUtilityFactory"/> which uses the <see cref="IWebHostEnvironment"/>.

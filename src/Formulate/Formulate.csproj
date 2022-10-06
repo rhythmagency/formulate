@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,7 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Formulate.BackOffice.StaticAssets\Formulate.BackOffice.StaticAssets.csproj" />
     <ProjectReference Include="..\Formulate.BackOffice\Formulate.BackOffice.csproj" />
-    <ProjectReference Include="..\Formulate.Website\Formulate.Website.csproj" />
+    <ProjectReference Include="..\Formulate.Web\Formulate.Web.csproj" />
   </ItemGroup>
 
 </Project>

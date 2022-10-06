@@ -32,7 +32,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Website", "Website\Website.
 		{329781CD-8683-40BB-AFF6-30E2D63FEC42} = {329781CD-8683-40BB-AFF6-30E2D63FEC42}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formulate.Website", "Formulate.Website\Formulate.Website.csproj", "{1B295D44-4DF2-45C1-B04A-4FD296A0817A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formulate.Web", "Formulate.Web\Formulate.Web.csproj", "{1B295D44-4DF2-45C1-B04A-4FD296A0817A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formulate.Templates.PlainJavaScript", "Formulate.Templates.PlainJavaScript\Formulate.Templates.PlainJavaScript.csproj", "{E0184DDB-878B-4895-8C58-3A0039B143BD}"
 EndProject

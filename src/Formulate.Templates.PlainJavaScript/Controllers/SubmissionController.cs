@@ -1,7 +1,7 @@
 ﻿namespace Formulate.Templates.PlainJavaScript.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using Formulate.Website.Utilities;
+    using Formulate.Web.Utilities;
 
     [ApiController]
     public sealed class SubmissionController : ControllerBase

@@ -1,4 +1,4 @@
-﻿namespace Formulate.Website.Configuration
+﻿namespace Formulate.Web.Configuration
 {
     public sealed class FormulateWebsitePersistenceOptions
     {

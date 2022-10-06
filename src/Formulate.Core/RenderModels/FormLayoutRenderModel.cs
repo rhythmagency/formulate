@@ -1,4 +1,4 @@
-﻿using Formulate.Website.RenderModels;
+﻿using Formulate.Web.RenderModels;
 
 namespace Formulate.Core.RenderModels
 {

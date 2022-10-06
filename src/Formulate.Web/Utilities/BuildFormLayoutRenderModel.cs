@@ -1,11 +1,11 @@
-﻿namespace Formulate.Website.Utilities
+﻿namespace Formulate.Web.Utilities
 {
     using Formulate.Core;
     using Formulate.Core.FormFields;
     using Formulate.Core.Forms;
     using Formulate.Core.Layouts;
     using Formulate.Core.RenderModels;
-    using Formulate.Website.RenderModels;
+    using Formulate.Web.RenderModels;
 
     public sealed class BuildFormLayoutRenderModel : IBuildFormLayoutRenderModel
     {

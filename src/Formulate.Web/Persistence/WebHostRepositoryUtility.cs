@@ -2,7 +2,7 @@
 using Formulate.Core.Utilities;
 using Microsoft.Extensions.Logging;
 
-namespace Formulate.Website.Persistence
+namespace Formulate.Web.Persistence
 {
     /// <summary>
     /// A utility to help with repository for a given type.

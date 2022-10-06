@@ -1,4 +1,4 @@
-﻿namespace Formulate.Website.Persistence
+﻿namespace Formulate.Web.Persistence
 {
     /// <summary>
     /// A settings class required to create a <see cref="WebHostRepositoryUtility{TPersistedEntity}"/>.

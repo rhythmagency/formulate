@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Formulate.Core\Formulate.Core.csproj" />
-    <ProjectReference Include="..\Formulate.Website\Formulate.Website.csproj" />
+    <ProjectReference Include="..\Formulate.Web\Formulate.Web.csproj" />
   </ItemGroup>
 
 </Project>

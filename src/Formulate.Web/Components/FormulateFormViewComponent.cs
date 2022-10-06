@@ -1,10 +1,10 @@
-﻿namespace Formulate.Website.Components
+﻿namespace Formulate.Web.Components
 {
     using Formulate.Core;
     using Formulate.Core.Layouts;
     using Formulate.Core.Templates;
     using Formulate.Core.Types;
-    using Formulate.Website.Utilities;
+    using Formulate.Web.Utilities;
     using Microsoft.AspNetCore.Html;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.ViewComponents;

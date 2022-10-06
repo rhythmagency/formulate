@@ -1,4 +1,4 @@
-﻿namespace Formulate.Website.Configuration
+﻿namespace Formulate.Web.Configuration
 {
     using System;
     using System.Collections.Generic;

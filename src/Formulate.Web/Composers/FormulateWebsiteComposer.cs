@@ -1,6 +1,6 @@
-﻿namespace Formulate.Website.Composers
+﻿namespace Formulate.Web.Composers
 {
-    using Formulate.Website.DependencyInjection;
+    using Formulate.Web.DependencyInjection;
     using Umbraco.Cms.Core.Composing;
     using Umbraco.Cms.Core.DependencyInjection;
 

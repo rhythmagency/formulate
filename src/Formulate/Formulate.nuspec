@@ -17,7 +17,7 @@
             <group targetFramework="net6.0">
                 <dependency id="Formulate.BackOffice.StaticAssets" version="$version$" />
                 <dependency id="Formulate.BackOffice" version="$version$"/>
-                <dependency id="Formulate.Website" version="$version$"/>
+                <dependency id="Formulate.Web" version="$version$"/>
             </group>
         </dependencies>
     </metadata>

@@ -2,7 +2,7 @@
 using Formulate.Core.Persistence;
 using Formulate.Core.Utilities;
 
-namespace Formulate.Website.Persistence
+namespace Formulate.Web.Persistence
 {
     /// <summary>
     /// A cache of entities that are stored on the file system (helps to avoid

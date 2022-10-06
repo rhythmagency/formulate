@@ -1,4 +1,4 @@
-﻿namespace Formulate.Website.RenderModels
+﻿namespace Formulate.Web.RenderModels
 {
     using Formulate.Core.FormFields;
 
