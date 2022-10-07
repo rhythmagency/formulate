@@ -37,7 +37,6 @@
       <None Remove="App_Plugins\Formulate\backoffice\layouts\Layouts.EditController.js" />
       <None Remove="App_Plugins\Formulate\backoffice\layouts\Layouts.MoveController.js" />
       <None Remove="App_Plugins\Formulate\backoffice\layouts\move.html" />
-      <None Remove="App_Plugins\Formulate\backoffice\services\layouts.js" />
       <None Remove="App_Plugins\Formulate\backoffice\validations\create.html" />
       <None Remove="App_Plugins\Formulate\backoffice\validations\delete.html" />
       <None Remove="App_Plugins\Formulate\backoffice\validations\edit.html" />

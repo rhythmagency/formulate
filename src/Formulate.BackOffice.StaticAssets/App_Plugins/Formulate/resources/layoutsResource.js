@@ -15,38 +15,42 @@ class FormulateLayoutsService {
         angular
             .module('umbraco')
             .factory('formulateLayouts', (
-                retainProperties,
                 $http,
                 formulateVars) => {
 
                 // Retain the injected parameters on this object.
-                retainProperties({
+                const services = {
                     $http,
                     formulateVars,
-                }, this);
+                };
 
                 // Use this object as the service.
-                return this;
+                return {
+                    persistLayout: this.performPersistLayout(services)
+                };
 
             });
     };
 
     // Returns the function that persists a layout on the server.
-    persistLayout(data) {
+    performPersistLayout(services) {
+        const { formulateVars, $http } = services;
 
-        // Variables.
-        const url = this.formulateVars.Layouts.Save;
+        return function (data) {
+            // Variables.
+            const url = formulateVars.Layouts.Save;
 
-        // Send request to create the layout.
-        return this.$http.post(url, data, function (data) {
+            // Send request to create the layout.
+            return $http.post(url, data, function (data) {
 
-            // Return layout information.
-            return {
-                id: data.Id,
-                path: data.Path
-            };
+                // Return layout information.
+                return {
+                    id: data.Id,
+                    path: data.Path
+                };
 
-        });
+            });
+        }
     };
 }
 

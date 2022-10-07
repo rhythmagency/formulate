@@ -14,52 +14,56 @@ class FormLayoutPicker {
      * The controller function that gets called by Angular.
      */
     controller = (
-        retainProperties,
         $scope,
         editorService,
         formulateVars,
         $http) => {
 
         // Retain the injected parameters on this object.
-        retainProperties({
+        const services = {
             $scope,
             editorService,
             formulateVars,
             $http,
-        }, this);
+        };
 
         // Attach this object to the scope so it's accessible by the view.
-        $scope.events = this;
+        $scope.actions = {
+            clearFormLayout: this.clearFormLayout(services),
+            pickFormLayout: this.pickFormLayout(services)
+        };
 
         // Initialize the property editor.
-        this.init();
+        this.init(services);
     };
 
     /**
      * Initializes the property editor.
      */
-    init = () => {
-        this.$scope.loaded = false;
-        this.$scope.vm = {};
-        if (this.$scope.model.value && this.$scope.model.value.id) {
-            const baseUrl = this.formulateVars.Forms.Get;
-            const url = `${baseUrl}?id=${this.$scope.model.value.id}`;
+    init = (services) => {
+        const { formulateVars, $http, $scope } = services;
+
+        $scope.loaded = false;
+        $scope.vm = {};
+        if ($scope.model.value && $scope.model.value.id) {
+            const baseUrl = formulateVars.Forms.Get;
+            const url = `${baseUrl}?id=${$scope.model.value.id}`;
 
             // Get the form layout name.
-            this.$http.get(url).then(response => {
+            $http.get(url).then((response) => {
                 const { name, id } = response.data;
 
-                this.$scope.vm.name = name;
-                this.$scope.vm.id = id;
-                this.$scope.loaded = true;
+                $scope.vm.name = name;
+                $scope.vm.id = id;
+                $scope.loaded = true;
             },
-            response => {
-                this.$scope.loaded = true;
+            (response) => {
+                $scope.loaded = true;
             });
 
         }
         else {
-            this.$scope.loaded = true;
+            $scope.loaded = true;
         }
     };
 
@@ -75,53 +79,61 @@ class FormLayoutPicker {
     /**
      * Deselects the currently selected form layout.
      */
-    clearFormLayout = () => {
-        this.$scope.vm = {};
-        this.$scope.model.value = {};
+    clearFormLayout = (services) => {
+        const { $scope } = services;
+
+        return function () {
+            $scope.vm = {};
+            $scope.model.value = {};
+        };
+
     };
 
     /**
      * Opens the form layout chooser dialog.
      */
-    pickFormLayout = () => {
+    pickFormLayout = (services) => {
+        const { editorService, $scope } = services;
 
-        // This is called when the dialog is closed.
-        const closer = () => {
-            this.editorService.close();
-        };
+        return function () {
 
-        // This is called when a form is chosen.
-        const chosen = ({ id, name }) => {
-            if (!id) {
-                return;
-            }
-            this.$scope.model.value = {
-                id,
+            // This is called when the dialog is closed.
+            const closer = () => {
+                editorService.close();
             };
-            this.$scope.vm.id = id;
-            this.$scope.vm.name = name;
-            this.editorService.close();
+
+            // This is called when a form is chosen.
+            const chosen = ({ id, name }) => {
+                if (!id) {
+                    return;
+                }
+                $scope.model.value = {
+                    id,
+                };
+                $scope.vm.id = id;
+                $scope.vm.name = name;
+                editorService.close();
+            };
+
+            // The configuration for the tree that allows the
+            // form layout to be chosen.
+            const config = {
+                section: 'formulate',
+                treeAlias: 'forms',
+                multiPicker: false,
+                entityType: 'Layout',
+                filter: (node) => {
+                    return node.nodeType !== 'Layout';
+                },
+                filterCssClass: 'not-allowed',
+                select: chosen,
+                submit: closer,
+                close: closer,
+            };
+
+            // Open the overlay that displays the forms.
+            editorService.treePicker(config);
         };
-
-        // The configuration for the tree that allows the
-        // form layout to be chosen.
-        const config = {
-            section: 'formulate',
-            treeAlias: 'forms',
-            multiPicker: false,
-            entityType: 'Layout',
-            filter: (node) => {
-                return node.nodeType !== 'Layout';
-            },
-            filterCssClass: 'not-allowed',
-            select: chosen,
-            submit: closer,
-            close: closer,
-        };
-
-        // Open the overlay that displays the forms.
-        this.editorService.treePicker(config);
-
     };
 
 }

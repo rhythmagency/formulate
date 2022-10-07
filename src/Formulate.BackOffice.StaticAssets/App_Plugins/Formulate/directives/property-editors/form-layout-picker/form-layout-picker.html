@@ -5,13 +5,13 @@
                           name="vm.name"
                           allow-remove="true"
                           allow-open="false"
-                          on-remove="events.clearFormLayout()">
+                          on-remove="actions.clearFormLayout()">
         </umb-node-preview>
 
         <button type="button"
                 class="umb-node-preview-add"
                 ng-if="!vm.name"
-                ng-click="events.pickFormLayout()">
+                ng-click="actions.pickFormLayout()">
             <localize key="general_add">Add</localize>
         </button>
     </div>
