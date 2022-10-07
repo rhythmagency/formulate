@@ -29,6 +29,12 @@
         </None>
     </ItemGroup>
     <ItemGroup>
+      <Compile Remove="App_Plugins\Formulate\extensions\**" />
+      <Content Remove="App_Plugins\Formulate\extensions\**" />
+      <EmbeddedResource Remove="App_Plugins\Formulate\extensions\**" />
+      <None Remove="App_Plugins\Formulate\extensions\**" />
+    </ItemGroup>
+    <ItemGroup>
       <None Remove="App_Plugins\Formulate\backoffice\layouts\create.html" />
       <None Remove="App_Plugins\Formulate\backoffice\layouts\delete.html" />
       <None Remove="App_Plugins\Formulate\backoffice\layouts\edit.html" />
@@ -106,8 +112,5 @@
       <None Remove="App_Plugins\Formulate\resources\idResource.js" />
       <None Remove="App_Plugins\Formulate\styles\buttons.css" />
       <None Remove="App_Plugins\Formulate\styles\flexbox-utilities.css" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="App_Plugins\Formulate\extensions\" />
     </ItemGroup>
 </Project>
