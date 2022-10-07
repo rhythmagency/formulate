@@ -2,7 +2,7 @@
     function formulateDesignerRouterDirective() {
         var directive = {
             replace: true,
-            templateUrl: "/app_plugins/formulatebackoffice/directives/designers/router.html",
+            templateUrl: "/app_plugins/formulate/directives/designers/router.html",
             scope: {
                 entity: "=",
                 treeType: "="

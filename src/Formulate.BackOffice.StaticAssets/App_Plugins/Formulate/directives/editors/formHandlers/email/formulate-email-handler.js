@@ -3,7 +3,7 @@
 function formulateEmailHandlerDirective() {
     return {
         replace: true,
-        templateUrl: "/app_plugins/formulatebackoffice/directives/editors/formHandlers/email/formulate-email-handler.html",
+        templateUrl: "/app_plugins/formulate/directives/editors/formHandlers/email/formulate-email-handler.html",
     };
 }
 

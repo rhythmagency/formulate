@@ -3,7 +3,7 @@
 function formulateStoreDataHandlerDirective() {
     return {
         replace: true,
-        templateUrl: "/app_plugins/formulatebackoffice/directives/editors/formHandlers/store-data/formulate-store-data-handler.html",
+        templateUrl: "/app_plugins/formulate/directives/editors/formHandlers/store-data/formulate-store-data-handler.html",
     };
 }
 

@@ -2,7 +2,7 @@
     function formulateCreateDialogDirective($http, navigationService) {
         var directive = {
             replace: true,
-            templateUrl: "/app_plugins/formulatebackoffice/directives/dialogs/create.dialog.html",
+            templateUrl: "/app_plugins/formulate/directives/dialogs/create.dialog.html",
             scope: {
                 currentNode: "=",
                 treeType: "=",

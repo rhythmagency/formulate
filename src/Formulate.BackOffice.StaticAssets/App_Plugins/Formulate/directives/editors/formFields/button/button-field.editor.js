@@ -26,7 +26,7 @@
         return {
             restrict: "E",
             replace: true,
-            templateUrl: "/App_Plugins/FormulateBackOffice/directives/editors/formFields/button/button-field.editor.html",
+            templateUrl: "/app_plugins/formulate/directives/editors/formFields/button/button-field.editor.html",
             controller: controller,
             scope: {
                 configuration: "="

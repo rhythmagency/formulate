@@ -3,7 +3,7 @@
         return {
             restrict: "E",
             replace: true,
-            templateUrl: "/App_Plugins/FormulateBackOffice/directives/editors/validations/regex/regex-validation.editor.html",
+            templateUrl: "/app_plugins/formulate/directives/editors/validations/regex/regex-validation.editor.html",
             scope: {
                 config: "=",
                 alias: "=",

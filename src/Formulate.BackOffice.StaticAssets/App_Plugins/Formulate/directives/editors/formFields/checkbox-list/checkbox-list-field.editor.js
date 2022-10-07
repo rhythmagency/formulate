@@ -6,7 +6,7 @@
         return {
             restrict: "E",
             replace: true,
-            templateUrl: "/App_Plugins/FormulateBackOffice/directives/editors/formFields/checkbox-list/checkbox-list-field.editor.html",
+            templateUrl: "/app_plugins/formulate/directives/editors/formFields/checkbox-list/checkbox-list-field.editor.html",
             controller: controller,
             scope: {
                 configuration: "="

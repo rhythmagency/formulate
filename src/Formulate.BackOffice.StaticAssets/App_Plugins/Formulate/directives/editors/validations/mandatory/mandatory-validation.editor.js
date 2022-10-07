@@ -3,7 +3,7 @@
         return {
             restrict: "E",
             replace: true,
-            templateUrl: "/App_Plugins/FormulateBackOffice/directives/editors/validations/mandatory/mandatory-validation.editor.html",
+            templateUrl: "/app_plugins/formulate/directives/editors/validations/mandatory/mandatory-validation.editor.html",
             scope: {
                 config: "=",
                 alias: "=",

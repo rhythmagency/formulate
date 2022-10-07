@@ -28,7 +28,7 @@
                     editorService.close();
                 },
                 fields: $scope.model.fields,
-                view: "/app_plugins/formulatebackoffice/dialogs/form-handler/edit-form-handler.dialog.html",
+                view: "/app_plugins/formulate/dialogs/form-handler/edit-form-handler.dialog.html",
                 size: 'medium'
             };
 

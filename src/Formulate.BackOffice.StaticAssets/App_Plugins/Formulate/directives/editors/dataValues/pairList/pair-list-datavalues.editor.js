@@ -10,7 +10,7 @@ function directive() {
     return {
         restrict: "E",
         replace: true,
-        templateUrl: "/App_Plugins/FormulateBackOffice/directives/editors/dataValues/pairList/pair-list-datavalues.editor.html",
+        templateUrl: "/app_plugins/formulate/directives/editors/dataValues/pairList/pair-list-datavalues.editor.html",
         scope: {
             config: "="
         },

@@ -57,7 +57,7 @@ function directive() {
         restrict: "E",
         controller: Controller,
         replace: true,
-        templateUrl: "/App_Plugins/FormulateBackOffice/directives/editors/formFields/rich-text/rich-text-field.editor.html",
+        templateUrl: "/app_plugins/formulate/directives/editors/formFields/rich-text/rich-text-field.editor.html",
         scope: {
             configuration: "="
         }

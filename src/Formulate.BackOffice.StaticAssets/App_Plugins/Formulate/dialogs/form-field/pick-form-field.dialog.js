@@ -27,7 +27,7 @@
                 close: function () {
                     editorService.close();
                 },
-                view: "/app_plugins/formulatebackoffice/dialogs/form-field/edit-form-field.dialog.html",
+                view: "/app_plugins/formulate/dialogs/form-field/edit-form-field.dialog.html",
                 size: 'medium'
             };
 

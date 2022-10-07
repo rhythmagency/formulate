@@ -4,7 +4,7 @@ function formulateFormDesignerDirective(
     $timeout, formHelper, $http, formulateDesignerResource, editorService, notificationsService) {
     const directive = {
         replace: true,
-        templateUrl: "/app_plugins/formulatebackoffice/directives/designers/form.designer.html",
+        templateUrl: "/app_plugins/formulate/directives/designers/form.designer.html",
         scope: {
             entity: "<"
         },
@@ -156,7 +156,7 @@ class FormDesignerEventHandlers {
             close: () => {
                 this.editorService.close();
             },
-            view: "/app_plugins/formulatebackoffice/dialogs/form-field/edit-form-field.dialog.html",
+            view: "/app_plugins/formulate/dialogs/form-field/edit-form-field.dialog.html",
             size: 'medium'
         };
 
@@ -186,7 +186,7 @@ class FormDesignerEventHandlers {
             close: () => {
                 this.editorService.close();
             },
-            view: "/app_plugins/formulatebackoffice/dialogs/form-handler/edit-form-handler.dialog.html",
+            view: "/app_plugins/formulate/dialogs/form-handler/edit-form-handler.dialog.html",
             size: 'medium'
         };
 
@@ -266,7 +266,7 @@ class FormDesignerEventHandlers {
         var options = {
             title: "Add Handler",
             subtitle: "Choose one of the following form handlers to add to your form.",
-            view: "/app_plugins/formulatebackoffice/dialogs/form-handler/pick-form-handler.dialog.html",
+            view: "/app_plugins/formulate/dialogs/form-handler/pick-form-handler.dialog.html",
             fields: fieldsCopy,
             close: closer,
             submit: submit,
@@ -308,7 +308,7 @@ class FormDesignerEventHandlers {
         var options = {
             title: "Add Field",
             subtitle: "Choose one of the following form fields to add to your form.",
-            view: "/app_plugins/formulatebackoffice/dialogs/form-field/pick-form-field.dialog.html",
+            view: "/app_plugins/formulate/dialogs/form-field/pick-form-field.dialog.html",
             close: closer,
             submit: submit,
             size: 'medium'

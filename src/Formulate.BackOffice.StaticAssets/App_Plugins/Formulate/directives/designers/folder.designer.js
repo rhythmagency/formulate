@@ -2,7 +2,7 @@
     function formulateFolderDesignerDirective($http, formulateDesignerResource, formHelper) {
         var directive = {
             replace: true,
-            templateUrl: "/app_plugins/formulatebackoffice/directives/designers/folder.designer.html",
+            templateUrl: "/app_plugins/formulate/directives/designers/folder.designer.html",
             scope: {
                 entity: "=",
                 treeType: "="
