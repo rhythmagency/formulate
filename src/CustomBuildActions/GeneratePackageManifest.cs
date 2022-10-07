@@ -22,10 +22,10 @@ internal class GeneratePackageManifest
         var basePath = "../Formulate.BackOffice.StaticAssets";
         var basePathLength = PathUtils.NormalizePath(basePath).Length;
         var rootFolder = PathUtils
-            .NormalizePath($"{basePath}/App_Plugins/FormulateBackOffice/");
+            .NormalizePath($"{basePath}/App_Plugins/Formulate/");
         var allFolders = SearchOption.AllDirectories;
         var manifestPath = PathUtils
-            .NormalizePath($"{basePath}/App_Plugins/FormulateBackOffice/package.manifest");
+            .NormalizePath($"{basePath}/App_Plugins/Formulate/package.manifest");
 
         // Get all the files, then format their paths.
         var jsFiles = Directory.GetFiles(rootFolder, jsPattern, allFolders)
@@ -48,7 +48,7 @@ internal class GeneratePackageManifest
                     name = "Formulate Form Layout Picker",
                     editor = new
                     {
-                        view = "/App_Plugins/FormulateBackOffice/directives/property-editors/form-layout-picker/form-layout-picker.html",
+                        view = "/App_Plugins/Formulate/directives/property-editors/form-layout-picker/form-layout-picker.html",
                         valueType = "JSON",
                     },
                 },

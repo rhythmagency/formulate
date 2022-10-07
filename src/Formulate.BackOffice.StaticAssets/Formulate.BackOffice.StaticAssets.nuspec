@@ -17,6 +17,6 @@
     <files>
         <!--<file src="readme.txt" target="." />-->
         <file src="build\**\*.*" target="buildTransitive" />
-        <file src="App_Plugins\FormulateBackOffice\**\*.*" target="content\App_Plugins\FormulateBackOffice" />
+        <file src="App_Plugins\Formulate\**\*.*" target="content\App_Plugins\Formulate" />
     </files>
 </package>

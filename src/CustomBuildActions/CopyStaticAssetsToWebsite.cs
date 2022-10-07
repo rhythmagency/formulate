@@ -14,8 +14,8 @@ internal class CopyStaticAssetsToWebsite
     public static void Copy(long executionCount)
     {
         // Variables.
-        var source = PathUtils.NormalizePath("../Formulate.BackOffice.StaticAssets/App_Plugins/FormulateBackOffice");
-        var destination = PathUtils.NormalizePath("../Website/App_Plugins/FormulateBackOffice");
+        var source = PathUtils.NormalizePath("../Formulate.BackOffice.StaticAssets/App_Plugins/Formulate");
+        var destination = PathUtils.NormalizePath("../Website/App_Plugins/Formulate");
 
         // Clear the old folder and copy the new files.
         FileUtils.ClearAndCopy(source, destination, executionCount);

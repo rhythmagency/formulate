@@ -4,7 +4,7 @@
 
     internal sealed class FormulateBackOfficePluginControllerAttribute : PluginControllerAttribute
     {
-        public FormulateBackOfficePluginControllerAttribute() : base("FormulateBackoffice")
+        public FormulateBackOfficePluginControllerAttribute() : base("Formulate")
         {
         }
     }

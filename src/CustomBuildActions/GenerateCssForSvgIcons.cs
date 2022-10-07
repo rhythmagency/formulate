@@ -19,10 +19,10 @@ internal class GenerateCssForSvgIcons
         var basePath = "../Formulate.BackOffice.StaticAssets";
         var basePathLength = PathUtils.NormalizePath(basePath).Length;
         var rootFolder = PathUtils
-            .NormalizePath($"{basePath}/App_Plugins/FormulateBackOffice/backoffice/icons/");
+            .NormalizePath($"{basePath}/App_Plugins/Formulate/backoffice/icons/");
         var allFolders = SearchOption.AllDirectories;
         var cssOutputPath = PathUtils
-            .NormalizePath($"{basePath}/App_Plugins/FormulateBackOffice/styles/generated-svg-icons.css");
+            .NormalizePath($"{basePath}/App_Plugins/Formulate/styles/generated-svg-icons.css");
 
         // Get all the files, then format their paths.
         var svgFiles = Directory.GetFiles(rootFolder, svgPattern, allFolders)

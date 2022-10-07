@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
     <PropertyGroup>
-        <FormulateBackOfficeContentFilesPath>$(MSBuildThisFileDirectory)..\content\App_Plugins\FormulateBackOffice\**\*.*</FormulateBackOfficeContentFilesPath>
+        <FormulateBackOfficeContentFilesPath>$(MSBuildThisFileDirectory)..\content\App_Plugins\Formulate\**\*.*</FormulateBackOfficeContentFilesPath>
     </PropertyGroup>
 
     <Target Name="CopyFormulateBackOfficeAssets" BeforeTargets="Build">
@@ -11,16 +11,16 @@
         <Message Text="Copying FormulateBackOffice files: $(FormulateBackOfficeContentFilesPath) - #@(FormulateBackOfficeContentFiles->Count()) files"  Importance="high" />
         <Copy
             SourceFiles="@(FormulateBackOfficeContentFiles)"
-            DestinationFiles="@(FormulateBackOfficeContentFiles->'$(MSBuildProjectDirectory)\App_Plugins\FormulateBackOffice\%(RecursiveDir)%(Filename)%(Extension)')"
+            DestinationFiles="@(FormulateBackOfficeContentFiles->'$(MSBuildProjectDirectory)\App_Plugins\Formulate\%(RecursiveDir)%(Filename)%(Extension)')"
             SkipUnchangedFiles="true" />
 
     </Target>
 
     <Target Name="ClearFormulateBackOfficeAssets" BeforeTargets="Clean">
         <ItemGroup>
-            <FormulateBackOfficeDir Include="$(MSBuildProjectDirectory)\App_Plugins\FormulateBackOffice\" />
+            <FormulateBackOfficeDir Include="$(MSBuildProjectDirectory)\App_Plugins\Formulate\" />
         </ItemGroup>
-        <Message Text="Clear old FormulateBackOffice data"  Importance="high" />
+        <Message Text="Clear old Formulate data"  Importance="high" />
         <RemoveDir Directories="@(FormulateBackOfficeDir)"  />
     </Target>
 
