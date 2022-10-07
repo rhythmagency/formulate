@@ -18,7 +18,7 @@
         public ValidateFormSubmissionRequestOutput Validate(FormSubmissionRequest input)
         {
             var form = input.Form;
-            var fieldValues = input.FieldValues;
+            var fieldValues = input.AllValues;
             var errors = new List<ValidationErrorSubmissionResponse>();
 
             foreach (var field in form.Fields)
@@ -30,7 +30,8 @@
                     continue;
                 }
 
-                var values = fieldValues.ContainsKey(field.Id) ? fieldValues[field.Id] : FormFieldValues.Empty;
+                var hasValues = fieldValues.Any(x => x.Key == field.Id);
+                var values = hasValues == false ? FormFieldValues.Empty : fieldValues.FirstOrDefault(x => x.Key == field.Id).Value;
                 var result = formField.Validate(values);
 
                 if (result.ErrorMessages.Any())

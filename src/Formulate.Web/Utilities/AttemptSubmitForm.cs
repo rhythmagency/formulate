@@ -35,7 +35,7 @@
             }
 
             // Get form values.
-            var values = new Dictionary<Guid, IFormFieldValues>();
+            var formValues = new Dictionary<Guid, IStringFormFieldValues>();
 
             foreach (var key in input.Form.Keys)
             {
@@ -46,10 +46,11 @@
 
                 var value = input.Form[key];
 
-                values.Add(fieldId, new StringFormFieldValues(value));
+                formValues.Add(fieldId, new StringFormFieldValues(value));
             }
 
             // Get file values.
+            var fileValues = new Dictionary<Guid, IFileFormFieldValues>();
 
             foreach (var groupedFiles in input.Files.GroupBy(x => x.Name))
             {
@@ -75,16 +76,10 @@
                     });
                 }
 
-                values.Add(fieldId, new FilesFormFieldValues(files));
+                fileValues.Add(fieldId, new FilesFormFieldValues(files));
             }
 
-            var payload = new FormSubmissionRequest()
-            {
-                Form = form,
-                PageId = input.PageId,
-                FieldValues = values,
-            };
-
+            var payload = new FormSubmissionRequest(form, input.PageId, formValues, fileValues);
             var validationResult = _validateFormSubmissionRequest.Validate(payload);
 
             if (validationResult.Errors.Any())
@@ -97,7 +92,6 @@
             }
 
             // submit payload.
-
             var submitResult = await _submitFormSubmissionRequest.SubmitAsync(payload, cancellationToken);
 
             return new AttemptSubmitFormOutput()
