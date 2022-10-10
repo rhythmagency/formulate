@@ -59,12 +59,10 @@
       <None Remove="App_Plugins\Formulate\backoffice\validations\Validations.DeleteController.js" />
       <None Remove="App_Plugins\Formulate\backoffice\validations\Validations.EditController.js" />
       <None Remove="App_Plugins\Formulate\backoffice\validations\Validations.MoveController.js" />
-      <None Remove="App_Plugins\Formulate\core\layouts\basic\basic.layout.html" />
-      <None Remove="App_Plugins\Formulate\core\layouts\basic\basic.layout.js" />
-      <None Remove="App_Plugins\Formulate\core\layouts\basic\package.manifest" />
-      <None Remove="App_Plugins\Formulate\core\layouts\layout-designer.css" />
-      <None Remove="App_Plugins\Formulate\core\layouts\layout.editor.js" />
-      <None Remove="App_Plugins\Formulate\core\layouts\package.manifest" />
+      <None Remove="App_Plugins\Formulate\editors\layouts\basic\basic.layout.html" />
+      <None Remove="App_Plugins\Formulate\editors\layouts\basic\basic.layout.js" />
+      <None Remove="App_Plugins\Formulate\editors\layouts\layout-designer.css" />
+      <None Remove="App_Plugins\Formulate\editors\layouts\layout.editor.js" />
       <None Remove="App_Plugins\Formulate\dialogs\form-field\edit-form-field.dialog.html" />
       <None Remove="App_Plugins\Formulate\dialogs\form-field\edit-form-field.dialog.js" />
       <None Remove="App_Plugins\Formulate\dialogs\form-handler\edit-form-handler.dialog.html" />
