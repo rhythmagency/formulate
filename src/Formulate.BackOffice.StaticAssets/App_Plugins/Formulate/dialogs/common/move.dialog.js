@@ -77,7 +77,7 @@
 
         var directive = {
             replace: true,
-            templateUrl: "/app_plugins/formulate/directives/dialogs/move.dialog.html",
+            templateUrl: "/app_plugins/formulate/dialogs/common/move.dialog.html",
             scope: {
                 currentNode: "=",
                 treeType: "="

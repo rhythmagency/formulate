@@ -46,7 +46,7 @@
 
         var directive = {
             replace: true,
-            templateUrl: "/app_plugins/formulate/directives/dialogs/delete.dialog.html",
+            templateUrl: "/app_plugins/formulate/dialogs/common/delete.dialog.html",
             scope: {
                 currentNode: "=",
                 treeType: "=",

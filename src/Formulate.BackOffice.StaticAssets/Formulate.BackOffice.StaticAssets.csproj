@@ -110,4 +110,7 @@
       <None Remove="App_Plugins\Formulate\styles\buttons.css" />
       <None Remove="App_Plugins\Formulate\styles\flexbox-utilities.css" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="App_Plugins\Formulate\directives\dialogs\" />
+    </ItemGroup>
 </Project>
