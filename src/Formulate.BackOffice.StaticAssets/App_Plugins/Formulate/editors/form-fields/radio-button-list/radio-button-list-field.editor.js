@@ -8,7 +8,7 @@
         return {
             restrict: "E",
             replace: true,
-            templateUrl: "/app_plugins/formulate/directives/editors/formFields/radio-button-list/radio-button-list-field.editor.html",
+            templateUrl: "/app_plugins/formulate/editors/form-fields/radio-button-list/radio-button-list-field.editor.html",
             controller: Controller,
             scope: {
                 configuration: "="

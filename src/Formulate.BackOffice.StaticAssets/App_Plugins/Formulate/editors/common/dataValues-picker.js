@@ -5,7 +5,7 @@
     function directive() {
         return {
             restrict: "E",
-            templateUrl: "/app_plugins/formulate/directives/editors/formFields/dataValues-picker.html",
+            templateUrl: "/app_plugins/formulate/editors/common/dataValues-picker.html",
             controller: controller,
             scope: {
                 model: "="

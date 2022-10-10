@@ -6,7 +6,7 @@
         return {
             restrict: "E",
             replace: true,
-            templateUrl: "/app_plugins/formulate/directives/editors/formFields/drop-down/drop-down-field.editor.html",
+            templateUrl: "/app_plugins/formulate/editors/form-fields/checkbox-list/checkbox-list-field.editor.html",
             controller: controller,
             scope: {
                 configuration: "="
@@ -19,6 +19,6 @@
         $scope.configuration = $scope.configuration || {};
     }
     // Associate directive/controller.
-    angular.module("umbraco").directive("formulateDropDownField", directive);
+    angular.module("umbraco").directive("formulateCheckboxListField", directive);
 
 })();
