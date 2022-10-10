@@ -97,8 +97,8 @@
       <None Remove="App_Plugins\Formulate\editors\form-fields\rich-text\rich-text-field.editor.js" />
       <None Remove="App_Plugins\Formulate\editors\form-fields\text-constant\text-constant-field.editor.html" />
       <None Remove="App_Plugins\Formulate\editors\form-fields\text-constant\text-constant-field.editor.js" />
-      <None Remove="App_Plugins\Formulate\directives\property-editors\form-layout-picker\form-layout-picker.html" />
-      <None Remove="App_Plugins\Formulate\directives\property-editors\form-layout-picker\form-layout-picker.js" />
+      <None Remove="App_Plugins\Formulate\property-editors\form-layout-picker\form-layout-picker.html" />
+      <None Remove="App_Plugins\Formulate\property-editors\form-layout-picker\form-layout-picker.js" />
       <None Remove="App_Plugins\Formulate\resources\dataValuesResource.js" />
       <None Remove="App_Plugins\Formulate\resources\definitionDirectiveResource.js" />
       <None Remove="App_Plugins\Formulate\resources\designerResource.js" />
