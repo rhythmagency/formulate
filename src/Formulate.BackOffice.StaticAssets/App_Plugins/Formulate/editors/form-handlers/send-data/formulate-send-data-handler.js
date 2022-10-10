@@ -3,7 +3,7 @@
 function formulateSendDataHandlerDirective() {
     return {
         replace: true,
-        templateUrl: "/app_plugins/formulate/directives/editors/formHandlers/send-data/formulate-send-data-handler.html",
+        templateUrl: "/app_plugins/formulate/editors/form-handlers/send-data/formulate-send-data-handler.html",
     };
 }
 

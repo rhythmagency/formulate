@@ -81,7 +81,6 @@
       <None Remove="App_Plugins\Formulate\directives\dialogs\move.dialog.js" />
       <None Remove="App_Plugins\Formulate\directives\dialogs\pick-form-field.dialog.html" />
       <None Remove="App_Plugins\Formulate\directives\dialogs\pick-form-field.dialog.js" />
-      <None Remove="App_Plugins\Formulate\directives\editors\form-field.editor.js" />
       <None Remove="App_Plugins\Formulate\editors\form-fields\button\button-field.editor.html" />
       <None Remove="App_Plugins\Formulate\editors\form-fields\button\button-field.editor.js" />
       <None Remove="App_Plugins\Formulate\editors\form-fields\checkbox-list\checkbox-list-field.editor.html" />
