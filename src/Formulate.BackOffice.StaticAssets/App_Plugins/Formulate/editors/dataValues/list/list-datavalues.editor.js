@@ -25,7 +25,7 @@
         return {
             restrict: "E",
             replace: true,
-            templateUrl: "/app_plugins/formulate/directives/editors/dataValues/list/list-datavalues.editor.html",
+            templateUrl: "/app_plugins/formulate/editors/dataValues/list/list-datavalues.editor.html",
             scope: {
                 config: "="
             },
