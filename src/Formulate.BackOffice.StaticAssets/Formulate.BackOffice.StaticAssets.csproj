@@ -75,12 +75,6 @@
       <None Remove="App_Plugins\Formulate\designers\layout.designer.js" />
       <None Remove="App_Plugins\Formulate\designers\validation.designer.html" />
       <None Remove="App_Plugins\Formulate\designers\validation.designer.js" />
-      <None Remove="App_Plugins\Formulate\directives\dialogs\delete.dialog.html" />
-      <None Remove="App_Plugins\Formulate\directives\dialogs\delete.dialog.js" />
-      <None Remove="App_Plugins\Formulate\directives\dialogs\move.dialog.html" />
-      <None Remove="App_Plugins\Formulate\directives\dialogs\move.dialog.js" />
-      <None Remove="App_Plugins\Formulate\directives\dialogs\pick-form-field.dialog.html" />
-      <None Remove="App_Plugins\Formulate\directives\dialogs\pick-form-field.dialog.js" />
       <None Remove="App_Plugins\Formulate\editors\form-fields\button\button-field.editor.html" />
       <None Remove="App_Plugins\Formulate\editors\form-fields\button\button-field.editor.js" />
       <None Remove="App_Plugins\Formulate\editors\form-fields\checkbox-list\checkbox-list-field.editor.html" />
@@ -109,8 +103,5 @@
       <None Remove="App_Plugins\Formulate\resources\idResource.js" />
       <None Remove="App_Plugins\Formulate\styles\buttons.css" />
       <None Remove="App_Plugins\Formulate\styles\flexbox-utilities.css" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="App_Plugins\Formulate\directives\dialogs\" />
     </ItemGroup>
 </Project>
