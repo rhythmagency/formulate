@@ -6,6 +6,7 @@
 
     using Umbraco.Cms.Core.DependencyInjection;
     using Formulate.BackOffice.ContentApps.DataValues;
+    using Formulate.BackOffice.ContentApps.Validations;
 
     public partial class UmbracoBuilderExtensions
     {
@@ -19,6 +20,8 @@
             builder.AddContentApp<FoldersContentAppFactory>();
 
             builder.AddContentApp<LayoutEditorContentAppFactory>();
+
+            builder.AddContentApp<ValidationEditorContentAppFactory>();
         }
     }
 }
