@@ -7,26 +7,17 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Umbraco.Cms.Core.ContentApps;
     using Umbraco.Cms.Core.Mapping;
 
     internal sealed class FormEditorModelMapDefinition : EntityEditorModelMapDefinition<PersistedForm, FormEditorModel>
     {
-        public FormEditorModelMapDefinition(ContentAppFactoryCollection contentAppDefinitions) : base(contentAppDefinitions)
-        {
-        }
-
         public override FormEditorModel? MapToEditor(PersistedForm entity, MapperContext mapperContext)
         {
-            var editorModel = new FormEditorModel(entity, mapperContext.IsNew())
+            return new FormEditorModel(entity, mapperContext.IsNew())
             {
                 Fields = MapFields(entity.Fields, mapperContext),
                 Handlers = MapHandlers(entity.Handlers, mapperContext),
             };
-
-            editorModel.Apps = MapApps(editorModel);
-
-            return editorModel;
         }
 
         public override PersistedForm? MapToEntity(FormEditorModel editorModel, MapperContext mapperContext)

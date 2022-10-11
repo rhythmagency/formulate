@@ -14,7 +14,7 @@
 
         private readonly DataValuesDefinitionCollection _dataValuesDefinitions;
 
-        public DataValuesEditorModelMapDefinition(IJsonUtility jsonUtility, DataValuesDefinitionCollection dataValuesDefinitions, ContentAppFactoryCollection contentAppDefinitions) : base(contentAppDefinitions)
+        public DataValuesEditorModelMapDefinition(IJsonUtility jsonUtility, DataValuesDefinitionCollection dataValuesDefinitions)
         {
             _jsonUtility = jsonUtility;
             _dataValuesDefinitions = dataValuesDefinitions;
@@ -29,15 +29,11 @@
                 return default;
             }
 
-            var editorModel = new DataValuesEditorModel(entity, mapperContext.IsNew(), definition.IsLegacy)
+            return new DataValuesEditorModel(entity, mapperContext.IsNew(), definition.IsLegacy)
             {
                 Directive = definition.Directive,
                 Data = definition.GetBackOfficeConfiguration(entity),
             };
-
-            editorModel.Apps = MapApps(editorModel);
-
-            return editorModel;
         }
 
         public override PersistedDataValues? MapToEntity(DataValuesEditorModel editorModel, MapperContext mapperContext)
