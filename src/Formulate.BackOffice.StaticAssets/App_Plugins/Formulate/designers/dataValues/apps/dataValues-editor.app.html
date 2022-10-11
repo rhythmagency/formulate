@@ -1,0 +1,12 @@
+﻿<div class="form-horizontal">
+    <div class="umb-group-panel">
+        <div class="umb-group-panel__content">
+            <p ng-if="content.isLegacy">This is a legacy data values entity. Please convert it to a new data values entity type.</p>
+
+            <formulate-configuration-editor ng-if="!content.isLegacy && content.directive"
+                                            directive="content.directive"
+                                            config="content.data">
+            </formulate-configuration-editor>
+        </div>
+    </div>
+</div>

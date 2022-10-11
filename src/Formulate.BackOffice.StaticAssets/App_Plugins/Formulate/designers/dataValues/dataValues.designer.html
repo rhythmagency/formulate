@@ -7,21 +7,14 @@
             <umb-editor-header name="entity.name"
                                alias="entity.alias"
                                hide-icon="true"
-                               hide-description="true">
+                               hide-description="true"
+                               navigation="entity.apps">
             </umb-editor-header>
 
             <umb-editor-container>
-                <div class="form-horizontal">
-                    <div class="umb-group-panel">
-                        <div class="umb-group-panel__content">
-                            <p ng-if="entity.isLegacy">This is a legacy data values entity. Please convert it to a new data values entity type.</p>
-
-                            <formulate-configuration-editor ng-if="!entity.isLegacy && entity.directive"
-                                                         directive="entity.directive"
-                                                         config="entity.data">
-                            </formulate-configuration-editor>
-                        </div>
-                    </div>
+                <div id="sub-view-{{$index}}" ng-repeat="app in entity.apps track by app.alias">
+                    <umb-editor-sub-view model="app" content="entity">
+                    </umb-editor-sub-view>
                 </div>
             </umb-editor-container>
 

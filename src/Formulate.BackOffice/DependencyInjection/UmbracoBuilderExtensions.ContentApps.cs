@@ -5,18 +5,20 @@
     using Formulate.BackOffice.ContentApps.Layouts;
 
     using Umbraco.Cms.Core.DependencyInjection;
+    using Formulate.BackOffice.ContentApps.DataValues;
 
     public partial class UmbracoBuilderExtensions
     {
         private static void AddFormulateContentApps(this IUmbracoBuilder builder)
         {
+            builder.AddContentApp<DataValuesEditorContentAppFactory>();
+
             builder.AddContentApp<FormFieldsContentAppFactory>();
             builder.AddContentApp<FormHandlersContentAppFactory>();
 
             builder.AddContentApp<FoldersContentAppFactory>();
 
             builder.AddContentApp<LayoutEditorContentAppFactory>();
-
         }
     }
 }
