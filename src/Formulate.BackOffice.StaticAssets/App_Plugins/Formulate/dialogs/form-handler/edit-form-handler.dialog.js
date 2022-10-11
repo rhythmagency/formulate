@@ -7,7 +7,6 @@
         vm.close = close;
         vm.submit = submit;
         vm.canSave = canSave;
-        vm.toggleEnabled = toggleEnabled;
 
         function close() {
             if ($scope.model.close) {
@@ -19,10 +18,6 @@
             if ($scope.model.submit) {
                 $scope.model.submit(vm.model);
             }
-        }
-
-        function toggleEnabled() {
-            vm.model.enabled = !vm.model.enabled;
         }
 
         function canSave() {

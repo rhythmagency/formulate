@@ -8,39 +8,18 @@
                                name-locked="false"
                                hide-alias="false"
                                hide-icon="true"
-                               hide-description="true">
+                               hide-description="true"
+                               navigation="vm.model.apps">
             </umb-editor-header>
 
             <umb-editor-container>
                 <umb-load-indicator ng-if="vm.loading === true"></umb-load-indicator>
 
                 <div ng-if="vm.loading === false">
-
-                    <div class="umb-group-panel">
-                        <div class="umb-group-panel__header">
-                            General
-                        </div>
-                        <div class="umb-group-panel__content">
-                            <!-- label -->
-                            <div class="control-group umb-control-group -no-border">
-                                <div class="umb-el-wrap">
-                                    <label class="control-label" for="enabled">
-                                        <localize key="formulate-labels_Field Enabled">
-                                            Enabled
-                                        </localize>
-                                    </label>
-                                    <div class="controls">
-                                        <umb-toggle checked="vm.model.enabled"
-                                                    on-click="vm.toggleEnabled()">
-                                        </umb-toggle>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="sub-view-{{$index}}" ng-repeat="app in vm.model.apps track by app.alias">
+                        <umb-editor-sub-view model="app" content="vm">
+                        </umb-editor-sub-view>
                     </div>
-                    <!-- handler configuration -->
-                    <formulate-handler-editor directive="vm.model.directive" configuration="vm.model.configuration" fields="vm.fields">
-                    </formulate-handler-editor>
                 </div>
             </umb-editor-container>
 

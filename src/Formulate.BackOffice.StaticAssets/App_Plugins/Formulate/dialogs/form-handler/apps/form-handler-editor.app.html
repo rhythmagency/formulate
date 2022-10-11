@@ -1,0 +1,27 @@
+﻿<div ng-controller="Formulate.BackOffice.FormHandlerEditorAppController">
+    <div class="umb-group-panel">
+        <div class="umb-group-panel__header">
+            General
+        </div>
+        <div class="umb-group-panel__content">
+            <!-- label -->
+            <div class="control-group umb-control-group -no-border">
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="enabled">
+                        <localize key="formulate-labels_Field Enabled">
+                            Enabled
+                        </localize>
+                    </label>
+                    <div class="controls">
+                        <umb-toggle checked="content.model.enabled"
+                                    on-click="toggleEnabled()">
+                        </umb-toggle>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- handler configuration -->
+    <formulate-handler-editor directive="content.model.directive" configuration="content.model.configuration" fields="content.fields">
+    </formulate-handler-editor>
+</div>

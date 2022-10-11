@@ -3,11 +3,12 @@
     using Formulate.BackOffice.ContentApps.Forms;
     using Formulate.BackOffice.ContentApps.Folders;
     using Formulate.BackOffice.ContentApps.Layouts;
-
-    using Umbraco.Cms.Core.DependencyInjection;
     using Formulate.BackOffice.ContentApps.DataValues;
     using Formulate.BackOffice.ContentApps.Validations;
     using Formulate.BackOffice.ContentApps.FormFields;
+    using Formulate.BackOffice.ContentApps.FormHandlers;
+
+    using Umbraco.Cms.Core.DependencyInjection;
 
     public partial class UmbracoBuilderExtensions
     {
@@ -16,6 +17,8 @@
             builder.AddContentApp<DataValuesEditorContentAppFactory>();
 
             builder.AddContentApp<FormFieldsEditorContentAppFactory>();
+            builder.AddContentApp<FormHandlersEditorContentAppFactory>();
+
 
             builder.AddContentApp<FormFieldsContentAppFactory>();
             builder.AddContentApp<FormHandlersContentAppFactory>();
