@@ -4,6 +4,7 @@
     using Formulate.Core.Types;
     using Formulate.Core.Utilities;
     using Formulate.Core.Validations;
+    using Umbraco.Cms.Core.ContentApps;
     using Umbraco.Cms.Core.Mapping;
 
     internal sealed class ValidationEditorModelMapDefinition : EntityEditorModelMapDefinition<PersistedValidation, ValidationEditorModel>
@@ -12,7 +13,7 @@
         
         private readonly ValidationDefinitionCollection _validationDefinitions;
 
-        public ValidationEditorModelMapDefinition(IJsonUtility jsonUtility, ValidationDefinitionCollection validationDefinitions)
+        public ValidationEditorModelMapDefinition(IJsonUtility jsonUtility, ValidationDefinitionCollection validationDefinitions, ContentAppFactoryCollection contentAppDefinitions) : base(contentAppDefinitions)
         {
             _jsonUtility = jsonUtility;
             _validationDefinitions = validationDefinitions;
@@ -27,11 +28,15 @@
                 return default;
             }
 
-            return new ValidationEditorModel(entity, mapperContext.IsNew(), definition.IsLegacy)
+            var editorModel = new ValidationEditorModel(entity, mapperContext.IsNew(), definition.IsLegacy)
             {
                 Data = definition.GetBackOfficeConfiguration(entity),
                 Directive = definition.Directive
             };
+
+            editorModel.Apps = MapApps(editorModel);
+
+            return editorModel;
         }
 
         public override PersistedValidation? MapToEntity(ValidationEditorModel editorModel, MapperContext mapperContext)

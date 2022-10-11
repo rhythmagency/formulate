@@ -5,6 +5,7 @@
     using Formulate.Core.Types;
     using Formulate.Core.Utilities;
     using System.Linq;
+    using Umbraco.Cms.Core.ContentApps;
     using Umbraco.Cms.Core.Mapping;
 
     internal sealed class DataValuesEditorModelMapDefinition : EntityEditorModelMapDefinition<PersistedDataValues, DataValuesEditorModel>
@@ -13,7 +14,7 @@
 
         private readonly DataValuesDefinitionCollection _dataValuesDefinitions;
 
-        public DataValuesEditorModelMapDefinition(IJsonUtility jsonUtility, DataValuesDefinitionCollection dataValuesDefinitions)
+        public DataValuesEditorModelMapDefinition(IJsonUtility jsonUtility, DataValuesDefinitionCollection dataValuesDefinitions, ContentAppFactoryCollection contentAppDefinitions) : base(contentAppDefinitions)
         {
             _jsonUtility = jsonUtility;
             _dataValuesDefinitions = dataValuesDefinitions;
@@ -28,12 +29,15 @@
                 return default;
             }
 
-            return new DataValuesEditorModel(entity, mapperContext.IsNew(), definition.IsLegacy)
+            var editorModel = new DataValuesEditorModel(entity, mapperContext.IsNew(), definition.IsLegacy)
             {
                 Directive = definition.Directive,
                 Data = definition.GetBackOfficeConfiguration(entity),
-                IsLegacy = definition.IsLegacy,
             };
+
+            editorModel.Apps = MapApps(editorModel);
+
+            return editorModel;
         }
 
         public override PersistedDataValues? MapToEntity(DataValuesEditorModel editorModel, MapperContext mapperContext)
