@@ -1,0 +1,45 @@
+﻿<div class="form-horizontal" ng-controller="Formulate.BackOffice.FormHandlersAppController">
+    <div class="umb-group-panel">
+        <div class="umb-group-panel__header">
+            <div>
+                <localize key="formulate-introductions_Form Handlers">
+                    These are your form's handlers.
+                    Handlers allow you to perform various actions when you submit the form.
+                </localize>
+            </div>
+        </div>
+
+        <div class="umb-group-panel__content">
+            <!-- Render all handlers. -->
+            <div ui-sortable="sortableOptions" ng-model="content.handlers">
+                <!-- A handlerset for each handler. -->
+                <div ng-repeat="handler in content.handlers track by handler.id" class="formulate-handler {{handler.enabled ? '' : 'formulate-handler--disabled'}}">
+                    <div class="formulate-handler__header">
+                        <umb-icon icon="{{handler.icon}}"></umb-icon>
+                        <span class="formulate-handler__name">
+                            {{handler.name}} <small>({{handler.alias || 'no alias provided'}})</small>
+                        </span>
+                    </div>
+
+                    <div class="formulate-handler__actions">
+                        <button ng-click="actions.editHandler(handler)" class="btn-reset formulate-handler__action" prevent-default>
+                            <umb-icon icon="icon-settings"></umb-icon>
+                        </button>
+                        <button ng-click="actions.toggleHandlerEnabled(handler)" class="btn-reset formulate-handler__action" prevent-default>
+                            <umb-icon icon="icon-formulate-hide"></umb-icon>
+                        </button>
+                        <button ng-click="actions.deleteHandler(handler)" class="btn-reset formulate-handler__action" prevent-default>
+                            <umb-icon icon="icon-trash"></umb-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="umb-group-builder__group-add-property" ng-click="actions.addHandler()" prevent-default>
+                <localize key="formulate-buttons_Add Handler">
+                    Add Handler
+                </localize>
+            </button>
+        </div>
+    </div>
+</div>

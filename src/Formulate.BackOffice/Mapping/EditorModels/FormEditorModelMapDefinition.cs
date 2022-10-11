@@ -7,17 +7,54 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Umbraco.Cms.Core.ContentApps;
     using Umbraco.Cms.Core.Mapping;
+    using Umbraco.Cms.Core.Models.ContentEditing;
 
     internal sealed class FormEditorModelMapDefinition : EntityEditorModelMapDefinition<PersistedForm, FormEditorModel>
     {
+        private readonly ContentAppFactoryCollection _contentAppDefinitions;
+
+        public FormEditorModelMapDefinition(ContentAppFactoryCollection contentAppDefinitions)
+        {
+            _contentAppDefinitions = contentAppDefinitions;
+        }
+
         public override FormEditorModel? MapToEditor(PersistedForm entity, MapperContext mapperContext)
         {
-            return new FormEditorModel(entity, mapperContext.IsNew())
+            var editorModel = new FormEditorModel(entity, mapperContext.IsNew())
             {
                 Fields = MapFields(entity.Fields, mapperContext),
-                Handlers = MapHandlers(entity.Handlers, mapperContext)
+                Handlers = MapHandlers(entity.Handlers, mapperContext),
             };
+
+            editorModel.Apps = MapApps(editorModel);
+
+            return editorModel;
+        }
+
+        private IReadOnlyCollection<ContentApp> MapApps(FormEditorModel entity)
+        {
+            var apps = _contentAppDefinitions.GetContentAppsFor(entity).OrderBy(x => x.Weight).ToArray();
+            var processedApps = new List<ContentApp>();
+            var hasProcessedFirstApp = false;
+
+            foreach (var app in apps)
+            {
+                if (hasProcessedFirstApp)
+                {
+                    app.Active = false;
+                }
+                else
+                {
+                    app.Active = true;
+                    hasProcessedFirstApp = true;
+                }
+
+                processedApps.Add(app);
+            }
+
+            return processedApps.ToArray();
         }
 
         public override PersistedForm? MapToEntity(FormEditorModel editorModel, MapperContext mapperContext)
@@ -77,7 +114,7 @@
 
             return mappedFields.ToArray();
         }
-        
+
         private static FormHandlerEditorModel[] MapHandlers(PersistedFormHandler[] handlers, MapperContext mapperContext)
         {
             if (handlers.Length == 0)

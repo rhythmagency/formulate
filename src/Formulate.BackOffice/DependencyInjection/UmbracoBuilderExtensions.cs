@@ -8,6 +8,7 @@
         {
             builder.AddFormDefinitions();
 
+            builder.AddFormulateContentApps();
             builder.AddFormulateSection();
             builder.AddFormulateConfiguration();
             builder.AddFormulateUtilities();

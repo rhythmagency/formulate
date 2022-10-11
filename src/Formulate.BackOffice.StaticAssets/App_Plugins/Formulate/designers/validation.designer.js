@@ -2,7 +2,7 @@
     function formulateValidationDesignerDirective($http, formulateDesignerResource, formHelper) {
         var directive = {
             replace: true,
-            templateUrl: "/app_plugins/formulate/directives/designers/validation.designer.html",
+            templateUrl: "/app_plugins/formulate/designers/validation.designer.html",
             scope: {
                 entity: "=",
             },

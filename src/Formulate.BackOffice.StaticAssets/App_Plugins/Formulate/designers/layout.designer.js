@@ -145,7 +145,7 @@ class FormulateLayoutDesigner {
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: "/app_plugins/formulate/directives/designers/layout.designer.html",
+                templateUrl: "/app_plugins/formulate/designers/layout.designer.html",
                 scope: {
                     entity: '=',
                 },

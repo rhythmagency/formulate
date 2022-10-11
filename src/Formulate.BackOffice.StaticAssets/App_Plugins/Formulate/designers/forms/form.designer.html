@@ -1,0 +1,67 @@
+﻿<div>
+    <form novalidate name="formulateFormDesigner"
+          ng-submit="events.save()"
+          val-form-manager>
+
+        <umb-editor-view>
+
+            <umb-editor-header name="entity.name"
+                               alias="entity.alias"
+                               hide-icon="true"
+                               hide-description="true"
+                               navigation="entity.apps">
+            </umb-editor-header>
+
+            <umb-editor-container>
+                <div id="sub-view-{{$index}}" ng-repeat="app in entity.apps track by app.alias">
+                    <umb-editor-sub-view model="app" content="entity">
+                    </umb-editor-sub-view>
+                </div>
+            </umb-editor-container>
+
+            <umb-editor-footer>
+
+                <!--<umb-editor-footer-content-left>
+
+                    <umb-breadcrumbs ng-if="ancestors && ancestors.length > 0"
+                                     ancestors="ancestors"
+                                     entity-type="media">
+                    </umb-breadcrumbs>
+
+                </umb-editor-footer-content-left>-->
+
+
+                <umb-editor-footer-content-right>
+
+                    <!--<umb-button ng-if="model.infiniteMode"
+                                type="button"
+                                button-style="link"
+                                label-key="general_close"
+                                shortcut="esc"
+                                action="close()">
+                    </umb-button>-->
+                    <!--<umb-button alias="returnToList"
+                                ng-if="page.listViewPath && !model.infiniteMode"
+                                type="link"
+                                href="#{{page.listViewPath}}"
+                                label-key="buttons_returnToList">
+                    </umb-button>-->
+                    <!-- label-key="buttons_save" -->
+                    <umb-button alias="save"
+                                type="submit"
+                                state="saveButtonState"
+                                disabled="!events.canSave()"
+                                button-style="success"
+                                shortcut="ctrl+s"
+                                label-key="formulate-buttons_Save">
+                    </umb-button>
+
+                </umb-editor-footer-content-right>
+
+            </umb-editor-footer>
+
+        </umb-editor-view>
+
+
+    </form>
+</div>
