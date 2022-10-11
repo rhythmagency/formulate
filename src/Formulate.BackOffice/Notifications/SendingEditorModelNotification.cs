@@ -5,11 +5,11 @@
 
     public sealed class SendingEditorModelNotification : INotification
     {
-        public SendingEditorModelNotification(EntityEditorModel editorModel)
+        public SendingEditorModelNotification(IEditorModel? editorModel)
         {
             EditorModel = editorModel;
         }
 
-        public EntityEditorModel EditorModel { get; init; }
+        public IEditorModel? EditorModel { get; init; }
     }
 }

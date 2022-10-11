@@ -4,6 +4,7 @@
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using Umbraco.Cms.Core.Models.ContentEditing;
 
     [DataContract]
     public abstract class ItemEditorModel : IEditorModel
@@ -38,5 +39,8 @@
 
         [DataMember(Name = "isLegacy")]
         public bool IsLegacy { get; set; }
+
+        [DataMember(Name = "apps")]
+        public IReadOnlyCollection<ContentApp> Apps { get; set; } = Array.Empty<ContentApp>();
     }
 }

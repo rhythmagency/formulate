@@ -35,14 +35,9 @@
 
         private IEditorModel? NotifySendEditorModel(IEditorModel? editorModel)
         {
-            if (editorModel is EntityEditorModel entityEditorModel == false)
-            {
-                return editorModel;
-            }
-
             using (var scope = _coreScopeProvider.CreateCoreScope())
             {
-                var notification = new SendingEditorModelNotification(entityEditorModel);
+                var notification = new SendingEditorModelNotification(editorModel);
 
                 scope.Notifications.Publish(notification);
                 scope.Complete();

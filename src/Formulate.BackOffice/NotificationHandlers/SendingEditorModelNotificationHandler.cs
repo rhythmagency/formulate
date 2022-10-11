@@ -19,10 +19,15 @@
 
         public void Handle(SendingEditorModelNotification notification)
         {
+            if (notification.EditorModel is null)
+            {
+                return;
+            }
+
             notification.EditorModel.Apps = GetContentApps(notification.EditorModel);
         }
 
-        private IReadOnlyCollection<ContentApp> GetContentApps(EntityEditorModel editorModel)
+        private IReadOnlyCollection<ContentApp> GetContentApps(IEditorModel editorModel)
         {
             var apps = _contentAppDefinitions.GetContentAppsFor(editorModel).OrderBy(x => x.Weight).ToArray();
             var processedApps = new List<ContentApp>();
