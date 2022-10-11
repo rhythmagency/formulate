@@ -1,0 +1,34 @@
+﻿<div ng-controller="Formulate.BackOffice.LayoutEditorAppController">
+    <div class="form-horizontal" ng-if="!loading">
+        <div class="umb-group-panel">
+            <div class="umb-group-panel__header">
+                Settings
+            </div>
+            <div class="umb-group-panel__content">
+                <div class="control-group umb-control-group -no-border">
+                    <div class="umb-el-wrap">
+                        <div class="control-header">
+                            <label class="control-label" for="template">
+                                <localize key="formulate-labels_Template">Template</localize>
+                            </label>
+                        </div>
+                        <div class="controls">
+                            <select ng-options="option.id as option.name for option in templates" ng-model="content.templateId" name="template">
+                                <option value="">
+                                    <localize key="formulate-options_Select a Template">
+                                        Select a Template
+                                    </localize>
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <formulate-layout-editor ng-if="content.directive && form"
+                             directive="content.directive"
+                             form="form"
+                             data="content.data">
+    </formulate-layout-editor>
+</div>

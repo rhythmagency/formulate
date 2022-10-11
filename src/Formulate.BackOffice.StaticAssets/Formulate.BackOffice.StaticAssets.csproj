@@ -63,6 +63,8 @@
       <None Remove="App_Plugins\Formulate\designers\forms\apps\form-fields.app.js" />
       <None Remove="App_Plugins\Formulate\designers\forms\apps\form-handlers.app.html" />
       <None Remove="App_Plugins\Formulate\designers\forms\apps\form-handlers.app.js" />
+      <None Remove="App_Plugins\Formulate\designers\layouts\apps\layout-editor.app.html" />
+      <None Remove="App_Plugins\Formulate\designers\layouts\apps\layout-editor.app.js" />
       <None Remove="App_Plugins\Formulate\editors\layouts\basic\basic.layout.html" />
       <None Remove="App_Plugins\Formulate\editors\layouts\basic\basic.layout.js" />
       <None Remove="App_Plugins\Formulate\editors\layouts\layout-designer.css" />
