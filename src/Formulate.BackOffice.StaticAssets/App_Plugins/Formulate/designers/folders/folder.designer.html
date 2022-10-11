@@ -7,21 +7,14 @@
             <umb-editor-header name="entity.name"
                                hide-icon="true"
                                hide-description="true"
-                               hide-alias="true">
+                               hide-alias="true"
+                               navigation="entity.apps">
             </umb-editor-header>
 
             <umb-editor-container>
-                <div class="form-horizontal">
-                    <div class="umb-group-panel">
-                        <div class="umb-group-panel__content">
-                            <p>
-                                <localize key="formulate-instructions_Folder">
-                                    This is a folder. You can store items under it,
-                                    including more folders.
-                                </localize>
-                            </p>
-                        </div>
-                    </div>
+                <div id="sub-view-{{$index}}" ng-repeat="app in entity.apps track by app.alias">
+                    <umb-editor-sub-view model="app" content="entity">
+                    </umb-editor-sub-view>
                 </div>
             </umb-editor-container>
 

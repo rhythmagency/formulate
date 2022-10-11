@@ -14,7 +14,6 @@
         public override FolderEditorModel? MapToEditor(PersistedFolder entity, MapperContext mapperContext)
         {
             var editorModel = new FolderEditorModel(entity, mapperContext.IsNew());
-
             editorModel.Apps = MapApps(editorModel);
 
             return editorModel;
