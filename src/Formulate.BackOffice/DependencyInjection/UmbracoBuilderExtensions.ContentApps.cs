@@ -7,12 +7,15 @@
     using Umbraco.Cms.Core.DependencyInjection;
     using Formulate.BackOffice.ContentApps.DataValues;
     using Formulate.BackOffice.ContentApps.Validations;
+    using Formulate.BackOffice.ContentApps.FormFields;
 
     public partial class UmbracoBuilderExtensions
     {
         private static void AddFormulateContentApps(this IUmbracoBuilder builder)
         {
             builder.AddContentApp<DataValuesEditorContentAppFactory>();
+
+            builder.AddContentApp<FormFieldsEditorContentAppFactory>();
 
             builder.AddContentApp<FormFieldsContentAppFactory>();
             builder.AddContentApp<FormHandlersContentAppFactory>();

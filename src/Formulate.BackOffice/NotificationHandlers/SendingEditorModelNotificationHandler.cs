@@ -1,6 +1,7 @@
 ﻿namespace Formulate.BackOffice.NotificationHandlers
 {
     using Formulate.BackOffice.EditorModels;
+    using Formulate.BackOffice.EditorModels.Forms;
     using Formulate.BackOffice.Notifications;
     using System.Collections.Generic;
     using System.Linq;
@@ -24,7 +25,26 @@
                 return;
             }
 
-            notification.EditorModel.Apps = GetContentApps(notification.EditorModel);
+            switch (notification.EditorModel)
+            {
+                case FormEditorModel editorModel:
+                    notification.EditorModel.Apps = GetContentApps(notification.EditorModel);
+
+                    foreach (var field in editorModel.Fields)
+                    {
+                        field.Apps = GetContentApps(field);
+                    }
+
+                    foreach (var handler in editorModel.Handlers)
+                    {
+                        handler.Apps = GetContentApps(handler);
+                    }
+
+                    break;
+                default:
+                    notification.EditorModel.Apps = GetContentApps(notification.EditorModel);
+                    break;
+            }
         }
 
         private IReadOnlyCollection<ContentApp> GetContentApps(IEditorModel editorModel)

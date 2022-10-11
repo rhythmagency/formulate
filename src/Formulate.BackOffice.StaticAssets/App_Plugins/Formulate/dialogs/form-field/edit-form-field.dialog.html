@@ -8,86 +8,18 @@
                                name-locked="false"
                                hide-alias="false"
                                hide-icon="true"
-                               hide-description="true">
+                               hide-description="true"
+                               navigation="vm.model.apps">
             </umb-editor-header>
 
             <umb-editor-container>
                 <umb-load-indicator ng-if="vm.loading === true"></umb-load-indicator>
 
                 <div ng-if="vm.loading === false">
-                    <div class="umb-group-panel" ng-if="vm.supportsGeneralSettings">
-                        <div class="umb-group-panel__header">
-                            General
-                        </div>
-                        <div class="umb-group-panel__content">
-                            <!-- label -->
-                            <div class="control-group umb-control-group -no-border" ng-if="vm.model.supportsLabel">
-                                <div class="umb-el-wrap">
-                                    <label class="control-label" for="label">
-                                        <localize key="formulate-labels_Label">
-                                            Label
-                                        </localize>
-                                    </label>
-                                    <div class="controls">
-                                        <input type="text" name="label"
-                                               ng-model="vm.model.label"
-                                               localize="placeholder"
-                                               placeholder="@formulate-placeholders_Label"
-                                               style="width:100%" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- The field category. -->
-                            <div class="control-group umb-control-group -no-border" ng-if="vm.model.supportsCategory">
-                                <div class="umb-el-wrap">
-                                    <label class="control-label" for="category">
-                                        <localize key="formulate-labels_Field Category">
-                                            Field Category
-                                        </localize>
-                                    </label>
-                                    <div class="controls">
-                                        <select name="category" ng-model="vm.model.category"
-                                                ng-options="option.value as option.label group by option.group for option in vm.categories">
-                                            <option value="">
-                                                <localize key="formulate-options_Select a Field Category">
-                                                    Select a Field Category
-                                                </localize>
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Validations -->
-                            <div class="control-group umb-control-group -no-border" ng-if="vm.model.supportsValidation">
-                                <div class="umb-el-wrap">
-                                    <label class="control-label" for="validations">
-                                        <localize key="formulate-labels_Field Validations">
-                                            Validations
-                                        </localize>
-                                    </label>
-                                    <div class="controls">
-                                        <umb-node-preview ng-repeat="validation in vm.model.validations"
-                                                          name="validation.name"
-                                                          allow-remove="true"
-                                                          allow-open="false"
-                                                          on-remove="vm.removeValidation(validation)">
-                                        </umb-node-preview>
-
-                                        <button type="button"
-                                                class="umb-node-preview-add"
-                                                ng-click="vm.pickValidations()">
-                                            <localize key="general_add">Add</localize>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+                    <div id="sub-view-{{$index}}" ng-repeat="app in vm.model.apps track by app.alias">
+                        <umb-editor-sub-view model="app" content="vm">
+                        </umb-editor-sub-view>
                     </div>
-                    <formulate-field-editor directive="vm.model.directive" configuration="vm.model.configuration">
-                    </formulate-field-editor>
                 </div>
             </umb-editor-container>
 
