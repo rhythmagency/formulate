@@ -48,7 +48,7 @@ internal class GeneratePackageManifest
                     name = "Formulate Form Layout Picker",
                     editor = new
                     {
-                        view = "/App_Plugins/Formulate/directives/property-editors/form-layout-picker/form-layout-picker.html",
+                        view = "/App_Plugins/Formulate/property-editors/form-layout-picker/form-layout-picker.html",
                         valueType = "JSON",
                     },
                 },
