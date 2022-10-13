@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
@@ -11,14 +11,13 @@
     <!-- Force windows to use ICU. Otherwise Windows 10 2019H1+ will do it, but older windows 10 and most if not all winodws servers will run NLS -->
     <ItemGroup>
         <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="68.2.0.9" />
-        <ProjectReference Include="..\Formulate.BackOffice\Formulate.BackOffice.csproj" />
-        <ProjectReference Include="..\Formulate.Core\Formulate.Core.csproj" />
-        <ProjectReference Include="..\Formulate.Templates.PlainJavaScript\Formulate.Templates.PlainJavaScript.csproj" />
-        <ProjectReference Include="..\Formulate.Web\Formulate.Web.csproj" />
         <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="68.2" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Views\Partials\" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Formulate\Formulate.csproj" />
     </ItemGroup>
 
 
