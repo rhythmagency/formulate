@@ -1,20 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-  </PropertyGroup>
-
     <PropertyGroup>
-        <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-
-        <ContentTargetFolders>content</ContentTargetFolders>
-
-        <PackageOutputPath>../../output</PackageOutputPath>
-        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <TargetFramework>net6.0</TargetFramework>
+        <Title>Formulate.BackOffice.StaticAssets</Title>
+        <PackageId>Formulate.BackOffice.StaticAssets</PackageId>
+        <Authors>Nicholas Westby, Jamie Pollock</Authors>
+        <Company>Rhythm</Company>
+        <Description>Supporting backoffice assets for Formulate, an advanced form builder for Umbraco.</Description>
+        <Product>Formulate.BackOffice.StaticAssets</Product>
+        <Copyright>Copyright 2022</Copyright>
+        <PackageProjectUrl>https://www.formulate.rocks</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/rhythmagency/formulate/</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>Umbraco;forms</PackageTags>
+        <PackageReleaseNotes>4.0.0 - .net core / Umbraco 10 version</PackageReleaseNotes>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
-
+    
     <!-- package files -->
     <ItemGroup>
         <Content Include="App_Plugins\**\*.*">
@@ -28,92 +30,12 @@
             <PackagePath>buildTransitive</PackagePath>
         </None>
     </ItemGroup>
+
     <ItemGroup>
-      <Compile Remove="App_Plugins\Formulate\extensions\**" />
-      <Content Remove="App_Plugins\Formulate\extensions\**" />
-      <EmbeddedResource Remove="App_Plugins\Formulate\extensions\**" />
-      <None Remove="App_Plugins\Formulate\extensions\**" />
+        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.0.1" />
     </ItemGroup>
+
     <ItemGroup>
-      <None Remove="App_Plugins\Formulate\backoffice\layouts\create.html" />
-      <None Remove="App_Plugins\Formulate\backoffice\layouts\delete.html" />
-      <None Remove="App_Plugins\Formulate\backoffice\layouts\edit.html" />
-      <None Remove="App_Plugins\Formulate\backoffice\layouts\Layouts.CreateController.js" />
-      <None Remove="App_Plugins\Formulate\backoffice\layouts\Layouts.DeleteController.js" />
-      <None Remove="App_Plugins\Formulate\backoffice\layouts\Layouts.EditController.js" />
-      <None Remove="App_Plugins\Formulate\backoffice\layouts\Layouts.MoveController.js" />
-      <None Remove="App_Plugins\Formulate\backoffice\layouts\move.html" />
-      <None Remove="App_Plugins\Formulate\backoffice\validations\create.html" />
-      <None Remove="App_Plugins\Formulate\backoffice\validations\delete.html" />
-      <None Remove="App_Plugins\Formulate\backoffice\validations\edit.html" />
-      <None Remove="App_Plugins\Formulate\backoffice\validations\move.html" />
-      <None Remove="App_Plugins\Formulate\backoffice\dataValues\DataValues.DeleteController.js" />
-      <None Remove="App_Plugins\Formulate\backoffice\dataValues\DataValues.MoveController.js" />
-      <None Remove="App_Plugins\Formulate\backoffice\dataValues\delete.html" />
-      <None Remove="App_Plugins\Formulate\backoffice\dataValues\move.html" />
-      <None Remove="App_Plugins\Formulate\backoffice\forms\delete.html" />
-      <None Remove="App_Plugins\Formulate\backoffice\forms\Forms.DeleteController.js" />
-      <None Remove="App_Plugins\Formulate\backoffice\forms\Forms.MoveController.js" />
-      <None Remove="App_Plugins\Formulate\backoffice\forms\move.html" />
-      <None Remove="App_Plugins\Formulate\backoffice\validations\Validations.CreateController.js" />
-      <None Remove="App_Plugins\Formulate\backoffice\validations\Validations.DeleteController.js" />
-      <None Remove="App_Plugins\Formulate\backoffice\validations\Validations.EditController.js" />
-      <None Remove="App_Plugins\Formulate\backoffice\validations\Validations.MoveController.js" />
-      <None Remove="App_Plugins\Formulate\designers\dataValues\apps\dataValues-editor.app.html" />
-      <None Remove="App_Plugins\Formulate\designers\folders\apps\folder-content.app.html" />
-      <None Remove="App_Plugins\Formulate\designers\forms\apps\form-fields.app.js" />
-      <None Remove="App_Plugins\Formulate\designers\forms\apps\form-handlers.app.html" />
-      <None Remove="App_Plugins\Formulate\designers\forms\apps\form-handlers.app.js" />
-      <None Remove="App_Plugins\Formulate\designers\layouts\apps\layout-editor.app.html" />
-      <None Remove="App_Plugins\Formulate\designers\layouts\apps\layout-editor.app.js" />
-      <None Remove="App_Plugins\Formulate\designers\validations\apps\validation-editor.app.html" />
-      <None Remove="App_Plugins\Formulate\dialogs\form-field\apps\form-field-editor.app.html" />
-      <None Remove="App_Plugins\Formulate\dialogs\form-field\apps\form-field-editor.app.js" />
-      <None Remove="App_Plugins\Formulate\dialogs\form-handler\apps\form-handler-editor.app.html" />
-      <None Remove="App_Plugins\Formulate\dialogs\form-handler\apps\form-handler-editor.app.js" />
-      <None Remove="App_Plugins\Formulate\editors\layouts\basic\basic.layout.html" />
-      <None Remove="App_Plugins\Formulate\editors\layouts\basic\basic.layout.js" />
-      <None Remove="App_Plugins\Formulate\editors\layouts\layout-designer.css" />
-      <None Remove="App_Plugins\Formulate\editors\layouts\layout.editor.js" />
-      <None Remove="App_Plugins\Formulate\dialogs\form-field\edit-form-field.dialog.html" />
-      <None Remove="App_Plugins\Formulate\dialogs\form-field\edit-form-field.dialog.js" />
-      <None Remove="App_Plugins\Formulate\dialogs\form-handler\edit-form-handler.dialog.html" />
-      <None Remove="App_Plugins\Formulate\dialogs\form-handler\edit-form-handler.dialog.js" />
-      <None Remove="App_Plugins\Formulate\dialogs\form-handler\pick-form-handler.dialog.html" />
-      <None Remove="App_Plugins\Formulate\dialogs\form-handler\pick-form-handler.dialog.js" />
-      <None Remove="App_Plugins\Formulate\designers\dataValues.designer.html" />
-      <None Remove="App_Plugins\Formulate\designers\dataValues.designer.js" />
-      <None Remove="App_Plugins\Formulate\designers\layout.designer.html" />
-      <None Remove="App_Plugins\Formulate\designers\layout.designer.js" />
-      <None Remove="App_Plugins\Formulate\designers\validation.designer.html" />
-      <None Remove="App_Plugins\Formulate\designers\validation.designer.js" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\button\button-field.editor.html" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\button\button-field.editor.js" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\checkbox-list\checkbox-list-field.editor.html" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\checkbox-list\checkbox-list-field.editor.js" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\dataValues-picker.html" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\dataValues-picker.js" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\drop-down\drop-down-field.editor.html" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\drop-down\drop-down-field.editor.js" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\header\header-field.editor.html" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\header\header-field.editor.js" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\hidden\hidden-field.editor.html" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\hidden\hidden-field.editor.js" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\rich-text\rich-text-field.editor.html" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\rich-text\rich-text-field.editor.js" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\text-constant\text-constant-field.editor.html" />
-      <None Remove="App_Plugins\Formulate\editors\form-fields\text-constant\text-constant-field.editor.js" />
-      <None Remove="App_Plugins\Formulate\property-editors\form-layout-picker\form-layout-picker.html" />
-      <None Remove="App_Plugins\Formulate\property-editors\form-layout-picker\form-layout-picker.js" />
-      <None Remove="App_Plugins\Formulate\resources\dataValuesResource.js" />
-      <None Remove="App_Plugins\Formulate\resources\definitionDirectiveResource.js" />
-      <None Remove="App_Plugins\Formulate\resources\designerResource.js" />
-      <None Remove="App_Plugins\Formulate\resources\entityResource.js" />
-      <None Remove="App_Plugins\Formulate\resources\formulateFieldsResource.js" />
-      <None Remove="App_Plugins\Formulate\resources\formulateServerResource.js" />
-      <None Remove="App_Plugins\Formulate\resources\formulateVarsResource.js" />
-      <None Remove="App_Plugins\Formulate\resources\idResource.js" />
-      <None Remove="App_Plugins\Formulate\styles\buttons.css" />
-      <None Remove="App_Plugins\Formulate\styles\flexbox-utilities.css" />
+      <ProjectReference Include="..\Formulate.BackOffice\Formulate.BackOffice.csproj" />
     </ItemGroup>
 </Project>
