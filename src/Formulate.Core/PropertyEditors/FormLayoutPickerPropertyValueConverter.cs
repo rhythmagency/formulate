@@ -1,4 +1,4 @@
-﻿namespace Formulate.Core.PropertyValueConverters
+﻿namespace Formulate.Core.PropertyEditors
 {
     using Formulate.Core.Layouts;
     using Formulate.Core.Persistence;
@@ -8,7 +8,7 @@
     using Umbraco.Cms.Core.PropertyEditors;
     using Umbraco.Extensions;
 
-    public sealed class FormLayoutPropertyValueConverter : PropertyValueConverterBase
+    public sealed class FormLayoutPickerPropertyValueConverter : PropertyValueConverterBase
     {
         private readonly IJsonUtility _jsonUtility;
 
@@ -19,7 +19,7 @@
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public FormLayoutPropertyValueConverter(ILayoutEntityRepository layoutEntityRepository, IJsonUtility jsonUtility)
+        public FormLayoutPickerPropertyValueConverter(ILayoutEntityRepository layoutEntityRepository, IJsonUtility jsonUtility)
         {
             _layoutEntityRepository = layoutEntityRepository;
             _jsonUtility = jsonUtility;
@@ -39,12 +39,12 @@
         {
             if (source is string stringSource)
             {
-                var deserializedSource = _jsonUtility.Deserialize<FormLayoutPropertyValue>(stringSource);
+                var deserializedSource = _jsonUtility.Deserialize<FormLayoutPickerPropertyValue>(stringSource);
 
                 return ConvertPickedFormLayoutToObject(deserializedSource);
             }
 
-            if (source is FormLayoutPropertyValue pickedSource)
+            if (source is FormLayoutPickerPropertyValue pickedSource)
             {
                 return ConvertPickedFormLayoutToObject(pickedSource);
             }
@@ -52,7 +52,7 @@
             return default;
         }
 
-        private FormLayout ConvertPickedFormLayoutToObject(FormLayoutPropertyValue propertyValue)
+        private FormLayout ConvertPickedFormLayoutToObject(FormLayoutPickerPropertyValue propertyValue)
         {
             if (propertyValue is null)
             {
