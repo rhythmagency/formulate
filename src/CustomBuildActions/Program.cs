@@ -15,16 +15,12 @@ var executeTasks = new Action<long>(count =>
                 // specify every other flag.
                 CreateAppSettingsJson.Create(count);
                 GenerateCssForSvgIcons.Generate(count);
-                //GeneratePackageManifest.Generate(count);
                 CopyStaticAssetsToWebsite.Copy(count);
                 CopyViewsToWebsite.Copy(count);
                 RefreshSampleFormulateJson.Refresh(count);
                 break;
             case "-generate-css-for-svg-icons":
                 GenerateCssForSvgIcons.Generate(count);
-                break;
-            case "-generate-package-manifest":
-                //GeneratePackageManifest.Generate(count);
                 break;
             case "-copy-static-assets-to-website":
                 CopyStaticAssetsToWebsite.Copy(count);
