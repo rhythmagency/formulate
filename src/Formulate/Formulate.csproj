@@ -1,13 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Title>Formulate</Title>
+        <PackageId>Formulate</PackageId>
+        <Authors>Nicholas Westby, Jamie Pollock</Authors>
+        <Company>Rhythm</Company>
+        <Description>An advanced form builder for Umbraco.</Description>
+        <Product>Formulate</Product>
+        <Copyright>Copyright 2022</Copyright>
+        <PackageProjectUrl>https://www.formulate.rocks</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/rhythmagency/formulate/</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>Umbraco;forms</PackageTags>
+        <PackageReleaseNotes>4.0.0 - .net core / Umbraco 10 version</PackageReleaseNotes>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Formulate.BackOffice.StaticAssets\Formulate.BackOffice.StaticAssets.csproj" />
-    <ProjectReference Include="..\Formulate.BackOffice\Formulate.BackOffice.csproj" />
-    <ProjectReference Include="..\Formulate.Web\Formulate.Web.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Formulate.BackOffice.StaticAssets\Formulate.BackOffice.StaticAssets.csproj" />
+        <ProjectReference Include="..\Formulate.BackOffice\Formulate.BackOffice.csproj" />
+        <ProjectReference Include="..\Formulate.Web\Formulate.Web.csproj" />
+    </ItemGroup>
 
 </Project>
