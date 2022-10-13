@@ -4,6 +4,19 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Title>Formulate.Web</Title>
+        <PackageId>Formulate.Web</PackageId>
+        <Authors>Nicholas Westby, Jamie Pollock</Authors>
+        <Company>Rhythm</Company>
+        <Description>Web functionality for Formulate, an advanced form builder for Umbraco.</Description>
+        <Product>Formulate.Web</Product>
+        <Copyright>Copyright 2022</Copyright>
+        <PackageProjectUrl>https://www.formulate.rocks</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/rhythmagency/formulate/</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>Umbraco;forms</PackageTags>
+        <PackageReleaseNotes>4.0.0 - .net core / Umbraco 10 version</PackageReleaseNotes>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
