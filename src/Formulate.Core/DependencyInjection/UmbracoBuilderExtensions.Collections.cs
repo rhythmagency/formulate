@@ -102,6 +102,8 @@
             builder.ValidationDefinitions().Add(() =>
                 builder.TypeLoader.GetTypes<IValidationDefinition>());
 
+            builder.TemplateDefinitions();
+
             return builder;
         }
     }
