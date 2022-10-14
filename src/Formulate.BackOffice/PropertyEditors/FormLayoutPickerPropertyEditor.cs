@@ -1,8 +1,9 @@
 ﻿namespace Formulate.BackOffice.PropertyEditors
 {
+    using Formulate.Core.PropertyEditors;
     using Umbraco.Cms.Core.PropertyEditors;
 
-    [DataEditor("Formulate.FormLayoutPicker",
+    [DataEditor(FormLayoutPickerPropertyValueConverter.PropertyEditorAlias,
     "Formulate Form Layout Picker",
     $"{Constants.Package.PluginPath}/property-editors/form-layout-picker/form-layout-picker.html",
     ValueType = ValueTypes.Json,

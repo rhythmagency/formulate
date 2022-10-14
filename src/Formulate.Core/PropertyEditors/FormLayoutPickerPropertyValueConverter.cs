@@ -10,6 +10,8 @@
 
     public sealed class FormLayoutPickerPropertyValueConverter : PropertyValueConverterBase
     {
+        public const string PropertyEditorAlias = "Formulate.FormLayoutPicker";
+
         private readonly IJsonUtility _jsonUtility;
 
         private readonly ILayoutEntityRepository _layoutEntityRepository;
@@ -83,7 +85,7 @@
 
         public override bool IsConverter(IPublishedPropertyType propertyType)
         {
-            return "Formulate.FormLayoutPicker".InvariantEquals(propertyType.EditorAlias);
+            return PropertyEditorAlias.InvariantEquals(propertyType.EditorAlias);
         }
 
         #endregion
