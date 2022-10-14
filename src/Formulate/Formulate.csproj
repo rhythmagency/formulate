@@ -19,6 +19,7 @@
     <ItemGroup>
         <ProjectReference Include="..\Formulate.BackOffice.StaticAssets\Formulate.BackOffice.StaticAssets.csproj" />
         <ProjectReference Include="..\Formulate.BackOffice\Formulate.BackOffice.csproj" />
+        <ProjectReference Include="..\Formulate.Templates.PlainJavaScript\Formulate.Templates.PlainJavaScript.csproj" />
         <ProjectReference Include="..\Formulate.Web\Formulate.Web.csproj" />
     </ItemGroup>
 
