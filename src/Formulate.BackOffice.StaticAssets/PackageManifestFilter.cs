@@ -2,7 +2,6 @@
 {
     using Formulate.Core.Packaging;
     using Microsoft.AspNetCore.Hosting;
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using Umbraco.Cms.Core.Extensions;
