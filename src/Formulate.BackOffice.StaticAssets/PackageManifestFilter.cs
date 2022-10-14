@@ -1,8 +1,9 @@
 ﻿namespace Formulate.BackOffice.StaticAssets
 {
+    using Formulate.Core.Packaging;
     using Microsoft.AspNetCore.Hosting;
+    using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.IO;
     using Umbraco.Cms.Core.Extensions;
     using Umbraco.Cms.Core.Manifest;
@@ -20,14 +21,13 @@
         public void Filter(List<PackageManifest> manifests)
         {
             var path = _webHostEnvironment.MapPathContentRoot(Constants.Package.PluginPath);
-            var assembly = typeof(PackageManifestFilter).Assembly;
-            var fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+            var version = typeof(PackageManifestFilter).GetAssemblyVersionOrDefault();
 
             manifests.Add(new PackageManifest()
             {
                 PackageName = Constants.Package.Name,
                 AllowPackageTelemetry = true,
-                Version = assembly.GetName().Version.ToString(3),
+                Version = version.ToString(3),
                 BundleOptions = BundleOptions.None,
                 Scripts = GetPackageFilePaths(path, "*.js"),
                 Stylesheets = GetPackageFilePaths(path, "*.css"),
