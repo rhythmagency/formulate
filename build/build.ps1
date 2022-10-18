@@ -60,15 +60,16 @@ Write-Host "Local NuGet :" $localNuGetPath
 
 dotnet restore ..\src
 
-##### Packaging
-
+##### Build support packages for entry point package
 dotnet pack ..\src\Formulate.Core\Formulate.Core.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullVersion
 dotnet pack ..\src\Formulate.BackOffice\Formulate.BackOffice.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion
 dotnet pack ..\src\Formulate.Web\Formulate.Web.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion
-dotnet pack ..\src\Formulate.Templates.PlainJavaScript\Formulate.Templates.PlainJavaScript.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion
-
 dotnet pack ..\src\Formulate.BackOffice.StaticAssets\Formulate.BackOffice.StaticAssets.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullVersion 
 
+##### Build extensions
+dotnet pack ..\src\Formulate.Extensions.PlainJavaScriptTemplate\Formulate.Extensions.PlainJavaScriptTemplate.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion
+
+##### Build entry point package
 dotnet pack ..\src\Formulate\Formulate.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullVersion
 
 ##### Copying to Local Deploy

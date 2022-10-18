@@ -14,7 +14,7 @@ internal class CopyViewsToWebsite
     public static void Copy(long executionCount)
     {
         // Variables.
-        var source = PathUtils.NormalizePath("../Formulate.Templates.PlainJavaScript/Views/Shared");
+        var source = PathUtils.NormalizePath("../Formulate.Extensions.PlainJavaScriptTemplate/Views/Shared");
         var destination = PathUtils.NormalizePath("../Website/Views/Shared");
 
         // Clear the old folder and copy the new files.

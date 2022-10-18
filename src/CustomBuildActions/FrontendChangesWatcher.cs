@@ -51,7 +51,7 @@ internal class FrontendChangesWatcher
     public static void AddWatcher(Action<long> task)
     {
         var staticPath = PathUtils.NormalizePath("../Formulate.BackOffice.StaticAssets/App_Plugins/Formulate");
-        var viewsPath = PathUtils.NormalizePath("../Formulate.Templates.PlainJavaScript/Views/Shared");
+        var viewsPath = PathUtils.NormalizePath("../Formulate.Extensions.PlainJavaScriptTemplate/Views/Shared");
         AddWatcherForPath(task, staticPath);
         AddWatcherForPath(task, viewsPath);
     }

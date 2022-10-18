@@ -17,7 +17,7 @@
       <Folder Include="Views\Partials\" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\Formulate.Templates.PlainJavaScript\Formulate.Templates.PlainJavaScript.csproj" />
+      <ProjectReference Include="..\Formulate.Extensions.PlainJavaScriptTemplate\Formulate.Extensions.PlainJavaScriptTemplate.csproj" />
       <ProjectReference Include="..\Formulate\Formulate.csproj" />
     </ItemGroup>
 
