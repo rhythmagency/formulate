@@ -1,4 +1,4 @@
-﻿namespace Formulate.Extensions.PlainJavaScriptTemplate.Mapping.Layouts
+﻿namespace Formulate.Extensions.PlainJavaScriptTemplate.Core.Mapping.Layouts
 {
     using Formulate.Core.Layouts;
     using Formulate.Extensions.PlainJavaScriptTemplate;

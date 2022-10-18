@@ -46,6 +46,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StoreData", "StoreData", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formulate.Extensions.StoreData", "Formulate.Extensions.StoreData\Formulate.Extensions.StoreData.csproj", "{53D3C90E-A453-4A8E-82B0-4E68F78C0D8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formulate.Extensions.PlainJavaScriptTemplate.Core", "Formulate.Extensions.PlainJavaScriptTemplate.Core\Formulate.Extensions.PlainJavaScriptTemplate.Core.csproj", "{B25656C1-51B7-4F79-9DE5-E1D42684AFF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,10 @@ Global
 		{53D3C90E-A453-4A8E-82B0-4E68F78C0D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53D3C90E-A453-4A8E-82B0-4E68F78C0D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53D3C90E-A453-4A8E-82B0-4E68F78C0D8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B25656C1-51B7-4F79-9DE5-E1D42684AFF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B25656C1-51B7-4F79-9DE5-E1D42684AFF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B25656C1-51B7-4F79-9DE5-E1D42684AFF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B25656C1-51B7-4F79-9DE5-E1D42684AFF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,6 +114,7 @@ Global
 		{F16487E9-9694-4327-8526-BE90A272003B} = {918D3771-5FD2-44BA-A70E-D14F9A9649C3}
 		{D90251CF-EC6B-4BB9-BB3B-C3AF66D33714} = {918D3771-5FD2-44BA-A70E-D14F9A9649C3}
 		{53D3C90E-A453-4A8E-82B0-4E68F78C0D8B} = {D90251CF-EC6B-4BB9-BB3B-C3AF66D33714}
+		{B25656C1-51B7-4F79-9DE5-E1D42684AFF8} = {F16487E9-9694-4327-8526-BE90A272003B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5C750D92-CD67-4163-819C-565C1C639667}

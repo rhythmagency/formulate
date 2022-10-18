@@ -1,6 +1,7 @@
 ﻿namespace Formulate.Extensions.PlainJavaScriptTemplate
 {
     using Formulate.Core.DependencyInjection;
+    using Formulate.Extensions.PlainJavaScriptTemplate.Core;
     using Microsoft.Extensions.DependencyInjection;
     using Umbraco.Cms.Core.Composing;
     using Umbraco.Cms.Core.DependencyInjection;

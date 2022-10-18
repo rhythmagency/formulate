@@ -1,7 +1,6 @@
-﻿namespace Formulate.Extensions.PlainJavaScriptTemplate.Mapping.FormFields
+﻿namespace Formulate.Extensions.PlainJavaScriptTemplate.Core.Mapping.FormFields
 {
     using Formulate.Core.FormFields;
-    using Formulate.Extensions.PlainJavaScriptTemplate;
     using Umbraco.Cms.Core.Mapping;
 
     public sealed class DefaultFormFieldMapDefinition : FormFieldMapDefinition<IFormField>

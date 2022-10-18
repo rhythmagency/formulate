@@ -1,4 +1,4 @@
-﻿namespace Formulate.Extensions.PlainJavaScriptTemplate.Mapping.FormFields
+﻿namespace Formulate.Extensions.PlainJavaScriptTemplate.Core.Mapping.FormFields
 {
     using Formulate.Core.FormFields.Button;
     using Formulate.Extensions.PlainJavaScriptTemplate;

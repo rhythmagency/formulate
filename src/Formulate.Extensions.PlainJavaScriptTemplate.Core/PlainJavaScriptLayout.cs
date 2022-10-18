@@ -1,4 +1,4 @@
-﻿namespace Formulate.Extensions.PlainJavaScriptTemplate
+﻿namespace Formulate.Extensions.PlainJavaScriptTemplate.Core
 {
     using System;
     using System.Collections.Generic;

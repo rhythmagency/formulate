@@ -1,4 +1,4 @@
-﻿namespace Formulate.Extensions.PlainJavaScriptTemplate.Mapping.Validations
+﻿namespace Formulate.Extensions.PlainJavaScriptTemplate.Core.Mapping.Validations
 {
     using Formulate.Core.Validations.Mandatory;
     using Umbraco.Cms.Core.Mapping;
