@@ -20,6 +20,7 @@
         <ProjectReference Include="..\Formulate.BackOffice.StaticAssets\Formulate.BackOffice.StaticAssets.csproj" />
         <ProjectReference Include="..\Formulate.BackOffice\Formulate.BackOffice.csproj" />
         <ProjectReference Include="..\Formulate.Extensions.PlainJavaScriptTemplate\Formulate.Extensions.PlainJavaScriptTemplate.csproj" />
+        <ProjectReference Include="..\Formulate.Extensions.SendEmail\Formulate.Extensions.SendEmail.csproj" />
         <ProjectReference Include="..\Formulate.Extensions.StoreData\Formulate.Extensions.StoreData.csproj" />
         <ProjectReference Include="..\Formulate.Web\Formulate.Web.csproj" />
     </ItemGroup>

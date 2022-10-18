@@ -1,15 +1,16 @@
-﻿namespace Formulate.Core.FormHandlers.Email
+﻿namespace Formulate.Extensions.SendEmail.FormHandlers
 {
+    using Formulate.Core.FormHandlers;
     // Namespaces.
     using System;
 
     /// <summary>
     /// The data definition for a form handler that sends an email.
     /// </summary>
-    public sealed class EmailDefinition : FormHandlerDefinition
+    public sealed class SendEmailFormHandlerDefinition : FormHandlerDefinition
     {
         /// <summary>
-        /// Constants related to <see cref="EmailDefinition"/>.
+        /// Constants related to <see cref="SendEmailFormHandlerDefinition"/>.
         /// </summary>
         public static class Constants
         {
@@ -21,7 +22,7 @@
             /// <summary>
             /// The name.
             /// </summary>
-            public const string Name = "Email";
+            public const string Name = "Send Email";
 
             /// <summary>
             /// The icon.
@@ -31,7 +32,7 @@
             /// <summary>
             /// The Angular JS directive.
             /// </summary>
-            public const string Directive = "formulate-email-handler";
+            public const string Directive = "formulate-send-email-handler";
         }
 
         /// <inheritdoc />
@@ -52,7 +53,7 @@
         /// <inheritdoc />
         public override FormHandler CreateHandler(IFormHandlerSettings settings)
         {
-            var handler = new EmailHandler(settings);
+            var handler = new SendEmailFormHandler(settings);
             return handler;
         }
 

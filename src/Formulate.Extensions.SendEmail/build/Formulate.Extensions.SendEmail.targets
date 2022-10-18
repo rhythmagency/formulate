@@ -1,0 +1,28 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <FormulateExtensionName>SendEmail</FormulateExtensionName>
+        <FormulateExtensionContentFilesPath>$(MSBuildThisFileDirectory)..\content\App_Plugins\FormulateExtensions\$(FormulateExtensionName)\**\*.*</FormulateExtensionContentFilesPath>
+    </PropertyGroup>
+
+    <Target Name="CopyFormulateExtensionAssets" BeforeTargets="Build">
+        <ItemGroup>
+            <FormulateExtensionContentFiles Include="$(FormulateExtensionContentFilesPath)" />
+        </ItemGroup>
+        <Message Text="[$(FormulateExtensionName)] Copying Formulate extension files: $(FormulateExtensionContentFilesPath) - #@(FormulateExtensionContentFiles->Count()) files"  Importance="high" />
+        <Copy
+            SourceFiles="@(FormulateExtensionContentFiles)"
+            DestinationFiles="@(FormulateExtensionContentFiles->'$(MSBuildProjectDirectory)\App_Plugins\FormulateExtensions\$(FormulateExtensionName)\%(RecursiveDir)%(Filename)%(Extension)')"
+            SkipUnchangedFiles="true" />
+
+    </Target>
+
+    <Target Name="ClearFormulateExtensionAssets" BeforeTargets="Clean">
+        <ItemGroup>
+            <FormulateExtensionDir Include="$(MSBuildProjectDirectory)\App_Plugins\FormulateExtensions\$(FormulateExtensionName)\" />
+        </ItemGroup>
+        <Message Text="[$(FormulateExtensionName)] Clear old Formulate extension data"  Importance="high" />
+        <RemoveDir Directories="@(FormulateExtensionDir)"  />
+    </Target>
+
+</Project>
