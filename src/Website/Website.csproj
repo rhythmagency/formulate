@@ -18,6 +18,7 @@
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\Formulate.Extensions.PlainJavaScriptTemplate\Formulate.Extensions.PlainJavaScriptTemplate.csproj" />
+      <ProjectReference Include="..\Formulate.Extensions.StoreData\Formulate.Extensions.StoreData.csproj" />
       <ProjectReference Include="..\Formulate\Formulate.csproj" />
     </ItemGroup>
 

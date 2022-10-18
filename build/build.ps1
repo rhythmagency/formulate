@@ -68,6 +68,7 @@ dotnet pack ..\src\Formulate.BackOffice.StaticAssets\Formulate.BackOffice.Static
 
 ##### Build extensions
 dotnet pack ..\src\Formulate.Extensions.PlainJavaScriptTemplate\Formulate.Extensions.PlainJavaScriptTemplate.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion
+dotnet pack ..\src\Formulate.Extensions.StoreData\Formulate.Extensions.StoreData.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion
 
 ##### Build entry point package
 dotnet pack ..\src\Formulate\Formulate.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullVersion

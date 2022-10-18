@@ -1,17 +1,16 @@
-﻿namespace Formulate.Core.FormHandlers.StoreData
+﻿namespace Formulate.Extensions.StoreData.FormHandlers
 {
+    using Formulate.Core.FormHandlers;
     using Formulate.Core.Submissions.Requests;
-    // Namespaces.
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
     /// Stores form submission data to the database.
     /// </summary>
-    internal sealed class StoreDataHandler : AsyncFormHandler
+    internal sealed class StoreDataFormHandler : AsyncFormHandler
     {
-        public StoreDataHandler(IFormHandlerSettings settings) : base(settings)
+        public StoreDataFormHandler(IFormHandlerSettings settings) : base(settings)
         {
         }
 

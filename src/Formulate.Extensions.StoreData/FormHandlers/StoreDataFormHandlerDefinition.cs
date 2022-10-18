@@ -1,15 +1,15 @@
-﻿namespace Formulate.Core.FormHandlers.StoreData
+﻿namespace Formulate.Extensions.StoreData.FormHandlers
 {
-    // Namespaces.
+    using Formulate.Core.FormHandlers;
     using System;
 
     /// <summary>
     /// The data definition for a form handler that stores data to the database.
     /// </summary>
-    public sealed class StoreDataDefinition : FormHandlerDefinition
+    public sealed class StoreDataFormHandlerDefinition : FormHandlerDefinition
     {
         /// <summary>
-        /// Constants related to <see cref="StoreDataDefinition"/>.
+        /// Constants related to <see cref="StoreDataFormHandlerDefinition"/>.
         /// </summary>
         public static class Constants
         {
@@ -52,15 +52,15 @@
         /// <inheritdoc />
         public override IFormHandler CreateHandler(IFormHandlerSettings settings)
         {
-            var handler = new StoreDataHandler(settings);
+            var handler = new StoreDataFormHandler(settings);
             return handler;
         }
 
         /// <inheritdoc />
-        public override object GetBackOfficeConfiguration(IFormHandlerSettings settings)
+        public override object? GetBackOfficeConfiguration(IFormHandlerSettings settings)
         {
             //TODO: Implement.
-            return null;
+            return default;
         }
     }
 }

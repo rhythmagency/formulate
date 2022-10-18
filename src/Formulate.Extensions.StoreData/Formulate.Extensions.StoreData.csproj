@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Title>Formulate.Extensions.StoreData</Title>
+        <PackageId>Formulate.Extensions.StoreData</PackageId>
+        <Authors>Nicholas Westby, Jamie Pollock</Authors>
+        <Company>Rhythm</Company>
+        <Description>A data storage extension for Formulate, an advanced form builder for Umbraco.</Description>
+        <Product>Formulate.Extensions.StoreData</Product>
+        <Copyright>Copyright 2022</Copyright>
+        <PackageProjectUrl>https://www.formulate.rocks</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/rhythmagency/formulate/</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>Umbraco;forms</PackageTags>
+        <PackageReleaseNotes>4.0.0 - .net core / Umbraco 10 version</PackageReleaseNotes>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="App_Plugins\**\*.*">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        </Content>
+        
+        <!-- target file to copy app_plugins in .netcore -->
+        <None Include="build\**\*.*">
+            <Pack>True</Pack>
+            <PackagePath>buildTransitive</PackagePath>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Formulate.BackOffice\Formulate.BackOffice.csproj" />
+        <ProjectReference Include="..\Formulate.Core\Formulate.Core.csproj" />
+    </ItemGroup>
+
+</Project>
