@@ -1,5 +1,6 @@
-﻿namespace Formulate.Core.FormHandlers.SendData
+﻿namespace Formulate.Extensions.SendData.FormHandlers
 {
+    using Formulate.Core.FormHandlers;
     using Formulate.Core.Utilities;
     using System;
     using System.Net.Http;

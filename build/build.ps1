@@ -70,6 +70,7 @@ dotnet pack ..\src\Formulate.BackOffice.StaticAssets\Formulate.BackOffice.Static
 dotnet pack ..\src\Formulate.Extensions.PlainJavaScriptTemplate.Core\Formulate.Extensions.PlainJavaScriptTemplate.Core.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion
 dotnet pack ..\src\Formulate.Extensions.PlainJavaScriptTemplate\Formulate.Extensions.PlainJavaScriptTemplate.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion
 
+dotnet pack ..\src\Formulate.Extensions.SendData\Formulate.Extensions.SendData.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion
 dotnet pack ..\src\Formulate.Extensions.SendEmail\Formulate.Extensions.SendEmail.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion
 dotnet pack ..\src\Formulate.Extensions.StoreData\Formulate.Extensions.StoreData.csproj --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullversion
 

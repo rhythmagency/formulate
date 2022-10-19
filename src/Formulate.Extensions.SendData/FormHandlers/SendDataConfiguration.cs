@@ -1,4 +1,4 @@
-﻿namespace Formulate.Core.FormHandlers.SendData
+﻿namespace Formulate.Extensions.SendData.FormHandlers
 {
     using System.Runtime.Serialization;
 

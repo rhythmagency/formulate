@@ -1,7 +1,7 @@
-﻿namespace Formulate.Core.FormHandlers.SendData
+﻿namespace Formulate.Extensions.SendData.FormHandlers
 {
+    using Formulate.Core.FormHandlers;
     using Formulate.Core.Submissions.Requests;
-    // Namespaces.
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
@@ -32,7 +32,7 @@
             CancellationToken cancellationToken = default)
         {
             var content = "{\"message\": \"Hello world!\"}";
-                        
+
             var message = new HttpRequestMessage(HttpMethod.Post, _configuration.EndpointUrl)
             {
                 Content = new StringContent(content, System.Text.Encoding.UTF8, "application/json")
