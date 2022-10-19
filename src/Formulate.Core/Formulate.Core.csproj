@@ -28,8 +28,4 @@
             <_Parameter1>Formulate.Core.Tests</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="FormHandlers\SendData\" />
-    </ItemGroup>
 </Project>
