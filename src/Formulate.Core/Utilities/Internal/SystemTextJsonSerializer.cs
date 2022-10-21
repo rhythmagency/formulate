@@ -25,7 +25,7 @@
         {
             return JsonSerializer.Serialize(value, new JsonSerializerOptions()
             {
-                WriteIndented = true,
+                WriteIndented = false,
             });
         }
     }

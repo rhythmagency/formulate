@@ -10,7 +10,7 @@
     {
         private readonly JsonSerializerSettings _settings = new JsonSerializerSettings()
         {
-            Formatting = Formatting.Indented,
+            Formatting = Formatting.None,
             ContractResolver = new DefaultContractResolver()
         };
 
