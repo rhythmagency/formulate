@@ -6,8 +6,30 @@
 
     public sealed class FormSubmissionRequest
     {
-        public FormSubmissionRequest(PersistedForm form, int pageId, Dictionary<Guid, IStringFormFieldValues> fieldValues, Dictionary<Guid, IFileFormFieldValues> fileValues)
+        /// <summary>
+        /// Creates a new instance of a <see cref="FormSubmissionRequest"/>.
+        /// </summary>
+        /// <param name="form">The form.</param>
+        /// <param name="pageId">The page ID.</param>
+        /// <param name="fieldValues">The field values.</param>
+        /// <param name="fileValues">The file values.</param>
+        /// <remarks>This is the preferred constructor as it provides a new ID.</remarks>
+        public FormSubmissionRequest(PersistedForm form, int pageId, Dictionary<Guid, IStringFormFieldValues> fieldValues, Dictionary<Guid, IFileFormFieldValues> fileValues) : this(Guid.NewGuid(), form, pageId, fieldValues, fileValues)
         {
+        }
+
+        /// <summary>
+        /// Creates a new instance of a <see cref="FormSubmissionRequest"/>.
+        /// </summary>
+        /// <param name="id">The ID.</param>
+        /// <param name="form">The form.</param>
+        /// <param name="pageId">The page ID.</param>
+        /// <param name="fieldValues">The field values.</param>
+        /// <param name="fileValues">The file values.</param>
+        /// <remarks>This constructor is useful if a ID is provided from another source or requires custom logic.</remarks>
+        public FormSubmissionRequest(Guid id, PersistedForm form, int pageId, Dictionary<Guid, IStringFormFieldValues> fieldValues, Dictionary<Guid, IFileFormFieldValues> fileValues)
+        {
+            Id = id;
             Form = form;
             PageId = pageId;
             FieldValues = fieldValues;
@@ -27,6 +49,8 @@
 
             AllValues = allValues;
         }
+
+        public Guid Id { get; init; }
 
         public PersistedForm Form { get; init; }
 

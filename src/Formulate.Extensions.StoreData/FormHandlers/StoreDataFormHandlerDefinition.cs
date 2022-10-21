@@ -1,6 +1,9 @@
 ﻿namespace Formulate.Extensions.StoreData.FormHandlers
 {
     using Formulate.Core.FormHandlers;
+    using Formulate.Extensions.StoreData.Utilities;
+    using Microsoft.AspNetCore.Razor.Language.Intermediate;
+    using Microsoft.Extensions.DependencyInjection;
     using System;
 
     /// <summary>
@@ -8,6 +11,13 @@
     /// </summary>
     public sealed class StoreDataFormHandlerDefinition : FormHandlerDefinition
     {
+        private readonly IServiceProvider _serviceProvider;
+
+        public StoreDataFormHandlerDefinition(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
         /// <summary>
         /// Constants related to <see cref="StoreDataFormHandlerDefinition"/>.
         /// </summary>
@@ -52,8 +62,13 @@
         /// <inheritdoc />
         public override IFormHandler CreateHandler(IFormHandlerSettings settings)
         {
-            var handler = new StoreDataFormHandler(settings);
-            return handler;
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var storeData = scope.ServiceProvider.GetRequiredService<IStoreData>();
+                var handler = new StoreDataFormHandler(settings, storeData);
+
+                return handler;
+            }
         }
 
         /// <inheritdoc />
